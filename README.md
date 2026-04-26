@@ -24,3 +24,4 @@ landing-y/      → /landing-y/
 ## Deploy
 
 Conectado ao Cloudflare Pages via GitHub. Deploy automático a cada push.
+# Teste deploy automático Sat Apr 25 21:36:57 -03 2026
