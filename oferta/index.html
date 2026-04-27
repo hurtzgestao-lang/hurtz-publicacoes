@@ -1,0 +1,631 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Hurtz Company — Assessoria de Marketing para Consórcio</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brasa:       #C06018;
+      --brasa-hover: #974A12;
+      --carvao:      #181614;
+      --grafite:     #3D3A36;
+      --pedra:       #8C8880;
+      --areia:       #E8E4DC;
+      --offwhite:    #F5F2EC;
+      --brasa-50:    #F9EDE3;
+
+      --fw-regular: 400;
+      --fw-bold:    700;
+
+      --fs-h1:   clamp(32px, 5vw, 54px);
+      --fs-h2:   clamp(22px, 3.5vw, 36px);
+      --fs-h3:   18px;
+      --fs-body: 15px;
+      --fs-sm:   13px;
+      --fs-cap:  11px;
+
+      --radius: 4px;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      font-weight: var(--fw-regular);
+      font-size: var(--fs-body);
+      color: var(--carvao);
+      background: var(--offwhite);
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ── NAV ── */
+    nav {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      background: var(--offwhite);
+      border-bottom: 1px solid var(--areia);
+      padding: 0 24px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      height: 64px;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      height: 32px;
+    }
+
+    .logo svg { height: 32px; width: auto; }
+
+    nav a.cta-nav {
+      font-weight: var(--fw-bold);
+      font-size: var(--fs-sm);
+      color: #fff;
+      background: var(--brasa);
+      border: none;
+      border-radius: var(--radius);
+      padding: 10px 20px;
+      text-decoration: none;
+      letter-spacing: 0.01em;
+      transition: background 0.15s;
+    }
+
+    nav a.cta-nav:hover { background: var(--brasa-hover); }
+
+    /* ── SECTIONS ── */
+    section { padding: 96px 24px; max-width: 960px; margin: 0 auto; }
+
+    .full-bleed {
+      max-width: none;
+      padding-left: 0;
+      padding-right: 0;
+    }
+
+    .full-bleed > .inner { max-width: 960px; margin: 0 auto; padding: 0 24px; }
+
+    /* ── HERO ── */
+    .hero {
+      padding-top: 120px;
+      padding-bottom: 96px;
+      text-align: left;
+    }
+
+    .hero .eyebrow {
+      font-size: var(--fs-cap);
+      font-weight: var(--fw-bold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brasa);
+      margin-bottom: 20px;
+    }
+
+    .hero h1 {
+      font-size: var(--fs-h1);
+      font-weight: var(--fw-bold);
+      line-height: 1.1;
+      letter-spacing: 0.02em;
+      color: var(--carvao);
+      max-width: 760px;
+      margin-bottom: 24px;
+    }
+
+    .hero h1 span { color: var(--brasa); }
+
+    .hero p {
+      font-size: 17px;
+      color: var(--grafite);
+      max-width: 560px;
+      margin-bottom: 40px;
+      line-height: 1.65;
+    }
+
+    .hero .cta-group { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+
+    .btn-primary {
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      font-weight: var(--fw-bold);
+      font-size: var(--fs-body);
+      color: #fff;
+      background: var(--brasa);
+      border: none;
+      border-radius: var(--radius);
+      padding: 14px 28px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: background 0.15s;
+      display: inline-block;
+    }
+
+    .btn-primary:hover { background: var(--brasa-hover); }
+
+    .btn-ghost {
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      font-weight: var(--fw-bold);
+      font-size: var(--fs-body);
+      color: var(--carvao);
+      background: transparent;
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      padding: 14px 28px;
+      text-decoration: none;
+      cursor: pointer;
+      transition: border-color 0.15s, color 0.15s;
+      display: inline-block;
+    }
+
+    .btn-ghost:hover { border-color: var(--carvao); }
+
+    /* ── NÚMEROS ── */
+    .numbers-strip {
+      background: var(--carvao);
+      padding: 64px 24px;
+    }
+
+    .numbers-strip .inner {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0;
+    }
+
+    .num-item {
+      padding: 32px 24px;
+      border-right: 1px solid #3D3A36;
+    }
+
+    .num-item:last-child { border-right: none; }
+
+    .num-item .value {
+      font-size: clamp(28px, 4vw, 44px);
+      font-weight: var(--fw-bold);
+      color: var(--brasa);
+      line-height: 1;
+      margin-bottom: 8px;
+    }
+
+    .num-item .label {
+      font-size: var(--fs-sm);
+      color: #8C8880;
+      line-height: 1.4;
+    }
+
+    /* ── COMO FUNCIONA ── */
+    .process-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 0;
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      overflow: hidden;
+      margin-top: 48px;
+    }
+
+    .process-step {
+      padding: 32px 24px;
+      border-right: 1px solid var(--areia);
+    }
+
+    .process-step:last-child { border-right: none; }
+
+    .process-step .step-num {
+      font-size: var(--fs-cap);
+      font-weight: var(--fw-bold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brasa);
+      margin-bottom: 12px;
+    }
+
+    .process-step h3 {
+      font-size: var(--fs-h3);
+      font-weight: var(--fw-bold);
+      color: var(--carvao);
+      margin-bottom: 8px;
+    }
+
+    .process-step p {
+      font-size: var(--fs-sm);
+      color: var(--grafite);
+      line-height: 1.55;
+    }
+
+    /* ── O QUE ESTÁ INCLUSO ── */
+    .section-label {
+      font-size: var(--fs-cap);
+      font-weight: var(--fw-bold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brasa);
+      margin-bottom: 12px;
+    }
+
+    .section-title {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-bold);
+      letter-spacing: 0.01em;
+      line-height: 1.2;
+      color: var(--carvao);
+      max-width: 600px;
+      margin-bottom: 48px;
+    }
+
+    .entrega-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 1px;
+      background: var(--areia);
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      overflow: hidden;
+    }
+
+    .entrega-card {
+      background: var(--offwhite);
+      padding: 28px 24px;
+    }
+
+    .entrega-card h3 {
+      font-size: var(--fs-body);
+      font-weight: var(--fw-bold);
+      color: var(--carvao);
+      margin-bottom: 6px;
+    }
+
+    .entrega-card p {
+      font-size: var(--fs-sm);
+      color: var(--grafite);
+      line-height: 1.5;
+    }
+
+    /* ── QUOTE ── */
+    .quote-block {
+      background: var(--brasa-50);
+      border-left: 3px solid var(--brasa);
+      border-radius: 0 var(--radius) var(--radius) 0;
+      padding: 40px 36px;
+      margin-top: 64px;
+    }
+
+    .quote-block blockquote {
+      font-size: clamp(18px, 2.5vw, 24px);
+      font-weight: var(--fw-bold);
+      color: var(--carvao);
+      line-height: 1.4;
+      letter-spacing: 0.01em;
+    }
+
+    .quote-block cite {
+      display: block;
+      margin-top: 16px;
+      font-size: var(--fs-sm);
+      color: var(--pedra);
+      font-style: normal;
+    }
+
+    /* ── PARA QUEM É ── */
+    .fit-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 24px;
+      margin-top: 48px;
+    }
+
+    @media (max-width: 600px) { .fit-grid { grid-template-columns: 1fr; } }
+
+    .fit-card {
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      padding: 28px 24px;
+    }
+
+    .fit-card .fit-label {
+      font-size: var(--fs-cap);
+      font-weight: var(--fw-bold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .fit-card.yes .fit-label { color: #1A7A4A; }
+    .fit-card.no  .fit-label { color: #B52A2A; }
+
+    .fit-card ul { list-style: none; }
+    .fit-card ul li {
+      font-size: var(--fs-sm);
+      color: var(--grafite);
+      padding: 6px 0;
+      border-bottom: 1px solid var(--areia);
+      line-height: 1.4;
+    }
+
+    .fit-card ul li:last-child { border-bottom: none; }
+
+    /* ── INVESTIMENTO ── */
+    .preco-box {
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      padding: 48px 40px;
+      margin-top: 48px;
+      display: flex;
+      align-items: flex-start;
+      gap: 48px;
+      flex-wrap: wrap;
+    }
+
+    .preco-valor {
+      flex-shrink: 0;
+    }
+
+    .preco-valor .valor {
+      font-size: clamp(36px, 5vw, 56px);
+      font-weight: var(--fw-bold);
+      color: var(--brasa);
+      line-height: 1;
+    }
+
+    .preco-valor .periodo {
+      font-size: var(--fs-sm);
+      color: var(--pedra);
+      margin-top: 6px;
+    }
+
+    .preco-detalhe { flex: 1; min-width: 200px; }
+
+    .preco-detalhe p {
+      font-size: var(--fs-body);
+      color: var(--grafite);
+      margin-bottom: 16px;
+    }
+
+    .preco-detalhe .nota {
+      font-size: var(--fs-sm);
+      color: var(--pedra);
+      border-top: 1px solid var(--areia);
+      padding-top: 12px;
+      margin-top: 12px;
+    }
+
+    /* ── CTA FINAL ── */
+    .cta-final {
+      background: var(--carvao);
+      padding: 96px 24px;
+      text-align: center;
+    }
+
+    .cta-final .inner { max-width: 640px; margin: 0 auto; }
+
+    .cta-final .eyebrow {
+      font-size: var(--fs-cap);
+      font-weight: var(--fw-bold);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brasa);
+      margin-bottom: 20px;
+    }
+
+    .cta-final h2 {
+      font-size: var(--fs-h2);
+      font-weight: var(--fw-bold);
+      color: var(--offwhite);
+      line-height: 1.2;
+      letter-spacing: 0.01em;
+      margin-bottom: 16px;
+    }
+
+    .cta-final p {
+      font-size: var(--fs-body);
+      color: var(--pedra);
+      margin-bottom: 40px;
+    }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--offwhite);
+      border-top: 1px solid var(--areia);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: var(--fs-cap);
+      color: var(--pedra);
+    }
+
+    /* ── DIVIDER ── */
+    .divider { border: none; border-top: 1px solid var(--areia); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 640px) {
+      .process-grid { grid-template-columns: 1fr; }
+      .process-step { border-right: none; border-bottom: 1px solid var(--areia); }
+      .process-step:last-child { border-bottom: none; }
+      .num-item { border-right: none; border-bottom: 1px solid #3D3A36; }
+      .num-item:last-child { border-bottom: none; }
+      .preco-box { padding: 32px 24px; gap: 24px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- NAV -->
+  <nav>
+    <div class="logo">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" fill="none">
+        <g fill="#181614">
+          <polygon points="10,86 70,26 94,26 34,86"></polygon>
+          <polygon points="42,86 102,26 126,26 66,86"></polygon>
+          <polygon points="74,86 134,26 158,26 98,86"></polygon>
+        </g>
+        <rect x="184" y="22" width="3" height="76" fill="#C06018"></rect>
+        <text x="216" y="78" font-family="Inter, Helvetica, Arial, sans-serif" font-weight="700" font-size="62" letter-spacing="6" fill="#181614">HURTZ</text>
+      </svg>
+    </div>
+    <a href="#falar" class="cta-nav">Quero uma avaliação</a>
+  </nav>
+
+  <!-- HERO -->
+  <section class="hero">
+    <p class="eyebrow">Assessoria exclusiva para consórcio</p>
+    <h1>Operação de aquisição que <span>gera leads todo dia</span> e fecha sozinha.</h1>
+    <p>Meta Ads, SDR, Closer e entrega de tráfego. Uma estrutura completa rodando pela sua operação. Você vende, a gente abastece.</p>
+    <div class="cta-group">
+      <a href="#falar" class="btn-primary">Quero uma avaliação gratuita</a>
+      <a href="#como-funciona" class="btn-ghost">Ver como funciona</a>
+    </div>
+  </section>
+
+  <!-- NÚMEROS -->
+  <div class="numbers-strip full-bleed">
+    <div class="inner">
+      <div class="num-item">
+        <div class="value">R$34M<span style="font-size:0.5em; color:#8C8880">/mês</span></div>
+        <div class="label">em volume de vendas nos clientes ativos</div>
+      </div>
+      <div class="num-item">
+        <div class="value">100%</div>
+        <div class="label">exclusivo para representantes de consórcio</div>
+      </div>
+      <div class="num-item">
+        <div class="value">Meta Ads</div>
+        <div class="label">gestão de tráfego pago especializado</div>
+      </div>
+      <div class="num-item">
+        <div class="value">3+ meses</div>
+        <div class="label">de retenção média dos clientes</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- COMO FUNCIONA -->
+  <section id="como-funciona">
+    <p class="section-label">Como funciona</p>
+    <h2 class="section-title">4 etapas. Uma operação que roda enquanto você fecha.</h2>
+    <div class="process-grid">
+      <div class="process-step">
+        <div class="step-num">01</div>
+        <h3>Meta Ads</h3>
+        <p>Campanhas estruturadas para gerar leads qualificados todos os dias. Copy, criativo e segmentação exclusivos para consórcio.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">02</div>
+        <h3>SDR</h3>
+        <p>Primeiro contato, qualificação e agendamento. O lead chega pra você quente, com ficha completa e momento certo de compra.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">03</div>
+        <h3>Closer</h3>
+        <p>Argumentos e scripts calibrados para o mercado de consórcio. Seu time fecha mais com menos esforço.</p>
+      </div>
+      <div class="process-step">
+        <div class="step-num">04</div>
+        <h3>Tráfego</h3>
+        <p>Entrega contínua: otimização, escala e relatório. Você acompanha resultado em tempo real.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- O QUE ESTÁ INCLUSO -->
+  <section>
+    <p class="section-label">O que está incluso</p>
+    <h2 class="section-title">Tudo que sua operação precisa. Nada que você não vai usar.</h2>
+    <div class="entrega-grid">
+      <div class="entrega-card">
+        <h3>Gestão de tráfego pago</h3>
+        <p>Meta Ads gerenciado do zero: campanha, criativo, otimização e escala com foco em conversão para consórcio.</p>
+      </div>
+      <div class="entrega-card">
+        <h3>Criação de anúncios</h3>
+        <p>Copy e criativos desenvolvidos para o mercado de consórcio. Mensagem certa, para o público certo, no momento certo.</p>
+      </div>
+      <div class="entrega-card">
+        <h3>Reuniões estratégicas</h3>
+        <p>Alinhamento semanal de resultados, ajustes de campanha e planejamento do próximo ciclo.</p>
+      </div>
+      <div class="entrega-card">
+        <h3>Relatório de performance</h3>
+        <p>Dashboard com custo por lead, volume, taxa de qualificação e tendência. Sem achismo.</p>
+      </div>
+      <div class="entrega-card">
+        <h3>Scripts de vendas</h3>
+        <p>Argumentário calibrado para objeções reais do mercado de consórcio. SDR e Closer alinhados.</p>
+      </div>
+      <div class="entrega-card">
+        <h3>Suporte direto</h3>
+        <p>Acesso ao time de operação via WhatsApp. Sem fila de chamado, sem suporte terceirizado.</p>
+      </div>
+    </div>
+
+    <div class="quote-block">
+      <blockquote>"A Hurtz não é a agência mais barata do mercado de consórcio. É a única que você vai querer quando parar de aceitar resultado mediano."</blockquote>
+      <cite>Klebson — Hurtz Company</cite>
+    </div>
+  </section>
+
+  <!-- PARA QUEM É -->
+  <section>
+    <p class="section-label">Para quem é</p>
+    <h2 class="section-title">Cirurgiões, não generalistas. A Hurtz é para poucos.</h2>
+    <div class="fit-grid">
+      <div class="fit-card yes">
+        <div class="fit-label">Faz sentido pra você se</div>
+        <ul>
+          <li>Você é representante de consórcio ativo</li>
+          <li>Quer leads qualificados todo dia sem depender de indicação</li>
+          <li>Já entende que marketing é investimento, não custo</li>
+          <li>Quer escalar sem virar escravo da operação</li>
+          <li>Está disposto a seguir o processo</li>
+        </ul>
+      </div>
+      <div class="fit-card no">
+        <div class="fit-label">Não é pra você se</div>
+        <ul>
+          <li>Está procurando o mais barato do mercado</li>
+          <li>Não tem capacidade de fechar leads gerados</li>
+          <li>Quer resultado sem comprometer tempo ou processo</li>
+          <li>Espera milagre sem estrutura de vendas</li>
+          <li>Não é representante de consórcio</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTIMENTO -->
+  <section id="investimento">
+    <p class="section-label">Investimento</p>
+    <h2 class="section-title">Sem surpresa no final do mês.</h2>
+    <div class="preco-box">
+      <div class="preco-valor">
+        <div class="valor">R$1.500</div>
+        <div class="periodo">por mês · sem contrato de fidelidade</div>
+      </div>
+      <div class="preco-detalhe">
+        <p>Inclui gestão completa de Meta Ads, criação de criativos, reuniões estratégicas, scripts de vendas e suporte direto.</p>
+        <p>O investimento em tráfego (verba de anúncios) é separado e fica no seu controle.</p>
+        <p class="nota">Atendimento exclusivo para representantes de consórcio. Vagas limitadas por ciclo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA FINAL -->
+  <div class="cta-final full-bleed" id="falar">
+    <div class="inner">
+      <p class="eyebrow">Próximo passo</p>
+      <h2>Avaliação gratuita. Sem compromisso.</h2>
+      <p>A gente analisa a sua operação atual e diz com clareza se faz sentido trabalhar junto. Se não fizer, falamos isso na primeira conversa.</p>
+      <a href="https://wa.me/5594988082290?text=Ol%C3%A1%2C%20vi%20a%20p%C3%A1gina%20da%20Hurtz%20e%20quero%20entender%20melhor%20a%20assessoria." class="btn-primary" target="_blank" rel="noopener">Falar com a Hurtz no WhatsApp</a>
+    </div>
+  </div>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>Hurtz Company &mdash; Assessoria de Marketing para Consórcio &mdash; Parauapebas, Pará</p>
+  </footer>
+
+</body>
+</html>
