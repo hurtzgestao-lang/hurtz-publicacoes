@@ -1,0 +1,541 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposta Comercial · Cionic · Hurtz Company</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --brasa:        #C06018;
+      --brasa-hover:  #974A12;
+      --carvao:       #181614;
+      --grafite:      #3D3A36;
+      --pedra:        #8C8880;
+      --areia:        #E8E4DC;
+      --offwhite:     #F5F2EC;
+      --font: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--carvao);
+      background: var(--offwhite);
+      -webkit-font-smoothing: antialiased;
+    }
+
+    /* ===== LAYOUT ===== */
+    section {
+      width: 100%;
+      padding: 80px 24px;
+    }
+
+    .container {
+      max-width: 720px;
+      margin: 0 auto;
+    }
+
+    .eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brasa);
+      display: block;
+      margin-bottom: 20px;
+    }
+
+    .divider-accent {
+      width: 48px;
+      height: 2px;
+      background: var(--brasa);
+      border: none;
+      margin: 16px 0 28px;
+    }
+
+    /* ===== HEADER ===== */
+    .header {
+      background: var(--offwhite);
+      border-bottom: 1px solid var(--areia);
+      padding: 20px 24px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .header .container {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .header-date {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--pedra);
+    }
+
+    /* ===== CAPA ===== */
+    #capa {
+      background: var(--offwhite);
+      padding-top: 96px;
+      padding-bottom: 96px;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    #capa h1 {
+      font-size: clamp(42px, 8vw, 72px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--carvao);
+      margin: 0 0 28px;
+    }
+
+    #capa .lead {
+      font-size: 17px;
+      color: var(--grafite);
+      line-height: 1.6;
+      max-width: 520px;
+      margin: 0 0 48px;
+    }
+
+    .para-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      border-top: 1px solid var(--areia);
+      padding-top: 24px;
+      flex-wrap: wrap;
+      gap: 16px;
+    }
+
+    .para-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--pedra);
+      margin-bottom: 4px;
+    }
+
+    .para-value {
+      font-size: 15px;
+      font-weight: 700;
+      color: var(--carvao);
+    }
+
+    /* ===== ESCOPO ===== */
+    #escopo {
+      background: var(--offwhite);
+      border-bottom: 1px solid var(--areia);
+    }
+
+    #escopo h2 {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--carvao);
+      margin: 0 0 12px;
+    }
+
+    #escopo .subtitle {
+      font-size: 15px;
+      color: var(--grafite);
+      margin: 0 0 40px;
+      max-width: 500px;
+    }
+
+    .scope-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border: 1px solid var(--areia);
+      background: #FFFFFF;
+    }
+
+    @media (max-width: 560px) {
+      .scope-grid { grid-template-columns: 1fr; }
+      .scope-item:nth-child(odd) { border-right: none !important; }
+      .scope-item:nth-child(-n+2) { border-bottom: 1px solid var(--areia) !important; }
+    }
+
+    .scope-item {
+      padding: 28px;
+    }
+
+    .scope-item:nth-child(1),
+    .scope-item:nth-child(3) { border-right: 1px solid var(--areia); }
+
+    .scope-item:nth-child(1),
+    .scope-item:nth-child(2) { border-bottom: 1px solid var(--areia); }
+
+    .scope-num {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      color: var(--brasa);
+      margin-bottom: 10px;
+    }
+
+    .scope-title {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--carvao);
+      margin-bottom: 8px;
+    }
+
+    .scope-desc {
+      font-size: 13px;
+      color: var(--grafite);
+      line-height: 1.55;
+    }
+
+    /* ===== PROVA ===== */
+    #prova {
+      background: var(--carvao);
+      color: var(--offwhite);
+      border-bottom: 1px solid rgba(245,242,236,0.1);
+    }
+
+    #prova .eyebrow { color: var(--brasa); }
+
+    #prova h2 {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--offwhite);
+      margin: 0 0 12px;
+    }
+
+    #prova .subtitle {
+      font-size: 15px;
+      color: rgba(245,242,236,0.65);
+      margin: 0 0 48px;
+      max-width: 480px;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px 40px;
+    }
+
+    @media (max-width: 480px) {
+      .stats-grid { grid-template-columns: 1fr; gap: 36px; }
+    }
+
+    .stat-accent {
+      width: 32px;
+      height: 2px;
+      background: var(--brasa);
+      margin-bottom: 14px;
+    }
+
+    .stat-num {
+      font-size: clamp(44px, 8vw, 64px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.02em;
+      color: var(--offwhite);
+    }
+
+    .stat-num span {
+      color: var(--brasa);
+      font-size: 60%;
+    }
+
+    .stat-label {
+      font-size: 13px;
+      color: rgba(245,242,236,0.6);
+      line-height: 1.5;
+      margin-top: 10px;
+    }
+
+    /* ===== INVESTIMENTO ===== */
+    #investimento {
+      background: var(--offwhite);
+    }
+
+    #investimento h2 {
+      font-size: 36px;
+      font-weight: 700;
+      line-height: 1.1;
+      color: var(--carvao);
+      margin: 0 0 12px;
+    }
+
+    #investimento .subtitle {
+      font-size: 15px;
+      color: var(--grafite);
+      margin: 0 0 40px;
+      max-width: 500px;
+    }
+
+    .price-card {
+      background: #FFFFFF;
+      border: 1px solid var(--areia);
+      padding: 36px;
+      margin-bottom: 24px;
+    }
+
+    .price-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+      flex-wrap: wrap;
+      gap: 20px;
+      padding-bottom: 24px;
+      border-bottom: 1px solid var(--areia);
+      margin-bottom: 28px;
+    }
+
+    .plan-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--brasa);
+      margin-bottom: 6px;
+    }
+
+    .plan-name {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--carvao);
+    }
+
+    .price-amount {
+      font-size: clamp(40px, 8vw, 56px);
+      font-weight: 700;
+      line-height: 1;
+      letter-spacing: -0.01em;
+      color: var(--carvao);
+      text-align: right;
+    }
+
+    .price-amount span {
+      font-size: 40%;
+      color: var(--brasa);
+    }
+
+    .includes-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px 24px;
+      margin-bottom: 32px;
+    }
+
+    @media (max-width: 480px) {
+      .includes-grid { grid-template-columns: 1fr; }
+    }
+
+    .includes-item {
+      font-size: 13px;
+      color: var(--grafite);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .includes-item::before {
+      content: '';
+      display: inline-block;
+      width: 6px;
+      height: 2px;
+      background: var(--brasa);
+      flex-shrink: 0;
+    }
+
+    .btn-cta {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: var(--brasa);
+      color: #FFFFFF;
+      border: none;
+      padding: 16px 28px;
+      font-family: var(--font);
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.04em;
+      border-radius: 4px;
+      cursor: pointer;
+      text-decoration: none;
+      transition: background 120ms;
+    }
+
+    .btn-cta:hover { background: var(--brasa-hover); }
+
+    /* ===== RODAPÉ ===== */
+    footer {
+      background: var(--carvao);
+      color: rgba(245,242,236,0.5);
+      padding: 32px 24px;
+      text-align: center;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+  </style>
+</head>
+<body>
+
+  <!-- HEADER -->
+  <header class="header">
+    <div class="container">
+      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" fill="none" height="22">
+        <g fill="#181614">
+          <polygon points="10,86 70,26 94,26 34,86"/>
+          <polygon points="42,86 102,26 126,26 66,86"/>
+          <polygon points="74,86 134,26 158,26 98,86"/>
+        </g>
+        <rect x="184" y="22" width="3" height="76" fill="#C06018"/>
+        <text x="216" y="78" font-family="Inter, Helvetica, Arial, sans-serif" font-weight="700" font-size="62" letter-spacing="6" fill="#181614">HURTZ</text>
+      </svg>
+      <span class="header-date">Proposta · Abril 2026</span>
+    </div>
+  </header>
+
+  <!-- CAPA -->
+  <section id="capa">
+    <div class="container">
+      <span class="eyebrow">Operação de tráfego pago</span>
+      <hr class="divider-accent">
+      <h1>Leads qualificados.<br>Todo mês.</h1>
+      <p class="lead">
+        Gestão completa de Meta Ads especializada em consórcio. Criativos, segmentação, otimização e relatório — você fecha, a Hurtz gera.
+      </p>
+      <div class="para-row">
+        <div>
+          <div class="para-label">Para</div>
+          <div class="para-value">Cionic</div>
+        </div>
+        <div>
+          <div class="para-label">De</div>
+          <div class="para-value">Hurtz Company</div>
+        </div>
+        <div>
+          <div class="para-label">Validade</div>
+          <div class="para-value">7 dias</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ESCOPO -->
+  <section id="escopo">
+    <div class="container">
+      <span class="eyebrow">02 · Escopo</span>
+      <h2>O que está incluído.</h2>
+      <p class="subtitle">Operação completa de aquisição via Meta Ads. Você não precisa entender de tráfego — é pra isso que a Hurtz existe.</p>
+
+      <div class="scope-grid">
+        <div class="scope-item">
+          <div class="scope-num">01</div>
+          <div class="scope-title">Gestão de campanha</div>
+          <div class="scope-desc">Criação, configuração e otimização diária das campanhas no Meta Ads. Segmentação específica pra consórcio.</div>
+        </div>
+        <div class="scope-item">
+          <div class="scope-num">02</div>
+          <div class="scope-title">Criativos e copies</div>
+          <div class="scope-desc">Peças, vídeos e textos prontos para veicular. Testagem A/B contínua para escalar o que converte.</div>
+        </div>
+        <div class="scope-item">
+          <div class="scope-num">03</div>
+          <div class="scope-title">Qualificação de leads</div>
+          <div class="scope-desc">Formulário nativo com perguntas de qualificação. Você recebe só quem tem perfil real de compra.</div>
+        </div>
+        <div class="scope-item">
+          <div class="scope-num">04</div>
+          <div class="scope-title">Relatório semanal</div>
+          <div class="scope-desc">Custo por lead, volume, taxa de qualificação e recomendações de próximos passos. Transparência total.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROVA -->
+  <section id="prova">
+    <div class="container">
+      <span class="eyebrow">03 · Prova</span>
+      <h2>Os números falam<br>por nós.</h2>
+      <p class="subtitle">Operação agregada entre os clientes ativos da Hurtz. Sem extrapolação.</p>
+
+      <div class="stats-grid">
+        <div>
+          <div class="stat-accent"></div>
+          <div class="stat-num">R$34<span>M</span></div>
+          <div class="stat-label">em vendas/mês — clientes ativos</div>
+        </div>
+        <div>
+          <div class="stat-accent"></div>
+          <div class="stat-num">1.482</div>
+          <div class="stat-label">leads qualificados em 30 dias</div>
+        </div>
+        <div>
+          <div class="stat-accent"></div>
+          <div class="stat-num">R$14<span>M</span></div>
+          <div class="stat-label">recorde Gabriela · cliente Hurtz</div>
+        </div>
+        <div>
+          <div class="stat-accent"></div>
+          <div class="stat-num">22<span>%</span></div>
+          <div class="stat-label">taxa de conversão SDR → Closer</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- INVESTIMENTO -->
+  <section id="investimento">
+    <div class="container">
+      <span class="eyebrow">04 · Investimento</span>
+      <h2>Investimento.</h2>
+      <p class="subtitle">Sem taxa escondida. Sem fidelidade abusiva. Mês a mês — porque resultado segura cliente, não contrato.</p>
+
+      <div class="price-card">
+        <div class="price-header">
+          <div>
+            <div class="plan-label">Gestão de tráfego</div>
+            <div class="plan-name">Hurtz · Plano Tráfego</div>
+          </div>
+          <div>
+            <div class="price-amount">R$2.000<span>/mês</span></div>
+          </div>
+        </div>
+
+        <div class="includes-grid">
+          <div class="includes-item">Gestão Meta Ads</div>
+          <div class="includes-item">Criativos ilimitados</div>
+          <div class="includes-item">Copies testadas</div>
+          <div class="includes-item">Formulário de qualificação</div>
+          <div class="includes-item">Relatório semanal</div>
+          <div class="includes-item">Setup completo em 5 dias</div>
+          <div class="includes-item">Otimização diária</div>
+          <div class="includes-item">Sem fidelidade</div>
+        </div>
+
+        <a href="https://wa.me/5517996178576?text=Ol%C3%A1%2C+quero+assinar+a+proposta+da+Hurtz" class="btn-cta" target="_blank" rel="noopener">
+          QUERO COMEÇAR →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- RODAPÉ -->
+  <footer>
+    Hurtz Company &nbsp;·&nbsp; Cirurgiões, não generalistas &nbsp;·&nbsp; Parauapebas · PA
+  </footer>
+
+</body>
+</html>
