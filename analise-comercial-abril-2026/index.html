@@ -1,0 +1,702 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Análise Comercial — Abril 2026 | Hurtz Company</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --brasa:    #C06018;
+  --brasa-h:  #974A12;
+  --carvao:   #181614;
+  --grafite:  #3D3A36;
+  --pedra:    #8C8880;
+  --areia:    #E8E4DC;
+  --offwhite: #F5F2EC;
+  --verde:    #1A7A4A;
+  --vermelho: #B52A2A;
+  --font: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+}
+*, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+body { font-family: var(--font); background: #000; }
+
+/* ── Slide base ─────────────────────────────────────────── */
+section {
+  width: 1920px; height: 1080px;
+  position: absolute; inset: 0;
+  display: flex; flex-direction: column;
+  overflow: hidden;
+}
+
+/* backgrounds */
+.bg-dark    { background: var(--carvao); color: var(--offwhite); }
+.bg-light   { background: var(--offwhite); color: var(--carvao); }
+.bg-brasa   { background: var(--brasa); color: #fff; }
+
+/* eyebrow */
+.eyebrow {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--brasa);
+}
+.bg-dark .eyebrow { color: var(--brasa); }
+.bg-brasa .eyebrow { color: rgba(255,255,255,.7); }
+
+/* utility */
+.muted   { color: var(--pedra); }
+.brasa   { color: var(--brasa); }
+.verde   { color: var(--verde); }
+.vermelho{ color: var(--vermelho); }
+.bold    { font-weight: 700; }
+
+hr.accent {
+  width: 48px; height: 2px; border: 0;
+  background: var(--brasa); margin: 0;
+}
+
+/* ── SLIDE 1: CAPA ──────────────────────────────────────── */
+#s1 {
+  background: var(--carvao);
+  padding: 100px 120px;
+  justify-content: space-between;
+}
+#s1 .top { display: flex; flex-direction: column; gap: 32px; }
+#s1 h1 {
+  font-size: 96px; font-weight: 700;
+  line-height: 1.0; letter-spacing: -0.01em;
+  color: var(--offwhite);
+}
+#s1 h1 span { color: var(--brasa); }
+#s1 .sub {
+  font-size: 28px; font-weight: 400;
+  color: var(--pedra); max-width: 900px;
+  line-height: 1.5;
+}
+#s1 .bottom {
+  display: flex; align-items: flex-end;
+  justify-content: space-between;
+}
+#s1 .pills { display: flex; gap: 16px; }
+#s1 .pill {
+  padding: 10px 20px;
+  border: 1px solid rgba(255,255,255,.15);
+  border-radius: 2px;
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--offwhite);
+}
+#s1 .wordmark {
+  font-size: 15px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--pedra);
+}
+
+/* ── SLIDE 2: FUNIL ─────────────────────────────────────── */
+#s2 { background: var(--offwhite); padding: 80px 120px; gap: 56px; }
+#s2 .header { display: flex; flex-direction: column; gap: 16px; }
+#s2 h2 { font-size: 40px; font-weight: 700; color: var(--carvao); }
+
+.funnel-row {
+  display: flex; align-items: stretch; gap: 0;
+  flex: 1;
+}
+.funnel-step {
+  flex: 1;
+  display: flex; flex-direction: column;
+  border-left: 1px solid var(--areia);
+  padding: 0 40px;
+  justify-content: center; gap: 12px;
+}
+.funnel-step:first-child { border-left: none; padding-left: 0; }
+.funnel-step .num {
+  font-size: 72px; font-weight: 700;
+  line-height: 1; letter-spacing: -0.02em;
+  color: var(--carvao);
+}
+.funnel-step .num.good  { color: var(--verde); }
+.funnel-step .num.warn  { color: var(--brasa); }
+.funnel-step .num.bad   { color: var(--vermelho); }
+.funnel-step .label {
+  font-size: 15px; font-weight: 700; color: var(--grafite);
+  letter-spacing: 0.01em;
+}
+.funnel-step .sub {
+  font-size: 13px; color: var(--pedra);
+  letter-spacing: 0.01em;
+}
+.funnel-step .conv {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--pedra);
+  padding-top: 8px;
+  border-top: 1px solid var(--areia);
+}
+.funnel-step .conv.good { color: var(--verde); }
+.funnel-step .conv.warn { color: var(--brasa); }
+.funnel-step .conv.bad  { color: var(--vermelho); }
+
+/* ── SLIDE 3: GARGALO RESPOSTA ──────────────────────────── */
+#s3 {
+  background: var(--offwhite);
+  flex-direction: row;
+}
+#s3 .left {
+  flex: 1; background: var(--carvao);
+  padding: 100px 100px;
+  display: flex; flex-direction: column;
+  justify-content: center; gap: 40px;
+}
+#s3 .left .big {
+  font-size: 160px; font-weight: 700;
+  line-height: 1; letter-spacing: -0.03em;
+  color: var(--vermelho);
+}
+#s3 .left h2 {
+  font-size: 36px; font-weight: 700;
+  color: var(--offwhite); max-width: 560px;
+  line-height: 1.2;
+}
+#s3 .left .caption {
+  font-size: 15px; color: var(--pedra); max-width: 480px;
+  line-height: 1.6;
+}
+#s3 .right {
+  flex: 1; padding: 100px 100px;
+  display: flex; flex-direction: column;
+  justify-content: center; gap: 40px;
+}
+#s3 .right h3 { font-size: 22px; font-weight: 700; color: var(--carvao); }
+#s3 .right .items { display: flex; flex-direction: column; gap: 0; }
+.day-row {
+  display: flex; align-items: center;
+  justify-content: space-between;
+  padding: 20px 0;
+  border-bottom: 1px solid var(--areia);
+}
+.day-row:first-child { border-top: 1px solid var(--areia); }
+.day-row .day { font-size: 15px; color: var(--grafite); }
+.day-row .bar-wrap { flex: 1; margin: 0 32px; height: 6px; background: var(--areia); border-radius: 0; }
+.day-row .bar { height: 100%; background: var(--brasa); }
+.day-row .bar.high { background: var(--verde); }
+.day-row .bar.low  { background: var(--vermelho); }
+.day-row .pct { font-size: 15px; font-weight: 700; color: var(--carvao); width: 56px; text-align: right; }
+
+/* ── SLIDE 4: GARGALO FECHAMENTO ────────────────────────── */
+#s4 { background: var(--offwhite); flex-direction: row; }
+#s4 .left {
+  flex: 1; background: var(--carvao);
+  padding: 100px 100px;
+  display: flex; flex-direction: column;
+  justify-content: center; gap: 40px;
+}
+#s4 .left .big {
+  font-size: 160px; font-weight: 700;
+  line-height: 1; letter-spacing: -0.03em;
+  color: var(--vermelho);
+}
+#s4 .left h2 {
+  font-size: 36px; font-weight: 700;
+  color: var(--offwhite); max-width: 520px;
+  line-height: 1.2;
+}
+#s4 .left .caption { font-size: 15px; color: var(--pedra); max-width: 460px; line-height: 1.6; }
+#s4 .right {
+  flex: 1; padding: 100px 100px;
+  display: flex; flex-direction: column;
+  justify-content: center; gap: 40px;
+}
+#s4 .right h3 { font-size: 22px; font-weight: 700; color: var(--carvao); }
+.conversion-grid {
+  display: grid; grid-template-columns: 1fr 1fr;
+  gap: 2px; background: var(--areia);
+  border: 1px solid var(--areia);
+}
+.conv-cell {
+  background: var(--offwhite);
+  padding: 40px 40px;
+  display: flex; flex-direction: column; gap: 8px;
+}
+.conv-cell .n {
+  font-size: 56px; font-weight: 700;
+  line-height: 1; letter-spacing: -0.02em;
+}
+.conv-cell .n.good { color: var(--verde); }
+.conv-cell .n.bad  { color: var(--vermelho); }
+.conv-cell .n.neutral { color: var(--carvao); }
+.conv-cell .l { font-size: 14px; color: var(--pedra); font-weight: 700; letter-spacing: 0.06em; text-transform: uppercase; }
+
+/* ── SLIDE 5: O QUE FUNCIONA ────────────────────────────── */
+#s5 { background: var(--offwhite); padding: 80px 120px; gap: 56px; }
+#s5 .header { display: flex; flex-direction: column; gap: 16px; }
+#s5 h2 { font-size: 40px; font-weight: 700; color: var(--carvao); }
+.cards-row { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--areia); flex: 1; }
+.stat-card {
+  background: var(--offwhite);
+  padding: 56px 56px;
+  display: flex; flex-direction: column;
+  justify-content: space-between;
+}
+.stat-card .top { display: flex; flex-direction: column; gap: 16px; }
+.stat-card .num {
+  font-size: 88px; font-weight: 700;
+  line-height: 1; letter-spacing: -0.02em;
+}
+.stat-card .num.good { color: var(--verde); }
+.stat-card .num.ok   { color: var(--brasa); }
+.stat-card .title { font-size: 20px; font-weight: 700; color: var(--carvao); }
+.stat-card .desc  { font-size: 15px; color: var(--pedra); line-height: 1.6; max-width: 400px; }
+
+/* ── SLIDE 6: SEMANAS ───────────────────────────────────── */
+#s6 { background: var(--offwhite); padding: 80px 120px; gap: 56px; }
+#s6 h2 { font-size: 40px; font-weight: 700; color: var(--carvao); }
+.week-table { width: 100%; border-collapse: collapse; flex: 1; }
+.week-table th {
+  font-size: 12px; font-weight: 700;
+  letter-spacing: 0.10em; text-transform: uppercase;
+  color: var(--pedra);
+  padding: 0 0 24px 0;
+  text-align: left;
+  border-bottom: 2px solid var(--carvao);
+}
+.week-table th:not(:first-child) { text-align: right; }
+.week-table td {
+  font-size: 20px; padding: 32px 0;
+  border-bottom: 1px solid var(--areia);
+  vertical-align: middle;
+}
+.week-table td:not(:first-child) { text-align: right; }
+.week-table td.week-label { font-weight: 700; color: var(--carvao); font-size: 18px; }
+.week-table td.week-range { font-size: 14px; color: var(--pedra); display: block; font-weight: 400; margin-top: 4px; }
+.good-val { color: var(--verde); font-weight: 700; }
+.bad-val  { color: var(--vermelho); font-weight: 700; }
+.ok-val   { color: var(--brasa); font-weight: 700; }
+.highlight-row td { background: rgba(192,96,24,.06); }
+
+/* ── SLIDE 7: RECOMENDAÇÕES ─────────────────────────────── */
+#s7 { background: var(--offwhite); padding: 80px 120px; gap: 56px; }
+#s7 h2 { font-size: 40px; font-weight: 700; color: var(--carvao); }
+.recs { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 2px; background: var(--areia); flex: 1; }
+.rec-card {
+  background: var(--offwhite);
+  padding: 56px 56px;
+  display: flex; flex-direction: column;
+  gap: 24px;
+}
+.rec-num {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.14em; text-transform: uppercase;
+  color: var(--brasa);
+}
+.rec-title { font-size: 24px; font-weight: 700; color: var(--carvao); line-height: 1.2; }
+.rec-desc  { font-size: 15px; color: var(--grafite); line-height: 1.7; flex: 1; }
+.rec-impact {
+  font-size: 13px; font-weight: 700;
+  letter-spacing: 0.06em; text-transform: uppercase;
+  color: var(--pedra);
+  padding-top: 20px;
+  border-top: 1px solid var(--areia);
+}
+
+/* ── SLIDE 8: CTA ───────────────────────────────────────── */
+#s8 {
+  background: var(--carvao);
+  padding: 100px 120px;
+  justify-content: center; gap: 48px;
+}
+#s8 h1 {
+  font-size: 80px; font-weight: 700;
+  line-height: 1.05; letter-spacing: -0.01em;
+  color: var(--offwhite); max-width: 1200px;
+}
+#s8 h1 span { color: var(--brasa); }
+#s8 .sub {
+  font-size: 22px; color: var(--pedra);
+  max-width: 800px; line-height: 1.6;
+}
+#s8 .footer {
+  position: absolute; bottom: 80px; left: 120px; right: 120px;
+  display: flex; justify-content: space-between; align-items: flex-end;
+}
+#s8 .wordmark {
+  font-size: 14px; font-weight: 700;
+  letter-spacing: 0.18em; text-transform: uppercase;
+  color: var(--pedra);
+}
+</style>
+</head>
+<body>
+
+<deck-stage width="1920" height="1080">
+
+<!-- ═══ SLIDE 1 — CAPA ═══════════════════════════════════ -->
+<section id="s1" data-label="Capa">
+  <div class="top">
+    <span class="eyebrow">Análise Comercial · Abril 2026</span>
+    <hr class="accent">
+    <h1>324 leads.<br><span>2 vendas.</span><br>O que mudamos.</h1>
+    <p class="sub">Funil completo — da captação no Meta até o fechamento.<br>Onde estamos perdendo, o que está funcionando e as 3 ações prioritárias.</p>
+  </div>
+  <div class="bottom">
+    <div class="pills">
+      <span class="pill">Meta Ads</span>
+      <span class="pill">SDR Suyane</span>
+      <span class="pill">Abril 2026</span>
+    </div>
+    <span class="wordmark">Hurtz Company</span>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 2 — FUNIL ══════════════════════════════════ -->
+<section id="s2" data-label="Funil">
+  <div class="header">
+    <span class="eyebrow">Visão geral</span>
+    <h2>De 324 leads a 2 vendas — cada etapa do funil</h2>
+  </div>
+  <div class="funnel-row">
+    <div class="funnel-step">
+      <div class="num">324</div>
+      <div class="label">Leads captados</div>
+      <div class="sub">Meta Lead Ads · Abril</div>
+    </div>
+    <div class="funnel-step">
+      <div class="num warn">128</div>
+      <div class="label">MQLs qualificados</div>
+      <div class="sub">Representantes com time 2+</div>
+      <div class="conv warn">39,5% do total</div>
+    </div>
+    <div class="funnel-step">
+      <div class="num">285</div>
+      <div class="label">Chegaram ao SDR</div>
+      <div class="sub">39 leads sem distribuição</div>
+      <div class="conv warn">87,9% do total</div>
+    </div>
+    <div class="funnel-step">
+      <div class="num bad">148</div>
+      <div class="label">Responderam</div>
+      <div class="sub">137 leads inválidos removidos</div>
+      <div class="conv bad">51,9% — principal gargalo</div>
+    </div>
+    <div class="funnel-step">
+      <div class="num">63</div>
+      <div class="label">Leads válidos (SQL)</div>
+      <div class="sub">Qualificados pelo SDR</div>
+      <div class="conv">42,6% dos que responderam</div>
+    </div>
+    <div class="funnel-step">
+      <div class="num good">37</div>
+      <div class="label">Agendamentos</div>
+      <div class="sub">Reuniões marcadas</div>
+      <div class="conv good">58,7% dos válidos</div>
+    </div>
+    <div class="funnel-step">
+      <div class="num good">28</div>
+      <div class="label">Comparecimentos</div>
+      <div class="sub">8 no-show (21,6%)</div>
+      <div class="conv good">75,7% das reuniões</div>
+    </div>
+    <div class="funnel-step">
+      <div class="num bad">2</div>
+      <div class="label">Vendas</div>
+      <div class="sub">162 leads por venda</div>
+      <div class="conv bad">7,1% das reuniões</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 3 — GARGALO: RESPOSTA ══════════════════════ -->
+<section id="s3" data-label="Gargalo Resposta">
+  <div class="left">
+    <span class="eyebrow">Gargalo 1 de 2</span>
+    <div class="big">51,9%</div>
+    <h2>Quase metade dos leads não responde ao primeiro contato</h2>
+    <p class="caption">Nos piores dias chegou a 31%. O benchmark para operações B2B com contato imediato é 65%+. Cada ponto percentual de melhoria aqui gera leads válidos sem aumentar verba.</p>
+  </div>
+  <div class="right">
+    <h3>Taxa de resposta — dias críticos</h3>
+    <div class="items">
+      <div class="day-row">
+        <span class="day">13/04 · 26 leads</span>
+        <div class="bar-wrap"><div class="bar low" style="width:31%"></div></div>
+        <span class="pct bad-val">31%</span>
+      </div>
+      <div class="day-row">
+        <span class="day">15/04 · 21 leads</span>
+        <div class="bar-wrap"><div class="bar low" style="width:33%"></div></div>
+        <span class="pct bad-val">33%</span>
+      </div>
+      <div class="day-row">
+        <span class="day">16/04 · 25 leads</span>
+        <div class="bar-wrap"><div class="bar low" style="width:32%"></div></div>
+        <span class="pct bad-val">32%</span>
+      </div>
+      <div class="day-row">
+        <span class="day">18/04 · 12 leads</span>
+        <div class="bar-wrap"><div class="bar" style="width:33%"></div></div>
+        <span class="pct ok-val">33%</span>
+      </div>
+      <div class="day-row">
+        <span class="day">14/04 · 25 leads</span>
+        <div class="bar-wrap"><div class="bar high" style="width:80%"></div></div>
+        <span class="pct good-val">80%</span>
+      </div>
+      <div class="day-row">
+        <span class="day">21/04 · 12 leads</span>
+        <div class="bar-wrap"><div class="bar high" style="width:83%"></div></div>
+        <span class="pct good-val">83%</span>
+      </div>
+    </div>
+    <p style="font-size:14px;color:var(--pedra);margin-top:24px;line-height:1.6">Nos dias com menos de 15 leads, a taxa de resposta sobe para 63–83%.<br>Volume diário alto correla com resposta baixa.</p>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 4 — GARGALO: FECHAMENTO ════════════════════ -->
+<section id="s4" data-label="Gargalo Fechamento">
+  <div class="left">
+    <span class="eyebrow">Gargalo 2 de 2</span>
+    <div class="big">7,1%</div>
+    <h2>28 reuniões realizadas. Apenas 2 fechamentos.</h2>
+    <p class="caption">A taxa de fechamento esperada para o perfil B2B com proposta de valor clara é 15–20%. O lead está chegando na reunião sem maturidade suficiente ou o pitch precisa de ajuste.</p>
+  </div>
+  <div class="right">
+    <h3>Reuniões → Vendas em detalhe</h3>
+    <div class="conversion-grid">
+      <div class="conv-cell">
+        <div class="n neutral">37</div>
+        <div class="l">Agendamentos</div>
+      </div>
+      <div class="conv-cell">
+        <div class="n good">28</div>
+        <div class="l">Compareceram · 75,7%</div>
+      </div>
+      <div class="conv-cell">
+        <div class="n bad">8</div>
+        <div class="l">No-show · 21,6%</div>
+      </div>
+      <div class="conv-cell">
+        <div class="n bad">2</div>
+        <div class="l">Vendas · 7,1%</div>
+      </div>
+    </div>
+    <p style="font-size:14px;color:var(--pedra);margin-top:32px;line-height:1.6">Comparecimento de 75,7% é forte — o lead vai à reunião.<br>O problema está na conversão dentro da reunião, não no acesso.</p>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 5 — O QUE ESTÁ FUNCIONANDO ═════════════════ -->
+<section id="s5" data-label="O que funciona">
+  <div class="header">
+    <span class="eyebrow">Pontos fortes</span>
+    <h2>O que já funciona e não precisa mudar</h2>
+  </div>
+  <div class="cards-row">
+    <div class="stat-card">
+      <div class="top">
+        <div class="num good">75,7%</div>
+        <div class="title">Taxa de comparecimento</div>
+      </div>
+      <p class="desc">O lead vai à reunião. Benchmark B2B é 60–65%. Isso significa que a abordagem do SDR para agendar está funcionando — o lead chega com expectativa positiva.</p>
+    </div>
+    <div class="stat-card">
+      <div class="top">
+        <div class="num good">58,7%</div>
+        <div class="title">Agendamento de leads válidos</div>
+      </div>
+      <p class="desc">Quando Suyane qualifica o lead como válido, ela converte em agenda em mais da metade dos casos. A abordagem de qualificação está calibrada.</p>
+    </div>
+    <div class="stat-card">
+      <div class="top">
+        <div class="num ok">63%+</div>
+        <div class="title">Resposta em semanas menores</div>
+      </div>
+      <p class="desc">Nas semanas com volume abaixo de 20 leads/dia, a taxa de resposta sobe para 63–83%. O processo funciona bem com volume controlado.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 6 — SEMANAS ════════════════════════════════ -->
+<section id="s6" data-label="Por semana">
+  <span class="eyebrow">Performance semanal — SDR Suyane</span>
+  <h2>Volume alto não significa mais vendas</h2>
+  <table class="week-table">
+    <thead>
+      <tr>
+        <th>Semana</th>
+        <th>Leads</th>
+        <th>Responderam</th>
+        <th>Tx. Resposta</th>
+        <th>Agendamentos</th>
+        <th>Comparecimentos</th>
+        <th>Vendas</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td><span class="week-label">Semana 1</span><span class="week-range">09–13/04</span></td>
+        <td>125</td>
+        <td>64</td>
+        <td class="bad-val">51%</td>
+        <td>14</td>
+        <td>2</td>
+        <td>0</td>
+      </tr>
+      <tr>
+        <td><span class="week-label">Semana 2</span><span class="week-range">14–18/04</span></td>
+        <td>94</td>
+        <td>49</td>
+        <td class="ok-val">52%</td>
+        <td>7</td>
+        <td>12</td>
+        <td class="good-val">1</td>
+      </tr>
+      <tr>
+        <td><span class="week-label">Semana 3</span><span class="week-range">19–21/04</span></td>
+        <td>45</td>
+        <td>25</td>
+        <td class="ok-val">56%</td>
+        <td>6</td>
+        <td>9</td>
+        <td>0</td>
+      </tr>
+      <tr class="highlight-row">
+        <td><span class="week-label">Semana 4</span><span class="week-range">22–24/04</span></td>
+        <td class="good-val">16</td>
+        <td>10</td>
+        <td class="good-val">63%</td>
+        <td>4</td>
+        <td>5</td>
+        <td class="good-val">1</td>
+      </tr>
+    </tbody>
+  </table>
+  <p style="font-size:15px;color:var(--pedra);margin-top:8px">Semana 4: 16 leads, 1 venda. Semana 1: 125 leads, 0 vendas. O gargalo não é volume — é qualidade do contato.</p>
+</section>
+
+<!-- ═══ SLIDE 7 — RECOMENDAÇÕES ══════════════════════════ -->
+<section id="s7" data-label="Recomendações">
+  <div style="display:flex;flex-direction:column;gap:16px">
+    <span class="eyebrow">Ações prioritárias</span>
+    <h2>3 mudanças para dobrar a conversão sem aumentar verba</h2>
+  </div>
+  <div class="recs">
+    <div class="rec-card">
+      <div class="rec-num">01 — Contato imediato</div>
+      <div class="rec-title">Protocolo de 5 minutos para novos leads</div>
+      <p class="rec-desc">Leads contatados em até 5 minutos do preenchimento têm taxa de resposta 2–3x maior. Hoje o volume chega de uma vez e o SDR não consegue responder rápido o suficiente. Implementar fila de prioridade por horário de entrada e notificação automática ao SDR.</p>
+      <div class="rec-impact">Impacto: taxa de resposta 51% → 65%+</div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-num">02 — Aquecimento pré-reunião</div>
+      <div class="rec-title">Áudio ou vídeo 24h antes de cada reunião</div>
+      <p class="rec-desc">28 reuniões, 2 fechamentos (7,1%). O lead chega frio. Um áudio de 2 minutos com resultado de cliente, enviado na véspera, aumenta ancoragem de valor antes do pitch. Custo zero, implementação em 1 dia.</p>
+      <div class="rec-impact">Impacto: fechamento 7,1% → 12–15%</div>
+    </div>
+    <div class="rec-card">
+      <div class="rec-num">03 — Filtro de MQL no formulário</div>
+      <div class="rec-title">Segmentar consultores antes do SDR</div>
+      <p class="rec-desc">117 consultores entraram no funil este mês — 36% do total. São leads fora do perfil que consomem tempo do SDR sem converter. Ajustar a pergunta "como você atua" para distinguir representante de consultor elimina esse vazamento na origem.</p>
+      <div class="rec-impact">Impacto: qualidade do funil +36% de eficiência</div>
+    </div>
+  </div>
+</section>
+
+<!-- ═══ SLIDE 8 — CTA ════════════════════════════════════ -->
+<section id="s8" data-label="Próximos passos">
+  <span class="eyebrow">Próximos passos</span>
+  <h1>A operação está de pé.<br><span>O ajuste está nos detalhes.</span></h1>
+  <p class="sub">75,7% de comparecimento prova que o lead vai à reunião. 58,7% de agendamento prova que o SDR qualifica bem. O que falta é velocidade no primeiro contato, aquecimento pré-reunião e filtro mais cedo no formulário.</p>
+  <div class="footer">
+    <div style="display:flex;flex-direction:column;gap:8px">
+      <span class="eyebrow" style="color:var(--pedra)">Meta: Maio 2026</span>
+      <span style="font-size:22px;font-weight:700;color:var(--offwhite)">Taxa de resposta 65% · Fechamento 12% · Leads/venda: 80</span>
+    </div>
+    <span class="wordmark">Hurtz Company</span>
+  </div>
+</section>
+
+</deck-stage>
+
+<script>
+// ── deck-stage web component ─────────────────────────────
+(() => {
+  const DESIGN_W=1920,DESIGN_H=1080,HIDE_MS=1800;
+  const pad2=n=>String(n).padStart(2,'0');
+  const css=`
+    :host{position:fixed;inset:0;display:block;background:#000;overflow:hidden;font-family:-apple-system,sans-serif}
+    .stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center}
+    .canvas{position:relative;transform-origin:center center;flex-shrink:0;will-change:transform}
+    ::slotted(*){position:absolute!important;inset:0!important;width:100%!important;height:100%!important;box-sizing:border-box!important;overflow:hidden;opacity:0;pointer-events:none;visibility:hidden}
+    ::slotted([data-deck-active]){opacity:1;pointer-events:auto;visibility:visible}
+    .tapzones{position:fixed;inset:0;display:flex;z-index:2147482000;pointer-events:none}
+    .tapzone{flex:1;pointer-events:auto;-webkit-tap-highlight-color:transparent}
+    @media(hover:hover)and(pointer:fine){.tapzones{display:none}}
+    .ov{position:fixed;left:50%;bottom:22px;transform:translate(-50%,6px) scale(.92);filter:blur(6px);display:flex;align-items:center;gap:4px;padding:4px;background:#000;color:#fff;border-radius:999px;font-size:12px;opacity:0;pointer-events:none;transition:opacity 260ms ease,transform 260ms cubic-bezier(.2,.8,.2,1),filter 260ms ease;z-index:2147483000;user-select:none}
+    .ov[data-v]{opacity:1;pointer-events:auto;transform:translate(-50%,0) scale(1);filter:blur(0)}
+    .ob{appearance:none;background:transparent;border:0;color:rgba(255,255,255,.72);cursor:default;display:inline-flex;align-items:center;justify-content:center;height:28px;min-width:28px;border-radius:999px;transition:background 140ms;font:inherit;font-size:12px}
+    .ob:hover{background:rgba(255,255,255,.12);color:#fff}
+    .oc{font-variant-numeric:tabular-nums;color:#fff;font-weight:500;padding:0 8px;min-width:42px;text-align:center}
+    .od{width:1px;height:14px;background:rgba(255,255,255,.18);margin:0 2px}
+    @media print{:host{position:static;background:none;overflow:visible}.stage{position:static;display:block}.canvas{transform:none!important;width:auto!important;height:auto!important}::slotted(*){position:relative!important;inset:auto!important;width:var(--dw)!important;height:var(--dh)!important;opacity:1!important;visibility:visible!important;break-after:page}.ov,.tapzones{display:none!important}}
+  `;
+  class DeckStage extends HTMLElement {
+    constructor(){super();this._r=this.attachShadow({mode:'open'});this._i=0;this._s=[];this._t=null;this._onKey=this._onKey.bind(this);this._onResize=this._onResize.bind(this);this._onSlot=this._onSlot.bind(this);this._onMove=this._onMove.bind(this)}
+    connectedCallback(){this._build();window.addEventListener('keydown',this._onKey);window.addEventListener('resize',this._onResize);window.addEventListener('mousemove',this._onMove,{passive:true})}
+    disconnectedCallback(){window.removeEventListener('keydown',this._onKey);window.removeEventListener('resize',this._onResize);window.removeEventListener('mousemove',this._onMove);if(this._t)clearTimeout(this._t)}
+    _build(){
+      const style=document.createElement('style');style.textContent=css;
+      const stage=document.createElement('div');stage.className='stage';
+      const canvas=document.createElement('div');canvas.className='canvas';
+      canvas.style.cssText=`width:${DESIGN_W}px;height:${DESIGN_H}px`;
+      canvas.style.setProperty('--dw',DESIGN_W+'px');canvas.style.setProperty('--dh',DESIGN_H+'px');
+      const slot=document.createElement('slot');slot.addEventListener('slotchange',this._onSlot);canvas.appendChild(slot);stage.appendChild(canvas);
+      const tz=document.createElement('div');tz.className='tapzones';tz.innerHTML='<div class="tapzone" id="tb"></div><div class="tapzone" style="pointer-events:none"></div><div class="tapzone" id="tf"></div>';
+      const ov=document.createElement('div');ov.className='ov';
+      ov.innerHTML='<button class="ob" id="bp">&#8592;</button><span class="oc"><span id="bc">1</span><span style="color:rgba(255,255,255,.4);margin:0 3px">/</span><span id="bt">1</span></span><button class="ob" id="bn">&#8594;</button><span class="od"></span><button class="ob" style="padding:0 10px;font-size:11px" id="br">Reset</button>';
+      this._r.append(style,stage,tz,ov);
+      this._canvas=canvas;this._slot=slot;this._ov=ov;
+      this._bc=ov.querySelector('#bc');this._bt=ov.querySelector('#bt');
+      ov.querySelector('#bp').onclick=()=>this._go(this._i-1);
+      ov.querySelector('#bn').onclick=()=>this._go(this._i+1);
+      ov.querySelector('#br').onclick=()=>this._go(0);
+      tz.querySelector('#tb').onclick=()=>this._go(this._i-1);
+      tz.querySelector('#tf').onclick=()=>this._go(this._i+1);
+      // print page rule
+      let pr=document.getElementById('_dpr');if(!pr){pr=document.createElement('style');pr.id='_dpr';document.head.appendChild(pr)}
+      pr.textContent=`@page{size:${DESIGN_W}px ${DESIGN_H}px;margin:0}@media print{html,body{margin:0!important;padding:0!important;overflow:visible!important;height:auto!important}*{-webkit-print-color-adjust:exact;print-color-adjust:exact}}`;
+    }
+    _onSlot(){
+      this._s=this._slot.assignedElements({flatten:true}).filter(e=>!/^(TEMPLATE|SCRIPT|STYLE)$/.test(e.tagName));
+      this._s.forEach((s,i)=>{s.setAttribute('data-deck-slide',i);if(this._bt)this._bt.textContent=this._s.length});
+      this._i=Math.min(this._i,Math.max(0,this._s.length-1));
+      this._apply(false);this._fit();
+    }
+    _apply(flash=true){
+      if(!this._s.length)return;
+      this._s.forEach((s,i)=>i===this._i?s.setAttribute('data-deck-active',''):s.removeAttribute('data-deck-active'));
+      if(this._bc)this._bc.textContent=this._i+1;
+      if(flash)this._flash();
+    }
+    _flash(){if(!this._ov)return;this._ov.setAttribute('data-v','');if(this._t)clearTimeout(this._t);this._t=setTimeout(()=>this._ov.removeAttribute('data-v'),HIDE_MS)}
+    _fit(){if(!this._canvas)return;const s=Math.min(window.innerWidth/DESIGN_W,window.innerHeight/DESIGN_H);this._canvas.style.transform=`scale(${s})`}
+    _go(i){const c=Math.max(0,Math.min(this._s.length-1,i));if(c===this._i){this._flash();return}this._i=c;this._apply()}
+    _onResize(){this._fit()}
+    _onMove(){this._flash()}
+    _onKey(e){
+      if(e.target&&(e.target.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)))return;
+      if(e.metaKey||e.ctrlKey||e.altKey)return;
+      const k=e.key;let h=true;
+      if(k==='ArrowRight'||k==='PageDown'||k===' ')this._go(this._i+1);
+      else if(k==='ArrowLeft'||k==='PageUp')this._go(this._i-1);
+      else if(k==='Home')this._go(0);
+      else if(k==='End')this._go(this._s.length-1);
+      else if(k==='r'||k==='R')this._go(0);
+      else h=false;
+      if(h)e.preventDefault();
+    }
+  }
+  if(!customElements.get('deck-stage'))customElements.define('deck-stage',DeckStage);
+})();
+</script>
+</body>
+</html>
