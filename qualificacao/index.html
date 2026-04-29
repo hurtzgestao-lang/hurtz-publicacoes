@@ -1,0 +1,351 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Qualificação · Hurtz</title>
+<meta name="description" content="Formulário de qualificação Hurtz Company.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brasa: #C06018;
+    --brasa-hover: #974A12;
+    --brasa-900: #2C1404;
+    --carvao: #181614;
+    --grafite: #3D3A36;
+    --pedra: #8C8880;
+    --areia: #E8E4DC;
+    --offwhite: #F5F2EC;
+    --func-critico: #B52A2A;
+    --func-resultado: #1A7A4A;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', 'Helvetica Neue', Arial, sans-serif;
+    font-weight: 400;
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--carvao);
+    background: var(--offwhite);
+    -webkit-font-smoothing: antialiased;
+    text-rendering: optimizeLegibility;
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+  }
+
+  .wrap {
+    flex: 1;
+    width: 100%;
+    max-width: 560px;
+    margin: 0 auto;
+    padding: 64px 24px 96px;
+  }
+
+  .brand {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 64px;
+  }
+  .brand-mark {
+    display: inline-flex;
+    align-items: center;
+    gap: 4px;
+  }
+  .brand-mark span {
+    display: block;
+    width: 4px;
+    height: 18px;
+    background: var(--carvao);
+    transform: skewX(-18deg);
+  }
+  .brand-mark span:nth-child(2) { background: var(--brasa); }
+  .wordmark {
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-size: 13px;
+    color: var(--carvao);
+  }
+
+  .eyebrow {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--brasa);
+    margin-bottom: 16px;
+  }
+
+  h1 {
+    font-size: 36px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    line-height: 1.1;
+    margin: 0 0 16px;
+    color: var(--carvao);
+  }
+
+  .lede {
+    font-size: 15px;
+    line-height: 1.6;
+    color: var(--grafite);
+    margin: 0 0 48px;
+    max-width: 480px;
+  }
+
+  .divider-accent {
+    height: 2px;
+    width: 48px;
+    background: var(--brasa);
+    border: 0;
+    margin: 0 0 24px;
+  }
+
+  form {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .field {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+  }
+
+  label {
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--carvao);
+  }
+
+  input {
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 400;
+    color: var(--carvao);
+    background: #FFFFFF;
+    border: 1px solid var(--areia);
+    border-radius: 4px;
+    padding: 14px 16px;
+    transition: border-color 120ms ease;
+    outline: none;
+    width: 100%;
+  }
+  input::placeholder { color: var(--pedra); }
+  input:focus { border-color: var(--carvao); }
+  input:invalid:not(:placeholder-shown) { border-color: var(--func-critico); }
+
+  .helper {
+    font-size: 13px;
+    color: var(--pedra);
+    line-height: 1.5;
+  }
+
+  .actions {
+    margin-top: 16px;
+  }
+
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    padding: 16px 28px;
+    font-family: inherit;
+    font-size: 15px;
+    font-weight: 700;
+    letter-spacing: 0.02em;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 120ms ease, color 120ms ease;
+    width: 100%;
+    background: var(--brasa);
+    color: #FFFFFF;
+  }
+  .btn:hover { background: var(--brasa-hover); }
+  .btn:active { background: var(--brasa-900); }
+  .btn:disabled {
+    background: var(--pedra);
+    cursor: not-allowed;
+  }
+
+  .privacy {
+    margin-top: 16px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    color: var(--pedra);
+    line-height: 1.6;
+  }
+
+  .feedback {
+    display: none;
+    margin-top: 24px;
+    padding: 16px 20px;
+    border: 1px solid var(--areia);
+    background: #FFFFFF;
+    border-left: 3px solid var(--brasa);
+    border-radius: 4px;
+    font-size: 14px;
+    color: var(--carvao);
+  }
+  .feedback.is-success {
+    border-left-color: var(--func-resultado);
+  }
+  .feedback.is-error {
+    border-left-color: var(--func-critico);
+  }
+  .feedback.is-visible { display: block; }
+
+  footer {
+    border-top: 1px solid var(--areia);
+    padding: 24px;
+    text-align: center;
+    font-size: 11px;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--pedra);
+  }
+
+  @media (max-width: 520px) {
+    .wrap { padding: 48px 20px 64px; }
+    h1 { font-size: 28px; }
+    .brand { margin-bottom: 48px; }
+    .lede { margin-bottom: 32px; }
+  }
+</style>
+</head>
+<body>
+  <main class="wrap">
+    <div class="brand" aria-label="Hurtz Company">
+      <span class="brand-mark" aria-hidden="true">
+        <span></span><span></span><span></span>
+      </span>
+      <span class="wordmark">Hurtz</span>
+    </div>
+
+    <p class="eyebrow">Qualificação · Consórcio</p>
+    <hr class="divider-accent" />
+    <h1>Vamos conversar sobre seu próximo R$ 1M em vendas.</h1>
+    <p class="lede">Preenche em 30 segundos. Nossa equipe entra em contato pelo WhatsApp em até 1 dia útil para entender sua operação e mostrar como a Hurtz opera.</p>
+
+    <form id="qualificacao-form" novalidate>
+      <div class="field">
+        <label for="nome">Nome completo</label>
+        <input type="text" id="nome" name="nome" placeholder="Como você se apresenta" autocomplete="name" required minlength="2">
+      </div>
+
+      <div class="field">
+        <label for="email">E-mail</label>
+        <input type="email" id="email" name="email" placeholder="seu@email.com" autocomplete="email" required>
+      </div>
+
+      <div class="field">
+        <label for="telefone">WhatsApp</label>
+        <input type="tel" id="telefone" name="telefone" placeholder="(11) 91234-5678" autocomplete="tel" required inputmode="tel">
+        <span class="helper">Usaremos esse número para o primeiro contato.</span>
+      </div>
+
+      <div class="actions">
+        <button type="submit" class="btn" id="submit-btn">
+          Quero falar com a Hurtz <span aria-hidden="true">→</span>
+        </button>
+      </div>
+
+      <p class="privacy">Seus dados ficam com a Hurtz. Sem spam, sem repasse.</p>
+
+      <div class="feedback" id="feedback" role="status" aria-live="polite"></div>
+    </form>
+  </main>
+
+  <footer>Hurtz Company · Marketing para representantes de consórcio</footer>
+
+  <script>
+    // Substituir por URL real do webhook n8n
+    const WEBHOOK_URL = '';
+
+    const form = document.getElementById('qualificacao-form');
+    const btn = document.getElementById('submit-btn');
+    const feedback = document.getElementById('feedback');
+    const telInput = document.getElementById('telefone');
+
+    // Máscara simples de telefone BR
+    telInput.addEventListener('input', (e) => {
+      let v = e.target.value.replace(/\D/g, '').slice(0, 11);
+      if (v.length > 10) {
+        v = v.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, '($1) $2-$3');
+      } else if (v.length > 6) {
+        v = v.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, '($1) $2-$3');
+      } else if (v.length > 2) {
+        v = v.replace(/^(\d{2})(\d{0,5}).*/, '($1) $2');
+      } else if (v.length > 0) {
+        v = v.replace(/^(\d{0,2}).*/, '($1');
+      }
+      e.target.value = v;
+    });
+
+    function showFeedback(message, type) {
+      feedback.textContent = message;
+      feedback.classList.remove('is-success', 'is-error');
+      feedback.classList.add('is-visible', type === 'success' ? 'is-success' : 'is-error');
+    }
+
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      if (!form.checkValidity()) {
+        showFeedback('Confere os campos antes de enviar.', 'error');
+        return;
+      }
+
+      const data = {
+        nome: form.nome.value.trim(),
+        email: form.email.value.trim(),
+        telefone: form.telefone.value.trim(),
+        origem: 'pages.hurtzcompany.com.br/qualificacao',
+        enviado_em: new Date().toISOString()
+      };
+
+      btn.disabled = true;
+      btn.innerHTML = 'Enviando...';
+
+      if (!WEBHOOK_URL) {
+        // Modo provisório — sem webhook configurado ainda
+        console.log('Lead capturado (webhook ainda não configurado):', data);
+        showFeedback('Recebido. Em breve a Hurtz entra em contato.', 'success');
+        form.reset();
+        btn.disabled = false;
+        btn.innerHTML = 'Quero falar com a Hurtz <span aria-hidden="true">→</span>';
+        return;
+      }
+
+      try {
+        const res = await fetch(WEBHOOK_URL, {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify(data)
+        });
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        showFeedback('Recebido. Em breve a Hurtz entra em contato.', 'success');
+        form.reset();
+      } catch (err) {
+        showFeedback('Não foi possível enviar agora. Tenta de novo em instantes.', 'error');
+        console.error(err);
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = 'Quero falar com a Hurtz <span aria-hidden="true">→</span>';
+      }
+    });
+  </script>
+</body>
+</html>
