@@ -1,0 +1,871 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Hurtz CRM — Preview da Tela Inicial</title>
+<meta name="description" content="Preview visual do Hurtz CRM com a paleta Brasa, neutros offwhite e tipografia Inter aplicadas." />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+:root {
+  /* Brasa */
+  --brasa-50: #F9EDE3;
+  --brasa-100: #F0CEB4;
+  --brasa-200: #E2A87A;
+  --brasa-300: #D48444;
+  --brasa-400: #C06018;
+  --brasa-600: #974A12;
+  --brasa-700: #73380D;
+
+  /* Neutros */
+  --carvao: #181614;
+  --grafite: #3D3A36;
+  --pedra: #8C8880;
+  --areia: #E8E4DC;
+  --offwhite: #F5F2EC;
+
+  /* Funcionais */
+  --resultado: #1A7A4A;
+  --atencao: #C06018;
+  --informacao: #3A6FBF;
+  --critico: #B52A2A;
+
+  /* Sistema */
+  --bg: var(--offwhite);
+  --surface: #FFFFFF;
+  --border: var(--areia);
+  --text: var(--carvao);
+  --text-muted: var(--grafite);
+  --text-subtle: var(--pedra);
+
+  --radius-sm: 4px;
+  --radius-md: 6px;
+  --radius-lg: 8px;
+  --radius-pill: 999px;
+
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 24px;
+
+  --font-sans: 'Inter', -apple-system, system-ui, sans-serif;
+}
+
+* { box-sizing: border-box; }
+html, body {
+  margin: 0;
+  padding: 0;
+  height: 100vh;
+  overflow: hidden;
+  font-family: var(--font-sans);
+  font-size: 14px;
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+button { font-family: inherit; cursor: pointer; }
+img, svg { display: block; }
+
+/* ========== Banner Preview ========== */
+.preview-banner {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  z-index: 9999;
+  padding: 8px 14px;
+  background: var(--carvao);
+  color: var(--offwhite);
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  border-radius: var(--radius-md);
+  box-shadow: 0 4px 16px rgba(0,0,0,0.15);
+}
+.preview-banner span {
+  color: var(--brasa-200);
+  margin-right: 6px;
+}
+
+/* ========== Layout principal ========== */
+.app {
+  display: grid;
+  grid-template-columns: 64px 320px 1fr;
+  height: 100vh;
+  background: var(--bg);
+}
+
+/* ========== Sidebar de navegação ========== */
+.nav {
+  background: var(--carvao);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 16px 0;
+  gap: 4px;
+}
+.nav__logo {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-md);
+  background: var(--brasa-400);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 16px;
+  color: var(--offwhite);
+  font-weight: 700;
+  font-size: 16px;
+  letter-spacing: 0.04em;
+}
+.nav__item {
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: var(--radius-md);
+  color: var(--pedra);
+  background: transparent;
+  border: 0;
+  transition: background-color 120ms ease, color 120ms ease;
+  position: relative;
+}
+.nav__item:hover { color: var(--offwhite); background: rgba(255,255,255,0.05); }
+.nav__item--active { color: var(--brasa-200); background: rgba(192,96,24,0.18); }
+.nav__item--active::before {
+  content: '';
+  position: absolute;
+  left: -12px;
+  top: 8px;
+  bottom: 8px;
+  width: 2px;
+  background: var(--brasa-400);
+  border-radius: 0 2px 2px 0;
+}
+.nav__item svg { width: 20px; height: 20px; }
+.nav__spacer { flex: 1; }
+.nav__avatar {
+  width: 36px;
+  height: 36px;
+  border-radius: var(--radius-pill);
+  background: var(--brasa-400);
+  color: var(--offwhite);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  margin-top: 8px;
+  border: 2px solid var(--carvao);
+  box-shadow: 0 0 0 2px var(--brasa-200);
+}
+
+/* ========== Lista de conversas ========== */
+.list {
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.list__header {
+  padding: 20px 20px 16px;
+  border-bottom: 1px solid var(--border);
+}
+.list__title-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+.list__title {
+  font-size: 18px;
+  font-weight: 700;
+  color: var(--carvao);
+  letter-spacing: -0.01em;
+}
+.list__count {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pedra);
+}
+.search {
+  position: relative;
+}
+.search input {
+  width: 100%;
+  padding: 8px 12px 8px 34px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--offwhite);
+  font-family: inherit;
+  font-size: 13px;
+  color: var(--carvao);
+  outline: none;
+  transition: border-color 120ms ease;
+}
+.search input::placeholder { color: var(--pedra); }
+.search input:focus { border-color: var(--brasa-400); background: #FFFFFF; }
+.search svg {
+  position: absolute;
+  left: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 16px;
+  height: 16px;
+  color: var(--pedra);
+}
+.list__filters {
+  display: flex;
+  gap: 6px;
+  padding: 12px 20px;
+  border-bottom: 1px solid var(--border);
+  overflow-x: auto;
+}
+.chip {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  border-radius: var(--radius-pill);
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text-muted);
+  white-space: nowrap;
+  transition: all 120ms ease;
+}
+.chip:hover { background: var(--brasa-50); border-color: var(--brasa-200); }
+.chip--active {
+  background: var(--carvao);
+  color: var(--offwhite);
+  border-color: var(--carvao);
+}
+
+.list__items {
+  flex: 1;
+  overflow-y: auto;
+}
+.item {
+  padding: 14px 20px;
+  border-bottom: 1px solid var(--border);
+  cursor: pointer;
+  display: grid;
+  grid-template-columns: 40px 1fr;
+  gap: 12px;
+  align-items: start;
+  transition: background-color 120ms ease;
+  border-left: 3px solid transparent;
+}
+.item:hover { background: var(--brasa-50); }
+.item--active {
+  background: var(--brasa-50);
+  border-left-color: var(--brasa-400);
+}
+.item__avatar {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--radius-pill);
+  background: var(--areia);
+  color: var(--carvao);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 13px;
+  flex-shrink: 0;
+}
+.item__body { min-width: 0; }
+.item__row {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  gap: 8px;
+}
+.item__name {
+  font-size: 14px;
+  font-weight: 700;
+  color: var(--carvao);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+.item__time {
+  font-size: 11px;
+  color: var(--pedra);
+  flex-shrink: 0;
+}
+.item__preview {
+  font-size: 13px;
+  color: var(--text-muted);
+  margin-top: 2px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+.item__meta {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+}
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+  padding: 2px 8px;
+  font-size: 10px;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+}
+.badge::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: currentColor;
+}
+.badge--quente { background: rgba(26,122,74,0.12); color: var(--resultado); }
+.badge--morno { background: rgba(192,96,24,0.12); color: var(--atencao); }
+.badge--frio { background: rgba(58,111,191,0.12); color: var(--informacao); }
+.badge--perdido { background: rgba(181,42,42,0.10); color: var(--critico); }
+.badge--novo { background: var(--carvao); color: var(--offwhite); }
+.badge--novo::before { background: var(--brasa-200); }
+
+.unread {
+  background: var(--brasa-400);
+  color: var(--offwhite);
+  font-size: 11px;
+  font-weight: 700;
+  padding: 1px 7px;
+  border-radius: var(--radius-pill);
+  min-width: 20px;
+  text-align: center;
+  flex-shrink: 0;
+}
+
+/* ========== Painel da conversa ========== */
+.chat {
+  background: var(--bg);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+.chat__header {
+  padding: 16px 24px;
+  background: var(--surface);
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.chat__contact { display: flex; align-items: center; gap: 12px; }
+.chat__avatar {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--radius-pill);
+  background: var(--brasa-100);
+  color: var(--brasa-700);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  font-size: 14px;
+}
+.chat__name {
+  font-size: 15px;
+  font-weight: 700;
+  color: var(--carvao);
+}
+.chat__meta {
+  font-size: 12px;
+  color: var(--pedra);
+  margin-top: 2px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.chat__meta::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--resultado);
+}
+.chat__actions { display: flex; gap: 8px; }
+.icon-btn {
+  width: 36px;
+  height: 36px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text-muted);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 120ms ease;
+}
+.icon-btn:hover { background: var(--offwhite); color: var(--carvao); border-color: var(--pedra); }
+.icon-btn svg { width: 16px; height: 16px; }
+
+.chat__pipeline {
+  background: var(--surface);
+  padding: 12px 24px;
+  border-bottom: 1px solid var(--border);
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  font-size: 13px;
+}
+.pipeline-label {
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pedra);
+}
+.pipeline-stages {
+  display: flex;
+  gap: 4px;
+  flex: 1;
+}
+.stage {
+  flex: 1;
+  height: 4px;
+  border-radius: 2px;
+  background: var(--areia);
+}
+.stage--done { background: var(--brasa-400); }
+.stage--current {
+  background: var(--brasa-400);
+  box-shadow: 0 0 0 3px rgba(192,96,24,0.18);
+}
+.pipeline-status {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--carvao);
+}
+
+.chat__messages {
+  flex: 1;
+  overflow-y: auto;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.day-divider {
+  text-align: center;
+  font-size: 11px;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--pedra);
+  margin: 8px 0;
+  position: relative;
+}
+.day-divider::before, .day-divider::after {
+  content: '';
+  position: absolute;
+  top: 50%;
+  width: calc(50% - 64px);
+  height: 1px;
+  background: var(--border);
+}
+.day-divider::before { left: 0; }
+.day-divider::after { right: 0; }
+
+.message {
+  max-width: 60%;
+  padding: 10px 14px;
+  border-radius: var(--radius-lg);
+  font-size: 14px;
+  line-height: 1.5;
+}
+.message--in {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  color: var(--carvao);
+  align-self: flex-start;
+  border-top-left-radius: var(--radius-sm);
+}
+.message--out {
+  background: var(--carvao);
+  color: var(--offwhite);
+  align-self: flex-end;
+  border-top-right-radius: var(--radius-sm);
+}
+.message__time {
+  font-size: 10px;
+  opacity: 0.6;
+  margin-top: 4px;
+  display: block;
+}
+
+.chat__composer {
+  background: var(--surface);
+  border-top: 1px solid var(--border);
+  padding: 12px 24px 16px;
+}
+.composer-tabs {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 8px;
+}
+.tab {
+  padding: 4px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-muted);
+  border: 0;
+  background: transparent;
+  border-radius: var(--radius-sm);
+  position: relative;
+}
+.tab--active { color: var(--carvao); }
+.tab--active::after {
+  content: '';
+  position: absolute;
+  left: 12px;
+  right: 12px;
+  bottom: -8px;
+  height: 2px;
+  background: var(--brasa-400);
+  border-radius: 1px;
+}
+.composer {
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 12px;
+  align-items: end;
+}
+.composer textarea {
+  width: 100%;
+  resize: none;
+  padding: 10px 12px;
+  border: 1px solid var(--border);
+  border-radius: var(--radius-md);
+  background: var(--offwhite);
+  font-family: inherit;
+  font-size: 14px;
+  color: var(--carvao);
+  outline: none;
+  min-height: 60px;
+  transition: border-color 120ms ease, background-color 120ms ease;
+}
+.composer textarea:focus { border-color: var(--brasa-400); background: #FFFFFF; }
+.composer-actions {
+  display: flex;
+  gap: 8px;
+  align-items: center;
+}
+.btn {
+  padding: 10px 18px;
+  font-size: 14px;
+  font-weight: 700;
+  letter-spacing: 0.01em;
+  border: 0;
+  border-radius: var(--radius-md);
+  transition: background-color 120ms ease, transform 60ms ease;
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+.btn:active { transform: translateY(1px); }
+.btn--primary { background: var(--brasa-400); color: var(--offwhite); }
+.btn--primary:hover { background: var(--brasa-600); }
+.btn--ghost { background: transparent; color: var(--text-muted); padding: 10px; }
+.btn--ghost:hover { background: var(--offwhite); color: var(--carvao); }
+.btn svg { width: 16px; height: 16px; }
+
+@media (max-width: 1100px) {
+  .app { grid-template-columns: 64px 280px 1fr; }
+  .message { max-width: 75%; }
+}
+</style>
+</head>
+<body>
+
+<div class="app">
+
+  <!-- ============ NAV ============ -->
+  <aside class="nav">
+    <div class="nav__logo" title="Hurtz">H</div>
+    <button class="nav__item nav__item--active" title="Inbox">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 12h-6l-2 3h-4l-2-3H2"/><path d="M5.45 5.11 2 12v6a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2v-6l-3.45-6.89A2 2 0 0 0 16.76 4H7.24a2 2 0 0 0-1.79 1.11z"/></svg>
+    </button>
+    <button class="nav__item" title="Contatos">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="8.5" cy="7" r="4"/><path d="M20 8v6"/><path d="M23 11h-6"/></svg>
+    </button>
+    <button class="nav__item" title="Pipeline">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="6" height="18" rx="1"/><rect x="11" y="3" width="6" height="12" rx="1"/><rect x="19" y="3" width="2" height="6" rx="1"/></svg>
+    </button>
+    <button class="nav__item" title="Relatórios">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="20" x2="12" y2="10"/><line x1="18" y1="20" x2="18" y2="4"/><line x1="6" y1="20" x2="6" y2="16"/></svg>
+    </button>
+    <button class="nav__item" title="Campanhas">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m3 11 18-5v12L3 14v-3z"/><path d="M11.6 16.8a3 3 0 1 1-5.8-1.6"/></svg>
+    </button>
+    <button class="nav__item" title="Automações">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+    </button>
+    <div class="nav__spacer"></div>
+    <div class="nav__avatar" title="Suyane (você)">SY</div>
+  </aside>
+
+  <!-- ============ LISTA ============ -->
+  <section class="list">
+    <header class="list__header">
+      <div class="list__title-row">
+        <h1 class="list__title">Inbox</h1>
+        <span class="list__count">14 abertas</span>
+      </div>
+      <div class="search">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg>
+        <input placeholder="Buscar conversas, contatos…" />
+      </div>
+    </header>
+    <div class="list__filters">
+      <button class="chip chip--active">Todas</button>
+      <button class="chip">Não lidas</button>
+      <button class="chip">Atribuídas a mim</button>
+      <button class="chip">Quente</button>
+      <button class="chip">Morno</button>
+    </div>
+    <div class="list__items">
+
+      <!-- Item ativo -->
+      <div class="item item--active">
+        <div class="item__avatar" style="background: var(--brasa-100); color: var(--brasa-700);">RC</div>
+        <div class="item__body">
+          <div class="item__row">
+            <span class="item__name">Rodrigo Costa</span>
+            <span class="item__time">10:42</span>
+          </div>
+          <div class="item__preview">Bora fechar então. Manda os dados pra eu transferir o sinal.</div>
+          <div class="item__meta">
+            <span class="badge badge--quente">Lead quente</span>
+            <span class="badge" style="background: var(--areia); color: var(--carvao);">Plano R$ 80mil</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Joana -->
+      <div class="item">
+        <div class="item__avatar">JS</div>
+        <div class="item__body">
+          <div class="item__row">
+            <span class="item__name">Joana Silva</span>
+            <span class="item__time">10:23</span>
+          </div>
+          <div class="item__preview">
+            <span class="unread">3</span>
+            Mostrei sua proposta para o conselho e eles…
+          </div>
+          <div class="item__meta">
+            <span class="badge badge--morno">Lead morno</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Marcos -->
+      <div class="item">
+        <div class="item__avatar">MP</div>
+        <div class="item__body">
+          <div class="item__row">
+            <span class="item__name">Marcos Pereira</span>
+            <span class="item__time">09:15</span>
+          </div>
+          <div class="item__preview">Vou pensar e te respondo até amanhã, blz?</div>
+          <div class="item__meta">
+            <span class="badge badge--morno">Lead morno</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Bruno -->
+      <div class="item">
+        <div class="item__avatar">BA</div>
+        <div class="item__body">
+          <div class="item__row">
+            <span class="item__name">Bruno Almeida</span>
+            <span class="item__time">08:51</span>
+          </div>
+          <div class="item__preview">Oi, vi seu anúncio no Instagram. Como funciona?</div>
+          <div class="item__meta">
+            <span class="badge badge--novo">Novo lead</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Camila -->
+      <div class="item">
+        <div class="item__avatar">CA</div>
+        <div class="item__body">
+          <div class="item__row">
+            <span class="item__name">Camila Andrade</span>
+            <span class="item__time">Ontem</span>
+          </div>
+          <div class="item__preview">Obrigada, mas não tenho mais interesse no momento.</div>
+          <div class="item__meta">
+            <span class="badge badge--perdido">Perdido</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Lucas -->
+      <div class="item">
+        <div class="item__avatar">LF</div>
+        <div class="item__body">
+          <div class="item__row">
+            <span class="item__name">Lucas Ferreira</span>
+            <span class="item__time">Ontem</span>
+          </div>
+          <div class="item__preview">Quero entender melhor antes de decidir.</div>
+          <div class="item__meta">
+            <span class="badge badge--frio">Lead frio</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Patrícia -->
+      <div class="item">
+        <div class="item__avatar">PR</div>
+        <div class="item__body">
+          <div class="item__row">
+            <span class="item__name">Patrícia Ramos</span>
+            <span class="item__time">2d</span>
+          </div>
+          <div class="item__preview">Mando os documentos hoje à tarde.</div>
+          <div class="item__meta">
+            <span class="badge badge--quente">Lead quente</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- Diego -->
+      <div class="item">
+        <div class="item__avatar">DM</div>
+        <div class="item__body">
+          <div class="item__row">
+            <span class="item__name">Diego Martins</span>
+            <span class="item__time">3d</span>
+          </div>
+          <div class="item__preview">Pode me ligar amanhã às 14h?</div>
+          <div class="item__meta">
+            <span class="badge badge--morno">Lead morno</span>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- ============ CHAT ============ -->
+  <main class="chat">
+    <header class="chat__header">
+      <div class="chat__contact">
+        <div class="chat__avatar">RC</div>
+        <div>
+          <div class="chat__name">Rodrigo Costa</div>
+          <div class="chat__meta">online · WhatsApp · representante há 4 anos</div>
+        </div>
+      </div>
+      <div class="chat__actions">
+        <button class="icon-btn" title="Ligar">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>
+        </button>
+        <button class="icon-btn" title="Detalhes">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><line x1="12" y1="16" x2="12" y2="12"/><line x1="12" y1="8" x2="12.01" y2="8"/></svg>
+        </button>
+        <button class="btn btn--primary">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+          Marcar como vendido
+        </button>
+      </div>
+    </header>
+
+    <div class="chat__pipeline">
+      <span class="pipeline-label">Pipeline</span>
+      <div class="pipeline-stages">
+        <span class="stage stage--done"></span>
+        <span class="stage stage--done"></span>
+        <span class="stage stage--done"></span>
+        <span class="stage stage--current"></span>
+        <span class="stage"></span>
+      </div>
+      <span class="pipeline-status">Negociação · há 2 dias</span>
+    </div>
+
+    <div class="chat__messages">
+      <div class="day-divider">Hoje</div>
+
+      <div class="message message--in">
+        Bom dia! Pensei aqui sobre o plano de R$ 80 mil que você me apresentou.
+        <span class="message__time">09:14</span>
+      </div>
+      <div class="message message--out">
+        Bom dia, Rodrigo! E aí, o que você achou?
+        <span class="message__time">09:18</span>
+      </div>
+      <div class="message message--in">
+        Curti a flexibilidade do lance livre. Minha esposa também aprovou.
+        <span class="message__time">09:22</span>
+      </div>
+      <div class="message message--out">
+        Que bom! Posso preparar a documentação pra hoje à tarde?
+        <span class="message__time">09:24</span>
+      </div>
+      <div class="message message--in">
+        Pode mandar sim. E sobre o sinal — fica em quanto mesmo?
+        <span class="message__time">10:30</span>
+      </div>
+      <div class="message message--out">
+        R$ 1.840 no PIX, e a partir do mês que vem você entra na taxa cheia.
+        <span class="message__time">10:34</span>
+      </div>
+      <div class="message message--in">
+        Bora fechar então. Manda os dados pra eu transferir o sinal.
+        <span class="message__time">10:42</span>
+      </div>
+    </div>
+
+    <div class="chat__composer">
+      <div class="composer-tabs">
+        <button class="tab tab--active">Resposta</button>
+        <button class="tab">Nota interna</button>
+      </div>
+      <div class="composer">
+        <textarea placeholder="Escreva uma resposta para Rodrigo…"></textarea>
+        <div class="composer-actions">
+          <button class="btn btn--ghost" title="Anexo">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.44 11.05l-9.19 9.19a6 6 0 0 1-8.49-8.49l9.19-9.19a4 4 0 0 1 5.66 5.66l-9.2 9.19a2 2 0 0 1-2.83-2.83l8.49-8.48"/></svg>
+          </button>
+          <button class="btn btn--ghost" title="Templates">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>
+          </button>
+          <button class="btn btn--primary">
+            Enviar
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="22" y1="2" x2="11" y2="13"/><polygon points="22 2 15 22 11 13 2 9 22 2"/></svg>
+          </button>
+        </div>
+      </div>
+    </div>
+  </main>
+
+</div>
+
+<div class="preview-banner"><span>preview</span> Hurtz CRM · v1 com paleta Brasa</div>
+
+</body>
+</html>
