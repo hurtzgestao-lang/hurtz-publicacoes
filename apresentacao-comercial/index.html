@@ -4,58 +4,2043 @@
   <meta charset="utf-8">
   <title>Hurtz Company · Sistema Cota Vendida · Deck Comercial</title>
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <link rel="stylesheet" href="../../marca/design-system/colors_and_type.css">
   <style>
-    html, body { margin: 0; background: #000; }
+/* ============================================================
+   HURTZ DESIGN SYSTEM — colors_and_type.css
+   Brand: Hurtz Company · Arquétipo: The Ruler
+   v1.0 — Abril 2026
+   ============================================================ */
+
+/* Inter is loaded via Google Fonts. If working offline, place
+   the .woff2 files in /fonts and add @font-face declarations. */
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* ---------- BRASA (Primária) ---------- */
+  --brasa-50:  #F9EDE3;  /* Brasa Mínima — fundo tintado, hover suave */
+  --brasa-100: #F0CEB4;  /* Background secundário */
+  --brasa-200: #E2A87A;  /* Brasa Clara — acento, ponto do logo escuro */
+  --brasa-300: #D48444;  /* Transição */
+  --brasa-400: #C06018;  /* Brasa Viva — COR PRIMÁRIA DA MARCA */
+  --brasa-600: #974A12;  /* Brasa Escura — hover, ênfase */
+  --brasa-700: #73380D;  /* Texto sobre fundo claro tintado */
+  --brasa-800: #4E2508;  /* Texto sobre fundo Brasa Mínima */
+  --brasa-900: #2C1404;  /* Máximo contraste */
+
+  --brasa: var(--brasa-400);
+  --brasa-hover: var(--brasa-600);
+
+  /* ---------- NEUTROS ---------- */
+  --carvao:    #181614;  /* Texto principal, fundo escuro (NUNCA #000) */
+  --grafite:   #3D3A36;  /* Texto secundário */
+  --pedra:     #8C8880;  /* Texto terciário, labels */
+  --areia:     #E8E4DC;  /* Bordas, divisores */
+  --offwhite:  #F5F2EC;  /* FUNDO PRINCIPAL (NUNCA #FFF) */
+
+  /* ---------- FUNCIONAIS — CRM / Dashboard ---------- */
+  --func-resultado:   #1A7A4A;  /* Lead quente · sucesso · OK */
+  --func-atencao:     #C06018;  /* Lead morno · alerta */
+  --func-informacao:  #3A6FBF;  /* Lead frio · info */
+  --func-critico:     #B52A2A;  /* Perdido · erro */
+
+  /* ---------- SEMÂNTICA ---------- */
+  --bg:           var(--offwhite);
+  --bg-elevated:  #FFFFFF;       /* só para cards sobre off-white */
+  --bg-tinted:    var(--brasa-50);
+  --bg-inverse:   var(--carvao);
+
+  --fg:           var(--carvao);
+  --fg-muted:     var(--grafite);
+  --fg-subtle:    var(--pedra);
+  --fg-on-brasa:  #FFFFFF;
+  --fg-on-dark:   var(--offwhite);
+
+  --border:       var(--areia);
+  --border-strong: var(--pedra);
+
+  --accent:       var(--brasa);
+  --accent-hover: var(--brasa-hover);
+
+  /* ---------- TIPOGRAFIA ---------- */
+  --font-sans: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+
+  /* Pesos (apenas Regular e Bold — máximo 2 pesos por material) */
+  --fw-regular: 400;
+  --fw-bold:    700;
+
+  /* Tamanhos — escala digital baseada em 11pt corpo
+     1pt ≈ 1.333px → 11pt ≈ 14.6px (arredondado p/ 15px no corpo digital) */
+  --fs-h1:      36px;   /* 28pt — títulos principais */
+  --fs-h2:      26px;   /* 20pt — subtítulos */
+  --fs-h3:      18px;   /* 14pt — seções */
+  --fs-body:    15px;   /* 11pt — texto geral */
+  --fs-small:   13px;
+  --fs-caption: 11px;   /* 8pt — labels, captions */
+
+  /* Tracking */
+  --tracking-h1:      0.02em;   /* +2% */
+  --tracking-h2:      0.01em;   /* +1% */
+  --tracking-caption: 0.12em;   /* +12% (caps) */
+  --tracking-wordmark: 0.18em;
+
+  /* Line-height */
+  --lh-tight:    1.1;
+  --lh-heading:  1.2;
+  --lh-body:     1.6;
+
+  /* ---------- ESPAÇAMENTO ---------- */
+  --space-1:  4px;
+  --space-2:  8px;
+  --space-3:  12px;
+  --space-4:  16px;
+  --space-5:  24px;
+  --space-6:  32px;
+  --space-7:  48px;
+  --space-8:  64px;
+  --space-9:  96px;
+
+  /* ---------- RAIO ---------- */
+  --radius-none: 0;
+  --radius-sm:   2px;
+  --radius-md:   4px;
+  --radius-lg:   8px;     /* máximo — Hurtz é precisa, não macia */
+  --radius-pill: 999px;   /* só para badges e tags */
+
+  /* ---------- BORDAS ---------- */
+  --border-thin:   1px solid var(--areia);
+  --border-strong-: 1.5px solid var(--carvao);
+  --border-accent: 2px solid var(--brasa);
+
+  /* ---------- LAYOUT ---------- */
+  --content-max: 1200px;
+  --gutter:      24px;
+}
+
+/* ===== Reset mínimo ===== */
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; padding: 0; }
+
+body {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-regular);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  color: var(--fg);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+}
+
+/* ===== Tipografia semântica ===== */
+h1, .h1 {
+  font-size: var(--fs-h1);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-h1);
+  line-height: var(--lh-tight);
+  color: inherit;
+  margin: 0;
+}
+
+h2, .h2 {
+  font-size: var(--fs-h2);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-h2);
+  line-height: var(--lh-heading);
+  color: inherit;
+  margin: 0;
+}
+
+h3, .h3 {
+  font-size: var(--fs-h3);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0;
+  line-height: var(--lh-heading);
+  color: inherit;
+  margin: 0;
+}
+
+p, .body {
+  font-size: var(--fs-body);
+  font-weight: var(--fw-regular);
+  line-height: var(--lh-body);
+  color: var(--fg);
+  margin: 0;
+}
+
+.caption, small {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-regular);
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+  color: var(--pedra);
+}
+
+.eyebrow {
+  font-size: var(--fs-caption);
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-caption);
+  text-transform: uppercase;
+  color: var(--brasa);
+}
+
+.metric {
+  font-family: var(--font-sans);
+  font-weight: var(--fw-bold);
+  font-size: calc(var(--fs-body) * 2);  /* 2x corpo, regra do brand */
+  line-height: 1;
+  color: var(--carvao);
+  font-variant-numeric: tabular-nums;
+}
+
+.wordmark {
+  font-weight: var(--fw-bold);
+  letter-spacing: var(--tracking-wordmark);
+  text-transform: uppercase;
+}
+
+/* ===== Componentes base ===== */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: var(--space-2);
+  padding: 14px 24px;
+  font-family: var(--font-sans);
+  font-size: var(--fs-body);
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.02em;
+  border: none;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  transition: background-color 120ms ease, color 120ms ease;
+  text-decoration: none;
+}
+
+.btn-primary {
+  background: var(--brasa);
+  color: var(--fg-on-brasa);
+}
+.btn-primary:hover { background: var(--brasa-hover); }
+.btn-primary:active { background: var(--brasa-900); }
+
+.btn-secondary {
+  background: var(--carvao);
+  color: var(--offwhite);
+}
+.btn-secondary:hover { background: var(--grafite); }
+
+.btn-ghost {
+  background: transparent;
+  color: var(--carvao);
+  border: 1.5px solid var(--carvao);
+}
+.btn-ghost:hover { background: var(--carvao); color: var(--offwhite); }
+
+.card {
+  background: #FFFFFF;
+  border: var(--border-thin);
+  border-radius: var(--radius-md);
+  padding: var(--space-5);
+}
+
+.divider {
+  height: 1px;
+  background: var(--areia);
+  border: 0;
+}
+
+.divider-accent {
+  height: 2px;
+  width: 48px;
+  background: var(--brasa);
+  border: 0;
+}
+
+/* Tags / badges */
+.badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  font-size: 11px;
+  font-weight: var(--fw-bold);
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  border-radius: var(--radius-pill);
+  background: var(--areia);
+  color: var(--carvao);
+}
+.badge-quente   { background: rgba(26,122,74,.12);  color: var(--func-resultado); }
+.badge-morno    { background: rgba(192,96,24,.12);  color: var(--func-atencao); }
+.badge-frio     { background: rgba(58,111,191,.12); color: var(--func-informacao); }
+.badge-perdido  { background: rgba(181,42,42,.12);  color: var(--func-critico); }
+
+  html, body { margin: 0; background: #000; }
   </style>
+  <script>
+/**
+ * <deck-stage> — reusable web component for HTML decks.
+ *
+ * Handles:
+ *  (a) speaker notes — reads <script type="application/json" id="speaker-notes">
+ *      and posts {slideIndexChanged: N} to the parent window on nav.
+ *  (b) keyboard navigation — ←/→, PgUp/PgDn, Space, Home/End, number keys.
+ *  (c) press R to reset to slide 0 (with a tasteful keyboard hint).
+ *  (d) bottom-center overlay showing slide count + hints, fades out on idle.
+ *  (e) auto-scaling — inner canvas is a fixed design size (default 1920×1080)
+ *      scaled with `transform: scale()` to fit the viewport, letterboxed.
+ *      Set the `noscale` attribute to render at authored size (1:1) — the
+ *      PPTX exporter sets this so its DOM capture sees unscaled geometry.
+ *  (f) print — `@media print` lays every slide out as its own page at the
+ *      design size, so the browser's Print → Save as PDF produces a clean
+ *      one-page-per-slide PDF with no extra setup.
+ *
+ * Slides are HIDDEN, not unmounted. Non-active slides stay in the DOM with
+ * `visibility: hidden` + `opacity: 0`, so their state (videos, iframes,
+ * form inputs, React trees) is preserved across navigation.
+ *
+ * Lifecycle event — the component dispatches a `slidechange` CustomEvent on
+ * itself whenever the active slide changes (including the initial mount).
+ * The event bubbles and composes out of shadow DOM, so you can listen on
+ * the <deck-stage> element or on document:
+ *
+ *   document.querySelector('deck-stage').addEventListener('slidechange', (e) => {
+ *     e.detail.index         // new 0-based index
+ *     e.detail.previousIndex // previous index, or -1 on init
+ *     e.detail.total         // total slide count
+ *     e.detail.slide         // the new active slide element
+ *     e.detail.previousSlide // the prior slide element, or null on init
+ *     e.detail.reason        // 'init' | 'keyboard' | 'click' | 'tap' | 'api'
+ *   });
+ *
+ * Persistence: none at the deck level. The host app keeps the current slide
+ * in its own URL (?slide=) and re-delivers it via location.hash on load, so a
+ * bare load with no hash always starts at slide 1.
+ *
+ * Usage:
+ *   <deck-stage width="1920" height="1080">
+ *     <section data-label="Title">...</section>
+ *     <section data-label="Agenda">...</section>
+ *   </deck-stage>
+ *
+ * Slides are the direct element children of <deck-stage>. Each slide is
+ * automatically tagged with:
+ *   - data-screen-label="NN Label"   (1-indexed, for comment flow)
+ *   - data-om-validate="no_overflowing_text,no_overlapping_text,slide_sized_text"
+ */
+
+(() => {
+  const DESIGN_W_DEFAULT = 1920;
+  const DESIGN_H_DEFAULT = 1080;
+  const OVERLAY_HIDE_MS = 1800;
+  const VALIDATE_ATTR = 'no_overflowing_text,no_overlapping_text,slide_sized_text';
+
+  const pad2 = (n) => String(n).padStart(2, '0');
+
+  const stylesheet = `
+    :host {
+      position: fixed;
+      inset: 0;
+      display: block;
+      background: #000;
+      color: #fff;
+      font-family: -apple-system, BlinkMacSystemFont, "Helvetica Neue", Helvetica, Arial, sans-serif;
+      overflow: hidden;
+    }
+
+    .stage {
+      position: absolute;
+      inset: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .canvas {
+      position: relative;
+      transform-origin: center center;
+      flex-shrink: 0;
+      background: #fff;
+      will-change: transform;
+    }
+
+    /* Slides live in light DOM (via <slot>) so authored CSS still applies.
+       We absolutely position each slotted child to stack them. */
+    ::slotted(*) {
+      position: absolute !important;
+      inset: 0 !important;
+      width: 100% !important;
+      height: 100% !important;
+      box-sizing: border-box !important;
+      overflow: hidden;
+      opacity: 0;
+      pointer-events: none;
+      visibility: hidden;
+    }
+    ::slotted([data-deck-active]) {
+      opacity: 1;
+      pointer-events: auto;
+      visibility: visible;
+    }
+
+    /* Tap zones for mobile — back/forward thirds like Stories.
+       Transparent, no visible UI, don't block the overlay. */
+    .tapzones {
+      position: fixed;
+      inset: 0;
+      display: flex;
+      z-index: 2147482000;
+      pointer-events: none;
+    }
+    .tapzone {
+      flex: 1;
+      pointer-events: auto;
+      -webkit-tap-highlight-color: transparent;
+    }
+    /* Only activate tap zones on coarse pointers (touch devices). */
+    @media (hover: hover) and (pointer: fine) {
+      .tapzones { display: none; }
+    }
+
+    .overlay {
+      position: fixed;
+      left: 50%;
+      bottom: 22px;
+      transform: translate(-50%, 6px) scale(0.92);
+      filter: blur(6px);
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px;
+      background: #000;
+      color: #fff;
+      border-radius: 999px;
+      font-size: 12px;
+      font-feature-settings: "tnum" 1;
+      letter-spacing: 0.01em;
+      opacity: 0;
+      pointer-events: none;
+      transition: opacity 260ms ease, transform 260ms cubic-bezier(.2,.8,.2,1), filter 260ms ease;
+      transform-origin: center bottom;
+      z-index: 2147483000;
+      user-select: none;
+    }
+    .overlay[data-visible] {
+      opacity: 1;
+      pointer-events: auto;
+      transform: translate(-50%, 0) scale(1);
+      filter: blur(0);
+    }
+
+    .btn {
+      appearance: none;
+      -webkit-appearance: none;
+      background: transparent;
+      border: 0;
+      margin: 0;
+      padding: 0;
+      color: inherit;
+      font: inherit;
+      cursor: default;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      height: 28px;
+      min-width: 28px;
+      border-radius: 999px;
+      color: rgba(255,255,255,0.72);
+      transition: background 140ms ease, color 140ms ease;
+      -webkit-tap-highlight-color: transparent;
+    }
+    .btn:hover { background: rgba(255,255,255,0.12); color: #fff; }
+    .btn:active { background: rgba(255,255,255,0.18); }
+    .btn:focus { outline: none; }
+    .btn:focus-visible { outline: none; }
+    .btn::-moz-focus-inner { border: 0; }
+    .btn svg { width: 14px; height: 14px; display: block; }
+    .btn.reset {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.02em;
+      padding: 0 10px 0 12px;
+      gap: 6px;
+      color: rgba(255,255,255,0.72);
+    }
+    .btn.reset .kbd {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 4px;
+      font-family: ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+      font-size: 10px;
+      line-height: 1;
+      color: rgba(255,255,255,0.88);
+      background: rgba(255,255,255,0.12);
+      border-radius: 4px;
+    }
+
+    .count {
+      font-variant-numeric: tabular-nums;
+      color: #fff;
+      font-weight: 500;
+      padding: 0 8px;
+      min-width: 42px;
+      text-align: center;
+      font-size: 12px;
+    }
+    .count .sep { color: rgba(255,255,255,0.45); margin: 0 3px; font-weight: 400; }
+    .count .total { color: rgba(255,255,255,0.55); }
+
+    .divider {
+      width: 1px;
+      height: 14px;
+      background: rgba(255,255,255,0.18);
+      margin: 0 2px;
+    }
+
+    /* ── Print: one page per slide, no chrome ────────────────────────────
+       The screen layout stacks every slide at inset:0 inside a scaled
+       canvas; for print we want them in document flow at the authored
+       design size so the browser paginates one slide per sheet. The
+       @page size is set from the width/height attributes via the inline
+       <style id="deck-stage-print-page"> that connectedCallback injects
+       into <head> (the @page at-rule has no effect inside shadow DOM). */
+    @media print {
+      :host {
+        position: static;
+        inset: auto;
+        background: none;
+        overflow: visible;
+        color: inherit;
+      }
+      .stage { position: static; display: block; }
+      .canvas {
+        transform: none !important;
+        width: auto !important;
+        height: auto !important;
+        background: none;
+        will-change: auto;
+      }
+      ::slotted(*) {
+        position: relative !important;
+        inset: auto !important;
+        width: var(--deck-design-w) !important;
+        height: var(--deck-design-h) !important;
+        box-sizing: border-box !important;
+        opacity: 1 !important;
+        visibility: visible !important;
+        pointer-events: auto;
+        break-after: page;
+        page-break-after: always;
+        break-inside: avoid;
+        overflow: hidden;
+      }
+      ::slotted(*:last-child) {
+        break-after: auto;
+        page-break-after: auto;
+      }
+      .overlay, .tapzones { display: none !important; }
+    }
+  `;
+
+  class DeckStage extends HTMLElement {
+    static get observedAttributes() { return ['width', 'height', 'noscale']; }
+
+    constructor() {
+      super();
+      this._root = this.attachShadow({ mode: 'open' });
+      this._index = 0;
+      this._slides = [];
+      this._notes = [];
+      this._hideTimer = null;
+      this._mouseIdleTimer = null;
+
+      this._onKey = this._onKey.bind(this);
+      this._onResize = this._onResize.bind(this);
+      this._onSlotChange = this._onSlotChange.bind(this);
+      this._onMouseMove = this._onMouseMove.bind(this);
+      this._onTapBack = this._onTapBack.bind(this);
+      this._onTapForward = this._onTapForward.bind(this);
+    }
+
+    get designWidth() {
+      return parseInt(this.getAttribute('width'), 10) || DESIGN_W_DEFAULT;
+    }
+    get designHeight() {
+      return parseInt(this.getAttribute('height'), 10) || DESIGN_H_DEFAULT;
+    }
+
+    connectedCallback() {
+      this._render();
+      this._loadNotes();
+      this._syncPrintPageRule();
+      window.addEventListener('keydown', this._onKey);
+      window.addEventListener('resize', this._onResize);
+      window.addEventListener('mousemove', this._onMouseMove, { passive: true });
+      // Initial collection + layout happens via slotchange, which fires on mount.
+    }
+
+    disconnectedCallback() {
+      window.removeEventListener('keydown', this._onKey);
+      window.removeEventListener('resize', this._onResize);
+      window.removeEventListener('mousemove', this._onMouseMove);
+      if (this._hideTimer) clearTimeout(this._hideTimer);
+      if (this._mouseIdleTimer) clearTimeout(this._mouseIdleTimer);
+    }
+
+    attributeChangedCallback() {
+      if (this._canvas) {
+        this._canvas.style.width = this.designWidth + 'px';
+        this._canvas.style.height = this.designHeight + 'px';
+        this._canvas.style.setProperty('--deck-design-w', this.designWidth + 'px');
+        this._canvas.style.setProperty('--deck-design-h', this.designHeight + 'px');
+        this._fit();
+        this._syncPrintPageRule();
+      }
+    }
+
+    _render() {
+      const style = document.createElement('style');
+      style.textContent = stylesheet;
+
+      const stage = document.createElement('div');
+      stage.className = 'stage';
+
+      const canvas = document.createElement('div');
+      canvas.className = 'canvas';
+      canvas.style.width = this.designWidth + 'px';
+      canvas.style.height = this.designHeight + 'px';
+      canvas.style.setProperty('--deck-design-w', this.designWidth + 'px');
+      canvas.style.setProperty('--deck-design-h', this.designHeight + 'px');
+
+      const slot = document.createElement('slot');
+      slot.addEventListener('slotchange', this._onSlotChange);
+      canvas.appendChild(slot);
+      stage.appendChild(canvas);
+
+      // Tap zones (mobile): left third = back, right third = forward.
+      const tapzones = document.createElement('div');
+      tapzones.className = 'tapzones export-hidden';
+      tapzones.setAttribute('aria-hidden', 'true');
+      tapzones.setAttribute('data-noncommentable', '');
+      const tzBack = document.createElement('div');
+      tzBack.className = 'tapzone tapzone--back';
+      const tzMid = document.createElement('div');
+      tzMid.className = 'tapzone tapzone--mid';
+      tzMid.style.pointerEvents = 'none';
+      const tzFwd = document.createElement('div');
+      tzFwd.className = 'tapzone tapzone--fwd';
+      tzBack.addEventListener('click', this._onTapBack);
+      tzFwd.addEventListener('click', this._onTapForward);
+      tapzones.append(tzBack, tzMid, tzFwd);
+
+      // Overlay: compact, solid black, with clickable controls.
+      const overlay = document.createElement('div');
+      overlay.className = 'overlay export-hidden';
+      overlay.setAttribute('role', 'toolbar');
+      overlay.setAttribute('aria-label', 'Deck controls');
+      overlay.setAttribute('data-noncommentable', '');
+      overlay.innerHTML = `
+        <button class="btn prev" type="button" aria-label="Previous slide" title="Previous (←)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M10 3L5 8l5 5"/></svg>
+        </button>
+        <span class="count" aria-live="polite"><span class="current">1</span><span class="sep">/</span><span class="total">1</span></span>
+        <button class="btn next" type="button" aria-label="Next slide" title="Next (→)">
+          <svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 3l5 5-5 5"/></svg>
+        </button>
+        <span class="divider"></span>
+        <button class="btn reset" type="button" aria-label="Reset to first slide" title="Reset (R)">Reset<span class="kbd">R</span></button>
+      `;
+
+      overlay.querySelector('.prev').addEventListener('click', () => this._go(this._index - 1, 'click'));
+      overlay.querySelector('.next').addEventListener('click', () => this._go(this._index + 1, 'click'));
+      overlay.querySelector('.reset').addEventListener('click', () => this._go(0, 'click'));
+
+      this._root.append(style, stage, tapzones, overlay);
+      this._canvas = canvas;
+      this._slot = slot;
+      this._overlay = overlay;
+      this._countEl = overlay.querySelector('.current');
+      this._totalEl = overlay.querySelector('.total');
+    }
+
+    /** @page must live in the document stylesheet — it's a no-op inside
+     *  shadow DOM. Inject/update a single <head> style tag so the print
+     *  sheet matches the design size and Save-as-PDF yields one slide per
+     *  page with no margins. */
+    _syncPrintPageRule() {
+      const id = 'deck-stage-print-page';
+      let tag = document.getElementById(id);
+      if (!tag) {
+        tag = document.createElement('style');
+        tag.id = id;
+        document.head.appendChild(tag);
+      }
+      tag.textContent =
+        '@page { size: ' + this.designWidth + 'px ' + this.designHeight + 'px; margin: 0; } ' +
+        '@media print { html, body { margin: 0 !important; padding: 0 !important; background: none !important; overflow: visible !important; height: auto !important; } ' +
+        '* { -webkit-print-color-adjust: exact; print-color-adjust: exact; } }';
+    }
+
+    _onSlotChange() {
+      this._collectSlides();
+      this._restoreIndex();
+      this._applyIndex({ showOverlay: false, broadcast: true, reason: 'init' });
+      this._fit();
+    }
+
+    _collectSlides() {
+      const assigned = this._slot.assignedElements({ flatten: true });
+      this._slides = assigned.filter((el) => {
+        // Skip template/style/script nodes even if someone slots them.
+        const tag = el.tagName;
+        return tag !== 'TEMPLATE' && tag !== 'SCRIPT' && tag !== 'STYLE';
+      });
+
+      this._slides.forEach((slide, i) => {
+        const n = i + 1;
+        // Determine a label for comment flow: prefer explicit data-label,
+        // then an existing data-screen-label, then first heading, else "Slide".
+        let label = slide.getAttribute('data-label');
+        if (!label) {
+          const existing = slide.getAttribute('data-screen-label');
+          if (existing) {
+            // Strip any leading number the author may have included.
+            label = existing.replace(/^\s*\d+\s*/, '').trim() || existing;
+          }
+        }
+        if (!label) {
+          const h = slide.querySelector('h1, h2, h3, [data-title]');
+          if (h) label = (h.textContent || '').trim().slice(0, 40);
+        }
+        if (!label) label = 'Slide';
+        slide.setAttribute('data-screen-label', `${pad2(n)} ${label}`);
+
+        // Validation attribute for comment flow / auto-checks.
+        if (!slide.hasAttribute('data-om-validate')) {
+          slide.setAttribute('data-om-validate', VALIDATE_ATTR);
+        }
+
+        slide.setAttribute('data-deck-slide', String(i));
+      });
+
+      if (this._totalEl) this._totalEl.textContent = String(this._slides.length || 1);
+      if (this._index >= this._slides.length) this._index = Math.max(0, this._slides.length - 1);
+    }
+
+    _loadNotes() {
+      const tag = document.getElementById('speaker-notes');
+      if (!tag) { this._notes = []; return; }
+      try {
+        const parsed = JSON.parse(tag.textContent || '[]');
+        if (Array.isArray(parsed)) this._notes = parsed;
+      } catch (e) {
+        console.warn('[deck-stage] Failed to parse #speaker-notes JSON:', e);
+        this._notes = [];
+      }
+    }
+
+    _restoreIndex() {
+      // The host's ?slide= param is delivered as a #<int> hash (1-indexed) on
+      // the iframe src. No hash → slide 1; the deck itself keeps no position
+      // state across loads.
+      const h = (location.hash || '').match(/^#(\d+)$/);
+      if (h) {
+        const n = parseInt(h[1], 10) - 1;
+        if (n >= 0 && n < this._slides.length) this._index = n;
+      }
+    }
+
+    _applyIndex({ showOverlay = true, broadcast = true, reason = 'init' } = {}) {
+      if (!this._slides.length) return;
+      const prev = this._prevIndex == null ? -1 : this._prevIndex;
+      const curr = this._index;
+      // Keep the iframe's own hash in sync so an in-iframe location.reload()
+      // (reload banner path in viewer-handle.ts) lands on the current slide,
+      // not the stale deep-link hash from initial load.
+      try { history.replaceState(null, '', '#' + (curr + 1)); } catch (e) {}
+      this._slides.forEach((s, i) => {
+        if (i === curr) s.setAttribute('data-deck-active', '');
+        else s.removeAttribute('data-deck-active');
+      });
+      if (this._countEl) this._countEl.textContent = String(curr + 1);
+
+      if (broadcast) {
+        // (1) Legacy: host-window postMessage for speaker-notes renderers.
+        try { window.postMessage({ slideIndexChanged: curr }, '*'); } catch (e) {}
+
+        // (2) In-page CustomEvent on the <deck-stage> element itself.
+        //     Bubbles and composes out of shadow DOM so slide code can listen:
+        //       document.querySelector('deck-stage').addEventListener('slidechange', e => {
+        //         e.detail.index, e.detail.previousIndex, e.detail.total, e.detail.slide, e.detail.reason
+        //       });
+        const detail = {
+          index: curr,
+          previousIndex: prev,
+          total: this._slides.length,
+          slide: this._slides[curr] || null,
+          previousSlide: prev >= 0 ? (this._slides[prev] || null) : null,
+          reason: reason, // 'init' | 'keyboard' | 'click' | 'tap' | 'api'
+        };
+        this.dispatchEvent(new CustomEvent('slidechange', {
+          detail,
+          bubbles: true,
+          composed: true,
+        }));
+      }
+
+      this._prevIndex = curr;
+      if (showOverlay) this._flashOverlay();
+    }
+
+    _flashOverlay() {
+      if (!this._overlay) return;
+      this._overlay.setAttribute('data-visible', '');
+      if (this._hideTimer) clearTimeout(this._hideTimer);
+      this._hideTimer = setTimeout(() => {
+        this._overlay.removeAttribute('data-visible');
+      }, OVERLAY_HIDE_MS);
+    }
+
+    _fit() {
+      if (!this._canvas) return;
+      // PPTX export sets noscale so the DOM capture sees authored-size
+      // geometry — the scaled canvas is in shadow DOM, so the exporter's
+      // resetTransformSelector can't reach .canvas.style.transform directly.
+      if (this.hasAttribute('noscale')) {
+        this._canvas.style.transform = 'none';
+        return;
+      }
+      const vw = window.innerWidth;
+      const vh = window.innerHeight;
+      const s = Math.min(vw / this.designWidth, vh / this.designHeight);
+      this._canvas.style.transform = `scale(${s})`;
+    }
+
+    _onResize() { this._fit(); }
+
+    _onMouseMove() {
+      // Keep overlay visible while mouse moves; hide after idle.
+      this._flashOverlay();
+    }
+
+    _onTapBack(e) {
+      e.preventDefault();
+      this._go(this._index - 1, 'tap');
+    }
+
+    _onTapForward(e) {
+      e.preventDefault();
+      this._go(this._index + 1, 'tap');
+    }
+
+    _onKey(e) {
+      // Ignore when the user is typing.
+      const t = e.target;
+      if (t && (t.isContentEditable || /^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName))) return;
+      if (e.metaKey || e.ctrlKey || e.altKey) return;
+
+      const key = e.key;
+      let handled = true;
+
+      if (key === 'ArrowRight' || key === 'PageDown' || key === ' ' || key === 'Spacebar') {
+        this._go(this._index + 1, 'keyboard');
+      } else if (key === 'ArrowLeft' || key === 'PageUp') {
+        this._go(this._index - 1, 'keyboard');
+      } else if (key === 'Home') {
+        this._go(0, 'keyboard');
+      } else if (key === 'End') {
+        this._go(this._slides.length - 1, 'keyboard');
+      } else if (key === 'r' || key === 'R') {
+        this._go(0, 'keyboard');
+      } else if (/^[0-9]$/.test(key)) {
+        // 1..9 jump to that slide; 0 jumps to 10.
+        const n = key === '0' ? 9 : parseInt(key, 10) - 1;
+        if (n < this._slides.length) this._go(n, 'keyboard');
+      } else {
+        handled = false;
+      }
+
+      if (handled) {
+        e.preventDefault();
+        this._flashOverlay();
+      }
+    }
+
+    _go(i, reason = 'api') {
+      if (!this._slides.length) return;
+      const clamped = Math.max(0, Math.min(this._slides.length - 1, i));
+      if (clamped === this._index) {
+        this._flashOverlay();
+        return;
+      }
+      this._index = clamped;
+      this._applyIndex({ showOverlay: true, broadcast: true, reason });
+    }
+
+    // Public API ------------------------------------------------------------
+
+    /** Current slide index (0-based). */
+    get index() { return this._index; }
+    /** Total slide count. */
+    get length() { return this._slides.length; }
+    /** Programmatically navigate. */
+    goTo(i) { this._go(i, 'api'); }
+    next() { this._go(this._index + 1, 'api'); }
+    prev() { this._go(this._index - 1, 'api'); }
+    reset() { this._go(0, 'api'); }
+  }
+
+  if (!customElements.get('deck-stage')) {
+    customElements.define('deck-stage', DeckStage);
+  }
+})();
+
+  </script>
   <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
-  <script src="../../marca/design-system/slides/deck-stage.js"></script>
 </head>
 <body>
   <deck-stage><div id="root" style="display:contents"></div></deck-stage>
 
-  <!-- Carrega LogoLockup, LogoSymbol e HURTZ_COLORS -->
-  <script type="text/babel" src="../../marca/design-system/ui_kits/meta-ads/MetaAd.jsx"></script>
-  <!-- Slides do deck -->
-  <script type="text/babel" src="slides.jsx"></script>
+  <script type="text/babel">
+/* @jsx React.createElement */
+const { useState } = React;
+
+// ============== SHARED PRIMITIVES ==============
+const COLORS = {
+  brasa: '#C06018', brasaDark: '#974A12', brasaMin: '#F9EDE3',
+  carvao: '#181614', grafite: '#3D3A36', pedra: '#8C8880',
+  areia: '#E8E4DC', offwhite: '#F5F2EC',
+  resultado: '#1A7A4A', critico: '#B52A2A', informacao: '#3A6FBF',
+};
+
+// Resolve asset paths whether this kit is loaded from /ui_kits/meta-ads/, /ui_kits/<other>/, /slides/ or root
+const ASSETS = (() => {
+  const p = location.pathname;
+  if (p.includes('/ui_kits/')) return '../../assets/';
+  if (p.includes('/slides/')) return '../assets/';
+  if (p.includes('/preview/')) return '../assets/';
+  return 'assets/';
+})();
+
+// Lockup vetorizado inline — sem PNGs com fundo embutido.
+// Símbolo: 3 paralelogramas vetorizados do logo original (lados verticais, topo/base com slope -0.48).
+// viewBox 0 0 1300 240 → razão 5.417 : 1
+function LogoLockup({ dark = false, height = 28, divider = true }) {
+  const fg = dark ? COLORS.offwhite : COLORS.carvao;
+  const accent = COLORS.brasa;
+  const width = height * (1300 / 240);
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 1300 240"
+      width={width}
+      height={height}
+      style={{ display: 'block', flexShrink: 0 }}
+      aria-label="Hurtz"
+    >
+      <g fill={fg}>
+        <polygon points="55,79 215,2 215,39 55,116" />
+        <polygon points="2,182 271,53 271,89 2,218" />
+        <polygon points="121,201 301,115 301,152 121,237" />
+      </g>
+      {divider && <rect x="380" y="20" width="6" height="200" fill={accent} />}
+      <text x="450" y="178" fontFamily="Inter, Helvetica, Arial, sans-serif" fontWeight="700" fontSize="170" letterSpacing="14" fill={fg}>HURTZ</text>
+    </svg>
+  );
+}
+
+function LogoSymbol({ size = 24, color = COLORS.carvao, dark = false }) {
+  const fill = dark ? COLORS.offwhite : color;
+  // Símbolo vetorizado: viewBox 0 0 304 240 (razão ~1.267)
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      viewBox="0 0 304 240"
+      height={size}
+      width={size * (304 / 240)}
+      style={{ display: 'block', flexShrink: 0 }}
+      aria-hidden="true"
+    >
+      <g fill={fill}>
+        <polygon points="55,79 215,2 215,39 55,116" />
+        <polygon points="2,182 271,53 271,89 2,218" />
+        <polygon points="121,201 301,115 301,152 121,237" />
+      </g>
+    </svg>
+  );
+}
+
+// ============== META ADS CREATIVE ==============
+function MetaAdLight() {
+  return (
+    <div style={{
+      width: 360, height: 360, background: COLORS.offwhite, padding: 28,
+      display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+      border: `1px solid ${COLORS.areia}`, fontFamily: 'Inter, sans-serif',
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <LogoLockup height={28} />
+        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.14em', color: COLORS.pedra }}>EXCLUSIVO · CONSÓRCIO</span>
+      </div>
+      <div>
+        <div style={{ width: 28, height: 2, background: COLORS.brasa, marginBottom: 14 }} />
+        <h2 style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.1, color: COLORS.carvao, margin: 0, letterSpacing: '-0.005em' }}>
+          50 leads<br />qualificados<br />por dia.
+        </h2>
+        <p style={{ fontSize: 13, color: COLORS.grafite, marginTop: 12, lineHeight: 1.5, maxWidth: 260 }}>
+          Cada um com ficha completa. Pronto para o SDR ligar.
+        </p>
+      </div>
+      <button style={{
+        background: COLORS.brasa, color: '#fff', border: 'none', padding: '12px 18px',
+        fontSize: 13, fontWeight: 700, letterSpacing: '0.04em', borderRadius: 4, alignSelf: 'flex-start',
+        fontFamily: 'inherit', cursor: 'pointer',
+      }}>QUERO A PROPOSTA →</button>
+    </div>
+  );
+}
+
+function MetaAdDark() {
+  return (
+    <div style={{
+      width: 360, height: 360, background: COLORS.carvao, padding: 28,
+      display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+      fontFamily: 'Inter, sans-serif',
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between' }}>
+        <LogoLockup dark height={28} />
+        <span style={{ fontSize: 9, fontWeight: 700, letterSpacing: '0.14em', color: 'rgba(245,242,236,0.5)' }}>RECORDE NACIONAL</span>
+      </div>
+      <div>
+        <div style={{ width: 28, height: 2, background: COLORS.brasa, marginBottom: 14 }} />
+        <div style={{ fontSize: 64, fontWeight: 700, lineHeight: 0.95, color: COLORS.offwhite, letterSpacing: '-0.02em' }}>
+          R$14<span style={{ color: COLORS.brasa }}>M</span>
+        </div>
+        <p style={{ fontSize: 13, color: 'rgba(245,242,236,0.75)', marginTop: 14, lineHeight: 1.5, maxWidth: 280 }}>
+          é o que <strong style={{ color: COLORS.offwhite }}>Gabriela vende por mês</strong> com a operação Hurtz. Sem milagre — método.
+        </p>
+      </div>
+      <button style={{
+        background: COLORS.brasa, color: '#fff', border: 'none', padding: '12px 18px',
+        fontSize: 13, fontWeight: 700, letterSpacing: '0.04em', borderRadius: 4, alignSelf: 'flex-start',
+        fontFamily: 'inherit', cursor: 'pointer',
+      }}>VER O MÉTODO →</button>
+    </div>
+  );
+}
+
+function MetaAdStat() {
+  return (
+    <div style={{
+      width: 360, height: 360, background: COLORS.offwhite, padding: 28,
+      display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+      border: `1px solid ${COLORS.areia}`, fontFamily: 'Inter, sans-serif',
+    }}>
+      <LogoLockup height={28} />
+      <div style={{ textAlign: 'left' }}>
+        <span style={{ fontSize: 10, fontWeight: 700, letterSpacing: '0.14em', color: COLORS.brasa, textTransform: 'uppercase' }}>Operação · Abril 2026</span>
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginTop: 14 }}>
+          <div>
+            <div style={{ fontSize: 38, fontWeight: 700, color: COLORS.carvao, lineHeight: 1 }}>R$34<span style={{ fontSize: 18, color: COLORS.brasa }}>M</span></div>
+            <div style={{ fontSize: 11, color: COLORS.grafite, marginTop: 6 }}>vendas/mês dos clientes ativos</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 38, fontWeight: 700, color: COLORS.carvao, lineHeight: 1 }}>1.482</div>
+            <div style={{ fontSize: 11, color: COLORS.grafite, marginTop: 6 }}>leads qualificados em 30 dias</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 38, fontWeight: 700, color: COLORS.carvao, lineHeight: 1 }}>418</div>
+            <div style={{ fontSize: 11, color: COLORS.grafite, marginTop: 6 }}>fichas completas no CRM</div>
+          </div>
+          <div>
+            <div style={{ fontSize: 38, fontWeight: 700, color: COLORS.carvao, lineHeight: 1 }}>22<span style={{ fontSize: 20, color: COLORS.brasa }}>%</span></div>
+            <div style={{ fontSize: 11, color: COLORS.grafite, marginTop: 6 }}>conversão SDR → Closer</div>
+          </div>
+        </div>
+      </div>
+      <p style={{ fontSize: 12, color: COLORS.grafite, margin: 0, lineHeight: 1.5 }}>
+        Cirurgiões, não generalistas. <strong style={{ color: COLORS.carvao }}>Hurtz Company</strong> — exclusivo p/ representantes de consórcio.
+      </p>
+    </div>
+  );
+}
+
+window.MetaAdLight = MetaAdLight;
+window.MetaAdDark = MetaAdDark;
+window.MetaAdStat = MetaAdStat;
+window.LogoLockup = LogoLockup;
+window.LogoSymbol = LogoSymbol;
+window.HURTZ_COLORS = COLORS;
+
+  </script>
+
+  <script type="text/babel">
+/* @jsx React.createElement */
+/* Hurtz Company — Deck Comercial · Sistema Cota Vendida
+   Usa tokens do Design System (HURTZ_COLORS, LogoLockup, LogoSymbol vindos de MetaAd.jsx) */
+
+const SC = window.HURTZ_COLORS;
+const SLogoLockup = window.LogoLockup;
+const SLogoSymbol = window.LogoSymbol;
+
+const slideBase = {
+  width: 1920, height: 1080, fontFamily: 'Inter, sans-serif',
+  display: 'flex', flexDirection: 'column', position: 'relative',
+  overflow: 'hidden',
+};
+
+/* ============================================================
+   PRIMITIVAS
+   ============================================================ */
+
+function Eyebrow({ children, color = SC.brasa }) {
+  return (
+    <span style={{ fontSize: 18, fontWeight: 700, letterSpacing: '0.18em', color, textTransform: 'uppercase' }}>
+      {children}
+    </span>
+  );
+}
+
+function AccentBar({ color = SC.brasa, w = 96, h = 3, mt = 32, mb = 40 }) {
+  return <div style={{ width: w, height: h, background: color, margin: `${mt}px 0 ${mb}px` }} />;
+}
+
+function SlideFooter({ light = true, n, label }) {
+  const c = light ? SC.pedra : 'rgba(245,242,236,0.5)';
+  return (
+    <div style={{
+      position: 'absolute', left: 80, right: 80, bottom: 48,
+      display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+      fontSize: 16, color: c, letterSpacing: '0.06em',
+    }}>
+      <SLogoSymbol size={22} color={light ? SC.carvao : SC.offwhite} />
+      <span>HURTZ · {label || 'SISTEMA COTA VENDIDA'} · {n}</span>
+    </div>
+  );
+}
+
+function PainPoint({ text }) {
+  return (
+    <li style={{
+      fontSize: 30, color: 'rgba(245,242,236,0.92)', padding: '20px 0 20px 56px',
+      position: 'relative', borderBottom: '1px solid rgba(181,42,42,0.25)', lineHeight: 1.4,
+    }}>
+      <span style={{
+        position: 'absolute', left: 0, top: 32, width: 32, height: 2, background: '#B52A2A',
+      }} />
+      {text}
+    </li>
+  );
+}
+
+function ClarityPoint({ text }) {
+  return (
+    <li style={{
+      fontSize: 30, color: SC.carvao, padding: '20px 0 20px 56px',
+      position: 'relative', borderBottom: `1px solid ${SC.areia}`, lineHeight: 1.4,
+    }}>
+      <span style={{
+        position: 'absolute', left: 0, top: 32, width: 32, height: 2, background: '#3A6FBF',
+      }} />
+      {text}
+    </li>
+  );
+}
+
+/* Helper: linha de entregável já preço ============================== */
+function brl(n) {
+  return n.toLocaleString('pt-BR', { minimumFractionDigits: 0, maximumFractionDigits: 0 });
+}
+
+/* ============================================================
+   SLIDE 1 — CAPA
+   ============================================================ */
+function CapaSlide() {
+  return (
+    <section style={{
+      ...slideBase, background: SC.carvao, padding: 96, color: SC.offwhite,
+      justifyContent: 'space-between',
+    }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+        <SLogoLockup dark height={48} />
+        <span style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.18em', color: 'rgba(245,242,236,0.55)' }}>
+          DECK COMERCIAL · 04 / 2026
+        </span>
+      </div>
+
+      <div>
+        <Eyebrow color="#FFFFFF">Operação de Aquisição</Eyebrow>
+        <AccentBar color={SC.brasa} />
+        <h1 style={{ fontSize: 200, fontWeight: 700, lineHeight: 0.9, margin: 0, letterSpacing: '-0.02em' }}>
+          Sistema<br/>Cota Vendida.
+        </h1>
+        <p style={{ fontSize: 32, color: 'rgba(245,242,236,0.7)', marginTop: 48, maxWidth: 1200, lineHeight: 1.45 }}>
+          Aquisição, qualificação e entrega de leads quentes para representantes de consórcio.
+        </p>
+      </div>
+
+      <div style={{ fontSize: 14, color: 'rgba(245,242,236,0.45)', letterSpacing: '0.16em' }}>
+        HURTZ COMPANY · PARAUAPEBAS, PA
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   SLIDE 2 — O CENÁRIO HOJE (vermelho · escuro · dor)
+   ============================================================ */
+function CenarioHojeSlide() {
+  const dores = [
+    'Você queima R$5k em anúncio e recebe 200 nomes que nem sabem o que é consórcio.',
+    'Time gasta o dia ligando pra lead frio. Fecha 1 em cada 50. E culpa a equipe.',
+    'Você não enxerga o ROI. Não sabe quanto entrou, quanto fechou, quanto sobrou.',
+    'Já trocou 3 agências. A história sempre se repete: promessa, decepção, fim de contrato.',
+    'Cada vendedor segue o critério dele. Sem padrão, sem pipeline, sem previsibilidade.',
+    'Você cresce e o problema cresce junto. Mais gente ligando pra mais lead ruim.',
+    'Fim do mês chega e você torce pela meta, não calcula.',
+  ];
+  return (
+    <section style={{
+      ...slideBase, background: '#1A0808', padding: '96px 96px 120px',
+      backgroundImage: 'radial-gradient(circle at 20% 0%, rgba(181,42,42,0.18) 0%, transparent 55%)',
+    }}>
+      <Eyebrow color="#E26A6A">02 · O CENÁRIO HOJE</Eyebrow>
+      <AccentBar color="#B52A2A" />
+      <h2 style={{ fontSize: 96, fontWeight: 700, color: SC.offwhite, margin: 0, lineHeight: 1.0, letterSpacing: '-0.01em', maxWidth: 1500 }}>
+        A operação que<br/>te consome.
+      </h2>
+      <ul style={{ marginTop: 64, padding: 0, listStyle: 'none', maxWidth: 1700 }}>
+        {dores.map(d => <PainPoint key={d} text={d} />)}
+      </ul>
+      <SlideFooter light={false} n="02" />
+    </section>
+  );
+}
+
+/* ============================================================
+   SLIDE 3 — COMO PODERIA SER (azul · clareza)
+   ============================================================ */
+function ComoPoderiaSerSlide() {
+  const claros = [
+    'Cada lead chega com nome, bem desejado, valor, entrada, renda e urgência. Pronto pra ligar.',
+    'Lead já entra no CRM marcado: quente, morno ou frio. O time sabe pra quem ligar primeiro.',
+    'Você abre o painel e vê tudo: investido, leads, contatos, negociações, fechados, ROI — ao vivo.',
+    'Time fecha 3 a 5x mais. Porque liga pra quem já decidiu comprar.',
+    'A operação roda sozinha. Você não cobra criativo, não ajusta campanha, não monta planilha.',
+    'Cresce sem caos. Dobra investimento, dobra resultado, sem dobrar dor de cabeça.',
+    'Fim de mês fica matemático. Número entra, número sai, decisão clara.',
+  ];
+  return (
+    <section style={{
+      ...slideBase, background: SC.offwhite, padding: '96px 96px 120px',
+      backgroundImage: 'radial-gradient(circle at 80% 0%, rgba(58,111,191,0.10) 0%, transparent 55%)',
+    }}>
+      <Eyebrow color="#3A6FBF">03 · COMO PODERIA SER</Eyebrow>
+      <AccentBar color="#3A6FBF" />
+      <h2 style={{ fontSize: 96, fontWeight: 700, color: SC.carvao, margin: 0, lineHeight: 1.0, letterSpacing: '-0.01em', maxWidth: 1500 }}>
+        A operação que<br/>trabalha por você.
+      </h2>
+      <ul style={{ marginTop: 64, padding: 0, listStyle: 'none', maxWidth: 1700 }}>
+        {claros.map(c => <ClarityPoint key={c} text={c} />)}
+      </ul>
+      <SlideFooter n="03" />
+    </section>
+  );
+}
+
+/* ============================================================
+   SLIDE 4 — METODOLOGIA (diagrama de jornada)
+   ============================================================ */
+function MetodologiaSlide() {
+  const fases = [
+    { n: '01', t: 'CAPTAÇÃO', d: 'Método Hurtz de Criativos: vídeo de bem real + overlay financeiro. Sem usar a palavra "consórcio".' },
+    { n: '02', t: 'QUALIFICAÇÃO', d: 'Lead simula o crédito numa página inteligente. Preenche bem, valor, entrada, renda e urgência.' },
+    { n: '03', t: 'CLASSIFICAÇÃO', d: 'Sistema calcula a temperatura automaticamente: Quente, Morno ou Frio. Scoring antes do vendedor.' },
+    { n: '04', t: 'ENTREGA', d: 'Lead Card no WhatsApp com ficha completa. Entra no CRM com tags e ação recomendada.' },
+  ];
+  const klt = [
+    { fase: 'CONHECER', subtitulo: 'Apresenta a oportunidade. Quebra o desconhecimento.' },
+    { fase: 'GOSTAR', subtitulo: 'Prova social, casos reais, depoimentos. Cria afinidade.' },
+    { fase: 'CONFIAR', subtitulo: 'Oferta direta. Chamada pra simulação. Lead vem decidido.' },
+  ];
+  return (
+    <section style={{ ...slideBase, background: SC.offwhite, padding: '80px 96px 120px' }}>
+      <Eyebrow>04 · NOSSA METODOLOGIA</Eyebrow>
+      <AccentBar mt={24} mb={32} />
+      <h2 style={{ fontSize: 72, fontWeight: 700, color: SC.carvao, margin: 0, lineHeight: 1.0, letterSpacing: '-0.01em' }}>
+        4 fases que transformam <span style={{ color: SC.brasa }}>tráfego em fechamento.</span>
+      </h2>
+
+      {/* Linha do tempo - 4 fases */}
+      <div style={{ marginTop: 56, position: 'relative' }}>
+        <div style={{ position: 'absolute', top: 36, left: 30, right: 30, height: 2, background: SC.areia }} />
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 32, position: 'relative' }}>
+          {fases.map((f, i) => (
+            <div key={f.n}>
+              <div style={{
+                width: 72, height: 72, borderRadius: '50%', background: SC.brasa, color: '#fff',
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+                fontSize: 22, fontWeight: 700, letterSpacing: '0.04em',
+                boxShadow: `0 0 0 8px ${SC.offwhite}`,
+              }}>{f.n}</div>
+              <div style={{ marginTop: 24, fontSize: 22, fontWeight: 700, letterSpacing: '0.16em', color: SC.carvao, textTransform: 'uppercase' }}>
+                {f.t}
+              </div>
+              <p style={{ marginTop: 12, fontSize: 18, lineHeight: 1.5, color: SC.grafite, maxWidth: 380 }}>
+                {f.d}
+              </p>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      {/* Funil KLT - 3 fases */}
+      <div style={{ marginTop: 64, padding: 40, background: '#FFFFFF', border: `1.5px solid ${SC.areia}`, borderRadius: 4 }}>
+        <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 24 }}>
+          <div>
+            <span style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.18em', color: SC.brasa, textTransform: 'uppercase' }}>
+              Funil KLT — dentro da fase de Captação
+            </span>
+            <h3 style={{ fontSize: 28, fontWeight: 700, color: SC.carvao, margin: '8px 0 0' }}>
+              Cada lead consome a história inteira antes de chegar.
+            </h3>
+          </div>
+          <div style={{ fontSize: 14, color: SC.pedra, letterSpacing: '0.12em' }}>3 FASES SEQUENCIAIS</div>
+        </div>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 24, marginTop: 16 }}>
+          {klt.map((k, i) => (
+            <div key={k.fase} style={{
+              padding: 24, background: SC.offwhite, borderLeft: `4px solid ${SC.brasa}`,
+            }}>
+              <div style={{ fontSize: 13, fontWeight: 700, color: SC.pedra, letterSpacing: '0.18em' }}>
+                FASE {i + 1}
+              </div>
+              <div style={{ fontSize: 30, fontWeight: 700, color: SC.carvao, marginTop: 4 }}>{k.fase}</div>
+              <div style={{ fontSize: 16, color: SC.grafite, marginTop: 8, lineHeight: 1.45 }}>{k.subtitulo}</div>
+            </div>
+          ))}
+        </div>
+      </div>
+
+      <SlideFooter n="04" />
+    </section>
+  );
+}
+
+/* ============================================================
+   ENTREGÁVEL — base reutilizável
+   ============================================================ */
+function DeliverableSlide({ n, eyebrow, title, lede, body, side, label = 'ENTREGÁVEL' }) {
+  return (
+    <section style={{ ...slideBase, background: SC.offwhite, padding: '96px 96px 120px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <Eyebrow>{n} · {eyebrow}</Eyebrow>
+        <span style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.20em', color: SC.pedra, textTransform: 'uppercase' }}>
+          {label}
+        </span>
+      </div>
+      <AccentBar mt={24} mb={32} />
+      <h2 style={{ fontSize: 80, fontWeight: 700, color: SC.carvao, margin: 0, lineHeight: 1.0, letterSpacing: '-0.01em', maxWidth: 1500 }}>
+        {title}
+      </h2>
+      {lede && (
+        <p style={{ fontSize: 28, color: SC.grafite, marginTop: 32, maxWidth: 1500, lineHeight: 1.45 }}>{lede}</p>
+      )}
+      <div style={{ display: 'grid', gridTemplateColumns: side ? '1.2fr 1fr' : '1fr', gap: 64, marginTop: 56 }}>
+        <div>{body}</div>
+        {side}
+      </div>
+      <SlideFooter n={n} />
+    </section>
+  );
+}
+
+function Bullet({ children }) {
+  return (
+    <li style={{
+      fontSize: 22, color: SC.carvao, padding: '14px 0 14px 36px',
+      position: 'relative', lineHeight: 1.5, borderBottom: `1px solid ${SC.areia}`,
+    }}>
+      <span style={{ position: 'absolute', left: 0, top: 24, width: 18, height: 2, background: SC.brasa }} />
+      {children}
+    </li>
+  );
+}
+
+/* ============================================================
+   SLIDE 5 — Gestão de Tráfego Meta Ads
+   ============================================================ */
+function EntregaTrafegoSlide() {
+  return (
+    <DeliverableSlide
+      n="05"
+      eyebrow="ENTREGÁVEL 1"
+      title="Gestão de Tráfego Meta Ads."
+      lede="Operação dedicada de Meta Ads, com método proprietário e ajuste ativo todos os dias."
+      body={
+        <ul style={{ padding: 0, listStyle: 'none', margin: 0 }}>
+          <Bullet>50 leads qualificados por dia. Volume planejado por carteira no briefing.</Bullet>
+          <Bullet>Método Hurtz de Criativos rodando do dia 1 — propriedade intelectual da casa.</Bullet>
+          <Bullet>Otimização diária de público, criativo e orçamento. Não é monitoramento passivo.</Bullet>
+          <Bullet>Gestor dedicado por carteira. Ajuste por mensagem direta, sem chamado.</Bullet>
+        </ul>
+      }
+      side={
+        <div style={{ background: SC.carvao, color: SC.offwhite, padding: 48, borderRadius: 4 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.18em', color: 'rgba(245,242,236,0.7)' }}>
+            VOLUME GARANTIDO NO BRIEFING
+          </div>
+          <div style={{ fontSize: 140, fontWeight: 700, lineHeight: 1, marginTop: 24, letterSpacing: '-0.02em' }}>
+            50<span style={{ fontSize: 56, color: SC.brasa }}>/dia</span>
+          </div>
+          <div style={{ fontSize: 56, fontWeight: 700, marginTop: 8, color: SC.brasa }}>
+            1.500/mês
+          </div>
+          <div style={{ marginTop: 32, fontSize: 16, color: 'rgba(245,242,236,0.6)', lineHeight: 1.5 }}>
+            Garantia: se não bater o mínimo combinado, trabalhamos de graça até bater.
+          </div>
+        </div>
+      }
+    />
+  );
+}
+
+/* ============================================================
+   SLIDE 6 — Método Hurtz de Criativos
+   ============================================================ */
+function EntregaCriativosSlide() {
+  return (
+    <DeliverableSlide
+      n="06"
+      eyebrow="ENTREGÁVEL 2"
+      title={<>O criativo que converte <span style={{ color: SC.brasa }}>3 a 5x mais.</span></>}
+      lede="Vídeo do bem real (imóvel, veículo, maquinário) com overlay de âncora financeira. A palavra 'consórcio' nunca entra."
+      body={
+        <ul style={{ padding: 0, listStyle: 'none', margin: 0 }}>
+          <Bullet>Vídeo de bem real captado em campo — o lead vê o que ele quer comprar, não um anúncio.</Bullet>
+          <Bullet>Overlay financeiro fixo: cidade · crédito · entrada · parcela. Linguagem de "crédito para imóvel".</Bullet>
+          <Bullet>Headline de impacto, sem termo técnico. CTA único: simular crédito.</Bullet>
+          <Bullet>Propriedade intelectual da Hurtz. Roda só na nossa operação — não é replicado em agência.</Bullet>
+        </ul>
+      }
+      side={
+        <div style={{
+          height: 540, maxWidth: 460, background: SC.offwhite, border: `1.5px solid ${SC.areia}`,
+          padding: 24, display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+        }}>
+          <div style={{ fontSize: 12, letterSpacing: '0.18em', fontWeight: 700, color: SC.pedra, textTransform: 'uppercase' }}>
+            MOCKUP · CRIATIVO META ADS
+          </div>
+          <div style={{
+            background: SC.carvao, color: SC.offwhite, padding: 22, borderRadius: 4,
+            flex: 1, marginTop: 14, marginBottom: 14,
+            display: 'flex', flexDirection: 'column', justifyContent: 'flex-end',
+          }}>
+            <div style={{ fontSize: 13, color: 'rgba(245,242,236,0.6)', letterSpacing: '0.10em' }}>PARAUAPEBAS · PA</div>
+            <div style={{ fontSize: 30, fontWeight: 700, lineHeight: 1.1, marginTop: 8 }}>
+              Crédito de<br/>R$ 350.000<br/>para imóvel.
+            </div>
+            <div style={{ display: 'flex', gap: 20, marginTop: 14, fontSize: 14 }}>
+              <div><div style={{ color: 'rgba(245,242,236,0.55)' }}>Entrada</div><div style={{ fontWeight: 700, color: SC.brasa, fontSize: 20 }}>R$ 12 mil</div></div>
+              <div><div style={{ color: 'rgba(245,242,236,0.55)' }}>Parcela</div><div style={{ fontWeight: 700, color: SC.brasa, fontSize: 20 }}>R$ 1.890</div></div>
+            </div>
+          </div>
+          <div style={{
+            background: SC.brasa, color: '#fff', padding: '12px 16px', textAlign: 'center',
+            fontWeight: 700, letterSpacing: '0.04em', borderRadius: 4, fontSize: 15,
+          }}>
+            SIMULAR MEU CRÉDITO →
+          </div>
+        </div>
+      }
+    />
+  );
+}
+
+/* ============================================================
+   SLIDE 7 — Funil KLT Completo
+   ============================================================ */
+function EntregaFunilKLTSlide() {
+  const fases = [
+    { n: 'K', titulo: 'CONHECER', sub: 'O lead descobre que existe o caminho.', tipo: 'Anúncio inicial', detalhe: 'Apresenta o tipo de bem e a oportunidade. Sem oferta direta.' },
+    { n: 'L', titulo: 'GOSTAR', sub: 'O lead se identifica com a história.', tipo: 'Anúncio de prova', detalhe: 'Casos reais de clientes, depoimentos curtos, bens entregues.' },
+    { n: 'T', titulo: 'CONFIAR', sub: 'O lead decide simular agora.', tipo: 'Anúncio de oferta', detalhe: 'Chamada direta para a página de simulação financeira.' },
+  ];
+  return (
+    <DeliverableSlide
+      n="07"
+      eyebrow="ENTREGÁVEL 3"
+      title="Funil KLT em 3 fases."
+      lede="Sequência de vídeos que conduz o lead do desconhecimento até a decisão de simular. Cada fase tem público, criativo e objetivo próprios."
+      body={
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20, marginTop: 8 }}>
+          {fases.map((f, i) => (
+            <div key={f.n} style={{
+              background: '#FFFFFF', border: `1.5px solid ${SC.areia}`, borderRadius: 4,
+              padding: 28, position: 'relative',
+            }}>
+              <div style={{
+                position: 'absolute', top: -22, left: 24, width: 44, height: 44, borderRadius: 4,
+                background: SC.carvao, color: SC.offwhite, fontWeight: 700, fontSize: 22,
+                display: 'flex', alignItems: 'center', justifyContent: 'center',
+              }}>{f.n}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.18em', color: SC.pedra, marginTop: 16 }}>
+                FASE {i + 1}
+              </div>
+              <div style={{ fontSize: 32, fontWeight: 700, color: SC.carvao, marginTop: 4 }}>{f.titulo}</div>
+              <div style={{ fontSize: 18, color: SC.grafite, marginTop: 10, lineHeight: 1.4 }}>{f.sub}</div>
+              <div style={{ height: 1, background: SC.areia, margin: '20px 0' }} />
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.14em', color: SC.brasa, textTransform: 'uppercase' }}>{f.tipo}</div>
+              <div style={{ fontSize: 16, color: SC.carvao, marginTop: 6, lineHeight: 1.5 }}>{f.detalhe}</div>
+            </div>
+          ))}
+        </div>
+      }
+    />
+  );
+}
+
+/* ============================================================
+   SLIDE 8 — Qualificador Inteligente com Scoring
+   ============================================================ */
+function EntregaQualificadorSlide() {
+  const temps = [
+    { cor: SC.resultado, nome: 'QUENTE', regra: 'Tem entrada + quer agora + renda compatível', acao: 'Ligar em 30 minutos' },
+    { cor: SC.brasa, nome: 'MORNO', regra: 'Tem entrada OU quer comprar em 1-3 meses', acao: 'Ligar no mesmo dia' },
+    { cor: SC.informacao, nome: 'FRIO', regra: 'Sem entrada, só pesquisando', acao: 'Entra em fluxo de nutrição' },
+  ];
+  return (
+    <DeliverableSlide
+      n="08"
+      eyebrow="ENTREGÁVEL 4"
+      title="Qualificador Inteligente com Scoring."
+      lede="Página de simulação financeira onde o lead se qualifica sozinho. O sistema calcula a temperatura antes do vendedor olhar a ficha."
+      body={
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+          {temps.map(t => (
+            <div key={t.nome} style={{
+              background: '#FFFFFF', borderTop: `4px solid ${t.cor}`,
+              border: `1.5px solid ${SC.areia}`, padding: 28, borderRadius: 4,
+            }}>
+              <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.18em', color: t.cor }}>{t.nome}</div>
+              <div style={{ fontSize: 60, fontWeight: 700, color: SC.carvao, marginTop: 8, lineHeight: 1 }}>
+                {t.nome === 'QUENTE' ? '🔥' : t.nome === 'MORNO' ? '◐' : '○'}
+              </div>
+              <div style={{ height: 1, background: SC.areia, margin: '20px 0' }} />
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.14em', color: SC.pedra }}>REGRA</div>
+              <div style={{ fontSize: 18, color: SC.carvao, marginTop: 6, lineHeight: 1.45 }}>{t.regra}</div>
+              <div style={{ fontSize: 13, fontWeight: 700, letterSpacing: '0.14em', color: SC.pedra, marginTop: 18 }}>AÇÃO</div>
+              <div style={{ fontSize: 18, color: SC.carvao, marginTop: 6, lineHeight: 1.45, fontWeight: 700 }}>{t.acao}</div>
+            </div>
+          ))}
+        </div>
+      }
+    />
+  );
+}
+
+/* ============================================================
+   SLIDE 9 — Lead Card Automático no WhatsApp
+   ============================================================ */
+function EntregaLeadCardSlide() {
+  return (
+    <DeliverableSlide
+      n="09"
+      eyebrow="ENTREGÁVEL 5"
+      title="Lead Card no WhatsApp do vendedor."
+      lede="O time recebe a ficha completa antes da primeira ligação. Ninguém liga no escuro."
+      body={
+        <ul style={{ padding: 0, listStyle: 'none', margin: 0 }}>
+          <Bullet>Disparo automático no WhatsApp do vendedor responsável, segundos após a qualificação.</Bullet>
+          <Bullet>Ficha pronta: nome, telefone, tipo de bem, valor, entrada, renda, urgência e ação recomendada.</Bullet>
+          <Bullet>Vendedor abre, lê 15 segundos e liga sabendo exatamente o que oferecer.</Bullet>
+          <Bullet>Sem CRM mal alimentado, sem planilha, sem cadeia de e-mail.</Bullet>
+        </ul>
+      }
+      side={
+        <div style={{
+          background: '#075E54', padding: 24, borderRadius: 8, color: '#fff',
+          maxWidth: 480, marginLeft: 'auto',
+        }}>
+          <div style={{ background: '#DCF8C6', color: SC.carvao, padding: 20, borderRadius: 8, fontSize: 16, lineHeight: 1.5 }}>
+            <div style={{ fontWeight: 700, color: SC.brasa, fontSize: 14, letterSpacing: '0.12em' }}>🔥 LEAD QUENTE</div>
+            <div style={{ marginTop: 12, fontWeight: 700, fontSize: 18 }}>Carlos Mendes</div>
+            <div>(94) 9 9123-4567</div>
+            <div style={{ height: 1, background: 'rgba(0,0,0,0.1)', margin: '12px 0' }} />
+            <div><strong>Bem:</strong> Imóvel</div>
+            <div><strong>Valor:</strong> R$ 350.000</div>
+            <div><strong>Entrada:</strong> R$ 12.000</div>
+            <div><strong>Renda:</strong> R$ 9.500</div>
+            <div><strong>Urgência:</strong> próximos 30 dias</div>
+            <div style={{ height: 1, background: 'rgba(0,0,0,0.1)', margin: '12px 0' }} />
+            <div style={{ fontWeight: 700, color: SC.brasa }}>Ação: ligar em 30 min. Oferecer R$ 350k em 200 meses.</div>
+            <div style={{ fontSize: 11, color: SC.pedra, marginTop: 12, textAlign: 'right' }}>14:32 ✓✓</div>
+          </div>
+        </div>
+      }
+    />
+  );
+}
+
+/* ============================================================
+   SLIDE 10 — CRM Configurado com Pipeline Visual
+   ============================================================ */
+function EntregaCRMSlide() {
+  const colunas = [
+    { nome: 'NOVO', cor: SC.pedra, qt: 124 },
+    { nome: 'CONTATADO', cor: SC.informacao, qt: 47 },
+    { nome: 'NEGOCIAÇÃO', cor: SC.brasa, qt: 18 },
+    { nome: 'FECHOU', cor: SC.resultado, qt: 6 },
+    { nome: 'PERDIDO', cor: SC.critico, qt: 11 },
+  ];
+  return (
+    <DeliverableSlide
+      n="10"
+      eyebrow="ENTREGÁVEL 6"
+      title="CRM com pipeline visual."
+      lede="Cada lead entra automaticamente, etiquetado e posicionado. Sem digitação, sem planilha, sem dúvida."
+      body={
+        <div>
+          <ul style={{ padding: 0, listStyle: 'none', margin: 0 }}>
+            <Bullet>5 etapas visuais: Novo → Contatado → Negociação → Fechou → Perdido.</Bullet>
+            <Bullet>Tags automáticas por temperatura, tipo de bem, faixa de valor e origem da campanha.</Bullet>
+            <Bullet>Cada vendedor enxerga só o que é dele. Gestor enxerga o painel inteiro.</Bullet>
+            <Bullet>Pronto pra usar do dia 1. Sem consultoria de implantação à parte.</Bullet>
+          </ul>
+
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12, marginTop: 32 }}>
+            {colunas.map(c => (
+              <div key={c.nome} style={{ background: '#FFFFFF', border: `1.5px solid ${SC.areia}`, borderTop: `4px solid ${c.cor}`, padding: 16, borderRadius: 4 }}>
+                <div style={{ fontSize: 11, fontWeight: 700, letterSpacing: '0.16em', color: c.cor }}>{c.nome}</div>
+                <div style={{ fontSize: 38, fontWeight: 700, color: SC.carvao, marginTop: 4, lineHeight: 1 }}>{c.qt}</div>
+                <div style={{ fontSize: 12, color: SC.pedra, marginTop: 4 }}>leads</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      }
+    />
+  );
+}
+
+/* ============================================================
+   SLIDE 11 — Dashboard de ROI Ao Vivo
+   ============================================================ */
+function EntregaDashboardSlide() {
+  const metricas = [
+    { lbl: 'INVESTIDO', val: 'R$ 14.820', sub: 'Mês atual' },
+    { lbl: 'LEADS TOTAIS', val: '1.486', sub: '+8% vs. mês anterior' },
+    { lbl: 'QUENTES', val: '312', sub: '21% do total', cor: SC.resultado },
+    { lbl: 'NEGOCIAÇÃO', val: '47', sub: 'Pipeline ativo' },
+    { lbl: 'FECHADOS', val: '11', sub: 'R$ 4,2M em vendas' },
+    { lbl: 'ROI', val: '283×', sub: 'Vendas ÷ investido', cor: SC.brasa },
+  ];
+  return (
+    <DeliverableSlide
+      n="11"
+      eyebrow="ENTREGÁVEL 7"
+      title="Dashboard de ROI ao vivo."
+      lede="Painel único com tudo que importa. Atualizado em tempo real. Você decide olhando número, não torcendo."
+      body={
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 20 }}>
+          {metricas.map(m => (
+            <div key={m.lbl} style={{
+              background: '#FFFFFF', border: `1.5px solid ${SC.areia}`, padding: 24, borderRadius: 4,
+            }}>
+              <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.18em', color: SC.pedra }}>{m.lbl}</div>
+              <div style={{ fontSize: 56, fontWeight: 700, color: m.cor || SC.carvao, marginTop: 8, lineHeight: 1, letterSpacing: '-0.01em' }}>
+                {m.val}
+              </div>
+              <div style={{ fontSize: 14, color: SC.grafite, marginTop: 8 }}>{m.sub}</div>
+            </div>
+          ))}
+        </div>
+      }
+    />
+  );
+}
+
+/* ============================================================
+   SLIDE 12 — Onboarding em 10 Dias Úteis
+   ============================================================ */
+function EntregaOnboardingSlide() {
+  const dias = [
+    { d: 'D1–D2', t: 'BRIEFING', desc: 'Carteira, bens, ticket médio, perfil de cliente. Volume mínimo combinado.' },
+    { d: 'D3–D4', t: 'PRODUÇÃO', desc: 'Captação dos vídeos de bem real e construção dos criativos.' },
+    { d: 'D5–D6', t: 'SETUP CRM', desc: 'Pipeline, tags, distribuição entre vendedores, dashboard de ROI.' },
+    { d: 'D7–D8', t: 'QUALIFICADOR', desc: 'Página de simulação no ar. Scoring calibrado pra carteira.' },
+    { d: 'D9–D10', t: 'NO AR', desc: 'Anúncios publicados. Funil KLT rodando. Primeiros leads chegando.' },
+  ];
+  return (
+    <DeliverableSlide
+      n="12"
+      eyebrow="ENTREGÁVEL 8"
+      title="Onboarding em 10 dias úteis."
+      lede="Do contrato assinado ao primeiro anúncio no ar. Cronograma definido, datas combinadas, gestor dedicado do dia 1."
+      body={
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(5, 1fr)', gap: 12, marginTop: 8 }}>
+          {dias.map((d, i) => (
+            <div key={d.d} style={{
+              background: i === 4 ? SC.brasa : '#FFFFFF',
+              color: i === 4 ? '#fff' : SC.carvao,
+              border: i === 4 ? 'none' : `1.5px solid ${SC.areia}`,
+              padding: 24, borderRadius: 4,
+            }}>
+              <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.16em', color: i === 4 ? 'rgba(255,255,255,0.85)' : SC.pedra }}>
+                {d.d}
+              </div>
+              <div style={{ fontSize: 22, fontWeight: 700, marginTop: 12, letterSpacing: '0.04em' }}>{d.t}</div>
+              <div style={{ fontSize: 15, marginTop: 12, lineHeight: 1.5, color: i === 4 ? 'rgba(255,255,255,0.92)' : SC.grafite }}>
+                {d.desc}
+              </div>
+            </div>
+          ))}
+        </div>
+      }
+    />
+  );
+}
+
+/* ============================================================
+   TORRE DE PREÇO — base reutilizável
+   ============================================================ */
+const TORRE_ITENS = [
+  { nome: 'Gestão de Tráfego Meta Ads',           preco: 2500, sub: 'Operação dedicada · ajuste diário' },
+  { nome: 'Método Hurtz de Criativos',            preco: 1800, sub: 'Vídeo de bem real + overlay financeiro' },
+  { nome: 'Funil KLT Completo (3 fases)',         preco: 1200, sub: 'Conhecer · Gostar · Confiar' },
+  { nome: 'Qualificador Inteligente com Scoring', preco: 800,  sub: 'Lead se qualifica sozinho' },
+  { nome: 'Lead Card no WhatsApp',                preco: 500,  sub: 'Ficha completa antes da ligação' },
+  { nome: 'CRM Configurado com Pipeline',         preco: 700,  sub: '5 etapas · tags automáticas' },
+  { nome: 'Dashboard de ROI Ao Vivo',             preco: 600,  sub: '6 métricas · tempo real' },
+  { nome: 'Onboarding em 10 Dias Úteis',          preco: 600,  sub: 'Do contrato ao anúncio no ar' },
+];
+
+function TorreSlide({ n, ate, total, finalReveal = false }) {
+  const itens = TORRE_ITENS.slice(0, ate);
+  const acumulado = itens.reduce((acc, x) => acc + x.preco, 0);
+  return (
+    <section style={{ ...slideBase, background: SC.offwhite, padding: '48px 80px 80px' }}>
+      <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start' }}>
+        <div>
+          <Eyebrow>{n} · TORRE DE VALOR</Eyebrow>
+          <AccentBar mt={16} mb={16} />
+          <h2 style={{ fontSize: 44, fontWeight: 700, color: SC.carvao, margin: 0, lineHeight: 1.0, letterSpacing: '-0.01em' }}>
+            Quanto custaria <span style={{ color: SC.brasa }}>contratado separado.</span>
+          </h2>
+        </div>
+        <div style={{ textAlign: 'right' }}>
+          <div style={{ fontSize: 12, fontWeight: 700, letterSpacing: '0.18em', color: SC.pedra }}>
+            ITENS SOMADOS
+          </div>
+          <div style={{ fontSize: 56, fontWeight: 700, color: SC.brasa, lineHeight: 1, marginTop: 6 }}>
+            {ate}<span style={{ fontSize: 24, color: SC.pedra }}>/8</span>
+          </div>
+        </div>
+      </div>
+
+      <div style={{ marginTop: 18, background: '#FFFFFF', border: `1.5px solid ${SC.areia}`, borderRadius: 4, overflow: 'hidden' }}>
+        {TORRE_ITENS.map((item, i) => {
+          const ativo = i < ate;
+          const novo = i === ate - 1;
+          return (
+            <div key={item.nome} style={{
+              display: 'grid', gridTemplateColumns: '48px 1fr auto',
+              alignItems: 'center', gap: 16, padding: '10px 24px',
+              borderBottom: i < TORRE_ITENS.length - 1 ? `1px solid ${SC.areia}` : 'none',
+              opacity: ativo ? 1 : 0.25,
+              background: novo ? 'rgba(192,96,24,0.06)' : 'transparent',
+              borderLeft: novo ? `4px solid ${SC.brasa}` : '4px solid transparent',
+            }}>
+              <div style={{
+                fontSize: 14, fontWeight: 700, color: ativo ? SC.brasa : SC.pedra, letterSpacing: '0.10em',
+              }}>{String(i + 1).padStart(2, '0')}</div>
+              <div>
+                <div style={{ fontSize: 18, fontWeight: 700, color: SC.carvao, lineHeight: 1.2 }}>{item.nome}</div>
+                <div style={{ fontSize: 12, color: SC.grafite, marginTop: 2 }}>{item.sub}</div>
+              </div>
+              <div style={{ fontSize: 22, fontWeight: 700, color: ativo ? SC.carvao : SC.pedra, fontVariantNumeric: 'tabular-nums' }}>
+                R$ {brl(item.preco)}<span style={{ fontSize: 13, color: SC.pedra, fontWeight: 400 }}>/mês</span>
+              </div>
+            </div>
+          );
+        })}
+      </div>
+
+      <div style={{
+        marginTop: 14, display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        padding: '14px 24px', background: SC.carvao, color: '#fff', borderRadius: 4,
+      }}>
+        <div style={{ fontSize: 15, fontWeight: 700, letterSpacing: '0.18em', color: 'rgba(245,242,236,0.7)' }}>
+          ACUMULADO
+        </div>
+        <div style={{ fontSize: 38, fontWeight: 700, color: SC.brasa, fontVariantNumeric: 'tabular-nums' }}>
+          R$ {brl(acumulado)}<span style={{ fontSize: 16, color: 'rgba(245,242,236,0.7)', fontWeight: 400 }}>/mês</span>
+        </div>
+      </div>
+
+      {finalReveal && (
+        <div style={{
+          marginTop: 12, padding: '14px 24px', background: SC.brasa, color: '#fff', borderRadius: 4,
+          display: 'flex', justifyContent: 'space-between', alignItems: 'center',
+        }}>
+          <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: '0.04em', maxWidth: 1100 }}>
+            Com 70% de desconto, seu investimento hoje seria de
+          </div>
+          <div style={{ fontSize: 38, fontWeight: 700, fontVariantNumeric: 'tabular-nums' }}>
+            R$ 4.000<span style={{ fontSize: 16, opacity: 0.85, fontWeight: 400 }}>/mês</span>
+          </div>
+        </div>
+      )}
+
+      <SlideFooter n={n} label="TORRE DE VALOR" />
+    </section>
+  );
+}
+
+function TorrePreco1() { return <TorreSlide n="13" ate={1} />; }
+function TorrePreco2() { return <TorreSlide n="14" ate={2} />; }
+function TorrePreco3() { return <TorreSlide n="15" ate={3} />; }
+function TorrePreco4() { return <TorreSlide n="16" ate={4} />; }
+function TorrePreco5() { return <TorreSlide n="17" ate={5} />; }
+function TorrePreco6() { return <TorreSlide n="18" ate={6} />; }
+function TorrePreco7() { return <TorreSlide n="19" ate={7} />; }
+function TorrePreco8() { return <TorreSlide n="20" ate={8} finalReveal />; }
+
+/* ============================================================
+   SLIDE 21 — VALOR DO PROGRAMA
+   ============================================================ */
+function ValorProgramaSlide() {
+  return (
+    <section style={{ ...slideBase, background: SC.offwhite, padding: '96px 96px 120px' }}>
+      <Eyebrow>21 · VALOR DO PROGRAMA</Eyebrow>
+      <AccentBar mt={24} mb={32} />
+      <h2 style={{ fontSize: 88, fontWeight: 700, color: SC.carvao, margin: 0, lineHeight: 1.0, letterSpacing: '-0.01em' }}>
+        Tudo dentro. Um valor.
+      </h2>
+      <p style={{ fontSize: 28, color: SC.grafite, marginTop: 32, maxWidth: 1500, lineHeight: 1.45 }}>
+        Os 8 entregáveis acima — sem upsell, sem taxa de setup, sem mensalidade adicional por bônus.
+      </p>
+
+      <div style={{ marginTop: 56, display: 'grid', gridTemplateColumns: '1.4fr 1fr', gap: 56 }}>
+        <div style={{ background: '#FFFFFF', border: `1.5px solid ${SC.areia}`, borderRadius: 4, padding: 40 }}>
+          <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.18em', color: SC.brasa, textTransform: 'uppercase' }}>
+            INCLUÍDO NO PROGRAMA
+          </div>
+          <ul style={{ padding: 0, listStyle: 'none', margin: '24px 0 0' }}>
+            {TORRE_ITENS.map(it => (
+              <li key={it.nome} style={{
+                fontSize: 19, padding: '14px 0 14px 32px', position: 'relative',
+                borderBottom: `1px solid ${SC.areia}`, color: SC.carvao, lineHeight: 1.4,
+              }}>
+                <span style={{ position: 'absolute', left: 0, top: 22, width: 14, height: 2, background: SC.brasa }} />
+                {it.nome}
+              </li>
+            ))}
+          </ul>
+        </div>
+
+        <div style={{
+          background: SC.carvao, color: SC.offwhite, padding: 48, borderRadius: 4,
+          display: 'flex', flexDirection: 'column', justifyContent: 'center',
+        }}>
+          <div style={{ fontSize: 14, fontWeight: 700, letterSpacing: '0.18em', color: SC.brasa }}>
+            INVESTIMENTO
+          </div>
+          <div style={{ fontSize: 144, fontWeight: 700, lineHeight: 1, marginTop: 16, letterSpacing: '-0.02em' }}>
+            R$ 2.500
+          </div>
+          <div style={{ fontSize: 28, color: 'rgba(245,242,236,0.75)', marginTop: 4 }}>por mês · tudo dentro</div>
+          <div style={{ height: 1, background: 'rgba(245,242,236,0.15)', margin: '32px 0' }} />
+          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, fontSize: 16 }}>
+            <div><div style={{ color: 'rgba(245,242,236,0.55)' }}>Setup</div><div style={{ fontWeight: 700, marginTop: 4 }}>R$ 0 · incluso</div></div>
+            <div><div style={{ color: 'rgba(245,242,236,0.55)' }}>Bônus</div><div style={{ fontWeight: 700, marginTop: 4 }}>R$ 0 · todos inclusos</div></div>
+            <div><div style={{ color: 'rgba(245,242,236,0.55)' }}>Contrato</div><div style={{ fontWeight: 700, marginTop: 4 }}>3 meses</div></div>
+            <div><div style={{ color: 'rgba(245,242,236,0.55)' }}>Garantia</div><div style={{ fontWeight: 700, marginTop: 4 }}>Volume ou trabalha de graça</div></div>
+          </div>
+        </div>
+      </div>
+
+      <SlideFooter n="21" />
+    </section>
+  );
+}
+
+/* ============================================================
+   SLIDE 22 — REVELAÇÃO DO PREÇO REAL (clique pra revelar)
+   ============================================================ */
+function PrecoRealSlide() {
+  const [revealed, setRevealed] = React.useState(false);
+  const ref = React.useRef(null);
+
+  React.useEffect(() => {
+    const stage = document.querySelector('deck-stage');
+    if (!stage) return;
+    const handler = (e) => {
+      if (e.detail && e.detail.slide === ref.current) {
+        setRevealed(false);
+      }
+    };
+    stage.addEventListener('slidechange', handler);
+    return () => stage.removeEventListener('slidechange', handler);
+  }, []);
+
+  return (
+    <section
+      ref={ref}
+      onClick={() => setRevealed(true)}
+      style={{
+        ...slideBase, background: SC.offwhite, padding: 0, cursor: 'pointer',
+      }}
+    >
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', height: '100%' }}>
+
+        {/* Lado esquerdo — valor de mercado */}
+        <div style={{
+          padding: '96px 80px',
+          display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+          borderRight: `2px solid ${SC.areia}`, background: SC.offwhite,
+          position: 'relative',
+        }}>
+          <div>
+            <Eyebrow color={SC.pedra}>SE CONTRATADO SEPARADO</Eyebrow>
+            <AccentBar color={SC.pedra} w={48} h={2} mt={20} mb={24} />
+            <div style={{ fontSize: 24, color: SC.grafite, lineHeight: 1.4, maxWidth: 580 }}>
+              Tráfego, criativos, qualificador, CRM, dashboard, lead card e onboarding contratados em fornecedores diferentes.
+            </div>
+          </div>
+
+          <div>
+            <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: '0.18em', color: SC.pedra, textTransform: 'uppercase' }}>
+              VALOR DE MERCADO
+            </div>
+            <div style={{
+              fontSize: 180, fontWeight: 700, color: SC.carvao, lineHeight: 0.9, marginTop: 24,
+              letterSpacing: '-0.03em', textDecoration: 'line-through', textDecorationColor: SC.pedra,
+              textDecorationThickness: 6,
+            }}>
+              R$8.000<span style={{ fontSize: 72, color: SC.pedra }}>+</span>
+            </div>
+            <div style={{ fontSize: 26, color: SC.grafite, marginTop: 8 }}>por mês</div>
+          </div>
+
+          <div style={{ fontSize: 14, color: SC.pedra, letterSpacing: '0.16em' }}>
+            HURTZ COMPANY · DECK COMERCIAL
+          </div>
+        </div>
+
+        {/* Lado direito — preço real (revelado no clique) */}
+        <div style={{
+          padding: '96px 80px',
+          display: 'flex', flexDirection: 'column', justifyContent: 'space-between',
+          background: revealed ? SC.brasa : SC.offwhite,
+          color: revealed ? '#fff' : 'transparent',
+          transition: 'background 600ms ease',
+          position: 'relative',
+        }}>
+          <div style={{
+            opacity: revealed ? 1 : 0, transform: revealed ? 'translateY(0)' : 'translateY(24px)',
+            transition: 'opacity 700ms ease 200ms, transform 700ms ease 200ms',
+          }}>
+            <Eyebrow color="#FFFFFF">SEU INVESTIMENTO REAL</Eyebrow>
+            <AccentBar color="#FFFFFF" w={48} h={2} mt={20} mb={24} />
+            <div style={{ fontSize: 24, color: 'rgba(255,255,255,0.92)', lineHeight: 1.4, maxWidth: 580 }}>
+              A operação inteira da Hurtz, integrada, com gestor dedicado e garantia de volume.
+            </div>
+          </div>
+
+          <div style={{
+            opacity: revealed ? 1 : 0, transform: revealed ? 'scale(1)' : 'scale(0.9)',
+            transition: 'opacity 800ms ease 350ms, transform 800ms cubic-bezier(0.2,0.9,0.2,1) 350ms',
+          }}>
+            <div style={{ fontSize: 18, fontWeight: 700, letterSpacing: '0.18em', color: 'rgba(255,255,255,0.85)' }}>
+              PREÇO REAL
+            </div>
+            <div style={{
+              fontSize: 240, fontWeight: 700, color: '#fff', lineHeight: 0.9, marginTop: 24,
+              letterSpacing: '-0.03em',
+            }}>
+              R$1.500
+            </div>
+            <div style={{ fontSize: 32, color: 'rgba(255,255,255,0.92)', marginTop: 12 }}>por mês</div>
+          </div>
+
+          <div style={{
+            opacity: revealed ? 1 : 0, transition: 'opacity 700ms ease 600ms',
+            fontSize: 14, color: 'rgba(255,255,255,0.85)', letterSpacing: '0.16em',
+          }}>
+            CONTRATO MÍNIMO 3 MESES · GARANTIA DE VOLUME
+          </div>
+
+          {/* Hint sutil pra apresentador antes do reveal */}
+          {!revealed && (
+            <div style={{
+              position: 'absolute', inset: 0, display: 'flex',
+              alignItems: 'center', justifyContent: 'center',
+              fontSize: 14, letterSpacing: '0.20em', color: SC.pedra,
+              fontWeight: 700, textTransform: 'uppercase',
+              pointerEvents: 'none',
+            }}>
+clique para revelar →
+            </div>
+          )}
+        </div>
+      </div>
+    </section>
+  );
+}
+
+/* ============================================================
+   REGISTRO GLOBAL
+   ============================================================ */
+window.CapaSlide              = CapaSlide;
+window.CenarioHojeSlide       = CenarioHojeSlide;
+window.ComoPoderiaSerSlide    = ComoPoderiaSerSlide;
+window.MetodologiaSlide       = MetodologiaSlide;
+window.EntregaTrafegoSlide    = EntregaTrafegoSlide;
+window.EntregaCriativosSlide  = EntregaCriativosSlide;
+window.EntregaFunilKLTSlide   = EntregaFunilKLTSlide;
+window.EntregaQualificadorSlide = EntregaQualificadorSlide;
+window.EntregaLeadCardSlide   = EntregaLeadCardSlide;
+window.EntregaCRMSlide        = EntregaCRMSlide;
+window.EntregaDashboardSlide  = EntregaDashboardSlide;
+window.EntregaOnboardingSlide = EntregaOnboardingSlide;
+window.TorrePreco1 = TorrePreco1;
+window.TorrePreco2 = TorrePreco2;
+window.TorrePreco3 = TorrePreco3;
+window.TorrePreco4 = TorrePreco4;
+window.TorrePreco5 = TorrePreco5;
+window.TorrePreco6 = TorrePreco6;
+window.TorrePreco7 = TorrePreco7;
+window.TorrePreco8 = TorrePreco8;
+window.ValorProgramaSlide = ValorProgramaSlide;
+window.PrecoRealSlide = PrecoRealSlide;
+
+  </script>
 
   <script type="text/babel">
     const order = [
-      'CapaSlide',
-      'CenarioHojeSlide',
-      'ComoPoderiaSerSlide',
-      'MetodologiaSlide',
-      'EntregaTrafegoSlide',
-      'EntregaCriativosSlide',
-      'EntregaFunilKLTSlide',
-      'EntregaQualificadorSlide',
-      'EntregaLeadCardSlide',
-      'EntregaCRMSlide',
-      'EntregaDashboardSlide',
-      'EntregaOnboardingSlide',
-      'TorrePreco1',
-      'TorrePreco2',
-      'TorrePreco3',
-      'TorrePreco4',
-      'TorrePreco5',
-      'TorrePreco6',
-      'TorrePreco7',
-      'TorrePreco8',
-      'ValorProgramaSlide',
-      'PrecoRealSlide',
+      'CapaSlide','CenarioHojeSlide','ComoPoderiaSerSlide','MetodologiaSlide',
+      'EntregaTrafegoSlide','EntregaCriativosSlide','EntregaFunilKLTSlide',
+      'EntregaQualificadorSlide','EntregaLeadCardSlide','EntregaCRMSlide',
+      'EntregaDashboardSlide','EntregaOnboardingSlide',
+      'TorrePreco1','TorrePreco2','TorrePreco3','TorrePreco4',
+      'TorrePreco5','TorrePreco6','TorrePreco7','TorrePreco8',
+      'ValorProgramaSlide','PrecoRealSlide',
     ];
-
     const stage = document.querySelector('deck-stage');
     const root = ReactDOM.createRoot(stage);
     root.render(
-      <>
-        {order.map((name) => {
+      React.createElement(React.Fragment, null,
+        ...order.map(name => {
           const Comp = window[name];
-          return Comp ? <Comp key={name} /> : null;
-        })}
-      </>
+          return Comp ? React.createElement(Comp, { key: name }) : null;
+        })
+      )
     );
   </script>
 </body>
