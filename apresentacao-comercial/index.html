@@ -1,0 +1,62 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <title>Hurtz Company · Sistema Cota Vendida · Deck Comercial</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="../../marca/design-system/colors_and_type.css">
+  <style>
+    html, body { margin: 0; background: #000; }
+  </style>
+  <script src="https://unpkg.com/react@18.3.1/umd/react.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" crossorigin="anonymous"></script>
+  <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
+  <script src="../../marca/design-system/slides/deck-stage.js"></script>
+</head>
+<body>
+  <deck-stage><div id="root" style="display:contents"></div></deck-stage>
+
+  <!-- Carrega LogoLockup, LogoSymbol e HURTZ_COLORS -->
+  <script type="text/babel" src="../../marca/design-system/ui_kits/meta-ads/MetaAd.jsx"></script>
+  <!-- Slides do deck -->
+  <script type="text/babel" src="slides.jsx"></script>
+
+  <script type="text/babel">
+    const order = [
+      'CapaSlide',
+      'CenarioHojeSlide',
+      'ComoPoderiaSerSlide',
+      'MetodologiaSlide',
+      'EntregaTrafegoSlide',
+      'EntregaCriativosSlide',
+      'EntregaFunilKLTSlide',
+      'EntregaQualificadorSlide',
+      'EntregaLeadCardSlide',
+      'EntregaCRMSlide',
+      'EntregaDashboardSlide',
+      'EntregaOnboardingSlide',
+      'TorrePreco1',
+      'TorrePreco2',
+      'TorrePreco3',
+      'TorrePreco4',
+      'TorrePreco5',
+      'TorrePreco6',
+      'TorrePreco7',
+      'TorrePreco8',
+      'ValorProgramaSlide',
+      'PrecoRealSlide',
+    ];
+
+    const stage = document.querySelector('deck-stage');
+    const root = ReactDOM.createRoot(stage);
+    root.render(
+      <>
+        {order.map((name) => {
+          const Comp = window[name];
+          return Comp ? <Comp key={name} /> : null;
+        })}
+      </>
+    );
+  </script>
+</body>
+</html>
