@@ -1,0 +1,1179 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Treinamento de Atendimento — Dr. Wanderson Nunes · Hurtz</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --brasa: #C06018;
+    --brasa-50: #F9EDE3;
+    --carvao: #181614;
+    --grafite: #3D3A36;
+    --pedra: #8C8880;
+    --areia: #E8E4DC;
+    --offwhite: #F5F2EC;
+  }
+  * { box-sizing: border-box; }
+  html, body {
+    margin: 0; padding: 0;
+    background: #0a0908;
+    font-family: 'Inter', system-ui, sans-serif;
+    overflow: hidden;
+    height: 100vh; width: 100vw;
+  }
+
+  /* Stage centers the deck. Deck is fixed 1600x900 and scales to fit. */
+  .stage {
+    position: fixed;
+    inset: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .deck {
+    width: 1600px;
+    height: 900px;
+    position: relative;
+    transform: scale(var(--scale, 1));
+    transform-origin: center center;
+    transition: transform 200ms ease;
+  }
+
+  .slide {
+    position: absolute;
+    inset: 0;
+    width: 1600px;
+    height: 900px;
+    display: none;
+    flex-direction: column;
+    padding: 70px 90px 60px;
+    overflow: hidden;
+  }
+  .slide.active { display: flex; }
+
+  .light { background: var(--offwhite); color: var(--carvao); }
+  .dark { background: var(--carvao); color: var(--offwhite); }
+  .brasa { background: var(--brasa); color: #fff; }
+
+  /* Top row */
+  .top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+  }
+  .top svg { height: 44px; }
+  .top .meta {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+  }
+  .light .top .meta { color: var(--pedra); }
+  .dark .top .meta { color: rgba(245,242,236,0.55); }
+  .brasa .top .meta { color: rgba(255,255,255,0.7); }
+
+  /* Eyebrow + accent */
+  .eyebrow {
+    font-size: 13px;
+    font-weight: 700;
+    letter-spacing: 0.2em;
+    text-transform: uppercase;
+    color: var(--brasa);
+  }
+  .dark .eyebrow, .brasa .eyebrow { color: var(--brasa-50); }
+  .accent-bar {
+    width: 64px;
+    height: 3px;
+    background: var(--brasa);
+    margin: 18px 0 28px;
+  }
+  .brasa .accent-bar { background: #fff; }
+
+  /* Typography (absolute px, scales via deck transform) */
+  h1 { font-size: 88px; font-weight: 700; line-height: 0.98; letter-spacing: -0.02em; margin: 0; }
+  h2 { font-size: 60px; font-weight: 700; line-height: 1.05; letter-spacing: -0.01em; margin: 0; }
+  h3 { font-size: 32px; font-weight: 700; line-height: 1.1; margin: 0; }
+  p  { font-size: 20px; line-height: 1.5; margin: 0; color: var(--grafite); }
+  .dark p, .brasa p { color: rgba(245,242,236,0.78); }
+
+  .lead {
+    font-size: 24px;
+    line-height: 1.5;
+    color: var(--grafite);
+    max-width: 1200px;
+  }
+  .dark .lead, .brasa .lead { color: rgba(245,242,236,0.85); }
+
+  .strong { color: var(--carvao); font-weight: 700; }
+  .dark .strong, .brasa .strong { color: var(--offwhite); }
+  .accent { color: var(--brasa); }
+
+  .body-area {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    min-height: 0;
+  }
+
+  /* Footer */
+  .footer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 13px;
+    letter-spacing: 0.1em;
+    color: var(--pedra);
+    margin-top: auto;
+    padding-top: 28px;
+  }
+  .dark .footer, .brasa .footer { color: rgba(245,242,236,0.55); }
+  .footer .mark svg { height: 16px; }
+
+  /* Stats */
+  .stats {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 56px;
+    margin-top: 36px;
+    max-width: 1400px;
+  }
+  .stat .num { font-size: 110px; font-weight: 700; line-height: 0.9; letter-spacing: -0.02em; }
+  .stat .num span { color: var(--brasa); font-size: 0.55em; }
+  .stat .label { font-size: 18px; line-height: 1.4; color: var(--grafite); margin-top: 14px; }
+  .dark .stat .label { color: rgba(245,242,236,0.78); }
+  .stat .tick { width: 32px; height: 2px; background: var(--brasa); margin-bottom: 12px; }
+
+  /* Comparison */
+  .comparison {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border: 1.5px solid var(--areia);
+    background: #fff;
+    margin-top: 28px;
+  }
+  .dark .comparison { background: rgba(245,242,236,0.04); border-color: rgba(245,242,236,0.15); }
+  .comparison .col { padding: 28px 32px; }
+  .comparison .col + .col { border-left: 1.5px solid var(--areia); }
+  .dark .comparison .col + .col { border-left-color: rgba(245,242,236,0.15); }
+  .comparison h4 { font-size: 13px; font-weight: 700; letter-spacing: 0.18em; text-transform: uppercase; margin: 0 0 18px; }
+  .comparison ul { list-style: none; margin: 0; padding: 0; }
+  .comparison li {
+    font-size: 17px; line-height: 1.45;
+    padding: 11px 0 11px 26px;
+    border-bottom: 1px solid var(--areia);
+    position: relative;
+    color: var(--carvao);
+  }
+  .dark .comparison li { color: rgba(245,242,236,0.85); border-color: rgba(245,242,236,0.15); }
+  .comparison li:last-child { border-bottom: 0; }
+  .comparison li::before {
+    content: ''; position: absolute; left: 0; top: 1.05em;
+    width: 14px; height: 2px; background: var(--pedra);
+  }
+  .comparison .hurtz li::before { background: var(--brasa); }
+  .comparison .other h4 { color: var(--pedra); }
+  .comparison .hurtz h4 { color: var(--brasa); }
+
+  /* Pipeline */
+  .pipeline {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 12px;
+    margin-top: 32px;
+  }
+  .stage-box {
+    background: #fff;
+    border: 1px solid var(--areia);
+    padding: 18px 16px;
+    display: flex; flex-direction: column; gap: 8px;
+  }
+  .stage-box .num { font-size: 12px; font-weight: 700; color: var(--brasa); letter-spacing: 0.1em; }
+  .stage-box .name { font-size: 17px; font-weight: 700; color: var(--carvao); line-height: 1.2; }
+  .stage-box .desc { font-size: 12px; color: var(--pedra); line-height: 1.35; }
+  .stage-box.alert { background: var(--brasa); border-color: var(--brasa); }
+  .stage-box.alert .num { color: rgba(255,255,255,0.85); }
+  .stage-box.alert .name, .stage-box.alert .desc { color: #fff; }
+
+  /* Two-col */
+  .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 56px; margin-top: 24px; }
+  .two-col-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 24px; margin-top: 24px; }
+
+  /* Big number */
+  .big-num {
+    font-size: 220px; font-weight: 700; line-height: 0.85;
+    letter-spacing: -0.04em; color: var(--brasa);
+  }
+
+  /* Chat blocks (compact) */
+  .chat {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 24px;
+    margin-top: 24px;
+  }
+  .chat-block { background: #fff; border: 1px solid var(--areia); padding: 22px; display: flex; flex-direction: column; gap: 12px; }
+  .chat-block .tag { font-size: 11px; font-weight: 700; color: var(--brasa); letter-spacing: 0.18em; text-transform: uppercase; }
+  .chat-block .bubble {
+    background: var(--brasa-50);
+    border-left: 3px solid var(--brasa);
+    padding: 16px 18px;
+    font-size: 15px; line-height: 1.5;
+    color: var(--carvao);
+    white-space: pre-wrap;
+  }
+  .chat-block .meta-line { font-size: 12px; color: var(--pedra); line-height: 1.4; }
+
+  /* Conversation simulation */
+  .convo {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    margin-top: 20px;
+    max-width: 1100px;
+  }
+  .msg {
+    padding: 12px 18px;
+    border-radius: 16px;
+    font-size: 15px;
+    line-height: 1.45;
+    max-width: 75%;
+    white-space: pre-wrap;
+  }
+  .msg.in { background: #fff; border: 1px solid var(--areia); color: var(--carvao); border-bottom-left-radius: 4px; align-self: flex-start; }
+  .msg.out { background: var(--brasa); color: #fff; border-bottom-right-radius: 4px; align-self: flex-end; }
+  .msg .who { display: block; font-size: 10px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; margin-bottom: 4px; opacity: 0.7; }
+  .convo .annotation {
+    align-self: stretch;
+    font-size: 13px; color: var(--brasa); font-style: italic;
+    padding-left: 14px; border-left: 2px solid var(--brasa);
+    margin: 4px 0; line-height: 1.4;
+  }
+
+  /* Rules grid */
+  .rules { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; margin-top: 32px; }
+  .rule { background: #fff; border: 1px solid var(--areia); padding: 18px 20px; display: flex; flex-direction: column; gap: 8px; }
+  .rule .n { font-size: 13px; font-weight: 700; color: var(--brasa); letter-spacing: 0.1em; }
+  .rule .t { font-size: 18px; font-weight: 700; color: var(--carvao); line-height: 1.2; }
+  .rule .d { font-size: 13px; color: var(--pedra); line-height: 1.4; }
+
+  /* Source citation */
+  .source {
+    font-size: 13px; color: var(--pedra); font-style: italic;
+    margin-top: 24px; padding-left: 18px;
+    border-left: 2px solid var(--areia);
+    line-height: 1.5; max-width: 1100px;
+  }
+  .dark .source { color: rgba(245,242,236,0.55); border-color: rgba(245,242,236,0.15); }
+
+  /* Decay grid */
+  .decay-grid { display: grid; grid-template-columns: repeat(5, 1fr); gap: 12px; margin-top: 28px; max-width: 1400px; }
+  .decay-cell { background: #fff; border: 1px solid var(--areia); padding: 22px 20px; display: flex; flex-direction: column; gap: 10px; }
+  .decay-cell .t { font-size: 12px; color: var(--pedra); letter-spacing: 0.12em; text-transform: uppercase; font-weight: 700; }
+  .decay-cell .v { font-size: 56px; font-weight: 700; color: var(--carvao); line-height: 0.95; letter-spacing: -0.02em; }
+  .decay-cell.hot .v { color: var(--brasa); }
+  .decay-cell .d { font-size: 13px; color: var(--grafite); line-height: 1.4; }
+
+  /* CRM tags */
+  .crm-tags { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 24px; }
+  .crm-tag { font-size: 14px; font-weight: 700; padding: 8px 16px; border-radius: 100px; letter-spacing: 0.04em; }
+  .tag-blue { background: #DCEAF7; color: #1F4E79; }
+  .tag-orange { background: #FDE4D2; color: #8B3F0F; }
+  .tag-yellow { background: #FFF4D2; color: #6E5C00; }
+  .tag-green { background: #DDEFD9; color: #345B2D; }
+  .tag-pink { background: #F7DDE2; color: #783E4F; }
+  .tag-grey { background: #E5E2DC; color: #4A4640; }
+  .tag-red { background: #FAD9D5; color: #842419; }
+  .tag-deep-green { background: var(--brasa); color: #fff; }
+
+  /* Tech list / blocks */
+  .tech-list { display: grid; grid-template-columns: 1fr 1fr; gap: 24px; margin-top: 28px; }
+  .tech-list.tech-3 { grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .tech-block { background: #fff; border: 1px solid var(--areia); padding: 22px; }
+  .dark .tech-block { background: rgba(245,242,236,0.04); border-color: rgba(245,242,236,0.15); }
+  .tech-block h4 { font-size: 12px; font-weight: 700; color: var(--brasa); letter-spacing: 0.18em; text-transform: uppercase; margin: 0 0 14px; }
+  .tech-block ul { list-style: none; margin: 0; padding: 0; }
+  .tech-block li {
+    font-size: 16px; line-height: 1.5;
+    color: var(--carvao);
+    padding: 8px 0;
+    border-bottom: 1px solid var(--areia);
+  }
+  .dark .tech-block li { color: rgba(245,242,236,0.85); border-color: rgba(245,242,236,0.15); }
+  .tech-block li:last-child { border-bottom: 0; }
+  .tech-block li strong { color: var(--brasa); }
+
+  /* Citation card (study card) */
+  .study-card { background: #fff; border-left: 3px solid var(--brasa); padding: 28px 32px; }
+  .dark .study-card { background: rgba(245,242,236,0.05); }
+  .study-card .num { font-size: 92px; font-weight: 700; color: var(--brasa); line-height: 0.9; }
+  .study-card .num span { font-size: 0.55em; }
+  .study-card .desc { font-size: 18px; line-height: 1.45; color: var(--carvao); margin-top: 14px; }
+  .dark .study-card .desc { color: rgba(245,242,236,0.85); }
+  .study-card .src { font-size: 12px; color: var(--pedra); font-style: italic; margin-top: 16px; }
+  .dark .study-card .src { color: rgba(245,242,236,0.55); }
+
+  /* Nav UI */
+  .nav-indicator {
+    position: fixed;
+    top: 18px; right: 24px;
+    background: rgba(245,242,236,0.18);
+    color: #fff;
+    padding: 6px 12px;
+    font-size: 12px;
+    letter-spacing: 0.1em;
+    border-radius: 100px;
+    z-index: 100;
+    pointer-events: none;
+    font-weight: 600;
+  }
+  .nav-arrow {
+    position: fixed; top: 50%; transform: translateY(-50%);
+    width: 44px; height: 44px;
+    background: rgba(245,242,236,0.12);
+    border: none; cursor: pointer; color: #fff;
+    border-radius: 50%;
+    display: flex; align-items: center; justify-content: center;
+    z-index: 100;
+    transition: background 200ms ease;
+  }
+  .nav-arrow:hover { background: rgba(245,242,236,0.3); }
+  .nav-arrow.prev { left: 16px; }
+  .nav-arrow.next { right: 16px; }
+  .nav-arrow svg { width: 20px; height: 20px; fill: #fff; }
+  .nav-arrow:disabled { opacity: 0.2; cursor: default; }
+
+  .nav-hint {
+    position: fixed;
+    bottom: 16px; left: 50%;
+    transform: translateX(-50%);
+    background: rgba(245,242,236,0.92);
+    color: var(--carvao);
+    padding: 8px 14px;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+    border-radius: 4px;
+    z-index: 100;
+    transition: opacity 400ms ease;
+  }
+  .nav-hint.hidden { opacity: 0; pointer-events: none; }
+  .nav-hint kbd {
+    display: inline-block;
+    background: rgba(24,22,20,0.1);
+    border: 1px solid rgba(24,22,20,0.2);
+    border-radius: 3px;
+    padding: 1px 6px;
+    margin: 0 2px;
+    font-family: inherit;
+    font-weight: 700;
+  }
+</style>
+</head>
+<body>
+<div class="nav-indicator" id="navIndicator">01 / 22</div>
+<button class="nav-arrow prev" id="prevBtn" aria-label="Slide anterior"><svg viewBox="0 0 24 24"><path d="M15.41 7.41 14 6l-6 6 6 6 1.41-1.41L10.83 12z"/></svg></button>
+<button class="nav-arrow next" id="nextBtn" aria-label="Próximo slide"><svg viewBox="0 0 24 24"><path d="M10 6 8.59 7.41 13.17 12l-4.58 4.59L10 18l6-6z"/></svg></button>
+<div class="nav-hint" id="navHint">
+  <kbd>←</kbd> <kbd>→</kbd> <kbd>Space</kbd> · clique nas laterais · <kbd>F</kbd> tela cheia
+</div>
+
+<div class="stage">
+<div class="deck" id="deck">
+
+<!-- ========== SLIDE 1 — TITLE ========== -->
+<section class="slide dark active">
+  <div class="top">
+    <svg viewBox="0 0 520 120" fill="none">
+      <g fill="#F5F2EC">
+        <polygon points="10,86 70,26 94,26 34,86"/>
+        <polygon points="42,86 102,26 126,26 66,86"/>
+        <polygon points="74,86 134,26 158,26 98,86"/>
+      </g>
+      <rect x="184" y="22" width="3" height="76" fill="#C06018"/>
+      <text x="216" y="78" font-family="Inter" font-weight="700" font-size="62" letter-spacing="6" fill="#F5F2EC">HURTZ</text>
+    </svg>
+    <span class="meta">Treinamento · 05 / 2026</span>
+  </div>
+  <div class="body-area">
+    <span class="eyebrow">Atendimento de pacientes</span>
+    <div class="accent-bar"></div>
+    <h1>O método de<br>atendimento que<br>fecha cirurgia.</h1>
+    <p class="lead" style="margin-top: 36px;">
+      Treinamento operacional para a equipe de atendimento do consultório do Dr. Wanderson Nunes. Conceitos, técnicas, estudos e simulações.
+    </p>
+  </div>
+  <div class="footer">
+    <span>HURTZ COMPANY · CONSULTÓRIO DR. WANDERSON NUNES</span>
+    <span>01 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 2 — POR QUE ISSO IMPORTA ========== -->
+<section class="slide light">
+  <span class="eyebrow">02 · Por que isso importa</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Cada lead tem custo.<br>Toda lead perdida é dinheiro na rua.</h2>
+    <div class="stats">
+      <div class="stat">
+        <div class="tick"></div>
+        <div class="num">100<span>%</span></div>
+        <div class="label">dos leads vêm de tráfego pago<br>(Meta Ads)</div>
+      </div>
+      <div class="stat">
+        <div class="tick"></div>
+        <div class="num">R$ X<span>k</span></div>
+        <div class="label">investidos por mês em mídia<br>pelo consultório</div>
+      </div>
+      <div class="stat">
+        <div class="tick"></div>
+        <div class="num">100<span>%</span></div>
+        <div class="label">desse retorno depende da<br>qualidade do atendimento</div>
+      </div>
+    </div>
+    <p class="lead" style="margin-top: 40px;">
+      A campanha gera o lead. <span class="strong">Quem decide se ele vira paciente é a recepção.</span>
+    </p>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 02 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 3 — LEAD PAGO VS ORGÂNICO ========== -->
+<section class="slide light">
+  <span class="eyebrow">03 · Conceito 1 · Origem do lead</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Lead pago é diferente<br>de indicação.</h2>
+    <p class="lead" style="margin-top: 16px;">Aqui na clínica do Dr. Wanderson, todo lead vem de anúncio. Isso muda tudo.</p>
+    <div class="comparison">
+      <div class="col other">
+        <h4>Indicação · Orgânico</h4>
+        <ul>
+          <li>Procurou o nome do médico ativamente</li>
+          <li>Foi indicada por alguém de confiança</li>
+          <li>Temperatura inicial alta · já confia</li>
+          <li>Janela longa · pode esperar</li>
+          <li>Fechamento na 1ª consulta é comum</li>
+        </ul>
+      </div>
+      <div class="col hurtz">
+        <h4>Tráfego pago · Meta Ads</h4>
+        <ul>
+          <li>Foi impactada por anúncio · não procurou</li>
+          <li>Não conhecia o Dr. Wanderson há 5 minutos</li>
+          <li>Temperatura inicial média · curiosidade</li>
+          <li>Janela curta · atenção volátil</li>
+          <li>Pode precisar 2-3 contatos pra fechar</li>
+        </ul>
+      </div>
+    </div>
+    <p class="lead" style="margin-top: 24px;">
+      <span class="strong">Conclusão:</span> lead pago exige operação profissional — velocidade, follow-up, acolhimento.
+    </p>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 03 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 4 — TEMPO DE RESPOSTA ========== -->
+<section class="slide light">
+  <span class="eyebrow">04 · Conceito 2 · Tempo de resposta</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <div class="two-col">
+      <div>
+        <h2>Resposta em<br>até 5 minutos.</h2>
+        <p class="lead" style="margin-top: 28px;">
+          Lead que chega pelo anúncio do Instagram tá com a cabeça no procedimento <span class="strong">naquele momento exato</span>.
+        </p>
+        <p class="lead" style="margin-top: 18px;">
+          A cada minuto, ela perde foco, abre concorrência, vê outros médicos. Em 1 hora, virou metade da chance de fechar.
+        </p>
+        <p class="lead" style="margin-top: 18px;">Isso não é opinião. Tem estudo.</p>
+      </div>
+      <div style="display: flex; flex-direction: column; align-items: flex-start; justify-content: center;">
+        <div class="big-num">5<span style="color:var(--carvao);font-size:0.4em;">min</span></div>
+        <p class="lead" style="margin-top: 28px; font-size: 18px;">
+          Janela ideal entre lead chegar e primeira mensagem sair.
+          Acima disso, o resultado cai exponencialmente.
+        </p>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 04 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 5 — ESTUDOS DOS 5 MIN ========== -->
+<section class="slide dark">
+  <span class="eyebrow">05 · O que dizem os estudos</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2 style="color: var(--offwhite);">Não é achismo.<br>É estatística.</h2>
+    <div class="stats" style="margin-top: 40px;">
+      <div class="study-card">
+        <div class="num">100<span>x</span></div>
+        <div class="desc">mais chances de qualificar um lead respondendo em <strong>5 min vs 30 min</strong></div>
+        <div class="src">Lead Response Management Study · Oldroyd, MIT Sloan · 2007</div>
+      </div>
+      <div class="study-card">
+        <div class="num">21<span>x</span></div>
+        <div class="desc">mais conversão respondendo em <strong>5 min vs 5 horas</strong></div>
+        <div class="src">Harvard Business Review · 2011</div>
+      </div>
+      <div class="study-card">
+        <div class="num">37<span>%</span></div>
+        <div class="desc">apenas das empresas respondem em <strong>1 hora.</strong> O restante perde.</div>
+        <div class="src">HBR · estudo com 2.241 empresas · 2011</div>
+      </div>
+    </div>
+    <p class="source" style="margin-top: 32px;">
+      Tempo de resposta é a alavanca de conversão mais ignorada e mais poderosa. Não exige talento, exige disciplina.
+    </p>
+  </div>
+  <div class="footer">
+    <span>5 MINUTOS · A LINHA QUE SEPARA QUEM CONVERTE</span>
+    <span>05 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 6 — CURVA DE QUEDA ========== -->
+<section class="slide light">
+  <span class="eyebrow">06 · A curva de queda da conversão</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>O que acontece com cada<br>minuto que passa.</h2>
+    <div class="decay-grid">
+      <div class="decay-cell hot">
+        <span class="t">0–5 min</span>
+        <span class="v">100%</span>
+        <span class="d">Janela ideal · paciente engajada · máxima qualificação</span>
+      </div>
+      <div class="decay-cell">
+        <span class="t">5–30 min</span>
+        <span class="v">80%</span>
+        <span class="d">Já começa a cair · pode estar fazendo outra coisa</span>
+      </div>
+      <div class="decay-cell">
+        <span class="t">30–60 min</span>
+        <span class="v">50%</span>
+        <span class="d">Metade perdida · ela já viu outros anúncios</span>
+      </div>
+      <div class="decay-cell">
+        <span class="t">1–24 h</span>
+        <span class="v">15%</span>
+        <span class="d">Esfriou · provavelmente comparou concorrentes</span>
+      </div>
+      <div class="decay-cell">
+        <span class="t">+24 h</span>
+        <span class="v">5%</span>
+        <span class="d">Cai pra etapa de F1 — Follow-up Ativo</span>
+      </div>
+    </div>
+    <p class="lead" style="margin-top: 36px;">
+      <span class="strong">Por isso:</span> notificação de nova lead = <span class="accent">parar tudo e responder.</span>
+      Use macro pronta no Hurtz CRM e volte pro outro atendimento.
+    </p>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 06 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 7 — FUNIL ========== -->
+<section class="slide light">
+  <span class="eyebrow">07 · Conceito 3 · O funil</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Cada lead percorre<br>o mesmo caminho.</h2>
+    <p class="lead" style="margin-top: 16px;">
+      Cada conversa no Hurtz CRM tem uma etiqueta — você troca conforme avança. Nada fica parado.
+    </p>
+    <div class="pipeline">
+      <div class="stage-box"><span class="num">01</span><span class="name">Nova lead</span><span class="desc">Acabou de cadastrar no formulário</span></div>
+      <div class="stage-box"><span class="num">02</span><span class="name">Tentativa de contato</span><span class="desc">Você mandou a 1ª mensagem</span></div>
+      <div class="stage-box alert"><span class="num">03</span><span class="name">F1 — Não respondeu</span><span class="desc">Silêncio total · cadência D2–D5</span></div>
+      <div class="stage-box alert"><span class="num">04</span><span class="name">F2 — Esfriou</span><span class="desc">Respondeu e parou · reengajamento</span></div>
+      <div class="stage-box"><span class="num">05</span><span class="name">Em qualificação</span><span class="desc">Conversa ativa · entender o caso</span></div>
+      <div class="stage-box"><span class="num">06</span><span class="name">Agendada</span><span class="desc">Consulta marcada com Dr. Wanderson</span></div>
+      <div class="stage-box"><span class="num">07</span><span class="name">Procedimento</span><span class="desc">Fechou e iniciou pré-operatório</span></div>
+    </div>
+    <p style="margin-top: 24px; font-size: 14px; color: var(--pedra);">
+      Etapas em destaque (laranja) são as duas formas de follow-up — próximos slides.
+    </p>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 07 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 8 — FOLLOW-UP CONCEITO ========== -->
+<section class="slide dark">
+  <span class="eyebrow">08 · Conceito 4 · Follow-up</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h1 style="font-size: 78px;">Quem para<br>de mandar mensagem<br><span class="accent">perde a venda.</span></h1>
+    <div class="two-col" style="margin-top: 36px;">
+      <div>
+        <p class="lead">
+          Paciente do nicho de cirurgia plástica facial some por <span class="strong">medo, insegurança ou dúvida sobre recuperação</span> — quase nunca por falta de interesse.
+        </p>
+        <p class="lead" style="margin-top: 18px;">
+          Insistência educada, com tom acolhedor e sem pressão, converte 3 vezes mais que abordagem agressiva.
+        </p>
+      </div>
+      <div class="study-card">
+        <p style="font-size: 22px; line-height: 1.5; color: var(--offwhite);">
+          <span style="color: var(--brasa); font-weight: 700; font-size: 32px;">80%</span> das vendas exigem <span class="strong">5 ou mais</span> contatos.
+        </p>
+        <p style="font-size: 22px; line-height: 1.5; margin-top: 18px; color: var(--offwhite);">
+          <span style="color: var(--brasa); font-weight: 700; font-size: 32px;">44%</span> dos vendedores desistem <span class="strong">depois de 1.</span>
+        </p>
+        <div class="src">Brevet Group · National Sales Executive Association</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span>REGRA: NUNCA REPITA A MESMA MENSAGEM</span>
+    <span>08 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 9 — F1 vs F2 ========== -->
+<section class="slide light">
+  <span class="eyebrow">09 · A chave do sistema</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>F1 e F2 são coisas diferentes.</h2>
+    <p class="lead" style="margin-top: 16px;">
+      O tom muda totalmente entre quem nunca respondeu e quem respondeu e parou. Por isso são duas etiquetas distintas no CRM.
+    </p>
+    <div class="comparison">
+      <div class="col other">
+        <h4>F1 · Nunca respondeu</h4>
+        <ul>
+          <li>Silêncio total desde o cadastro</li>
+          <li>Ela ainda não te conhece</li>
+          <li>Missão: fazer a 1ª resposta sair</li>
+          <li>Cadência D2 a D5</li>
+          <li>Tom: apresentação + prova social</li>
+          <li>Áudio funciona muito bem</li>
+        </ul>
+      </div>
+      <div class="col hurtz">
+        <h4>F2 · Respondeu e parou</h4>
+        <ul>
+          <li>Já trocou mensagem com você</li>
+          <li>Conhece e confia minimamente</li>
+          <li>Missão: retomar e levar pra agendamento</li>
+          <li>Cadência D+2 a D+9 da última msg dela</li>
+          <li>Tom: referência ao papo + reengajar</li>
+          <li>Áudio personalizado é poderoso</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 09 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 10 — F1 MENSAGENS ========== -->
+<section class="slide light">
+  <span class="eyebrow">10 · F1 · Quando ela nunca respondeu</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>O objetivo é arrancar<br>a primeira resposta.</h2>
+    <div class="chat">
+      <div class="chat-block">
+        <span class="tag">D2 · Aproximação</span>
+        <div class="bubble">Oi [Nome], bom dia.
+
+Sei que a rotina corre, queria só me apresentar de novo: aqui é a [Nome] do consultório do Dr. Wanderson.
+
+Quando puder, me dá um sinal — mesmo que seja pra dizer que não é o momento agora. 🙏</div>
+        <span class="meta-line">Tom humano, sem pressão, oferece saída fácil.</span>
+      </div>
+      <div class="chat-block">
+        <span class="tag">D4 · Áudio (30–40s)</span>
+        <div class="bubble" style="font-style:italic;">"Oi [Nome], aqui é a [Nome]. Tô passando aqui só pra ver se tá tudo bem. Sei que esse tipo de consulta às vezes a gente fica com receio, mas o Dr. Wanderson é super tranquilo, sem julgamento — só vai te avaliar e te explicar o que faz sentido. Quando puder, me responde. Beijos."</div>
+        <span class="meta-line">Áudio humaniza · quebra a desconfiança · funciona melhor que texto.</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 10 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 11 — F2 MENSAGENS ========== -->
+<section class="slide light">
+  <span class="eyebrow">11 · F2 · Quando ela respondeu e parou</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Aqui você sempre referencia<br>a conversa anterior.</h2>
+    <div class="chat">
+      <div class="chat-block">
+        <span class="tag">D+2 · Retomada</span>
+        <div class="bubble">[Nome], oi! Tudo bem por aí?
+
+Vi nossas conversas e lembrei que você tinha me perguntado sobre [referência específica].
+
+Conseguiu organizar a sua agenda? Quero garantir antes da agenda do Dr. Wanderson fechar.</div>
+        <span class="meta-line">A referência prova que você se importa · não é genérica.</span>
+      </div>
+      <div class="chat-block">
+        <span class="tag">D+7 · Pedido direto</span>
+        <div class="bubble">[Nome], vou ser direta porque me importo.
+
+Você chegou a se interessar pela avaliação, mas em algum ponto travou. Pode me contar o que aconteceu?
+
+Não é cobrança — é pra eu entender se posso te ajudar.</div>
+        <span class="meta-line">Convite à honestidade · abre espaço pra ela falar o medo real.</span>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 11 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 12 — TÉCNICAS P3 + CONCORDAR ========== -->
+<section class="slide light">
+  <span class="eyebrow">12 · Técnicas · 2 que mudam tudo</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Princípios que você aplica<br>em toda mensagem.</h2>
+    <div class="tech-list">
+      <div class="tech-block">
+        <h4>P3 · Sempre 3 horários</h4>
+        <ul>
+          <li><strong>Por quê:</strong> 1 horário é "pegar ou largar"; 3 horários a paciente escolhe e fecha.</li>
+          <li><strong>Errado:</strong> "tenho terça às 14h, pode ser?"</li>
+          <li><strong>Certo:</strong> "tenho terça 14h, quarta 17h e quinta 9h — qual fica?"</li>
+        </ul>
+      </div>
+      <div class="tech-block">
+        <h4>Concordar para discordar</h4>
+        <ul>
+          <li><strong>Por quê:</strong> bater de frente com objeção fecha o canal.</li>
+          <li><strong>Errado:</strong> "Não, não é caro"</li>
+          <li><strong>Certo:</strong> "Faz total sentido sua preocupação. Inclusive, na consulta o Dr. Wanderson te mostra as opções de pagamento, então você sai com clareza total."</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 12 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 13 — PRIVACIDADE E TOM ========== -->
+<section class="slide dark">
+  <span class="eyebrow">13 · Privacidade e tom · Nicho facial</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2 style="color: var(--offwhite);">Cirurgia plástica facial<br>exige cuidado redobrado.</h2>
+    <p class="lead" style="margin-top: 14px;">
+      Paciente alvo é mulher 40+. Ela busca rejuvenescimento — mas pode estar machucada com a forma como falam de envelhecimento.
+    </p>
+    <div class="comparison">
+      <div class="col other">
+        <h4>Nunca</h4>
+        <ul>
+          <li>"Rugas profundas", "olhar caído", "envelhecida"</li>
+          <li>Mencionar nome técnico antes dela falar</li>
+          <li>Comentar caso de paciente com terceiros</li>
+          <li>Tom de cobrança ou pressa</li>
+          <li>Empurrar fechamento agressivamente</li>
+        </ul>
+      </div>
+      <div class="col hurtz">
+        <h4>Sempre</h4>
+        <ul>
+          <li>"Rejuvenescimento", "harmonia", "renovação"</li>
+          <li>Termos amplos: "o procedimento que você buscou"</li>
+          <li>Tratar como conversa privada e médica</li>
+          <li>Acolher antes de informar</li>
+          <li>Reforçar: avaliação ≠ compromisso de fechar</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span>PALAVRAS CONSTROEM CONFIANÇA</span>
+    <span>13 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 14 — SIMULAÇÃO 1 BLEFAROPLASTIA ========== -->
+<section class="slide light">
+  <span class="eyebrow">14 · Simulação 1 · Blefaroplastia</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Atendimento ideal<br>do início ao agendamento.</h2>
+    <div class="convo">
+      <div class="msg out"><span class="who">Atendente · 14:04 (resposta em 2 min)</span>Oi, Maria! Aqui é a Carolina, do consultório do Dr. Wanderson Nunes 👋
+Vi que você se interessou pela nossa avaliação. Você prefere atendimento de manhã, tarde ou final do dia?</div>
+      <div class="msg in"><span class="who">Maria · 14:11</span>Oi! Pode ser de manhã. Mas vocês fazem cirurgia da pálpebra né? Quanto fica?</div>
+      <div class="msg out"><span class="who">Atendente · 14:12</span>Maria, o investimento varia bastante porque depende da avaliação do Dr. Wanderson — cada caso tem indicação diferente. Por isso a primeira consulta é fundamental.
+Tenho terça 9h, quarta 10h e quinta 11h — qual desses funciona pra você?</div>
+      <div class="annotation">Não dá preço · concorda com a pergunta · oferece P3 imediatamente</div>
+      <div class="msg in"><span class="who">Maria · 14:14</span>Quarta às 10h pode ser. Mas eu nunca fiz nada assim, fico nervosa só de pensar.</div>
+      <div class="msg out"><span class="who">Atendente · 14:15</span>Maria, é totalmente normal sentir isso 💛 quase toda paciente sente. A consulta é justamente pra você sair sem dúvidas — ele mostra fotos reais, explica a recuperação, e você decide depois sem nenhuma pressão.
+Tô confirmando: quarta 10/05 às 10h. Endereço já te mando 🙏</div>
+    </div>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 14 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 15 — SIMULAÇÃO 2 LIFTING FACIAL ========== -->
+<section class="slide light">
+  <span class="eyebrow">15 · Simulação 2 · Lifting facial · Objeção recuperação</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Quando o medo da recuperação<br>é a objeção real.</h2>
+    <div class="convo">
+      <p style="font-size: 13px; color: var(--pedra); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">Pós-consulta · D+2 · Etapa F5</p>
+      <div class="msg out"><span class="who">Atendente · D+2 09:30</span>Oi Lúcia! 💛 Conversei com o Dr. Wanderson e ele me falou super bem da consulta com você. Ficou alguma dúvida que possa ter ficado pra trás, ou tem algo te travando agora pra dar o próximo passo?</div>
+      <div class="msg in"><span class="who">Lúcia · D+2 14:20</span>Oi Carolina. Eu adorei o Dr. Wanderson. Mas confesso que fiquei meio assustada com a recuperação. 2 a 4 semanas sem sair muito... eu trabalho de frente pro público.</div>
+      <div class="annotation">A objeção real apareceu · não é preço, é recuperação social</div>
+      <div class="msg out"><span class="who">Atendente · D+2 14:25</span>Lúcia, faz total sentido essa preocupação 💛 você não é a primeira que me diz, especialmente quem trabalha com aparição.
+Inclusive o Dr. Wanderson tem um protocolo de recuperação acelerada (drenagem, laser e algumas técnicas) que reduz muito o tempo "social" — semana 2 já dá pra usar maquiagem, semana 3 já dá pra reuniões.
+Ele consegue te receber pra essa segunda conversa essa semana? Tenho terça 16h ou quinta 11h — só pra falar de recuperação. Sem pressão de fechar.</div>
+      <div class="msg in"><span class="who">Lúcia · D+2 14:31</span>Quinta 11h pode ser sim. Obrigada Carolina, isso já me deixou mais tranquila.</div>
+      <div class="annotation">Resultado: paciente que iria pra "F6 — Nutrição" volta pra "Agendada"</div>
+    </div>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 15 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 16 — SIMULAÇÃO 3 BROWLIFT ========== -->
+<section class="slide light">
+  <span class="eyebrow">16 · Simulação 3 · Browlift · Objeção preço</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Reativação F2 com<br>quebra de objeção real.</h2>
+    <div class="convo">
+      <p style="font-size: 13px; color: var(--pedra); letter-spacing: 0.1em; text-transform: uppercase; font-weight: 700;">F2 · D+5 · Patrícia parou de responder após pedir preço</p>
+      <div class="msg out"><span class="who">Atendente · D+5 (mensagem 4 da cadência F2)</span>Patrícia, tô fechando a agenda do Dr. Wanderson dessa semana 📅
+Como você já estava em conversa com a gente, deixei prioridade nesses horários:
+• Ter 14h · Qua 10h · Qui 17h
+Qual fica?</div>
+      <div class="msg in"><span class="who">Patrícia · D+5</span>Olha, a verdade é que sem ter ideia do valor eu não consigo nem decidir. Já levei meio susto em outras clínicas.</div>
+      <div class="annotation">Aqui apareceu o real: ela não tá sumindo por desinteresse, tá com medo de ouvir um valor inviável</div>
+      <div class="msg out"><span class="who">Atendente · D+5</span>Patrícia, valeu por ser direta comigo 💛
+A faixa em que o Dr. Wanderson trabalha pra esse procedimento começa em [valor X], com possibilidade de parcelar em até [N]x — mas o número exato só com a avaliação dele, porque às vezes muda conforme o que ele indica (pode até ser menos).
+Se essa faixa fizer sentido considerar, vale demais a consulta. Posso reservar quarta 10h?</div>
+      <div class="msg in"><span class="who">Patrícia · D+5</span>Quarta 10h pode ser sim. Obrigada por ser sincera.</div>
+      <div class="annotation">Quebra: faixa, não valor exato · tira a barreira sem queimar a necessidade da consulta</div>
+    </div>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 16 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 17 — ETIQUETAS NO HURTZ CRM ========== -->
+<section class="slide light">
+  <span class="eyebrow">17 · Hurtz CRM · Etiquetas do funil</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Cada conversa tem<br>uma etiqueta. Sempre.</h2>
+    <p class="lead" style="margin-top: 16px;">
+      A etiqueta diz em que etapa do funil a paciente está. Avançou de etapa = trocou a etiqueta. Sem isso, ninguém vê o pipeline.
+    </p>
+    <div class="crm-tags">
+      <span class="crm-tag tag-blue">lead-novo</span>
+      <span class="crm-tag tag-blue">tentativa-contato</span>
+      <span class="crm-tag tag-orange">f1-followup-ativo</span>
+      <span class="crm-tag tag-orange">f2-reengajamento</span>
+      <span class="crm-tag tag-yellow">em-qualificacao</span>
+      <span class="crm-tag tag-green">agendada</span>
+      <span class="crm-tag tag-green">f3-confirmacao</span>
+      <span class="crm-tag tag-red">f4-reagendamento</span>
+      <span class="crm-tag tag-deep-green">consulta-realizada</span>
+      <span class="crm-tag tag-pink">f5-repescagem</span>
+      <span class="crm-tag tag-grey">f6-nutricao</span>
+      <span class="crm-tag tag-deep-green">procedimento-fechado ✅</span>
+      <span class="crm-tag tag-grey">descartada</span>
+    </div>
+    <p class="lead" style="margin-top: 28px; font-size: 18px;">
+      <span class="strong">Regra:</span> só uma etiqueta de etapa por conversa. Mover de etapa = trocar a etiqueta.
+    </p>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 17 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 18 — CUSTOM ATTRIBUTES + MACROS ========== -->
+<section class="slide light">
+  <span class="eyebrow">18 · Hurtz CRM · Campos e macros</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Dados que toda<br>paciente precisa ter.</h2>
+    <div class="tech-list">
+      <div class="tech-block">
+        <h4>Custom Attributes (campos)</h4>
+        <ul>
+          <li><strong>procedimento_interesse</strong> · blefaro / browlift / lifting facial</li>
+          <li><strong>idade · cidade · origem_lead</strong></li>
+          <li><strong>data_consulta_agendada</strong></li>
+          <li><strong>compareceu</strong> · <strong>procedimento_fechado</strong></li>
+          <li><strong>objecao_principal</strong> · preço/família/medo/timing</li>
+        </ul>
+      </div>
+      <div class="tech-block">
+        <h4>Macros (mensagens prontas)</h4>
+        <ul>
+          <li>Boas-vindas · Reforço 2h · 3 horários final do dia</li>
+          <li>F1 D2 · F1 D3 · F1 D5</li>
+          <li>F2 D+2 · F2 D+7</li>
+          <li>F3 lembrete 48h · F3 D-1</li>
+          <li>F5 D+1 · F5 quebra de objeção</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 18 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 19 — VISÕES DIÁRIAS ========== -->
+<section class="slide light">
+  <span class="eyebrow">19 · Hurtz CRM · Suas visões diárias</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Comece o dia<br>pela ordem certa.</h2>
+    <p class="lead" style="margin-top: 16px;">
+      Ao abrir o CRM, sua rotina é olhar essas visões salvas — nessa ordem.
+    </p>
+    <div class="tech-list tech-3">
+      <div class="tech-block">
+        <h4>1. Urgentes</h4>
+        <ul>
+          <li><strong>Leads novas (≤ 5 min)</strong> — responda agora</li>
+          <li><strong>Confirmações de hoje</strong> — F3 dia da consulta</li>
+          <li><strong>No-shows recentes</strong> — F4 prioritário</li>
+        </ul>
+      </div>
+      <div class="tech-block">
+        <h4>2. Follow-ups do dia</h4>
+        <ul>
+          <li><strong>F1 vencidos</strong> — D2 a D5 hoje</li>
+          <li><strong>F2 vencidos</strong> — D+2 a D+9 hoje</li>
+          <li><strong>F5 — repescagens</strong> — D+1 a D+7</li>
+        </ul>
+      </div>
+      <div class="tech-block">
+        <h4>3. Em qualificação</h4>
+        <ul>
+          <li><strong>Conversas ativas</strong> — qualificar</li>
+          <li><strong>Pendentes de MP1–MP4</strong></li>
+          <li><strong>Agendar essa semana</strong></li>
+        </ul>
+      </div>
+    </div>
+    <p class="lead" style="margin-top: 24px;">
+      <span class="strong">Regra:</span> só vá pro próximo bloco quando o anterior estiver zerado.
+    </p>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 19 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 20 — RELATÓRIO DIÁRIO ========== -->
+<section class="slide light">
+  <span class="eyebrow">20 · Rotina · Relatório diário</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>Toda noite, até 19h,<br>no grupo da clínica.</h2>
+    <div class="two-col" style="margin-top: 24px;">
+      <div>
+        <p class="lead">
+          Sem relatório, o Dr. Wanderson não tem como saber se a operação tá funcionando — nem o que precisa melhorar.
+        </p>
+        <p class="lead" style="margin-top: 18px;">
+          O relatório serve pra você também — <span class="strong">acompanha sua própria evolução</span> e identifica padrões.
+        </p>
+      </div>
+      <div class="chat-block" style="background: var(--carvao); border-color: var(--carvao);">
+        <span class="tag" style="color: var(--brasa-50);">Modelo do relatório</span>
+        <div class="bubble" style="background: rgba(245,242,236,0.08); color: var(--offwhite); border-color: var(--brasa); font-size: 13px;">📊 Relatório do dia [DD/MM]
+
+🆕 Novas leads: [N]
+📞 Tentativas de contato: [N]
+💬 Em qualificação: [N]
+📅 Consultas marcadas: [N]
+✅ Consultas realizadas: [N]
+🚫 No-shows: [N]
+💰 Procedimentos fechados: [N]
+
+🔥 Destaques: [pontos relevantes]
+📋 Pendências amanhã: [follow-ups]</div>
+      </div>
+    </div>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 20 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 21 — GOLDEN RULES ========== -->
+<section class="slide light">
+  <span class="eyebrow">21 · Resumo · Regras de ouro</span>
+  <div class="accent-bar"></div>
+  <div class="body-area">
+    <h2>11 regras que não se quebram.</h2>
+    <div class="rules">
+      <div class="rule"><div class="n">01</div><div class="t">Resposta em 5 min</div><div class="d">100x mais conversão que 30 min.</div></div>
+      <div class="rule"><div class="n">02</div><div class="t">Verifique perfil antes</div><div class="d">Idade · cidade · contraindicação.</div></div>
+      <div class="rule"><div class="n">03</div><div class="t">Sempre 3 horários (P3)</div><div class="d">Nunca 1, nunca 2.</div></div>
+      <div class="rule"><div class="n">04</div><div class="t">Não repita a msg</div><div class="d">Cada contato com ângulo diferente.</div></div>
+      <div class="rule"><div class="n">05</div><div class="t">Personalize sempre</div><div class="d">Nome · papo anterior · interesse.</div></div>
+      <div class="rule"><div class="n">06</div><div class="t">Concorde antes</div><div class="d">Nunca bata de frente com objeção.</div></div>
+      <div class="rule"><div class="n">07</div><div class="t">Áudio é seu ativo</div><div class="d">Quebra a barreira do texto frio.</div></div>
+      <div class="rule"><div class="n">08</div><div class="t">Discrição absoluta</div><div class="d">Sem expor identidade ou procedimento.</div></div>
+      <div class="rule"><div class="n">09</div><div class="t">Acolhimento &gt; vendas</div><div class="d">Pressão derrota fechamento.</div></div>
+      <div class="rule"><div class="n">10</div><div class="t">Tudo no Hurtz CRM</div><div class="d">Sem registro, não aconteceu.</div></div>
+      <div class="rule"><div class="n">11</div><div class="t">Não descarte cedo</div><div class="d">Esgote F1, F2 e F6 antes.</div></div>
+      <div class="rule" style="background: var(--brasa); border-color: var(--brasa);"><div class="n" style="color: rgba(255,255,255,0.85);">★</div><div class="t" style="color: #fff;">Lead pago é caro</div><div class="d" style="color: rgba(255,255,255,0.9);">Toda lead perdida é dinheiro do consultório na rua.</div></div>
+    </div>
+  </div>
+  <div class="footer">
+    <span class="mark"><svg viewBox="0 0 158 96"><g fill="#181614"><polygon points="10,86 70,26 94,26 34,86"/><polygon points="42,86 102,26 126,26 66,86"/><polygon points="74,86 134,26 158,26 98,86"/></g></svg></span>
+    <span>HURTZ · 21 / 22</span>
+  </div>
+</section>
+
+<!-- ========== SLIDE 22 — CTA ========== -->
+<section class="slide brasa">
+  <div class="top">
+    <svg viewBox="0 0 520 120" fill="none">
+      <g fill="#FFFFFF">
+        <polygon points="10,86 70,26 94,26 34,86"/>
+        <polygon points="42,86 102,26 126,26 66,86"/>
+        <polygon points="74,86 134,26 158,26 98,86"/>
+      </g>
+      <rect x="184" y="22" width="3" height="76" fill="#FFFFFF"/>
+      <text x="216" y="78" font-family="Inter" font-weight="700" font-size="62" letter-spacing="6" fill="#FFFFFF">HURTZ</text>
+    </svg>
+    <span class="meta">Final · 22 / 22</span>
+  </div>
+  <div class="body-area">
+    <span class="eyebrow" style="color:#fff;">Próximo passo</span>
+    <div class="accent-bar"></div>
+    <h1 style="color:#fff;">Operação que<br>vira procedimento.</h1>
+    <p class="lead" style="color: rgba(255,255,255,0.92); margin-top: 36px;">
+      Próximos passos: configurar etiquetas e macros no Hurtz CRM, conectar o tráfego com auto-criação de contato, treinar na prática com leads reais e revisar o relatório diário com o Dr. Wanderson toda semana.
+    </p>
+    <p class="lead" style="color: rgba(255,255,255,0.85); margin-top: 24px;">
+      Dúvidas durante o dia: chama no grupo do consultório · Hurtz acompanha junto.
+    </p>
+  </div>
+  <div class="footer" style="color: rgba(255,255,255,0.75);">
+    <span>CONSULTÓRIO DR. WANDERSON NUNES · TREINAMENTO 05/2026</span>
+    <span>22 / 22</span>
+  </div>
+</section>
+
+</div>
+</div>
+
+<script>
+  const slides = document.querySelectorAll('.slide');
+  const total = slides.length;
+  const indicator = document.getElementById('navIndicator');
+  const hint = document.getElementById('navHint');
+  const prevBtn = document.getElementById('prevBtn');
+  const nextBtn = document.getElementById('nextBtn');
+  let current = 0;
+
+  function fit() {
+    const sx = window.innerWidth / 1600;
+    const sy = window.innerHeight / 900;
+    const scale = Math.min(sx, sy);
+    document.documentElement.style.setProperty('--scale', scale);
+  }
+
+  function show(i) {
+    current = Math.max(0, Math.min(total - 1, i));
+    slides.forEach((s, idx) => s.classList.toggle('active', idx === current));
+    indicator.textContent = String(current + 1).padStart(2, '0') + ' / ' + String(total).padStart(2, '0');
+    prevBtn.disabled = current === 0;
+    nextBtn.disabled = current === total - 1;
+    history.replaceState(null, '', '#s' + (current + 1));
+  }
+  function next() { if (current < total - 1) show(current + 1); }
+  function prev() { if (current > 0) show(current - 1); }
+
+  fit();
+  window.addEventListener('resize', fit);
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'ArrowRight' || e.key === 'ArrowDown' || e.key === ' ' || e.key === 'PageDown') {
+      e.preventDefault(); next();
+    } else if (e.key === 'ArrowLeft' || e.key === 'ArrowUp' || e.key === 'PageUp') {
+      e.preventDefault(); prev();
+    } else if (e.key === 'Home') {
+      e.preventDefault(); show(0);
+    } else if (e.key === 'End') {
+      e.preventDefault(); show(total - 1);
+    } else if (e.key === 'f' || e.key === 'F') {
+      if (!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+  });
+
+  prevBtn.addEventListener('click', (e) => { e.stopPropagation(); prev(); });
+  nextBtn.addEventListener('click', (e) => { e.stopPropagation(); next(); });
+
+  document.addEventListener('click', (e) => {
+    if (e.target.closest('.nav-arrow') || e.target.tagName === 'A' || e.target.tagName === 'BUTTON') return;
+    const w = window.innerWidth;
+    if (e.clientX < w * 0.25) prev();
+    else if (e.clientX > w * 0.75) next();
+    else next();
+  });
+
+  // Deep link via hash (#s5)
+  const m = location.hash.match(/^#s(\d+)$/);
+  if (m) show(parseInt(m[1], 10) - 1);
+  else show(0);
+
+  setTimeout(() => hint.classList.add('hidden'), 5000);
+</script>
+</body>
+</html>
