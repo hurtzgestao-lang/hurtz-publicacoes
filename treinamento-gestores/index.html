@@ -1,0 +1,921 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hurtz Cérebro — Treinamento Gestores</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --brasa:#C06018;
+    --brasa-600:#974A12;
+    --brasa-50:#F9EDE3;
+    --carvao:#181614;
+    --grafite:#3D3A36;
+    --pedra:#8C8880;
+    --areia:#E8E4DC;
+    --offwhite:#F5F2EC;
+  }
+  *{box-sizing:border-box;margin:0;padding:0}
+  html,body{width:100%;height:100%;background:var(--carvao);font-family:'Inter',sans-serif;color:var(--carvao);overflow:hidden}
+
+  /* Stage scales 1920x1080 to fit viewport */
+  #stage{
+    position:fixed;inset:0;
+    display:flex;align-items:center;justify-content:center;
+  }
+  .deck{
+    width:1920px;height:1080px;
+    transform-origin:center center;
+    position:relative;
+  }
+
+  /* Each slide overlaps; only active is visible */
+  .slide{
+    position:absolute;inset:0;
+    width:1920px;height:1080px;
+    padding:96px;
+    background:var(--offwhite);
+    color:var(--carvao);
+    display:none;
+    flex-direction:column;
+    overflow:hidden;
+  }
+  .slide.active{display:flex}
+  .slide.dark{background:var(--carvao);color:var(--offwhite)}
+  .slide.brasa{background:var(--brasa);color:#fff}
+
+  /* Header (logo + meta) */
+  .slide-head{
+    display:flex;justify-content:space-between;align-items:center;
+    margin-bottom:24px;
+  }
+  .slide-head .meta{
+    font-size:14px;font-weight:700;letter-spacing:.18em;
+    color:var(--pedra);text-transform:uppercase;
+  }
+  .slide.dark .slide-head .meta{color:rgba(245,242,236,.55)}
+  .slide.brasa .slide-head .meta{color:rgba(255,255,255,.7)}
+
+  /* Logo */
+  .logo{display:inline-flex;align-items:center;gap:12px;height:40px}
+  .logo svg{display:block;height:32px;width:auto}
+  .logo .word{font-weight:700;font-size:22px;letter-spacing:-.01em}
+  .logo .divider{width:2px;height:22px;background:var(--brasa)}
+  .logo .tag{font-weight:400;font-size:14px;letter-spacing:.12em;color:var(--pedra)}
+  .slide.dark .logo .tag{color:rgba(245,242,236,.6)}
+  .slide.brasa .logo .tag{color:rgba(255,255,255,.7)}
+  .slide.brasa .logo .divider{background:#fff}
+
+  /* Footer */
+  .slide-foot{
+    position:absolute;left:96px;right:96px;bottom:48px;
+    display:flex;justify-content:space-between;align-items:center;
+    font-size:14px;letter-spacing:.16em;color:var(--pedra);
+    text-transform:uppercase;
+  }
+  .slide.dark .slide-foot{color:rgba(245,242,236,.5)}
+  .slide.brasa .slide-foot{color:rgba(255,255,255,.7)}
+  .slide-foot svg{height:18px;width:auto;color:var(--carvao)}
+  .slide.dark .slide-foot svg{color:var(--offwhite)}
+  .slide.brasa .slide-foot svg{color:#fff}
+
+  /* Eyebrow + brasa rule */
+  .eyebrow{
+    font-size:18px;font-weight:700;letter-spacing:.18em;
+    color:var(--brasa);text-transform:uppercase;
+  }
+  .slide.brasa .eyebrow{color:#fff}
+  .rule{
+    width:96px;height:3px;background:var(--brasa);
+    margin:32px 0 40px;
+  }
+  .slide.brasa .rule{background:#fff}
+  .rule.sm{width:40px;height:2px;margin:0 0 18px}
+
+  /* Body fills between head and foot */
+  .body{flex:1;display:flex;flex-direction:column;justify-content:center}
+  .body.top{justify-content:flex-start}
+
+  /* Typography */
+  h1.display{font-size:180px;font-weight:700;line-height:.92;letter-spacing:-.02em}
+  h2.title{font-size:112px;font-weight:700;line-height:1.02;letter-spacing:-.01em;color:var(--carvao)}
+  .slide.dark h2.title{color:var(--offwhite)}
+  .slide.brasa h2.title{color:#fff}
+  h3.section{font-size:72px;font-weight:700;line-height:1.05;letter-spacing:-.005em}
+  .lead{font-size:32px;line-height:1.45;color:var(--grafite);max-width:1500px}
+  .slide.dark .lead{color:rgba(245,242,236,.7)}
+  .slide.brasa .lead{color:rgba(255,255,255,.9)}
+  .small{font-size:22px;line-height:1.45;color:var(--grafite)}
+
+  /* Stats grid */
+  .stats{display:grid;grid-template-columns:1fr 1fr;gap:56px 96px;margin-top:64px;max-width:1600px}
+  .stat .num{font-size:144px;font-weight:700;line-height:.95;letter-spacing:-.02em}
+  .stat .num .suf{color:var(--brasa);font-size:80px}
+  .stat .lbl{font-size:22px;color:var(--grafite);margin-top:18px;line-height:1.4}
+
+  /* 2-column comparison */
+  .compare{display:grid;grid-template-columns:1fr 1fr;border:1.5px solid var(--areia);background:#fff;margin-top:48px}
+  .compare > div{padding:48px}
+  .compare > div + div{border-left:1.5px solid var(--areia)}
+  .compare h4{font-size:18px;font-weight:700;letter-spacing:.18em;text-transform:uppercase}
+  .compare .col-a h4{color:var(--pedra)}
+  .compare .col-b h4{color:var(--brasa)}
+  .compare ul{list-style:none;margin-top:28px}
+  .compare li{
+    font-size:24px;line-height:1.4;padding:16px 0 16px 28px;
+    position:relative;border-bottom:1px solid var(--areia);
+  }
+  .compare li:last-child{border-bottom:0}
+  .compare li::before{
+    content:"";position:absolute;left:0;top:28px;
+    width:14px;height:2px;
+  }
+  .compare .col-a li::before{background:var(--pedra)}
+  .compare .col-b li{color:var(--carvao)}
+  .compare .col-b li::before{background:var(--brasa)}
+
+  /* Tables (commands, mapa) */
+  table.t{width:100%;border-collapse:collapse;margin-top:32px;background:#fff;border:1.5px solid var(--areia)}
+  table.t th, table.t td{
+    text-align:left;padding:18px 24px;border-bottom:1px solid var(--areia);
+    font-size:22px;line-height:1.4;
+  }
+  table.t th{
+    font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--pedra);background:var(--offwhite);
+  }
+  table.t td:first-child{font-weight:700;color:var(--brasa);white-space:nowrap;width:340px}
+  table.t.smaller td, table.t.smaller th{padding:14px 24px;font-size:20px}
+  table.t.smaller td:first-child{width:380px;color:var(--carvao)}
+  table.t.smaller td:first-child code{color:var(--brasa)}
+
+  code, .mono{
+    font-family:'Inter',sans-serif;font-weight:700;
+    background:var(--brasa-50);color:var(--brasa);
+    padding:2px 8px;border-radius:2px;font-size:.95em;
+  }
+  .slide.dark code, .slide.dark .mono{background:rgba(192,96,24,.18);color:var(--brasa)}
+
+  /* Setup steps */
+  .steps{display:grid;grid-template-columns:repeat(4,1fr);gap:32px;margin-top:48px}
+  .step{padding:32px;background:#fff;border:1.5px solid var(--areia)}
+  .step .n{font-size:88px;font-weight:700;line-height:.9;color:var(--carvao);letter-spacing:-.02em}
+  .step .n .dot{color:var(--brasa)}
+  .step h4{font-size:24px;font-weight:700;margin-top:16px;line-height:1.25}
+  .step p{font-size:16px;color:var(--grafite);margin-top:12px;line-height:1.5}
+  .step .cmd{
+    margin-top:16px;background:var(--carvao);color:var(--offwhite);
+    padding:14px 16px;font-size:14px;line-height:1.5;
+    border-radius:2px;
+  }
+  .step .cmd .p{color:var(--brasa);user-select:none}
+
+  /* Timeline (rotina) */
+  .timeline{display:grid;grid-template-columns:repeat(4,1fr);gap:24px;margin-top:48px}
+  .tcell{padding:32px;background:#fff;border:1.5px solid var(--areia);border-top:3px solid var(--brasa)}
+  .tcell .when{font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--pedra)}
+  .tcell h4{font-size:28px;font-weight:700;margin-top:12px;line-height:1.2}
+  .tcell ul{list-style:none;margin-top:16px}
+  .tcell li{font-size:18px;line-height:1.5;padding:6px 0;color:var(--grafite)}
+  .tcell li code{font-size:18px}
+
+  /* Dialog (casos) */
+  .dialog{display:flex;flex-direction:column;gap:24px;margin-top:32px;max-width:1500px}
+  .turn{background:#fff;border:1.5px solid var(--areia);padding:28px 32px;border-left:3px solid var(--areia)}
+  .turn.you{border-left-color:var(--brasa)}
+  .turn.claude{border-left-color:var(--carvao);background:var(--offwhite)}
+  .turn .who{font-size:14px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--pedra);margin-bottom:10px}
+  .turn.you .who{color:var(--brasa)}
+  .turn .msg{font-size:24px;line-height:1.5;color:var(--carvao)}
+  .turn .msg .ok{color:#1A7A4A;font-weight:700}
+  .turn .msg .arrow{color:var(--brasa);font-weight:700}
+
+  /* Guardrails list */
+  .never{display:grid;grid-template-columns:repeat(2,1fr);gap:24px;margin-top:48px}
+  .never .item{padding:32px;background:#fff;border:1.5px solid var(--areia);border-left:3px solid #B52A2A}
+  .never .item h4{font-size:28px;font-weight:700;line-height:1.2}
+  .never .item p{font-size:18px;color:var(--grafite);margin-top:8px;line-height:1.45}
+
+  /* Compromisso checklist */
+  .checklist{display:grid;grid-template-columns:1fr;gap:24px;margin-top:48px;max-width:1300px}
+  .check{display:flex;align-items:center;gap:32px;padding:32px;background:#fff;border:1.5px solid var(--areia)}
+  .check .box{
+    width:48px;height:48px;border:2.5px solid var(--carvao);
+    flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  }
+  .check .box::after{content:"";display:block;width:0;height:0}
+  .check h4{font-size:32px;font-weight:700;line-height:1.2}
+  .check p{font-size:18px;color:var(--grafite);margin-top:6px;line-height:1.4}
+
+  /* Slide 1 special */
+  .title-grid{display:flex;flex-direction:column;justify-content:space-between;flex:1}
+
+  /* Navigation */
+  #nav{
+    position:fixed;bottom:24px;left:50%;transform:translateX(-50%);
+    display:flex;align-items:center;gap:12px;
+    background:rgba(24,22,20,.9);
+    padding:8px 14px;border-radius:999px;z-index:10;
+    font-family:'Inter',sans-serif;color:#fff;
+    font-size:13px;letter-spacing:.04em;
+    backdrop-filter:none;
+  }
+  #nav button{
+    background:transparent;border:0;color:#fff;cursor:pointer;
+    width:30px;height:30px;border-radius:50%;font-size:16px;
+    display:flex;align-items:center;justify-content:center;
+    transition:background .12s ease;
+  }
+  #nav button:hover{background:rgba(255,255,255,.12)}
+  #nav .count{min-width:60px;text-align:center;font-weight:700;letter-spacing:.12em;font-size:12px;text-transform:uppercase}
+  #nav .hint{font-size:11px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);padding-left:8px;border-left:1px solid rgba(255,255,255,.2)}
+
+  /* Progress bar */
+  #progress{
+    position:fixed;top:0;left:0;height:3px;background:var(--brasa);
+    z-index:11;transition:width .2s ease;
+  }
+</style>
+</head>
+<body>
+
+<div id="progress"></div>
+
+<div id="stage">
+  <div class="deck" id="deck">
+
+    <!-- ====== SVG SYMBOL DEFS ====== -->
+    <svg width="0" height="0" style="position:absolute" aria-hidden="true">
+      <defs>
+        <symbol id="hurtz-symbol" viewBox="0 0 120 80">
+          <g fill="currentColor">
+            <polygon points="10,58 50,18 70,18 30,58"></polygon>
+            <polygon points="35,58 75,18 95,18 55,58"></polygon>
+            <polygon points="60,58 100,18 120,18 80,58"></polygon>
+          </g>
+        </symbol>
+      </defs>
+    </svg>
+
+    <!-- ============ SLIDE 1 — TITLE ============ -->
+    <section class="slide dark active">
+      <div class="title-grid">
+        <div class="slide-head">
+          <span class="logo">
+            <svg><use href="#hurtz-symbol"/></svg>
+            <span class="word">HURTZ</span>
+            <span class="divider"></span>
+            <span class="tag">CÉREBRO</span>
+          </span>
+          <span class="meta">TREINAMENTO · GESTORES · 05/2026</span>
+        </div>
+        <div>
+          <span class="eyebrow">SISTEMA OPERACIONAL DA EQUIPE</span>
+          <div class="rule"></div>
+          <h1 class="display" style="color:var(--offwhite)">Hurtz<br>Cérebro.</h1>
+          <p class="lead" style="margin-top:40px;max-width:1300px">
+            Um repositório. Seis gestores. Conhecimento que cresce com a Hurtz — não com a memória de quem está logado.
+          </p>
+        </div>
+        <div class="slide-foot" style="position:static;padding:0;margin-top:32px;left:auto;right:auto;bottom:auto">
+          <span style="display:flex;align-items:center;gap:12px"><svg style="height:18px;color:var(--offwhite)"><use href="#hurtz-symbol"/></svg> HURTZ COMPANY · PARAUAPEBAS, PA</span>
+          <span>01 / 15</span>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 2 — BIG QUOTE ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">01 · POR QUE EXISTE</span>
+      </div>
+      <div class="body">
+        <span class="eyebrow">PROMESSA</span>
+        <div class="rule"></div>
+        <h2 class="title" style="font-size:128px">Conhecimento esquecido<br>é cliente perdido.</h2>
+        <p class="lead" style="font-size:36px;margin-top:48px">
+          Cada gestor com Notion próprio. Cada cliente com aprendizado isolado.<br>
+          Acabou.
+        </p>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 02 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 3 — ANTES VS DEPOIS ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">02 · O QUE MUDA</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">02 · DIFERENÇA</span>
+        <div class="rule"></div>
+        <h2 class="title">Antes vs. depois.</h2>
+        <div class="compare">
+          <div class="col-a">
+            <h4>ANTES</h4>
+            <ul>
+              <li>Notion / Drive / cabeça — cada um com o seu</li>
+              <li>Aprendizado morre quando o gestor sai</li>
+              <li>Cliente troca de gestor = caos de migração</li>
+              <li>Quem? Quando? Onde está aquele arquivo?</li>
+              <li>Reuniões pra alinhar o que já foi falado</li>
+            </ul>
+          </div>
+          <div class="col-b">
+            <h4>HURTZ CÉREBRO</h4>
+            <ul>
+              <li>Repositório único — toda equipe no mesmo</li>
+              <li>Gravou uma vez, 6 gestores recebem</li>
+              <li>Cliente troca em 1 comando — tudo migrado</li>
+              <li>Tudo gravado, versionado, buscável</li>
+              <li>Sync automático no Git — zero atrito</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 03 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 4 — STATS ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">03 · TAMANHO</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">03 · NÚMEROS DO CÉREBRO</span>
+        <div class="rule"></div>
+        <h2 class="title">O que tem dentro.</h2>
+        <div class="stats">
+          <div class="stat">
+            <div class="rule sm"></div>
+            <div class="num">6<span class="suf"></span></div>
+            <div class="lbl">gestores no mesmo repositório, sem conflito</div>
+          </div>
+          <div class="stat">
+            <div class="rule sm"></div>
+            <div class="num">21<span class="suf">+</span></div>
+            <div class="lbl">skills automatizadas — Claude lê, executa, grava</div>
+          </div>
+          <div class="stat">
+            <div class="rule sm"></div>
+            <div class="num">11<span class="suf"></span></div>
+            <div class="lbl">comandos slash do dia a dia</div>
+          </div>
+          <div class="stat">
+            <div class="rule sm"></div>
+            <div class="num">1<span class="suf"></span></div>
+            <div class="lbl">único lugar pra gravar tudo. Sem Drive espalhado.</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 04 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 5 — SETUP ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">04 · SETUP INICIAL</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">04 · SETUP</span>
+        <div class="rule"></div>
+        <h2 class="title">30 minutos. Uma vez só.</h2>
+        <div class="steps">
+          <div class="step">
+            <div class="n">01<span class="dot">.</span></div>
+            <h4>Instalar Claude Code</h4>
+            <p>Terminal aberto, roda o curl. Login com a conta da Hurtz.</p>
+            <div class="cmd"><span class="p">$ </span>curl -fsSL claude.ai/install.sh | bash</div>
+          </div>
+          <div class="step">
+            <div class="n">02<span class="dot">.</span></div>
+            <h4>Clonar o repo</h4>
+            <p>Acesso ao repo o Klebson libera. Clone numa pasta local.</p>
+            <div class="cmd"><span class="p">$ </span>git clone hurtzgestao-lang/<br>hurtz-consorcio.git</div>
+          </div>
+          <div class="step">
+            <div class="n">03<span class="dot">.</span></div>
+            <h4>Configurar .env</h4>
+            <p>Copia o template, ajusta teu slug e segredos do Klebson.</p>
+            <div class="cmd"><span class="p">$ </span>cp .env.example .env<br><span class="p"># </span>HURTZ_GESTOR=seu-slug</div>
+          </div>
+          <div class="step">
+            <div class="n">04<span class="dot">.</span></div>
+            <h4>Rodar /iniciar</h4>
+            <p>Claude lê o contexto da empresa + teu agente pessoal.</p>
+            <div class="cmd"><span class="p">$ </span>claude<br><span class="p">› </span>/iniciar</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 05 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 6 — ROTINA ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">05 · ROTINA</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">05 · DIA A DIA</span>
+        <div class="rule"></div>
+        <h2 class="title">5 minutos de manhã.<br>Fluxo natural durante o dia.</h2>
+        <div class="timeline">
+          <div class="tcell">
+            <span class="when">MANHÃ</span>
+            <h4>Abrir e planejar</h4>
+            <ul>
+              <li><code>/iniciar</code></li>
+              <li><code>/minhas-tarefas</code></li>
+              <li><code>/planejar-dia</code></li>
+            </ul>
+          </div>
+          <div class="tcell">
+            <span class="when">DURANTE</span>
+            <h4>Falar natural</h4>
+            <ul>
+              <li>"concluí X"</li>
+              <li>"adiciona tarefa pro Vinicius"</li>
+              <li>"aprendi que Y"</li>
+            </ul>
+          </div>
+          <div class="tcell">
+            <span class="when">FIM DO DIA</span>
+            <h4>Nada</h4>
+            <ul>
+              <li>Commit automático</li>
+              <li>Push automático</li>
+              <li>Sai e fecha o Mac</li>
+            </ul>
+          </div>
+          <div class="tcell">
+            <span class="when">SEXTA</span>
+            <h4>Evoluir o agente</h4>
+            <ul>
+              <li><code>/evoluir-agente</code></li>
+              <li>Aprova as melhorias</li>
+              <li>Cérebro fica mais afiado</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 06 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 7 — COMANDOS ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">06 · COMANDOS</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">06 · COMANDOS SLASH</span>
+        <div class="rule"></div>
+        <h2 class="title" style="font-size:88px">Não decora. Esqueceu?<br>Pergunta pro Claude.</h2>
+        <table class="t smaller">
+          <tr><th>Comando</th><th>Pra que serve</th></tr>
+          <tr><td><code>/iniciar</code></td><td>Começar a sessão. SEMPRE rodar primeiro.</td></tr>
+          <tr><td><code>/minhas-tarefas</code></td><td>Ver o que tá em aberto pra mim.</td></tr>
+          <tr><td><code>/planejar-dia</code></td><td>Move 3-5 itens pro hoje.md.</td></tr>
+          <tr><td><code>/criar-tarefa</code></td><td>Criar tarefa pra outro gestor — manda WhatsApp automático.</td></tr>
+          <tr><td><code>/concluir-tarefa</code></td><td>Fechar tarefa, move pra concluidas.md.</td></tr>
+          <tr><td><code>/aprender</code></td><td>Registrar aprendizado (cliente ou empresa).</td></tr>
+          <tr><td><code>/evoluir-agente</code></td><td>Sexta-feira — auto-otimiza meu agente pessoal.</td></tr>
+          <tr><td><code>/relatorio-equipe</code></td><td>Visão executiva da carga da equipe.</td></tr>
+          <tr><td><code>/mover-cliente</code></td><td>Passar cliente pra outro gestor.</td></tr>
+          <tr><td><code>/syncar</code></td><td>Forçar commit + push agora.</td></tr>
+          <tr><td><code>/atualizar</code></td><td>Sincronizar memórias com o estado real.</td></tr>
+        </table>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 07 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 8 — MAPA DE GRAVAÇÃO ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">07 · ONDE GRAVAR</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">07 · MAPA DE GRAVAÇÃO</span>
+        <div class="rule"></div>
+        <h2 class="title" style="font-size:88px">Cada informação<br>tem um lugar certo.</h2>
+        <table class="t smaller">
+          <tr><th>Tipo de informação</th><th>Vai pra</th></tr>
+          <tr><td>Tarefa minha</td><td><code>colaboradores/{eu}/tarefas/</code></td></tr>
+          <tr><td>Tarefa pra outro gestor</td><td>inbox dele · skill <code>criar-tarefa-para</code></td></tr>
+          <tr><td>Aprendizado de cliente</td><td><code>clientes/{X}/aprendizados.md</code></td></tr>
+          <tr><td>Aprendizado da empresa</td><td><code>base-conhecimento/aprendizados/</code></td></tr>
+          <tr><td>Preferência minha</td><td><code>colaboradores/{eu}/memoria/preferencias.md</code></td></tr>
+          <tr><td>Correção que fiz no Claude</td><td><code>colaboradores/{eu}/memoria/correcoes.md</code></td></tr>
+          <tr><td>Histórico de atendimento</td><td><code>clientes/{X}/historico.md</code> (append-only)</td></tr>
+          <tr><td>Mudança em metodologia</td><td><code>base-conhecimento/metodologias/</code> (Klebson aprova)</td></tr>
+          <tr><td>Decisão estratégica</td><td><code>base-conhecimento/empresa/estrategia.md</code></td></tr>
+        </table>
+        <p class="small" style="margin-top:24px">Não precisa decorar. Você fala em linguagem natural — o Claude pergunta antes de gravar onde tem dúvida.</p>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 08 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 9 — CASO 1 ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">08 · CASO 1</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">08 · CASO REAL · DELEGAR</span>
+        <div class="rule"></div>
+        <h2 class="title">Criar tarefa pra outro gestor.</h2>
+        <div class="dialog">
+          <div class="turn you">
+            <div class="who">VOCÊ</div>
+            <div class="msg">adiciona tarefa pro Vinicius revisar o criativo do Dr. Alan até quinta</div>
+          </div>
+          <div class="turn claude">
+            <div class="who">CLAUDE</div>
+            <div class="msg">
+              <span class="ok">✓</span> tarefa criada em <code>colaboradores/vinicius/tarefas/inbox.md</code><br>
+              <span class="ok">✓</span> WhatsApp enviado pro Vinicius com prazo<br>
+              <span class="ok">✓</span> commit + push feitos no GitHub<br><br>
+              <span style="color:var(--grafite);font-size:20px">próxima vez que o Vinicius rodar <code>/minhas-tarefas</code>, vai aparecer.</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 09 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 10 — CASO 2 ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">09 · CASO 2</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">09 · CASO REAL · APRENDER</span>
+        <div class="rule"></div>
+        <h2 class="title">Registrar aprendizado.</h2>
+        <div class="dialog">
+          <div class="turn you">
+            <div class="who">VOCÊ</div>
+            <div class="msg">aprendi que oferecer 30 dias grátis converte 3x mais que desconto de 20%. testei com 4 clientes essa semana.</div>
+          </div>
+          <div class="turn claude">
+            <div class="who">CLAUDE</div>
+            <div class="msg">
+              parece padrão da empresa toda, não cliente específico.<br>
+              <span class="arrow">→</span> grava em <code>base-conhecimento/aprendizados/learnings-2026-05.md</code><br>
+              <span class="arrow">→</span> notifica grupo Hurtz Operacional via WhatsApp<br><br>
+              <span style="color:var(--grafite);font-size:20px">confirmo?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 10 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 11 — CASO 3 ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">10 · CASO 3</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">10 · CASO REAL · MOVER CLIENTE</span>
+        <div class="rule"></div>
+        <h2 class="title">Passar cliente entre gestores.</h2>
+        <div class="dialog">
+          <div class="turn you">
+            <div class="who">VOCÊ</div>
+            <div class="msg">passa o Dr. Alan pro Vinicius</div>
+          </div>
+          <div class="turn claude">
+            <div class="who">CLAUDE</div>
+            <div class="msg">
+              <span class="arrow">→</span> atualiza frontmatter de <code>clientes/dr-alan/</code><br>
+              <span class="arrow">→</span> troca gestor em <code>quem-sou-eu.md</code> (Klebson → Vinicius)<br>
+              <span class="arrow">→</span> ajusta <code>dados/grupos-gestores.json</code><br>
+              <span class="arrow">→</span> notifica Vinicius e o grupo do cliente via WhatsApp<br><br>
+              <span style="color:var(--grafite);font-size:20px">confirmo?</span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 11 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 12 — SEXTA / EVOLUIR ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">11 · SEXTA-FEIRA</span>
+      </div>
+      <div class="body">
+        <span class="eyebrow">11 · /EVOLUIR-AGENTE</span>
+        <div class="rule"></div>
+        <h2 class="title" style="font-size:120px">Seu agente<br>aprende com você.</h2>
+        <p class="lead" style="font-size:32px;margin-top:48px;max-width:1500px">
+          Toda sexta, o <code style="font-size:.95em">/evoluir-agente</code> analisa as correções da semana, identifica padrões e propõe edições no teu CLAUDE.md pessoal.<br><br>
+          <span style="color:var(--carvao);font-weight:700">Você aprova ou rejeita cada uma.</span><br>
+          A cada semana o Cérebro fica mais afiado pro teu jeito.
+        </p>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 12 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 13 — NUNCA FAZER ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">12 · GUARDRAILS</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">12 · O QUE NUNCA FAZER</span>
+        <div class="rule"></div>
+        <h2 class="title">5 coisas pra nunca fazer.</h2>
+        <div class="never">
+          <div class="item">
+            <h4>Editar pasta de outro gestor</h4>
+            <p><code>colaboradores/{outro}/</code> é privado dele. Use <code>/criar-tarefa</code> pra adicionar coisas no inbox.</p>
+          </div>
+          <div class="item">
+            <h4>Apagar arquivo de cliente</h4>
+            <p>Pede pro Claude mover, nunca deletar. Histórico do cliente é sagrado.</p>
+          </div>
+          <div class="item">
+            <h4>Commitar .env ou credenciais</h4>
+            <p>Já tá no <code>.gitignore</code> — mas confere antes de qualquer push manual.</p>
+          </div>
+          <div class="item">
+            <h4>git push --force</h4>
+            <p>Reescreve histórico da equipe. Se precisar, chama o Klebson.</p>
+          </div>
+          <div class="item" style="grid-column:1/-1">
+            <h4>Editar metodologias / estratégia direto</h4>
+            <p><code>base-conhecimento/metodologias/</code> e <code>empresa/estrategia.md</code> só entram com aprovação do Klebson e Marcos.</p>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 13 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 14 — COMPROMISSO ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">13 · COMPROMISSO</span>
+      </div>
+      <div class="body">
+        <span class="eyebrow">13 · COMPROMISSO DE SAÍDA</span>
+        <div class="rule"></div>
+        <h2 class="title" style="font-size:104px">Você sai dessa live<br>com 3 coisas prontas.</h2>
+        <div class="checklist">
+          <div class="check">
+            <div class="box"></div>
+            <div>
+              <h4>Cérebro instalado</h4>
+              <p>Claude Code no Mac, repo clonado, .env configurado, <code>/iniciar</code> rodado.</p>
+            </div>
+          </div>
+          <div class="check">
+            <div class="box"></div>
+            <div>
+              <h4>1 tarefa criada pra outro gestor</h4>
+              <p>Vai pro inbox dele e dispara WhatsApp — em tempo real, na frente da equipe.</p>
+            </div>
+          </div>
+          <div class="check">
+            <div class="box"></div>
+            <div>
+              <h4>1 aprendizado registrado</h4>
+              <p>Cliente-específico ou padrão da empresa. Notifica o grupo Operacional.</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 14 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 15 — CTA FINAL ============ -->
+    <section class="slide brasa">
+      <div class="title-grid">
+        <div class="slide-head">
+          <span class="logo">
+            <svg style="color:#fff"><use href="#hurtz-symbol"/></svg>
+            <span class="word" style="color:#fff">HURTZ</span>
+            <span class="divider"></span>
+            <span class="tag" style="color:rgba(255,255,255,.8)">CÉREBRO</span>
+          </span>
+          <span class="meta">FINAL · 15 / 15</span>
+        </div>
+        <div>
+          <span class="eyebrow">PRÓXIMO PASSO</span>
+          <div class="rule"></div>
+          <h1 class="display" style="color:#fff">Vamos operar<br>juntos.</h1>
+          <p class="lead" style="font-size:36px;margin-top:48px;color:rgba(255,255,255,.95);max-width:1300px">
+            <code style="background:rgba(255,255,255,.18);color:#fff">claude</code> &nbsp;<span style="opacity:.7">→</span>&nbsp; <code style="background:rgba(255,255,255,.18);color:#fff">/iniciar</code> &nbsp;<span style="opacity:.7">→</span>&nbsp; boas-vindas ao Cérebro.
+          </p>
+        </div>
+        <div style="display:flex;gap:80px;font-size:22px;color:rgba(255,255,255,.9)">
+          <div>
+            <div style="font-weight:700;color:#fff;letter-spacing:.16em;font-size:14px;text-transform:uppercase">Repositório</div>
+            <div style="margin-top:8px">github.com/hurtzgestao-lang/<br>hurtz-consorcio</div>
+          </div>
+          <div>
+            <div style="font-weight:700;color:#fff;letter-spacing:.16em;font-size:14px;text-transform:uppercase">Onboarding</div>
+            <div style="margin-top:8px">Klebson roda <code style="background:rgba(255,255,255,.18);color:#fff">/onboarding-gestor</code></div>
+          </div>
+          <div>
+            <div style="font-weight:700;color:#fff;letter-spacing:.16em;font-size:14px;text-transform:uppercase">Suporte</div>
+            <div style="margin-top:8px">Pergunta direto pro Claude<br>dentro do repo.</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+  </div>
+</div>
+
+<!-- Navigation -->
+<nav id="nav">
+  <button id="prev" aria-label="Anterior">‹</button>
+  <span class="count" id="count">01 / 15</span>
+  <button id="next" aria-label="Próximo">›</button>
+  <span class="hint">← → · F · ESC</span>
+</nav>
+
+<script>
+(function(){
+  const slides = Array.from(document.querySelectorAll('.slide'));
+  const total = slides.length;
+  const deck = document.getElementById('deck');
+  const stage = document.getElementById('stage');
+  const countEl = document.getElementById('count');
+  const progressEl = document.getElementById('progress');
+  let idx = 0;
+
+  function pad(n){ return String(n).padStart(2,'0'); }
+
+  function show(n){
+    n = Math.max(0, Math.min(total-1, n));
+    slides[idx].classList.remove('active');
+    slides[n].classList.add('active');
+    idx = n;
+    countEl.textContent = pad(idx+1) + ' / ' + pad(total);
+    progressEl.style.width = ((idx+1)/total*100) + '%';
+    history.replaceState(null,'','#'+(idx+1));
+  }
+
+  function fit(){
+    const vw = window.innerWidth, vh = window.innerHeight;
+    const s = Math.min(vw/1920, vh/1080);
+    deck.style.transform = 'scale(' + s + ')';
+  }
+
+  document.getElementById('prev').addEventListener('click', ()=>show(idx-1));
+  document.getElementById('next').addEventListener('click', ()=>show(idx+1));
+
+  document.addEventListener('keydown', e=>{
+    if(e.key==='ArrowRight'||e.key==='PageDown'||e.key===' '){ e.preventDefault(); show(idx+1); }
+    else if(e.key==='ArrowLeft'||e.key==='PageUp'){ e.preventDefault(); show(idx-1); }
+    else if(e.key==='Home'){ show(0); }
+    else if(e.key==='End'){ show(total-1); }
+    else if(e.key==='f'||e.key==='F'){
+      if(!document.fullscreenElement) document.documentElement.requestFullscreen();
+      else document.exitFullscreen();
+    }
+    else if(e.key==='Escape' && document.fullscreenElement){ document.exitFullscreen(); }
+  });
+
+  // Edge click to advance / retreat
+  stage.addEventListener('click', e=>{
+    if(e.target.closest('#nav')) return;
+    const x = e.clientX / window.innerWidth;
+    if(x > 0.7) show(idx+1);
+    else if(x < 0.3) show(idx-1);
+  });
+
+  window.addEventListener('resize', fit);
+  fit();
+
+  // Honor hash on load
+  const h = parseInt(location.hash.slice(1),10);
+  if(!isNaN(h) && h>=1 && h<=total) show(h-1);
+  else show(0);
+})();
+</script>
+
+</body>
+</html>
