@@ -211,6 +211,81 @@
   .never .item h4{font-size:28px;font-weight:700;line-height:1.2}
   .never .item p{font-size:18px;color:var(--grafite);margin-top:8px;line-height:1.45}
 
+  /* ── Stack list (3 cards horizontal) ── */
+  .stack{display:grid;grid-template-columns:repeat(3,1fr);gap:32px;margin-top:48px}
+  .stack .item{padding:32px;background:#fff;border:1.5px solid var(--areia)}
+  .stack .item .num{font-size:14px;font-weight:700;letter-spacing:.18em;color:var(--brasa);text-transform:uppercase}
+  .stack .item h4{font-size:36px;font-weight:700;margin-top:14px;line-height:1.15}
+  .stack .item .role{font-size:16px;font-weight:700;letter-spacing:.06em;color:var(--pedra);text-transform:uppercase;margin-top:8px}
+  .stack .item p{font-size:18px;color:var(--grafite);margin-top:16px;line-height:1.5}
+
+  /* ── Install timeline (vertical numbered) ── */
+  .install{display:grid;grid-template-columns:1fr;gap:12px;margin-top:24px;max-width:1500px}
+  .install .row{display:grid;grid-template-columns:72px 1fr 380px;gap:28px;align-items:center;padding:14px 24px;background:#fff;border:1.5px solid var(--areia)}
+  .install .row .n{font-size:40px;font-weight:700;line-height:1;letter-spacing:-.02em}
+  .install .row .n .dot{color:var(--brasa)}
+  .install .row .text h4{font-size:20px;font-weight:700;line-height:1.2}
+  .install .row .text p{font-size:15px;color:var(--grafite);margin-top:4px;line-height:1.4}
+  .install .row .cmd{
+    background:var(--carvao);color:var(--offwhite);padding:10px 14px;
+    font-size:13px;line-height:1.5;border-radius:2px;font-family:'Inter',sans-serif;
+  }
+  .install .row .cmd .p{color:var(--brasa)}
+
+  /* ── Keyboard shortcut chip ── */
+  .kbd{display:inline-flex;align-items:center;gap:4px;padding:3px 8px;background:var(--areia);border:1px solid var(--pedra);border-radius:3px;font-size:.85em;font-weight:700;color:var(--carvao);letter-spacing:.04em}
+  .slide.dark .kbd{background:rgba(245,242,236,.12);border-color:rgba(245,242,236,.3);color:var(--offwhite)}
+
+  /* ── OS note (small footnote) ── */
+  .os-note{margin-top:24px;padding:14px 20px;background:var(--brasa-50);border-left:3px solid var(--brasa);font-size:16px;color:var(--carvao);line-height:1.5;max-width:1500px}
+  .os-note strong{font-weight:700}
+
+  /* ── VS Code anatomy mockup ── */
+  .vscode{margin-top:32px;background:#fff;border:1.5px solid var(--areia);max-width:1700px}
+  .vscode .topbar{padding:10px 18px;border-bottom:1px solid var(--areia);font-size:13px;color:var(--pedra);letter-spacing:.06em;text-transform:uppercase;font-weight:700}
+  .vscode .layout{display:grid;grid-template-columns:280px 1fr 360px;min-height:420px}
+  .vscode .panel{padding:18px;border-right:1px solid var(--areia);font-size:14px;line-height:1.6}
+  .vscode .panel:last-child{border-right:0;background:var(--carvao);color:var(--offwhite)}
+  .vscode .panel h5{font-size:11px;font-weight:700;letter-spacing:.16em;color:var(--pedra);text-transform:uppercase;margin-bottom:14px}
+  .vscode .panel:last-child h5{color:rgba(245,242,236,.55)}
+  .vscode .tree{font-size:13px;line-height:1.7;color:var(--grafite)}
+  .vscode .tree .folder{font-weight:700;color:var(--carvao)}
+  .vscode .editor{padding:24px 28px;font-size:14px;line-height:1.6;background:var(--offwhite)}
+  .vscode .editor .h{font-size:18px;font-weight:700;margin-bottom:12px}
+  .vscode .editor .l{color:var(--grafite)}
+  .vscode .chat .turn{padding:12px 14px;background:rgba(245,242,236,.06);border-left:2px solid var(--brasa);margin-top:12px;border-radius:0 2px 2px 0;font-size:13px;line-height:1.5}
+  .vscode .chat .you{color:var(--brasa);font-weight:700;font-size:11px;letter-spacing:.16em;text-transform:uppercase;margin-bottom:4px}
+  .vscode .chat .ans{color:rgba(245,242,236,.85)}
+  .vscode .footnote{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-top:1px solid var(--areia)}
+  .vscode .footnote > div{padding:14px 18px;border-right:1px solid var(--areia);font-size:13px;line-height:1.4}
+  .vscode .footnote > div:last-child{border-right:0}
+  .vscode .footnote .lbl{font-size:10px;font-weight:700;letter-spacing:.16em;color:var(--brasa);text-transform:uppercase;margin-bottom:4px}
+
+  /* ── .env mockup (highlighted lines) ── */
+  .envmock{margin-top:32px;background:var(--carvao);color:var(--offwhite);padding:32px 36px;font-family:'Inter',sans-serif;font-size:18px;line-height:1.65;border-radius:4px;max-width:1500px}
+  .envmock .ln{display:flex;align-items:center;gap:24px}
+  .envmock .ln .k{color:var(--offwhite);font-weight:700}
+  .envmock .ln .v{color:rgba(245,242,236,.55)}
+  .envmock .ln .note{color:var(--brasa);font-size:14px;letter-spacing:.04em;margin-left:auto;font-weight:700}
+  .envmock .comment{color:rgba(245,242,236,.4);font-size:14px;margin-top:10px;font-style:italic}
+
+  /* ── Terminal session (extended) ── */
+  .session{margin-top:32px;background:var(--carvao);color:var(--offwhite);padding:28px 36px;border-radius:4px;font-family:'Inter',sans-serif;font-size:17px;line-height:1.65;max-width:1500px}
+  .session .prompt{color:var(--brasa);font-weight:700}
+  .session .you{color:#fff;font-weight:700}
+  .session .ok{color:#1A7A4A;font-weight:700}
+  .session .muted{color:rgba(245,242,236,.6)}
+  .session .arrow{color:var(--brasa)}
+  .session .sp{height:14px}
+
+  /* ── Sync flow diagram ── */
+  .sync{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
+  .sync .col{padding:32px;background:#fff;border:1.5px solid var(--areia);border-top:3px solid var(--brasa)}
+  .sync .col .when{font-size:14px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:var(--brasa)}
+  .sync .col h4{font-size:28px;font-weight:700;margin-top:10px;line-height:1.2}
+  .sync .col p{font-size:17px;color:var(--grafite);margin-top:12px;line-height:1.5}
+  .sync .col code{font-size:15px}
+
   /* Compromisso checklist */
   .checklist{display:grid;grid-template-columns:1fr;gap:24px;margin-top:48px;max-width:1300px}
   .check{display:flex;align-items:center;gap:32px;padding:32px;background:#fff;border:1.5px solid var(--areia)}
@@ -425,7 +500,7 @@
       </div>
     </section>
 
-    <!-- ============ SLIDE 5 — SETUP ============ -->
+    <!-- ============ SLIDE 5 — SETUP OVERVIEW ============ -->
     <section class="slide">
       <div class="slide-head">
         <span class="logo">
@@ -443,33 +518,346 @@
         <div class="steps">
           <div class="step">
             <div class="n">01<span class="dot">.</span></div>
-            <h4>Instalar Claude Code</h4>
-            <p>Terminal aberto, roda o curl. Login com a conta da Hurtz.</p>
-            <div class="cmd"><span class="p">$ </span>curl -fsSL claude.ai/install.sh | bash</div>
+            <h4>Instalar</h4>
+            <p>VS Code + Git for Windows + extensão do Claude Code.</p>
+            <div class="cmd"><span class="p">› </span>code.visualstudio.com<br><span class="p">› </span>git-scm.com<br><span class="p">› </span>VS Code → Extensions</div>
           </div>
           <div class="step">
             <div class="n">02<span class="dot">.</span></div>
             <h4>Clonar o repo</h4>
-            <p>Acesso ao repo o Klebson libera. Clone numa pasta local.</p>
-            <div class="cmd"><span class="p">$ </span>git clone hurtzgestao-lang/<br>hurtz-consorcio.git</div>
+            <p>Dentro do VS Code, sem terminal manual.</p>
+            <div class="cmd"><span class="p">› </span>Ctrl+Shift+P<br><span class="p">› </span>Git: Clone<br><span class="p">› </span>cola URL do repo</div>
           </div>
           <div class="step">
             <div class="n">03<span class="dot">.</span></div>
             <h4>Configurar .env</h4>
-            <p>Copia o template, ajusta teu slug e segredos do Klebson.</p>
-            <div class="cmd"><span class="p">$ </span>cp .env.example .env<br><span class="p"># </span>HURTZ_GESTOR=seu-slug</div>
+            <p>Teu slug + segredos que o Klebson manda.</p>
+            <div class="cmd"><span class="p"># </span>HURTZ_GESTOR=seu-slug<br><span class="p"># </span>EVOLUTION_API_KEY=...<br><span class="p"># </span>GOOGLE_SERVICE=...</div>
           </div>
           <div class="step">
             <div class="n">04<span class="dot">.</span></div>
-            <h4>Rodar /iniciar</h4>
-            <p>Claude lê o contexto da empresa + teu agente pessoal.</p>
-            <div class="cmd"><span class="p">$ </span>claude<br><span class="p">› </span>/iniciar</div>
+            <h4>/iniciar</h4>
+            <p>Abre Claude Code no VS Code, manda /iniciar.</p>
+            <div class="cmd"><span class="p">› </span>painel Claude<br><span class="p">› </span>/iniciar<br><span class="p"># </span>contexto carregado</div>
           </div>
         </div>
       </div>
       <div class="slide-foot">
         <svg><use href="#hurtz-symbol"/></svg>
-        <span>HURTZ · 05 / 15</span>
+        <span>HURTZ · 05 / 22</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 5A — STACK ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">04 · STACK</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">04 · STACK</span>
+        <div class="rule"></div>
+        <h2 class="title">3 ferramentas. É tudo.</h2>
+        <div class="stack">
+          <div class="item">
+            <div class="num">01</div>
+            <h4>VS Code</h4>
+            <div class="role">EDITOR DE ARQUIVOS</div>
+            <p>Onde você abre, lê e edita os arquivos do repo. Gratuito, da Microsoft. Roda igual em Windows e Mac.</p>
+          </div>
+          <div class="item">
+            <div class="num">02</div>
+            <h4>Git for Windows</h4>
+            <div class="role">VERSIONAMENTO + SYNC</div>
+            <p>Guarda o histórico de tudo que muda e sincroniza com o GitHub. No Mac já vem instalado.</p>
+          </div>
+          <div class="item">
+            <div class="num">03</div>
+            <h4>Claude Code</h4>
+            <div class="role">EXTENSÃO DO VS CODE — O CÉREBRO</div>
+            <p>Painel dentro do VS Code onde você conversa em linguagem natural. Ele lê, executa skills e edita arquivos.</p>
+          </div>
+        </div>
+        <div class="os-note">
+          <strong>Mac (Klebson, Marcos):</strong> mesma coisa, só que Git já vem instalado e os atalhos usam Cmd ao invés de Ctrl.
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 06 / 22</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 5B — INSTALAR ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">04 · INSTALAR</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">04 · INSTALAR</span>
+        <div class="rule"></div>
+        <h2 class="title">Próximo. Próximo. Próximo.</h2>
+        <div class="install">
+          <div class="row">
+            <div class="n">01<span class="dot">.</span></div>
+            <div class="text">
+              <h4>VS Code</h4>
+              <p>Vai em <code>code.visualstudio.com</code>, "Download for Windows", abre o instalador, deixa as opções padrão e finaliza.</p>
+            </div>
+            <div class="cmd"><span class="p">› </span>code.visualstudio.com<br><span class="p">› </span>Download for Windows<br><span class="p"># </span>~3 min</div>
+          </div>
+          <div class="row">
+            <div class="n">02<span class="dot">.</span></div>
+            <div class="text">
+              <h4>Git for Windows</h4>
+              <p>Em <code>git-scm.com</code>, baixa "Download for Windows", aceita as opções padrão. No final ele instala também o Git Bash (não precisa abrir).</p>
+            </div>
+            <div class="cmd"><span class="p">› </span>git-scm.com<br><span class="p">› </span>Download for Windows<br><span class="p"># </span>~3 min</div>
+          </div>
+          <div class="row">
+            <div class="n">03<span class="dot">.</span></div>
+            <div class="text">
+              <h4>Extensão Claude Code</h4>
+              <p>Abre o VS Code, aperta <span class="kbd">Ctrl+Shift+X</span> pra abrir Extensions, busca <strong>Claude Code</strong> e clica em Install.</p>
+            </div>
+            <div class="cmd"><span class="p">› </span>VS Code<br><span class="p">› </span>Ctrl+Shift+X<br><span class="p">› </span>Claude Code → Install</div>
+          </div>
+          <div class="row">
+            <div class="n">04<span class="dot">.</span></div>
+            <div class="text">
+              <h4>Login</h4>
+              <p>Clica no ícone do Claude Code na sidebar esquerda → "Sign in" → entra com a conta da Hurtz que o Klebson te passa.</p>
+            </div>
+            <div class="cmd"><span class="p">› </span>ícone Claude<br><span class="p">› </span>Sign in<br><span class="p"># </span>conta Hurtz</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 07 / 22</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 5C — CLONAR ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">04 · CLONAR</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">04 · CLONAR O REPO</span>
+        <div class="rule"></div>
+        <h2 class="title">Trazer o Cérebro<br>pro teu computador.</h2>
+        <div class="install">
+          <div class="row">
+            <div class="n">01<span class="dot">.</span></div>
+            <div class="text">
+              <h4>Abre o Command Palette do VS Code</h4>
+              <p>Atalho <span class="kbd">Ctrl+Shift+P</span> (Windows) ou <span class="kbd">Cmd+Shift+P</span> (Mac). Abre uma barra de busca no topo.</p>
+            </div>
+            <div class="cmd"><span class="p">› </span>Ctrl+Shift+P</div>
+          </div>
+          <div class="row">
+            <div class="n">02<span class="dot">.</span></div>
+            <div class="text">
+              <h4>Digita <strong>Git: Clone</strong></h4>
+              <p>Conforme você digita, ele filtra. Seleciona "Git: Clone" na lista.</p>
+            </div>
+            <div class="cmd"><span class="p">› </span>Git: Clone</div>
+          </div>
+          <div class="row">
+            <div class="n">03<span class="dot">.</span></div>
+            <div class="text">
+              <h4>Cola a URL do repositório</h4>
+              <p>Quando ele pedir a URL, cola exatamente isto e dá Enter. Pode pedir login no GitHub — só seguir.</p>
+            </div>
+            <div class="cmd"><span class="p">› </span>github.com/<br>hurtzgestao-lang/<br>hurtz-consorcio.git</div>
+          </div>
+          <div class="row">
+            <div class="n">04<span class="dot">.</span></div>
+            <div class="text">
+              <h4>Escolhe a pasta e abre</h4>
+              <p>Recomendo criar pasta <code>Hurtz</code> em Documentos. Quando perguntar se quer abrir o repo clonado, <strong>Open</strong>. Aceita "Yes, I trust the authors".</p>
+            </div>
+            <div class="cmd"><span class="p">› </span>Documentos/Hurtz<br><span class="p">› </span>Open<br><span class="p">› </span>Yes, I trust</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 08 / 22</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 5D — CONFIGURAR .env ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">04 · CONFIGURAR</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">04 · CONFIGURAR .env</span>
+        <div class="rule"></div>
+        <h2 class="title">Tuas credenciais.</h2>
+        <p class="lead" style="font-size:24px;margin-top:16px;max-width:1500px">
+          O <code>.env</code> guarda chaves secretas (API do WhatsApp, Google, Meta). Klebson manda os valores. Cada gestor tem o próprio.
+        </p>
+        <div class="envmock">
+          <div class="comment"># .env — copia de .env.example, ajusta e salva</div>
+          <div class="ln"><span class="k">HURTZ_GESTOR</span><span class="v">=kerlys</span><span class="note">← teu slug</span></div>
+          <div class="ln"><span class="k">EVOLUTION_API_KEY</span><span class="v">=sk-...</span><span class="note">← Klebson manda</span></div>
+          <div class="ln"><span class="k">GOOGLE_SERVICE_ACCOUNT</span><span class="v">={...}</span><span class="note">← Klebson manda</span></div>
+          <div class="ln"><span class="k">META_ACCESS_TOKEN</span><span class="v">=EAA...</span><span class="note">← Klebson manda</span></div>
+        </div>
+        <div class="os-note" style="margin-top:32px">
+          <strong>Como fazer:</strong> No VS Code, sidebar esquerda, clica em <code>.env.example</code>. <span class="kbd">Ctrl+Shift+S</span> pra "Save As" → salva como <code>.env</code> na mesma pasta. Edita as 4 linhas acima e salva (<span class="kbd">Ctrl+S</span>).
+        </div>
+        <div class="os-note" style="background:rgba(181,42,42,.08);border-color:#B52A2A;margin-top:16px">
+          <strong>NUNCA</strong> commite o <code>.env</code>. Já tá no <code>.gitignore</code>, mas confere antes de qualquer push manual.
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 09 / 22</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 5E — ANATOMIA VS CODE ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">04 · ANATOMIA</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">04 · TUA TELA DE TRABALHO</span>
+        <div class="rule"></div>
+        <h2 class="title" style="font-size:64px">Anatomia do VS Code + Claude.</h2>
+        <div class="vscode">
+          <div class="topbar">hurtz-consorcio · clientes/dr-alan/aprendizados.md</div>
+          <div class="layout">
+            <div class="panel">
+              <h5>EXPLORER · arquivos do repo</h5>
+              <div class="tree">
+                <div class="folder">▾ base-conhecimento/</div>
+                <div>&nbsp;&nbsp;&nbsp;empresa/</div>
+                <div>&nbsp;&nbsp;&nbsp;metodologias/</div>
+                <div class="folder">▾ clientes/</div>
+                <div>&nbsp;&nbsp;&nbsp;dr-alan/</div>
+                <div>&nbsp;&nbsp;&nbsp;lara-fonseca/</div>
+                <div class="folder">▾ colaboradores/</div>
+                <div>&nbsp;&nbsp;&nbsp;klebson/</div>
+                <div>&nbsp;&nbsp;&nbsp;<strong style="color:var(--brasa)">kerlys/</strong></div>
+                <div>&nbsp;&nbsp;&nbsp;vinicius/</div>
+                <div class="folder">.env</div>
+                <div class="folder">CLAUDE.md</div>
+              </div>
+            </div>
+            <div class="editor">
+              <div class="h">aprendizados.md</div>
+              <div class="l"># Aprendizados — Dr. Alan</div>
+              <br>
+              <div class="l">## 2026-04-22</div>
+              <div class="l">Prefere áudio no WhatsApp ao invés de texto.</div>
+              <br>
+              <div class="l">## 2026-04-29</div>
+              <div class="l">Reuniões só sextas, das 14h às 16h.</div>
+              <br>
+              <div class="l">## 2026-05-06</div>
+              <div class="l">Foco do mês: gerar 30 leads/dia.</div>
+              <div class="l" style="opacity:.5">_(append-only · merge=union)_</div>
+            </div>
+            <div class="panel chat">
+              <h5>CLAUDE CODE</h5>
+              <div class="turn">
+                <div class="you">VOCÊ</div>
+                <div class="ans">aprendi que o Dr. Alan quer reunião só sexta</div>
+              </div>
+              <div class="turn">
+                <div class="you">CLAUDE</div>
+                <div class="ans">vou anexar em <span style="color:var(--brasa)">clientes/dr-alan/<br>aprendizados.md</span><br><br>✓ gravado<br>✓ commit + push</div>
+              </div>
+            </div>
+          </div>
+          <div class="footnote">
+            <div><div class="lbl">SIDEBAR</div>arquivos do repo. Clica pra abrir.</div>
+            <div><div class="lbl">EDITOR</div>onde você lê e edita.</div>
+            <div><div class="lbl">CLAUDE</div>conversa em português. Ele edita.</div>
+            <div><div class="lbl">SOURCE CONTROL</div>vê mudanças. Ctrl+Shift+G.</div>
+          </div>
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 10 / 22</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 5F — PRIMEIRA SESSÃO ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">04 · PRIMEIRA SESSÃO</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">04 · ACORDAR O CÉREBRO</span>
+        <div class="rule"></div>
+        <h2 class="title">Primeira pergunta: /iniciar.</h2>
+        <div class="session">
+          <div><span class="prompt">›</span> <span class="you">/iniciar</span></div>
+          <div class="sp"></div>
+          <div class="muted">Bom dia, <span style="color:#fff;font-weight:700">Kerlys</span>!</div>
+          <div class="sp"></div>
+          <div><span class="ok">✓</span> contexto da empresa carregado · <span class="muted">empresa.md, preferencias.md, estrategia.md</span></div>
+          <div><span class="ok">✓</span> teu agente pessoal lido · <span class="muted">colaboradores/kerlys/CLAUDE.md</span></div>
+          <div><span class="ok">✓</span> tarefas em aberto verificadas</div>
+          <div class="sp"></div>
+          <div style="color:#fff;font-weight:700">Tarefas pra hoje (3):</div>
+          <div><span class="arrow">→</span> mandar proposta Dr. Alan <span class="muted">(vence amanhã)</span></div>
+          <div><span class="arrow">→</span> revisar criativo do anúncio Lara</div>
+          <div><span class="arrow">→</span> treinar SDR da Camila</div>
+          <div class="sp"></div>
+          <div class="muted">Clientes ativos: 12. Última sync: 2 min atrás.</div>
+          <div class="sp"></div>
+          <div>Por onde começamos? <span class="prompt">_</span></div>
+        </div>
+        <p class="small" style="margin-top:24px;font-size:18px;max-width:1500px">
+          A partir daqui você fala em linguagem natural. "minhas tarefas", "criar tarefa pro Vinicius", "aprendi que…". Claude entende, executa e grava no lugar certo.
+        </p>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 11 / 22</span>
       </div>
     </section>
 
@@ -530,6 +918,57 @@
       <div class="slide-foot">
         <svg><use href="#hurtz-symbol"/></svg>
         <span>HURTZ · 06 / 15</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 6A — SYNC GIT AUTOMÁTICO ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">05 · SYNC GIT</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">05 · DEPLOY / SYNC</span>
+        <div class="rule"></div>
+        <h2 class="title">Git acontece sozinho.</h2>
+        <p class="lead" style="font-size:24px;margin-top:16px;max-width:1500px">
+          Você nunca digita <code>git commit</code> ou <code>git push</code>. Hooks rodam automaticamente em cada sessão. O que você escreve hoje, os outros gestores veem amanhã.
+        </p>
+        <div class="sync">
+          <div class="col">
+            <span class="when">QUANDO ABRE</span>
+            <h4>SessionStart hook</h4>
+            <p><code>git pull --rebase --autostash</code></p>
+            <p style="font-size:15px;color:var(--pedra);margin-top:8px">Puxa tudo que outros gestores gravaram desde a última vez. Silencioso, alerta só em conflito.</p>
+          </div>
+          <div class="col">
+            <span class="when">DURANTE</span>
+            <h4>Você fala. Claude grava.</h4>
+            <p>Cada vez que você pede algo que altera arquivo, Claude edita. As mudanças acumulam localmente.</p>
+            <p style="font-size:15px;color:var(--pedra);margin-top:8px">Tu vê na aba Source Control (<span class="kbd">Ctrl+Shift+G</span>) o que mudou.</p>
+          </div>
+          <div class="col">
+            <span class="when">QUANDO FECHA</span>
+            <h4>Stop hook</h4>
+            <p><code>git add → commit → pull → push</code></p>
+            <p style="font-size:15px;color:var(--pedra);margin-top:8px">Tudo é versionado e enviado pro GitHub. Sai e fecha o computador. No segundo seguinte, os outros gestores recebem.</p>
+          </div>
+        </div>
+        <div class="os-note">
+          <strong>Quer forçar o sync agora?</strong> Pede <code>/syncar</code> no Claude. Ele faz add + commit + push imediato. Útil antes de uma reunião quando você acabou de gravar algo importante.
+        </div>
+        <div class="os-note" style="background:rgba(181,42,42,.08);border-color:#B52A2A">
+          <strong>Conflito?</strong> Quando dois gestores editam a mesma linha do mesmo arquivo. Raríssimo (a gente configurou áreas append-only pra evitar). Quando rolar, Claude avisa e ajuda a resolver.
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 13 / 22</span>
       </div>
     </section>
 
