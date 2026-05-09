@@ -278,6 +278,35 @@
   .session .arrow{color:var(--brasa)}
   .session .sp{height:14px}
 
+  /* ── 2-tool comparison (VS Code vs Obsidian) ── */
+  .toolcompare{display:grid;grid-template-columns:1fr 1fr;gap:0;margin-top:32px;border:1.5px solid var(--areia);background:#fff;max-width:1500px}
+  .toolcompare > div{padding:32px}
+  .toolcompare > div + div{border-left:1.5px solid var(--areia)}
+  .toolcompare h4{font-size:14px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--brasa)}
+  .toolcompare .name{font-size:36px;font-weight:700;line-height:1.1;margin-top:8px;color:var(--carvao)}
+  .toolcompare ul{list-style:none;margin-top:24px}
+  .toolcompare li{font-size:18px;line-height:1.5;padding:10px 0 10px 20px;position:relative;color:var(--grafite);border-bottom:1px solid var(--areia)}
+  .toolcompare li:last-child{border-bottom:0}
+  .toolcompare li::before{content:"";position:absolute;left:0;top:18px;width:12px;height:2px;background:var(--brasa)}
+
+  /* ── Dashboard mockup (Obsidian Dataview render) ── */
+  .dashmock{background:#fff;border:1.5px solid var(--areia);margin-top:24px;max-width:1700px;font-size:13px;line-height:1.4}
+  .dashmock .topbar{padding:10px 16px;border-bottom:1px solid var(--areia);font-size:13px;color:var(--pedra);letter-spacing:.06em;text-transform:uppercase;font-weight:700;display:flex;justify-content:space-between}
+  .dashmock .grid{display:grid;grid-template-columns:1fr 1fr;gap:0}
+  .dashmock .block{padding:20px 24px;border-right:1px solid var(--areia)}
+  .dashmock .block:nth-child(2n){border-right:0}
+  .dashmock .block + .block + .block{border-top:1px solid var(--areia)}
+  .dashmock .block + .block + .block + .block{border-top:1px solid var(--areia)}
+  .dashmock .block h5{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--brasa);text-transform:uppercase;margin-bottom:12px}
+  .dashmock .qbadge{display:inline-block;font-size:9px;letter-spacing:.16em;text-transform:uppercase;font-weight:700;color:var(--pedra);background:var(--areia);padding:2px 6px;border-radius:2px;margin-left:8px;vertical-align:middle}
+  .dashmock table{width:100%;border-collapse:collapse;font-size:13px}
+  .dashmock th{text-align:left;font-weight:700;font-size:10px;letter-spacing:.1em;text-transform:uppercase;color:var(--pedra);padding:6px 10px 6px 0;border-bottom:1px solid var(--areia)}
+  .dashmock td{padding:6px 10px 6px 0;border-bottom:1px solid var(--areia);font-size:13px;color:var(--carvao)}
+  .dashmock td.brasa{color:var(--brasa);font-weight:700}
+  .dashmock td.muted{color:var(--pedra)}
+  .dashmock .tasklist li{font-size:13px;line-height:1.6;color:var(--grafite);padding:2px 0}
+  .dashmock .tasklist .check{color:var(--pedra);margin-right:6px}
+
   /* ── Sync flow diagram ── */
   .sync{display:grid;grid-template-columns:repeat(3,1fr);gap:24px;margin-top:48px}
   .sync .col{padding:32px;background:#fff;border:1.5px solid var(--areia);border-top:3px solid var(--brasa)}
@@ -858,6 +887,124 @@
       <div class="slide-foot">
         <svg><use href="#hurtz-symbol"/></svg>
         <span>HURTZ · 11 / 22</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 5G — OBSIDIAN ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">04 · OBSIDIAN</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">04 · BÔNUS · OBSIDIAN</span>
+        <div class="rule"></div>
+        <h2 class="title" style="font-size:48px">VS Code escreve. Obsidian lê.</h2>
+        <div class="toolcompare" style="margin-top:24px">
+          <div style="padding:24px">
+            <h4>VS CODE</h4>
+            <div class="name" style="font-size:24px">Escrever / Executar</div>
+            <ul style="margin-top:14px">
+              <li style="padding:6px 0 6px 20px">Conversar com Claude · executar skills</li>
+              <li style="padding:6px 0 6px 20px">Editar arquivos · sync git automático</li>
+            </ul>
+          </div>
+          <div style="padding:24px">
+            <h4>OBSIDIAN</h4>
+            <div class="name" style="font-size:24px">Ler / Navegar</div>
+            <ul style="margin-top:14px">
+              <li style="padding:6px 0 6px 20px">Dashboard · graph · busca · hover</li>
+              <li style="padding:6px 0 6px 20px">Consulta no celular (mobile app)</li>
+            </ul>
+          </div>
+        </div>
+        <div class="install" style="margin-top:18px">
+          <div class="row">
+            <div class="n">01<span class="dot">.</span></div>
+            <div class="text"><h4>Instalar</h4><p><code>obsidian.md</code> → Download for Windows.</p></div>
+            <div class="cmd"><span class="p">› </span>obsidian.md</div>
+          </div>
+          <div class="row">
+            <div class="n">02<span class="dot">.</span></div>
+            <div class="text"><h4>Open folder as vault</h4><p>Aponta pra <strong>mesma pasta</strong> do VS Code.</p></div>
+            <div class="cmd"><span class="p">› </span>Documentos/Hurtz/...</div>
+          </div>
+          <div class="row">
+            <div class="n">03<span class="dot">.</span></div>
+            <div class="text"><h4>Aceitar plugins</h4><p>Popup pede confirmação dos community plugins (Dataview, Tasks, Templater) → <strong>Trust author</strong>.</p></div>
+            <div class="cmd"><span class="p">› </span>Trust author</div>
+          </div>
+        </div>
+        <div class="os-note" style="background:rgba(181,42,42,.08);border-color:#B52A2A;margin-top:14px;padding:10px 18px;font-size:15px">
+          <strong>NÃO instale o plugin Git do Obsidian.</strong> Sync já é via Claude Code. Dois caminhos paralelos = conflito.
+        </div>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 12 / 24</span>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 5H — DASHBOARD ============ -->
+    <section class="slide">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">04 · DASHBOARD</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">04 · DASHBOARD.MD</span>
+        <div class="rule"></div>
+        <h2 class="title" style="font-size:56px">Tudo que importa,<br>num arquivo só.</h2>
+        <div class="dashmock">
+          <div class="topbar">
+            <span>Dashboard.md · queries Dataview</span>
+            <span style="color:var(--brasa);letter-spacing:0;text-transform:none">live · atualiza sozinho</span>
+          </div>
+          <div class="grid">
+            <div class="block">
+              <h5>Clientes ativos<span class="qbadge">TABLE</span></h5>
+              <table>
+                <tr><th>Cliente</th><th>Gestor</th><th>Mensalidade</th></tr>
+                <tr><td>Dr. Alan Andrade</td><td class="brasa">kerlys</td><td>R$ 8.500</td></tr>
+                <tr><td>Lara Fonseca</td><td class="brasa">vinicius</td><td>R$ 6.200</td></tr>
+                <tr><td>Cionic</td><td class="brasa">matheus</td><td>R$ 12.000</td></tr>
+                <tr><td>Dra. Camila Mendes</td><td class="brasa">kerlys</td><td>R$ 5.000</td></tr>
+                <tr><td class="muted">+ 8 outros</td><td class="muted">—</td><td class="muted">—</td></tr>
+              </table>
+            </div>
+            <div class="block">
+              <h5>Carga da equipe<span class="qbadge">TABLE</span></h5>
+              <table>
+                <tr><th>Gestor</th><th>Abertas</th><th>Status</th></tr>
+                <tr><td class="brasa">Vinicius</td><td>18</td><td style="color:#B52A2A;font-weight:700">SOBRECARGA</td></tr>
+                <tr><td class="brasa">Klebson</td><td>12</td><td>em ritmo</td></tr>
+                <tr><td class="brasa">Matheus</td><td>10</td><td>em ritmo</td></tr>
+                <tr><td class="brasa">Marcos</td><td>8</td><td>em ritmo</td></tr>
+                <tr><td class="brasa">Suyane</td><td>2</td><td style="color:#1A7A4A;font-weight:700">OCIOSO</td></tr>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="os-note" style="margin-top:18px;font-size:16px">
+          <strong>Outras queries inclusas no Dashboard:</strong> tarefas hoje · inbox de todos · aprendizados recentes · clientes pausados · atalhos rápidos pros docs principais. Edita o <code>Dashboard.md</code> pra adicionar novas (ex: "propostas em andamento", "leads quentes do mês").
+        </div>
+        <p class="small" style="margin-top:14px;font-size:15px;max-width:1500px">
+          Dataview lê o frontmatter dos arquivos (<code>status</code>, <code>gestor</code>, <code>mensalidade</code>) e gera as tabelas. Você grava em qualquer lugar do vault, Dashboard atualiza sozinho na próxima abertura.
+        </p>
+      </div>
+      <div class="slide-foot">
+        <svg><use href="#hurtz-symbol"/></svg>
+        <span>HURTZ · 13 / 24</span>
       </div>
     </section>
 
