@@ -19,17 +19,28 @@
     --offwhite:#F5F2EC;
   }
   *{box-sizing:border-box;margin:0;padding:0}
-  html,body{width:100%;height:100%;background:var(--carvao);font-family:'Inter',sans-serif;color:var(--carvao);overflow:hidden}
+  html,body{width:100%;height:100%;font-family:'Inter',sans-serif;color:var(--carvao);overflow:hidden;
+    background:var(--offwhite);transition:background .25s ease}
+  /* Letterbox color matches active slide so any aspect-ratio mismatch
+     blends invisibly instead of showing a dark band on the side. */
+  body.slide-bg-dark{background:var(--carvao)}
+  body.slide-bg-brasa{background:var(--brasa)}
+  body.slide-bg-light{background:var(--offwhite)}
 
-  /* Stage scales 1920x1080 to fit viewport */
+  /* Stage scales 1920x1080 to fit viewport.
+     Uses absolute positioning + translate so the deck is rock-solid centered
+     at any aspect ratio — flex+intrinsic-size had subtle quirks on some
+     viewports. */
   #stage{
     position:fixed;inset:0;
-    display:flex;align-items:center;justify-content:center;
+    overflow:hidden;
   }
   .deck{
+    position:absolute;
+    top:50%;left:50%;
     width:1920px;height:1080px;
     transform-origin:center center;
-    position:relative;
+    transform:translate(-50%,-50%) scale(1);
   }
 
   /* Each slide overlaps; only active is visible */
@@ -949,12 +960,18 @@
     progressEl.style.width = ((idx+1)/total*100) + '%';
     history.replaceState(null,'','#'+(idx+1));
     showNav();
+    // Match body bg to active slide so letterbox blends
+    const cls = slides[n].classList;
+    document.body.classList.remove('slide-bg-dark','slide-bg-brasa','slide-bg-light');
+    if (cls.contains('dark')) document.body.classList.add('slide-bg-dark');
+    else if (cls.contains('brasa')) document.body.classList.add('slide-bg-brasa');
+    else document.body.classList.add('slide-bg-light');
   }
 
   function fit(){
     const vw = window.innerWidth, vh = window.innerHeight;
     const s = Math.min(vw/1920, vh/1080);
-    deck.style.transform = 'scale(' + s + ')';
+    deck.style.transform = 'translate(-50%, -50%) scale(' + s + ')';
   }
 
   document.getElementById('prev').addEventListener('click', ()=>show(idx-1));
