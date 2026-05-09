@@ -152,6 +152,15 @@
   table.t.smaller td:first-child{width:380px;color:var(--carvao)}
   table.t.smaller td:first-child code{color:var(--brasa)}
 
+  /* Dense modifier — for table-heavy slides that would otherwise overflow 1080 */
+  .slide.dense h2.title{font-size:64px;line-height:1.05}
+  .slide.dense .rule{margin:24px 0 28px}
+  .slide.dense table.t{margin-top:24px}
+  .slide.dense table.t.smaller td,
+  .slide.dense table.t.smaller th{padding:10px 22px;font-size:18px;line-height:1.35}
+  .slide.dense table.t.smaller td:first-child{width:340px}
+  .slide.dense .small{font-size:18px;margin-top:18px}
+
   code, .mono{
     font-family:'Inter',sans-serif;font-weight:700;
     background:var(--brasa-50);color:var(--brasa);
@@ -237,6 +246,16 @@
   #progress{
     position:fixed;top:0;left:0;height:3px;background:var(--brasa);
     z-index:11;transition:width .2s ease;
+  }
+
+  /* Debug mode (?debug=1) — outline slides that overflowed */
+  .slide.overflow{outline:4px dashed #B52A2A;outline-offset:-4px}
+  .slide.overflow::after{
+    content:"OVERFLOW · auto-scaled";
+    position:absolute;top:0;right:0;
+    background:#B52A2A;color:#fff;
+    padding:6px 12px;font-size:12px;letter-spacing:.16em;font-weight:700;
+    text-transform:uppercase;
   }
 </style>
 </head>
@@ -510,7 +529,7 @@
     </section>
 
     <!-- ============ SLIDE 7 — COMANDOS ============ -->
-    <section class="slide">
+    <section class="slide dense">
       <div class="slide-head">
         <span class="logo">
           <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
@@ -523,7 +542,7 @@
       <div class="body top">
         <span class="eyebrow">06 · COMANDOS SLASH</span>
         <div class="rule"></div>
-        <h2 class="title" style="font-size:88px">Não decora. Esqueceu?<br>Pergunta pro Claude.</h2>
+        <h2 class="title">Não decora. Esqueceu?<br>Pergunta pro Claude.</h2>
         <table class="t smaller">
           <tr><th>Comando</th><th>Pra que serve</th></tr>
           <tr><td><code>/iniciar</code></td><td>Começar a sessão. SEMPRE rodar primeiro.</td></tr>
@@ -546,7 +565,7 @@
     </section>
 
     <!-- ============ SLIDE 8 — MAPA DE GRAVAÇÃO ============ -->
-    <section class="slide">
+    <section class="slide dense">
       <div class="slide-head">
         <span class="logo">
           <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
@@ -559,7 +578,7 @@
       <div class="body top">
         <span class="eyebrow">07 · MAPA DE GRAVAÇÃO</span>
         <div class="rule"></div>
-        <h2 class="title" style="font-size:88px">Cada informação<br>tem um lugar certo.</h2>
+        <h2 class="title">Cada informação<br>tem um lugar certo.</h2>
         <table class="t smaller">
           <tr><th>Tipo de informação</th><th>Vai pra</th></tr>
           <tr><td>Tarefa minha</td><td><code>colaboradores/{eu}/tarefas/</code></td></tr>
@@ -868,6 +887,56 @@
 
   function pad(n){ return String(n).padStart(2,'0'); }
 
+  // ── Slide overflow guardrail ─────────────────────────────────────────
+  // Decks repeatedly broke because content overflowed the 1080px canvas
+  // and got clipped by overflow:hidden, with the absolute footer overlapping.
+  // This auto-fit:
+  //  1. measures each slide's true content height once
+  //  2. if it exceeds 1080, scales the body down with transform:scale
+  //     so nothing is clipped or overlapped
+  //  3. logs a console.warn so the author sees it during dev
+  //  4. when ?debug=1, paints a red ring on slides that needed scaling
+  const DESIGN_H = 1080;
+  const debug = /[?&]debug=1/.test(location.search);
+  const fitReports = [];
+  function fitSlide(slide){
+    // Reset prior fit
+    const fitEls = slide.querySelectorAll('[data-fit-target]');
+    fitEls.forEach(el => {
+      el.style.transform = ''; el.style.width = '';
+      el.style.transformOrigin = ''; el.removeAttribute('data-fit-target');
+    });
+    slide.classList.remove('overflow');
+    // Briefly force visibility so we can measure
+    const wasActive = slide.classList.contains('active');
+    if (!wasActive) slide.style.display = 'flex';
+    const true_h = slide.scrollHeight;
+    if (true_h > DESIGN_H + 1) {
+      const target = slide.querySelector('.body, .title-grid');
+      if (target) {
+        const overflow = true_h - DESIGN_H;
+        const scale = (DESIGN_H - 8) / true_h; // -8 small cushion
+        target.style.transformOrigin = 'top left';
+        target.style.transform = 'scale(' + scale + ')';
+        target.style.width = (100/scale) + '%';
+        target.setAttribute('data-fit-target', '');
+        const label = (slide.querySelector('h1, h2')?.innerText || '').slice(0,40);
+        fitReports.push({slide: idx, label, true_h, overflow, scale: +scale.toFixed(3)});
+        if (debug) slide.classList.add('overflow');
+      }
+    }
+    if (!wasActive) slide.style.display = '';
+  }
+  function fitAll(){
+    fitReports.length = 0;
+    slides.forEach(fitSlide);
+    if (fitReports.length){
+      console.warn('[deck] %d slide(s) overflowed and were auto-scaled:', fitReports.length, fitReports);
+    } else {
+      console.log('[deck] All %d slides fit within %dpx canvas.', slides.length, DESIGN_H);
+    }
+  }
+
   function show(n){
     n = Math.max(0, Math.min(total-1, n));
     slides[idx].classList.remove('active');
@@ -909,6 +978,18 @@
 
   window.addEventListener('resize', fit);
   fit();
+
+  // Run overflow guardrail after fonts/layout settle, then again on resize
+  function runGuardrail(){ fitAll(); }
+  if (document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(runGuardrail);
+  } else {
+    setTimeout(runGuardrail, 250);
+  }
+  let resizeTimer;
+  window.addEventListener('resize', () => {
+    clearTimeout(resizeTimer); resizeTimer = setTimeout(runGuardrail, 200);
+  });
 
   // Honor hash on load
   const h = parseInt(location.hash.slice(1),10);
