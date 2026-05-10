@@ -351,11 +351,9 @@
   #nav .count{min-width:54px;text-align:center;font-weight:700;letter-spacing:.12em;font-size:11px;text-transform:uppercase}
   #nav .hint{font-size:10px;letter-spacing:.12em;text-transform:uppercase;color:rgba(255,255,255,.5);padding-left:8px;border-left:1px solid rgba(255,255,255,.2)}
 
-  /* Progress bar */
-  #progress{
-    position:fixed;top:0;left:0;height:3px;background:var(--brasa);
-    z-index:11;transition:width .2s ease;
-  }
+  /* Progress bar — escondida (criava confusão visual com letterbox).
+     Counter do nav (01/26) já indica progresso. */
+  #progress{display:none}
 
   /* ── Copyable elements (click = copy to clipboard) ── */
   .copyable{cursor:pointer;position:relative;transition:background .12s ease}
@@ -440,10 +438,9 @@
 </head>
 <body>
 
-<div id="progress"></div>
-
 <div id="stage">
   <div class="deck" id="deck">
+    <div id="progress"></div>
 
     <!-- ====== SVG SYMBOL DEFS ====== -->
     <svg width="0" height="0" style="position:absolute" aria-hidden="true">
