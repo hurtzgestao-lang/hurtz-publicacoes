@@ -357,6 +357,76 @@
     z-index:11;transition:width .2s ease;
   }
 
+  /* ── Copyable elements (click = copy to clipboard) ── */
+  .copyable{cursor:pointer;position:relative;transition:background .12s ease}
+  .copyable::after{
+    content:"COPIAR";position:absolute;top:8px;right:10px;
+    font-size:10px;letter-spacing:.16em;font-weight:700;color:var(--brasa);
+    text-transform:uppercase;opacity:0;transition:opacity .12s ease;
+    pointer-events:none;
+  }
+  .copyable:hover::after{opacity:1}
+  .copyable.copied{background:rgba(26,122,74,.08) !important}
+  .copyable.copied::after{content:"✓ COPIADO";color:#1A7A4A;opacity:1}
+  /* On dark/brasa surfaces, adjust copy badge color */
+  .cmd.copyable::after{color:var(--brasa)}
+  .cmd.copyable.copied::after{color:#7AC59A}
+  /* Card-style copyables */
+  .copyable.cardlike{padding-right:80px}
+  .copyable.cardlike::after{top:14px;right:16px}
+
+  /* Pre-live slide style — visually distinct (Brasa Viva accents) */
+  .slide.prelive .slide-head .meta{color:var(--brasa)}
+  .slide.prelive .eyebrow{color:#fff;background:var(--brasa);padding:6px 14px;display:inline-block}
+  .slide.prelive .rule{background:var(--brasa)}
+  .slide.prelive::before{
+    content:"";position:absolute;top:0;left:0;right:0;height:8px;
+    background:var(--brasa);
+  }
+
+  /* Pre-live checklist */
+  .prechecks{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:18px;max-width:1700px}
+  .precheck{display:grid;grid-template-columns:40px 1fr;gap:14px;align-items:start;padding:14px 18px;background:#fff;border:1.5px solid var(--areia)}
+  .precheck .box{
+    width:26px;height:26px;border:2px solid var(--carvao);margin-top:2px;
+    flex-shrink:0;display:flex;align-items:center;justify-content:center;
+  }
+  .precheck h4{font-size:17px;font-weight:700;line-height:1.2}
+  .precheck p{font-size:13px;color:var(--grafite);margin-top:3px;line-height:1.4}
+  .precheck .copyable{
+    display:inline-block;background:var(--carvao);color:var(--offwhite);
+    padding:4px 28px 4px 10px;font-size:12px;font-weight:700;border-radius:2px;
+    margin-top:6px;line-height:1.3;
+  }
+  .precheck .copyable::after{top:5px;right:6px;font-size:9px}
+
+  /* Material grid (links + comandos pra copiar) */
+  .matgrid{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-top:24px;max-width:1700px}
+  .matcard{padding:20px 24px;background:#fff;border:1.5px solid var(--areia);position:relative;cursor:pointer;transition:background .12s ease}
+  .matcard .lbl{font-size:11px;font-weight:700;letter-spacing:.18em;color:var(--brasa);text-transform:uppercase;margin-bottom:8px}
+  .matcard .val{font-size:18px;font-weight:700;color:var(--carvao);line-height:1.3;word-break:break-all}
+  .matcard .desc{font-size:14px;color:var(--grafite);margin-top:6px;line-height:1.4}
+  .matcard:hover{background:var(--brasa-50)}
+  .matcard.copied{background:rgba(26,122,74,.08)}
+  .matcard::after{
+    content:"COPIAR";position:absolute;top:14px;right:18px;
+    font-size:10px;letter-spacing:.16em;font-weight:700;color:var(--brasa);
+    text-transform:uppercase;opacity:0;transition:opacity .12s ease;
+  }
+  .matcard:hover::after{opacity:1}
+  .matcard.copied::after{content:"✓ COPIADO";color:#1A7A4A;opacity:1}
+
+  /* Toast notification */
+  #toast{
+    position:fixed;bottom:80px;left:50%;transform:translateX(-50%) translateY(20px);
+    background:var(--carvao);color:var(--offwhite);
+    padding:14px 24px;border-radius:4px;font-size:14px;font-weight:700;
+    letter-spacing:.04em;z-index:100;opacity:0;
+    transition:opacity .25s ease,transform .25s ease;
+    pointer-events:none;
+  }
+  #toast.show{opacity:1;transform:translateX(-50%) translateY(0)}
+
   /* Debug mode (?debug=1) — outline slides that overflowed */
   .slide.overflow{outline:4px dashed #B52A2A;outline-offset:-4px}
   .slide.overflow::after{
@@ -388,8 +458,147 @@
       </defs>
     </svg>
 
+    <!-- ============ SLIDE 0A — KLEBSON · CHECKLIST PRÉ-LIVE ============ -->
+    <section class="slide prelive active">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">PRÉ-LIVE · KLEBSON · NÃO MOSTRAR EM TELA</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">PRA VOCÊ — ANTES DE COMEÇAR</span>
+        <div class="rule"></div>
+        <h2 class="title" style="font-size:64px">Checklist pré-live.</h2>
+        <p class="lead" style="font-size:20px;margin-top:14px;max-width:1500px">
+          Faz isso antes de chamar a galera pra live. ~30 min de preparação garante que ninguém trava no setup.
+        </p>
+        <div class="prechecks">
+          <div class="precheck">
+            <div class="box"></div>
+            <div>
+              <h4>Adicionar gestores como collaborators no repo</h4>
+              <p>Settings → Access → Add people. Permissão <strong>Write</strong>. Cada gestor recebe email do GitHub.</p>
+              <span class="copyable" data-copy="https://github.com/hurtzgestao-lang/hurtz-cerebro-template/settings/access">github.com/.../hurtz-cerebro-template/settings/access</span>
+            </div>
+          </div>
+          <div class="precheck">
+            <div class="box"></div>
+            <div>
+              <h4>Mandar credenciais do .env pelo Slack/WhatsApp</h4>
+              <p>4 segredos pra cada gestor (mesmos valores do teu .env, nunca colocar no GitHub):</p>
+              <span class="copyable" data-copy="EVOLUTION_API_KEY=...
+GOOGLE_SERVICE_ACCOUNT=...
+META_ACCESS_TOKEN=...
+HURTZ_GESTOR=seu-slug">EVOLUTION_API_KEY · GOOGLE_SERVICE_ACCOUNT · META_ACCESS_TOKEN · HURTZ_GESTOR</span>
+            </div>
+          </div>
+          <div class="precheck">
+            <div class="box"></div>
+            <div>
+              <h4>Pedir pra eles pré-instalarem VS Code + Git no dia anterior</h4>
+              <p>Manda no grupo da equipe — economiza 10 min na live. Links pra copiar e colar no grupo:</p>
+              <span class="copyable" data-copy="Galera, antes da live de amanhã, baixa e instala:
+1. VS Code: https://code.visualstudio.com
+2. Git for Windows: https://git-scm.com (Mac não precisa)
+Próximo, próximo, próximo.">Mensagem pronta pro grupo</span>
+            </div>
+          </div>
+          <div class="precheck">
+            <div class="box"></div>
+            <div>
+              <h4>Rodar /onboarding-gestor pra cada gestor</h4>
+              <p>Cria a pasta <code>colaboradores/{slug}/</code> de cada um. Sem isso o sistema não identifica quem é quem. Slugs: <code>vinicius</code>, <code>kerlys</code>, <code>matheus</code>, <code>suyane</code>, <code>marcos</code>.</p>
+              <span class="copyable" data-copy="/onboarding-gestor">/onboarding-gestor (rodar 1x por gestor)</span>
+            </div>
+          </div>
+          <div class="precheck">
+            <div class="box"></div>
+            <div>
+              <h4>Testar /iniciar do zero</h4>
+              <p>Clona o template em outra pasta, configura .env, roda <code>/iniciar</code>. Confirma que tudo funciona antes de ensinar.</p>
+              <span class="copyable" data-copy="git clone https://github.com/hurtzgestao-lang/hurtz-cerebro-template.git ~/teste-cerebro">git clone ... ~/teste-cerebro</span>
+            </div>
+          </div>
+          <div class="precheck">
+            <div class="box"></div>
+            <div>
+              <h4>Tela compartilhada + projetor testados</h4>
+              <p>Abre o deck em fullscreen (tecla <strong>F</strong>) num navegador limpo. Projetor 1080p ou maior pra slides ficarem nítidos.</p>
+              <span class="copyable" data-copy="https://pages.hurtzcompany.com.br/treinamento-gestores/">pages.hurtzcompany.com.br/treinamento-gestores/</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ============ SLIDE 0B — KLEBSON · MATERIAL PRA EQUIPE ============ -->
+    <section class="slide prelive">
+      <div class="slide-head">
+        <span class="logo">
+          <svg style="color:var(--carvao)"><use href="#hurtz-symbol"/></svg>
+          <span class="word">HURTZ</span>
+          <span class="divider"></span>
+          <span class="tag">CÉREBRO</span>
+        </span>
+        <span class="meta">PRÉ-LIVE · KLEBSON · NÃO MOSTRAR EM TELA</span>
+      </div>
+      <div class="body top">
+        <span class="eyebrow">MATERIAL PRA EQUIPE</span>
+        <div class="rule"></div>
+        <h2 class="title" style="font-size:56px">Cola pra mandar nos grupos.</h2>
+        <p class="small" style="font-size:16px;margin-top:8px;color:var(--grafite)">Clica em qualquer card pra copiar.</p>
+        <div class="matgrid">
+          <div class="matcard copyable" data-copy="https://github.com/hurtzgestao-lang/hurtz-cerebro-template.git">
+            <div class="lbl">REPO PRA CLONAR</div>
+            <div class="val">github.com/hurtzgestao-lang/<br>hurtz-cerebro-template.git</div>
+            <div class="desc">URL pra usar em "Git: Clone" no VS Code</div>
+          </div>
+          <div class="matcard copyable" data-copy="https://github.com/hurtzgestao-lang/hurtz-cerebro-template">
+            <div class="lbl">REPO PRA VISUALIZAR</div>
+            <div class="val">github.com/hurtzgestao-lang/<br>hurtz-cerebro-template</div>
+            <div class="desc">Página do repo no GitHub (browser)</div>
+          </div>
+          <div class="matcard copyable" data-copy="https://code.visualstudio.com">
+            <div class="lbl">VS CODE — DOWNLOAD</div>
+            <div class="val">code.visualstudio.com</div>
+            <div class="desc">Pra mandar pré-live no grupo</div>
+          </div>
+          <div class="matcard copyable" data-copy="https://git-scm.com">
+            <div class="lbl">GIT FOR WINDOWS</div>
+            <div class="val">git-scm.com</div>
+            <div class="desc">Mac não precisa — só Windows</div>
+          </div>
+          <div class="matcard copyable" data-copy="https://docs.google.com/document/d/11RmfsyFvXHtgzAgBzoayvguwop3iJPDBONOAutJCyC0/edit">
+            <div class="lbl">MANUAL COMPLETO · GOOGLE DOC</div>
+            <div class="val">docs.google.com/.../11Rmfsy...</div>
+            <div class="desc">Referência completa (943 linhas) pra equipe consultar</div>
+          </div>
+          <div class="matcard copyable" data-copy="https://docs.google.com/document/d/1Y0yxcu58NvY0_JuHZ54ncFUj7J796s1vOjoCbTT69j0/edit">
+            <div class="lbl">SETUP OBSIDIAN · GOOGLE DOC</div>
+            <div class="val">docs.google.com/.../1Y0yxcu...</div>
+            <div class="desc">Guia opcional de Obsidian pra leitura/Dashboard</div>
+          </div>
+          <div class="matcard copyable" data-copy="https://pages.hurtzcompany.com.br/treinamento-gestores/">
+            <div class="lbl">DECK ONLINE (ESTE)</div>
+            <div class="val">pages.hurtzcompany.com.br/<br>treinamento-gestores/</div>
+            <div class="desc">Pra projetar na live</div>
+          </div>
+          <div class="matcard copyable" data-copy="claude
+/iniciar">
+            <div class="lbl">PRIMEIRA SESSÃO</div>
+            <div class="val">claude → /iniciar</div>
+            <div class="desc">Comando pra todo gestor rodar depois do setup</div>
+          </div>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ SLIDE 1 — TITLE ============ -->
-    <section class="slide dark active">
+    <section class="slide dark">
       <div class="title-grid">
         <div class="slide-head">
           <span class="logo">
@@ -644,7 +853,7 @@
               <h4>VS Code</h4>
               <p>Vai em <code>code.visualstudio.com</code>, "Download for Windows", abre o instalador, deixa as opções padrão e finaliza.</p>
             </div>
-            <div class="cmd"><span class="p">› </span>code.visualstudio.com<br><span class="p">› </span>Download for Windows<br><span class="p"># </span>~3 min</div>
+            <div class="cmd copyable" data-copy="https://code.visualstudio.com"><span class="p">› </span>code.visualstudio.com<br><span class="p">› </span>Download for Windows<br><span class="p"># </span>~3 min</div>
           </div>
           <div class="row">
             <div class="n">02<span class="dot">.</span></div>
@@ -652,7 +861,7 @@
               <h4>Git for Windows</h4>
               <p>Em <code>git-scm.com</code>, baixa "Download for Windows", aceita as opções padrão. No final ele instala também o Git Bash (não precisa abrir).</p>
             </div>
-            <div class="cmd"><span class="p">› </span>git-scm.com<br><span class="p">› </span>Download for Windows<br><span class="p"># </span>~3 min</div>
+            <div class="cmd copyable" data-copy="https://git-scm.com"><span class="p">› </span>git-scm.com<br><span class="p">› </span>Download for Windows<br><span class="p"># </span>~3 min</div>
           </div>
           <div class="row">
             <div class="n">03<span class="dot">.</span></div>
@@ -700,7 +909,7 @@
               <h4>Abre o Command Palette do VS Code</h4>
               <p>Atalho <span class="kbd">Ctrl+Shift+P</span> (Windows) ou <span class="kbd">Cmd+Shift+P</span> (Mac). Abre uma barra de busca no topo.</p>
             </div>
-            <div class="cmd"><span class="p">› </span>Ctrl+Shift+P</div>
+            <div class="cmd copyable" data-copy="Ctrl+Shift+P"><span class="p">› </span>Ctrl+Shift+P</div>
           </div>
           <div class="row">
             <div class="n">02<span class="dot">.</span></div>
@@ -708,7 +917,7 @@
               <h4>Digita <strong>Git: Clone</strong></h4>
               <p>Conforme você digita, ele filtra. Seleciona "Git: Clone" na lista.</p>
             </div>
-            <div class="cmd"><span class="p">› </span>Git: Clone</div>
+            <div class="cmd copyable" data-copy="Git: Clone"><span class="p">› </span>Git: Clone</div>
           </div>
           <div class="row">
             <div class="n">03<span class="dot">.</span></div>
@@ -716,7 +925,7 @@
               <h4>Cola a URL do repositório</h4>
               <p>Quando ele pedir a URL, cola exatamente isto e dá Enter. Pode pedir login no GitHub — só seguir.</p>
             </div>
-            <div class="cmd"><span class="p">› </span>github.com/<br>hurtzgestao-lang/<br>hurtz-consorcio.git</div>
+            <div class="cmd copyable" data-copy="https://github.com/hurtzgestao-lang/hurtz-cerebro-template.git"><span class="p">› </span>github.com/<br>hurtzgestao-lang/<br>hurtz-cerebro-template.git</div>
           </div>
           <div class="row">
             <div class="n">04<span class="dot">.</span></div>
@@ -788,7 +997,7 @@
         <div class="rule"></div>
         <h2 class="title" style="font-size:64px">Anatomia do VS Code + Claude.</h2>
         <div class="vscode">
-          <div class="topbar">hurtz-consorcio · clientes/dr-alan/aprendizados.md</div>
+          <div class="topbar">hurtz-cerebro-template · clientes/dr-alan/aprendizados.md</div>
           <div class="layout">
             <div class="panel">
               <h5>EXPLORER · arquivos do repo</h5>
@@ -927,7 +1136,7 @@
           <div class="row">
             <div class="n">01<span class="dot">.</span></div>
             <div class="text"><h4>Instalar</h4><p><code>obsidian.md</code> → Download for Windows.</p></div>
-            <div class="cmd"><span class="p">› </span>obsidian.md</div>
+            <div class="cmd copyable" data-copy="https://obsidian.md"><span class="p">› </span>obsidian.md</div>
           </div>
           <div class="row">
             <div class="n">02<span class="dot">.</span></div>
@@ -1441,7 +1650,7 @@
         <div style="display:flex;gap:80px;font-size:22px;color:rgba(255,255,255,.9)">
           <div>
             <div style="font-weight:700;color:#fff;letter-spacing:.16em;font-size:14px;text-transform:uppercase">Repositório</div>
-            <div style="margin-top:8px">github.com/hurtzgestao-lang/<br>hurtz-consorcio</div>
+            <div style="margin-top:8px">github.com/hurtzgestao-lang/<br>hurtz-cerebro-template</div>
           </div>
           <div>
             <div style="font-weight:700;color:#fff;letter-spacing:.16em;font-size:14px;text-transform:uppercase">Onboarding</div>
@@ -1457,6 +1666,9 @@
 
   </div>
 </div>
+
+<!-- Toast -->
+<div id="toast" role="status" aria-live="polite">Copiado</div>
 
 <!-- Navigation -->
 <nav id="nav">
@@ -1475,7 +1687,30 @@
   const countEl = document.getElementById('count');
   const progressEl = document.getElementById('progress');
   const navEl = document.getElementById('nav');
+  const toastEl = document.getElementById('toast');
   let idx = 0;
+
+  // ── Copy to clipboard for any .copyable element ──
+  function showToast(msg){
+    toastEl.textContent = msg;
+    toastEl.classList.add('show');
+    clearTimeout(showToast._t);
+    showToast._t = setTimeout(() => toastEl.classList.remove('show'), 1500);
+  }
+  document.addEventListener('click', async (e) => {
+    const el = e.target.closest('.copyable');
+    if (!el) return;
+    e.stopPropagation();
+    const text = el.dataset.copy || el.textContent.replace(/COPIAR|✓ COPIADO/g,'').trim();
+    try {
+      await navigator.clipboard.writeText(text);
+      el.classList.add('copied');
+      showToast('Copiado');
+      setTimeout(() => el.classList.remove('copied'), 1500);
+    } catch (err) {
+      showToast('Falhou — copia manualmente');
+    }
+  });
 
   // Auto-hide nav after idle
   let hideTimer = null;
@@ -1575,9 +1810,11 @@
     else if(e.key==='Escape' && document.fullscreenElement){ document.exitFullscreen(); }
   });
 
-  // Edge click to advance / retreat
+  // Edge click to advance / retreat (skip when clicking copyable or nav)
   stage.addEventListener('click', e=>{
     if(e.target.closest('#nav')) return;
+    if(e.target.closest('.copyable')) return;
+    if(e.target.closest('.matcard')) return;
     const x = e.clientX / window.innerWidth;
     if(x > 0.7) show(idx+1);
     else if(x < 0.3) show(idx-1);
