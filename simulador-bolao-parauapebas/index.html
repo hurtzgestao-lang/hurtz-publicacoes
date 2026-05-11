@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simulador de Bolão | Sua Lotérica em Parauapebas</title>
+  <meta name="description" content="Monte seu bolão da Caixa, veja quanto você paga por cota e garanta sua participação. Mega-Sena, Lotofácil e Quina.">
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800;900&display=swap" rel="stylesheet">
+
+  <style>
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+    :root {
+      --blue-dark:   #002A72;
+      --blue-mid:    #003B8E;
+      --blue-main:   #005AB5;
+      --blue-light:  #0072CC;
+      --orange:      #F47920;
+      --orange-dark: #D86208;
+      --yellow:      #FFD06B;
+      --green:       #209A4D;
+      --purple:      #930089;
+      --violet:      #260085;
+      --bg:          #F0F4FA;
+      --white:       #FFFFFF;
+      --border:      #DDE4F0;
+      --text:        #1a1a2e;
+      --text-mid:    #4a5568;
+      --text-light:  #8898aa;
+      --shadow:      0 4px 24px rgba(0,48,130,0.13);
+      --radius:      18px;
+      --radius-sm:   12px;
+    }
+
+    body {
+      font-family: 'Nunito', sans-serif;
+      background: var(--bg);
+      color: var(--text);
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ───── HEADER ───── */
+    header {
+      background: linear-gradient(155deg, #001850 0%, var(--blue-dark) 40%, var(--blue-main) 100%);
+      color: #fff;
+      position: relative;
+      overflow: hidden;
+    }
+
+    header::after {
+      content: '';
+      position: absolute;
+      bottom: -60px; left: -60px;
+      width: 340px; height: 340px;
+      background: radial-gradient(circle, rgba(244,121,32,.18) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    header::before {
+      content: '';
+      position: absolute;
+      top: -80px; right: -40px;
+      width: 400px; height: 400px;
+      background: radial-gradient(circle, rgba(0,114,204,.25) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .header-bar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 14px 20px;
+      border-bottom: 1px solid rgba(255,255,255,.1);
+      position: relative;
+      z-index: 2;
+    }
+
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 11px;
+    }
+
+    .logo-icon {
+      width: 46px; height: 46px;
+      background: var(--orange);
+      border-radius: 13px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 22px;
+      flex-shrink: 0;
+      box-shadow: 0 3px 10px rgba(244,121,32,.5);
+    }
+
+    .logo-text .brand {
+      font-size: 11px; font-weight: 700;
+      opacity: .75; letter-spacing: 1.2px;
+      text-transform: uppercase;
+      display: block;
+    }
+
+    .logo-text .name {
+      font-size: 17px; font-weight: 900;
+      display: block; line-height: 1.1;
+    }
+
+    .caixa-badge {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.2);
+      border-radius: 30px;
+      padding: 6px 14px;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: .5px;
+      text-transform: uppercase;
+    }
+
+    .header-hero {
+      padding: 36px 20px 52px;
+      text-align: center;
+      position: relative;
+      z-index: 2;
+    }
+
+    .header-hero h1 {
+      font-size: clamp(24px, 6vw, 42px);
+      font-weight: 900;
+      line-height: 1.2;
+      margin-bottom: 12px;
+    }
+
+    .header-hero h1 em {
+      font-style: normal;
+      color: var(--yellow);
+    }
+
+    .header-hero p {
+      font-size: 15px;
+      opacity: .85;
+      max-width: 480px;
+      margin: 0 auto 26px;
+    }
+
+    /* countdown pill */
+    .countdown-pill {
+      display: inline-flex;
+      align-items: center;
+      gap: 9px;
+      background: rgba(244,121,32,.18);
+      border: 1px solid rgba(244,121,32,.35);
+      border-radius: 40px;
+      padding: 9px 18px;
+      font-size: 13px; font-weight: 700;
+    }
+
+    .dot {
+      width: 8px; height: 8px;
+      background: var(--yellow);
+      border-radius: 50%;
+      animation: blink 1s infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1} 50%{opacity:.25} }
+
+    .countdown-pill .time {
+      font-size: 16px;
+      font-family: monospace;
+      color: var(--yellow);
+      letter-spacing: 1px;
+    }
+
+    /* ───── LAYOUT ───── */
+    .sim-wrap {
+      max-width: 620px;
+      margin: -26px auto 0;
+      padding: 0 14px 56px;
+      position: relative;
+      z-index: 3;
+    }
+
+    /* ───── CARDS ───── */
+    .card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 26px 22px;
+      margin-bottom: 14px;
+    }
+
+    .step-head {
+      display: flex;
+      align-items: center;
+      gap: 9px;
+      margin-bottom: 20px;
+    }
+
+    .step-num {
+      width: 28px; height: 28px;
+      background: var(--blue-main);
+      color: #fff;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 900;
+      flex-shrink: 0;
+    }
+
+    .step-title {
+      font-size: 16px; font-weight: 800;
+    }
+
+    /* ───── SOCIAL PROOF ───── */
+    .proof-bar {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 16px 20px;
+      margin-bottom: 14px;
+    }
+
+    .avatars {
+      display: flex;
+    }
+
+    .av {
+      width: 34px; height: 34px;
+      border-radius: 50%;
+      border: 2px solid #fff;
+      font-size: 14px; font-weight: 800;
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      margin-right: -8px;
+      flex-shrink: 0;
+    }
+
+    .proof-text {
+      font-size: 13px; font-weight: 600;
+      color: var(--text-mid);
+    }
+
+    .proof-text strong { color: var(--blue-main); }
+
+    /* ───── GAME SELECTOR ───── */
+    .game-grid {
+      display: grid;
+      grid-template-columns: repeat(3,1fr);
+      gap: 10px;
+    }
+
+    .gc {
+      border: 2.5px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 6px;
+      text-align: center;
+      cursor: pointer;
+      transition: transform .18s, box-shadow .18s, border-color .18s, background .18s;
+      position: relative;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .gc:hover { transform: translateY(-2px); box-shadow: 0 6px 18px rgba(0,0,0,.1); }
+
+    .gc.mega  { --gc:  #209A4D; }
+    .gc.loto  { --gc:  #930089; }
+    .gc.quina { --gc:  #260085; }
+
+    .gc.active { border-color: var(--gc); background: color-mix(in srgb, var(--gc) 7%, white); }
+
+    .gc-ball {
+      width: 44px; height: 44px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 900;
+      color: #fff;
+      margin: 0 auto 8px;
+    }
+
+    .gc.mega  .gc-ball { background: radial-gradient(circle at 35% 35%, #4DC878, #209A4D, #0F5C28); }
+    .gc.loto  .gc-ball { background: radial-gradient(circle at 35% 35%, #CC44C4, #930089, #4A0044); }
+    .gc.quina .gc-ball { background: radial-gradient(circle at 35% 35%, #6644CC, #260085, #120040); }
+
+    .gc-name {
+      font-size: 11px; font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: .5px;
+    }
+
+    .gc.mega  .gc-name { color: #209A4D; }
+    .gc.loto  .gc-name { color: #930089; }
+    .gc.quina .gc-name { color: #260085; }
+
+    .gc-price { font-size: 10px; color: var(--text-light); margin-top: 2px; }
+
+    .gc-check {
+      position: absolute; top: -7px; right: -7px;
+      width: 21px; height: 21px;
+      border-radius: 50%;
+      background: var(--orange);
+      color: #fff;
+      font-size: 11px; font-weight: 900;
+      display: none; align-items: center; justify-content: center;
+      box-shadow: 0 2px 6px rgba(244,121,32,.5);
+    }
+
+    .gc.active .gc-check { display: flex; }
+
+    /* ───── STEPPERS ───── */
+    .config-stack { display: flex; flex-direction: column; gap: 24px; }
+
+    .cfg-row label {
+      display: flex; justify-content: space-between; align-items: center;
+      margin-bottom: 11px;
+    }
+
+    .cfg-label { font-size: 15px; font-weight: 700; }
+
+    .cfg-val {
+      font-size: 24px; font-weight: 900;
+      color: var(--blue-main);
+    }
+
+    .stepper {
+      display: flex;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      overflow: hidden;
+    }
+
+    .stp-btn {
+      background: var(--bg);
+      border: none;
+      width: 50px; height: 50px;
+      font-size: 22px; font-weight: 700;
+      color: var(--blue-main);
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      transition: background .15s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .stp-btn:hover   { background: #dde4f0; }
+    .stp-btn:active  { background: #c8d4e8; }
+
+    .stp-display {
+      flex: 1;
+      text-align: center;
+      font-size: 20px; font-weight: 900;
+      background: #fff;
+      line-height: 50px;
+      pointer-events: none;
+      border: none;
+    }
+
+    .presets {
+      display: flex; gap: 6px;
+      flex-wrap: wrap;
+      margin-top: 9px;
+    }
+
+    .pr-btn {
+      background: var(--bg);
+      border: 1.5px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 13px;
+      font-size: 12px; font-weight: 700;
+      color: var(--text-mid);
+      cursor: pointer;
+      transition: all .15s;
+      font-family: 'Nunito', sans-serif;
+    }
+
+    .pr-btn.on, .pr-btn:hover {
+      background: var(--blue-main);
+      border-color: var(--blue-main);
+      color: #fff;
+    }
+
+    /* ───── RESULT CARD ───── */
+    .result-card {
+      background: linear-gradient(145deg, #001850 0%, var(--blue-dark) 50%, #0060B8 100%);
+      color: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px 22px;
+      margin-bottom: 14px;
+      text-align: center;
+      position: relative;
+      overflow: hidden;
+    }
+
+    .result-card::before {
+      content: '';
+      position: absolute; top: -60px; right: -60px;
+      width: 220px; height: 220px;
+      background: radial-gradient(circle, rgba(255,208,107,.12) 0%, transparent 65%);
+      border-radius: 50%;
+      pointer-events: none;
+    }
+
+    .res-label {
+      font-size: 12px; font-weight: 700;
+      opacity: .75; text-transform: uppercase;
+      letter-spacing: 1.5px; margin-bottom: 6px;
+    }
+
+    .res-price {
+      font-size: clamp(52px, 14vw, 72px);
+      font-weight: 900;
+      color: var(--yellow);
+      line-height: 1;
+      position: relative;
+      z-index: 1;
+    }
+
+    .res-price sup {
+      font-size: .38em;
+      vertical-align: super;
+      margin-right: 2px;
+    }
+
+    .res-price sub {
+      font-size: .38em;
+      vertical-align: baseline;
+    }
+
+    .res-desc {
+      font-size: 14px; opacity: .85;
+      margin: 6px 0 20px;
+    }
+
+    /* balls */
+    .balls-row {
+      display: flex; gap: 7px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-bottom: 20px;
+      min-height: 44px;
+    }
+
+    .ball {
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      font-size: 12px; font-weight: 900;
+      color: #fff;
+      display: flex; align-items: center; justify-content: center;
+      animation: ballPop .35s ease both;
+    }
+
+    .ball.mega  { background: radial-gradient(circle at 35% 35%, #4DC878, #209A4D, #0F5C28); box-shadow: 0 3px 8px rgba(32,154,77,.6); }
+    .ball.loto  { background: radial-gradient(circle at 35% 35%, #CC44C4, #930089, #4A0044); box-shadow: 0 3px 8px rgba(147,0,137,.6); }
+    .ball.quina { background: radial-gradient(circle at 35% 35%, #6644CC, #260085, #120040); box-shadow: 0 3px 8px rgba(38,0,133,.6); }
+
+    @keyframes ballPop {
+      from { transform: scale(0) rotate(-180deg); opacity: 0; }
+      to   { transform: scale(1) rotate(0deg); opacity: 1; }
+    }
+
+    /* stats grid */
+    .stats-grid {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 10px; margin-bottom: 12px;
+    }
+
+    .stat {
+      background: rgba(255,255,255,.1);
+      border: 1px solid rgba(255,255,255,.15);
+      border-radius: var(--radius-sm);
+      padding: 13px 10px;
+    }
+
+    .stat .st-lbl {
+      font-size: 10px; opacity: .75;
+      text-transform: uppercase; letter-spacing: .5px;
+      font-weight: 700; margin-bottom: 4px;
+    }
+
+    .stat .st-val {
+      font-size: 18px; font-weight: 900;
+      color: var(--yellow);
+    }
+
+    .stat .st-sub {
+      font-size: 10px; opacity: .65;
+    }
+
+    /* prize row */
+    .prize-row {
+      display: grid; grid-template-columns: 1fr 1fr;
+      gap: 8px;
+      background: rgba(244,121,32,.18);
+      border: 1px solid rgba(244,121,32,.35);
+      border-radius: var(--radius-sm);
+      padding: 13px 10px;
+    }
+
+    .pr-item { text-align: center; }
+    .pr-item .pr-lbl { font-size: 10px; opacity: .7; text-transform: uppercase; letter-spacing: .5px; }
+    .pr-item .pr-val { font-size: 15px; font-weight: 900; color: var(--yellow); }
+
+    /* share nudge */
+    .share-nudge {
+      margin-top: 14px;
+      background: rgba(255,255,255,.1);
+      border-radius: var(--radius-sm);
+      padding: 12px 14px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 13px;
+      font-weight: 700;
+      text-align: left;
+    }
+
+    .share-nudge .icon { font-size: 20px; flex-shrink: 0; }
+
+    /* ───── FORM CARD ───── */
+    .form-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 28px 22px;
+      border-top: 4px solid var(--orange);
+      margin-bottom: 14px;
+    }
+
+    .form-title { font-size: 20px; font-weight: 900; margin-bottom: 4px; }
+    .form-sub   { font-size: 14px; color: var(--text-mid); margin-bottom: 22px; }
+
+    .fg { margin-bottom: 16px; }
+
+    .fg label {
+      display: block;
+      font-size: 12px; font-weight: 800;
+      text-transform: uppercase; letter-spacing: .6px;
+      color: var(--text-mid);
+      margin-bottom: 7px;
+    }
+
+    .fg input {
+      width: 100%;
+      border: 2px solid var(--border);
+      border-radius: var(--radius-sm);
+      padding: 14px 16px;
+      font-size: 16px;
+      font-family: 'Nunito', sans-serif;
+      color: var(--text);
+      background: #fff;
+      transition: border-color .2s;
+      -webkit-appearance: none;
+    }
+
+    .fg input:focus { outline: none; border-color: var(--blue-main); }
+    .fg input::placeholder { color: #bbc; }
+
+    .btn-submit {
+      width: 100%;
+      background: linear-gradient(135deg, var(--orange), var(--orange-dark));
+      color: #fff;
+      border: none;
+      border-radius: var(--radius-sm);
+      padding: 17px;
+      font-size: 17px; font-weight: 900;
+      font-family: 'Nunito', sans-serif;
+      cursor: pointer;
+      display: flex; align-items: center; justify-content: center;
+      gap: 9px;
+      box-shadow: 0 4px 18px rgba(244,121,32,.45);
+      transition: transform .18s, box-shadow .18s;
+      -webkit-tap-highlight-color: transparent;
+    }
+
+    .btn-submit:hover  { transform: translateY(-2px); box-shadow: 0 8px 28px rgba(244,121,32,.55); }
+    .btn-submit:active { transform: translateY(0); }
+
+    .disclaimer {
+      font-size: 11px; color: var(--text-light);
+      text-align: center; margin-top: 13px;
+    }
+
+    /* ───── SUCCESS ───── */
+    .success-card {
+      background: var(--white);
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      padding: 40px 22px;
+      text-align: center;
+      display: none;
+      margin-bottom: 14px;
+    }
+
+    .suc-icon {
+      font-size: 52px; margin-bottom: 14px;
+      animation: iconBounce .5s ease both;
+    }
+
+    @keyframes iconBounce {
+      0%  { transform: scale(0); opacity: 0; }
+      70% { transform: scale(1.15); }
+      100%{ transform: scale(1); opacity: 1; }
+    }
+
+    .success-card h2 { font-size: 22px; font-weight: 900; color: var(--green); margin-bottom: 8px; }
+    .success-card p  { font-size: 15px; color: var(--text-mid); margin-bottom: 24px; }
+
+    .btn-wa {
+      display: inline-flex;
+      align-items: center; gap: 10px;
+      background: #25D366;
+      color: #fff;
+      text-decoration: none;
+      border-radius: var(--radius-sm);
+      padding: 15px 26px;
+      font-size: 15px; font-weight: 900;
+      box-shadow: 0 4px 16px rgba(37,211,102,.4);
+      transition: transform .18s, box-shadow .18s;
+    }
+
+    .btn-wa:hover { transform: translateY(-2px); box-shadow: 0 8px 26px rgba(37,211,102,.5); }
+
+    .btn-wa svg { flex-shrink: 0; }
+
+    /* ───── FOOTER ───── */
+    footer {
+      background: var(--blue-dark);
+      color: rgba(255,255,255,.65);
+      text-align: center;
+      padding: 22px 16px;
+      font-size: 12px;
+    }
+
+    footer strong { color: #fff; }
+    footer p + p  { margin-top: 5px; }
+
+    /* ───── RESPONSIVE ───── */
+    @media (max-width: 380px) {
+      .gc { padding: 10px 3px; }
+      .gc-ball { width: 38px; height: 38px; font-size: 11px; }
+      .gc-name { font-size: 10px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ══════════ HEADER ══════════ -->
+<header>
+  <div class="header-bar">
+    <div class="logo">
+      <div class="logo-icon">🎱</div>
+      <div class="logo-text">
+        <span class="brand">Lotérica</span>
+        <!-- TODO: substituir pelo nome real da lotérica -->
+        <span class="name">Parauapebas</span>
+      </div>
+    </div>
+    <div class="caixa-badge">Loterias CAIXA</div>
+  </div>
+
+  <div class="header-hero">
+    <h1>Monte seu Bolão<br>e <em>Multiplique</em> suas Chances</h1>
+    <p>Junte os amigos, divide o custo e joga muito mais. Veja quanto você paga por cota.</p>
+
+    <div class="countdown-pill">
+      <div class="dot"></div>
+      <span>Próximo sorteio Mega em:</span>
+      <span class="time" id="countdown">--:--:--</span>
+    </div>
+  </div>
+</header>
+
+<!-- ══════════ SIMULATOR ══════════ -->
+<div class="sim-wrap">
+
+  <!-- Social proof -->
+  <div class="proof-bar">
+    <div class="avatars">
+      <div class="av" style="background:#209A4D">M</div>
+      <div class="av" style="background:#930089">A</div>
+      <div class="av" style="background:#F47920">J</div>
+      <div class="av" style="background:#003082">P</div>
+    </div>
+    <p class="proof-text"><strong>63 pessoas</strong> simularam o bolão hoje. Garante a sua vaga!</p>
+  </div>
+
+  <!-- STEP 1 — ESCOLHA O JOGO -->
+  <div class="card">
+    <div class="step-head">
+      <div class="step-num">1</div>
+      <span class="step-title">Qual jogo você quer?</span>
+    </div>
+
+    <div class="game-grid">
+      <div class="gc mega active" onclick="selectGame('mega',this)">
+        <div class="gc-check">✓</div>
+        <div class="gc-ball">60</div>
+        <div class="gc-name">Mega-Sena</div>
+        <div class="gc-price">R$ 5,00/jogo</div>
+      </div>
+      <div class="gc loto" onclick="selectGame('loto',this)">
+        <div class="gc-check">✓</div>
+        <div class="gc-ball">25</div>
+        <div class="gc-name">Lotofácil</div>
+        <div class="gc-price">R$ 3,00/jogo</div>
+      </div>
+      <div class="gc quina" onclick="selectGame('quina',this)">
+        <div class="gc-check">✓</div>
+        <div class="gc-ball">80</div>
+        <div class="gc-name">Quina</div>
+        <div class="gc-price">R$ 2,50/jogo</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- STEP 2 — CONFIGURE -->
+  <div class="card">
+    <div class="step-head">
+      <div class="step-num">2</div>
+      <span class="step-title">Configure o bolão</span>
+    </div>
+
+    <div class="config-stack">
+      <div class="cfg-row">
+        <label>
+          <span class="cfg-label">🎮 Jogos no bolão</span>
+          <span class="cfg-val" id="jDisplay">10</span>
+        </label>
+        <div class="stepper">
+          <button class="stp-btn" onclick="change('j',-1)">−</button>
+          <span class="stp-display" id="jVal">10</span>
+          <button class="stp-btn" onclick="change('j',1)">+</button>
+        </div>
+        <div class="presets">
+          <button class="pr-btn" onclick="set('j',5)">5</button>
+          <button class="pr-btn on" onclick="set('j',10)">10</button>
+          <button class="pr-btn" onclick="set('j',20)">20</button>
+          <button class="pr-btn" onclick="set('j',30)">30</button>
+          <button class="pr-btn" onclick="set('j',50)">50</button>
+        </div>
+      </div>
+
+      <div class="cfg-row">
+        <label>
+          <span class="cfg-label">👥 Participantes</span>
+          <span class="cfg-val" id="pDisplay">5</span>
+        </label>
+        <div class="stepper">
+          <button class="stp-btn" onclick="change('p',-1)">−</button>
+          <span class="stp-display" id="pVal">5</span>
+          <button class="stp-btn" onclick="change('p',1)">+</button>
+        </div>
+        <div class="presets">
+          <button class="pr-btn" onclick="set('p',2)">2</button>
+          <button class="pr-btn" onclick="set('p',3)">3</button>
+          <button class="pr-btn on" onclick="set('p',5)">5</button>
+          <button class="pr-btn" onclick="set('p',10)">10</button>
+          <button class="pr-btn" onclick="set('p',20)">20</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- RESULT -->
+  <div class="result-card">
+    <div class="res-label">Cada participante paga apenas</div>
+    <div class="res-price" id="resPrice"><sup>R$</sup>10<sub>,00</sub></div>
+    <div class="res-desc" id="resDesc">por 10 jogos na Mega-Sena com 5 pessoas</div>
+
+    <div class="balls-row" id="ballsRow"></div>
+
+    <div class="stats-grid">
+      <div class="stat">
+        <div class="st-lbl">Total do bolão</div>
+        <div class="st-val" id="stTotal">R$ 50,00</div>
+        <div class="st-sub" id="stDet">10 jogos × R$ 5,00</div>
+      </div>
+      <div class="stat">
+        <div class="st-lbl">Sua cota</div>
+        <div class="st-val" id="stCota">1/5</div>
+        <div class="st-sub">do prêmio</div>
+      </div>
+    </div>
+
+    <div class="prize-row">
+      <div class="pr-item">
+        <div class="pr-lbl">🏆 Prêmio estimado</div>
+        <div class="pr-val" id="prPremio">R$ 50 mi</div>
+      </div>
+      <div class="pr-item">
+        <div class="pr-lbl">💰 Sua parte</div>
+        <div class="pr-val" id="prSua">R$ 10 mi</div>
+      </div>
+    </div>
+
+    <div class="share-nudge">
+      <span class="icon">💬</span>
+      <span>Chame mais amigos e divida ainda mais o custo!</span>
+    </div>
+  </div>
+
+  <!-- FORM -->
+  <div class="form-card" id="formCard">
+    <div class="form-title">🎯 Reservar minha vaga</div>
+    <div class="form-sub">Nossa equipe entra em contato pelo WhatsApp pra confirmar!</div>
+
+    <form id="leadForm" onsubmit="submitForm(event)" novalidate>
+      <div class="fg">
+        <label>Seu nome</label>
+        <input type="text" id="fNome" placeholder="Como você se chama?" required autocomplete="name">
+      </div>
+      <div class="fg">
+        <label>WhatsApp</label>
+        <input type="tel" id="fWpp" placeholder="(94) 99999-9999" required
+               oninput="maskPhone(this)" autocomplete="tel">
+      </div>
+      <button type="submit" class="btn-submit">
+        <span>🎱</span>
+        <span>Quero minha vaga no bolão!</span>
+      </button>
+    </form>
+
+    <p class="disclaimer">🔒 Seus dados são privados. Apenas a lotérica vai entrar em contato.</p>
+  </div>
+
+  <!-- SUCCESS -->
+  <div class="success-card" id="successCard">
+    <div class="suc-icon">🎉</div>
+    <h2>Vaga reservada!</h2>
+    <p>Ótimo, <strong id="sucNome"></strong>! Nossa equipe vai entrar em contato pelo WhatsApp pra confirmar sua participação no bolão.</p>
+    <a href="#" class="btn-wa" id="waLink" target="_blank" rel="noopener">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="white" xmlns="http://www.w3.org/2000/svg">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/>
+      </svg>
+      Confirmar pelo WhatsApp
+    </a>
+  </div>
+
+</div>
+
+<!-- ══════════ FOOTER ══════════ -->
+<footer>
+  <!-- TODO: substituir pelo nome real da lotérica -->
+  <p><strong>Lotérica Parauapebas</strong> — Autorizada pela Caixa Econômica Federal</p>
+  <p>Jogue com responsabilidade. Proibido para menores de 18 anos.</p>
+</footer>
+
+<script>
+  /* ── DATA ── */
+  const GAMES = {
+    mega:  { name: 'Mega-Sena', price: 5.00,  prize: 50,  max: 60, cls: 'mega'  },
+    loto:  { name: 'Lotofácil', price: 3.00,  prize: 3.5, max: 25, cls: 'loto'  },
+    quina: { name: 'Quina',     price: 2.50,  prize: 1.2, max: 80, cls: 'quina' }
+  };
+
+  /* TODO: substituir pelo número real (somente dígitos, com código do país) */
+  const LOTERIA_PHONE = '559499999999';
+
+  /* ── STATE ── */
+  const st = { game: 'mega', j: 10, p: 5 };
+
+  /* ── GAME SELECT ── */
+  function selectGame(key, el) {
+    document.querySelectorAll('.gc').forEach(c => c.classList.remove('active'));
+    el.classList.add('active');
+    st.game = key;
+    recalc();
+  }
+
+  /* ── STEPPERS ── */
+  function change(f, d) {
+    if (f === 'j') st.j = clamp(st.j + d, 1, 100);
+    else           st.p = clamp(st.p + d, 2, 100);
+    syncUI(f);
+    recalc();
+  }
+
+  function set(f, v) {
+    if (f === 'j') st.j = v;
+    else           st.p = v;
+    syncUI(f);
+    syncPresets(f, v);
+    recalc();
+  }
+
+  function syncUI(f) {
+    const v = f === 'j' ? st.j : st.p;
+    document.getElementById(f + 'Val').textContent     = v;
+    document.getElementById(f + 'Display').textContent = v;
+  }
+
+  function syncPresets(f, v) {
+    document.querySelectorAll(`.pr-btn[onclick*="'${f}'"]`).forEach(btn => {
+      const m = btn.getAttribute('onclick').match(/,\s*(\d+)/);
+      btn.classList.toggle('on', m && parseInt(m[1]) === v);
+    });
+  }
+
+  function clamp(n, lo, hi) { return Math.max(lo, Math.min(hi, n)); }
+
+  /* ── CALC & RENDER ── */
+  function recalc() {
+    const g      = GAMES[st.game];
+    const total  = st.j * g.price;
+    const perPx  = total / st.p;
+    const suaPt  = g.prize / st.p;
+
+    const fmt  = n => 'R$ ' + n.toFixed(2).replace('.', ',').replace(/\B(?=(\d{3})+(?!\d))/g, '.');
+    const fmtM = n => n >= 1
+      ? 'R$ ' + n.toFixed(1).replace('.', ',') + ' mi'
+      : 'R$ ' + (n * 1000).toFixed(0) + ' mil';
+
+    /* price hero */
+    const whole = Math.floor(perPx);
+    const cents = Math.round((perPx - whole) * 100).toString().padStart(2, '0');
+    document.getElementById('resPrice').innerHTML =
+      `<sup>R$</sup>${whole.toLocaleString('pt-BR')}<sub>,${cents}</sub>`;
+
+    document.getElementById('resDesc').textContent =
+      `por ${st.j} jogo${st.j > 1 ? 's' : ''} na ${g.name} com ${st.p} pessoa${st.p > 1 ? 's' : ''}`;
+
+    /* stats */
+    document.getElementById('stTotal').textContent = fmt(total);
+    document.getElementById('stDet').textContent   = `${st.j} jogos × ${fmt(g.price)}`;
+    document.getElementById('stCota').textContent  = `1/${st.p}`;
+    document.getElementById('prPremio').textContent = fmtM(g.prize);
+    document.getElementById('prSua').textContent    = fmtM(suaPt);
+
+    renderBalls(g);
+  }
+
+  function renderBalls(g) {
+    const count = g.cls === 'loto' ? 7 : 6;
+    const nums  = new Set();
+    while (nums.size < count) nums.add(Math.floor(Math.random() * g.max) + 1);
+    document.getElementById('ballsRow').innerHTML =
+      [...nums].sort((a,b) => a - b).map((n, i) =>
+        `<div class="ball ${g.cls}" style="animation-delay:${i * .07}s">${n.toString().padStart(2,'0')}</div>`
+      ).join('');
+  }
+
+  /* ── PHONE MASK ── */
+  function maskPhone(el) {
+    let v = el.value.replace(/\D/g, '').slice(0, 11);
+    if      (v.length > 7) v = `(${v.slice(0,2)}) ${v.slice(2,7)}-${v.slice(7)}`;
+    else if (v.length > 2) v = `(${v.slice(0,2)}) ${v.slice(2)}`;
+    else if (v.length > 0) v = `(${v}`;
+    el.value = v;
+  }
+
+  /* ── FORM SUBMIT ── */
+  function submitForm(e) {
+    e.preventDefault();
+    const nome = document.getElementById('fNome').value.trim();
+    const wpp  = document.getElementById('fWpp').value.trim();
+    if (!nome || wpp.replace(/\D/g,'').length < 10) return;
+
+    const g      = GAMES[st.game];
+    const total  = st.j * g.price;
+    const perPx  = (total / st.p).toFixed(2).replace('.', ',');
+
+    const msg = encodeURIComponent(
+      `Olá! Me chamo ${nome} e quero participar do bolão.\n\n` +
+      `🎱 *${g.name}* — ${st.j} jogo${st.j > 1 ? 's' : ''}\n` +
+      `👥 *${st.p} participantes*\n` +
+      `💰 *Minha cota: R$ ${perPx}*\n\n` +
+      `Pode confirmar minha vaga? 😊`
+    );
+
+    document.getElementById('formCard').style.display   = 'none';
+    document.getElementById('successCard').style.display = 'block';
+    document.getElementById('sucNome').textContent = nome.split(' ')[0];
+    document.getElementById('waLink').href = `https://wa.me/${LOTERIA_PHONE}?text=${msg}`;
+
+    document.getElementById('successCard').scrollIntoView({ behavior: 'smooth', block: 'center' });
+  }
+
+  /* ── COUNTDOWN (Mega: terça e sexta, 20h) ── */
+  function tick() {
+    const now     = new Date();
+    const DRAW    = [2, 5]; // Tue, Fri
+    let next = new Date(now);
+    next.setHours(20, 0, 0, 0);
+
+    for (let i = 0; i <= 7; i++) {
+      const d = (now.getDay() + i) % 7;
+      if (DRAW.includes(d)) {
+        next = new Date(now);
+        next.setDate(now.getDate() + i);
+        next.setHours(20, 0, 0, 0);
+        if (next > now) break;
+      }
+    }
+
+    if (next <= now) {
+      next.setDate(next.getDate() + 1);
+      while (!DRAW.includes(next.getDay())) next.setDate(next.getDate() + 1);
+      next.setHours(20, 0, 0, 0);
+    }
+
+    const diff = next - now;
+    const h = Math.floor(diff / 3600000);
+    const m = Math.floor((diff % 3600000) / 60000);
+    const s = Math.floor((diff % 60000)  / 1000);
+    document.getElementById('countdown').textContent =
+      `${String(h).padStart(2,'0')}:${String(m).padStart(2,'0')}:${String(s).padStart(2,'0')}`;
+  }
+
+  /* ── INIT ── */
+  recalc();
+  tick();
+  setInterval(tick, 1000);
+  setInterval(() => renderBalls(GAMES[st.game]), 5000);
+</script>
+</body>
+</html>
