@@ -1,0 +1,691 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Funil Completo — Abril 2026 | Hurtz Company</title>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.0/dist/chart.umd.min.js"></script>
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brasa:       #C06018;
+      --brasa-dark:  #974A12;
+      --brasa-light: #E2A87A;
+      --carvao:      #181614;
+      --grafite:     #3D3A36;
+      --pedra:       #8C8880;
+      --areia:       #E8E4DC;
+      --offwhite:    #F5F2EC;
+      --verde:       #1A7A4A;
+      --vermelho:    #B52A2A;
+      --azul:        #3A6FBF;
+      --card-bg:     #232120;
+      --border:      #2E2B28;
+    }
+
+    body {
+      background: var(--carvao);
+      color: var(--offwhite);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Helvetica, Arial, sans-serif;
+      font-size: 14px;
+      line-height: 1.5;
+      min-height: 100vh;
+    }
+
+    /* HEADER */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 20px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      background: var(--carvao);
+      z-index: 10;
+    }
+    .logo {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+    .logo-mark {
+      width: 32px; height: 32px;
+      background: var(--brasa);
+      border-radius: 6px;
+      display: flex; align-items: center; justify-content: center;
+      font-weight: 800; font-size: 15px; color: var(--offwhite);
+      letter-spacing: -0.5px;
+    }
+    .logo-text { font-size: 15px; font-weight: 600; color: var(--offwhite); }
+    .logo-sub  { font-size: 12px; color: var(--pedra); }
+    .header-badge {
+      background: var(--grafite);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 4px 14px;
+      font-size: 12px;
+      color: var(--pedra);
+    }
+    .header-badge span { color: var(--brasa); font-weight: 600; }
+
+    /* LAYOUT */
+    main { max-width: 1200px; margin: 0 auto; padding: 32px 24px 64px; }
+
+    h2 {
+      font-size: 11px;
+      font-weight: 600;
+      text-transform: uppercase;
+      letter-spacing: 1.2px;
+      color: var(--pedra);
+      margin-bottom: 16px;
+    }
+
+    section { margin-bottom: 40px; }
+
+    /* HERO KPIs */
+    .hero {
+      margin-bottom: 8px;
+      padding-bottom: 0;
+    }
+    .hero-title {
+      font-size: 22px;
+      font-weight: 700;
+      color: var(--offwhite);
+      margin-bottom: 4px;
+    }
+    .hero-sub {
+      font-size: 13px;
+      color: var(--pedra);
+      margin-bottom: 28px;
+    }
+
+    .kpi-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin-bottom: 40px;
+    }
+    .kpi-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 18px 16px;
+    }
+    .kpi-label { font-size: 11px; color: var(--pedra); text-transform: uppercase; letter-spacing: 0.8px; margin-bottom: 8px; }
+    .kpi-value { font-size: 26px; font-weight: 700; color: var(--offwhite); line-height: 1; }
+    .kpi-value.accent { color: var(--brasa); }
+    .kpi-value.green  { color: var(--verde); }
+    .kpi-value.red    { color: var(--vermelho); }
+    .kpi-sub  { font-size: 11px; color: var(--pedra); margin-top: 6px; }
+
+    /* FUNNEL */
+    .funnel-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .funnel-rows { display: flex; flex-direction: column; gap: 0; }
+    .funnel-row {
+      display: grid;
+      grid-template-columns: 200px 1fr 120px 120px;
+      align-items: center;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid var(--border);
+    }
+    .funnel-row:last-child { border-bottom: none; }
+    .funnel-label { font-size: 13px; color: var(--offwhite); }
+    .funnel-bar-wrap { background: var(--grafite); border-radius: 4px; height: 8px; overflow: hidden; }
+    .funnel-bar { height: 8px; border-radius: 4px; transition: width 1s ease; }
+    .funnel-qty  { font-size: 18px; font-weight: 700; color: var(--offwhite); text-align: right; }
+    .funnel-cost { font-size: 12px; color: var(--pedra); text-align: right; }
+    .funnel-row.highlight .funnel-label { color: var(--brasa); font-weight: 600; }
+    .funnel-row.highlight .funnel-qty   { color: var(--brasa); }
+
+    /* CAMPAIGN TABLE */
+    .table-wrap {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    table { width: 100%; border-collapse: collapse; }
+    thead th {
+      background: var(--grafite);
+      color: var(--pedra);
+      font-size: 11px;
+      text-transform: uppercase;
+      letter-spacing: 0.8px;
+      padding: 12px 16px;
+      text-align: left;
+      font-weight: 600;
+    }
+    thead th.right { text-align: right; }
+    tbody tr { border-bottom: 1px solid var(--border); }
+    tbody tr:last-child { border-bottom: none; }
+    tbody tr:hover { background: rgba(192,96,24,0.04); }
+    tbody td { padding: 12px 16px; font-size: 13px; color: var(--offwhite); }
+    tbody td.right { text-align: right; }
+    tbody td.muted { color: var(--pedra); font-size: 12px; }
+    .badge {
+      display: inline-block;
+      padding: 2px 8px;
+      border-radius: 10px;
+      font-size: 11px;
+      font-weight: 600;
+    }
+    .badge.good   { background: rgba(26,122,74,0.15);  color: #3ecf8e; }
+    .badge.warn   { background: rgba(192,96,24,0.15);  color: var(--brasa-light); }
+    .badge.bad    { background: rgba(181,42,42,0.15);  color: #f87171; }
+
+    /* 2-COL GRID */
+    .two-col { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+    @media (max-width: 720px) { .two-col { grid-template-columns: 1fr; } }
+
+    /* CHART CARD */
+    .chart-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 24px;
+    }
+    .chart-title { font-size: 14px; font-weight: 600; color: var(--offwhite); margin-bottom: 20px; }
+    .chart-canvas-wrap { position: relative; height: 240px; }
+
+    /* ALERT CARDS */
+    .alerts { display: flex; flex-direction: column; gap: 12px; }
+    .alert-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-left: 3px solid;
+      border-radius: 8px;
+      padding: 16px 20px;
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .alert-card.danger  { border-left-color: var(--vermelho); }
+    .alert-card.warning { border-left-color: var(--brasa); }
+    .alert-card.info    { border-left-color: var(--azul); }
+    .alert-icon { font-size: 18px; margin-top: 2px; }
+    .alert-title { font-size: 13px; font-weight: 600; color: var(--offwhite); margin-bottom: 4px; }
+    .alert-body  { font-size: 12px; color: var(--pedra); line-height: 1.6; }
+    .alert-body strong { color: var(--offwhite); }
+
+    /* RECS */
+    .recs { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 12px; }
+    .rec-card {
+      background: var(--card-bg);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+    }
+    .rec-number {
+      width: 28px; height: 28px;
+      background: rgba(192,96,24,0.15);
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 13px; font-weight: 700; color: var(--brasa);
+      margin-bottom: 12px;
+    }
+    .rec-title { font-size: 13px; font-weight: 600; color: var(--offwhite); margin-bottom: 8px; }
+    .rec-body  { font-size: 12px; color: var(--pedra); line-height: 1.6; }
+    .rec-body strong { color: var(--brasa-light); }
+
+    /* FOOTER */
+    footer {
+      border-top: 1px solid var(--border);
+      padding: 20px 32px;
+      text-align: center;
+      font-size: 11px;
+      color: var(--pedra);
+    }
+    footer span { color: var(--brasa); }
+
+    /* CPL ALERT */
+    .cpl-diff {
+      background: rgba(181,42,42,0.08);
+      border: 1px solid rgba(181,42,42,0.25);
+      border-radius: 8px;
+      padding: 14px 18px;
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      margin-top: 16px;
+      font-size: 13px;
+      color: var(--offwhite);
+    }
+    .cpl-diff .icon { font-size: 18px; }
+    .cpl-diff .highlight { color: #f87171; font-weight: 600; }
+    .cpl-diff .ok { color: #3ecf8e; font-weight: 600; }
+  </style>
+</head>
+<body>
+
+<header>
+  <div class="logo">
+    <div class="logo-mark">H</div>
+    <div>
+      <div class="logo-text">Hurtz Company</div>
+      <div class="logo-sub">Operação de Aquisição</div>
+    </div>
+  </div>
+  <div class="header-badge">Funil Completo <span>Abril 2026</span></div>
+</header>
+
+<main>
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-title">Tráfego → SDR → Venda</div>
+    <div class="hero-sub">Meta Ads × Funil Comercial Suyane · 01/04 – 30/04/2026 · CA - Hurtz Consórcio</div>
+  </section>
+
+  <!-- KPI CARDS -->
+  <div class="kpi-grid">
+    <div class="kpi-card">
+      <div class="kpi-label">Investimento</div>
+      <div class="kpi-value accent">R$ 1.560</div>
+      <div class="kpi-sub">Meta Ads · 2 contas</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Leads (formulário)</div>
+      <div class="kpi-value">359</div>
+      <div class="kpi-sub">CPL real: R$ 4,35</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">MQLs (≥ R$1M/mês)</div>
+      <div class="kpi-value">148</div>
+      <div class="kpi-sub">41,2% dos leads</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Reuniões realizadas</div>
+      <div class="kpi-value">28</div>
+      <div class="kpi-sub">Taxa compar.: 75,7%</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Vendas</div>
+      <div class="kpi-value green">2</div>
+      <div class="kpi-sub">7,1% das reuniões</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">CAC (custo/venda)</div>
+      <div class="kpi-value red">R$ 780</div>
+      <div class="kpi-sub">Meta: reduzir para ~R$400</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Leads por venda</div>
+      <div class="kpi-value">180</div>
+      <div class="kpi-sub">Meta: chegar em 80</div>
+    </div>
+    <div class="kpi-card">
+      <div class="kpi-label">Conv. geral</div>
+      <div class="kpi-value">0,56%</div>
+      <div class="kpi-sub">Lead → Venda</div>
+    </div>
+  </div>
+
+  <!-- ALERTA CPL -->
+  <div class="cpl-diff">
+    <div class="icon">⚠️</div>
+    <div>
+      <strong>CPL Meta reportado vs CPL real:</strong>
+      Meta Ads mostra <span class="highlight">R$ 1,49/lead (1.050 "lead actions")</span> — mas o formulário registrou apenas <span class="ok">359 contatos reais</span>, resultando em CPL real de <span class="highlight">R$ 4,35</span>.
+      A diferença são aberturas de formulário sem preenchimento sendo contadas como conversão.
+    </div>
+  </div>
+
+  <!-- FUNIL -->
+  <section style="margin-top:40px">
+    <h2>Funil de Conversão — Custo por Etapa</h2>
+    <div class="funnel-wrap">
+      <div class="funnel-rows" id="funnelRows"></div>
+    </div>
+  </section>
+
+  <!-- CHARTS -->
+  <section>
+    <h2>Distribuição de Leads por Campanha e Qualidade</h2>
+    <div class="two-col">
+      <div class="chart-card">
+        <div class="chart-title">Gasto × Leads reais por campanha</div>
+        <div class="chart-canvas-wrap">
+          <canvas id="chartCampaign"></canvas>
+        </div>
+      </div>
+      <div class="chart-card">
+        <div class="chart-title">Perfil de faturamento dos leads</div>
+        <div class="chart-canvas-wrap">
+          <canvas id="chartQuality"></canvas>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CAMPAIGN TABLE -->
+  <section>
+    <h2>Performance por Campanha — Tráfego + Qualidade</h2>
+    <div class="table-wrap">
+      <table>
+        <thead>
+          <tr>
+            <th>Campanha</th>
+            <th class="right">Gasto</th>
+            <th class="right">Leads form</th>
+            <th class="right">CPL real</th>
+            <th class="right">Alto valor</th>
+            <th class="right">CTR</th>
+            <th>Status</th>
+          </tr>
+        </thead>
+        <tbody id="campaignRows"></tbody>
+      </table>
+    </div>
+  </section>
+
+  <!-- ALERTS -->
+  <section>
+    <h2>Pontos de Atenção</h2>
+    <div class="alerts">
+      <div class="alert-card danger">
+        <div class="alert-icon">🚨</div>
+        <div>
+          <div class="alert-title">CAC de R$ 780 — 162x o CPL do formulário</div>
+          <div class="alert-body">Com 2 vendas e R$ 1.560 investidos, cada cliente custou R$ 780. O gargalo principal está na <strong>conversão reunião → venda (7,1%)</strong> — dobrar esse número com o mesmo investimento dobraria as vendas sem aumentar tráfego.</div>
+        </div>
+      </div>
+      <div class="alert-card danger">
+        <div class="alert-icon">🔥</div>
+        <div>
+          <div class="alert-title">74 leads sumidos entre o formulário e o SDR (R$ 322 jogados fora)</div>
+          <div class="alert-body">359 leads captados, 285 chegaram ao SDR. Os <strong>74 que não foram trabalhados</strong> representam 20,6% do investimento (~R$ 322) sem nenhuma tentativa de conversão. Verificar lag na distribuição de leads e duplicatas descartadas.</div>
+        </div>
+      </div>
+      <div class="alert-card warning">
+        <div class="alert-icon">⚡</div>
+        <div>
+          <div class="alert-title">EVOY + REPRESENTANTE 01 = R$ 416 com CPL ruim e 0–3% de alto valor</div>
+          <div class="alert-body"><strong>04 - EVOY:</strong> R$ 194,57, CPL real R$ 7,78, nenhum lead com faturamento ≥ R$ 3M. <strong>01 - REPRESENTANTE:</strong> R$ 221,82, CPL real R$ 7,39, apenas 3% de alto valor. Candidatos a pausar e realocar orçamento para ANCORA e ALPHA ADM.</div>
+        </div>
+      </div>
+      <div class="alert-card warning">
+        <div class="alert-icon">📉</div>
+        <div>
+          <div class="alert-title">Taxa de resposta SDR: 51,9% — ideal é 65%+</div>
+          <div class="alert-body">Quase metade dos leads não responde ao primeiro contato. Nos dias de maior volume (33+ leads) a taxa caiu para <strong>31–33%</strong>. A hipótese principal é <strong>demora no primeiro contato</strong> após o preenchimento do formulário — leads que esfriaram em 1h têm taxa de resposta drasticamente menor.</div>
+        </div>
+      </div>
+      <div class="alert-card info">
+        <div class="alert-icon">📊</div>
+        <div>
+          <div class="alert-title">Suyane performa melhor com volume controlado</div>
+          <div class="alert-body">Semana 4 (16 leads): <strong>63% de resposta</strong>, mesmo número de vendas que semana 2 (94 leads, 52% de resposta). Volumes acima de 20 leads/dia degradam a qualidade do atendimento. Considerar distribuição ao longo do dia ou segundo SDR para picos.</div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RECOMMENDATIONS -->
+  <section>
+    <h2>3 Alavancas para Maio</h2>
+    <div class="recs">
+      <div class="rec-card">
+        <div class="rec-number">1</div>
+        <div class="rec-title">Contato em até 5 minutos do preenchimento</div>
+        <div class="rec-body">Criar <strong>notificação automática + protocolo de abordagem imediata</strong>. Lead respondido em 5 min tem taxa de resposta estimada 2× maior. Prioridade máxima nos dias de alto volume. Potencial: elevar taxa de resposta de 52% para 70%+.</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-number">2</div>
+        <div class="rec-title">Áudio ou vídeo curto 24h antes da reunião</div>
+        <div class="rec-body">28 reuniões, apenas 2 fechamentos (7,1%). O lead chega frio. Um <strong>vídeo de 2 minutos + resultado de 1 cliente similar</strong> enviado 24h antes pode elevar o fechamento para 12–15% sem mudar nada no processo atual. Meta: <strong>4–5 vendas/mês</strong> com o mesmo volume.</div>
+      </div>
+      <div class="rec-card">
+        <div class="rec-number">3</div>
+        <div class="rec-title">Migrar orçamento EVOY + REPRESENTANTE para ANCORA e ALPHA ADM</div>
+        <div class="rec-body">ANCORA (CPL R$2,09, CTR 3,04%) e ALPHA ADM (CPL R$2,56, CTR 3,26%, 10% alto valor) são as melhores campanhas do mês. <strong>Realocar os R$416</strong> de EVOY+REPRESENTANTE para essas duas pode gerar +130 leads qualificados com o mesmo budget.</div>
+      </div>
+    </div>
+  </section>
+
+  <!-- WEEKLY -->
+  <section>
+    <h2>Evolução Semanal — SDR Suyane</h2>
+    <div class="chart-card">
+      <div class="chart-title">Leads × Taxa de resposta × Agendamentos por semana</div>
+      <div class="chart-canvas-wrap" style="height:200px">
+        <canvas id="chartWeekly"></canvas>
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  Hurtz Company · Operação de Aquisição · <span>Abril 2026</span> · Gerado por Claude Code em 11/05/2026
+</footer>
+
+<script>
+// ── DATA ──────────────────────────────────────────────────────────────────────
+
+const funnelData = [
+  { label: 'Impressões',           qty: 104234, cost: null,    pct: 100 },
+  { label: 'Cliques',              qty:   2274, cost: null,    pct: 2.18 },
+  { label: 'Leads (formulário)',   qty:    359, cost: 'R$ 4,35',  pct: 15.8 },
+  { label: 'Chegaram ao SDR',      qty:    285, cost: 'R$ 5,47',  pct: 79.4 },
+  { label: 'Responderam',          qty:    148, cost: 'R$ 10,54', pct: 41.2 },
+  { label: 'Válidos (SQL)',         qty:     63, cost: 'R$ 24,77', pct: 17.5 },
+  { label: 'Agendamentos',         qty:     37, cost: 'R$ 42,18', pct: 10.3 },
+  { label: 'Comparecimentos',      qty:     28, cost: 'R$ 55,74', pct: 7.8  },
+  { label: 'Vendas',               qty:      2, cost: 'R$ 780,30',pct: 0.56, highlight: true },
+];
+
+const campaigns = [
+  { name: 'ANCORA',          gasto: 138.13, leads: 66, cpl: 2.09, hv: '5%',  ctr: '3,04%', status: 'good' },
+  { name: 'ALPHA ADM',       gasto: 155.98, leads: 61, cpl: 2.56, hv: '10%', ctr: '3,26%', status: 'good' },
+  { name: 'MULTIMARCAS',     gasto: 193.75, leads: 56, cpl: 3.46, hv: '11%', ctr: '1,98%', status: 'good' },
+  { name: 'REMARKETING',     gasto: 220.11, leads: 52, cpl: 4.23, hv: '12%', ctr: '2,52%', status: 'warn' },
+  { name: 'PROMOVE',         gasto: 192.83, leads: 34, cpl: 5.67, hv: '9%',  ctr: '1,68%', status: 'warn' },
+  { name: '04 - REPRES.',    gasto:  41.00, leads: 15, cpl: 2.73, hv: '7%',  ctr: '3,84%', status: 'good' },
+  { name: '01 - REPRES.',    gasto: 221.82, leads: 30, cpl: 7.39, hv: '3%',  ctr: '1,33%', status: 'bad'  },
+  { name: 'EVOY',            gasto: 194.57, leads: 25, cpl: 7.78, hv: '0%',  ctr: '1,51%', status: 'bad'  },
+  { name: 'RESERVA',         gasto:  74.31, leads: 14, cpl: 5.31, hv: '0%',  ctr: '1,50%', status: 'warn' },
+];
+
+const qualityData = {
+  labels: ['< R$1M/mês', 'R$1M–3M', 'R$3M–5M', 'R$5M–10M', '> R$10M'],
+  values: [211, 108, 21, 14, 5],
+};
+
+const weeklyData = {
+  labels: ['Sem 1 (09–13/04)', 'Sem 2 (14–18/04)', 'Sem 3 (19–21/04)', 'Sem 4 (22–24/04)'],
+  leads:       [125, 94, 45, 16],
+  resposta:    [51,  52, 56, 63],
+  agendamentos:[14,   7,  6,  4],
+};
+
+// ── RENDER FUNNEL ─────────────────────────────────────────────────────────────
+
+const container = document.getElementById('funnelRows');
+funnelData.forEach(row => {
+  const barWidth = Math.max((row.qty / funnelData[0].qty) * 100, 0.3).toFixed(1);
+  const barColor = row.highlight ? '#C06018' : '#8C8880';
+  const div = document.createElement('div');
+  div.className = 'funnel-row' + (row.highlight ? ' highlight' : '');
+  div.innerHTML = `
+    <div class="funnel-label">${row.label}</div>
+    <div class="funnel-bar-wrap">
+      <div class="funnel-bar" style="width:${barWidth}%; background:${barColor}"></div>
+    </div>
+    <div class="funnel-qty">${row.qty >= 1000 ? (row.qty/1000).toFixed(0)+'k' : row.qty.toLocaleString('pt-BR')}</div>
+    <div class="funnel-cost">${row.cost || (row.pct.toFixed ? row.pct.toFixed(2)+'%' : '')}</div>
+  `;
+  container.appendChild(div);
+});
+
+// ── RENDER CAMPAIGN TABLE ─────────────────────────────────────────────────────
+
+const tbody = document.getElementById('campaignRows');
+campaigns.forEach(c => {
+  const badgeLabel = c.status === 'good' ? 'Escalar' : c.status === 'warn' ? 'Monitorar' : 'Pausar';
+  tbody.innerHTML += `
+    <tr>
+      <td>${c.name}</td>
+      <td class="right">R$ ${c.gasto.toFixed(2).replace('.',',')}</td>
+      <td class="right">${c.leads}</td>
+      <td class="right">R$ ${c.cpl.toFixed(2).replace('.',',')}</td>
+      <td class="right muted">${c.hv}</td>
+      <td class="right muted">${c.ctr}</td>
+      <td><span class="badge ${c.status}">${badgeLabel}</span></td>
+    </tr>
+  `;
+});
+
+// ── CHART: CAMPAIGN ───────────────────────────────────────────────────────────
+
+const cNames  = campaigns.map(c => c.name);
+const cGasto  = campaigns.map(c => c.gasto);
+const cLeads  = campaigns.map(c => c.leads);
+
+new Chart(document.getElementById('chartCampaign'), {
+  type: 'bar',
+  data: {
+    labels: cNames,
+    datasets: [
+      {
+        label: 'Gasto (R$)',
+        data: cGasto,
+        backgroundColor: 'rgba(192,96,24,0.7)',
+        yAxisID: 'y',
+        order: 2,
+      },
+      {
+        label: 'Leads (form)',
+        data: cLeads,
+        type: 'line',
+        borderColor: '#3ecf8e',
+        backgroundColor: 'rgba(62,207,142,0.08)',
+        pointBackgroundColor: '#3ecf8e',
+        borderWidth: 2,
+        pointRadius: 4,
+        yAxisID: 'y1',
+        order: 1,
+        tension: 0.3,
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#8C8880', font: { size: 11 } } } },
+    scales: {
+      x: { ticks: { color: '#8C8880', font: { size: 10 }, maxRotation: 45 }, grid: { color: '#2E2B28' } },
+      y: {
+        position: 'left',
+        ticks: { color: '#8C8880', font: { size: 11 }, callback: v => 'R$' + v },
+        grid: { color: '#2E2B28' }
+      },
+      y1: {
+        position: 'right',
+        ticks: { color: '#3ecf8e', font: { size: 11 } },
+        grid: { drawOnChartArea: false }
+      }
+    }
+  }
+});
+
+// ── CHART: QUALITY ────────────────────────────────────────────────────────────
+
+new Chart(document.getElementById('chartQuality'), {
+  type: 'doughnut',
+  data: {
+    labels: qualityData.labels,
+    datasets: [{
+      data: qualityData.values,
+      backgroundColor: ['#B52A2A', '#C06018', '#E2A87A', '#1A7A4A', '#3A6FBF'],
+      borderColor: '#232120',
+      borderWidth: 3,
+      hoverOffset: 6,
+    }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    cutout: '60%',
+    plugins: {
+      legend: {
+        position: 'right',
+        labels: { color: '#8C8880', font: { size: 11 }, padding: 12, boxWidth: 12 }
+      },
+      tooltip: {
+        callbacks: {
+          label: ctx => ` ${ctx.label}: ${ctx.raw} leads (${((ctx.raw/359)*100).toFixed(1)}%)`
+        }
+      }
+    }
+  }
+});
+
+// ── CHART: WEEKLY ─────────────────────────────────────────────────────────────
+
+new Chart(document.getElementById('chartWeekly'), {
+  type: 'bar',
+  data: {
+    labels: weeklyData.labels,
+    datasets: [
+      {
+        label: 'Leads',
+        data: weeklyData.leads,
+        backgroundColor: 'rgba(192,96,24,0.6)',
+        yAxisID: 'y',
+        order: 2,
+      },
+      {
+        label: 'Tx. resposta (%)',
+        data: weeklyData.resposta,
+        type: 'line',
+        borderColor: '#E2A87A',
+        pointBackgroundColor: '#E2A87A',
+        borderWidth: 2,
+        pointRadius: 5,
+        yAxisID: 'y1',
+        order: 1,
+        tension: 0.3,
+      },
+      {
+        label: 'Agendamentos',
+        data: weeklyData.agendamentos,
+        type: 'line',
+        borderColor: '#3ecf8e',
+        pointBackgroundColor: '#3ecf8e',
+        borderDash: [4, 4],
+        borderWidth: 2,
+        pointRadius: 5,
+        yAxisID: 'y',
+        order: 1,
+        tension: 0.3,
+      }
+    ]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { labels: { color: '#8C8880', font: { size: 11 } } } },
+    scales: {
+      x: { ticks: { color: '#8C8880', font: { size: 11 } }, grid: { color: '#2E2B28' } },
+      y: {
+        position: 'left',
+        ticks: { color: '#8C8880', font: { size: 11 } },
+        grid: { color: '#2E2B28' }
+      },
+      y1: {
+        position: 'right',
+        ticks: { color: '#E2A87A', font: { size: 11 }, callback: v => v + '%' },
+        grid: { drawOnChartArea: false },
+        min: 0, max: 100
+      }
+    }
+  }
+});
+</script>
+</body>
+</html>
