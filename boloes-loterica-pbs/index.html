@@ -772,13 +772,13 @@
     selecionados.forEach(id => {
       const b = getBolao(id);
       if (!b) return;
-      msg += `🎰 *${b.nome}*\n`;
-      msg += `   📋 Concurso: ${b.concurso}\n`;
-      msg += `   💰 Valor: R$ ${fmt(b.preco)} (s/ tarifa) | R$ ${fmt(b.precoTarifa)} (c/ tarifa)\n\n`;
+      msg += `*${b.nome}*\n`;
+      msg += `   Concurso: ${b.concurso}\n`;
+      msg += `   Valor: R$ ${fmt(b.preco)} (s/ tarifa) | R$ ${fmt(b.precoTarifa)} (c/ tarifa)\n\n`;
     });
 
-    msg += `📱 Meu WhatsApp: ${formatTel(telLimpo)}\n\n`;
-    msg += `Aguardo o contato para finalizar a compra! 🍀`;
+    msg += `Meu WhatsApp: ${formatTel(telLimpo)}\n\n`;
+    msg += `Aguardo o contato para finalizar a compra!`;
 
     // Salva lead na planilha (fire-and-forget)
     const boloesSelecionados = [];
