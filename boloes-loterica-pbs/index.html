@@ -845,6 +845,7 @@
 <script>
   // ══ CONFIGURAÇÃO ══
   const WHATSAPP_LOTERIA = '5594984131993';
+  const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtKuQbgXGyCFFOhYVG8xWmzLVjFW6lkm1bzXi-SHo4pQLG_IZ5YY-NXhIm7iHnUXH3UA/exec';
 
   // ══ DADOS DE SELEÇÃO ══
   const selecionados = new Set();
@@ -1000,6 +1001,34 @@
 
     msg += `📱 Meu WhatsApp: ${formatTel(telLimpo)}\n\n`;
     msg += `Aguardo o contato para finalizar a compra! 🍀`;
+
+    // Salva lead na planilha (fire-and-forget)
+    const boloesSelecionados = [];
+    const concursos = new Set();
+    selecionados.forEach(id => {
+      const card = document.querySelector(`[data-id="${id}"]`);
+      if (card) {
+        boloesSelecionados.push(card.dataset.nome);
+        concursos.add(card.dataset.concurso);
+      }
+    });
+    const totalNum = boloesSelecionados.reduce((acc, _, i) => {
+      const card = document.querySelector(`[data-id="${[...selecionados][i]}"]`);
+      return acc + (card ? parseFloat(card.dataset.preco) : 0);
+    }, 0);
+
+    fetch(APPS_SCRIPT_URL, {
+      method: 'POST',
+      mode: 'no-cors',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        nome: nome || '(não informado)',
+        telefone: formatTel(telLimpo),
+        boloes: boloesSelecionados.join(' | '),
+        valorTotal: totalNum.toFixed(2).replace('.', ','),
+        concursos: [...concursos].join(', ')
+      })
+    }).catch(() => {}); // silencioso — não bloqueia o fluxo
 
     const url = `https://wa.me/${WHATSAPP_LOTERIA}?text=${encodeURIComponent(msg)}`;
     window.open(url, '_blank');
