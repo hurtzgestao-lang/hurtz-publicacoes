@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Lotérica PBS — Bolões Online</title>
   <meta name="description" content="Compre sua cota de bolão online. Escolha o bolão, informe seu telefone e fale direto no WhatsApp." />
+  <link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><rect width='100' height='100' rx='20' fill='%23F7941D'/><text y='.9em' font-size='80' x='10'>🍀</text></svg>" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet" />
   <style>
@@ -240,14 +241,26 @@
     .cotas-badge.milionaria { background: var(--teal); }
     .cotas-badge.low { background: #e07b00; }
 
-    /* NÚMEROS */
+    /* NÚMEROS — sempre visíveis */
     .card-numeros {
       margin: 8px 0;
-      display: none;
+      display: block;
     }
-    .bolao-card.selected-mega .card-numeros,
-    .bolao-card.selected-lotofacil .card-numeros,
-    .bolao-card.selected-milionaria .card-numeros { display: block; }
+    .card-numeros-collapsed { display: none; }
+    .card-numeros-collapsed.expanded { display: block; }
+    .ver-mais-btn {
+      font-size: 11px;
+      color: var(--text-soft);
+      background: var(--gray);
+      border: 1px solid var(--gray-border);
+      border-radius: 20px;
+      padding: 3px 10px;
+      cursor: pointer;
+      margin-top: 4px;
+      display: inline-block;
+      transition: all 0.15s;
+    }
+    .ver-mais-btn:hover { background: var(--blue-light); color: var(--blue); }
     .num-row { display: flex; flex-wrap: wrap; gap: 3px; margin-bottom: 4px; align-items: center; }
     .num-label { font-size: 10px; font-weight: 600; color: var(--text-soft); min-width: 40px; }
     .num-ball {
@@ -359,6 +372,27 @@
     .modal-section { display: none; }
     .modal-section.visible { display: contents; }
 
+    /* ── GRUPO CONCURSO ── */
+    .grupo-concurso { margin-bottom: 28px; }
+    .grupo-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 14px;
+      padding: 10px 16px;
+      background: var(--white);
+      border-radius: 10px;
+      border-left: 4px solid var(--green);
+      box-shadow: var(--shadow);
+    }
+    .grupo-header.milionaria { border-left-color: var(--teal); }
+    .grupo-header .g-modalidade { font-size: 11px; font-weight: 700; text-transform: uppercase; letter-spacing: 0.7px; }
+    .grupo-header .g-modalidade.mega { color: var(--green); }
+    .grupo-header .g-modalidade.milionaria { color: var(--teal); }
+    .grupo-header .g-concurso { font-size: 15px; font-weight: 700; }
+    .grupo-header .g-data { font-size: 12px; color: var(--text-soft); margin-left: auto; }
+    .grupo-header .g-boloes-count { font-size: 12px; color: var(--text-soft); }
+
     @media (max-width: 500px) {
       .boloes-grid { grid-template-columns: 1fr; }
       .hero { padding: 28px 16px 36px; }
@@ -425,384 +459,8 @@
     <div class="resumo-total" id="resumoTotal">R$ 0,00</div>
   </div>
 
-  <!-- GRID DE BOLÕES -->
-  <div class="boloes-grid" id="botoesGrid">
-
-    <!-- ═══ MEGA-SENA 3008 ═══ -->
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-2j8d18c-3008"
-      data-nome="Mega-Sena 2J-8D-18C" data-concurso="3008"
-      data-jogos="2" data-numeros="8" data-cotas="4"
-      data-preco="18.66" data-preco-tarifa="25.19"
-      data-nums='[["A","09·19·20·24·50·53·58·60"],["B","11·15·20·25·40·51·52·53"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">2 Jogos · 8 Números · 18 Cotas</div>
-      <div class="card-concurso">Concurso 3008</div>
-      <div class="card-info">
-        <span class="info-pill">2 jogos</span>
-        <span class="info-pill">8 números</span>
-        <span class="cotas-badge mega">4 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-2j8d18c-3008"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 18,66 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 25,19</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-10j6d8c-4-3008"
-      data-nome="Mega-Sena 10J-6D-8C (4)" data-concurso="3008"
-      data-jogos="10" data-numeros="6" data-cotas="1"
-      data-preco="7.50" data-preco-tarifa="10.12"
-      data-nums='[["A","01·08·17·20·29·51"],["B","08·19·20·26·35·48"],["C","01·15·25·30·40·50"],["D","14·16·30·32·51·52"],["E","02·03·10·11·45·47"],["F","02·18·20·42·49·54"],["G","03·38·44·45·52·57"],["H","01·11·22·29·31·38"],["I","17·19·28·42·49·54"],["J","14·22·30·32·51·54"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">10 Jogos · 6 Números · 8 Cotas (4)</div>
-      <div class="card-concurso">Concurso 3008</div>
-      <div class="card-info">
-        <span class="info-pill">10 jogos</span>
-        <span class="info-pill">6 números</span>
-        <span class="cotas-badge low">1 cota</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-10j6d8c-4-3008"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 7,50 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 10,12</div></div>
-      </div>
-    </div>
-
-    <!-- ═══ MEGA-SENA 3010 ═══ -->
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-4j10d45c-3010"
-      data-nome="Mega-Sena 4J-10D-45C" data-concurso="3010"
-      data-jogos="4" data-numeros="10" data-cotas="31"
-      data-preco="112.00" data-preco-tarifa="151.20"
-      data-nums='[["A","12·17·20·34·35·36·43·45·56·57"],["B","07·08·13·15·22·24·28·35·41·60"],["C","04·05·14·15·20·21·39·40·47·50"],["D","02·19·22·23·29·30·41·49·51·57"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">4 Jogos · 10 Números · 45 Cotas</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">4 jogos</span>
-        <span class="info-pill">10 números</span>
-        <span class="cotas-badge mega">31 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-4j10d45c-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 112,00 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 151,20</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-1j10d10c-3010"
-      data-nome="Mega-Sena 1J-10D-10C" data-concurso="3010"
-      data-jogos="1" data-numeros="10" data-cotas="8"
-      data-preco="126.00" data-preco-tarifa="170.10"
-      data-nums='[["A","09·19·20·22·30·33·50·53·58·60"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">1 Jogo · 10 Números · 10 Cotas</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">1 jogo</span>
-        <span class="info-pill">10 números</span>
-        <span class="cotas-badge mega">8 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-1j10d10c-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 126,00 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 170,10</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-4j9d30c-3010"
-      data-nome="Mega-Sena 4J-9D-30C" data-concurso="3010"
-      data-jogos="4" data-numeros="9" data-cotas="18"
-      data-preco="67.20" data-preco-tarifa="90.71"
-      data-nums='[["A","02·04·18·31·35·41·56·58·60"],["B","04·08·09·24·30·46·51·56·58"],["C","02·12·17·23·31·34·35·51·53"],["D","02·06·10·18·26·30·34·39·59"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">4 Jogos · 9 Números · 30 Cotas</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">4 jogos</span>
-        <span class="info-pill">9 números</span>
-        <span class="cotas-badge mega">18 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-4j9d30c-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 67,20 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 90,71</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-1j9d10c-3010"
-      data-nome="Mega-Sena 1J-9D-10C" data-concurso="3010"
-      data-jogos="1" data-numeros="9" data-cotas="8"
-      data-preco="50.40" data-preco-tarifa="68.03"
-      data-nums='[["A","03·06·13·33·39·49·57·58·60"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">1 Jogo · 9 Números · 10 Cotas</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">1 jogo</span>
-        <span class="info-pill">9 números</span>
-        <span class="cotas-badge mega">8 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-1j9d10c-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 50,40 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 68,03</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-10j8d45c-3010"
-      data-nome="Mega-Sena 10J-8D-45C" data-concurso="3010"
-      data-jogos="10" data-numeros="8" data-cotas="23"
-      data-preco="37.33" data-preco-tarifa="50.39"
-      data-nums='[["A","06·09·15·42·47·48·52·55"],["B","17·19·26·36·46·49·52·57"],["C","09·13·14·23·41·51·59·60"],["D","03·11·12·19·32·42·44·55"],["E","12·43·45·47·50·52·56·58"],["F","06·27·28·36·50·56·58·59"],["G","02·03·08·11·17·18·50·57"],["H","03·05·09·16·32·38·41·60"],["I","01·08·19·24·36·42·46·54"],["J","34·39·45·47·48·52·56·59"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">10 Jogos · 8 Números · 45 Cotas</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">10 jogos</span>
-        <span class="info-pill">8 números</span>
-        <span class="cotas-badge mega">23 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-10j8d45c-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 37,33 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 50,39</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-1j8d6c-3010"
-      data-nome="Mega-Sena 1J-8D-6C" data-concurso="3010"
-      data-jogos="1" data-numeros="8" data-cotas="6"
-      data-preco="28.00" data-preco-tarifa="37.79"
-      data-nums='[["A","09·19·20·33·50·56·59·60"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">1 Jogo · 8 Números · 6 Cotas</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">1 jogo</span>
-        <span class="info-pill">8 números</span>
-        <span class="cotas-badge mega">6 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-1j8d6c-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 28,00 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 37,79</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-10j7d21c-2-3010"
-      data-nome="Mega-Sena 10J-7D-21C (2)" data-concurso="3010"
-      data-jogos="10" data-numeros="7" data-cotas="15"
-      data-preco="20.00" data-preco-tarifa="27.00"
-      data-nums='[["A","09·19·20·50·53·58·60"],["B","09·19·20·33·50·56·59"],["C","02·19·32·42·47·53·60"],["D","04·06·08·16·35·39·49"],["E","01·20·21·27·50·51·59"],["F","01·02·03·05·19·29·48"],["G","20·25·43·47·49·54·56"],["H","07·11·15·31·41·58·59"],["I","12·17·22·29·31·37·39"],["J","05·06·21·34·40·48·60"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">10 Jogos · 7 Números · 21 Cotas (2)</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">10 jogos</span>
-        <span class="info-pill">7 números</span>
-        <span class="cotas-badge mega">15 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-10j7d21c-2-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 20,00 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 27,00</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-4j7d15c-3-3010"
-      data-nome="Mega-Sena 4J-7D-15C (3)" data-concurso="3010"
-      data-jogos="4" data-numeros="7" data-cotas="14"
-      data-preco="11.20" data-preco-tarifa="15.12"
-      data-nums='[["A","06·20·34·36·39·41·49"],["B","09·22·34·36·37·49·59"],["C","15·19·25·44·47·53·60"],["D","18·20·25·26·32·43·56"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">4 Jogos · 7 Números · 15 Cotas (3)</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">4 jogos</span>
-        <span class="info-pill">7 números</span>
-        <span class="cotas-badge mega">14 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-4j7d15c-3-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 11,20 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 15,12</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-10j6d8c-17-3010"
-      data-nome="Mega-Sena 10J-6D-8C (17)" data-concurso="3010"
-      data-jogos="10" data-numeros="6" data-cotas="7"
-      data-preco="7.50" data-preco-tarifa="10.12"
-      data-nums='[["A","03·08·28·29·44·57"],["B","08·10·13·36·47·48"],["C","19·23·29·33·38·53"],["D","11·25·26·28·55·56"],["E","03·05·21·30·39·45"],["F","12·18·21·31·41·49"],["G","01·04·15·19·41·48"],["H","07·08·12·28·29·45"],["I","12·19·21·39·43·52"],["J","13·21·27·32·35·52"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">10 Jogos · 6 Números · 8 Cotas (17)</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">10 jogos</span><span class="info-pill">6 números</span>
-        <span class="cotas-badge mega">7 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-10j6d8c-17-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 7,50 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 10,12</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-10j6d8c-16-3010"
-      data-nome="Mega-Sena 10J-6D-8C (16)" data-concurso="3010"
-      data-jogos="10" data-numeros="6" data-cotas="7"
-      data-preco="7.50" data-preco-tarifa="10.12"
-      data-nums='[["A","13·33·35·39·46·59"],["B","05·15·34·38·47·57"],["C","04·09·10·22·32·60"],["D","02·15·30·33·48·58"],["E","22·28·40·44·56·57"],["F","05·15·26·29·35·39"],["G","09·29·31·33·36·46"],["H","07·09·10·24·25·47"],["I","03·04·06·15·50·51"],["J","06·11·23·27·52·54"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">10 Jogos · 6 Números · 8 Cotas (16)</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">10 jogos</span><span class="info-pill">6 números</span>
-        <span class="cotas-badge mega">7 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-10j6d8c-16-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 7,50 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 10,12</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-10j6d8c-15-3010"
-      data-nome="Mega-Sena 10J-6D-8C (15)" data-concurso="3010"
-      data-jogos="10" data-numeros="6" data-cotas="6"
-      data-preco="7.50" data-preco-tarifa="10.12"
-      data-nums='[["A","11·13·17·28·40·52"],["B","04·30·32·42·57·58"],["C","20·23·30·42·57·58"],["D","03·13·18·24·55·58"],["E","06·12·15·40·44·52"],["F","04·05·13·49·51·52"],["G","05·20·29·31·59·60"],["H","09·10·23·26·39·52"],["I","06·12·17·25·40·54"],["J","04·06·42·46·48·59"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">10 Jogos · 6 Números · 8 Cotas (15)</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">10 jogos</span><span class="info-pill">6 números</span>
-        <span class="cotas-badge low">6 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-10j6d8c-15-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 7,50 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 10,12</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-10j6d8c-14-3010"
-      data-nome="Mega-Sena 10J-6D-8C (14)" data-concurso="3010"
-      data-jogos="10" data-numeros="6" data-cotas="8"
-      data-preco="7.50" data-preco-tarifa="10.12"
-      data-nums='[["A","08·20·31·41·42·47"],["B","02·15·21·37·44·53"],["C","30·43·51·53·54·56"],["D","01·02·22·31·52·55"],["E","04·13·16·24·49·53"],["F","06·25·30·31·54·55"],["G","02·38·39·53·55·60"],["H","25·26·30·31·44·57"],["I","11·14·28·51·57·59"],["J","01·05·32·38·53·60"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">10 Jogos · 6 Números · 8 Cotas (14)</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">10 jogos</span><span class="info-pill">6 números</span>
-        <span class="cotas-badge mega">8 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-10j6d8c-14-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 7,50 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 10,12</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-10j6d8c-12-3010"
-      data-nome="Mega-Sena 10J-6D-8C (12)" data-concurso="3010"
-      data-jogos="10" data-numeros="6" data-cotas="6"
-      data-preco="7.50" data-preco-tarifa="10.12"
-      data-nums='[["A","23·45·48·50·58·60"],["B","10·25·35·39·51·57"],["C","14·15·25·29·32·43"],["D","34·37·42·48·51·53"],["E","09·22·37·42·46·57"],["F","30·31·36·40·42·51"],["G","03·16·35·40·46·54"],["H","04·25·42·43·45·56"],["I","01·07·08·18·26·58"],["J","06·16·19·25·36·56"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">10 Jogos · 6 Números · 8 Cotas (12)</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">10 jogos</span><span class="info-pill">6 números</span>
-        <span class="cotas-badge low">6 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-10j6d8c-12-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 7,50 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 10,12</div></div>
-      </div>
-    </div>
-
-    <div class="bolao-card" data-modal="mega" data-id="ms-10j6d8c-11-3010"
-      data-nome="Mega-Sena 10J-6D-8C (11)" data-concurso="3010"
-      data-jogos="10" data-numeros="6" data-cotas="3"
-      data-preco="7.50" data-preco-tarifa="10.12"
-      data-nums='[["A","02·19·21·24·25·37"],["B","05·30·38·40·47·48"],["C","09·26·28·32·33·43"],["D","06·07·11·36·38·59"],["E","11·24·32·37·45·57"],["F","01·07·13·40·41·46"],["G","09·21·25·28·43·49"],["H","06·07·16·30·37·56"],["I","25·27·30·41·44·48"],["J","10·34·35·41·45·49"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo mega">Mega-Sena</div>
-      <div class="card-nome">10 Jogos · 6 Números · 8 Cotas (11)</div>
-      <div class="card-concurso">Concurso 3010</div>
-      <div class="card-info">
-        <span class="info-pill">10 jogos</span><span class="info-pill">6 números</span>
-        <span class="cotas-badge low">3 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-ms-10j6d8c-11-3010"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 7,50 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 10,12</div></div>
-      </div>
-    </div>
-
-    <!-- ═══ +MILIONÁRIA 355 ═══ -->
-
-    <div class="bolao-card" data-modal="milionaria" data-id="mil-14j6d11c-355"
-      data-nome="+Milionária 14J-6D-11C" data-concurso="355"
-      data-jogos="14" data-numeros="6" data-cotas="6"
-      data-preco="7.63" data-preco-tarifa="10.30"
-      data-nums='[["A","07·13·19·21·23·49 | Trevos: 05·06"],["B","29·34·35·41·45·46 | Trevos: 03·06"],["C","05·10·14·25·31·43 | Trevos: 01·05"],["D","04·05·12·14·41·42 | Trevos: 01·06"],["E","09·27·31·38·41·49 | Trevos: 03·05"],["F","02·16·20·23·25·49 | Trevos: 01·04"],["G","01·14·35·36·40·45 | Trevos: 04·06"],["H","01·09·20·29·33·49 | Trevos: 04·05"],["I","01·03·12·18·30·43 | Trevos: 02·03"],["J","02·12·30·31·44·47 | Trevos: 02·06"],["K","08·12·15·18·34·45 | Trevos: 02·05"],["L","11·15·17·29·33·43 | Trevos: 01·03"],["M","15·26·28·30·39·44 | Trevos: 02·04"],["N","07·10·26·28·36·48 | Trevos: 03·04"]]'
-      onclick="toggleCard(this)">
-      <div class="card-check"><svg width="12" height="9" viewBox="0 0 12 9" fill="none"><path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div>
-      <div class="card-tipo milionaria">+Milionária</div>
-      <div class="card-nome">14 Jogos · 6 Números · 11 Cotas</div>
-      <div class="card-concurso">Concurso 355</div>
-      <div class="card-info">
-        <span class="info-pill">14 jogos</span>
-        <span class="info-pill">6 números</span>
-        <span class="cotas-badge milionaria">6 cotas</span>
-      </div>
-      <div class="card-numeros" id="nums-mil-14j6d11c-355"></div>
-      <div class="card-preco">
-        <div><div class="preco-label">por cota</div><div class="preco-valor">R$ 7,63 <small>s/ tarifa</small></div></div>
-        <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ 10,30</div></div>
-      </div>
-    </div>
-
-  </div><!-- /boloes-grid -->
+  <!-- GRID DE BOLÕES — gerado por JS -->
+  <div id="botoesGrid"></div>
 
   <!-- PASSO 2: DADOS -->
   <div class="section-label" style="margin-top: 8px;">
@@ -847,112 +505,234 @@
   const WHATSAPP_LOTERIA = '5594984131993';
   const APPS_SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbwtKuQbgXGyCFFOhYVG8xWmzLVjFW6lkm1bzXi-SHo4pQLG_IZ5YY-NXhIm7iHnUXH3UA/exec';
 
-  // ══ DADOS DE SELEÇÃO ══
+  // ══ DADOS DOS BOLÕES ══
+  const BOLOES = [
+    // ── Mega-Sena 3008 ──
+    { id:'ms-2j8d18c-3008', modal:'mega', nome:'Mega-Sena 2J-8D-18C', concurso:'3008',
+      jogos:2, numeros:8, cotas:4, preco:18.66, precoTarifa:25.19,
+      nums:[['A','09·19·20·24·50·53·58·60'],['B','11·15·20·25·40·51·52·53']] },
+    { id:'ms-10j6d8c-4-3008', modal:'mega', nome:'Mega-Sena 10J-6D-8C (4)', concurso:'3008',
+      jogos:10, numeros:6, cotas:1, preco:7.50, precoTarifa:10.12,
+      nums:[['A','01·08·17·20·29·51'],['B','08·19·20·26·35·48'],['C','01·15·25·30·40·50'],['D','14·16·30·32·51·52'],['E','02·03·10·11·45·47'],['F','02·18·20·42·49·54'],['G','03·38·44·45·52·57'],['H','01·11·22·29·31·38'],['I','17·19·28·42·49·54'],['J','14·22·30·32·51·54']] },
+    // ── Mega-Sena 3010 ──
+    { id:'ms-4j10d45c-3010', modal:'mega', nome:'Mega-Sena 4J-10D-45C', concurso:'3010',
+      jogos:4, numeros:10, cotas:31, preco:112.00, precoTarifa:151.20,
+      nums:[['A','12·17·20·34·35·36·43·45·56·57'],['B','07·08·13·15·22·24·28·35·41·60'],['C','04·05·14·15·20·21·39·40·47·50'],['D','02·19·22·23·29·30·41·49·51·57']] },
+    { id:'ms-1j10d10c-3010', modal:'mega', nome:'Mega-Sena 1J-10D-10C', concurso:'3010',
+      jogos:1, numeros:10, cotas:8, preco:126.00, precoTarifa:170.10,
+      nums:[['A','09·19·20·22·30·33·50·53·58·60']] },
+    { id:'ms-4j9d30c-3010', modal:'mega', nome:'Mega-Sena 4J-9D-30C', concurso:'3010',
+      jogos:4, numeros:9, cotas:18, preco:67.20, precoTarifa:90.71,
+      nums:[['A','02·04·18·31·35·41·56·58·60'],['B','04·08·09·24·30·46·51·56·58'],['C','02·12·17·23·31·34·35·51·53'],['D','02·06·10·18·26·30·34·39·59']] },
+    { id:'ms-1j9d10c-3010', modal:'mega', nome:'Mega-Sena 1J-9D-10C', concurso:'3010',
+      jogos:1, numeros:9, cotas:8, preco:50.40, precoTarifa:68.03,
+      nums:[['A','03·06·13·33·39·49·57·58·60']] },
+    { id:'ms-10j8d45c-3010', modal:'mega', nome:'Mega-Sena 10J-8D-45C', concurso:'3010',
+      jogos:10, numeros:8, cotas:23, preco:37.33, precoTarifa:50.39,
+      nums:[['A','06·09·15·42·47·48·52·55'],['B','17·19·26·36·46·49·52·57'],['C','09·13·14·23·41·51·59·60'],['D','03·11·12·19·32·42·44·55'],['E','12·43·45·47·50·52·56·58'],['F','06·27·28·36·50·56·58·59'],['G','02·03·08·11·17·18·50·57'],['H','03·05·09·16·32·38·41·60'],['I','01·08·19·24·36·42·46·54'],['J','34·39·45·47·48·52·56·59']] },
+    { id:'ms-1j8d6c-3010', modal:'mega', nome:'Mega-Sena 1J-8D-6C', concurso:'3010',
+      jogos:1, numeros:8, cotas:6, preco:28.00, precoTarifa:37.79,
+      nums:[['A','09·19·20·33·50·56·59·60']] },
+    { id:'ms-10j7d21c-2-3010', modal:'mega', nome:'Mega-Sena 10J-7D-21C (2)', concurso:'3010',
+      jogos:10, numeros:7, cotas:15, preco:20.00, precoTarifa:27.00,
+      nums:[['A','09·19·20·50·53·58·60'],['B','09·19·20·33·50·56·59'],['C','02·19·32·42·47·53·60'],['D','04·06·08·16·35·39·49'],['E','01·20·21·27·50·51·59'],['F','01·02·03·05·19·29·48'],['G','20·25·43·47·49·54·56'],['H','07·11·15·31·41·58·59'],['I','12·17·22·29·31·37·39'],['J','05·06·21·34·40·48·60']] },
+    { id:'ms-4j7d15c-3-3010', modal:'mega', nome:'Mega-Sena 4J-7D-15C (3)', concurso:'3010',
+      jogos:4, numeros:7, cotas:14, preco:11.20, precoTarifa:15.12,
+      nums:[['A','06·20·34·36·39·41·49'],['B','09·22·34·36·37·49·59'],['C','15·19·25·44·47·53·60'],['D','18·20·25·26·32·43·56']] },
+    { id:'ms-10j6d8c-17-3010', modal:'mega', nome:'Mega-Sena 10J-6D-8C (17)', concurso:'3010',
+      jogos:10, numeros:6, cotas:7, preco:7.50, precoTarifa:10.12,
+      nums:[['A','03·08·28·29·44·57'],['B','08·10·13·36·47·48'],['C','19·23·29·33·38·53'],['D','11·25·26·28·55·56'],['E','03·05·21·30·39·45'],['F','12·18·21·31·41·49'],['G','01·04·15·19·41·48'],['H','07·08·12·28·29·45'],['I','12·19·21·39·43·52'],['J','13·21·27·32·35·52']] },
+    { id:'ms-10j6d8c-16-3010', modal:'mega', nome:'Mega-Sena 10J-6D-8C (16)', concurso:'3010',
+      jogos:10, numeros:6, cotas:7, preco:7.50, precoTarifa:10.12,
+      nums:[['A','13·33·35·39·46·59'],['B','05·15·34·38·47·57'],['C','04·09·10·22·32·60'],['D','02·15·30·33·48·58'],['E','22·28·40·44·56·57'],['F','05·15·26·29·35·39'],['G','09·29·31·33·36·46'],['H','07·09·10·24·25·47'],['I','03·04·06·15·50·51'],['J','06·11·23·27·52·54']] },
+    { id:'ms-10j6d8c-15-3010', modal:'mega', nome:'Mega-Sena 10J-6D-8C (15)', concurso:'3010',
+      jogos:10, numeros:6, cotas:6, preco:7.50, precoTarifa:10.12,
+      nums:[['A','11·13·17·28·40·52'],['B','04·30·32·42·57·58'],['C','20·23·30·42·57·58'],['D','03·13·18·24·55·58'],['E','06·12·15·40·44·52'],['F','04·05·13·49·51·52'],['G','05·20·29·31·59·60'],['H','09·10·23·26·39·52'],['I','06·12·17·25·40·54'],['J','04·06·42·46·48·59']] },
+    { id:'ms-10j6d8c-14-3010', modal:'mega', nome:'Mega-Sena 10J-6D-8C (14)', concurso:'3010',
+      jogos:10, numeros:6, cotas:8, preco:7.50, precoTarifa:10.12,
+      nums:[['A','08·20·31·41·42·47'],['B','02·15·21·37·44·53'],['C','30·43·51·53·54·56'],['D','01·02·22·31·52·55'],['E','04·13·16·24·49·53'],['F','06·25·30·31·54·55'],['G','02·38·39·53·55·60'],['H','25·26·30·31·44·57'],['I','11·14·28·51·57·59'],['J','01·05·32·38·53·60']] },
+    { id:'ms-10j6d8c-12-3010', modal:'mega', nome:'Mega-Sena 10J-6D-8C (12)', concurso:'3010',
+      jogos:10, numeros:6, cotas:6, preco:7.50, precoTarifa:10.12,
+      nums:[['A','23·45·48·50·58·60'],['B','10·25·35·39·51·57'],['C','14·15·25·29·32·43'],['D','34·37·42·48·51·53'],['E','09·22·37·42·46·57'],['F','30·31·36·40·42·51'],['G','03·16·35·40·46·54'],['H','04·25·42·43·45·56'],['I','01·07·08·18·26·58'],['J','06·16·19·25·36·56']] },
+    { id:'ms-10j6d8c-11-3010', modal:'mega', nome:'Mega-Sena 10J-6D-8C (11)', concurso:'3010',
+      jogos:10, numeros:6, cotas:3, preco:7.50, precoTarifa:10.12,
+      nums:[['A','02·19·21·24·25·37'],['B','05·30·38·40·47·48'],['C','09·26·28·32·33·43'],['D','06·07·11·36·38·59'],['E','11·24·32·37·45·57'],['F','01·07·13·40·41·46'],['G','09·21·25·28·43·49'],['H','06·07·16·30·37·56'],['I','25·27·30·41·44·48'],['J','10·34·35·41·45·49']] },
+    // ── +Milionária 355 ──
+    { id:'mil-14j6d11c-355', modal:'milionaria', nome:'+Milionária 14J-6D-11C', concurso:'355',
+      jogos:14, numeros:6, cotas:6, preco:7.63, precoTarifa:10.30,
+      nums:[['A','07·13·19·21·23·49','05·06'],['B','29·34·35·41·45·46','03·06'],['C','05·10·14·25·31·43','01·05'],['D','04·05·12·14·41·42','01·06'],['E','09·27·31·38·41·49','03·05'],['F','02·16·20·23·25·49','01·04'],['G','01·14·35·36·40·45','04·06'],['H','01·09·20·29·33·49','04·05'],['I','01·03·12·18·30·43','02·03'],['J','02·12·30·31·44·47','02·06'],['K','08·12·15·18·34·45','02·05'],['L','11·15·17·29·33·43','01·03'],['M','15·26·28·30·39·44','02·04'],['N','07·10·26·28·36·48','03·04']] }
+  ];
+
+  const GRUPO_INFO = {
+    '3008': { label:'Mega-Sena', modalidade:'mega', data:'Concurso 3008' },
+    '3010': { label:'Mega-Sena', modalidade:'mega', data:'Concurso 3010' },
+    '355':  { label:'+Milionária', modalidade:'milionaria', data:'Concurso 355' }
+  };
+
+  // ══ RENDERIZA CARDS NO DOM ══
+  function renderGrid(filtroModal = 'todos') {
+    const grid = document.getElementById('botoesGrid');
+    grid.innerHTML = '';
+
+    // Agrupa por concurso mantendo ordem
+    const grupos = {};
+    const ordemGrupos = [];
+    BOLOES.forEach(b => {
+      if (filtroModal !== 'todos' && b.modal !== filtroModal) return;
+      if (!grupos[b.concurso]) { grupos[b.concurso] = []; ordemGrupos.push(b.concurso); }
+      grupos[b.concurso].push(b);
+    });
+
+    ordemGrupos.forEach(concurso => {
+      const info = GRUPO_INFO[concurso] || { label: concurso, modalidade: 'mega', data: '' };
+      const grupo = document.createElement('div');
+      grupo.className = 'grupo-concurso';
+
+      // Cabeçalho do grupo
+      const header = document.createElement('div');
+      header.className = `grupo-header ${info.modalidade === 'milionaria' ? 'milionaria' : ''}`;
+      header.innerHTML = `
+        <div>
+          <div class="g-modalidade ${info.modalidade}">${info.label}</div>
+          <div class="g-concurso">${info.data}</div>
+        </div>
+        <div class="g-boloes-count">${grupos[concurso].length} bolão(ões)</div>`;
+      grupo.appendChild(header);
+
+      // Grid de cards
+      const cardGrid = document.createElement('div');
+      cardGrid.className = 'boloes-grid';
+
+      grupos[concurso].forEach(b => {
+        const card = document.createElement('div');
+        card.className = 'bolao-card';
+        card.dataset.modal = b.modal;
+        card.dataset.id = b.id;
+        card.dataset.nome = b.nome;
+        card.dataset.concurso = b.concurso;
+        card.dataset.preco = b.preco;
+        card.dataset.precoTarifa = b.precoTarifa;
+        card.onclick = () => toggleCard(card);
+
+        const cotaClass = b.cotas <= 3 ? 'low' : b.modal;
+        const jogosLabel = b.jogos === 1 ? '1 jogo' : `${b.jogos} jogos`;
+
+        // Renderiza bolinhas de números
+        const numHTML = renderNums(b);
+
+        card.innerHTML = `
+          <div class="card-check">
+            <svg width="12" height="9" viewBox="0 0 12 9" fill="none">
+              <path d="M1 4L4.5 7.5L11 1" stroke="white" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+            </svg>
+          </div>
+          <div class="card-tipo ${b.modal}">${info.label}</div>
+          <div class="card-nome">${b.nome.replace(/^[^\s]+\s/, '')}</div>
+          <div class="card-info">
+            <span class="info-pill">${jogosLabel}</span>
+            <span class="info-pill">${b.numeros} números</span>
+            <span class="cotas-badge ${cotaClass}">${b.cotas} cota${b.cotas > 1 ? 's' : ''}</span>
+          </div>
+          <div class="card-numeros">${numHTML}</div>
+          <div class="card-preco">
+            <div><div class="preco-label">por cota</div><div class="preco-valor">R$ ${fmt(b.preco)} <small>s/ tarifa</small></div></div>
+            <div style="text-align:right"><div class="preco-label">c/ tarifa</div><div style="font-weight:600;font-size:14px">R$ ${fmt(b.precoTarifa)}</div></div>
+          </div>`;
+
+        // Restaura seleção se já estava selecionado
+        if (selecionados.has(b.id)) card.classList.add('selected-' + b.modal);
+
+        cardGrid.appendChild(card);
+      });
+
+      grupo.appendChild(cardGrid);
+      grid.appendChild(grupo);
+    });
+  }
+
+  function renderNums(b) {
+    const isMil = b.modal === 'milionaria';
+    // Mostra primeiro jogo sempre; demais em bloco colapsável
+    let html = '';
+    b.nums.forEach(([letra, nums, trevos], i) => {
+      const row = buildRow(letra, nums, trevos, b.modal);
+      if (i === 0) {
+        html += row;
+      } else if (i === 1) {
+        html += `<div class="card-numeros-collapsed" id="extra-${b.id}">` + row;
+      } else {
+        html += row;
+      }
+    });
+    if (b.nums.length > 1) {
+      html += `</div><span class="ver-mais-btn" onclick="toggleExtra(event,'extra-${b.id}',this)">▼ +${b.nums.length - 1} jogos</span>`;
+    }
+    return html;
+  }
+
+  function buildRow(letra, nums, trevos, modal) {
+    const balls = nums.split('·').map(n => n.trim())
+      .map(n => `<span class="num-ball ${modal}">${n}</span>`).join('');
+    const trevoBalls = trevos ? trevos.split('·').map(n => n.trim())
+      .map(n => `<span class="num-ball trevo">${n}</span>`).join('') : '';
+    const trevoHTML = trevos ? `<span style="font-size:10px;color:#999;margin:0 2px">+</span>${trevoBalls}` : '';
+    return `<div class="num-row"><span class="num-label">Jogo ${letra}:</span>${balls}${trevoHTML}</div>`;
+  }
+
+  function toggleExtra(e, id, btn) {
+    e.stopPropagation();
+    const el = document.getElementById(id);
+    const expanded = el.classList.toggle('expanded');
+    btn.textContent = expanded ? `▲ menos` : `▼ +${el.querySelectorAll('.num-row').length} jogos`;
+  }
+
+  function fmt(v) { return v.toFixed(2).replace('.', ','); }
+
+  // ══ SELEÇÃO ══
   const selecionados = new Set();
 
   function toggleCard(card) {
     const id = card.dataset.id;
     const modal = card.dataset.modal;
     const classe = 'selected-' + modal;
-
     if (selecionados.has(id)) {
       selecionados.delete(id);
       card.classList.remove(classe);
     } else {
       selecionados.add(id);
       card.classList.add(classe);
-      renderNumeros(card);
     }
     atualizarResumo();
   }
 
-  function renderNumeros(card) {
-    const id = card.dataset.id;
-    const modal = card.dataset.modal;
-    const container = document.getElementById('nums-' + id);
-    if (!container || container.children.length > 0) return;
-
-    const jogos = JSON.parse(card.dataset.nums);
-    jogos.forEach(([label, nums]) => {
-      const row = document.createElement('div');
-      row.className = 'num-row';
-      const lbl = document.createElement('span');
-      lbl.className = 'num-label';
-      lbl.textContent = 'Jogo ' + label + ':';
-      row.appendChild(lbl);
-
-      // Verifica se é linha de trevos (contém "|")
-      if (nums.includes('| Trevos:')) {
-        const [numPart, trevoPart] = nums.split(' | Trevos: ');
-        numPart.split('·').map(n => n.trim()).forEach(n => {
-          const ball = document.createElement('span');
-          ball.className = 'num-ball ' + modal;
-          ball.textContent = n;
-          row.appendChild(ball);
-        });
-        const sep = document.createElement('span');
-        sep.style.cssText = 'font-size:10px;color:#999;margin:0 2px';
-        sep.textContent = '+';
-        row.appendChild(sep);
-        trevoPart.split('·').map(n => n.trim()).forEach(n => {
-          const ball = document.createElement('span');
-          ball.className = 'num-ball trevo';
-          ball.textContent = n;
-          row.appendChild(ball);
-        });
-      } else {
-        nums.split('·').map(n => n.trim()).forEach(n => {
-          const ball = document.createElement('span');
-          ball.className = 'num-ball ' + modal;
-          ball.textContent = n;
-          row.appendChild(ball);
-        });
-      }
-      container.appendChild(row);
-    });
-  }
+  function getBolao(id) { return BOLOES.find(b => b.id === id); }
 
   function atualizarResumo() {
     const bar = document.getElementById('resumoBar');
-    const qtdEl = document.getElementById('resumoQtd');
-    const nomesEl = document.getElementById('resumoNomes');
-    const totalEl = document.getElementById('resumoTotal');
-
-    if (selecionados.size === 0) {
-      bar.classList.remove('visible');
-      return;
-    }
-
+    if (selecionados.size === 0) { bar.classList.remove('visible'); return; }
     bar.classList.add('visible');
     let total = 0;
     const nomes = [];
     selecionados.forEach(id => {
-      const card = document.querySelector(`[data-id="${id}"]`);
-      if (card) {
-        total += parseFloat(card.dataset.preco);
-        nomes.push(card.dataset.nome);
-      }
+      const b = getBolao(id);
+      if (b) { total += b.preco; nomes.push(b.nome); }
     });
-
-    qtdEl.textContent = selecionados.size + (selecionados.size === 1 ? ' bolão selecionado' : ' bolões selecionados');
-    nomesEl.textContent = nomes.join(' · ');
-    totalEl.textContent = 'R$ ' + total.toFixed(2).replace('.', ',');
+    document.getElementById('resumoQtd').textContent = selecionados.size + (selecionados.size === 1 ? ' bolão selecionado' : ' bolões selecionados');
+    document.getElementById('resumoNomes').textContent = nomes.join(' · ');
+    document.getElementById('resumoTotal').textContent = 'R$ ' + fmt(total);
   }
 
   // ══ FILTRO DE MODALIDADE ══
   function filtrar(tipo) {
-    document.querySelectorAll('.modal-tab').forEach(t => {
-      t.className = 'modal-tab';
-    });
+    document.querySelectorAll('.modal-tab').forEach(t => t.className = 'modal-tab');
     const tab = event.target;
-    if (tipo === 'todos') tab.className = 'modal-tab active-mega';
-    else if (tipo === 'mega') tab.className = 'modal-tab active-mega';
-    else if (tipo === 'milionaria') tab.className = 'modal-tab active-milionaria';
-
-    document.querySelectorAll('.bolao-card').forEach(card => {
-      card.style.display = (tipo === 'todos' || card.dataset.modal === tipo) ? '' : 'none';
-    });
+    if (tipo === 'milionaria') tab.className = 'modal-tab active-milionaria';
+    else tab.className = 'modal-tab active-mega';
+    renderGrid(tipo);
   }
+
+  // ══ INICIALIZAÇÃO ══
+  document.addEventListener('DOMContentLoaded', () => renderGrid());
 
   // ══ MÁSCARA TELEFONE ══
   function maskPhone(input) {
@@ -990,13 +770,11 @@
     let msg = `${saudacao}! ${nome ? 'Me chamo *' + nome + '* e t' : 'T'}enho interesse em comprar cota(s) do(s) seguinte(s) bolão(ões) na Lotérica PBS:\n\n`;
 
     selecionados.forEach(id => {
-      const card = document.querySelector(`[data-id="${id}"]`);
-      if (!card) return;
-      const preco = parseFloat(card.dataset.preco).toFixed(2).replace('.', ',');
-      const precoTarifa = parseFloat(card.dataset.precoTarifa || card.dataset['preco-tarifa']).toFixed(2).replace('.', ',');
-      msg += `🎰 *${card.dataset.nome}*\n`;
-      msg += `   📋 Concurso: ${card.dataset.concurso}\n`;
-      msg += `   💰 Valor: R$ ${preco} (s/ tarifa) | R$ ${precoTarifa} (c/ tarifa)\n\n`;
+      const b = getBolao(id);
+      if (!b) return;
+      msg += `🎰 *${b.nome}*\n`;
+      msg += `   📋 Concurso: ${b.concurso}\n`;
+      msg += `   💰 Valor: R$ ${fmt(b.preco)} (s/ tarifa) | R$ ${fmt(b.precoTarifa)} (c/ tarifa)\n\n`;
     });
 
     msg += `📱 Meu WhatsApp: ${formatTel(telLimpo)}\n\n`;
@@ -1005,17 +783,11 @@
     // Salva lead na planilha (fire-and-forget)
     const boloesSelecionados = [];
     const concursos = new Set();
+    let totalNum = 0;
     selecionados.forEach(id => {
-      const card = document.querySelector(`[data-id="${id}"]`);
-      if (card) {
-        boloesSelecionados.push(card.dataset.nome);
-        concursos.add(card.dataset.concurso);
-      }
+      const b = getBolao(id);
+      if (b) { boloesSelecionados.push(b.nome); concursos.add(b.concurso); totalNum += b.preco; }
     });
-    const totalNum = boloesSelecionados.reduce((acc, _, i) => {
-      const card = document.querySelector(`[data-id="${[...selecionados][i]}"]`);
-      return acc + (card ? parseFloat(card.dataset.preco) : 0);
-    }, 0);
 
     fetch(APPS_SCRIPT_URL, {
       method: 'POST',
