@@ -101,7 +101,7 @@ p{margin:0;}
   <script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" crossorigin="anonymous"></script>
 </head>
 <body>
-  <deck-stage><div id="root" style="display:contents"></div></deck-stage>
+  <deck-stage id="deck"></deck-stage>
 
   <script type="text/babel">
 /* @jsx React.createElement */
@@ -910,7 +910,7 @@ function App() {
   );
 }
 
-ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+ReactDOM.createRoot(document.getElementById('deck')).render(<App/>);
   </script>
 </body>
 </html>
