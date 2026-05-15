@@ -6,92 +6,144 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <style>
 @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
-:root {
-  --brasa-50:#F9EDE3;--brasa-100:#F0CEB4;--brasa-200:#E2A87A;--brasa-300:#D48444;
-  --brasa-400:#C06018;--brasa-600:#974A12;--brasa-700:#73380D;--brasa-800:#4E2508;--brasa-900:#2C1404;
-  --brasa:var(--brasa-400);--brasa-hover:var(--brasa-600);
-  --carvao:#181614;--grafite:#3D3A36;--pedra:#8C8880;--areia:#E8E4DC;--offwhite:#F5F2EC;
-  --func-resultado:#1A7A4A;--func-atencao:#C06018;--func-informacao:#3A6FBF;--func-critico:#B52A2A;
-  --bg:var(--offwhite);--bg-elevated:#FFFFFF;--bg-tinted:var(--brasa-50);--bg-inverse:var(--carvao);
-  --fg:var(--carvao);--fg-muted:var(--grafite);--fg-subtle:var(--pedra);--fg-on-brasa:#FFFFFF;--fg-on-dark:var(--offwhite);
-  --border:var(--areia);--accent:var(--brasa);--accent-hover:var(--brasa-hover);
-  --font-sans:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;
-  --fw-regular:400;--fw-bold:700;
-  --fs-h1:36px;--fs-h2:26px;--fs-h3:18px;--fs-body:15px;--fs-small:13px;--fs-caption:11px;
-  --tracking-h1:.02em;--tracking-h2:.01em;--tracking-caption:.12em;--tracking-wordmark:.18em;
-  --lh-tight:1.1;--lh-heading:1.2;--lh-body:1.6;
-  --space-1:4px;--space-2:8px;--space-3:12px;--space-4:16px;--space-5:24px;
-  --space-6:32px;--space-7:48px;--space-8:64px;--space-9:96px;
-  --radius-sm:2px;--radius-md:4px;--radius-lg:8px;--radius-pill:999px;
-  --border-thin:1px solid var(--areia);--border-accent:2px solid var(--brasa);
-  --content-max:1200px;
-}
 *,*::before,*::after{box-sizing:border-box;}
 html,body{margin:0;padding:0;background:#000;}
-body{font-family:var(--font-sans);font-size:var(--fs-body);line-height:var(--lh-body);color:var(--fg);-webkit-font-smoothing:antialiased;}
-h1,.h1{font-size:var(--fs-h1);font-weight:var(--fw-bold);letter-spacing:var(--tracking-h1);line-height:var(--lh-tight);margin:0;}
-h2,.h2{font-size:var(--fs-h2);font-weight:var(--fw-bold);letter-spacing:var(--tracking-h2);line-height:var(--lh-heading);margin:0;}
-h3,.h3{font-size:var(--fs-h3);font-weight:var(--fw-bold);line-height:var(--lh-heading);margin:0;}
-p{margin:0;}
-.eyebrow{font-size:var(--fs-caption);font-weight:var(--fw-bold);letter-spacing:var(--tracking-caption);text-transform:uppercase;color:var(--brasa);}
-.caption{font-size:var(--fs-caption);letter-spacing:var(--tracking-caption);text-transform:uppercase;color:var(--pedra);}
-.metric{font-weight:var(--fw-bold);font-size:calc(var(--fs-body)*2);line-height:1;color:var(--carvao);}
-.wordmark{font-weight:var(--fw-bold);letter-spacing:var(--tracking-wordmark);text-transform:uppercase;}
-.btn{display:inline-flex;align-items:center;justify-content:center;padding:14px 28px;font-family:var(--font-sans);font-size:var(--fs-body);font-weight:var(--fw-bold);letter-spacing:.02em;border:none;border-radius:var(--radius-md);cursor:pointer;transition:background-color 120ms ease;text-decoration:none;}
-.btn-primary{background:var(--brasa);color:#fff;}.btn-primary:hover{background:var(--brasa-hover);}
-.btn-large{font-size:18px;padding:18px 40px;}
-.card{background:#fff;border:var(--border-thin);border-radius:var(--radius-md);padding:var(--space-5);}
-.divider-accent{height:2px;width:48px;background:var(--brasa);border:0;margin:0;}
+body{font-family:'Inter','Helvetica Neue',Helvetica,Arial,sans-serif;-webkit-font-smoothing:antialiased;}
   </style>
   <script>
 (() => {
-  const DESIGN_W_DEFAULT = 1920, DESIGN_H_DEFAULT = 1080, OVERLAY_HIDE_MS = 1800;
-  const pad2 = n => String(n).padStart(2,'0');
-  const VALIDATE_ATTR = 'no_overflowing_text,no_overlapping_text,slide_sized_text';
+  const DW = 1920, DH = 1080;
   const stylesheet = `
-    :host{position:fixed;inset:0;display:block;background:#000;font-family:-apple-system,BlinkMacSystemFont,"Helvetica Neue",Helvetica,Arial,sans-serif;overflow:hidden;}
+    :host{position:fixed;inset:0;display:block;background:#000;overflow:hidden;}
     .stage{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;}
-    .canvas{position:relative;transform-origin:center center;flex-shrink:0;background:#fff;will-change:transform;}
-    ::slotted(*){position:absolute!important;inset:0!important;width:100%!important;height:100%!important;box-sizing:border-box!important;overflow:hidden;opacity:0;pointer-events:none;visibility:hidden;}
+    .canvas{position:relative;transform-origin:center center;flex-shrink:0;will-change:transform;}
+    ::slotted(*){position:absolute!important;inset:0!important;width:100%!important;height:100%!important;
+      box-sizing:border-box!important;overflow:hidden;opacity:0;pointer-events:none;visibility:hidden;}
     ::slotted([data-deck-active]){opacity:1;pointer-events:auto;visibility:visible;}
     .tapzones{position:fixed;inset:0;display:flex;z-index:2147482000;pointer-events:none;}
     .tapzone{flex:1;pointer-events:auto;-webkit-tap-highlight-color:transparent;}
     .tapzone--mid{pointer-events:none;}
-    .overlay{position:fixed;bottom:20px;left:50%;transform:translateX(-50%);display:flex;align-items:center;gap:8px;background:rgba(0,0,0,.78);color:#fff;border-radius:999px;padding:6px 14px;font-size:13px;opacity:0;transition:opacity .22s ease;pointer-events:none;z-index:2147483000;user-select:none;}
+    .overlay{position:fixed;bottom:24px;left:50%;transform:translateX(-50%);display:flex;align-items:center;
+      gap:8px;background:rgba(0,0,0,.8);color:#fff;border-radius:999px;padding:8px 18px;
+      font-size:14px;font-family:inherit;opacity:0;transition:opacity .2s;pointer-events:none;z-index:2147483000;}
     .overlay[data-visible]{opacity:1;pointer-events:auto;}
-    .overlay .btn{background:transparent;border:none;color:#fff;cursor:pointer;padding:4px 8px;border-radius:4px;font-size:13px;display:flex;align-items:center;gap:4px;font-family:inherit;}
-    .overlay .btn:hover{background:rgba(255,255,255,.15);}
-    .overlay .btn svg{width:16px;height:16px;}
-    .overlay .count{font-variant-numeric:tabular-nums;min-width:40px;text-align:center;}
-    .overlay .sep{opacity:.5;}
-    .overlay .divider{width:1px;height:16px;background:rgba(255,255,255,.25);margin:0 4px;}
-    .overlay .kbd{background:rgba(255,255,255,.15);border-radius:3px;padding:1px 5px;font-size:11px;margin-left:4px;}
-    @media print{html,body{margin:0!important;padding:0!important;background:none!important;overflow:visible!important;height:auto!important;}*{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
+    .overlay button{background:none;border:none;color:#fff;cursor:pointer;padding:4px 10px;
+      border-radius:4px;font-size:14px;display:flex;align-items:center;gap:4px;font-family:inherit;}
+    .overlay button:hover{background:rgba(255,255,255,.15);}
+    .overlay button svg{width:16px;height:16px;}
+    .overlay .count{min-width:48px;text-align:center;font-variant-numeric:tabular-nums;}
+    .overlay .sep{opacity:.4;}
+    .overlay .div{width:1px;height:16px;background:rgba(255,255,255,.25);margin:0 4px;}
+    .overlay .kbd{background:rgba(255,255,255,.15);border-radius:3px;padding:1px 6px;font-size:12px;margin-left:4px;}
+    @media print{html,body{margin:0!important;padding:0!important;background:none!important;
+      overflow:visible!important;height:auto!important;}*{-webkit-print-color-adjust:exact;print-color-adjust:exact;}}
   `;
   class DeckStage extends HTMLElement {
-    constructor(){super();this._root=this.attachShadow({mode:'open'});this._slides=[];this._index=0;this._prevIndex=null;this._hideTimer=null;this._mouseIdleTimer=null;this._notes=[];this._onKey=this._onKey.bind(this);this._onResize=this._onResize.bind(this);this._onMouseMove=this._onMouseMove.bind(this);this._onSlotChange=this._onSlotChange.bind(this);this._onTapBack=this._onTapBack.bind(this);this._onTapForward=this._onTapForward.bind(this);this._render();}
-    static get observedAttributes(){return['width','height'];}
-    get designWidth(){return parseInt(this.getAttribute('width')||DESIGN_W_DEFAULT,10);}
-    get designHeight(){return parseInt(this.getAttribute('height')||DESIGN_H_DEFAULT,10);}
-    connectedCallback(){window.addEventListener('keydown',this._onKey);window.addEventListener('resize',this._onResize);window.addEventListener('mousemove',this._onMouseMove,{passive:true});}
-    disconnectedCallback(){window.removeEventListener('keydown',this._onKey);window.removeEventListener('resize',this._onResize);window.removeEventListener('mousemove',this._onMouseMove);if(this._hideTimer)clearTimeout(this._hideTimer);}
-    attributeChangedCallback(){if(this._canvas){this._canvas.style.width=this.designWidth+'px';this._canvas.style.height=this.designHeight+'px';this._fit();}}
-    _render(){const style=document.createElement('style');style.textContent=stylesheet;const stage=document.createElement('div');stage.className='stage';const canvas=document.createElement('div');canvas.className='canvas';canvas.style.width=this.designWidth+'px';canvas.style.height=this.designHeight+'px';const slot=document.createElement('slot');slot.addEventListener('slotchange',this._onSlotChange);canvas.appendChild(slot);stage.appendChild(canvas);const tapzones=document.createElement('div');tapzones.className='tapzones export-hidden';tapzones.setAttribute('aria-hidden','true');const tzBack=document.createElement('div');tzBack.className='tapzone tapzone--back';const tzMid=document.createElement('div');tzMid.className='tapzone tapzone--mid';tzMid.style.pointerEvents='none';const tzFwd=document.createElement('div');tzFwd.className='tapzone tapzone--fwd';tzBack.addEventListener('click',this._onTapBack);tzFwd.addEventListener('click',this._onTapForward);tapzones.append(tzBack,tzMid,tzFwd);const overlay=document.createElement('div');overlay.className='overlay export-hidden';overlay.setAttribute('role','toolbar');overlay.innerHTML=`<button class="btn prev" type="button" aria-label="Previous slide"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg></button><span class="count"><span class="current">1</span><span class="sep">/</span><span class="total">1</span></span><button class="btn next" type="button" aria-label="Next slide"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></button><span class="divider"></span><button class="btn reset" type="button">Reset<span class="kbd">R</span></button>`;
-    overlay.querySelector('.prev').addEventListener('click',()=>this._go(this._index-1,'click'));overlay.querySelector('.next').addEventListener('click',()=>this._go(this._index+1,'click'));overlay.querySelector('.reset').addEventListener('click',()=>this._go(0,'click'));this._root.append(style,stage,tapzones,overlay);this._canvas=canvas;this._slot=slot;this._overlay=overlay;this._countEl=overlay.querySelector('.current');this._totalEl=overlay.querySelector('.total');this._syncPrintPageRule();}
-    _syncPrintPageRule(){const id='deck-stage-print-page';let tag=document.getElementById(id);if(!tag){tag=document.createElement('style');tag.id=id;document.head.appendChild(tag);}tag.textContent='@page{size:'+this.designWidth+'px '+this.designHeight+'px;margin:0;}';}
-    _onSlotChange(){this._collectSlides();this._restoreIndex();this._applyIndex({showOverlay:false,broadcast:true,reason:'init'});this._fit();}
-    _collectSlides(){const assigned=this._slot.assignedElements({flatten:true});this._slides=assigned.filter(el=>{const tag=el.tagName;return tag!=='TEMPLATE'&&tag!=='SCRIPT'&&tag!=='STYLE';});this._slides.forEach((slide,i)=>{const n=i+1;let label=slide.getAttribute('data-label');if(!label){const h=slide.querySelector('h1,h2,h3,[data-title]');if(h)label=(h.textContent||'').trim().slice(0,40);}if(!label)label='Slide';slide.setAttribute('data-screen-label',`${pad2(n)} ${label}`);if(!slide.hasAttribute('data-om-validate'))slide.setAttribute('data-om-validate',VALIDATE_ATTR);slide.setAttribute('data-deck-slide',String(i));});if(this._totalEl)this._totalEl.textContent=String(this._slides.length||1);if(this._index>=this._slides.length)this._index=Math.max(0,this._slides.length-1);}
-    _restoreIndex(){const h=(location.hash||'').match(/^#(\d+)$/);if(h){const n=parseInt(h[1],10)-1;if(n>=0&&n<this._slides.length)this._index=n;}}
-    _applyIndex({showOverlay=true,broadcast=true,reason='init'}={}){if(!this._slides.length)return;const curr=this._index;try{history.replaceState(null,'','#'+(curr+1));}catch(e){}this._slides.forEach((s,i)=>{if(i===curr)s.setAttribute('data-deck-active','');else s.removeAttribute('data-deck-active');});if(this._countEl)this._countEl.textContent=String(curr+1);if(broadcast){try{window.postMessage({slideIndexChanged:curr},'*');}catch(e){}this.dispatchEvent(new CustomEvent('slidechange',{detail:{index:curr,total:this._slides.length,slide:this._slides[curr]||null,reason},bubbles:true,composed:true}));}this._prevIndex=curr;if(showOverlay)this._flashOverlay();}
-    _flashOverlay(){if(!this._overlay)return;this._overlay.setAttribute('data-visible','');if(this._hideTimer)clearTimeout(this._hideTimer);this._hideTimer=setTimeout(()=>{this._overlay.removeAttribute('data-visible');},OVERLAY_HIDE_MS);}
-    _fit(){if(!this._canvas)return;if(this.hasAttribute('noscale')){this._canvas.style.transform='none';return;}const s=Math.min(window.innerWidth/this.designWidth,window.innerHeight/this.designHeight);this._canvas.style.transform=`scale(${s})`;}
+    constructor(){
+      super();
+      this._root=this.attachShadow({mode:'open'});
+      this._slides=[];this._index=0;this._hideTimer=null;
+      this._onKey=this._onKey.bind(this);
+      this._onResize=this._onResize.bind(this);
+      this._onMouseMove=this._onMouseMove.bind(this);
+      this._onSlotChange=this._onSlotChange.bind(this);
+      this._render();
+    }
+    connectedCallback(){
+      window.addEventListener('keydown',this._onKey);
+      window.addEventListener('resize',this._onResize);
+      window.addEventListener('mousemove',this._onMouseMove,{passive:true});
+    }
+    disconnectedCallback(){
+      window.removeEventListener('keydown',this._onKey);
+      window.removeEventListener('resize',this._onResize);
+      window.removeEventListener('mousemove',this._onMouseMove);
+    }
+    _render(){
+      const s=document.createElement('style');s.textContent=stylesheet;
+      const stage=document.createElement('div');stage.className='stage';
+      const canvas=document.createElement('div');canvas.className='canvas';
+      canvas.style.width=DW+'px';canvas.style.height=DH+'px';
+      const slot=document.createElement('slot');
+      slot.addEventListener('slotchange',this._onSlotChange);
+      canvas.appendChild(slot);stage.appendChild(canvas);
+      const tz=document.createElement('div');tz.className='tapzones';tz.setAttribute('aria-hidden','true');
+      const tb=document.createElement('div');tb.className='tapzone';
+      const tm=document.createElement('div');tm.className='tapzone tapzone--mid';tm.style.pointerEvents='none';
+      const tf=document.createElement('div');tf.className='tapzone';
+      tb.addEventListener('click',()=>this._go(this._index-1));
+      tf.addEventListener('click',()=>this._go(this._index+1));
+      tz.append(tb,tm,tf);
+      const ov=document.createElement('div');ov.className='overlay';
+      ov.innerHTML=`<button class="prev" aria-label="Anterior"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M10 3L5 8l5 5"/></svg></button><span class="count"><span class="cur">1</span><span class="sep">/</span><span class="tot">1</span></span><button class="next" aria-label="Próximo"><svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M6 3l5 5-5 5"/></svg></button><span class="div"></span><button class="rst">Reset<span class="kbd">R</span></button>`;
+      ov.querySelector('.prev').addEventListener('click',()=>this._go(this._index-1));
+      ov.querySelector('.next').addEventListener('click',()=>this._go(this._index+1));
+      ov.querySelector('.rst').addEventListener('click',()=>this._go(0));
+      this._root.append(s,stage,tz,ov);
+      this._canvas=canvas;this._slot=slot;this._overlay=ov;
+      this._curEl=ov.querySelector('.cur');this._totEl=ov.querySelector('.tot');
+      this._syncPrint();
+    }
+    _syncPrint(){
+      let t=document.getElementById('_dp');
+      if(!t){t=document.createElement('style');t.id='_dp';document.head.appendChild(t);}
+      t.textContent=`@page{size:${DW}px ${DH}px;margin:0;}`;
+    }
+    _onSlotChange(){
+      const els=this._slot.assignedElements({flatten:true}).filter(e=>!['TEMPLATE','SCRIPT','STYLE'].includes(e.tagName));
+      this._slides=els;
+      els.forEach((el,i)=>el.setAttribute('data-deck-slide',i));
+      if(this._totEl)this._totEl.textContent=String(els.length||1);
+      const h=(location.hash||'').match(/^#(\d+)$/);
+      if(h){const n=parseInt(h[1],10)-1;if(n>=0&&n<els.length)this._index=n;}
+      this._apply(false);
+      this._fit();
+    }
+    _apply(flash=true){
+      if(!this._slides.length)return;
+      const i=this._index;
+      try{history.replaceState(null,'','#'+(i+1));}catch(e){}
+      this._slides.forEach((s,j)=>{
+        if(j===i)s.setAttribute('data-deck-active','');
+        else s.removeAttribute('data-deck-active');
+      });
+      if(this._curEl)this._curEl.textContent=String(i+1);
+      if(flash)this._flash();
+    }
+    _flash(){
+      if(!this._overlay)return;
+      this._overlay.setAttribute('data-visible','');
+      clearTimeout(this._hideTimer);
+      this._hideTimer=setTimeout(()=>this._overlay.removeAttribute('data-visible'),1800);
+    }
+    _fit(){
+      if(!this._canvas)return;
+      const s=Math.min(window.innerWidth/DW,window.innerHeight/DH);
+      this._canvas.style.transform=`scale(${s})`;
+    }
+    _go(i){
+      if(!this._slides.length)return;
+      this._index=Math.max(0,Math.min(this._slides.length-1,i));
+      this._apply();
+    }
     _onResize(){this._fit();}
-    _onMouseMove(){this._flashOverlay();}
-    _onTapBack(e){e.preventDefault();this._go(this._index-1,'tap');}
-    _onTapForward(e){e.preventDefault();this._go(this._index+1,'tap');}
-    _onKey(e){const t=e.target;if(t&&(t.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(t.tagName)))return;if(e.metaKey||e.ctrlKey||e.altKey)return;const key=e.key;let handled=true;if(key==='ArrowRight'||key==='PageDown'||key===' ')this._go(this._index+1,'keyboard');else if(key==='ArrowLeft'||key==='PageUp')this._go(this._index-1,'keyboard');else if(key==='Home')this._go(0,'keyboard');else if(key==='End')this._go(this._slides.length-1,'keyboard');else if(key==='r'||key==='R')this._go(0,'keyboard');else if(/^[0-9]$/.test(key)){const n=key==='0'?9:parseInt(key,10)-1;if(n<this._slides.length)this._go(n,'keyboard');}else handled=false;if(handled){e.preventDefault();this._flashOverlay();}}
-    _go(i,reason='api'){if(!this._slides.length)return;const clamped=Math.max(0,Math.min(this._slides.length-1,i));if(clamped===this._index){this._flashOverlay();return;}this._index=clamped;this._applyIndex({showOverlay:true,broadcast:true,reason});}
-    get index(){return this._index;}get length(){return this._slides.length;}goTo(i){this._go(i,'api');}next(){this._go(this._index+1,'api');}prev(){this._go(this._index-1,'api');}reset(){this._go(0,'api');}
+    _onMouseMove(){this._flash();}
+    _onKey(e){
+      if(e.target&&(e.target.isContentEditable||/^(INPUT|TEXTAREA|SELECT)$/.test(e.target.tagName)))return;
+      if(e.metaKey||e.ctrlKey||e.altKey)return;
+      const k=e.key;
+      if(k==='ArrowRight'||k==='PageDown'||k===' '){e.preventDefault();this._go(this._index+1);}
+      else if(k==='ArrowLeft'||k==='PageUp'){e.preventDefault();this._go(this._index-1);}
+      else if(k==='Home'){e.preventDefault();this._go(0);}
+      else if(k==='End'){e.preventDefault();this._go(this._slides.length-1);}
+      else if(k==='r'||k==='R'){e.preventDefault();this._go(0);}
+      this._flash();
+    }
+    get index(){return this._index;}
+    get length(){return this._slides.length;}
+    goTo(i){this._go(i);}
+    next(){this._go(this._index+1);}
+    prev(){this._go(this._index-1);}
   }
   if(!customElements.get('deck-stage'))customElements.define('deck-stage',DeckStage);
 })();
@@ -105,20 +157,37 @@ p{margin:0;}
 
   <script type="text/babel">
 /* @jsx React.createElement */
+
+/* ─── Paleta ─────────────────────────────────────────────── */
 const C = {
-  brasa:'#C06018', brasaDark:'#974A12', brasaMin:'#F9EDE3', brasaClara:'#E2A87A',
+  brasa:'#C06018', brasaDark:'#974A12', brasaClara:'#E2A87A', brasaMin:'#F9EDE3',
   carvao:'#181614', grafite:'#3D3A36', pedra:'#8C8880',
   areia:'#E8E4DC', offwhite:'#F5F2EC',
   resultado:'#1A7A4A', critico:'#B52A2A',
 };
 
-// ── Logo SVG ────────────────────────────────────────────────────────────────
-function Logo({ dark=false, height=28 }) {
-  const fg   = dark ? C.offwhite : C.carvao;
-  const w    = height * (1300/240);
+/* ─── Tipografia base para canvas 1920×1080 ──────────────── */
+// Tudo em px absolutos. O deck-stage escala o canvas inteiro para caber na tela.
+const T = {
+  eyebrow:  { fontSize:20, fontWeight:700, letterSpacing:'.14em', textTransform:'uppercase', color:C.brasa },
+  eyebrowLt:{ fontSize:20, fontWeight:700, letterSpacing:'.14em', textTransform:'uppercase', color:C.brasaClara },
+  h1:       { fontSize:96, fontWeight:700, lineHeight:1.0, letterSpacing:'-.02em', color:C.carvao },
+  h2:       { fontSize:64, fontWeight:700, lineHeight:1.1, letterSpacing:'-.01em', color:C.carvao },
+  h2lg:     { fontSize:72, fontWeight:700, lineHeight:1.05, letterSpacing:'-.01em', color:C.carvao },
+  h3:       { fontSize:40, fontWeight:700, lineHeight:1.2, color:C.carvao },
+  body:     { fontSize:28, fontWeight:400, lineHeight:1.65, color:C.grafite },
+  bodyLg:   { fontSize:32, fontWeight:400, lineHeight:1.6, color:C.grafite },
+  bodySm:   { fontSize:24, fontWeight:400, lineHeight:1.6, color:C.grafite },
+  caption:  { fontSize:18, fontWeight:400, letterSpacing:'.1em', textTransform:'uppercase', color:C.pedra },
+  label:    { fontSize:20, fontWeight:700, letterSpacing:'.08em', color:C.pedra },
+};
+
+/* ─── Logo ───────────────────────────────────────────────── */
+function Logo({ dark=false, height=40 }) {
+  const fg = dark ? C.offwhite : C.carvao;
   return (
     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1300 240"
-         width={w} height={height} style={{display:'block',flexShrink:0}} aria-label="Hurtz">
+         width={height*(1300/240)} height={height} style={{display:'block',flexShrink:0}} aria-label="Hurtz">
       <g fill={fg}>
         <polygon points="55,79 215,2 215,39 55,116"/>
         <polygon points="2,182 271,53 271,89 2,218"/>
@@ -131,7 +200,7 @@ function Logo({ dark=false, height=28 }) {
   );
 }
 
-// ── Layout helpers ──────────────────────────────────────────────────────────
+/* ─── Layout helpers ─────────────────────────────────────── */
 const Slide = ({bg=C.offwhite, children, style={}}) => (
   <section style={{
     width:'100%', height:'100%', background:bg,
@@ -143,769 +212,700 @@ const Slide = ({bg=C.offwhite, children, style={}}) => (
   </section>
 );
 
-const Header = ({dark=false}) => (
-  <div style={{padding:'36px 72px 0', flexShrink:0}}>
-    <Logo dark={dark} height={24}/>
-  </div>
-);
-
-const Footer = ({slide, total, dark=false}) => (
-  <div style={{
-    padding:'0 72px 28px', flexShrink:0, marginTop:'auto',
-    display:'flex', justifyContent:'space-between', alignItems:'flex-end',
-  }}>
-    <span style={{fontSize:11, letterSpacing:'.12em', textTransform:'uppercase',
-      color: dark ? 'rgba(245,242,236,.4)' : C.pedra}}>
-      Confidencial · {new Date().getFullYear()} Hurtz Company
-    </span>
-    {slide && (
-      <span style={{fontSize:11, color: dark ? 'rgba(245,242,236,.4)' : C.pedra,
-        letterSpacing:'.08em'}}>
-        {String(slide).padStart(2,'0')} / {String(total).padStart(2,'0')}
-      </span>
-    )}
-  </div>
-);
-
-const Eyebrow = ({children, light=false}) => (
-  <div style={{fontSize:11, fontWeight:700, letterSpacing:'.14em', textTransform:'uppercase',
-    color: light ? C.brasaClara : C.brasa, marginBottom:16}}>
+/* Coluna central com padding lateral fixo */
+const Body = ({children, style={}}) => (
+  <div style={{flex:1, display:'flex', flexDirection:'column', justifyContent:'center',
+    padding:'0 112px', ...style}}>
     {children}
   </div>
 );
 
-const DividerAccent = () => (
-  <div style={{height:2, width:48, background:C.brasa, marginBottom:24}}/>
+const Hdr = ({dark=false}) => (
+  <div style={{padding:'48px 112px 0', flexShrink:0}}>
+    <Logo dark={dark} height={36}/>
+  </div>
 );
 
-const PhotoPlaceholder = ({label='Foto', w=200, h=200, radius=8}) => (
-  <div style={{
-    width:w, height:h, borderRadius:radius, flexShrink:0,
-    background:C.areia, border:`2px dashed ${C.pedra}`,
-    display:'flex', alignItems:'center', justifyContent:'center',
-    flexDirection:'column', gap:6,
-  }}>
-    <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke={C.pedra} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+const Ftr = ({n, t, dark=false}) => (
+  <div style={{padding:'0 112px 40px', flexShrink:0,
+    display:'flex', justifyContent:'space-between', alignItems:'flex-end'}}>
+    <span style={{...T.caption, color: dark ? 'rgba(245,242,236,.35)' : C.pedra}}>
+      Confidencial · {new Date().getFullYear()} Hurtz Company
+    </span>
+    {n && <span style={{...T.caption, color: dark ? 'rgba(245,242,236,.35)' : C.pedra}}>
+      {String(n).padStart(2,'0')} / {String(t).padStart(2,'0')}
+    </span>}
+  </div>
+);
+
+const Eyebrow = ({children, light=false}) => (
+  <p style={{...(light ? T.eyebrowLt : T.eyebrow), margin:'0 0 20px 0'}}>{children}</p>
+);
+
+const DA = () => <div style={{height:3, width:80, background:C.brasa, margin:'0 0 40px 0'}}/>;
+
+/* Placeholder visual para foto */
+const Photo = ({w=300, h=300, label='Foto', radius=8}) => (
+  <div style={{width:w, height:h, borderRadius:radius, flexShrink:0,
+    background:C.areia, border:`3px dashed ${C.pedra}`,
+    display:'flex', flexDirection:'column', alignItems:'center', justifyContent:'center', gap:12}}>
+    <svg width="48" height="48" viewBox="0 0 24 24" fill="none"
+         stroke={C.pedra} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <rect x="3" y="3" width="18" height="18" rx="2"/>
       <circle cx="8.5" cy="8.5" r="1.5"/>
       <path d="M21 15l-5-5L5 21"/>
     </svg>
-    <span style={{fontSize:10, color:C.pedra, letterSpacing:'.1em', textTransform:'uppercase'}}>{label}</span>
+    <span style={{...T.caption, fontSize:16}}>{label}</span>
   </div>
 );
 
-const TestimonialPlaceholder = ({w='100%', h=120}) => (
-  <div style={{
-    width:w, height:h, borderRadius:4, flexShrink:0,
-    background:C.areia, border:`2px dashed ${C.pedra}`,
-    display:'flex', alignItems:'center', justifyContent:'center',
-    gap:8,
-  }}>
-    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke={C.pedra} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
+const Quote = ({w='100%', h=140}) => (
+  <div style={{width:w, minHeight:h, borderRadius:8, flexShrink:0,
+    background:C.areia, border:`3px dashed ${C.pedra}`,
+    display:'flex', alignItems:'center', justifyContent:'center', gap:16}}>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="none"
+         stroke={C.pedra} strokeWidth="1.5" strokeLinecap="round" strokeLinejoin="round">
       <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V20c0 1 0 1 1 1z"/>
       <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3c0 1 0 1 1 1z"/>
     </svg>
-    <span style={{fontSize:10, color:C.pedra, letterSpacing:'.1em', textTransform:'uppercase'}}>Depoimento</span>
+    <span style={{...T.caption, fontSize:16}}>Depoimento</span>
   </div>
 );
 
-// ── Slides ──────────────────────────────────────────────────────────────────
+/* ═══════════════════════════════════════════════════════════
+   SLIDES
+═══════════════════════════════════════════════════════════ */
 
-// 01 HERO
-function SlideHero() {
+/* 01 — HERO */
+function S01() {
   return (
     <Slide bg={C.carvao}>
-      <div style={{flex:1, display:'flex', flexDirection:'column', padding:'64px 96px'}}>
-        <Logo dark height={28}/>
-        <div style={{flex:1, display:'flex', flexDirection:'column', justifyContent:'center', maxWidth:960}}>
-          <Eyebrow light>Projeto de Aceleração Intensiva · 90 dias</Eyebrow>
-          <h1 style={{fontSize:80, fontWeight:700, lineHeight:1.0, color:C.offwhite, letterSpacing:'-.02em', marginBottom:24}}>
+      <div style={{flex:1, display:'flex', flexDirection:'column', padding:'64px 112px'}}>
+        <Logo dark height={40}/>
+        <div style={{flex:1, display:'flex', flexDirection:'column', justifyContent:'center'}}>
+          <p style={{...T.eyebrowLt, marginBottom:32}}>Projeto de Aceleração Intensiva · 90 dias</p>
+          <h1 style={{...T.h1, fontSize:112, color:C.offwhite, marginBottom:32}}>
             3 Milhões<br/>
             <span style={{color:C.brasa}}>em 3 Meses.</span>
           </h1>
-          <p style={{fontSize:20, color:'rgba(245,242,236,.65)', lineHeight:1.6, maxWidth:600}}>
+          <p style={{...T.bodyLg, color:'rgba(245,242,236,.6)', maxWidth:800}}>
             Um sistema montado, calibrado e operado pela Hurtz para você cruzar
-            a barreira dos R$3M/mês em vendas de consórcio — com cronograma fechado e garantia de resultado.
+            a barreira dos R$3M/mês em vendas de consórcio — com cronograma fechado
+            e garantia de resultado.
           </p>
         </div>
-        <div style={{display:'flex', alignItems:'center', gap:16}}>
-          <span style={{fontSize:11, letterSpacing:'.12em', textTransform:'uppercase', color:'rgba(245,242,236,.3)'}}>
-            Confidencial · Hurtz Company · 2026
-          </span>
-        </div>
+        <span style={{...T.caption, color:'rgba(245,242,236,.25)'}}>Confidencial · Hurtz Company · 2026</span>
       </div>
     </Slide>
   );
 }
 
-// 02 QUEM SOMOS
-function SlideEmpresa() {
-  const stat = (v, l) => (
-    <div style={{flex:1, borderLeft:`2px solid ${C.brasa}`, paddingLeft:24}}>
-      <div style={{fontSize:42, fontWeight:700, color:C.carvao, lineHeight:1}}>{v}</div>
-      <div style={{fontSize:13, color:C.grafite, marginTop:8, lineHeight:1.4}}>{l}</div>
+/* 02 — EMPRESA */
+function S02() {
+  const Stat = ({v, l}) => (
+    <div style={{flex:1, borderLeft:`3px solid ${C.brasa}`, paddingLeft:32}}>
+      <div style={{fontSize:72, fontWeight:700, color:C.carvao, lineHeight:1, marginBottom:12}}>{v}</div>
+      <div style={{...T.bodySm, color:C.grafite}}>{l}</div>
     </div>
   );
   return (
     <Slide>
-      <Header/>
-      <div style={{flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'0 96px'}}>
-        <Eyebrow>Hurtz Company</Eyebrow>
-        <DividerAccent/>
-        <h2 style={{marginBottom:16, color:C.carvao}}>
+      <Hdr/><Body>
+        <Eyebrow>Hurtz Company</Eyebrow><DA/>
+        <h2 style={{...T.h2, marginBottom:24}}>
           Não somos agência de tráfego.<br/>Somos operação de aquisição.
         </h2>
-        <p style={{color:C.grafite, maxWidth:720, marginBottom:56, fontSize:17, lineHeight:1.65}}>
+        <p style={{...T.body, maxWidth:900, marginBottom:64}}>
           Especialistas exclusivamente em representantes de consórcio.
           Cirurgiões, não generalistas. Cada cliente recebe um gestor dedicado,
           método próprio e sistema completo — não um painel com relatório PDF.
         </p>
-        <div style={{display:'flex', gap:48}}>
-          {stat('44','Clientes ativos')}
-          {stat('R$34M','Em vendas/mês nas carteiras referência')}
-          {stat('3','Gestores seniores dedicados')}
-          {stat('1','Especialização: consórcio')}
+        <div style={{display:'flex', gap:56}}>
+          <Stat v="44" l="Clientes ativos"/>
+          <Stat v="R$34M" l="Em vendas/mês nas carteiras referência"/>
+          <Stat v="3" l="Gestores seniores dedicados"/>
+          <Stat v="1" l="Especialização: consórcio"/>
         </div>
-      </div>
-      <Footer slide={2} total={15}/>
+      </Body><Ftr n={2} t={15}/>
     </Slide>
   );
 }
 
-// 03 PROVA SOCIAL
-function SlideCases() {
-  const caseCard = ({nome, sub, foto, resultado, antes, photo=false}) => (
-    <div style={{flex:1, background:'#fff', border:`1px solid ${C.areia}`, borderRadius:4,
-      padding:28, display:'flex', flexDirection:'column', gap:16}}>
-      <div style={{display:'flex', gap:16, alignItems:'center'}}>
-        {photo
-          ? <PhotoPlaceholder label="Foto" w={56} h={56} radius={28}/>
-          : <div style={{width:56, height:56, borderRadius:28, background:C.brasaMin,
+/* 03 — CASES */
+function S03() {
+  const Card = ({nome, sub, antes, resultado, foto=false}) => (
+    <div style={{flex:1, background:'#fff', border:`1px solid ${C.areia}`, borderRadius:6,
+      padding:40, display:'flex', flexDirection:'column', gap:24}}>
+      <div style={{display:'flex', gap:20, alignItems:'center'}}>
+        {foto
+          ? <Photo label="Foto" w={72} h={72} radius={36}/>
+          : <div style={{width:72, height:72, borderRadius:36, background:C.brasaMin,
               display:'flex', alignItems:'center', justifyContent:'center',
-              fontSize:22, fontWeight:700, color:C.brasa, flexShrink:0}}>
+              fontSize:32, fontWeight:700, color:C.brasa, flexShrink:0}}>
               {nome[0]}
             </div>
         }
         <div>
-          <div style={{fontWeight:700, fontSize:15, color:C.carvao}}>{nome}</div>
-          <div style={{fontSize:12, color:C.pedra}}>{sub}</div>
+          <div style={{fontSize:28, fontWeight:700, color:C.carvao}}>{nome}</div>
+          <div style={{...T.bodySm, color:C.pedra, marginTop:4}}>{sub}</div>
         </div>
       </div>
       {antes && (
-        <div style={{fontSize:12, color:C.pedra, borderLeft:`2px solid ${C.areia}`, paddingLeft:12, lineHeight:1.5}}>
+        <div style={{...T.bodySm, color:C.pedra,
+          borderLeft:`3px solid ${C.areia}`, paddingLeft:20, lineHeight:1.5}}>
           <strong style={{color:C.grafite}}>Antes:</strong> {antes}
         </div>
       )}
-      <div style={{marginTop:'auto', borderTop:`1px solid ${C.areia}`, paddingTop:16}}>
-        <div style={{fontSize:11, letterSpacing:'.1em', textTransform:'uppercase', color:C.brasa, marginBottom:4}}>Resultado</div>
-        <div style={{fontSize:28, fontWeight:700, color:C.carvao, lineHeight:1}}>{resultado}</div>
+      <div style={{marginTop:'auto', borderTop:`1px solid ${C.areia}`, paddingTop:24}}>
+        <p style={{...T.eyebrow, marginBottom:8}}>Resultado</p>
+        <div style={{fontSize:52, fontWeight:700, color:C.carvao, lineHeight:1}}>{resultado}</div>
       </div>
-    </div>
-  );
-  return (
-    <Slide bg={C.offwhite}>
-      <Header/>
-      <div style={{flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'0 72px'}}>
-        <Eyebrow>Prova social</Eyebrow>
-        <DividerAccent/>
-        <h2 style={{marginBottom:32, color:C.carvao}}>Quem já usa o sistema.</h2>
-        <div style={{display:'flex', gap:24, alignItems:'stretch'}}>
-          {caseCard({nome:'Gabriela Ribeiro',sub:'Ribeiro Consultoria · Matheus',
-            antes:'Volume inconsistente, time sobrecarregado com lead frio.',
-            resultado:'R$14M/mês', photo:true})}
-          {caseCard({nome:'KOE · KR Curitiba',sub:'Carteira referência',
-            antes:null,resultado:'R$10M/mês sustentados'})}
-          {caseCard({nome:'InvertBenz',sub:'Carteira referência',
-            antes:null,resultado:'R$6M/mês sustentados'})}
-          {caseCard({nome:'Gustavo',sub:'Ideal Consórcios',
-            antes:'Sem histórico de tráfego no mesmo volume.',
-            resultado:'R$4M no 1º mês', photo:true})}
-        </div>
-        <div style={{marginTop:24, padding:'16px 24px', background:C.brasaMin,
-          borderLeft:`3px solid ${C.brasa}`, borderRadius:4}}>
-          <span style={{fontSize:14, color:C.carvao}}>
-            <strong>R$34M/mês</strong> em vendas consolidadas nessas 4 carteiras. Todas usam o mesmo sistema.
-          </span>
-        </div>
-      </div>
-      <Footer slide={3} total={15}/>
-    </Slide>
-  );
-}
-
-// 04 O PROBLEMA
-function SlideProblema() {
-  const item = (icon, text) => (
-    <div style={{display:'flex', gap:16, alignItems:'flex-start'}}>
-      <div style={{width:40, height:40, borderRadius:4, background:C.brasaMin,
-        display:'flex', alignItems:'center', justifyContent:'center', flexShrink:0, fontSize:18}}>
-        {icon}
-      </div>
-      <p style={{fontSize:16, color:C.grafite, lineHeight:1.6, marginTop:8}}>{text}</p>
     </div>
   );
   return (
     <Slide>
-      <Header/>
-      <div style={{flex:1, display:'flex', gap:80, alignItems:'center', padding:'0 96px'}}>
+      <Hdr/><Body style={{padding:'0 112px'}}>
+        <Eyebrow>Prova social</Eyebrow><DA/>
+        <h2 style={{...T.h2, marginBottom:40}}>Quem já usa o sistema.</h2>
+        <div style={{display:'flex', gap:28}}>
+          <Card nome="Gabriela Ribeiro" sub="Ribeiro Consultoria · Matheus"
+            antes="Volume inconsistente, time sobrecarregado com lead frio."
+            resultado="R$14M/mês" foto/>
+          <Card nome="KOE · KR Curitiba" sub="Carteira referência"
+            resultado="R$10M/mês sustentados"/>
+          <Card nome="InvertBenz" sub="Carteira referência"
+            resultado="R$6M/mês sustentados"/>
+          <Card nome="Gustavo" sub="Ideal Consórcios"
+            antes="Sem histórico de tráfego no mesmo volume."
+            resultado="R$4M no 1º mês" foto/>
+        </div>
+        <div style={{marginTop:28, padding:'24px 32px', background:C.brasaMin,
+          borderLeft:`4px solid ${C.brasa}`, borderRadius:4}}>
+          <span style={{...T.body, color:C.carvao}}>
+            <strong>R$34M/mês</strong> em vendas consolidadas nessas 4 carteiras.
+            Todas usam o mesmo sistema.
+          </span>
+        </div>
+      </Body><Ftr n={3} t={15}/>
+    </Slide>
+  );
+}
+
+/* 04 — PROBLEMA */
+function S04() {
+  const Row = ({ok, text}) => (
+    <div style={{display:'flex', gap:20, alignItems:'flex-start',
+      padding:'20px 24px', borderBottom:`1px solid ${C.areia}`, fontSize:26}}>
+      <span style={{color: ok ? C.resultado : C.critico, fontSize:28, flexShrink:0, marginTop:2}}>
+        {ok ? '✓' : '✕'}
+      </span>
+      <span style={{color: ok ? C.carvao : C.pedra, lineHeight:1.4}}>{text}</span>
+    </div>
+  );
+  return (
+    <Slide>
+      <Hdr/><Body style={{flexDirection:'row', gap:96, padding:'0 112px', alignItems:'center'}}>
         <div style={{flex:1}}>
-          <Eyebrow>O problema</Eyebrow>
-          <DividerAccent/>
-          <h2 style={{marginBottom:8, color:C.carvao}}>O que toda agência ignora.</h2>
-          <p style={{fontSize:16, color:C.grafite, marginBottom:40, lineHeight:1.65}}>
+          <Eyebrow>O problema</Eyebrow><DA/>
+          <h2 style={{...T.h2, marginBottom:24}}>O que toda agência ignora.</h2>
+          <p style={{...T.body, marginBottom:40}}>
             Você já contratou uma agência. Provavelmente mais de uma.
             O resultado é sempre o mesmo: planilha com nome e telefone,
             time gasta 80% do tempo ligando para quem não vai comprar.
           </p>
-          <div style={{display:'flex', flexDirection:'column', gap:20}}>
-            {item('📋', 'Agência entrega contatos. A Hurtz entrega decisão de compra classificada.')}
-            {item('🌡️', 'Cada lead chega com temperatura (Quente / Morno / Frio) e ação recomendada.')}
-            {item('📞', 'Seu time liga para quem já quer comprar — não para descobrir quem pode querer.')}
-          </div>
-        </div>
-        <div style={{width:360, flexShrink:0}}>
-          <div style={{background:'#fff', border:`1px solid ${C.areia}`, borderRadius:4, overflow:'hidden'}}>
-            <div style={{background:C.carvao, padding:'14px 20px'}}>
-              <span style={{fontSize:11, letterSpacing:'.1em', textTransform:'uppercase', color:C.offwhite, opacity:.7}}>
-                Agência padrão
-              </span>
-            </div>
-            {['Nome + telefone','Seu time decide quem ligar','Tempo perdido','Baixa conversão'].map((t,i)=>(
-              <div key={i} style={{padding:'12px 20px', borderBottom:`1px solid ${C.areia}`,
-                display:'flex', gap:10, alignItems:'center', fontSize:14, color:C.grafite}}>
-                <span style={{color:C.critico}}>✕</span> {t}
-              </div>
-            ))}
-            <div style={{background:C.brasaMin, padding:'14px 20px'}}>
-              <span style={{fontSize:11, letterSpacing:'.1em', textTransform:'uppercase', color:C.brasa}}>
-                Método Hurtz
-              </span>
-            </div>
-            {['Ficha completa com temperatura','Ação recomendada por lead','Time foca em quem já quer','Conversão real'].map((t,i)=>(
-              <div key={i} style={{padding:'12px 20px', borderBottom:`1px solid ${C.areia}`,
-                display:'flex', gap:10, alignItems:'center', fontSize:14, color:C.carvao}}>
-                <span style={{color:C.resultado}}>✓</span> {t}
-              </div>
-            ))}
-          </div>
-        </div>
-      </div>
-      <Footer slide={4} total={15}/>
-    </Slide>
-  );
-}
-
-// 05 MECANISMO
-function SlideMetodo() {
-  const step = (n, titulo, desc) => (
-    <div style={{display:'flex', gap:20, alignItems:'flex-start'}}>
-      <div style={{width:36, height:36, borderRadius:18, background:C.brasa, color:'#fff',
-        display:'flex', alignItems:'center', justifyContent:'center',
-        fontWeight:700, fontSize:14, flexShrink:0}}>{n}</div>
-      <div>
-        <div style={{fontWeight:700, fontSize:15, color:C.carvao, marginBottom:4}}>{titulo}</div>
-        <div style={{fontSize:13, color:C.grafite, lineHeight:1.55}}>{desc}</div>
-      </div>
-    </div>
-  );
-  return (
-    <Slide>
-      <Header/>
-      <div style={{flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'0 96px'}}>
-        <Eyebrow>O mecanismo</Eyebrow>
-        <DividerAccent/>
-        <h2 style={{marginBottom:40, color:C.carvao}}>Como o Sistema Cota Vendida funciona.</h2>
-        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'28px 64px'}}>
-          {step(1,'Criativo sem a palavra "consórcio"',
-            'Vídeo real do bem (imóvel, veículo, maquinário) com overlay financeiro. O lead clica porque quer o bem. 3–5x mais conversão que criativo padrão.')}
-          {step(2,'Qualificador Inteligente',
-            'Landing page de simulação financeira. Lead preenche: tipo de bem, valor, entrada, renda, urgência. Sistema calcula temperatura automaticamente.')}
-          {step(3,'Scoring de temperatura automático',
-            'Quente (ligar em 30 min) · Morno (mesmo dia) · Frio (nutrir automaticamente). Sem subjetividade. Sem achismo.')}
-          {step(4,'Lead Card no WhatsApp',
-            'Antes de ligar, o vendedor já sabe tudo: nome, bem, entrada disponível, renda, urgência e temperatura. A primeira ligação começa no meio, não do zero.')}
-          {step(5,'CRM com pipeline visual',
-            'Novo → Contatado → Negociação → Fechou → Perdido. Seu gestor vê onde estão todas as negociações em tempo real.')}
-          {step(6,'Dashboard de ROI ao vivo',
-            'Investido × Leads por temperatura × Negociações × Fechamentos × ROI. Você nunca precisa perguntar "como está o tráfego?"')}
-        </div>
-      </div>
-      <Footer slide={5} total={15}/>
-    </Slide>
-  );
-}
-
-// 06 PARA QUEM É
-function SlideParaQuem() {
-  const sim = t => (
-    <div style={{display:'flex', gap:12, alignItems:'flex-start', marginBottom:14}}>
-      <span style={{color:C.resultado, fontSize:18, marginTop:1, flexShrink:0}}>✓</span>
-      <span style={{fontSize:16, color:C.carvao, lineHeight:1.5}}>{t}</span>
-    </div>
-  );
-  const nao = t => (
-    <div style={{display:'flex', gap:12, alignItems:'flex-start', marginBottom:14}}>
-      <span style={{color:C.critico, fontSize:18, marginTop:1, flexShrink:0}}>✕</span>
-      <span style={{fontSize:16, color:C.grafite, lineHeight:1.5}}>{t}</span>
-    </div>
-  );
-  return (
-    <Slide>
-      <Header/>
-      <div style={{flex:1, display:'flex', gap:64, alignItems:'center', padding:'0 96px'}}>
-        <div style={{flex:1}}>
-          <Eyebrow>Qualificação</Eyebrow>
-          <DividerAccent/>
-          <h2 style={{marginBottom:8, color:C.carvao}}>Para quem é.</h2>
-          <p style={{fontSize:15, color:C.grafite, marginBottom:32, lineHeight:1.6}}>
-            Cada gestor da Hurtz atende uma carteira limitada de clientes.
-            Se você não está no perfil, o sistema não funciona para você — e não queremos que você descubra isso depois de pagar.
+          <p style={{...T.body, color:C.carvao, fontWeight:600}}>
+            Agências entregam contatos.<br/>
+            A Hurtz entrega <span style={{color:C.brasa}}>decisão de compra classificada.</span>
           </p>
-          <div style={{background:'#fff', border:`1px solid ${C.areia}`, borderRadius:4, padding:'24px 28px', marginBottom:24}}>
-            <div style={{fontSize:11, letterSpacing:'.1em', textTransform:'uppercase',
-              color:C.resultado, marginBottom:16, fontWeight:700}}>É para você se:</div>
-            {sim('Você é dono ou gestor de uma representação de consórcio (não consultor avulso)')}
-            {sim('Você tem time ativo com pelo menos 3 pessoas fazendo atendimento')}
-            {sim('Você fatura entre R$500k e R$3M/mês e quer cruzar esse patamar')}
-            {sim('Você tem verba de tráfego de pelo menos R$3.000/mês disponível')}
-            {sim('Você quer resultado em prazo definido, não "ver como vai"')}
-          </div>
-          <div style={{background:'#fff', border:`1px solid ${C.areia}`, borderRadius:4, padding:'24px 28px'}}>
-            <div style={{fontSize:11, letterSpacing:'.1em', textTransform:'uppercase',
-              color:C.critico, marginBottom:16, fontWeight:700}}>Não é para você se:</div>
-            {nao('Você trabalha sozinho ou tem time de 1–2 pessoas')}
-            {nao('Sua verba disponível é abaixo de R$3.000/mês')}
-            {nao('Você atua só com administradoras vinculadas a banco ou montadora')}
+        </div>
+        <div style={{width:520, flexShrink:0}}>
+          <div style={{background:'#fff', border:`1px solid ${C.areia}`, borderRadius:6, overflow:'hidden'}}>
+            <div style={{background:C.carvao, padding:'20px 28px'}}>
+              <span style={{...T.caption, color:'rgba(245,242,236,.6)'}}>Agência padrão</span>
+            </div>
+            <Row ok={false} text="Nome + telefone — zero contexto"/>
+            <Row ok={false} text="Seu time decide quem ligar"/>
+            <Row ok={false} text="80% do tempo em lead que não vai comprar"/>
+            <div style={{background:C.brasaMin, padding:'20px 28px', marginTop:8}}>
+              <span style={{...T.eyebrow}}>Método Hurtz</span>
+            </div>
+            <Row ok text="Ficha completa com temperatura do lead"/>
+            <Row ok text="Ação recomendada: ligar agora / hoje / nutrir"/>
+            <Row ok text="Time foca em quem já quer comprar"/>
           </div>
         </div>
-        <div style={{width:320, flexShrink:0, display:'flex', flexDirection:'column', gap:16, alignSelf:'center'}}>
-          <PhotoPlaceholder label="Foto cliente ideal" w={320} h={320} radius={4}/>
-          <TestimonialPlaceholder w={320} h={100}/>
-        </div>
-      </div>
-      <Footer slide={6} total={15}/>
+      </Body><Ftr n={4} t={15}/>
     </Slide>
   );
 }
 
-// 07 O PROJETO
-function SlideProjeto() {
-  const pilar = (titulo, desc) => (
-    <div style={{flex:1, background:'#fff', border:`1px solid ${C.areia}`, borderRadius:4,
-      padding:'24px 20px', borderTop:`3px solid ${C.brasa}`}}>
-      <div style={{fontSize:28, fontWeight:700, color:C.brasa, lineHeight:1, marginBottom:8}}>3</div>
-      <div style={{fontWeight:700, fontSize:15, color:C.carvao, marginBottom:8}}>{titulo}</div>
-      <div style={{fontSize:13, color:C.grafite, lineHeight:1.55}}>{desc}</div>
+/* 05 — MECANISMO */
+function S05() {
+  const Step = ({n, titulo, desc}) => (
+    <div style={{display:'flex', gap:24, alignItems:'flex-start'}}>
+      <div style={{width:52, height:52, borderRadius:26, background:C.brasa,
+        display:'flex', alignItems:'center', justifyContent:'center',
+        fontWeight:700, fontSize:24, color:'#fff', flexShrink:0, marginTop:4}}>
+        {n}
+      </div>
+      <div>
+        <div style={{fontSize:28, fontWeight:700, color:C.carvao, marginBottom:6}}>{titulo}</div>
+        <div style={{...T.bodySm, color:C.grafite}}>{desc}</div>
+      </div>
+    </div>
+  );
+  return (
+    <Slide>
+      <Hdr/><Body style={{padding:'40px 112px'}}>
+        <Eyebrow>O mecanismo</Eyebrow><DA/>
+        <h2 style={{...T.h2, marginBottom:48}}>Como o Sistema Cota Vendida funciona.</h2>
+        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:'36px 80px'}}>
+          <Step n={1} titulo="Criativo sem a palavra 'consórcio'"
+            desc="Vídeo real do bem (imóvel, veículo, maquinário) com overlay financeiro. 3–5x mais conversão que criativo padrão."/>
+          <Step n={2} titulo="Qualificador Inteligente"
+            desc="Landing page de simulação financeira. Lead preenche bem, valor, entrada, renda, urgência. Sistema calcula temperatura."/>
+          <Step n={3} titulo="Scoring automático de temperatura"
+            desc="Quente (ligar em 30 min) · Morno (mesmo dia) · Frio (nutrir automaticamente). Sem subjetividade."/>
+          <Step n={4} titulo="Lead Card no WhatsApp"
+            desc="Antes de ligar, o vendedor já sabe tudo: nome, bem, entrada, renda, urgência e temperatura."/>
+          <Step n={5} titulo="CRM com pipeline visual"
+            desc="Novo → Contatado → Negociação → Fechou → Perdido. Cada etapa visível em tempo real."/>
+          <Step n={6} titulo="Dashboard de ROI ao vivo"
+            desc="Investido × Leads × Temperatura × Negociações × Fechamentos × ROI. Sem precisar perguntar."/>
+        </div>
+      </Body><Ftr n={5} t={15}/>
+    </Slide>
+  );
+}
+
+/* 06 — PARA QUEM É */
+function S06() {
+  const Sim = ({t}) => (
+    <div style={{display:'flex', gap:20, alignItems:'flex-start', marginBottom:20}}>
+      <span style={{color:C.resultado, fontSize:28, marginTop:2, flexShrink:0}}>✓</span>
+      <span style={{...T.body, color:C.carvao}}>{t}</span>
+    </div>
+  );
+  const Nao = ({t}) => (
+    <div style={{display:'flex', gap:20, alignItems:'flex-start', marginBottom:20}}>
+      <span style={{color:C.critico, fontSize:28, marginTop:2, flexShrink:0}}>✕</span>
+      <span style={{...T.body, color:C.pedra}}>{t}</span>
+    </div>
+  );
+  return (
+    <Slide>
+      <Hdr/><Body style={{flexDirection:'row', gap:80, padding:'0 112px', alignItems:'stretch'}}>
+        <div style={{flex:1, display:'flex', flexDirection:'column', justifyContent:'center'}}>
+          <Eyebrow>Qualificação</Eyebrow><DA/>
+          <h2 style={{...T.h2, marginBottom:24}}>Para quem é.</h2>
+          <p style={{...T.body, marginBottom:40}}>
+            Cada gestor da Hurtz atende uma carteira limitada.
+            Se você não está no perfil, o sistema não funciona para você.
+          </p>
+          <div style={{background:'#fff', border:`1px solid ${C.areia}`, borderRadius:6,
+            padding:'32px 36px', marginBottom:24}}>
+            <p style={{...T.eyebrow, color:C.resultado, marginBottom:20}}>É para você se:</p>
+            <Sim t="Dono ou gestor de uma representação de consórcio (não consultor avulso)"/>
+            <Sim t="Time ativo com pelo menos 3 pessoas fazendo atendimento"/>
+            <Sim t="Fatura entre R$500k e R$3M/mês e quer cruzar esse patamar"/>
+            <Sim t="Verba de tráfego de pelo menos R$3.000/mês disponível"/>
+          </div>
+          <div style={{background:'#fff', border:`1px solid ${C.areia}`, borderRadius:6,
+            padding:'28px 36px'}}>
+            <p style={{...T.eyebrow, color:C.critico, marginBottom:20}}>Não é para você se:</p>
+            <Nao t="Time de 1–2 pessoas ou trabalha sozinho"/>
+            <Nao t="Atua só com administradoras vinculadas a banco ou montadora"/>
+          </div>
+        </div>
+        <div style={{width:340, flexShrink:0, display:'flex', flexDirection:'column',
+          gap:24, justifyContent:'center'}}>
+          <Photo label="Foto — cliente ideal" w={340} h={380} radius={6}/>
+          <Quote w={340} h={140}/>
+        </div>
+      </Body><Ftr n={6} t={15}/>
+    </Slide>
+  );
+}
+
+/* 07 — O PROJETO */
+function S07() {
+  const Pilar = ({num, titulo, desc}) => (
+    <div style={{flex:1, background:'rgba(255,255,255,.06)', borderRadius:6,
+      padding:'36px 32px', borderTop:`3px solid ${C.brasa}`}}>
+      <div style={{fontSize:64, fontWeight:700, color:C.brasa, lineHeight:1, marginBottom:12}}>{num}</div>
+      <div style={{fontSize:30, fontWeight:700, color:C.offwhite, marginBottom:12}}>{titulo}</div>
+      <div style={{...T.bodySm, color:'rgba(245,242,236,.6)'}}>{desc}</div>
     </div>
   );
   return (
     <Slide bg={C.carvao}>
-      <Header dark/>
-      <div style={{flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'0 96px'}}>
+      <Hdr dark/><Body style={{padding:'0 112px'}}>
         <Eyebrow light>O produto</Eyebrow>
-        <div style={{height:2, width:48, background:C.brasa, marginBottom:24}}/>
-        <h2 style={{marginBottom:12, color:C.offwhite, fontSize:40}}>
+        <div style={{height:3, width:80, background:C.brasa, margin:'0 0 40px 0'}}/>
+        <h2 style={{...T.h2lg, color:C.offwhite, marginBottom:24}}>
           Projeto 3M em 3 Meses.
         </h2>
-        <p style={{fontSize:17, color:'rgba(245,242,236,.65)', maxWidth:760, lineHeight:1.65, marginBottom:48}}>
-          O único produto da Hurtz onde nos sentamos do mesmo lado da mesa que você — com meta compartilhada,
-          cronograma fechado e garantia de resultado. Não é uma assinatura. É um projeto com começo, meio e fim.
+        <p style={{...T.body, color:'rgba(245,242,236,.6)', maxWidth:900, marginBottom:56}}>
+          O único produto da Hurtz onde nos sentamos do mesmo lado da mesa que você.
+          Meta compartilhada, cronograma fechado e garantia de resultado.
+          Não é assinatura. É um projeto com começo, meio e fim.
         </p>
-        <div style={{display:'flex', gap:24}}>
-          {pilar('Meses de execução','Mês 1 = estrutura. Mês 2 = otimização com dados reais. Mês 3 = aceleração com o que funcionou.')}
-          {pilar('Mil reais de verba','Mínimo operacional de R$3.000/mês direto na sua conta Meta. Você controla. Nunca passa pela Hurtz.')}
-          {pilar('Milhões de resultado','Meta de R$3M em vendas fechadas ao final dos 90 dias. Com garantia.')}
+        <div style={{display:'flex', gap:32}}>
+          <Pilar num="3" titulo="Meses de execução"
+            desc="Mês 1 = estrutura. Mês 2 = otimização com dados reais. Mês 3 = aceleração com o que funcionou."/>
+          <Pilar num="3k" titulo="Reais mínimos de verba/mês"
+            desc="Direto na sua conta Meta. Você controla. Nunca passa pela Hurtz."/>
+          <Pilar num="3M" titulo="De resultado em 90 dias"
+            desc="Meta de R$3M em vendas fechadas ao final dos 90 dias. Com garantia."/>
         </div>
-      </div>
-      <Footer slide={7} total={15} dark/>
+      </Body><Ftr n={7} t={15} dark/>
     </Slide>
   );
 }
 
-// 08-10 MÊS A MÊS
-function SlideMes({num, titulo, objetivo, itens, slide}) {
+/* 08–10 — MÊS A MÊS */
+function SlidesMes({num, faixa, titulo, objetivo, itens, n}) {
+  const emoji = ['🔧','📈','🚀'][num-1];
+  const subtitulo = ['Estrutura & Ativação','Otimização & Volume','Aceleração & Consolidação'][num-1];
   return (
     <Slide>
-      <Header/>
-      <div style={{flex:1, display:'flex', gap:64, alignItems:'center', padding:'0 96px'}}>
+      <Hdr/><Body style={{flexDirection:'row', gap:80, padding:'0 112px', alignItems:'center'}}>
         <div style={{flex:1}}>
-          <Eyebrow>Mês {num} · dias {num===1?'1–30':num===2?'31–60':'61–90'}</Eyebrow>
-          <DividerAccent/>
-          <h2 style={{marginBottom:8, color:C.carvao}}>{titulo}</h2>
-          <div style={{display:'inline-block', background:C.brasaMin, border:`1px solid ${C.brasaClara}`,
-            borderRadius:4, padding:'8px 16px', marginBottom:28}}>
-            <span style={{fontSize:13, fontWeight:700, color:C.brasaDark}}>Objetivo: </span>
-            <span style={{fontSize:13, color:C.brasaDark}}>{objetivo}</span>
+          <Eyebrow>Mês {num} · {faixa}</Eyebrow><DA/>
+          <h2 style={{...T.h2, marginBottom:16}}>{titulo}</h2>
+          <div style={{display:'inline-block', background:C.brasaMin,
+            border:`1px solid ${C.brasaClara}`, borderRadius:4,
+            padding:'12px 24px', marginBottom:40}}>
+            <span style={{fontSize:24, fontWeight:700, color:C.brasaDark}}>Objetivo: </span>
+            <span style={{fontSize:24, color:C.brasaDark}}>{objetivo}</span>
           </div>
-          <div style={{display:'flex', flexDirection:'column', gap:12}}>
-            {itens.map((item,i)=>(
-              <div key={i} style={{display:'flex', gap:14, alignItems:'flex-start'}}>
-                <div style={{width:6, height:6, borderRadius:3, background:C.brasa, marginTop:8, flexShrink:0}}/>
+          <div style={{display:'flex', flexDirection:'column', gap:20}}>
+            {itens.map((it, i) => (
+              <div key={i} style={{display:'flex', gap:20, alignItems:'flex-start'}}>
+                <div style={{width:10, height:10, borderRadius:5, background:C.brasa,
+                  marginTop:12, flexShrink:0}}/>
                 <div>
-                  <span style={{fontWeight:700, fontSize:14, color:C.carvao}}>{item.titulo}</span>
-                  {item.desc && <span style={{fontSize:14, color:C.grafite}}> — {item.desc}</span>}
+                  <span style={{fontSize:26, fontWeight:700, color:C.carvao}}>{it.t}</span>
+                  {it.d && <span style={{fontSize:26, color:C.grafite}}> — {it.d}</span>}
                 </div>
               </div>
             ))}
           </div>
         </div>
-        <div style={{width:280, flexShrink:0, display:'flex', flexDirection:'column', gap:16}}>
-          <div style={{background:C.brasa, borderRadius:4, padding:'32px 28px', textAlign:'center'}}>
-            <div style={{fontSize:64, fontWeight:700, color:'#fff', lineHeight:1}}>
-              {num === 1 ? '🔧' : num === 2 ? '📈' : '🚀'}
-            </div>
-            <div style={{fontSize:15, fontWeight:700, color:'#fff', marginTop:12}}>
-              {num===1?'Estrutura & Ativação':num===2?'Otimização & Volume':'Aceleração & Consolidação'}
-            </div>
+        <div style={{width:360, flexShrink:0, display:'flex', flexDirection:'column', gap:24}}>
+          <div style={{background:C.brasa, borderRadius:6, padding:'48px 40px', textAlign:'center'}}>
+            <div style={{fontSize:80}}>{emoji}</div>
+            <div style={{fontSize:32, fontWeight:700, color:'#fff', marginTop:16}}>{subtitulo}</div>
           </div>
-          <PhotoPlaceholder label="Print/resultado" w={280} h={160} radius={4}/>
+          <Photo label="Print / resultado" w={360} h={220} radius={6}/>
         </div>
-      </div>
-      <Footer slide={slide} total={15}/>
+      </Body><Ftr n={n} t={15}/>
     </Slide>
   );
 }
 
-// 11 STACK DE VALOR
-function SlideStack() {
-  const row = (item, val, bold=false) => (
+/* 11 — STACK DE VALOR */
+function S11() {
+  const Row = ({item, val}) => (
     <div style={{display:'flex', justifyContent:'space-between', alignItems:'center',
-      padding:'12px 20px', borderBottom:`1px solid ${C.areia}`,
-      background: bold ? C.offwhite : '#fff'}}>
-      <span style={{fontSize:14, color: bold ? C.carvao : C.grafite, fontWeight: bold ? 700 : 400}}>{item}</span>
-      <span style={{fontSize:14, fontWeight:700, color: bold ? C.brasa : C.pedra}}>{val}</span>
+      padding:'18px 28px', borderBottom:`1px solid ${C.areia}`, background:'#fff'}}>
+      <span style={{fontSize:24, color:C.grafite}}>{item}</span>
+      <span style={{fontSize:24, fontWeight:700, color:C.pedra}}>{val}</span>
     </div>
   );
   return (
     <Slide>
-      <Header/>
-      <div style={{flex:1, display:'flex', gap:64, alignItems:'center', padding:'0 96px'}}>
+      <Hdr/><Body style={{flexDirection:'row', gap:80, padding:'0 112px', alignItems:'center'}}>
         <div style={{flex:1}}>
-          <Eyebrow>Valor empilhado</Eyebrow>
-          <DividerAccent/>
-          <h2 style={{marginBottom:8, color:C.carvao}}>O que você está comprando.</h2>
-          <p style={{fontSize:15, color:C.grafite, marginBottom:32, lineHeight:1.6}}>
-            Cada item abaixo tem valor de mercado real. Some antes de ver o preço.
-          </p>
-          <div style={{border:`1px solid ${C.areia}`, borderRadius:4, overflow:'hidden'}}>
-            {row('Setup completo (campanha, pixel, CRM, qualificador, dashboard)','R$4.000')}
-            {row('Gestão de Meta Ads por 3 meses (Método Hurtz)','R$6.300')}
-            {row('9 criativos com Método Hurtz (3+4+2 ao longo dos meses)','R$4.500')}
-            {row('Qualificador Inteligente + Lead Card (3 meses)','R$2.700')}
-            {row('Dashboard de ROI ao vivo (3 meses)','R$1.200')}
-            {row('Sequência de reativação WhatsApp (5 mensagens × 7 dias)','R$800')}
-            {row('Scripts de atendimento por temperatura (Quente/Morno/Frio)','Exclusivo')}
-            {row('Playbook personalizado da sua operação (entregue no mês 3)','Exclusivo')}
-            {row('3 calls ao vivo (alinhamento · estratégia · entrega)','Exclusivo')}
+          <Eyebrow>Valor empilhado</Eyebrow><DA/>
+          <h2 style={{...T.h2, marginBottom:16}}>O que você está comprando.</h2>
+          <p style={{...T.body, marginBottom:36}}>Some o valor antes de ver o preço.</p>
+          <div style={{border:`1px solid ${C.areia}`, borderRadius:6, overflow:'hidden'}}>
+            <Row item="Setup completo (campanha, pixel, CRM, qualificador, dashboard)" val="R$4.000"/>
+            <Row item="Gestão de Meta Ads por 3 meses — Método Hurtz" val="R$6.300"/>
+            <Row item="9 criativos com Método Hurtz (3+4+2)" val="R$4.500"/>
+            <Row item="Qualificador Inteligente + Lead Card (3 meses)" val="R$2.700"/>
+            <Row item="Dashboard de ROI ao vivo (3 meses)" val="R$1.200"/>
+            <Row item="Sequência de reativação WhatsApp (5 mensagens)" val="R$800"/>
+            <Row item="Scripts por temperatura + Playbook personalizado" val="Exclusivo"/>
+            <Row item="3 calls ao vivo (alinhamento · estratégia · entrega)" val="Exclusivo"/>
           </div>
         </div>
-        <div style={{width:320, flexShrink:0, display:'flex', flexDirection:'column', gap:16}}>
-          <div style={{background:'#fff', border:`2px solid ${C.areia}`, borderRadius:4,
-            padding:'32px 28px', textAlign:'center'}}>
-            <div style={{fontSize:11, letterSpacing:'.12em', textTransform:'uppercase',
-              color:C.pedra, marginBottom:12}}>Total empilhado</div>
-            <div style={{fontSize:52, fontWeight:700, color:C.grafite, lineHeight:1,
+        <div style={{width:360, flexShrink:0, display:'flex', flexDirection:'column', gap:24}}>
+          <div style={{background:'#fff', border:`2px solid ${C.areia}`, borderRadius:6,
+            padding:'48px 36px', textAlign:'center'}}>
+            <p style={{...T.caption, marginBottom:16}}>Total empilhado</p>
+            <div style={{fontSize:72, fontWeight:700, color:C.pedra, lineHeight:1,
               textDecoration:'line-through'}}>R$19.500</div>
           </div>
-          <div style={{background:C.brasa, borderRadius:4, padding:'32px 28px', textAlign:'center'}}>
-            <div style={{fontSize:11, letterSpacing:'.12em', textTransform:'uppercase',
-              color:'rgba(255,255,255,.7)', marginBottom:12}}>Você investe</div>
-            <div style={{fontSize:52, fontWeight:700, color:'#fff', lineHeight:1}}>R$6.000</div>
-            <div style={{fontSize:13, color:'rgba(255,255,255,.7)', marginTop:8}}>Pagamento único</div>
+          <div style={{background:C.brasa, borderRadius:6, padding:'48px 36px', textAlign:'center'}}>
+            <p style={{...T.caption, color:'rgba(255,255,255,.65)', marginBottom:16}}>Você investe</p>
+            <div style={{fontSize:72, fontWeight:700, color:'#fff', lineHeight:1}}>R$6.000</div>
+            <p style={{fontSize:24, color:'rgba(255,255,255,.7)', marginTop:12}}>Pagamento único</p>
           </div>
         </div>
-      </div>
-      <Footer slide={11} total={15}/>
+      </Body><Ftr n={11} t={15}/>
     </Slide>
   );
 }
 
-// 12 TORRE DE PREÇO (Full Sales style)
-function SlideTorrePreco() {
+/* 12 — TORRE DE PREÇO */
+function S12() {
   return (
     <Slide>
-      <Header/>
-      <div style={{flex:1, display:'flex', gap:72, alignItems:'center', padding:'0 96px'}}>
+      <Hdr/><Body style={{flexDirection:'row', gap:80, padding:'0 112px', alignItems:'center'}}>
         <div style={{flex:1}}>
-          <Eyebrow>Precificação</Eyebrow>
-          <DividerAccent/>
-          <h2 style={{marginBottom:12, color:C.carvao}}>Preço de tabela e valor protagonista.</h2>
-          <p style={{fontSize:15, color:C.grafite, marginBottom:40, lineHeight:1.6}}>
-            Quem quiser contratar o projeto em outro momento, pode. O preço de tabela está aqui.
-            Mas para quem toma decisão hoje — existe o <strong>valor protagonista</strong>.
+          <Eyebrow>Precificação</Eyebrow><DA/>
+          <h2 style={{...T.h2, marginBottom:24}}>Preço de tabela e valor protagonista.</h2>
+          <p style={{...T.body, marginBottom:48}}>
+            Quem quiser contratar depois, pode — pelo preço de tabela.
+            Para quem toma decisão hoje, existe o <strong>valor protagonista</strong>.
           </p>
-
-          {/* Preço de tabela */}
-          <div style={{background:'#fff', border:`1px solid ${C.areia}`, borderRadius:4,
-            padding:'24px 28px', marginBottom:16, display:'flex', justifyContent:'space-between', alignItems:'center'}}>
+          {/* Tabela */}
+          <div style={{background:'#fff', border:`1px solid ${C.areia}`, borderRadius:6,
+            padding:'32px 36px', marginBottom:20,
+            display:'flex', justifyContent:'space-between', alignItems:'center'}}>
             <div>
-              <div style={{fontSize:11, letterSpacing:'.1em', textTransform:'uppercase',
-                color:C.pedra, marginBottom:6}}>Preço de tabela</div>
-              <div style={{fontSize:13, color:C.grafite}}>3 meses parcelado · R$3.000/mês</div>
+              <p style={{...T.caption, marginBottom:8}}>Preço de tabela</p>
+              <p style={{...T.bodySm, color:C.pedra}}>3 meses parcelado · R$3.000/mês</p>
             </div>
-            <div style={{fontSize:32, fontWeight:700, color:C.grafite, textDecoration:'line-through'}}>
-              R$9.000
-            </div>
+            <div style={{fontSize:56, fontWeight:700, color:C.pedra,
+              textDecoration:'line-through'}}>R$9.000</div>
           </div>
-
-          {/* Seta de queda */}
-          <div style={{display:'flex', alignItems:'center', gap:12, marginBottom:16, paddingLeft:28}}>
+          {/* Seta */}
+          <div style={{display:'flex', alignItems:'center', gap:16, marginBottom:20}}>
             <div style={{height:2, flex:1, background:C.areia}}/>
-            <div style={{fontSize:13, color:C.brasa, fontWeight:700, flexShrink:0}}>
-              ↓ Valor protagonista — decisão hoje
-            </div>
+            <span style={{fontSize:22, fontWeight:700, color:C.brasa, flexShrink:0}}>
+              ↓ Decisão hoje — valor protagonista
+            </span>
             <div style={{height:2, flex:1, background:C.areia}}/>
           </div>
-
-          {/* Valor protagonista */}
-          <div style={{background:C.carvao, borderRadius:4, padding:'28px 28px',
+          {/* Protagonista */}
+          <div style={{background:C.carvao, borderRadius:6, padding:'36px 36px',
             display:'flex', justifyContent:'space-between', alignItems:'center',
             border:`2px solid ${C.brasa}`}}>
             <div>
-              <div style={{fontSize:11, letterSpacing:'.1em', textTransform:'uppercase',
-                color:C.brasa, marginBottom:6}}>Valor protagonista · 1ª visita</div>
-              <div style={{fontSize:13, color:'rgba(245,242,236,.6)'}}>Pagamento único · sem parcelas</div>
+              <p style={{...T.eyebrow, color:C.brasa, marginBottom:8}}>Valor protagonista · 1ª visita</p>
+              <p style={{fontSize:24, color:'rgba(245,242,236,.55)'}}>Pagamento único · sem parcelas</p>
             </div>
             <div>
-              <div style={{fontSize:44, fontWeight:700, color:'#fff', lineHeight:1}}>R$6.000</div>
-              <div style={{fontSize:12, color:C.brasaClara, textAlign:'right', marginTop:4}}>
+              <div style={{fontSize:72, fontWeight:700, color:'#fff', lineHeight:1}}>R$6.000</div>
+              <p style={{fontSize:20, color:C.brasaClara, textAlign:'right', marginTop:8}}>
                 Economia de R$3.000
-              </div>
+              </p>
             </div>
           </div>
-
-          <div style={{marginTop:20, padding:'14px 20px', background:C.brasaMin,
-            borderLeft:`3px solid ${C.brasa}`, borderRadius:4}}>
-            <span style={{fontSize:13, color:C.carvao}}>
-              2 cotas fechadas a R$3.000 de comissão cada = R$6.000.
+          <div style={{marginTop:24, padding:'20px 28px', background:C.brasaMin,
+            borderLeft:`4px solid ${C.brasa}`, borderRadius:4}}>
+            <span style={{...T.body, color:C.carvao}}>
+              2 cotas a mais por causa do sistema = R$6.000.
               <strong> O projeto se paga com 2 vendas extras.</strong>
             </span>
           </div>
         </div>
-
-        <div style={{width:300, flexShrink:0, display:'flex', flexDirection:'column', gap:16}}>
-          <PhotoPlaceholder label="Foto / print resultado" w={300} h={240} radius={4}/>
-          <TestimonialPlaceholder w={300} h={110}/>
+        <div style={{width:360, flexShrink:0, display:'flex', flexDirection:'column', gap:24}}>
+          <Photo label="Foto / resultado" w={360} h={300} radius={6}/>
+          <Quote w={360} h={160}/>
         </div>
-      </div>
-      <Footer slide={12} total={15}/>
+      </Body><Ftr n={12} t={15}/>
     </Slide>
   );
 }
 
-// 13 BÔNUS PROTAGONISTA
-function SlideBonusProtagonista() {
-  const bonus = (emoji, titulo, desc) => (
-    <div style={{display:'flex', gap:16, alignItems:'flex-start',
-      background:'#fff', border:`1px solid ${C.areia}`, borderRadius:4, padding:'20px 20px'}}>
-      <div style={{fontSize:28, flexShrink:0}}>{emoji}</div>
+/* 13 — BÔNUS PROTAGONISTA */
+function S13() {
+  const Bonus = ({emoji, titulo, desc}) => (
+    <div style={{flex:1, background:'#fff', border:`1px solid ${C.areia}`,
+      borderRadius:6, padding:'32px 28px', display:'flex', gap:24, alignItems:'flex-start'}}>
+      <div style={{fontSize:48, flexShrink:0}}>{emoji}</div>
       <div>
-        <div style={{fontWeight:700, fontSize:15, color:C.carvao, marginBottom:4}}>{titulo}</div>
-        <div style={{fontSize:13, color:C.grafite, lineHeight:1.55}}>{desc}</div>
+        <div style={{fontSize:28, fontWeight:700, color:C.carvao, marginBottom:10}}>{titulo}</div>
+        <div style={{...T.bodySm, color:C.grafite}}>{desc}</div>
       </div>
     </div>
   );
   return (
     <Slide bg={C.brasaMin}>
-      <Header/>
-      <div style={{flex:1, display:'flex', flexDirection:'column', justifyContent:'center', padding:'0 96px'}}>
-        <Eyebrow>Bônus protagonista</Eyebrow>
-        <DividerAccent/>
-        <h2 style={{marginBottom:8, color:C.carvao}}>Quem fecha hoje leva mais.</h2>
-        <p style={{fontSize:15, color:C.grafite, marginBottom:32, lineHeight:1.6}}>
-          Os bônus abaixo são exclusivos para quem assina na primeira visita.
-          Não são desconto — são entregáveis adicionais que custam tempo do time.
+      <Hdr/><Body style={{padding:'0 112px'}}>
+        <Eyebrow>Bônus protagonista</Eyebrow><DA/>
+        <h2 style={{...T.h2, marginBottom:16}}>Quem fecha hoje leva mais.</h2>
+        <p style={{...T.body, marginBottom:44}}>
+          Exclusivos para quem assina na primeira visita.
+          Não são desconto — são entregáveis adicionais.
         </p>
-        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:16}}>
-          {bonus('📋','Diagnóstico de carteira antes do início',
-            'Call de 60 min com o gestor sênior mapeando o estado atual da sua operação. Você começa o projeto com um plano customizado, não um template.')}
-          {bonus('📱','Sequência de prospecção WhatsApp (Social Selling)',
-            '7 mensagens validadas para abordar leads frios e indicações que não pediram orçamento. Seu time usa enquanto o tráfego aquece.')}
-          {bonus('📊','Relatório de benchmark da carteira',
-            'Comparamos seu CPL, taxa de conversão e ticket médio com as carteiras Hurtz do mesmo segmento. Você sabe onde está e para onde vai.')}
-          {bonus('🔒','Preço congelado para renovação',
-            'Se quiser continuar após os 3 meses, mantemos o valor protagonista de R$6.000 por mais um ciclo. Sem reajuste.')}
+        <div style={{display:'grid', gridTemplateColumns:'1fr 1fr', gap:24}}>
+          <Bonus emoji="📋" titulo="Diagnóstico de carteira antes do início"
+            desc="Call de 60 min com o gestor sênior mapeando o estado atual da sua operação. Você começa com um plano customizado, não um template."/>
+          <Bonus emoji="📱" titulo="Sequência de prospecção WhatsApp"
+            desc="7 mensagens validadas para abordar leads frios e indicações enquanto o tráfego aquece."/>
+          <Bonus emoji="📊" titulo="Relatório de benchmark da carteira"
+            desc="Comparamos seu CPL e conversão com as carteiras Hurtz do mesmo segmento. Você sabe onde está."/>
+          <Bonus emoji="🔒" titulo="Preço congelado para renovação"
+            desc="Se quiser continuar após os 3 meses, mantemos o valor protagonista de R$6.000. Sem reajuste."/>
         </div>
-      </div>
-      <Footer slide={13} total={15}/>
+      </Body><Ftr n={13} t={15}/>
     </Slide>
   );
 }
 
-// 14 GARANTIA
-function SlideGarantia() {
+/* 14 — GARANTIA */
+function S14() {
   return (
     <Slide bg={C.carvao}>
-      <Header dark/>
-      <div style={{flex:1, display:'flex', gap:72, alignItems:'center', padding:'0 96px'}}>
+      <Hdr dark/><Body style={{flexDirection:'row', gap:80, padding:'0 112px', alignItems:'center'}}>
         <div style={{flex:1}}>
           <Eyebrow light>Garantia</Eyebrow>
-          <div style={{height:2, width:48, background:C.brasa, marginBottom:24}}/>
-          <h2 style={{marginBottom:20, color:C.offwhite, fontSize:38}}>
+          <div style={{height:3, width:80, background:C.brasa, margin:'0 0 40px 0'}}/>
+          <h2 style={{...T.h2, color:C.offwhite, marginBottom:24}}>
             Projeto completo<br/>ou devolução do mês 3.
           </h2>
-          <p style={{fontSize:17, color:'rgba(245,242,236,.65)', lineHeight:1.65, marginBottom:40, maxWidth:600}}>
-            Se ao final dos 90 dias o volume de vendas fechadas documentado no CRM
-            não atingir R$3M — devolvemos R$2.000 (equivalente ao mês 3). Sem crédito futuro.
-            Sem desconto. Sem renegociação. PIX na conta.
+          <p style={{...T.bodyLg, color:'rgba(245,242,236,.6)', marginBottom:48}}>
+            Se ao final dos 90 dias o volume de vendas fechadas no CRM não
+            atingir R$3M — devolvemos R$2.000. Sem crédito futuro. Sem desconto. PIX na conta.
           </p>
-          <div style={{borderLeft:`3px solid ${C.brasa}`, paddingLeft:24}}>
-            <div style={{fontSize:13, fontWeight:700, color:C.brasa, letterSpacing:'.06em',
-              textTransform:'uppercase', marginBottom:12}}>Condições para a garantia ser válida</div>
-            {['Verba de tráfego mínima de R$3.000/mês mantida nos 3 meses',
-              'Time de atendimento ativo (resposta a leads quentes em até 1h)',
+          <div style={{borderLeft:`3px solid ${C.brasa}`, paddingLeft:32}}>
+            <p style={{...T.eyebrow, color:C.brasa, marginBottom:20}}>Condições para a garantia ser válida</p>
+            {[
+              'Verba de tráfego mínima de R$3.000/mês mantida nos 3 meses',
+              'Time ativo: resposta a leads quentes em até 1h no horário comercial',
               'CRM atualizado semanalmente com negociações registradas',
-              'Presença nas 3 calls ao vivo do projeto'].map((c,i)=>(
-              <div key={i} style={{display:'flex', gap:10, marginBottom:10, alignItems:'flex-start'}}>
-                <span style={{color:C.brasa, flexShrink:0}}>→</span>
-                <span style={{fontSize:14, color:'rgba(245,242,236,.7)', lineHeight:1.5}}>{c}</span>
+              'Presença nas 3 calls ao vivo do projeto',
+            ].map((c,i) => (
+              <div key={i} style={{display:'flex', gap:16, marginBottom:16, alignItems:'flex-start'}}>
+                <span style={{color:C.brasa, fontSize:28, flexShrink:0}}>→</span>
+                <span style={{...T.body, color:'rgba(245,242,236,.65)'}}>{c}</span>
               </div>
             ))}
           </div>
         </div>
-        <div style={{width:320, flexShrink:0}}>
-          <div style={{background:C.brasa, borderRadius:4, padding:'48px 36px', textAlign:'center'}}>
-            <div style={{fontSize:64, marginBottom:16}}>🛡️</div>
-            <div style={{fontSize:22, fontWeight:700, color:'#fff', lineHeight:1.3, marginBottom:12}}>
+        <div style={{width:380, flexShrink:0}}>
+          <div style={{background:C.brasa, borderRadius:6, padding:'64px 48px', textAlign:'center'}}>
+            <div style={{fontSize:80, marginBottom:24}}>🛡️</div>
+            <div style={{fontSize:40, fontWeight:700, color:'#fff', lineHeight:1.2, marginBottom:20}}>
               Garantia<br/>Projeto Completo
             </div>
-            <div style={{fontSize:13, color:'rgba(255,255,255,.75)', lineHeight:1.6}}>
-              Não estamos testando com você. Estamos executando um processo que já funciona em 44 carteiras.
-            </div>
+            <p style={{fontSize:24, color:'rgba(255,255,255,.7)', lineHeight:1.6}}>
+              Não estamos testando com você. Estamos executando um processo validado em 44 carteiras.
+            </p>
           </div>
         </div>
-      </div>
-      <Footer slide={14} total={15} dark/>
+      </Body><Ftr n={14} t={15} dark/>
     </Slide>
   );
 }
 
-// 15 PRÓXIMOS PASSOS / CTA
-function SlideCTA() {
-  const step = (n, titulo, desc) => (
-    <div style={{display:'flex', gap:20, alignItems:'flex-start'}}>
-      <div style={{width:40, height:40, borderRadius:4, background:C.brasa,
+/* 15 — CTA */
+function S15() {
+  const Step = ({n, titulo, desc}) => (
+    <div style={{display:'flex', gap:24, alignItems:'flex-start'}}>
+      <div style={{width:56, height:56, borderRadius:6, background:C.brasa,
         display:'flex', alignItems:'center', justifyContent:'center',
-        fontWeight:700, fontSize:16, color:'#fff', flexShrink:0}}>{n}</div>
+        fontWeight:700, fontSize:28, color:'#fff', flexShrink:0}}>
+        {n}
+      </div>
       <div style={{paddingTop:8}}>
-        <div style={{fontWeight:700, fontSize:16, color:C.carvao, marginBottom:4}}>{titulo}</div>
-        <div style={{fontSize:14, color:C.grafite, lineHeight:1.55}}>{desc}</div>
+        <div style={{fontSize:28, fontWeight:700, color:C.carvao, marginBottom:6}}>{titulo}</div>
+        <div style={{...T.bodySm, color:C.grafite}}>{desc}</div>
       </div>
     </div>
   );
   return (
     <Slide>
-      <Header/>
-      <div style={{flex:1, display:'flex', gap:72, alignItems:'center', padding:'0 96px'}}>
+      <Hdr/><Body style={{flexDirection:'row', gap:80, padding:'0 112px', alignItems:'center'}}>
         <div style={{flex:1}}>
-          <Eyebrow>Próximos passos</Eyebrow>
-          <DividerAccent/>
-          <h2 style={{marginBottom:8, color:C.carvao}}>Como a gente começa.</h2>
-          <p style={{fontSize:15, color:C.grafite, marginBottom:40, lineHeight:1.6}}>
+          <Eyebrow>Próximos passos</Eyebrow><DA/>
+          <h2 style={{...T.h2, marginBottom:16}}>Como a gente começa.</h2>
+          <p style={{...T.body, marginBottom:48}}>
             Do sim ao primeiro anúncio no ar: até 5 dias úteis.
           </p>
-          <div style={{display:'flex', flexDirection:'column', gap:24}}>
-            {step(1,'Call de diagnóstico (30 min)',
-              'Levantamento da sua operação: faturamento atual, time, verba, administradoras. Sem compromisso.')}
-            {step(2,'Proposta personalizada',
-              'Metas calibradas para a sua carteira, cronograma de início e definição do gestor responsável.')}
-            {step(3,'Assinatura + kick-off',
-              'Contrato assinado e primeiro anúncio no ar em até 5 dias úteis.')}
-            {step(4,'Relatório de 14 dias',
-              'Você vê os primeiros números antes de completar o primeiro mês.')}
+          <div style={{display:'flex', flexDirection:'column', gap:32}}>
+            <Step n={1} titulo="Call de diagnóstico — 30 min"
+              desc="Levantamento da operação: faturamento, time, verba, administradoras. Sem compromisso."/>
+            <Step n={2} titulo="Proposta personalizada"
+              desc="Metas calibradas para a sua carteira e definição do gestor responsável."/>
+            <Step n={3} titulo="Assinatura + kick-off"
+              desc="Primeiro anúncio no ar em até 5 dias úteis do pagamento."/>
+            <Step n={4} titulo="Relatório de 14 dias"
+              desc="Você vê os primeiros dados antes de completar o mês 1."/>
           </div>
         </div>
-        <div style={{width:340, flexShrink:0, display:'flex', flexDirection:'column', gap:20}}>
-          <div style={{background:C.carvao, borderRadius:4, padding:'36px 32px'}}>
-            <div style={{fontSize:11, letterSpacing:'.12em', textTransform:'uppercase',
-              color:'rgba(245,242,236,.5)', marginBottom:8}}>Vagas abertas agora</div>
-            <div style={{fontSize:48, fontWeight:700, color:'#fff', lineHeight:1}}>2</div>
-            <div style={{fontSize:13, color:'rgba(245,242,236,.6)', marginTop:8, lineHeight:1.5}}>
+        <div style={{width:400, flexShrink:0, display:'flex', flexDirection:'column', gap:24}}>
+          <div style={{background:C.carvao, borderRadius:6, padding:'40px 40px'}}>
+            <p style={{...T.caption, color:'rgba(245,242,236,.4)', marginBottom:12}}>Vagas abertas agora</p>
+            <div style={{fontSize:96, fontWeight:700, color:'#fff', lineHeight:1}}>2</div>
+            <p style={{...T.bodySm, color:'rgba(245,242,236,.5)', marginTop:12}}>
               Cada gestor sênior abre no máximo 1 vaga por trimestre.
               Próxima turma: setembro.
-            </div>
+            </p>
           </div>
-          <div style={{background:C.brasa, borderRadius:4, padding:'28px 32px', textAlign:'center'}}>
-            <div style={{fontSize:28, fontWeight:700, color:'#fff', lineHeight:1.2, marginBottom:8}}>
-              R$6.000
-            </div>
-            <div style={{fontSize:13, color:'rgba(255,255,255,.8)', marginBottom:20}}>
+          <div style={{background:C.brasa, borderRadius:6, padding:'40px 40px', textAlign:'center'}}>
+            <div style={{fontSize:64, fontWeight:700, color:'#fff', lineHeight:1}}>R$6.000</div>
+            <p style={{fontSize:24, color:'rgba(255,255,255,.75)', marginTop:8, marginBottom:28}}>
               Pagamento único · valor protagonista
-            </div>
-            <div style={{background:'#fff', borderRadius:4, padding:'14px 20px',
-              fontSize:15, fontWeight:700, color:C.brasa, textAlign:'center'}}>
+            </p>
+            <div style={{background:'#fff', borderRadius:4, padding:'18px 24px',
+              fontSize:24, fontWeight:700, color:C.brasa, textAlign:'center'}}>
               Quero começar
             </div>
           </div>
-          <div style={{background:'#fff', border:`1px solid ${C.areia}`, borderRadius:4,
-            padding:'20px 24px', textAlign:'center'}}>
-            <Logo height={18}/>
-            <div style={{fontSize:11, color:C.pedra, marginTop:12, letterSpacing:'.06em'}}>
-              pages.hurtzcompany.com.br
-            </div>
+          <div style={{textAlign:'center', padding:'16px 0'}}>
+            <Logo height={24}/>
           </div>
         </div>
-      </div>
-      <Footer slide={15} total={15}/>
+      </Body><Ftr n={15} t={15}/>
     </Slide>
   );
 }
 
-// ── App ─────────────────────────────────────────────────────────────────────
+/* ─── App ──────────────────────────────────────────────────── */
 function App() {
   return (
     <>
-      <SlideHero/>
-      <SlideEmpresa/>
-      <SlideCases/>
-      <SlideProblema/>
-      <SlideMetodo/>
-      <SlideParaQuem/>
-      <SlideProjeto/>
-      <SlideMes num={1} titulo="Estrutura & Ativação"
+      <S01/>
+      <S02/>
+      <S03/>
+      <S04/>
+      <S05/>
+      <S06/>
+      <S07/>
+      <SlidesMes n={8} num={1} faixa="dias 1–30" titulo="Estrutura & Ativação"
         objetivo="Sistema rodando, primeiros leads quentes no pipeline"
-        slide={8}
         itens={[
-          {titulo:'Setup completo de campanha', desc:'estrutura de conta, pixel, eventos, públicos e exclusões'},
-          {titulo:'3 criativos Método Hurtz', desc:'vídeo real + overlay financeiro, sem a palavra "consórcio"'},
-          {titulo:'Qualificador Inteligente', desc:'landing de simulação + scoring automático de temperatura'},
-          {titulo:'Lead Card no WhatsApp', desc:'ficha completa entregue antes da ligação'},
-          {titulo:'CRM + pipeline visual', desc:'Novo → Contatado → Negociação → Fechou → Perdido'},
-          {titulo:'Script por temperatura', desc:'3 versões: Quente (30 min) · Morno (mesmo dia) · Frio (sequência)'},
-          {titulo:'Sessão de alinhamento com o time', desc:'1h ao vivo — Lead Card, script, CRM'},
-          {titulo:'Relatório de 14 dias', desc:'primeiro diagnóstico com dados reais'},
-        ]}
-      />
-      <SlideMes num={2} titulo="Otimização & Volume"
-        objetivo="Custo por lead quente caindo, volume crescendo"
-        slide={9}
+          {t:'Setup completo de campanha', d:'conta, pixel, eventos, públicos, exclusões'},
+          {t:'3 criativos Método Hurtz', d:'vídeo real + overlay financeiro, sem "consórcio"'},
+          {t:'Qualificador Inteligente', d:'landing de simulação + scoring automático'},
+          {t:'Lead Card no WhatsApp', d:'ficha completa antes da ligação'},
+          {t:'CRM + pipeline visual', d:'Novo → Contatado → Negociação → Fechou → Perdido'},
+          {t:'Script por temperatura', d:'3 versões: Quente · Morno · Frio'},
+          {t:'Sessão de alinhamento com o time', d:'1h ao vivo — Lead Card, script, CRM'},
+          {t:'Relatório de 14 dias', d:'primeiro diagnóstico com dados reais'},
+        ]}/>
+      <SlidesMes n={9} num={2} faixa="dias 31–60" titulo="Otimização & Volume"
+        objetivo="CPL caindo, volume crescendo"
         itens={[
-          {titulo:'Análise completa do mês 1', desc:'o que funcionou, o que descartamos, o que escalamos'},
-          {titulo:'4 novos criativos (A/B)', desc:'variações de ângulo e formato baseadas nos dados'},
-          {titulo:'Ajuste de público', desc:'lookalike de leads quentes + exclusão agressiva de frios'},
-          {titulo:'Sequência de reativação', desc:'5 mensagens em 7 dias para leads frios do mês 1'},
-          {titulo:'Otimização de CRM', desc:'ajuste de pipeline com padrões de perda identificados'},
-          {titulo:'Call de estratégia (45 min)', desc:'revisão de dados + alinhamento de meta para o mês 3'},
-          {titulo:'Relatório de 30 dias', desc:'evolução de todas as métricas vs. mês 1'},
-        ]}
-      />
-      <SlideMes num={3} titulo="Aceleração & Consolidação"
+          {t:'Análise completa do mês 1', d:'o que funcionou, descartamos, escalamos'},
+          {t:'4 novos criativos A/B', d:'baseados nos dados do mês 1'},
+          {t:'Ajuste de público', d:'lookalike de leads quentes + exclusão de frios'},
+          {t:'Sequência de reativação', d:'5 mensagens em 7 dias para leads frios do mês 1'},
+          {t:'Otimização de CRM', d:'ajuste de pipeline com padrões de perda'},
+          {t:'Call de estratégia — 45 min', d:'revisão de dados + alinhamento para mês 3'},
+          {t:'Relatório de 30 dias', d:'evolução de todas as métricas vs. mês 1'},
+        ]}/>
+      <SlidesMes n={10} num={3} faixa="dias 61–90" titulo="Aceleração & Consolidação"
         objetivo="Cruzar os R$3M e ter um sistema que sustenta"
-        slide={10}
         itens={[
-          {titulo:'Escala nos criativos campeões', desc:'aumento de verba nos ângulos vencedores do mês 2'},
-          {titulo:'2 criativos de prova social', desc:'formato depoimento/resultado — aumenta conversão no funil médio'},
-          {titulo:'Expansão de público', desc:'remarketing por temperatura + públicos de interesse expandido'},
-          {titulo:'Playbook personalizado', desc:'criativos vencedores, públicos de performance, scripts calibrados'},
-          {titulo:'Relatório final de 90 dias', desc:'total investido, vendas fechadas, ROI, benchmarks Hurtz'},
-          {titulo:'Call de entrega (1h)', desc:'retrospectiva + recomendação para continuidade ou expansão'},
-        ]}
-      />
-      <SlideStack/>
-      <SlideTorrePreco/>
-      <SlideBonusProtagonista/>
-      <SlideGarantia/>
-      <SlideCTA/>
+          {t:'Escala nos criativos campeões', d:'verba nos ângulos vencedores do mês 2'},
+          {t:'2 criativos de prova social', d:'depoimento/resultado — conversão no funil médio'},
+          {t:'Expansão de público', d:'remarketing por temperatura + públicos expandidos'},
+          {t:'Playbook personalizado', d:'criativos, públicos e scripts calibrados'},
+          {t:'Relatório final de 90 dias', d:'investido, vendas, ROI, benchmarks Hurtz'},
+          {t:'Call de entrega — 1h', d:'retrospectiva + recomendação de continuidade'},
+        ]}/>
+      <S11/>
+      <S12/>
+      <S13/>
+      <S14/>
+      <S15/>
     </>
   );
 }
