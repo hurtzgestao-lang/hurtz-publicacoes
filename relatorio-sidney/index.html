@@ -1,0 +1,605 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Relatório Sidney — Campanhas Meta Ads</title>
+<script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.2/dist/chart.umd.min.js"></script>
+<style>
+  :root {
+    --bg: #0f1117;
+    --surface: #1a1d27;
+    --surface2: #222536;
+    --border: #2e3147;
+    --accent: #ff6b35;
+    --accent2: #4ade80;
+    --accent3: #60a5fa;
+    --accent4: #f472b6;
+    --accent5: #facc15;
+    --text: #e8eaf0;
+    --muted: #7b7f99;
+    --red: #f87171;
+    --green: #4ade80;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { background: var(--bg); color: var(--text); font-family: 'Segoe UI', system-ui, sans-serif; font-size: 14px; line-height: 1.6; }
+
+  /* HEADER */
+  .header { background: linear-gradient(135deg, #1a1d27 0%, #16192b 100%); border-bottom: 1px solid var(--border); padding: 32px 40px 24px; }
+  .header h1 { font-size: 26px; font-weight: 700; color: var(--text); }
+  .header h1 span { color: var(--accent); }
+  .header .sub { color: var(--muted); margin-top: 4px; font-size: 13px; }
+  .header .period { display: inline-block; background: var(--surface2); border: 1px solid var(--border); border-radius: 6px; padding: 4px 12px; font-size: 12px; color: var(--muted); margin-top: 10px; }
+
+  /* LAYOUT */
+  .container { max-width: 1400px; margin: 0 auto; padding: 32px 40px; }
+  .section-title { font-size: 16px; font-weight: 600; color: var(--text); margin: 36px 0 16px; padding-bottom: 8px; border-bottom: 1px solid var(--border); display: flex; align-items: center; gap: 8px; }
+  .section-title .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--accent); display: inline-block; }
+
+  /* KPI CARDS */
+  .kpi-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); gap: 16px; }
+  .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 20px; }
+  .kpi .label { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 0.08em; margin-bottom: 8px; }
+  .kpi .value { font-size: 28px; font-weight: 700; color: var(--text); }
+  .kpi .value.green { color: var(--green); }
+  .kpi .value.orange { color: var(--accent); }
+  .kpi .value.blue { color: var(--accent3); }
+  .kpi .sub { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+  /* CHARTS */
+  .chart-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+  .chart-grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 20px; }
+  .chart-card { background: var(--surface); border: 1px solid var(--border); border-radius: 12px; padding: 24px; }
+  .chart-card.full { grid-column: 1 / -1; }
+  .chart-card h3 { font-size: 13px; font-weight: 600; color: var(--muted); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 20px; }
+  .chart-wrap { position: relative; height: 280px; }
+  .chart-wrap.tall { height: 380px; }
+  .chart-wrap.xtall { height: 480px; }
+
+  /* TABLE */
+  .group-block { margin-bottom: 40px; }
+  .group-header { display: flex; align-items: center; gap: 12px; margin-bottom: 14px; }
+  .group-badge { padding: 4px 12px; border-radius: 20px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.05em; }
+  .badge-adriana { background: rgba(244,114,182,0.15); color: var(--accent4); border: 1px solid rgba(244,114,182,0.3); }
+  .badge-curionopolis { background: rgba(96,165,250,0.15); color: var(--accent3); border: 1px solid rgba(96,165,250,0.3); }
+  .badge-danila { background: rgba(250,204,21,0.12); color: var(--accent5); border: 1px solid rgba(250,204,21,0.25); }
+  .badge-eldorado { background: rgba(255,107,53,0.12); color: var(--accent); border: 1px solid rgba(255,107,53,0.25); }
+  .badge-geral { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+  .group-totals { font-size: 12px; color: var(--muted); }
+  .group-totals strong { color: var(--text); }
+
+  table { width: 100%; border-collapse: collapse; font-size: 12.5px; }
+  thead tr { border-bottom: 1px solid var(--border); }
+  thead th { padding: 8px 12px; text-align: left; font-size: 11px; text-transform: uppercase; letter-spacing: 0.06em; color: var(--muted); font-weight: 500; white-space: nowrap; }
+  tbody tr { border-bottom: 1px solid rgba(46,49,71,0.5); transition: background 0.15s; }
+  tbody tr:hover { background: var(--surface2); }
+  tbody td { padding: 10px 12px; vertical-align: middle; }
+  .td-name { max-width: 320px; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; font-weight: 500; }
+  .status-badge { display: inline-block; padding: 2px 8px; border-radius: 10px; font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: 0.04em; }
+  .status-active { background: rgba(74,222,128,0.12); color: var(--green); border: 1px solid rgba(74,222,128,0.25); }
+  .status-inactive { background: rgba(248,113,113,0.1); color: var(--red); border: 1px solid rgba(248,113,113,0.2); }
+  .cpr-good { color: var(--green); font-weight: 600; }
+  .cpr-mid { color: var(--accent5); font-weight: 600; }
+  .cpr-bad { color: var(--red); font-weight: 600; }
+  .num { text-align: right; font-variant-numeric: tabular-nums; }
+  .bar-inline { display: inline-block; height: 6px; border-radius: 3px; background: var(--accent3); vertical-align: middle; margin-left: 6px; opacity: 0.6; }
+
+  /* FOOTER */
+  .footer { text-align: center; padding: 32px; color: var(--muted); font-size: 11px; border-top: 1px solid var(--border); margin-top: 40px; }
+</style>
+</head>
+<body>
+
+<div class="header">
+  <h1>Relatório de Campanhas — <span>Sidney</span></h1>
+  <div class="sub">Meta Ads · Análise detalhada por campanha</div>
+  <div class="period">📅 20/04/2026 – 19/05/2026 · 30 dias</div>
+</div>
+
+<div class="container">
+
+  <!-- KPIs -->
+  <div class="section-title"><span class="dot"></span> Visão Geral</div>
+  <div class="kpi-grid">
+    <div class="kpi">
+      <div class="label">Total Investido</div>
+      <div class="value orange">R$ 16.282</div>
+      <div class="sub">54 campanhas no período</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Total de Resultados</div>
+      <div class="value blue">1.237</div>
+      <div class="sub">Conversas iniciadas WA</div>
+    </div>
+    <div class="kpi">
+      <div class="label">CPR Médio Geral</div>
+      <div class="value">R$ 13,16</div>
+      <div class="sub">Custo por resultado</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Campanhas Ativas</div>
+      <div class="value green">38</div>
+      <div class="sub">16 pausadas</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Total de Impressões</div>
+      <div class="value">1,09M</div>
+      <div class="sub">1.095.732 impressões</div>
+    </div>
+    <div class="kpi">
+      <div class="label">Melhor CPR</div>
+      <div class="value green">R$ 5,33</div>
+      <div class="sub">BLEFARO CANAÃ FABÍOLA</div>
+    </div>
+  </div>
+
+  <!-- CHARTS ROW 1 -->
+  <div class="section-title"><span class="dot"></span> Distribuição por Grupo</div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h3>💰 Investimento por Grupo (R$)</h3>
+      <div class="chart-wrap"><canvas id="chartInvestGrupo"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>🎯 Resultados por Grupo</h3>
+      <div class="chart-wrap"><canvas id="chartResultGrupo"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>📊 CPR Médio por Grupo (R$)</h3>
+      <div class="chart-wrap"><canvas id="chartCPRGrupo"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>🔵 Eficiência: Resultados vs Investimento</h3>
+      <div class="chart-wrap"><canvas id="chartEficiencia"></canvas></div>
+    </div>
+  </div>
+
+  <!-- CHARTS ROW 2 -->
+  <div class="section-title"><span class="dot"></span> Rankings de Campanhas</div>
+  <div class="chart-grid">
+    <div class="chart-card">
+      <h3>🏆 Top 10 — Mais Resultados</h3>
+      <div class="chart-wrap tall"><canvas id="chartTop10Res"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>🔥 Top 10 — Maior Investimento</h3>
+      <div class="chart-wrap tall"><canvas id="chartTop10Inv"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>✅ Top 10 — Melhor CPR (menor)</h3>
+      <div class="chart-wrap tall"><canvas id="chartTop10CPRBom"></canvas></div>
+    </div>
+    <div class="chart-card">
+      <h3>⚠️ Top 10 — Pior CPR (maior)</h3>
+      <div class="chart-wrap tall"><canvas id="chartTop10CPRRuim"></canvas></div>
+    </div>
+  </div>
+
+  <!-- CHARTS ROW 3 -->
+  <div class="section-title"><span class="dot"></span> Comparativos Detalhados</div>
+  <div class="chart-grid">
+    <div class="chart-card full">
+      <h3>📈 CPR por Campanha — Todas as 54 Campanhas</h3>
+      <div class="chart-wrap xtall"><canvas id="chartCPRAll"></canvas></div>
+    </div>
+  </div>
+  <div class="chart-grid" style="margin-top:20px">
+    <div class="chart-card full">
+      <h3>💸 Gasto vs Resultados por Campanha (todas)</h3>
+      <div class="chart-wrap xtall"><canvas id="chartGastoRes"></canvas></div>
+    </div>
+  </div>
+
+  <!-- TABLES BY GROUP -->
+  <div class="section-title"><span class="dot"></span> Detalhamento por Campanha</div>
+
+  <!-- ADRIANA -->
+  <div class="group-block">
+    <div class="group-header">
+      <span class="group-badge badge-adriana">Adriana — Ninfoplastia</span>
+      <span class="group-totals">6 campanhas · <strong>R$ 1.761,19</strong> investidos · <strong>90 resultados</strong> · CPR médio <strong>R$ 19,57</strong></span>
+    </div>
+    <table>
+      <thead><tr>
+        <th>Campanha</th><th>Status</th>
+        <th class="num">Gasto (R$)</th><th class="num">Orç/dia (R$)</th>
+        <th class="num">Resultados</th><th class="num">CPR (R$)</th>
+        <th class="num">Impressões</th><th class="num">Cliques</th>
+        <th class="num">CTR (%)</th><th class="num">CPM (R$)</th><th class="num">Alcance</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="td-name" title="DANILA - NINFOPLASTIA - MENSAGEM - WHATSAPP">DANILA - NINFOPLASTIA - MENSAGEM - WHATSAPP</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">834,72</td><td class="num">50,00</td><td class="num">44</td><td class="num cpr-mid">18,97</td><td class="num">60.275</td><td class="num">152</td><td class="num">0,25%</td><td class="num">13,85</td><td class="num">19.714</td></tr>
+        <tr><td class="td-name" title="DANILA - NINFOPLASTIA - MENSAGEM - WHATSAPP — Cópia">DANILA - NINFOPLASTIA - MENSAGEM - WHATSAPP — Cópia</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">824,11</td><td class="num">50,00</td><td class="num">41</td><td class="num cpr-mid">20,10</td><td class="num">40.974</td><td class="num">142</td><td class="num">0,35%</td><td class="num">20,11</td><td class="num">12.401</td></tr>
+        <tr><td class="td-name" title="00 - DANILA - NINFOPLASTIA - WHATSAPP - 14/05">00 - DANILA - NINFOPLASTIA - WHATSAPP - 14/05</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">33,12</td><td class="num">10,00</td><td class="num">1</td><td class="num cpr-bad">33,12</td><td class="num">2.454</td><td class="num">6</td><td class="num">0,24%</td><td class="num">13,50</td><td class="num">1.837</td></tr>
+        <tr><td class="td-name" title="01 - DANILA - NINFOPLASTIA - WHATSAPP - 14/05">01 - DANILA - NINFOPLASTIA - WHATSAPP - 14/05</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">33,55</td><td class="num">10,00</td><td class="num">2</td><td class="num cpr-mid">16,78</td><td class="num">2.528</td><td class="num">4</td><td class="num">0,16%</td><td class="num">13,27</td><td class="num">1.782</td></tr>
+        <tr><td class="td-name" title="02 - DANILA - NINFOPLASTIA - WHATSAPP - 14/05">02 - DANILA - NINFOPLASTIA - WHATSAPP - 14/05</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">2,67</td><td class="num">10,00</td><td class="num">1</td><td class="num cpr-good">2,67</td><td class="num">279</td><td class="num">1</td><td class="num">0,36%</td><td class="num">9,57</td><td class="num">263</td></tr>
+        <tr><td class="td-name" title="03 - DANILA - NINFOPLASTIA - WHATSAPP - 14/05">03 - DANILA - NINFOPLASTIA - WHATSAPP - 14/05</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">33,02</td><td class="num">10,00</td><td class="num">1</td><td class="num cpr-bad">33,02</td><td class="num">2.943</td><td class="num">5</td><td class="num">0,17%</td><td class="num">11,22</td><td class="num">2.218</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- CURIONOPOLIS -->
+  <div class="group-block">
+    <div class="group-header">
+      <span class="group-badge badge-curionopolis">Curionópolis — Aparelho</span>
+      <span class="group-totals">5 campanhas · <strong>R$ 502,96</strong> investidos · <strong>56 resultados</strong> · CPR médio <strong>R$ 8,98</strong></span>
+    </div>
+    <table>
+      <thead><tr>
+        <th>Campanha</th><th>Status</th>
+        <th class="num">Gasto (R$)</th><th class="num">Orç/dia (R$)</th>
+        <th class="num">Resultados</th><th class="num">CPR (R$)</th>
+        <th class="num">Impressões</th><th class="num">Cliques</th>
+        <th class="num">CTR (%)</th><th class="num">CPM (R$)</th><th class="num">Alcance</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="td-name">1 - APARELHO - WHATSAPP - 05/05</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">100,14</td><td class="num">12,00</td><td class="num">13</td><td class="num cpr-good">7,70</td><td class="num">16.953</td><td class="num">64</td><td class="num">0,38%</td><td class="num">5,91</td><td class="num">7.260</td></tr>
+        <tr><td class="td-name">2 - APARELHO - WHATSAPP - 05/05</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">100,86</td><td class="num">12,00</td><td class="num">12</td><td class="num cpr-good">8,41</td><td class="num">18.123</td><td class="num">84</td><td class="num">0,46%</td><td class="num">5,57</td><td class="num">9.434</td></tr>
+        <tr><td class="td-name">3 - APARELHO - WHATSAPP - 05/05</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">100,78</td><td class="num">12,00</td><td class="num">10</td><td class="num cpr-good">10,08</td><td class="num">17.544</td><td class="num">66</td><td class="num">0,38%</td><td class="num">5,74</td><td class="num">7.874</td></tr>
+        <tr><td class="td-name">4 - APARELHO - WHATSAPP - 05/05</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">100,06</td><td class="num">12,00</td><td class="num">13</td><td class="num cpr-good">7,70</td><td class="num">19.289</td><td class="num">69</td><td class="num">0,36%</td><td class="num">5,19</td><td class="num">7.560</td></tr>
+        <tr><td class="td-name">5 - APARELHO - WHATSAPP - 05/05</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">101,12</td><td class="num">12,00</td><td class="num">8</td><td class="num cpr-mid">12,64</td><td class="num">18.514</td><td class="num">69</td><td class="num">0,37%</td><td class="num">5,46</td><td class="num">8.256</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- DANILA -->
+  <div class="group-block">
+    <div class="group-header">
+      <span class="group-badge badge-danila">Danila — Remarketing Rino + Blefaro</span>
+      <span class="group-totals">15 campanhas · <strong>R$ 4.104,75</strong> investidos · <strong>305 resultados</strong> · CPR médio <strong>R$ 13,46</strong></span>
+    </div>
+    <table>
+      <thead><tr>
+        <th>Campanha</th><th>Status</th>
+        <th class="num">Gasto (R$)</th><th class="num">Orç/dia (R$)</th>
+        <th class="num">Resultados</th><th class="num">CPR (R$)</th>
+        <th class="num">Impressões</th><th class="num">Cliques</th>
+        <th class="num">CTR (%)</th><th class="num">CPM (R$)</th><th class="num">Alcance</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="td-name" title="RINO - REMARKETING - WHATSAPP - DANILA — Cópia">RINO - REMARKETING - DANILA — Cópia</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">291,35</td><td class="num">10,00</td><td class="num">23</td><td class="num cpr-mid">12,67</td><td class="num">16.213</td><td class="num">121</td><td class="num">0,75%</td><td class="num">17,97</td><td class="num">8.597</td></tr>
+        <tr><td class="td-name" title="RINO - REMARKETING - WHATSAPP - DANILA — Cópia — Cópia">RINO - REMARKETING - DANILA — Cópia — Cópia</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">291,62</td><td class="num">10,00</td><td class="num">24</td><td class="num cpr-mid">12,15</td><td class="num">21.610</td><td class="num">78</td><td class="num">0,36%</td><td class="num">13,49</td><td class="num">8.157</td></tr>
+        <tr><td class="td-name" title="RINO - REMARKETING - WHATSAPP - DANILA — Cópia">RINO - REMARKETING - DANILA (2ª) — Cópia</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">289,12</td><td class="num">10,00</td><td class="num">23</td><td class="num cpr-mid">12,57</td><td class="num">21.499</td><td class="num">70</td><td class="num">0,33%</td><td class="num">13,45</td><td class="num">10.918</td></tr>
+        <tr><td class="td-name" title="CANAA - RINO - REMARKETING - WHATSAPP - DANILA">CANAÃ - RINO - REMARKETING - DANILA</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">288,74</td><td class="num">10,00</td><td class="num">25</td><td class="num cpr-mid">11,55</td><td class="num">23.197</td><td class="num">114</td><td class="num">0,49%</td><td class="num">12,45</td><td class="num">6.519</td></tr>
+        <tr><td class="td-name">01 - BLEFARO PACIENTE MOD - REMARKETING - DANILA</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">293,11</td><td class="num">10,00</td><td class="num">17</td><td class="num cpr-mid">17,24</td><td class="num">14.485</td><td class="num">52</td><td class="num">0,36%</td><td class="num">20,24</td><td class="num">9.283</td></tr>
+        <tr><td class="td-name">02 - BLEFARO PACIENTE MOD - REMARKETING - DANILA</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">290,59</td><td class="num">10,00</td><td class="num">20</td><td class="num cpr-mid">14,53</td><td class="num">14.755</td><td class="num">49</td><td class="num">0,33%</td><td class="num">19,69</td><td class="num">10.138</td></tr>
+        <tr><td class="td-name">03 - BLEFARO PACIENTE MOD - REMARKETING - DANILA</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">288,21</td><td class="num">10,00</td><td class="num">26</td><td class="num cpr-mid">11,09</td><td class="num">15.733</td><td class="num">64</td><td class="num">0,41%</td><td class="num">18,32</td><td class="num">10.752</td></tr>
+        <tr><td class="td-name">02 - BLEFARO PACIENTE MOD - DANILA — Cópia Cópia</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">291,00</td><td class="num">10,00</td><td class="num">22</td><td class="num cpr-mid">13,23</td><td class="num">14.430</td><td class="num">48</td><td class="num">0,33%</td><td class="num">20,17</td><td class="num">9.867</td></tr>
+        <tr><td class="td-name">01 - BLEFARO PACIENTE MOD - DANILA — Cópia Cópia</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">293,38</td><td class="num">10,00</td><td class="num">14</td><td class="num cpr-bad">20,96</td><td class="num">13.414</td><td class="num">44</td><td class="num">0,33%</td><td class="num">21,87</td><td class="num">8.946</td></tr>
+        <tr><td class="td-name">03 - BLEFARO PACIENTE MOD - DANILA — Cópia Cópia</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">199,21</td><td class="num">10,00</td><td class="num">16</td><td class="num cpr-mid">12,45</td><td class="num">11.337</td><td class="num">39</td><td class="num">0,34%</td><td class="num">17,57</td><td class="num">8.025</td></tr>
+        <tr><td class="td-name">04 - BLEFARO PACIENTE MOD - DANILA — Cópia x3</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">289,80</td><td class="num">10,00</td><td class="num">20</td><td class="num cpr-mid">14,49</td><td class="num">15.374</td><td class="num">81</td><td class="num">0,53%</td><td class="num">18,85</td><td class="num">7.889</td></tr>
+        <tr><td class="td-name">04 - BLEFARO PACIENTE MOD - DANILA — Cópia x4 (A)</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">289,64</td><td class="num">10,00</td><td class="num">36</td><td class="num cpr-good">8,05</td><td class="num">14.851</td><td class="num">55</td><td class="num">0,37%</td><td class="num">19,50</td><td class="num">8.037</td></tr>
+        <tr><td class="td-name">04 - BLEFARO PACIENTE MOD - DANILA — Cópia x4 (B)</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">293,26</td><td class="num">10,00</td><td class="num">13</td><td class="num cpr-bad">22,56</td><td class="num">12.182</td><td class="num">46</td><td class="num">0,38%</td><td class="num">24,07</td><td class="num">5.939</td></tr>
+        <tr><td class="td-name">04 - BLEFARO PACIENTE MOD - DANILA — Cópia x5 (A)</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">206,61</td><td class="num">10,00</td><td class="num">14</td><td class="num cpr-mid">14,76</td><td class="num">10.352</td><td class="num">35</td><td class="num">0,34%</td><td class="num">19,96</td><td class="num">5.654</td></tr>
+        <tr><td class="td-name">04 - BLEFARO PACIENTE MOD - DANILA — Cópia x5 (B)</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">209,11</td><td class="num">10,00</td><td class="num">12</td><td class="num cpr-mid">17,43</td><td class="num">9.947</td><td class="num">33</td><td class="num">0,33%</td><td class="num">21,02</td><td class="num">5.175</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- ELDORADO -->
+  <div class="group-block">
+    <div class="group-header">
+      <span class="group-badge badge-eldorado">Eldorado — Aparelho</span>
+      <span class="group-totals">9 campanhas · <strong>R$ 1.190,91</strong> investidos · <strong>91 resultados</strong> · CPR médio <strong>R$ 13,09</strong></span>
+    </div>
+    <table>
+      <thead><tr>
+        <th>Campanha</th><th>Status</th>
+        <th class="num">Gasto (R$)</th><th class="num">Orç/dia (R$)</th>
+        <th class="num">Resultados</th><th class="num">CPR (R$)</th>
+        <th class="num">Impressões</th><th class="num">Cliques</th>
+        <th class="num">CTR (%)</th><th class="num">CPM (R$)</th><th class="num">Alcance</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="td-name">APARELHO - MENSAGEM - WHATSAPP</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">181,03</td><td class="num">10,00</td><td class="num">15</td><td class="num cpr-mid">12,07</td><td class="num">30.015</td><td class="num">70</td><td class="num">0,23%</td><td class="num">6,03</td><td class="num">10.353</td></tr>
+        <tr><td class="td-name">01 - APARELHO - MENSAGEM - WHATSAPP — Cópia</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">179,86</td><td class="num">10,00</td><td class="num">21</td><td class="num cpr-good">8,56</td><td class="num">30.117</td><td class="num">61</td><td class="num">0,20%</td><td class="num">5,97</td><td class="num">11.602</td></tr>
+        <tr><td class="td-name">01 - APARELHO - MENSAGEM - WHATSAPP — Cópia Cópia</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">179,43</td><td class="num">10,00</td><td class="num">23</td><td class="num cpr-good">7,80</td><td class="num">32.472</td><td class="num">167</td><td class="num">0,51%</td><td class="num">5,53</td><td class="num">11.804</td></tr>
+        <tr><td class="td-name">06 - APARELHO - WHATSAPP</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">108,84</td><td class="num">6,00</td><td class="num">6</td><td class="num cpr-mid">18,14</td><td class="num">19.128</td><td class="num">58</td><td class="num">0,30%</td><td class="num">5,69</td><td class="num">9.987</td></tr>
+        <tr><td class="td-name">07 - APARELHO - WHATSAPP</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">108,16</td><td class="num">6,00</td><td class="num">6</td><td class="num cpr-mid">18,03</td><td class="num">17.936</td><td class="num">50</td><td class="num">0,28%</td><td class="num">6,03</td><td class="num">8.202</td></tr>
+        <tr><td class="td-name">09 - APARELHO - WHATSAPP</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">108,66</td><td class="num">6,00</td><td class="num">11</td><td class="num cpr-good">9,88</td><td class="num">19.246</td><td class="num">87</td><td class="num">0,45%</td><td class="num">5,65</td><td class="num">8.803</td></tr>
+        <tr><td class="td-name">10 - APARELHO - WHATSAPP</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">108,68</td><td class="num">6,00</td><td class="num">5</td><td class="num cpr-bad">21,74</td><td class="num">18.669</td><td class="num">57</td><td class="num">0,31%</td><td class="num">5,82</td><td class="num">8.317</td></tr>
+        <tr><td class="td-name">11 - APARELHO - WHATSAPP</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">108,59</td><td class="num">6,00</td><td class="num">3</td><td class="num cpr-bad">36,20</td><td class="num">19.895</td><td class="num">71</td><td class="num">0,36%</td><td class="num">5,46</td><td class="num">8.098</td></tr>
+        <tr><td class="td-name">12 - APARELHO - WHATSAPP</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">107,66</td><td class="num">6,00</td><td class="num">1</td><td class="num cpr-bad">107,66</td><td class="num">19.164</td><td class="num">62</td><td class="num">0,32%</td><td class="num">5,62</td><td class="num">8.904</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- GERAL -->
+  <div class="group-block">
+    <div class="group-header">
+      <span class="group-badge badge-geral">Geral — Fabíola + Laisa (Blefaro · Rino · Lifting · Lipo)</span>
+      <span class="group-totals">19 campanhas · <strong>R$ 8.722,50</strong> investidos · <strong>695 resultados</strong> · CPR médio <strong>R$ 12,55</strong></span>
+    </div>
+    <table>
+      <thead><tr>
+        <th>Campanha</th><th>Status</th>
+        <th class="num">Gasto (R$)</th><th class="num">Orç/dia (R$)</th>
+        <th class="num">Resultados</th><th class="num">CPR (R$)</th>
+        <th class="num">Impressões</th><th class="num">Alcance</th>
+      </tr></thead>
+      <tbody>
+        <tr><td class="td-name">00 - LIFTING - FABÍOLA - WHATSAPP</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">337,35</td><td class="num">15,00</td><td class="num">31</td><td class="num cpr-mid">10,88</td><td class="num">11.761</td><td class="num">5.631</td></tr>
+        <tr><td class="td-name">00 - LIPO DE PAPADA - FABÍOLA - WHATSAPP</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">333,90</td><td class="num">15,00</td><td class="num">26</td><td class="num cpr-mid">12,84</td><td class="num">34.374</td><td class="num">21.330</td></tr>
+        <tr><td class="td-name">05 - RINO - FABÍOLA - MENSAGEM - WHATSAPP</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">333,10</td><td class="num">15,00</td><td class="num">31</td><td class="num cpr-mid">10,75</td><td class="num">24.911</td><td class="num">11.820</td></tr>
+        <tr><td class="td-name">06 - RINO - FABÍOLA - MENSAGEM - WHATSAPP</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">336,62</td><td class="num">15,00</td><td class="num">46</td><td class="num cpr-good">7,32</td><td class="num">27.420</td><td class="num">15.683</td></tr>
+        <tr><td class="td-name">07 - RINO - FABÍOLA - MENSAGEM - WHATSAPP</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">330,66</td><td class="num">15,00</td><td class="num">28</td><td class="num cpr-mid">11,81</td><td class="num">25.220</td><td class="num">15.591</td></tr>
+        <tr><td class="td-name">01 - PACI MOD BLEFARO - FABÍOLA — Cópia</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">613,29</td><td class="num">15,00</td><td class="num">63</td><td class="num cpr-good">9,73</td><td class="num">37.438</td><td class="num">29.812</td></tr>
+        <tr><td class="td-name">03 - PACI MOD BLEFARO - FABÍOLA — Cópia Cópia</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">622,56</td><td class="num">15,00</td><td class="num">34</td><td class="num cpr-bad">18,31</td><td class="num">27.327</td><td class="num">21.946</td></tr>
+        <tr><td class="td-name">02 - PACI MOD BLEFARO - FABÍOLA — Cópia Cópia</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">616,03</td><td class="num">15,00</td><td class="num">31</td><td class="num cpr-bad">19,87</td><td class="num">33.483</td><td class="num">22.936</td></tr>
+        <tr><td class="td-name">02 - PACI MOD BLEFARO - LAISA — Cópia x3</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">403,03</td><td class="num">20,00</td><td class="num">38</td><td class="num cpr-mid">10,61</td><td class="num">20.756</td><td class="num">14.853</td></tr>
+        <tr><td class="td-name">01 - PACI MOD BLEFARO - LAISA — Cópia Cópia</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">407,00</td><td class="num">15,00</td><td class="num">41</td><td class="num cpr-good">9,93</td><td class="num">21.128</td><td class="num">18.631</td></tr>
+        <tr><td class="td-name">03 - PACI MOD BLEFARO - LAISA — Cópia x3</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">613,97</td><td class="num">15,00</td><td class="num">39</td><td class="num cpr-mid">15,74</td><td class="num">28.474</td><td class="num">22.606</td></tr>
+        <tr><td class="td-name">01 - PACI MOD BLEFARO - FABÍOLA — Cópia Cópia (A)</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">620,97</td><td class="num">15,00</td><td class="num">41</td><td class="num cpr-mid">15,15</td><td class="num">27.265</td><td class="num">16.570</td></tr>
+        <tr><td class="td-name">01 - PACI MOD BLEFARO - LAISA — Cópia x3 (A)</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">616,68</td><td class="num">15,00</td><td class="num">40</td><td class="num cpr-mid">15,42</td><td class="num">26.803</td><td class="num">16.465</td></tr>
+        <tr><td class="td-name">01 - PACI MOD BLEFARO - FABÍOLA — Cópia Cópia (B)</td><td><span class="status-badge status-inactive">Inativo</span></td><td class="num">591,08</td><td class="num">25,00</td><td class="num">20</td><td class="num cpr-bad">29,55</td><td class="num">16.973</td><td class="num">9.319</td></tr>
+        <tr><td class="td-name">01 - PACI MOD BLEFARO - FABÍOLA — Cópia Cópia (C)</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">615,16</td><td class="num">15,00</td><td class="num">67</td><td class="num cpr-good">9,18</td><td class="num">35.928</td><td class="num">19.681</td></tr>
+        <tr><td class="td-name">01 - PACI MOD BLEFARO - LAISA — Cópia x3 (B)</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">614,37</td><td class="num">15,00</td><td class="num">73</td><td class="num cpr-good">8,42</td><td class="num">35.188</td><td class="num">19.364</td></tr>
+        <tr><td class="td-name">01 - PACI MOD BLEFARO - LAISA — Cópia x3 (C)</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">609,53</td><td class="num">15,00</td><td class="num">28</td><td class="num cpr-bad">21,77</td><td class="num">20.291</td><td class="num">11.119</td></tr>
+        <tr><td class="td-name">01 - BLEFARO - CANAÃ - FABÍOLA - WHATSAPP</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">53,25</td><td class="num">15,00</td><td class="num">10</td><td class="num cpr-good">5,33</td><td class="num">2.716</td><td class="num">2.080</td></tr>
+        <tr><td class="td-name">01 - BLEFARO - CANAÃ - LAISA - WHATSAPP</td><td><span class="status-badge status-active">Ativo</span></td><td class="num">53,95</td><td class="num">15,00</td><td class="num">8</td><td class="num cpr-good">6,74</td><td class="num">2.379</td><td class="num">1.847</td></tr>
+      </tbody>
+    </table>
+  </div>
+
+</div>
+
+<div class="footer">
+  Relatório gerado em 20/05/2026 · Hurtz Company · Sidney · Período: 20/04 – 19/05/2026
+</div>
+
+<script>
+const GRUPOS = ['Adriana','Curionópolis','Danila','Eldorado','Geral'];
+const CORES = ['#f472b6','#60a5fa','#facc15','#ff6b35','#4ade80'];
+const CORES_ALPHA = ['rgba(244,114,182,0.7)','rgba(96,165,250,0.7)','rgba(250,204,21,0.7)','rgba(255,107,53,0.7)','rgba(74,222,128,0.7)'];
+
+const investGrupo = [1761.19, 502.96, 4104.75, 1190.91, 8722.50];
+const resultGrupo = [90, 56, 305, 91, 695];
+const cprGrupo = [19.57, 8.98, 13.46, 13.09, 12.55];
+
+const gridColor = 'rgba(46,49,71,0.8)';
+const textColor = '#7b7f99';
+const defaultFont = { family: "'Segoe UI', system-ui, sans-serif", size: 12 };
+Chart.defaults.color = textColor;
+Chart.defaults.font = defaultFont;
+
+// ---- CHART 1: Investimento por grupo
+new Chart(document.getElementById('chartInvestGrupo'), {
+  type: 'bar',
+  data: {
+    labels: GRUPOS,
+    datasets: [{ label: 'Investimento (R$)', data: investGrupo, backgroundColor: CORES_ALPHA, borderColor: CORES, borderWidth: 1, borderRadius: 6 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ' R$ ' + c.raw.toLocaleString('pt-BR',{minimumFractionDigits:2}) } } },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: textColor } },
+      y: { grid: { color: gridColor }, ticks: { color: textColor, callback: v => 'R$ '+v.toLocaleString('pt-BR') } }
+    }
+  }
+});
+
+// ---- CHART 2: Resultados por grupo
+new Chart(document.getElementById('chartResultGrupo'), {
+  type: 'bar',
+  data: {
+    labels: GRUPOS,
+    datasets: [{ label: 'Resultados', data: resultGrupo, backgroundColor: CORES_ALPHA, borderColor: CORES, borderWidth: 1, borderRadius: 6 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false } },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: textColor } },
+      y: { grid: { color: gridColor }, ticks: { color: textColor } }
+    }
+  }
+});
+
+// ---- CHART 3: CPR por grupo
+new Chart(document.getElementById('chartCPRGrupo'), {
+  type: 'bar',
+  data: {
+    labels: GRUPOS,
+    datasets: [{ label: 'CPR Médio (R$)', data: cprGrupo, backgroundColor: CORES_ALPHA, borderColor: CORES, borderWidth: 1, borderRadius: 6 }]
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { display: false }, tooltip: { callbacks: { label: c => ' R$ ' + c.raw.toFixed(2) } } },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: textColor } },
+      y: { grid: { color: gridColor }, ticks: { color: textColor, callback: v => 'R$ '+v.toFixed(2) } }
+    }
+  }
+});
+
+// ---- CHART 4: Scatter eficiência
+const scatterData = GRUPOS.map((g,i) => ({ x: investGrupo[i], y: resultGrupo[i], label: g }));
+new Chart(document.getElementById('chartEficiencia'), {
+  type: 'bubble',
+  data: {
+    datasets: GRUPOS.map((g,i) => ({
+      label: g,
+      data: [{ x: investGrupo[i], y: resultGrupo[i], r: Math.sqrt(resultGrupo[i]) * 1.8 }],
+      backgroundColor: CORES_ALPHA[i],
+      borderColor: CORES[i],
+      borderWidth: 2
+    }))
+  },
+  options: {
+    responsive: true, maintainAspectRatio: false,
+    plugins: { legend: { position: 'bottom', labels: { boxWidth: 10, padding: 12 } } },
+    scales: {
+      x: { grid: { color: gridColor }, ticks: { color: textColor, callback: v => 'R$'+v.toLocaleString('pt-BR') }, title: { display: true, text: 'Investimento (R$)', color: textColor } },
+      y: { grid: { color: gridColor }, ticks: { color: textColor }, title: { display: true, text: 'Resultados', color: textColor } }
+    }
+  }
+});
+
+// ---- All campaign data for rankings
+const allCamps = [
+  {n:'NINFOPLASTIA DANILA (1)',g:'Adriana',inv:834.72,res:44,cpr:18.97},
+  {n:'NINFOPLASTIA DANILA (2)',g:'Adriana',inv:824.11,res:41,cpr:20.10},
+  {n:'00-NINFOPLASTIA 14/05',g:'Adriana',inv:33.12,res:1,cpr:33.12},
+  {n:'01-NINFOPLASTIA 14/05',g:'Adriana',inv:33.55,res:2,cpr:16.78},
+  {n:'02-NINFOPLASTIA 14/05',g:'Adriana',inv:2.67,res:1,cpr:2.67},
+  {n:'03-NINFOPLASTIA 14/05',g:'Adriana',inv:33.02,res:1,cpr:33.02},
+  {n:'1-APARELHO CUR',g:'Curionópolis',inv:100.14,res:13,cpr:7.70},
+  {n:'2-APARELHO CUR',g:'Curionópolis',inv:100.86,res:12,cpr:8.41},
+  {n:'3-APARELHO CUR',g:'Curionópolis',inv:100.78,res:10,cpr:10.08},
+  {n:'4-APARELHO CUR',g:'Curionópolis',inv:100.06,res:13,cpr:7.70},
+  {n:'5-APARELHO CUR',g:'Curionópolis',inv:101.12,res:8,cpr:12.64},
+  {n:'RINO REM DANILA (1)',g:'Danila',inv:291.35,res:23,cpr:12.67},
+  {n:'RINO REM DANILA (2)',g:'Danila',inv:291.62,res:24,cpr:12.15},
+  {n:'RINO REM DANILA (3)',g:'Danila',inv:289.12,res:23,cpr:12.57},
+  {n:'CANAÃ RINO REM DANILA',g:'Danila',inv:288.74,res:25,cpr:11.55},
+  {n:'01-BLEFARO REM DANILA',g:'Danila',inv:293.11,res:17,cpr:17.24},
+  {n:'02-BLEFARO REM DANILA',g:'Danila',inv:290.59,res:20,cpr:14.53},
+  {n:'03-BLEFARO REM DANILA',g:'Danila',inv:288.21,res:26,cpr:11.09},
+  {n:'02-BLEFARO Cópia²',g:'Danila',inv:291.00,res:22,cpr:13.23},
+  {n:'01-BLEFARO Cópia²',g:'Danila',inv:293.38,res:14,cpr:20.96},
+  {n:'03-BLEFARO Cópia² (P)',g:'Danila',inv:199.21,res:16,cpr:12.45},
+  {n:'04-BLEFARO Cópia³',g:'Danila',inv:289.80,res:20,cpr:14.49},
+  {n:'04-BLEFARO Cópia⁴A',g:'Danila',inv:289.64,res:36,cpr:8.05},
+  {n:'04-BLEFARO Cópia⁴B',g:'Danila',inv:293.26,res:13,cpr:22.56},
+  {n:'04-BLEFARO Cópia⁵A',g:'Danila',inv:206.61,res:14,cpr:14.76},
+  {n:'04-BLEFARO Cópia⁵B',g:'Danila',inv:209.11,res:12,cpr:17.43},
+  {n:'APARELHO ELD (1)',g:'Eldorado',inv:181.03,res:15,cpr:12.07},
+  {n:'01-APARELHO ELD Cópia',g:'Eldorado',inv:179.86,res:21,cpr:8.56},
+  {n:'01-APARELHO ELD Cópia²',g:'Eldorado',inv:179.43,res:23,cpr:7.80},
+  {n:'06-APARELHO ELD',g:'Eldorado',inv:108.84,res:6,cpr:18.14},
+  {n:'07-APARELHO ELD',g:'Eldorado',inv:108.16,res:6,cpr:18.03},
+  {n:'09-APARELHO ELD',g:'Eldorado',inv:108.66,res:11,cpr:9.88},
+  {n:'10-APARELHO ELD',g:'Eldorado',inv:108.68,res:5,cpr:21.74},
+  {n:'11-APARELHO ELD',g:'Eldorado',inv:108.59,res:3,cpr:36.20},
+  {n:'12-APARELHO ELD',g:'Eldorado',inv:107.66,res:1,cpr:107.66},
+  {n:'LIFTING FABÍOLA',g:'Geral',inv:337.35,res:31,cpr:10.88},
+  {n:'LIPO PAPADA FABÍOLA',g:'Geral',inv:333.90,res:26,cpr:12.84},
+  {n:'05-RINO FABÍOLA',g:'Geral',inv:333.10,res:31,cpr:10.75},
+  {n:'06-RINO FABÍOLA',g:'Geral',inv:336.62,res:46,cpr:7.32},
+  {n:'07-RINO FABÍOLA',g:'Geral',inv:330.66,res:28,cpr:11.81},
+  {n:'01-BLEFARO FAB Cópia',g:'Geral',inv:613.29,res:63,cpr:9.73},
+  {n:'03-BLEFARO FAB Cópia²',g:'Geral',inv:622.56,res:34,cpr:18.31},
+  {n:'02-BLEFARO FAB Cópia²',g:'Geral',inv:616.03,res:31,cpr:19.87},
+  {n:'02-BLEFARO LAISA Cópia³(P)',g:'Geral',inv:403.03,res:38,cpr:10.61},
+  {n:'01-BLEFARO LAISA Cópia²',g:'Geral',inv:407.00,res:41,cpr:9.93},
+  {n:'03-BLEFARO LAISA Cópia³',g:'Geral',inv:613.97,res:39,cpr:15.74},
+  {n:'01-BLEFARO FAB Cópia²A',g:'Geral',inv:620.97,res:41,cpr:15.15},
+  {n:'01-BLEFARO LAISA Cópia³A',g:'Geral',inv:616.68,res:40,cpr:15.42},
+  {n:'01-BLEFARO FAB Cópia²B(P)',g:'Geral',inv:591.08,res:20,cpr:29.55},
+  {n:'01-BLEFARO FAB Cópia²C',g:'Geral',inv:615.16,res:67,cpr:9.18},
+  {n:'01-BLEFARO LAISA Cópia³B',g:'Geral',inv:614.37,res:73,cpr:8.42},
+  {n:'01-BLEFARO LAISA Cópia³C',g:'Geral',inv:609.53,res:28,cpr:21.77},
+  {n:'BLEFARO CANAÃ FABÍOLA',g:'Geral',inv:53.25,res:10,cpr:5.33},
+  {n:'BLEFARO CANAÃ LAISA',g:'Geral',inv:53.95,res:8,cpr:6.74},
+];
+
+const grupoColorMap = {Adriana:'rgba(244,114,182,0.75)',Curionópolis:'rgba(96,165,250,0.75)',Danila:'rgba(250,204,21,0.75)',Eldorado:'rgba(255,107,53,0.75)',Geral:'rgba(74,222,128,0.75)'};
+const grupoBorderMap = {Adriana:'#f472b6',Curionópolis:'#60a5fa',Danila:'#facc15',Eldorado:'#ff6b35',Geral:'#4ade80'};
+
+// Top 10 por resultados
+const top10Res = [...allCamps].sort((a,b)=>b.res-a.res).slice(0,10);
+new Chart(document.getElementById('chartTop10Res'), {
+  type: 'bar',
+  data: {
+    labels: top10Res.map(c=>c.n),
+    datasets: [{ label:'Resultados', data: top10Res.map(c=>c.res), backgroundColor: top10Res.map(c=>grupoColorMap[c.g]), borderColor: top10Res.map(c=>grupoBorderMap[c.g]), borderWidth:1, borderRadius:5 }]
+  },
+  options: {
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false} },
+    scales:{ x:{grid:{color:gridColor},ticks:{color:textColor}}, y:{grid:{display:false},ticks:{color:textColor,font:{size:11}}} }
+  }
+});
+
+// Top 10 por investimento
+const top10Inv = [...allCamps].sort((a,b)=>b.inv-a.inv).slice(0,10);
+new Chart(document.getElementById('chartTop10Inv'), {
+  type: 'bar',
+  data: {
+    labels: top10Inv.map(c=>c.n),
+    datasets: [{ label:'Gasto (R$)', data: top10Inv.map(c=>c.inv), backgroundColor: top10Inv.map(c=>grupoColorMap[c.g]), borderColor: top10Inv.map(c=>grupoBorderMap[c.g]), borderWidth:1, borderRadius:5 }]
+  },
+  options: {
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>' R$ '+c.raw.toLocaleString('pt-BR',{minimumFractionDigits:2})}} },
+    scales:{ x:{grid:{color:gridColor},ticks:{color:textColor,callback:v=>'R$'+v.toLocaleString('pt-BR')}}, y:{grid:{display:false},ticks:{color:textColor,font:{size:11}}} }
+  }
+});
+
+// Top 10 melhor CPR (sem outliers de 1 resultado)
+const campsMaisDe2 = allCamps.filter(c=>c.res>=2);
+const top10CPRBom = [...campsMaisDe2].sort((a,b)=>a.cpr-b.cpr).slice(0,10);
+new Chart(document.getElementById('chartTop10CPRBom'), {
+  type: 'bar',
+  data: {
+    labels: top10CPRBom.map(c=>c.n),
+    datasets: [{ label:'CPR (R$)', data: top10CPRBom.map(c=>c.cpr), backgroundColor: 'rgba(74,222,128,0.7)', borderColor:'#4ade80', borderWidth:1, borderRadius:5 }]
+  },
+  options: {
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>' R$ '+c.raw.toFixed(2)}} },
+    scales:{ x:{grid:{color:gridColor},ticks:{color:textColor,callback:v=>'R$'+v.toFixed(2)}}, y:{grid:{display:false},ticks:{color:textColor,font:{size:11}}} }
+  }
+});
+
+// Top 10 pior CPR
+const top10CPRRuim = [...allCamps].sort((a,b)=>b.cpr-a.cpr).slice(0,10);
+new Chart(document.getElementById('chartTop10CPRRuim'), {
+  type: 'bar',
+  data: {
+    labels: top10CPRRuim.map(c=>c.n),
+    datasets: [{ label:'CPR (R$)', data: top10CPRRuim.map(c=>c.cpr), backgroundColor: 'rgba(248,113,113,0.7)', borderColor:'#f87171', borderWidth:1, borderRadius:5 }]
+  },
+  options: {
+    indexAxis:'y', responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>' R$ '+c.raw.toFixed(2)}} },
+    scales:{ x:{grid:{color:gridColor},ticks:{color:textColor,callback:v=>'R$'+v.toFixed(2)}}, y:{grid:{display:false},ticks:{color:textColor,font:{size:11}}} }
+  }
+});
+
+// CPR TODAS as campanhas
+const sortedCPR = [...allCamps].sort((a,b)=>a.cpr-b.cpr);
+new Chart(document.getElementById('chartCPRAll'), {
+  type: 'bar',
+  data: {
+    labels: sortedCPR.map(c=>c.n),
+    datasets: [{ label:'CPR (R$)', data: sortedCPR.map(c=>c.cpr),
+      backgroundColor: sortedCPR.map(c=>c.cpr<=10?'rgba(74,222,128,0.75)':c.cpr<=18?'rgba(250,204,21,0.75)':'rgba(248,113,113,0.75)'),
+      borderColor: sortedCPR.map(c=>c.cpr<=10?'#4ade80':c.cpr<=18?'#facc15':'#f87171'),
+      borderWidth:1, borderRadius:4 }]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{display:false}, tooltip:{callbacks:{label:c=>' R$ '+c.raw.toFixed(2)}} },
+    scales:{
+      x:{grid:{color:gridColor},ticks:{color:textColor,font:{size:10},maxRotation:90}},
+      y:{grid:{color:gridColor},ticks:{color:textColor,callback:v=>'R$'+v.toFixed(0)}}
+    }
+  }
+});
+
+// Gasto vs Resultados todas
+const sortedInv = [...allCamps].sort((a,b)=>b.inv-a.inv);
+new Chart(document.getElementById('chartGastoRes'), {
+  type: 'bar',
+  data: {
+    labels: sortedInv.map(c=>c.n),
+    datasets: [
+      { label:'Investimento (R$)', data: sortedInv.map(c=>c.inv), backgroundColor:'rgba(96,165,250,0.6)', borderColor:'#60a5fa', borderWidth:1, borderRadius:4, yAxisID:'y' },
+      { label:'Resultados', data: sortedInv.map(c=>c.res), type:'line', borderColor:'#4ade80', backgroundColor:'rgba(74,222,128,0.15)', borderWidth:2, pointRadius:3, tension:0.3, fill:true, yAxisID:'y1' }
+    ]
+  },
+  options: {
+    responsive:true, maintainAspectRatio:false,
+    plugins:{ legend:{ position:'top', labels:{boxWidth:12, color:textColor} } },
+    scales:{
+      x:{grid:{color:gridColor},ticks:{color:textColor,font:{size:10},maxRotation:90}},
+      y:{grid:{color:gridColor},ticks:{color:textColor,callback:v=>'R$'+v.toLocaleString('pt-BR')},position:'left'},
+      y1:{grid:{display:false},ticks:{color:'#4ade80'},position:'right'}
+    }
+  }
+});
+</script>
+</body>
+</html>
