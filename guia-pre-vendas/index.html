@@ -79,12 +79,7 @@
       overflow-x: auto;
       white-space: nowrap;
     }
-    nav ul {
-      list-style: none;
-      display: inline-flex;
-      gap: 0;
-      padding: 0;
-    }
+    nav ul { list-style: none; display: inline-flex; gap: 0; padding: 0; }
     nav a {
       display: block;
       padding: 14px 18px;
@@ -98,13 +93,8 @@
     nav a:hover { color: var(--brasa); border-color: var(--brasa); }
 
     /* ── LAYOUT ── */
-    .container {
-      max-width: 820px;
-      margin: 0 auto;
-      padding: 0 24px;
-    }
+    .container { max-width: 820px; margin: 0 auto; padding: 0 24px; }
 
-    /* ── SECTIONS ── */
     section {
       padding: 56px 0 40px;
       border-bottom: 1px solid var(--areia);
@@ -127,14 +117,9 @@
       margin-bottom: 20px;
       line-height: 1.25;
     }
-    h3 {
-      font-size: 17px;
-      font-weight: 700;
-      color: var(--carvao);
-      margin: 32px 0 10px;
-    }
+    h3 { font-size: 17px; font-weight: 700; color: var(--carvao); margin: 32px 0 10px; }
     h4 {
-      font-size: 14px;
+      font-size: 13px;
       font-weight: 700;
       color: var(--grafite);
       margin: 24px 0 8px;
@@ -143,7 +128,6 @@
     }
     p { color: var(--grafite); margin-bottom: 16px; }
     p:last-child { margin-bottom: 0; }
-
     strong { color: var(--carvao); font-weight: 600; }
 
     /* ── STAT CARD ── */
@@ -157,100 +141,181 @@
       align-items: center;
       gap: 24px;
     }
-    .stat-number {
-      font-size: 48px;
-      font-weight: 700;
-      color: var(--brasa);
-      line-height: 1;
-      flex-shrink: 0;
-    }
+    .stat-number { font-size: 48px; font-weight: 700; color: var(--brasa); line-height: 1; flex-shrink: 0; }
     .stat-label { font-size: 15px; color: var(--offwhite); line-height: 1.5; }
 
-    /* ── PIPELINE ── */
-    .pipeline {
-      display: grid;
-      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
-      gap: 12px;
-      margin: 28px 0;
+    /* ── CALLOUT ── */
+    .callout {
+      background: var(--brasa-faint);
+      border: 1px solid var(--brasa-light);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: var(--grafite);
     }
-    .pipeline-stage {
+    .callout strong { color: var(--brasa); }
+
+    /* ══════════════════════════════════════════════
+       JORNADA DO LEAD — pipeline integrado
+    ══════════════════════════════════════════════ */
+
+    .jornada {
+      margin: 32px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 0;
+    }
+
+    /* Etapa principal do pipeline */
+    .etapa {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 0 20px;
+    }
+
+    /* Linha vertical + ponto */
+    .etapa-linha {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+    .etapa-dot {
+      width: 28px;
+      height: 28px;
+      border-radius: 50%;
+      border: 3px solid var(--brasa);
+      background: var(--offwhite);
+      flex-shrink: 0;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .etapa-dot.filled { background: var(--brasa); }
+    .etapa-dot.verde  { border-color: var(--verde); background: var(--verde); }
+    .etapa-dot.vermelho { border-color: var(--vermelho); background: var(--vermelho); }
+    .etapa-dot.pedra  { border-color: var(--pedra); background: var(--pedra); }
+    .etapa-vert {
+      width: 2px;
+      flex: 1;
+      background: var(--areia);
+      min-height: 20px;
+    }
+
+    /* Card da etapa */
+    .etapa-card {
       background: #fff;
       border: 1px solid var(--areia);
       border-radius: 8px;
-      padding: 18px 16px;
-      position: relative;
+      padding: 18px 20px;
+      margin-bottom: 8px;
     }
-    .pipeline-stage::after {
-      content: '→';
-      position: absolute;
-      right: -14px;
-      top: 50%;
-      transform: translateY(-50%);
-      color: var(--pedra);
-      font-size: 16px;
-      z-index: 1;
-    }
-    .pipeline-stage:last-child::after { display: none; }
-    .stage-dot {
-      width: 10px;
-      height: 10px;
-      border-radius: 50%;
+    .etapa-card.destaque { border-color: var(--brasa); border-width: 2px; }
+    .etapa-card.success  { border-color: var(--verde);   border-left: 4px solid var(--verde); }
+    .etapa-card.lost     { border-color: var(--pedra);   border-left: 4px solid var(--pedra); }
+
+    .etapa-tag {
       display: inline-block;
-      margin-right: 6px;
-    }
-    .dot-new    { background: #8C8880; }
-    .dot-qual   { background: #3A6FBF; }
-    .dot-ready  { background: #1A7A4A; }
-    .dot-disq   { background: #B52A2A; }
-    .stage-title {
-      font-size: 13px;
+      font-size: 10px;
       font-weight: 700;
-      color: var(--carvao);
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 2px 8px;
+      border-radius: 2px;
       margin-bottom: 6px;
     }
-    .stage-desc {
+    .etapa-tag.pipeline { background: var(--brasa); color: #fff; }
+    .etapa-tag.success  { background: var(--verde); color: #fff; }
+    .etapa-tag.lost     { background: var(--pedra); color: #fff; }
+
+    .etapa-titulo { font-size: 16px; font-weight: 700; color: var(--carvao); margin-bottom: 6px; }
+    .etapa-desc   { font-size: 13px; color: var(--grafite); line-height: 1.55; }
+
+    /* Ação principal na transição */
+    .etapa-acao {
       font-size: 12px;
-      color: var(--pedra);
-      line-height: 1.5;
+      font-weight: 600;
+      color: var(--brasa);
+      margin-top: 10px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .etapa-acao::before {
+      content: '▶';
+      font-size: 9px;
     }
 
-    /* ── FOLLOW-UP STAGES ── */
-    .fu-grid {
+    /* Bloco de follow-up dentro da jornada */
+    .fu-branch {
+      display: grid;
+      grid-template-columns: 28px 1fr;
+      gap: 0 20px;
+      margin-left: 0;
+    }
+    .fu-branch-linha {
       display: flex;
       flex-direction: column;
-      gap: 12px;
-      margin: 24px 0;
+      align-items: center;
     }
-    .fu-card {
-      background: #fff;
-      border: 1px solid var(--areia);
+    .fu-branch-connector {
+      width: 2px;
+      background: var(--areia);
+      flex: 1;
+    }
+    .fu-branch-dot {
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--brasa-light);
+      border: 2px solid var(--brasa);
+      flex-shrink: 0;
+    }
+
+    .fu-inline {
+      background: var(--brasa-faint);
+      border: 1px solid var(--brasa-light);
       border-left: 4px solid var(--brasa);
       border-radius: 0 8px 8px 0;
-      padding: 18px 20px;
-      display: grid;
-      grid-template-columns: 48px 1fr;
-      gap: 16px;
-      align-items: start;
+      padding: 14px 16px;
+      margin-bottom: 8px;
     }
-    .fu-tag {
-      font-size: 13px;
+    .fu-inline-header {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 6px;
+    }
+    .fu-badge {
+      font-size: 11px;
       font-weight: 700;
       color: var(--brasa);
-      padding-top: 2px;
+      background: #fff;
+      border: 1px solid var(--brasa-light);
+      border-radius: 3px;
+      padding: 2px 7px;
+      flex-shrink: 0;
     }
-    .fu-title { font-size: 15px; font-weight: 700; color: var(--carvao); margin-bottom: 4px; }
-    .fu-desc  { font-size: 13px; color: var(--grafite); line-height: 1.5; }
+    .fu-inline-titulo { font-size: 13px; font-weight: 700; color: var(--carvao); }
+    .fu-inline-desc   { font-size: 12px; color: var(--grafite); line-height: 1.5; }
+
+    /* Saída negativa (desqualificado, F6, perdeu) */
+    .fu-exit {
+      background: #fff;
+      border: 1px solid var(--areia);
+      border-left: 4px solid var(--pedra);
+      border-radius: 0 8px 8px 0;
+      padding: 12px 16px;
+      margin-bottom: 8px;
+    }
+    .fu-exit-titulo { font-size: 12px; font-weight: 700; color: var(--pedra); margin-bottom: 3px; }
+    .fu-exit-desc   { font-size: 12px; color: var(--pedra); line-height: 1.45; }
 
     /* ── CADÊNCIA ── */
-    .cadencia {
-      margin: 24px 0;
-      display: flex;
-      flex-direction: column;
-      gap: 2px;
-    }
+    .cadencia { margin: 24px 0; display: flex; flex-direction: column; gap: 2px; }
     .cadencia-row {
       display: grid;
-      grid-template-columns: 48px 1fr 80px;
+      grid-template-columns: 48px 1fr 90px;
       gap: 12px;
       align-items: center;
       padding: 12px 16px;
@@ -259,22 +324,20 @@
       border-radius: 4px;
       font-size: 13px;
     }
-    .cadencia-row.weekend {
-      background: var(--offwhite);
-      color: var(--pedra);
-    }
-    .cadencia-day {
-      font-weight: 700;
-      color: var(--brasa);
-    }
+    .cadencia-row.weekend { background: var(--offwhite); color: var(--pedra); }
+    .cadencia-row.f1-row  { border-left: 3px solid var(--brasa); }
+    .cadencia-row.f2-row  { border-left: 3px solid var(--brasa-dark); }
+    .cadencia-day { font-weight: 700; color: var(--brasa); }
     .cadencia-row.weekend .cadencia-day { color: var(--pedra); }
     .cadencia-action { color: var(--grafite); }
-    .cadencia-canal {
+    .cadencia-canal { font-size: 11px; font-weight: 600; letter-spacing: 0.06em; color: var(--pedra); text-align: right; }
+    .cadencia-label {
       font-size: 11px;
-      font-weight: 600;
-      letter-spacing: 0.06em;
-      color: var(--pedra);
-      text-align: right;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--brasa);
+      padding: 10px 0 4px;
     }
 
     /* ── SCRIPT BOXES ── */
@@ -302,171 +365,57 @@
       font-style: normal;
     }
 
-    /* ── OBJECTIONS ── */
-    .obj-list {
-      display: flex;
-      flex-direction: column;
-      gap: 16px;
-      margin: 24px 0;
-    }
-    .obj-card {
-      background: #fff;
-      border: 1px solid var(--areia);
-      border-radius: 8px;
-      overflow: hidden;
-    }
-    .obj-header {
-      background: var(--carvao);
-      color: var(--offwhite);
-      padding: 12px 18px;
-      font-size: 13px;
-      font-weight: 600;
-    }
-    .obj-body {
-      padding: 16px 18px;
-    }
+    /* ── OBJEÇÕES ── */
+    .obj-list { display: flex; flex-direction: column; gap: 16px; margin: 24px 0; }
+    .obj-card { background: #fff; border: 1px solid var(--areia); border-radius: 8px; overflow: hidden; }
+    .obj-header { background: var(--carvao); color: var(--offwhite); padding: 12px 18px; font-size: 13px; font-weight: 600; }
+    .obj-body { padding: 16px 18px; }
 
-    /* ── SEQUENCE TABLE ── */
-    .seq-table {
-      width: 100%;
-      border-collapse: collapse;
-      margin: 20px 0;
-      font-size: 14px;
-    }
-    .seq-table th {
-      background: var(--carvao);
-      color: var(--offwhite);
-      padding: 10px 14px;
-      text-align: left;
-      font-weight: 600;
-      font-size: 12px;
-      letter-spacing: 0.06em;
-    }
-    .seq-table td {
-      padding: 10px 14px;
-      border-bottom: 1px solid var(--areia);
-      color: var(--grafite);
-    }
+    /* ── TABELA ── */
+    .seq-table { width: 100%; border-collapse: collapse; margin: 20px 0; font-size: 14px; }
+    .seq-table th { background: var(--carvao); color: var(--offwhite); padding: 10px 14px; text-align: left; font-weight: 600; font-size: 12px; letter-spacing: 0.06em; }
+    .seq-table td { padding: 10px 14px; border-bottom: 1px solid var(--areia); color: var(--grafite); }
     .seq-table tr:last-child td { border-bottom: none; }
     .seq-table tr:nth-child(even) td { background: #fff; }
 
-    /* ── DO/DONT ── */
-    .rules-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 16px;
-      margin: 24px 0;
-    }
+    /* ── REGRAS ── */
+    .rules-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin: 24px 0; }
     @media (max-width: 600px) { .rules-grid { grid-template-columns: 1fr; } }
     .rules-col { background: #fff; border: 1px solid var(--areia); border-radius: 8px; overflow: hidden; }
-    .rules-col-header {
-      padding: 12px 18px;
-      font-size: 12px;
-      font-weight: 700;
-      letter-spacing: 0.1em;
-      text-transform: uppercase;
-    }
-    .rules-col-header.do   { background: var(--verde); color: #fff; }
+    .rules-col-header { padding: 12px 18px; font-size: 12px; font-weight: 700; letter-spacing: 0.1em; text-transform: uppercase; }
+    .rules-col-header.do   { background: var(--verde);    color: #fff; }
     .rules-col-header.dont { background: var(--vermelho); color: #fff; }
     .rules-col ul { list-style: none; padding: 14px 18px; display: flex; flex-direction: column; gap: 8px; }
     .rules-col li { font-size: 13px; color: var(--grafite); padding-left: 18px; position: relative; }
     .rules-col li::before { position: absolute; left: 0; }
-    .rules-col.do   li::before { content: '✓'; color: var(--verde); font-weight: 700; }
+    .rules-col.do   li::before { content: '✓'; color: var(--verde);    font-weight: 700; }
     .rules-col.dont li::before { content: '✗'; color: var(--vermelho); font-weight: 700; }
 
     /* ── GOLD RULES ── */
-    .gold-rules {
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin: 24px 0;
-    }
-    .gold-rule {
-      display: flex;
-      gap: 16px;
-      background: #fff;
-      border: 1px solid var(--areia);
-      border-radius: 8px;
-      padding: 16px 18px;
-      align-items: flex-start;
-    }
-    .gold-num {
-      font-size: 18px;
-      font-weight: 700;
-      color: var(--brasa);
-      flex-shrink: 0;
-      line-height: 1.4;
-      min-width: 24px;
-    }
+    .gold-rules { display: flex; flex-direction: column; gap: 12px; margin: 24px 0; }
+    .gold-rule { display: flex; gap: 16px; background: #fff; border: 1px solid var(--areia); border-radius: 8px; padding: 16px 18px; align-items: flex-start; }
+    .gold-num { font-size: 18px; font-weight: 700; color: var(--brasa); flex-shrink: 0; line-height: 1.4; min-width: 24px; }
     .gold-text strong { display: block; font-size: 14px; color: var(--carvao); margin-bottom: 2px; }
     .gold-text p { font-size: 13px; color: var(--grafite); margin: 0; }
 
-    /* ── SUMMARY BOX ── */
-    .summary-box {
-      background: var(--carvao);
-      color: var(--offwhite);
-      border-radius: 10px;
-      padding: 36px 32px;
-      margin: 32px 0;
-    }
+    /* ── SUMMARY ── */
+    .summary-box { background: var(--carvao); color: var(--offwhite); border-radius: 10px; padding: 36px 32px; margin: 32px 0; }
     .summary-box h3 { color: var(--brasa); margin-top: 0; font-size: 20px; }
     .summary-box p { color: #ccc; }
-    .summary-steps {
-      list-style: none;
-      display: flex;
-      flex-direction: column;
-      gap: 12px;
-      margin-top: 20px;
-    }
-    .summary-steps li {
-      display: flex;
-      gap: 14px;
-      align-items: flex-start;
-    }
-    .step-num {
-      background: var(--brasa);
-      color: #fff;
-      font-weight: 700;
-      font-size: 13px;
-      width: 26px;
-      height: 26px;
-      border-radius: 50%;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      flex-shrink: 0;
-    }
+    .summary-steps { list-style: none; display: flex; flex-direction: column; gap: 12px; margin-top: 20px; }
+    .summary-steps li { display: flex; gap: 14px; align-items: flex-start; }
+    .step-num { background: var(--brasa); color: #fff; font-weight: 700; font-size: 13px; width: 26px; height: 26px; border-radius: 50%; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
     .step-text { font-size: 14px; color: var(--offwhite); line-height: 1.5; padding-top: 2px; }
     .step-text strong { color: #fff; }
 
     /* ── FOOTER ── */
-    footer {
-      background: var(--carvao);
-      color: var(--pedra);
-      text-align: center;
-      padding: 32px 24px;
-      font-size: 13px;
-    }
+    footer { background: var(--carvao); color: var(--pedra); text-align: center; padding: 32px 24px; font-size: 13px; }
     footer strong { color: var(--offwhite); }
-
-    /* ── CALLOUT ── */
-    .callout {
-      background: var(--brasa-faint);
-      border: 1px solid var(--brasa-light);
-      border-radius: 8px;
-      padding: 18px 20px;
-      margin: 20px 0;
-      font-size: 14px;
-      color: var(--grafite);
-    }
-    .callout strong { color: var(--brasa); }
 
     /* ── RESPONSIVE ── */
     @media (max-width: 600px) {
       .stat-card { flex-direction: column; gap: 8px; }
       .stat-number { font-size: 36px; }
-      .pipeline { grid-template-columns: 1fr 1fr; }
-      .pipeline-stage::after { display: none; }
       .cadencia-row { grid-template-columns: 44px 1fr; }
       .cadencia-canal { display: none; }
       header { padding: 36px 20px 32px; }
@@ -487,8 +436,7 @@
 <nav>
   <ul>
     <li><a href="#mentalidade">Mentalidade</a></li>
-    <li><a href="#crm">CRM</a></li>
-    <li><a href="#estagios">Estágios F1–F6</a></li>
+    <li><a href="#jornada">Jornada do Lead</a></li>
     <li><a href="#cadencia">Cadência D1–D12</a></li>
     <li><a href="#scripts">Scripts</a></li>
     <li><a href="#confirmacao">Confirmação</a></li>
@@ -518,178 +466,357 @@
     </div>
   </section>
 
-  <!-- PARTE 2 — CRM -->
-  <section id="crm">
+  <!-- PARTE 2 — JORNADA INTEGRADA -->
+  <section id="jornada">
     <p class="section-number">Parte 2</p>
-    <h2>CRM — Organize seus leads para não perder nenhum</h2>
+    <h2>A jornada completa do lead — pipeline e follow-up juntos</h2>
 
-    <p>Sem organização, o follow-up não funciona. Você esquece quem está em qual fase, perde o timing de retorno e mistura leads quentes com frios. O CRM resolve isso: cada lead tem uma ficha com todo o histórico e próximo passo definido.</p>
+    <p>Pipeline e follow-up não são coisas separadas. O follow-up <strong>faz parte da jornada</strong> — ele é o que acontece entre uma etapa e outra quando o lead para de responder. Cada estágio (F1 a F6) tem um lugar específico no caminho.</p>
+    <p>Abaixo está a jornada completa. Leia de cima pra baixo: o caminho ideal segue pela coluna principal, e os blocos em laranja mostram o que fazer quando o lead trava em cada ponto.</p>
 
-    <h3>As 4 etapas do pipeline</h3>
+    <div class="jornada">
 
-    <div class="pipeline">
-      <div class="pipeline-stage">
-        <div class="stage-title"><span class="stage-dot dot-new"></span>Novo</div>
-        <div class="stage-desc">Lead acabou de demonstrar interesse. Primeiro contato em até 5 minutos.</div>
+      <!-- ── ETAPA: NOVO ── -->
+      <div class="etapa">
+        <div class="etapa-linha">
+          <div class="etapa-dot filled"></div>
+          <div class="etapa-vert"></div>
+        </div>
+        <div>
+          <div class="etapa-card destaque">
+            <div><span class="etapa-tag pipeline">Etapa 1</span></div>
+            <div class="etapa-titulo">NOVO — Lead acabou de chegar</div>
+            <div class="etapa-desc">Demonstrou interesse (preencheu formulário, respondeu story, pediu informação, foi indicado). Ainda não foi abordado.</div>
+            <div class="etapa-acao">D1: Primeiro contato em até 5 minutos — mensagem WA + ligação se não responder em 2h</div>
+          </div>
+        </div>
       </div>
-      <div class="pipeline-stage">
-        <div class="stage-title"><span class="stage-dot dot-qual"></span>Em Qualificação</div>
-        <div class="stage-desc">Você está em contato ativo, descobrindo objetivo, urgência e perfil.</div>
+
+      <!-- BRANCH: F1 -->
+      <div class="fu-branch">
+        <div class="fu-branch-linha">
+          <div class="fu-branch-connector"></div>
+          <div class="fu-branch-dot"></div>
+          <div class="fu-branch-connector"></div>
+        </div>
+        <div>
+          <div class="fu-inline">
+            <div class="fu-inline-header">
+              <span class="fu-badge">F1</span>
+              <span class="fu-inline-titulo">Não respondeu nada — D2 a D5</span>
+            </div>
+            <div class="fu-inline-desc">Objetivo: conseguir a primeira resposta, qualquer resposta. Tom multicanal, sem pressão ainda. Cada dia tem um gancho diferente: retomada, prova social, hack do bom dia errado, áudio pessoal. Se responder em qualquer momento: avança para Em Qualificação. Se chegar ao D5 sem nenhuma resposta: entra em F2.</div>
+          </div>
+        </div>
       </div>
-      <div class="pipeline-stage">
-        <div class="stage-title"><span class="stage-dot dot-ready"></span>Qualificado</div>
-        <div class="stage-desc">Lead tem perfil, momento e reunião/ligação confirmada para proposta.</div>
+
+      <!-- BRANCH: F2 -->
+      <div class="fu-branch">
+        <div class="fu-branch-linha">
+          <div class="fu-branch-connector"></div>
+          <div class="fu-branch-dot"></div>
+          <div class="fu-branch-connector"></div>
+        </div>
+        <div>
+          <div class="fu-inline">
+            <div class="fu-inline-header">
+              <span class="fu-badge">F2</span>
+              <span class="fu-inline-titulo">Respondeu uma vez e sumiu, ou continua sem resposta — D8 a D12</span>
+            </div>
+            <div class="fu-inline-desc">Segunda semana. Novo ângulo com número específico de resultado (D8), áudio de autoridade (D10), mensagem de pré break-up (D12). Se responder: volta para Em Qualificação. Se chegar ao D12 sem resposta: encerra a cadência ativa.</div>
+          </div>
+        </div>
       </div>
-      <div class="pipeline-stage">
-        <div class="stage-title"><span class="stage-dot dot-disq"></span>Desqualificado</div>
-        <div class="stage-desc">Sem perfil ou sem momento agora. Recontato em 60–90 dias se for timing.</div>
+
+      <!-- SAÍDA NEGATIVA: F6 -->
+      <div class="fu-branch">
+        <div class="fu-branch-linha">
+          <div class="fu-branch-connector"></div>
+          <div class="fu-branch-dot" style="border-color: var(--pedra); background: var(--pedra);"></div>
+          <div class="fu-branch-connector"></div>
+        </div>
+        <div>
+          <div class="fu-exit">
+            <div class="fu-exit-titulo">Esgotou F1 + F2 sem resposta → Desqualificado (tag: Sem Resposta) → F6</div>
+            <div class="fu-exit-desc">Nutrição automática. Contato a cada 60–90 dias com novidade, sem tom de retomada. Se reengajar: volta para Em Qualificação.</div>
+          </div>
+        </div>
       </div>
-    </div>
 
-    <h3>O que fazer em cada etapa</h3>
+      <!-- ── ETAPA: EM QUALIFICAÇÃO ── -->
+      <div class="etapa">
+        <div class="etapa-linha">
+          <div class="etapa-dot filled"></div>
+          <div class="etapa-vert"></div>
+        </div>
+        <div>
+          <div class="etapa-card destaque">
+            <div><span class="etapa-tag pipeline">Etapa 2</span></div>
+            <div class="etapa-titulo">EM QUALIFICAÇÃO — Você está em contato ativo</div>
+            <div class="etapa-desc">O lead respondeu. Você está descobrindo: qual é o objetivo dele (imóvel, veículo, serviço)? Qual a urgência? Ele consegue pagar a parcela? Decide sozinho? Colete essas informações antes de apresentar qualquer proposta. Qualificação antes de proposta = menos objeção de preço depois.</div>
+            <div class="etapa-acao">Faça as perguntas certas. Só apresente proposta quando souber o perfil completo.</div>
+          </div>
+        </div>
+      </div>
 
-    <h4>Novo — Primeiro contato em até 5 minutos</h4>
-    <p>Verifique o perfil rapidamente, mande a primeira mensagem WA e ligue caso não responda em 2 horas. Lead novo esfria rápido. Cada minuto depois do interesse demonstrado, a chance de resposta cai.</p>
-    <p><strong>Campos a registrar:</strong> nome completo, como chegou (story, indicação, anúncio, abordagem), telefone e Instagram.</p>
+      <!-- BRANCH: F3 -->
+      <div class="fu-branch">
+        <div class="fu-branch-linha">
+          <div class="fu-branch-connector"></div>
+          <div class="fu-branch-dot"></div>
+          <div class="fu-branch-connector"></div>
+        </div>
+        <div>
+          <div class="fu-inline">
+            <div class="fu-inline-header">
+              <span class="fu-badge">F3</span>
+              <span class="fu-inline-titulo">Quer conversar mas não fechou o horário</span>
+            </div>
+            <div class="fu-inline-desc">Disse "me manda os horários", "pode me ligar", "quero ver" — mas não confirmou data. Esse lead está quente. Cada hora que passa, esfria. Use o fala-fecha: cada mensagem propõe um horário novo, sem pressão, com gancho leve. Não deixa passar mais de 24h sem retomar. Quase ninguém resiste até a 5ª mensagem com horário.</div>
+          </div>
+        </div>
+      </div>
 
-    <h4>Em Qualificação — Descubra antes de propor</h4>
-    <p>Você está avaliando: qual o objetivo (veículo, imóvel, serviço)? Qual a urgência? Ele consegue pagar a parcela? Decide sozinho ou precisa consultar alguém?</p>
-    <p>Faça as perguntas certas antes de apresentar qualquer proposta. Coleta de informações antes de proposta = menos objeção de preço depois.</p>
+      <!-- ── ETAPA: QUALIFICADO ── -->
+      <div class="etapa">
+        <div class="etapa-linha">
+          <div class="etapa-dot filled"></div>
+          <div class="etapa-vert"></div>
+        </div>
+        <div>
+          <div class="etapa-card destaque">
+            <div><span class="etapa-tag pipeline">Etapa 3</span></div>
+            <div class="etapa-titulo">QUALIFICADO — Reunião ou ligação confirmada</div>
+            <div class="etapa-desc">Você já sabe o objetivo, o lead tem perfil, tem momento, e confirmou o horário para a proposta. Agora o foco é garantir que ele apareça. Prepare a proposta personalizada para o perfil específico dele.</div>
+            <div class="etapa-acao">Execute a sequência de confirmação: confirmação escrita → lembrete 48h → ligação D-1 → mensagem 2h antes com link</div>
+          </div>
+        </div>
+      </div>
 
-    <h4>Qualificado — Pronto para a proposta</h4>
-    <p>Você já sabe o objetivo, o lead tem perfil, tem momento, e a reunião/ligação está marcada. Prepare a proposta personalizada, confirme 24h antes e confirme de novo 2–3 horas antes.</p>
+      <!-- BRANCH: F4 -->
+      <div class="fu-branch">
+        <div class="fu-branch-linha">
+          <div class="fu-branch-connector"></div>
+          <div class="fu-branch-dot"></div>
+          <div class="fu-branch-connector"></div>
+        </div>
+        <div>
+          <div class="fu-inline">
+            <div class="fu-inline-header">
+              <span class="fu-badge">F4</span>
+              <span class="fu-inline-titulo">Agendou mas deu no-show</span>
+            </div>
+            <div class="fu-inline-desc">Confirmou e não apareceu. Na maioria das vezes é imprevisto, não desistência. Máximo 3 tentativas de reagendamento, tom vai ficando mais sério a cada uma: educado → direto → firme. Após 3 no-shows sem resposta: F6.</div>
+          </div>
+        </div>
+      </div>
 
-    <h4>Desqualificado — Não descarte definitivamente</h4>
-    <p>Registre o motivo: <strong>Fora do perfil</strong> (sem renda, não quer consórcio), <strong>Timing ruim</strong> (perfil mas não é agora), <strong>Sem resposta</strong> (esgotou a cadência). Para os dois últimos: tarefa de recontato em 60–90 dias.</p>
+      <!-- SAÍDA NEGATIVA: F6 por no-show -->
+      <div class="fu-branch">
+        <div class="fu-branch-linha">
+          <div class="fu-branch-connector"></div>
+          <div class="fu-branch-dot" style="border-color: var(--pedra); background: var(--pedra);"></div>
+          <div class="fu-branch-connector"></div>
+        </div>
+        <div>
+          <div class="fu-exit">
+            <div class="fu-exit-titulo">3 no-shows sem resposta → F6</div>
+            <div class="fu-exit-desc">Nutrição a cada 60–90 dias. Se reengajar: volta para Em Qualificação.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ETAPA: APRESENTAÇÃO ── -->
+      <div class="etapa">
+        <div class="etapa-linha">
+          <div class="etapa-dot filled"></div>
+          <div class="etapa-vert"></div>
+        </div>
+        <div>
+          <div class="etapa-card destaque">
+            <div><span class="etapa-tag pipeline">Etapa 4</span></div>
+            <div class="etapa-titulo">APRESENTAÇÃO — Proposta na mesa</div>
+            <div class="etapa-desc">O lead apareceu. Você apresenta a proposta personalizada, mostra os números, tira dúvidas. Registre o resultado imediatamente após a conversa: interesse real, objeções levantadas, próximo passo combinado.</div>
+            <div class="etapa-acao">Registre o resultado imediatamente. Lead com "vou pensar" sem prazo definido vira F5.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- BRANCH: F5 -->
+      <div class="fu-branch">
+        <div class="fu-branch-linha">
+          <div class="fu-branch-connector"></div>
+          <div class="fu-branch-dot"></div>
+          <div class="fu-branch-connector"></div>
+        </div>
+        <div>
+          <div class="fu-inline">
+            <div class="fu-inline-header">
+              <span class="fu-badge">F5</span>
+              <span class="fu-inline-titulo">Ouviu a proposta mas não fechou</span>
+            </div>
+            <div class="fu-inline-desc">Participou mas não comprou. Revisão mensal: uma vez por mês você olha todos os F5 e faz uma nova tentativa com novo ângulo. Tom de "gerente de relacionamento" — não de vendedor insistindo. "Lembro que conversamos em [mês]. Surgiu uma condição que pode fazer sentido pro seu perfil." Se após 3 meses sem reengajamento: F6.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ETAPA: FECHOU ── -->
+      <div class="etapa">
+        <div class="etapa-linha">
+          <div class="etapa-dot verde"></div>
+          <div class="etapa-vert"></div>
+        </div>
+        <div>
+          <div class="etapa-card success">
+            <div><span class="etapa-tag success">Resultado</span></div>
+            <div class="etapa-titulo">FECHOU — Cliente confirmado</div>
+            <div class="etapa-desc">Proposta aceita, contrato assinado. Registre a data e o valor do contrato. Acione o processo de onboarding do cliente. Esse fechamento gera o resultado e a prova social que você vai usar para os próximos leads.</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ── ETAPA: PERDEU / F6 ── -->
+      <div class="etapa">
+        <div class="etapa-linha">
+          <div class="etapa-dot pedra"></div>
+          <div class="etapa-vert" style="background: transparent;"></div>
+        </div>
+        <div>
+          <div class="etapa-card lost">
+            <div><span class="etapa-tag lost">Saída</span></div>
+            <div class="etapa-titulo">PERDEU → F6 (Nutrição de Longo Prazo)</div>
+            <div class="etapa-desc">Não fechou e não tem perspectiva de retorno imediato. Não descarte definitivamente: contato a cada 60–90 dias com uma novidade ou resultado novo, sem mencionar a conversa anterior. "Lembrei de você porque surgiu [evento, case, condição]." O timing muda. Quem estava "fora do momento" em março pode estar pronto em setembro.</div>
+          </div>
+        </div>
+      </div>
+
+    </div><!-- /jornada -->
+
+    <h3>Onde cada estágio de follow-up vive na jornada</h3>
+    <table class="seq-table">
+      <thead>
+        <tr>
+          <th>Estágio</th>
+          <th>Onde fica na jornada</th>
+          <th>Objetivo</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td><strong>F1</strong></td>
+          <td>Entre Novo e Em Qualificação — lead nunca respondeu</td>
+          <td>Conseguir a primeira resposta (D2–D5)</td>
+        </tr>
+        <tr>
+          <td><strong>F2</strong></td>
+          <td>Entre Novo e Em Qualificação — respondeu uma vez e sumiu, ou F1 esgotado</td>
+          <td>Novo ângulo antes de encerrar a cadência (D8–D12)</td>
+        </tr>
+        <tr>
+          <td><strong>F3</strong></td>
+          <td>Entre Em Qualificação e Qualificado — quer agendar mas não fechou horário</td>
+          <td>Fechar o horário o mais rápido possível</td>
+        </tr>
+        <tr>
+          <td><strong>F4</strong></td>
+          <td>Entre Qualificado e Apresentação — deu no-show</td>
+          <td>Reagendar (máx 3 tentativas)</td>
+        </tr>
+        <tr>
+          <td><strong>F5</strong></td>
+          <td>Após Apresentação — ouviu mas não fechou</td>
+          <td>Nova tentativa mensal com novo ângulo</td>
+        </tr>
+        <tr>
+          <td><strong>F6</strong></td>
+          <td>Após esgotar F1+F2, após 3 no-shows, ou após Perdeu</td>
+          <td>Nutrição de longo prazo, sem pressão, a cada 60–90 dias</td>
+        </tr>
+      </tbody>
+    </table>
+
   </section>
 
-  <!-- PARTE 3 — ESTÁGIOS F1-F6 -->
-  <section id="estagios">
-    <p class="section-number">Parte 3</p>
-    <h2>Os 6 estágios de follow-up</h2>
-
-    <p>Cada situação do lead exige abordagem diferente. Não existe só "segui" e "não segui".</p>
-
-    <div class="fu-grid">
-      <div class="fu-card">
-        <div class="fu-tag">F1</div>
-        <div>
-          <div class="fu-title">Nunca respondeu</div>
-          <div class="fu-desc">Objetivo: conseguir a primeira resposta — qualquer resposta. Tom: cadência multicanal sem pressão ainda. Duração: D2 a D5.</div>
-        </div>
-      </div>
-      <div class="fu-card">
-        <div class="fu-tag">F2</div>
-        <div>
-          <div class="fu-title">Respondeu mas sumiu</div>
-          <div class="fu-desc">Respondeu, demonstrou interesse, mas parou antes de marcar. Tom mais direto com leve urgência, novo ângulo. Duração: D8 a D12.</div>
-        </div>
-      </div>
-      <div class="fu-card">
-        <div class="fu-tag">F3</div>
-        <div>
-          <div class="fu-title">Quer conversar mas não fechou horário</div>
-          <div class="fu-desc">Disse "quero ver", "me manda horários", mas não confirmou data. Lead quente. Não deixa esfriar. Use o fala-fecha: cada mensagem propõe um horário.</div>
-        </div>
-      </div>
-      <div class="fu-card">
-        <div class="fu-tag">F4</div>
-        <div>
-          <div class="fu-title">Agendou mas deu no-show</div>
-          <div class="fu-desc">Confirmou e não apareceu. Objetivo: reagendar. Máximo 3 tentativas. Tom vai ficando mais sério a cada no-show, mas nunca agressivo.</div>
-        </div>
-      </div>
-      <div class="fu-card">
-        <div class="fu-tag">F5</div>
-        <div>
-          <div class="fu-title">Ouviu a proposta mas não fechou</div>
-          <div class="fu-desc">Participou da conversa mas não comprou. Revisão mensal: nova tentativa com novo ângulo. Tom de "gerente de relacionamento", não de vendedor insistindo.</div>
-        </div>
-      </div>
-      <div class="fu-card">
-        <div class="fu-tag">F6</div>
-        <div>
-          <div class="fu-title">Nutrição de longo prazo</div>
-          <div class="fu-desc">Passou por todos os estágios sem converter. Contato a cada 60–90 dias com novidade, sem tom de retomada ou cobrança. Quando o timing mudar, essa pessoa lembra de você.</div>
-        </div>
-      </div>
-    </div>
-
-    <h3>Passagem entre estágios F4</h3>
-    <p><strong>No-show 1:</strong> tom educado, imagina que foi imprevisto, propõe duas opções.</p>
-    <p><strong>No-show 2:</strong> tom mais sério, pede que avise com antecedência caso precise remarcar.</p>
-    <p><strong>No-show 3:</strong> tom firme, comunica que é a última oportunidade de reagendamento.</p>
-    <p>Após 3 no-shows sem resposta: lead vai para F6.</p>
-  </section>
-
-  <!-- PARTE 4 — CADÊNCIA D1-D12 -->
+  <!-- PARTE 3 — CADÊNCIA D1-D12 -->
   <section id="cadencia">
-    <p class="section-number">Parte 4</p>
+    <p class="section-number">Parte 3</p>
     <h2>A cadência de contatos: do D1 ao D12</h2>
 
-    <p>Cadência é a sequência exata do que você faz, em qual canal e com qual objetivo em cada dia. Elimina o improv e garante que nenhum lead caia no esquecimento.</p>
+    <p>Cadência é a sequência exata do que você faz, em qual canal e com qual objetivo em cada dia. Cada dia tem um gancho diferente — repetir a mesma mensagem é spam, não follow-up.</p>
+
+    <div class="callout">
+      <strong>F1 (D2–D5):</strong> você está tentando abrir a conversa pela primeira vez. Tom progressivo, sem pressão.<br>
+      <strong>F2 (D8–D12):</strong> segunda semana, lead que não reagiu. Novo ângulo com mais urgência. Última cartada no D12.
+    </div>
 
     <div class="cadencia">
+      <div class="cadencia-label">Primeiro contato</div>
       <div class="cadencia-row">
         <span class="cadencia-day">D1</span>
-        <span class="cadencia-action"><strong>Primeiro contato</strong> — mensagem de abertura + confirmação + pitch + fechamento de horário. Ligar se não responder em 2h.</span>
+        <span class="cadencia-action"><strong>Abertura:</strong> confirmação de dados + pitch do agendamento + fechamento de horário. Ligar se não responder em 2h.</span>
         <span class="cadencia-canal">WA + Ligação</span>
       </div>
-      <div class="cadencia-row">
+
+      <div class="cadencia-label">F1 — nunca respondeu</div>
+      <div class="cadencia-row f1-row">
         <span class="cadencia-day">D2</span>
-        <span class="cadencia-action"><strong>Retomada com ângulo diferente</strong> — não repete o D1 palavra por palavra. Outro motivo, outro gancho.</span>
+        <span class="cadencia-action"><strong>Retomada:</strong> ângulo diferente do D1. Outro motivo, outro gancho. Não repete palavra por palavra.</span>
         <span class="cadencia-canal">WA + Ligação</span>
       </div>
-      <div class="cadencia-row">
+      <div class="cadencia-row f1-row">
         <span class="cadencia-day">D3</span>
-        <span class="cadencia-action"><strong>Prova social</strong> — resultado de um cliente com perfil parecido (terceira pessoa). Ninguém quer ser o único que não está fazendo.</span>
+        <span class="cadencia-action"><strong>Prova social:</strong> resultado de um cliente com perfil parecido (terceira pessoa). "Um cliente meu de [estado] fechou X cotas essa semana…"</span>
         <span class="cadencia-canal">WA</span>
       </div>
-      <div class="cadencia-row">
+      <div class="cadencia-row f1-row">
         <span class="cadencia-day">D4</span>
-        <span class="cadencia-action"><strong>Hack do bom dia errado</strong> — mensagem com nome levemente errado. A pessoa corrige por reflexo. Quando responde, você retoma normalmente.</span>
+        <span class="cadencia-action"><strong>Hack do bom dia errado:</strong> mensagem com nome levemente errado. A pessoa corrige por reflexo. Quando responde, você retoma normalmente.</span>
         <span class="cadencia-canal">WA</span>
       </div>
-      <div class="cadencia-row">
+      <div class="cadencia-row f1-row">
         <span class="cadencia-day">D5</span>
-        <span class="cadencia-action"><strong>Áudio pessoal</strong> — 30 a 40 segundos, voz animada. Taxa de abertura de áudio é muito maior que texto.</span>
+        <span class="cadencia-action"><strong>Áudio pessoal:</strong> 30–40 segundos, voz animada, não parece script. Taxa de abertura muito maior que texto.</span>
         <span class="cadencia-canal">WA (áudio)</span>
       </div>
+
       <div class="cadencia-row weekend">
         <span class="cadencia-day">D6–D7</span>
-        <span class="cadencia-action">Sem contato — final de semana. Deixa o lead descansar.</span>
+        <span class="cadencia-action">Sem contato — fim de semana. Deixa o lead descansar.</span>
         <span class="cadencia-canal">—</span>
       </div>
-      <div class="cadencia-row">
+
+      <div class="cadencia-label">F2 — respondeu uma vez e sumiu (ou F1 esgotado)</div>
+      <div class="cadencia-row f2-row">
         <span class="cadencia-day">D8</span>
-        <span class="cadencia-action"><strong>Novo ângulo com número específico</strong> — você para de tentar abrir conversa e apresenta um resultado concreto. Número bate mais que adjetivo.</span>
+        <span class="cadencia-action"><strong>Novo ângulo com número específico:</strong> para de tentar abrir conversa e apresenta um resultado concreto. Número bate mais que adjetivo.</span>
         <span class="cadencia-canal">WA + Ligação</span>
       </div>
-      <div class="cadencia-row">
+      <div class="cadencia-row f2-row">
         <span class="cadencia-day">D10</span>
-        <span class="cadencia-action"><strong>Áudio de autoridade</strong> — alguém de referência grava um áudio curto e pessoal pra esse lead. Muda o interlocutor, gera nova atenção.</span>
+        <span class="cadencia-action"><strong>Áudio de autoridade:</strong> alguém de referência grava um áudio curto e pessoal para esse lead. Muda o interlocutor, gera nova atenção.</span>
         <span class="cadencia-canal">WA (áudio)</span>
       </div>
-      <div class="cadencia-row">
+      <div class="cadencia-row f2-row">
         <span class="cadencia-day">D12</span>
-        <span class="cadencia-action"><strong>Última cartada</strong> — mensagem de pré break-up. O paradoxo da despedida: muitos leads "mortos" respondem exatamente aqui.</span>
+        <span class="cadencia-action"><strong>Última cartada — pré break-up:</strong> mensagem de encerramento com porta aberta. Paradoxo da despedida: muitos leads "mortos" respondem aqui.</span>
         <span class="cadencia-canal">WA</span>
       </div>
+
       <div class="cadencia-row weekend">
         <span class="cadencia-day">D13+</span>
-        <span class="cadencia-action">Encerramento da cadência ativa — lead vai para F6 (nutrição). Você não faz mais contato ativo.</span>
-        <span class="cadencia-canal">Automação</span>
+        <span class="cadencia-action">Encerramento da cadência ativa. Lead vai para F6 (nutrição). Você não faz mais contato ativo — próximo contato manual é em 60–90 dias.</span>
+        <span class="cadencia-canal">F6</span>
       </div>
     </div>
 
     <div class="callout">
-      <strong>Bloco de ligação:</strong> o horário mais eficaz para ligar é entre 17h30 e 19h. A ordem de prioridade: leads novos do dia → leads que querem agendar mas não fecharam horário → leads em F1 que não atenderam ainda.
+      <strong>Bloco de ligação:</strong> o horário mais eficaz é entre 17h30 e 19h. Prioridade: leads novos do dia → leads em F3 (querem agendar mas não fecharam horário) → leads em F1 que não atenderam ainda.
     </div>
   </section>
 
-  <!-- PARTE 5 — SCRIPTS -->
+  <!-- PARTE 4 — SCRIPTS -->
   <section id="scripts">
-    <p class="section-number">Parte 5</p>
+    <p class="section-number">Parte 4</p>
     <h2>Scripts prontos por situação</h2>
 
     <h3>D1 — Primeiro contato</h3>
@@ -707,20 +834,29 @@
     </div>
 
     <div class="script-block">
-      <div class="script-label">Mensagem 3 — Pré-fechamento</div>
-      <p>Boa! Deixa eu verificar os horários disponíveis comigo.</p>
-      <p>Posso te passar as opções?</p>
-    </div>
-
-    <div class="script-block">
-      <div class="script-label">Mensagem 4 — Fechamento do horário</div>
+      <div class="script-label">Mensagem 3 — Fechamento do horário</div>
       <p>Tenho disponível:<br>
       – [Dia 1] às [Horário 1]<br>
       – [Dia 2] às [Horário 2]</p>
       <p>Qual fica melhor pra você?</p>
     </div>
 
-    <p style="margin-top: 12px;"><em>Sempre 2 opções. Nunca lista longa. O lead precisa escolher, não decidir se quer.</em></p>
+    <p><em>Sempre 2 opções. Nunca lista longa. O lead precisa escolher, não decidir se quer.</em></p>
+
+    <h3>F3 — Fala-fecha (quer agendar mas não fecha horário)</h3>
+
+    <div class="script-block">
+      <div class="script-label">Exemplo de sequência fala-fecha</div>
+      <p>Msg 1: "Tenho terça às 14h ou 17h. Qual fica melhor?"</p>
+      <p>(sem resposta)</p>
+      <p>Msg 2 (24h depois): "Correria aí? Me avisa qual encaixa melhor. Tem quinta 15h30 também."</p>
+      <p>(sem resposta)</p>
+      <p>Msg 3 (48h): "Boa tarde [Nome], vamos marcar essa conversa? Amanhã às 15h ou sexta às 11h. Algum encaixa?"</p>
+      <p>(sem resposta)</p>
+      <p>Msg 4: 👁</p>
+      <p>(resposta: "ahh desculpa, semana doida")</p>
+      <p>Msg 5: "Imagina, sem stress. Qual desses horários serve: segunda 14h ou terça 16h?"</p>
+    </div>
 
     <h3>Objeções mais comuns</h3>
 
@@ -734,17 +870,15 @@
           </div>
         </div>
       </div>
-
       <div class="obj-card">
         <div class="obj-header">"Já tenho financiamento / já sei como funciona"</div>
         <div class="obj-body">
           <div class="script-block" style="margin: 0;">
             <p>[Nome], consórcio não é concorrente do financiamento — são ferramentas com objetivos diferentes.</p>
-            <p>O que eu quero mostrar é uma forma específica de atingir [objetivo dele] com menos custo total. Vale 30 minutos ver se faz sentido pra você?</p>
+            <p>O que eu quero mostrar é uma forma de atingir [objetivo] com menos custo total. Vale 30 minutos ver se faz sentido pra você?</p>
           </div>
         </div>
       </div>
-
       <div class="obj-card">
         <div class="obj-header">"Agora não é o momento / estou corrido"</div>
         <div class="obj-body">
@@ -754,7 +888,6 @@
           </div>
         </div>
       </div>
-
       <div class="obj-card">
         <div class="obj-header">"Me manda informações por WhatsApp / e-mail"</div>
         <div class="obj-body">
@@ -764,7 +897,6 @@
           </div>
         </div>
       </div>
-
       <div class="obj-card">
         <div class="obj-header">"Quanto custa? / Qual o valor?"</div>
         <div class="obj-body">
@@ -774,7 +906,6 @@
           </div>
         </div>
       </div>
-
       <div class="obj-card">
         <div class="obj-header">"Preciso falar com meu cônjuge / sócio primeiro"</div>
         <div class="obj-body">
@@ -785,29 +916,9 @@
       </div>
     </div>
 
-    <h3>Follow-up D2, D3 e D12</h3>
-
+    <h3>D12 — Última cartada</h3>
     <div class="script-block">
-      <div class="script-label">D2 — Primeira retomada</div>
-      <p>[Nome], tudo bem? Tentei ontem mas não consegui.</p>
-      <p>Você ainda tem interesse em entender melhor como o consórcio pode funcionar pro seu objetivo?</p>
-    </div>
-
-    <div class="script-block">
-      <div class="script-label">D3 — Prova social</div>
-      <p>[Nome], um cliente meu de [cidade/estado] me mandou mensagem esses dias falando que conseguiu o crédito pra [objetivo] depois que a gente estruturou o plano certo.</p>
-      <p>Quero muito que você veja isso também. Posso te passar os horários?</p>
-    </div>
-
-    <div class="script-block">
-      <div class="script-label">D4 — Hack do bom dia errado</div>
-      <p>Bom dia, [Nome levemente errado]!</p>
-      <p><em>Quando a pessoa corrigir:</em></p>
-      <p>Ah, desculpa [Nome certo]! Confundi aqui. Mas já que você respondeu, queria saber se você ainda tem interesse em conversar sobre o consórcio. Tenho horário amanhã às [horário]. Serve?</p>
-    </div>
-
-    <div class="script-block">
-      <div class="script-label">D12 — Última cartada (pré break-up)</div>
+      <div class="script-label">Pré break-up</div>
       <p>[Nome], tentei entrar em contato algumas vezes essa semana.</p>
       <p>Parece que esse momento não é ideal, o que entendo completamente.</p>
       <p>Pelo volume de atendimentos que tenho, não vou conseguir manter contato ativo por aqui. Se em algum momento fizer sentido conversar, fico à disposição.</p>
@@ -815,12 +926,12 @@
     </div>
   </section>
 
-  <!-- PARTE 6 — CONFIRMAÇÃO -->
+  <!-- PARTE 5 — CONFIRMAÇÃO -->
   <section id="confirmacao">
-    <p class="section-number">Parte 6</p>
+    <p class="section-number">Parte 5</p>
     <h2>Confirmação de presença — como reduzir no-show</h2>
 
-    <p>No-show é um dos maiores desperdícios do processo de vendas. Existe uma sequência simples que reduz isso significativamente.</p>
+    <p>No-show é desperdício de energia. Existe uma sequência simples que corta isso significativamente.</p>
 
     <table class="seq-table">
       <thead>
@@ -839,7 +950,7 @@
         <tr>
           <td>48h antes</td>
           <td>Mensagem WA de lembrete</td>
-          <td>A maioria das faltas é por esquecimento — esse corte resolve</td>
+          <td>A maioria das faltas é esquecimento — esse lembrete corta isso</td>
         </tr>
         <tr>
           <td>Manhã do dia anterior</td>
@@ -864,27 +975,25 @@
       <p>[Nome], boa tarde! Aqui é [seu nome].</p>
       <p>Estou ligando pra confirmar nossa conversa amanhã às [horário]. Vai conseguir participar?</p>
       <p>[Espera confirmação]</p>
-      <p>Ótimo! São 30 minutos pelo Google Meet. Você vai receber o link aqui no WhatsApp. Qualquer dúvida, me chama. Até amanhã!</p>
+      <p>Ótimo! São 30 minutos. Você vai receber o link aqui no WhatsApp. Qualquer dúvida, me chama. Até amanhã!</p>
     </div>
 
-    <h3>No-show — o que fazer</h3>
-
+    <h3>F4 — No-show: o que fazer</h3>
     <div class="script-block">
-      <div class="script-label">Mensagem imediata (até 10 min após o horário)</div>
+      <div class="script-label">Tentativa 1 — Tom educado (até 10 min após o horário)</div>
       <p>[Nome], tudo bem? Estava te esperando agora às [horário]. Imagino que deve ter acontecido algum imprevisto.</p>
       <p>Tenho horários disponíveis ainda essa semana. Podemos marcar [opção 1] ou [opção 2]?</p>
     </div>
-
     <div class="script-block">
-      <div class="script-label">Terceira tentativa (tom mais firme)</div>
+      <div class="script-label">Tentativa 3 — Tom mais firme (se der segundo no-show)</div>
       <p>[Nome], entendo que imprevistos acontecem. É a segunda vez que a gente tenta se encontrar.</p>
       <p>Quero que você tenha essa oportunidade. Vou reservar uma última vez: [dia] às [horário]. Você consegue garantir sua presença?</p>
     </div>
   </section>
 
-  <!-- PARTE 7 — REGRAS -->
+  <!-- PARTE 6 — REGRAS -->
   <section id="regras">
-    <p class="section-number">Parte 7</p>
+    <p class="section-number">Parte 6</p>
     <h2>Regras de ouro do processo</h2>
 
     <div class="gold-rules">
@@ -913,25 +1022,18 @@
         <div class="gold-num">4</div>
         <div class="gold-text">
           <strong>CRM sempre atualizado</strong>
-          <p>Se você não registrou, não existe. Lead sem próxima ação programada é lead perdido.</p>
+          <p>Se você não registrou, não existe. Lead sem próxima ação programada no CRM é lead perdido.</p>
         </div>
       </div>
       <div class="gold-rule">
         <div class="gold-num">5</div>
         <div class="gold-text">
-          <strong>Última cartada tem horário fixo</strong>
-          <p>Reserve um bloco semanal fixo para revisar os leads em F6. Sem horário, nunca acontece.</p>
+          <strong>Nunca venda o produto, venda a conversa</strong>
+          <p>Nas primeiras mensagens o objetivo é marcar a reunião. Explicar consórcio antes de entender o cliente gera objeção antes do momento certo.</p>
         </div>
       </div>
       <div class="gold-rule">
         <div class="gold-num">6</div>
-        <div class="gold-text">
-          <strong>Nunca venda o produto, venda a conversa</strong>
-          <p>Nas primeiras mensagens, o objetivo é marcar a reunião. Quando você explica consórcio antes de entender o cliente, gera objeção antes do momento certo.</p>
-        </div>
-      </div>
-      <div class="gold-rule">
-        <div class="gold-num">7</div>
         <div class="gold-text">
           <strong>Sempre termine com pergunta</strong>
           <p>Mensagem que termina com ponto final mata a conversa. Toda mensagem deve terminar com uma pergunta fácil de responder.</p>
@@ -940,7 +1042,6 @@
     </div>
 
     <h3>O que fazer vs. o que não fazer</h3>
-
     <div class="rules-grid">
       <div class="rules-col do">
         <div class="rules-col-header do">Faça</div>
@@ -950,8 +1051,8 @@
           <li>Sempre 2 opções de horário</li>
           <li>Terminar com pergunta</li>
           <li>Registrar tudo no CRM</li>
-          <li>Respeitar o ritual de confirmação</li>
           <li>Executar a cadência completa até D12</li>
+          <li>Confirmar presença em várias etapas</li>
         </ul>
       </div>
       <div class="rules-col dont">
@@ -976,24 +1077,24 @@
 
     <div class="summary-box">
       <h3>Se você absorver só uma coisa desse guia</h3>
-      <p>80% das vendas saem do follow-up. A maioria dos representantes desiste no segundo contato. Os que chegam ao décimo segundo, com a mensagem certa em cada dia, são os que fecham consistentemente.</p>
+      <p>80% das vendas saem do follow-up. A maioria dos representantes desiste no segundo contato. Os que chegam ao décimo segundo, com a mensagem certa em cada ponto da jornada, são os que fecham consistentemente.</p>
 
       <ul class="summary-steps">
         <li>
           <div class="step-num">1</div>
-          <div class="step-text"><strong>Organize seus leads no CRM.</strong> Novo, Em Qualificação, Qualificado, Desqualificado. Cada lead sabe onde está e qual é o próximo passo.</div>
+          <div class="step-text"><strong>Organize seus leads no CRM.</strong> Novo, Em Qualificação, Qualificado, Apresentação, Fechou, Perdeu. Cada lead sabe onde está e qual é o próximo passo.</div>
         </li>
         <li>
           <div class="step-num">2</div>
-          <div class="step-text"><strong>Execute a cadência de D1 a D12.</strong> Cada dia tem uma ação específica. Não improvisa, não pula etapa, não repete mensagem.</div>
+          <div class="step-text"><strong>Execute a cadência D1–D12.</strong> Cada dia tem uma ação específica. F1 vive no início da jornada, F2 logo depois, F3 quando o lead quer mas não fechou horário, F4 após no-show, F5 após a proposta, F6 para quem saiu em qualquer ponto.</div>
         </li>
         <li>
           <div class="step-num">3</div>
-          <div class="step-text"><strong>Identifique o estágio de follow-up.</strong> F1 a F6, cada um com abordagem diferente. O mesmo lead no F3 e no F2 exige estratégias completamente distintas.</div>
+          <div class="step-text"><strong>Nunca trate dois leads diferentes da mesma forma.</strong> Um lead em F1 precisa de abordagem completamente diferente de um em F4. A jornada te diz onde cada um está e o que fazer.</div>
         </li>
         <li>
           <div class="step-num">4</div>
-          <div class="step-text"><strong>Confirme presença em várias etapas.</strong> No-show é desperdício de energia. A sequência de confirmação corta isso pela raiz.</div>
+          <div class="step-text"><strong>Confirme presença em várias etapas.</strong> No-show é desperdício. Confirmação escrita + lembrete 48h + ligação D-1 + mensagem 2h antes corta a maioria dos no-shows.</div>
         </li>
       </ul>
     </div>
@@ -1001,10 +1102,9 @@
 
 </div>
 
-<!-- FOOTER -->
 <footer>
   <strong>Hurtz Company</strong> &mdash; Sistema Cota Vendida &mdash; Material de Treinamento<br>
-  Produzido com base na metodologia Full Sales System adaptada para o mercado de consórcio &mdash; Maio/2026
+  Metodologia Full Sales System adaptada para o mercado de consórcio &mdash; Maio/2026
 </footer>
 
 </body>
