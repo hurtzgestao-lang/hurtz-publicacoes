@@ -1,0 +1,1011 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Guia de Pré-Vendas e Follow-Up — Hurtz Company</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --brasa:       #C06018;
+      --brasa-dark:  #974A12;
+      --brasa-light: #F0CEB4;
+      --brasa-faint: #F9EDE3;
+      --carvao:      #181614;
+      --grafite:     #3D3A36;
+      --pedra:       #8C8880;
+      --areia:       #E8E4DC;
+      --offwhite:    #F5F2EC;
+      --verde:       #1A7A4A;
+      --vermelho:    #B52A2A;
+      --azul:        #3A6FBF;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      font-family: 'Inter', Helvetica, Arial, sans-serif;
+      background: var(--offwhite);
+      color: var(--carvao);
+      font-size: 16px;
+      line-height: 1.7;
+    }
+
+    /* ── HEADER ── */
+    header {
+      background: var(--carvao);
+      color: var(--offwhite);
+      padding: 48px 24px 40px;
+      text-align: center;
+    }
+    .header-badge {
+      display: inline-block;
+      background: var(--brasa);
+      color: #fff;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      padding: 4px 14px;
+      border-radius: 2px;
+      margin-bottom: 20px;
+    }
+    header h1 {
+      font-size: clamp(24px, 4vw, 38px);
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      line-height: 1.2;
+      max-width: 720px;
+      margin: 0 auto 16px;
+    }
+    header h1 span { color: var(--brasa); }
+    header p.subtitle {
+      color: var(--pedra);
+      font-size: 15px;
+      max-width: 520px;
+      margin: 0 auto;
+    }
+
+    /* ── NAV ── */
+    nav {
+      background: #fff;
+      border-bottom: 1px solid var(--areia);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0 24px;
+      overflow-x: auto;
+      white-space: nowrap;
+    }
+    nav ul {
+      list-style: none;
+      display: inline-flex;
+      gap: 0;
+      padding: 0;
+    }
+    nav a {
+      display: block;
+      padding: 14px 18px;
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--grafite);
+      text-decoration: none;
+      border-bottom: 2px solid transparent;
+      transition: color .15s, border-color .15s;
+    }
+    nav a:hover { color: var(--brasa); border-color: var(--brasa); }
+
+    /* ── LAYOUT ── */
+    .container {
+      max-width: 820px;
+      margin: 0 auto;
+      padding: 0 24px;
+    }
+
+    /* ── SECTIONS ── */
+    section {
+      padding: 56px 0 40px;
+      border-bottom: 1px solid var(--areia);
+    }
+    section:last-of-type { border-bottom: none; }
+
+    .section-number {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--brasa);
+      margin-bottom: 8px;
+    }
+    h2 {
+      font-size: clamp(20px, 3vw, 26px);
+      font-weight: 700;
+      color: var(--carvao);
+      letter-spacing: -0.01em;
+      margin-bottom: 20px;
+      line-height: 1.25;
+    }
+    h3 {
+      font-size: 17px;
+      font-weight: 700;
+      color: var(--carvao);
+      margin: 32px 0 10px;
+    }
+    h4 {
+      font-size: 14px;
+      font-weight: 700;
+      color: var(--grafite);
+      margin: 24px 0 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+    p { color: var(--grafite); margin-bottom: 16px; }
+    p:last-child { margin-bottom: 0; }
+
+    strong { color: var(--carvao); font-weight: 600; }
+
+    /* ── STAT CARD ── */
+    .stat-card {
+      background: var(--carvao);
+      color: var(--offwhite);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin: 28px 0;
+      display: flex;
+      align-items: center;
+      gap: 24px;
+    }
+    .stat-number {
+      font-size: 48px;
+      font-weight: 700;
+      color: var(--brasa);
+      line-height: 1;
+      flex-shrink: 0;
+    }
+    .stat-label { font-size: 15px; color: var(--offwhite); line-height: 1.5; }
+
+    /* ── PIPELINE ── */
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(160px, 1fr));
+      gap: 12px;
+      margin: 28px 0;
+    }
+    .pipeline-stage {
+      background: #fff;
+      border: 1px solid var(--areia);
+      border-radius: 8px;
+      padding: 18px 16px;
+      position: relative;
+    }
+    .pipeline-stage::after {
+      content: '→';
+      position: absolute;
+      right: -14px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--pedra);
+      font-size: 16px;
+      z-index: 1;
+    }
+    .pipeline-stage:last-child::after { display: none; }
+    .stage-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 6px;
+    }
+    .dot-new    { background: #8C8880; }
+    .dot-qual   { background: #3A6FBF; }
+    .dot-ready  { background: #1A7A4A; }
+    .dot-disq   { background: #B52A2A; }
+    .stage-title {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--carvao);
+      margin-bottom: 6px;
+    }
+    .stage-desc {
+      font-size: 12px;
+      color: var(--pedra);
+      line-height: 1.5;
+    }
+
+    /* ── FOLLOW-UP STAGES ── */
+    .fu-grid {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .fu-card {
+      background: #fff;
+      border: 1px solid var(--areia);
+      border-left: 4px solid var(--brasa);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 20px;
+      display: grid;
+      grid-template-columns: 48px 1fr;
+      gap: 16px;
+      align-items: start;
+    }
+    .fu-tag {
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--brasa);
+      padding-top: 2px;
+    }
+    .fu-title { font-size: 15px; font-weight: 700; color: var(--carvao); margin-bottom: 4px; }
+    .fu-desc  { font-size: 13px; color: var(--grafite); line-height: 1.5; }
+
+    /* ── CADÊNCIA ── */
+    .cadencia {
+      margin: 24px 0;
+      display: flex;
+      flex-direction: column;
+      gap: 2px;
+    }
+    .cadencia-row {
+      display: grid;
+      grid-template-columns: 48px 1fr 80px;
+      gap: 12px;
+      align-items: center;
+      padding: 12px 16px;
+      background: #fff;
+      border: 1px solid var(--areia);
+      border-radius: 4px;
+      font-size: 13px;
+    }
+    .cadencia-row.weekend {
+      background: var(--offwhite);
+      color: var(--pedra);
+    }
+    .cadencia-day {
+      font-weight: 700;
+      color: var(--brasa);
+    }
+    .cadencia-row.weekend .cadencia-day { color: var(--pedra); }
+    .cadencia-action { color: var(--grafite); }
+    .cadencia-canal {
+      font-size: 11px;
+      font-weight: 600;
+      letter-spacing: 0.06em;
+      color: var(--pedra);
+      text-align: right;
+    }
+
+    /* ── SCRIPT BOXES ── */
+    .script-block {
+      background: var(--brasa-faint);
+      border: 1px solid var(--brasa-light);
+      border-left: 4px solid var(--brasa);
+      border-radius: 0 8px 8px 0;
+      padding: 18px 20px;
+      margin: 16px 0;
+      font-size: 14px;
+      color: var(--carvao);
+      font-style: italic;
+      line-height: 1.7;
+    }
+    .script-block p { color: var(--carvao); margin-bottom: 10px; }
+    .script-block p:last-child { margin-bottom: 0; }
+    .script-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--brasa);
+      margin-bottom: 8px;
+      font-style: normal;
+    }
+
+    /* ── OBJECTIONS ── */
+    .obj-list {
+      display: flex;
+      flex-direction: column;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    .obj-card {
+      background: #fff;
+      border: 1px solid var(--areia);
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    .obj-header {
+      background: var(--carvao);
+      color: var(--offwhite);
+      padding: 12px 18px;
+      font-size: 13px;
+      font-weight: 600;
+    }
+    .obj-body {
+      padding: 16px 18px;
+    }
+
+    /* ── SEQUENCE TABLE ── */
+    .seq-table {
+      width: 100%;
+      border-collapse: collapse;
+      margin: 20px 0;
+      font-size: 14px;
+    }
+    .seq-table th {
+      background: var(--carvao);
+      color: var(--offwhite);
+      padding: 10px 14px;
+      text-align: left;
+      font-weight: 600;
+      font-size: 12px;
+      letter-spacing: 0.06em;
+    }
+    .seq-table td {
+      padding: 10px 14px;
+      border-bottom: 1px solid var(--areia);
+      color: var(--grafite);
+    }
+    .seq-table tr:last-child td { border-bottom: none; }
+    .seq-table tr:nth-child(even) td { background: #fff; }
+
+    /* ── DO/DONT ── */
+    .rules-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 24px 0;
+    }
+    @media (max-width: 600px) { .rules-grid { grid-template-columns: 1fr; } }
+    .rules-col { background: #fff; border: 1px solid var(--areia); border-radius: 8px; overflow: hidden; }
+    .rules-col-header {
+      padding: 12px 18px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+    }
+    .rules-col-header.do   { background: var(--verde); color: #fff; }
+    .rules-col-header.dont { background: var(--vermelho); color: #fff; }
+    .rules-col ul { list-style: none; padding: 14px 18px; display: flex; flex-direction: column; gap: 8px; }
+    .rules-col li { font-size: 13px; color: var(--grafite); padding-left: 18px; position: relative; }
+    .rules-col li::before { position: absolute; left: 0; }
+    .rules-col.do   li::before { content: '✓'; color: var(--verde); font-weight: 700; }
+    .rules-col.dont li::before { content: '✗'; color: var(--vermelho); font-weight: 700; }
+
+    /* ── GOLD RULES ── */
+    .gold-rules {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin: 24px 0;
+    }
+    .gold-rule {
+      display: flex;
+      gap: 16px;
+      background: #fff;
+      border: 1px solid var(--areia);
+      border-radius: 8px;
+      padding: 16px 18px;
+      align-items: flex-start;
+    }
+    .gold-num {
+      font-size: 18px;
+      font-weight: 700;
+      color: var(--brasa);
+      flex-shrink: 0;
+      line-height: 1.4;
+      min-width: 24px;
+    }
+    .gold-text strong { display: block; font-size: 14px; color: var(--carvao); margin-bottom: 2px; }
+    .gold-text p { font-size: 13px; color: var(--grafite); margin: 0; }
+
+    /* ── SUMMARY BOX ── */
+    .summary-box {
+      background: var(--carvao);
+      color: var(--offwhite);
+      border-radius: 10px;
+      padding: 36px 32px;
+      margin: 32px 0;
+    }
+    .summary-box h3 { color: var(--brasa); margin-top: 0; font-size: 20px; }
+    .summary-box p { color: #ccc; }
+    .summary-steps {
+      list-style: none;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+      margin-top: 20px;
+    }
+    .summary-steps li {
+      display: flex;
+      gap: 14px;
+      align-items: flex-start;
+    }
+    .step-num {
+      background: var(--brasa);
+      color: #fff;
+      font-weight: 700;
+      font-size: 13px;
+      width: 26px;
+      height: 26px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-shrink: 0;
+    }
+    .step-text { font-size: 14px; color: var(--offwhite); line-height: 1.5; padding-top: 2px; }
+    .step-text strong { color: #fff; }
+
+    /* ── FOOTER ── */
+    footer {
+      background: var(--carvao);
+      color: var(--pedra);
+      text-align: center;
+      padding: 32px 24px;
+      font-size: 13px;
+    }
+    footer strong { color: var(--offwhite); }
+
+    /* ── CALLOUT ── */
+    .callout {
+      background: var(--brasa-faint);
+      border: 1px solid var(--brasa-light);
+      border-radius: 8px;
+      padding: 18px 20px;
+      margin: 20px 0;
+      font-size: 14px;
+      color: var(--grafite);
+    }
+    .callout strong { color: var(--brasa); }
+
+    /* ── RESPONSIVE ── */
+    @media (max-width: 600px) {
+      .stat-card { flex-direction: column; gap: 8px; }
+      .stat-number { font-size: 36px; }
+      .pipeline { grid-template-columns: 1fr 1fr; }
+      .pipeline-stage::after { display: none; }
+      .cadencia-row { grid-template-columns: 44px 1fr; }
+      .cadencia-canal { display: none; }
+      header { padding: 36px 20px 32px; }
+      section { padding: 40px 0 28px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="header-badge">Hurtz Company · Material de Treinamento</div>
+  <h1>Guia de <span>Pré-Vendas</span> e Follow-Up</h1>
+  <p class="subtitle">O processo completo para representantes de consórcio que querem fechar mais sem depender de sorte ou volume de leads</p>
+</header>
+
+<!-- NAV -->
+<nav>
+  <ul>
+    <li><a href="#mentalidade">Mentalidade</a></li>
+    <li><a href="#crm">CRM</a></li>
+    <li><a href="#estagios">Estágios F1–F6</a></li>
+    <li><a href="#cadencia">Cadência D1–D12</a></li>
+    <li><a href="#scripts">Scripts</a></li>
+    <li><a href="#confirmacao">Confirmação</a></li>
+    <li><a href="#regras">Regras</a></li>
+    <li><a href="#resumo">Resumo</a></li>
+  </ul>
+</nav>
+
+<div class="container">
+
+  <!-- PARTE 1 — MENTALIDADE -->
+  <section id="mentalidade">
+    <p class="section-number">Parte 1</p>
+    <h2>Por que a maioria das vendas some no meio do caminho</h2>
+
+    <div class="stat-card">
+      <div class="stat-number">80%</div>
+      <div class="stat-label">dos fechamentos acontecem entre o <strong>5º e o 12º contato</strong> com o lead.<br>A maioria dos representantes desiste no segundo ou terceiro.</div>
+    </div>
+
+    <p>A pessoa sumiu por mil motivos que não têm a ver com você. Ela pode ter esquecido de responder, sido interrompida, precisado de tempo pra decidir, ou simplesmente teve a vida acontecendo.</p>
+    <p><strong>Nada disso é rejeição. É a realidade de qualquer processo de venda.</strong></p>
+    <p>Follow-up não é insistência chata. É processo. Cada contato tem objetivo diferente, tom diferente e canal diferente. Quem entende isso para de tratar todos os leads da mesma forma e começa a converter muito mais com a mesma base.</p>
+
+    <div class="callout">
+      <strong>Lema que você precisa internalizar:</strong> "Quanto mais difícil de agendar, mais fácil de comprar." Quem trava no agendamento e ainda assim aparece na conversa, tende a fechar.
+    </div>
+  </section>
+
+  <!-- PARTE 2 — CRM -->
+  <section id="crm">
+    <p class="section-number">Parte 2</p>
+    <h2>CRM — Organize seus leads para não perder nenhum</h2>
+
+    <p>Sem organização, o follow-up não funciona. Você esquece quem está em qual fase, perde o timing de retorno e mistura leads quentes com frios. O CRM resolve isso: cada lead tem uma ficha com todo o histórico e próximo passo definido.</p>
+
+    <h3>As 4 etapas do pipeline</h3>
+
+    <div class="pipeline">
+      <div class="pipeline-stage">
+        <div class="stage-title"><span class="stage-dot dot-new"></span>Novo</div>
+        <div class="stage-desc">Lead acabou de demonstrar interesse. Primeiro contato em até 5 minutos.</div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-title"><span class="stage-dot dot-qual"></span>Em Qualificação</div>
+        <div class="stage-desc">Você está em contato ativo, descobrindo objetivo, urgência e perfil.</div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-title"><span class="stage-dot dot-ready"></span>Qualificado</div>
+        <div class="stage-desc">Lead tem perfil, momento e reunião/ligação confirmada para proposta.</div>
+      </div>
+      <div class="pipeline-stage">
+        <div class="stage-title"><span class="stage-dot dot-disq"></span>Desqualificado</div>
+        <div class="stage-desc">Sem perfil ou sem momento agora. Recontato em 60–90 dias se for timing.</div>
+      </div>
+    </div>
+
+    <h3>O que fazer em cada etapa</h3>
+
+    <h4>Novo — Primeiro contato em até 5 minutos</h4>
+    <p>Verifique o perfil rapidamente, mande a primeira mensagem WA e ligue caso não responda em 2 horas. Lead novo esfria rápido. Cada minuto depois do interesse demonstrado, a chance de resposta cai.</p>
+    <p><strong>Campos a registrar:</strong> nome completo, como chegou (story, indicação, anúncio, abordagem), telefone e Instagram.</p>
+
+    <h4>Em Qualificação — Descubra antes de propor</h4>
+    <p>Você está avaliando: qual o objetivo (veículo, imóvel, serviço)? Qual a urgência? Ele consegue pagar a parcela? Decide sozinho ou precisa consultar alguém?</p>
+    <p>Faça as perguntas certas antes de apresentar qualquer proposta. Coleta de informações antes de proposta = menos objeção de preço depois.</p>
+
+    <h4>Qualificado — Pronto para a proposta</h4>
+    <p>Você já sabe o objetivo, o lead tem perfil, tem momento, e a reunião/ligação está marcada. Prepare a proposta personalizada, confirme 24h antes e confirme de novo 2–3 horas antes.</p>
+
+    <h4>Desqualificado — Não descarte definitivamente</h4>
+    <p>Registre o motivo: <strong>Fora do perfil</strong> (sem renda, não quer consórcio), <strong>Timing ruim</strong> (perfil mas não é agora), <strong>Sem resposta</strong> (esgotou a cadência). Para os dois últimos: tarefa de recontato em 60–90 dias.</p>
+  </section>
+
+  <!-- PARTE 3 — ESTÁGIOS F1-F6 -->
+  <section id="estagios">
+    <p class="section-number">Parte 3</p>
+    <h2>Os 6 estágios de follow-up</h2>
+
+    <p>Cada situação do lead exige abordagem diferente. Não existe só "segui" e "não segui".</p>
+
+    <div class="fu-grid">
+      <div class="fu-card">
+        <div class="fu-tag">F1</div>
+        <div>
+          <div class="fu-title">Nunca respondeu</div>
+          <div class="fu-desc">Objetivo: conseguir a primeira resposta — qualquer resposta. Tom: cadência multicanal sem pressão ainda. Duração: D2 a D5.</div>
+        </div>
+      </div>
+      <div class="fu-card">
+        <div class="fu-tag">F2</div>
+        <div>
+          <div class="fu-title">Respondeu mas sumiu</div>
+          <div class="fu-desc">Respondeu, demonstrou interesse, mas parou antes de marcar. Tom mais direto com leve urgência, novo ângulo. Duração: D8 a D12.</div>
+        </div>
+      </div>
+      <div class="fu-card">
+        <div class="fu-tag">F3</div>
+        <div>
+          <div class="fu-title">Quer conversar mas não fechou horário</div>
+          <div class="fu-desc">Disse "quero ver", "me manda horários", mas não confirmou data. Lead quente. Não deixa esfriar. Use o fala-fecha: cada mensagem propõe um horário.</div>
+        </div>
+      </div>
+      <div class="fu-card">
+        <div class="fu-tag">F4</div>
+        <div>
+          <div class="fu-title">Agendou mas deu no-show</div>
+          <div class="fu-desc">Confirmou e não apareceu. Objetivo: reagendar. Máximo 3 tentativas. Tom vai ficando mais sério a cada no-show, mas nunca agressivo.</div>
+        </div>
+      </div>
+      <div class="fu-card">
+        <div class="fu-tag">F5</div>
+        <div>
+          <div class="fu-title">Ouviu a proposta mas não fechou</div>
+          <div class="fu-desc">Participou da conversa mas não comprou. Revisão mensal: nova tentativa com novo ângulo. Tom de "gerente de relacionamento", não de vendedor insistindo.</div>
+        </div>
+      </div>
+      <div class="fu-card">
+        <div class="fu-tag">F6</div>
+        <div>
+          <div class="fu-title">Nutrição de longo prazo</div>
+          <div class="fu-desc">Passou por todos os estágios sem converter. Contato a cada 60–90 dias com novidade, sem tom de retomada ou cobrança. Quando o timing mudar, essa pessoa lembra de você.</div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Passagem entre estágios F4</h3>
+    <p><strong>No-show 1:</strong> tom educado, imagina que foi imprevisto, propõe duas opções.</p>
+    <p><strong>No-show 2:</strong> tom mais sério, pede que avise com antecedência caso precise remarcar.</p>
+    <p><strong>No-show 3:</strong> tom firme, comunica que é a última oportunidade de reagendamento.</p>
+    <p>Após 3 no-shows sem resposta: lead vai para F6.</p>
+  </section>
+
+  <!-- PARTE 4 — CADÊNCIA D1-D12 -->
+  <section id="cadencia">
+    <p class="section-number">Parte 4</p>
+    <h2>A cadência de contatos: do D1 ao D12</h2>
+
+    <p>Cadência é a sequência exata do que você faz, em qual canal e com qual objetivo em cada dia. Elimina o improv e garante que nenhum lead caia no esquecimento.</p>
+
+    <div class="cadencia">
+      <div class="cadencia-row">
+        <span class="cadencia-day">D1</span>
+        <span class="cadencia-action"><strong>Primeiro contato</strong> — mensagem de abertura + confirmação + pitch + fechamento de horário. Ligar se não responder em 2h.</span>
+        <span class="cadencia-canal">WA + Ligação</span>
+      </div>
+      <div class="cadencia-row">
+        <span class="cadencia-day">D2</span>
+        <span class="cadencia-action"><strong>Retomada com ângulo diferente</strong> — não repete o D1 palavra por palavra. Outro motivo, outro gancho.</span>
+        <span class="cadencia-canal">WA + Ligação</span>
+      </div>
+      <div class="cadencia-row">
+        <span class="cadencia-day">D3</span>
+        <span class="cadencia-action"><strong>Prova social</strong> — resultado de um cliente com perfil parecido (terceira pessoa). Ninguém quer ser o único que não está fazendo.</span>
+        <span class="cadencia-canal">WA</span>
+      </div>
+      <div class="cadencia-row">
+        <span class="cadencia-day">D4</span>
+        <span class="cadencia-action"><strong>Hack do bom dia errado</strong> — mensagem com nome levemente errado. A pessoa corrige por reflexo. Quando responde, você retoma normalmente.</span>
+        <span class="cadencia-canal">WA</span>
+      </div>
+      <div class="cadencia-row">
+        <span class="cadencia-day">D5</span>
+        <span class="cadencia-action"><strong>Áudio pessoal</strong> — 30 a 40 segundos, voz animada. Taxa de abertura de áudio é muito maior que texto.</span>
+        <span class="cadencia-canal">WA (áudio)</span>
+      </div>
+      <div class="cadencia-row weekend">
+        <span class="cadencia-day">D6–D7</span>
+        <span class="cadencia-action">Sem contato — final de semana. Deixa o lead descansar.</span>
+        <span class="cadencia-canal">—</span>
+      </div>
+      <div class="cadencia-row">
+        <span class="cadencia-day">D8</span>
+        <span class="cadencia-action"><strong>Novo ângulo com número específico</strong> — você para de tentar abrir conversa e apresenta um resultado concreto. Número bate mais que adjetivo.</span>
+        <span class="cadencia-canal">WA + Ligação</span>
+      </div>
+      <div class="cadencia-row">
+        <span class="cadencia-day">D10</span>
+        <span class="cadencia-action"><strong>Áudio de autoridade</strong> — alguém de referência grava um áudio curto e pessoal pra esse lead. Muda o interlocutor, gera nova atenção.</span>
+        <span class="cadencia-canal">WA (áudio)</span>
+      </div>
+      <div class="cadencia-row">
+        <span class="cadencia-day">D12</span>
+        <span class="cadencia-action"><strong>Última cartada</strong> — mensagem de pré break-up. O paradoxo da despedida: muitos leads "mortos" respondem exatamente aqui.</span>
+        <span class="cadencia-canal">WA</span>
+      </div>
+      <div class="cadencia-row weekend">
+        <span class="cadencia-day">D13+</span>
+        <span class="cadencia-action">Encerramento da cadência ativa — lead vai para F6 (nutrição). Você não faz mais contato ativo.</span>
+        <span class="cadencia-canal">Automação</span>
+      </div>
+    </div>
+
+    <div class="callout">
+      <strong>Bloco de ligação:</strong> o horário mais eficaz para ligar é entre 17h30 e 19h. A ordem de prioridade: leads novos do dia → leads que querem agendar mas não fecharam horário → leads em F1 que não atenderam ainda.
+    </div>
+  </section>
+
+  <!-- PARTE 5 — SCRIPTS -->
+  <section id="scripts">
+    <p class="section-number">Parte 5</p>
+    <h2>Scripts prontos por situação</h2>
+
+    <h3>D1 — Primeiro contato</h3>
+
+    <div class="script-block">
+      <div class="script-label">Mensagem 1 — Abertura</div>
+      <p>Olá, [Nome]! Aqui é [seu nome], trabalho com consórcio.</p>
+      <p>Vi que você tem interesse em [objetivo que o lead mencionou — imóvel, veículo, crédito]. É isso mesmo?</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Mensagem 2 — Após confirmação</div>
+      <p>Ótimo! Tenho ajudado [perfil parecido] a estruturar o caminho certo pelo consórcio.</p>
+      <p>Queria entender melhor o que você está buscando. Você teria 30 minutinhos essa semana pra gente conversar?</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Mensagem 3 — Pré-fechamento</div>
+      <p>Boa! Deixa eu verificar os horários disponíveis comigo.</p>
+      <p>Posso te passar as opções?</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Mensagem 4 — Fechamento do horário</div>
+      <p>Tenho disponível:<br>
+      – [Dia 1] às [Horário 1]<br>
+      – [Dia 2] às [Horário 2]</p>
+      <p>Qual fica melhor pra você?</p>
+    </div>
+
+    <p style="margin-top: 12px;"><em>Sempre 2 opções. Nunca lista longa. O lead precisa escolher, não decidir se quer.</em></p>
+
+    <h3>Objeções mais comuns</h3>
+
+    <div class="obj-list">
+      <div class="obj-card">
+        <div class="obj-header">"Não tenho interesse"</div>
+        <div class="obj-body">
+          <div class="script-block" style="margin: 0;">
+            <p>Entendo, [Nome]. A maioria das pessoas que hoje está no consórcio também falou isso no início.</p>
+            <p>Não é sobre comprar agora — é sobre entender se os números fazem sentido pro seu objetivo. São só 30 minutos. Você tem disponibilidade [hoje às horário] ou [amanhã às horário]?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="obj-card">
+        <div class="obj-header">"Já tenho financiamento / já sei como funciona"</div>
+        <div class="obj-body">
+          <div class="script-block" style="margin: 0;">
+            <p>[Nome], consórcio não é concorrente do financiamento — são ferramentas com objetivos diferentes.</p>
+            <p>O que eu quero mostrar é uma forma específica de atingir [objetivo dele] com menos custo total. Vale 30 minutos ver se faz sentido pra você?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="obj-card">
+        <div class="obj-header">"Agora não é o momento / estou corrido"</div>
+        <div class="obj-body">
+          <div class="script-block" style="margin: 0;">
+            <p>Não vou tomar seu tempo agora. São 30 minutos online, do conforto de onde você estiver.</p>
+            <p>Quando você tem uma janelinha essa semana? De manhã ou de tarde?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="obj-card">
+        <div class="obj-header">"Me manda informações por WhatsApp / e-mail"</div>
+        <div class="obj-body">
+          <div class="script-block" style="margin: 0;">
+            <p>Claro, posso mandar sim. Mas as informações mais relevantes são visuais — não ficam bem por texto.</p>
+            <p>Posso mandar o material E já garantir um horário pra conversarmos. Você tem como [amanhã às horário]?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="obj-card">
+        <div class="obj-header">"Quanto custa? / Qual o valor?"</div>
+        <div class="obj-body">
+          <div class="script-block" style="margin: 0;">
+            <p>[Nome], exatamente por isso preciso de 30 minutos com você. Os valores dependem do que você quer conquistar e do seu perfil.</p>
+            <p>Passar número sem contexto ia te confundir mais do que ajudar. Você tem como [opção 1] ou [opção 2]?</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="obj-card">
+        <div class="obj-header">"Preciso falar com meu cônjuge / sócio primeiro"</div>
+        <div class="obj-body">
+          <div class="script-block" style="margin: 0;">
+            <p>Faz todo sentido incluir quem decide com você. Melhor ainda — você consegue trazê-lo junto pra nossa conversa? Com as duas partes ouvindo, a decisão fica muito mais rápida e assertiva.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <h3>Follow-up D2, D3 e D12</h3>
+
+    <div class="script-block">
+      <div class="script-label">D2 — Primeira retomada</div>
+      <p>[Nome], tudo bem? Tentei ontem mas não consegui.</p>
+      <p>Você ainda tem interesse em entender melhor como o consórcio pode funcionar pro seu objetivo?</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">D3 — Prova social</div>
+      <p>[Nome], um cliente meu de [cidade/estado] me mandou mensagem esses dias falando que conseguiu o crédito pra [objetivo] depois que a gente estruturou o plano certo.</p>
+      <p>Quero muito que você veja isso também. Posso te passar os horários?</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">D4 — Hack do bom dia errado</div>
+      <p>Bom dia, [Nome levemente errado]!</p>
+      <p><em>Quando a pessoa corrigir:</em></p>
+      <p>Ah, desculpa [Nome certo]! Confundi aqui. Mas já que você respondeu, queria saber se você ainda tem interesse em conversar sobre o consórcio. Tenho horário amanhã às [horário]. Serve?</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">D12 — Última cartada (pré break-up)</div>
+      <p>[Nome], tentei entrar em contato algumas vezes essa semana.</p>
+      <p>Parece que esse momento não é ideal, o que entendo completamente.</p>
+      <p>Pelo volume de atendimentos que tenho, não vou conseguir manter contato ativo por aqui. Se em algum momento fizer sentido conversar, fico à disposição.</p>
+      <p>Sucesso nos seus planos!</p>
+    </div>
+  </section>
+
+  <!-- PARTE 6 — CONFIRMAÇÃO -->
+  <section id="confirmacao">
+    <p class="section-number">Parte 6</p>
+    <h2>Confirmação de presença — como reduzir no-show</h2>
+
+    <p>No-show é um dos maiores desperdícios do processo de vendas. Existe uma sequência simples que reduz isso significativamente.</p>
+
+    <table class="seq-table">
+      <thead>
+        <tr>
+          <th>Quando</th>
+          <th>Ação</th>
+          <th>Por que existe</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td>Logo após agendar</td>
+          <td>Confirmação escrita na conversa</td>
+          <td>Micro-compromisso — quem escreve tem mais chance de aparecer</td>
+        </tr>
+        <tr>
+          <td>48h antes</td>
+          <td>Mensagem WA de lembrete</td>
+          <td>A maioria das faltas é por esquecimento — esse corte resolve</td>
+        </tr>
+        <tr>
+          <td>Manhã do dia anterior</td>
+          <td>Ligação de confirmação</td>
+          <td>Humaniza o contato e cria compromisso real</td>
+        </tr>
+        <tr>
+          <td>2–3 horas antes</td>
+          <td>Mensagem WA com link de acesso</td>
+          <td>Remove a desculpa "não achei o link"</td>
+        </tr>
+        <tr>
+          <td>No horário exato</td>
+          <td>Se não entrou, ligue imediatamente</td>
+          <td>Muitos no-shows são atrasos, não desistências</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="script-block">
+      <div class="script-label">Script da ligação de confirmação (dia anterior)</div>
+      <p>[Nome], boa tarde! Aqui é [seu nome].</p>
+      <p>Estou ligando pra confirmar nossa conversa amanhã às [horário]. Vai conseguir participar?</p>
+      <p>[Espera confirmação]</p>
+      <p>Ótimo! São 30 minutos pelo Google Meet. Você vai receber o link aqui no WhatsApp. Qualquer dúvida, me chama. Até amanhã!</p>
+    </div>
+
+    <h3>No-show — o que fazer</h3>
+
+    <div class="script-block">
+      <div class="script-label">Mensagem imediata (até 10 min após o horário)</div>
+      <p>[Nome], tudo bem? Estava te esperando agora às [horário]. Imagino que deve ter acontecido algum imprevisto.</p>
+      <p>Tenho horários disponíveis ainda essa semana. Podemos marcar [opção 1] ou [opção 2]?</p>
+    </div>
+
+    <div class="script-block">
+      <div class="script-label">Terceira tentativa (tom mais firme)</div>
+      <p>[Nome], entendo que imprevistos acontecem. É a segunda vez que a gente tenta se encontrar.</p>
+      <p>Quero que você tenha essa oportunidade. Vou reservar uma última vez: [dia] às [horário]. Você consegue garantir sua presença?</p>
+    </div>
+  </section>
+
+  <!-- PARTE 7 — REGRAS -->
+  <section id="regras">
+    <p class="section-number">Parte 7</p>
+    <h2>Regras de ouro do processo</h2>
+
+    <div class="gold-rules">
+      <div class="gold-rule">
+        <div class="gold-num">1</div>
+        <div class="gold-text">
+          <strong>Volume alto, mensagem diferente</strong>
+          <p>Follow-up que repete a mesma mensagem é spam. Cada contato tem um gancho novo, um ângulo diferente.</p>
+        </div>
+      </div>
+      <div class="gold-rule">
+        <div class="gold-num">2</div>
+        <div class="gold-text">
+          <strong>Lead difícil de agendar não é lead sem interesse</strong>
+          <p>Quem trava muito no agendamento, quando aparece, tende a fechar. Vale o esforço até o D12.</p>
+        </div>
+      </div>
+      <div class="gold-rule">
+        <div class="gold-num">3</div>
+        <div class="gold-text">
+          <strong>Tom firme não é tom grosso</strong>
+          <p>A partir do F4 o tom fica mais sério, mas nunca agressivo. Educação é obrigatória em qualquer situação.</p>
+        </div>
+      </div>
+      <div class="gold-rule">
+        <div class="gold-num">4</div>
+        <div class="gold-text">
+          <strong>CRM sempre atualizado</strong>
+          <p>Se você não registrou, não existe. Lead sem próxima ação programada é lead perdido.</p>
+        </div>
+      </div>
+      <div class="gold-rule">
+        <div class="gold-num">5</div>
+        <div class="gold-text">
+          <strong>Última cartada tem horário fixo</strong>
+          <p>Reserve um bloco semanal fixo para revisar os leads em F6. Sem horário, nunca acontece.</p>
+        </div>
+      </div>
+      <div class="gold-rule">
+        <div class="gold-num">6</div>
+        <div class="gold-text">
+          <strong>Nunca venda o produto, venda a conversa</strong>
+          <p>Nas primeiras mensagens, o objetivo é marcar a reunião. Quando você explica consórcio antes de entender o cliente, gera objeção antes do momento certo.</p>
+        </div>
+      </div>
+      <div class="gold-rule">
+        <div class="gold-num">7</div>
+        <div class="gold-text">
+          <strong>Sempre termine com pergunta</strong>
+          <p>Mensagem que termina com ponto final mata a conversa. Toda mensagem deve terminar com uma pergunta fácil de responder.</p>
+        </div>
+      </div>
+    </div>
+
+    <h3>O que fazer vs. o que não fazer</h3>
+
+    <div class="rules-grid">
+      <div class="rules-col do">
+        <div class="rules-col-header do">Faça</div>
+        <ul>
+          <li>Contato em até 5 minutos após o interesse</li>
+          <li>Gancho diferente em cada mensagem</li>
+          <li>Sempre 2 opções de horário</li>
+          <li>Terminar com pergunta</li>
+          <li>Registrar tudo no CRM</li>
+          <li>Respeitar o ritual de confirmação</li>
+          <li>Executar a cadência completa até D12</li>
+        </ul>
+      </div>
+      <div class="rules-col dont">
+        <div class="rules-col-header dont">Não faça</div>
+        <ul>
+          <li>"Oi, ainda tem interesse?"</li>
+          <li>Repetir a mesma mensagem no follow</li>
+          <li>Mais de 3 perguntas por mensagem</li>
+          <li>Explicar o produto antes de entender o cliente</li>
+          <li>Desistir antes do D5</li>
+          <li>Lista longa de horários</li>
+          <li>Texto longo no follow-up</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESUMO EXECUTIVO -->
+  <section id="resumo">
+    <p class="section-number">Resumo</p>
+    <h2>O processo em 4 etapas</h2>
+
+    <div class="summary-box">
+      <h3>Se você absorver só uma coisa desse guia</h3>
+      <p>80% das vendas saem do follow-up. A maioria dos representantes desiste no segundo contato. Os que chegam ao décimo segundo, com a mensagem certa em cada dia, são os que fecham consistentemente.</p>
+
+      <ul class="summary-steps">
+        <li>
+          <div class="step-num">1</div>
+          <div class="step-text"><strong>Organize seus leads no CRM.</strong> Novo, Em Qualificação, Qualificado, Desqualificado. Cada lead sabe onde está e qual é o próximo passo.</div>
+        </li>
+        <li>
+          <div class="step-num">2</div>
+          <div class="step-text"><strong>Execute a cadência de D1 a D12.</strong> Cada dia tem uma ação específica. Não improvisa, não pula etapa, não repete mensagem.</div>
+        </li>
+        <li>
+          <div class="step-num">3</div>
+          <div class="step-text"><strong>Identifique o estágio de follow-up.</strong> F1 a F6, cada um com abordagem diferente. O mesmo lead no F3 e no F2 exige estratégias completamente distintas.</div>
+        </li>
+        <li>
+          <div class="step-num">4</div>
+          <div class="step-text"><strong>Confirme presença em várias etapas.</strong> No-show é desperdício de energia. A sequência de confirmação corta isso pela raiz.</div>
+        </li>
+      </ul>
+    </div>
+  </section>
+
+</div>
+
+<!-- FOOTER -->
+<footer>
+  <strong>Hurtz Company</strong> &mdash; Sistema Cota Vendida &mdash; Material de Treinamento<br>
+  Produzido com base na metodologia Full Sales System adaptada para o mercado de consórcio &mdash; Maio/2026
+</footer>
+
+</body>
+</html>
