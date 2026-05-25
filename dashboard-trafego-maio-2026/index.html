@@ -46,8 +46,8 @@
     .main { padding: 20px 24px 40px; max-width: 1600px; margin: 0 auto; width: 100%; }
 
     /* ── KPIs ── */
-    .kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 14px; }
-    @media(max-width:1100px){ .kpis { grid-template-columns: repeat(3,1fr); } }
+    .kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 14px; }
+    @media(max-width:1300px){ .kpis { grid-template-columns: repeat(3,1fr); } }
     @media(max-width:700px) { .kpis { grid-template-columns: repeat(2,1fr); } }
     .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
     .kpi-label { font-size: 10px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
@@ -187,6 +187,7 @@
     .col-pct.bad  { color: var(--bad-text); }
     .col-cpl    { color: var(--text-dim); }
     .col-cpmql  { color: var(--brasa); font-weight: 700; }
+    .col-cpvenda { color: var(--good-text); font-weight: 700; }
     .col-imp    { color: var(--text-muted); }
     .dash       { color: var(--text-muted); }
 
@@ -203,7 +204,7 @@
 
 <div class="topbar">
   <div class="logo">HURTZ <span>· Dashboard de Tráfego · Maio 2026</span></div>
-  <div class="topbar-meta">Atualizado em <strong>25/05/2026, 17:48:04</strong></div>
+  <div class="topbar-meta">Atualizado em <strong>25/05/2026, 18:02:04</strong></div>
 </div>
 
 <div class="main">
@@ -214,6 +215,7 @@
     <div class="kpi"><div class="kpi-label">Leads (formulário)</div><div class="kpi-value" id="kpi-leads">—</div><div class="kpi-sub" id="kpi-cpl">—</div></div>
     <div class="kpi"><div class="kpi-label">MQLs</div><div class="kpi-value" id="kpi-mql">—</div><div class="kpi-sub" id="kpi-pct">—</div></div>
     <div class="kpi"><div class="kpi-label">Custo por MQL</div><div class="kpi-value" id="kpi-cpmql">—</div><div class="kpi-sub" id="kpi-mql-sub">—</div></div>
+    <div class="kpi"><div class="kpi-label">Custo por Venda</div><div class="kpi-value" id="kpi-cpvenda" style="color:var(--good-text)">—</div><div class="kpi-sub" id="kpi-cpvenda-sub">—</div></div>
     <div class="kpi"><div class="kpi-label">Desqualificados</div><div class="kpi-value" id="kpi-desq" style="color:var(--text-dim)">—</div><div class="kpi-sub" id="kpi-desq-sub">—</div></div>
   </div>
 
@@ -272,6 +274,7 @@
             <th onclick="sortBy('desq')">Desqualif.</th>
             <th onclick="sortBy('cpl')">CPL</th>
             <th onclick="sortBy('cpmql')">Custo/MQL</th>
+            <th onclick="sortBy('cpvenda')" title="Custo/Venda projetado via taxa MQL→Venda global">Custo/Venda</th>
           </tr>
         </thead>
         <tbody id="dash-body">
@@ -308,6 +311,7 @@ const ABRIL = {
   sql:            63,
   agendamentos:   37,
   vendas:         2,
+  cpvenda:        1514.75 / 2,     // ~757.38
 };
 
 // ── Helpers ──────────────────────────────────────────────────
@@ -515,6 +519,8 @@ function renderComparison(tot) {
     { label: 'SQL',          cur: crm.sql         > 0 ? fmtN(crm.sql)         : '—', apr: fmtN(ABRIL.sql) },
     { label: 'Agenda',       cur: crm.agendamentos > 0 ? fmtN(crm.agendamentos) : '—', apr: fmtN(ABRIL.agendamentos) },
     { label: 'Vendas',       cur: crm.vendas      > 0 ? fmtN(crm.vendas)      : '—', apr: fmtN(ABRIL.vendas) },
+    { label: 'Custo/Venda',  cur: (crm.vendas > 0 && tot.s > 0) ? fmtR(tot.s / crm.vendas) : '—',
+                             apr: fmtR(ABRIL.cpvenda) },
     { label: 'Leads/Venda',  cur: (crm.vendas > 0 && tot.leads > 0) ? fmtN(Math.round(tot.leads / crm.vendas)) : '—',
                              apr: fmtN(Math.round(ABRIL.leads / ABRIL.vendas)) },
   ];
@@ -591,8 +597,9 @@ function renderRow(e, level, name, isActive) {
   const treeLine = level > 0 ? `<span class="tree-indent"><span class="tree-line"></span></span>` : '';
   const dot = `<span class="status-dot${isActive?' active':''}"></span>`;
 
-  const cpl   = e.s > 0 && e.leads > 0 ? fmtR(e.cpl)   : '<span class="dash">—</span>';
-  const cpmql = e.s > 0 && e.mql   > 0 ? fmtR(e.cpmql) : '<span class="dash">—</span>';
+  const cpl     = e.s > 0 && e.leads > 0 ? fmtR(e.cpl)    : '<span class="dash">—</span>';
+  const cpmql   = e.s > 0 && e.mql   > 0 ? fmtR(e.cpmql)  : '<span class="dash">—</span>';
+  const cpvenda = e.cpvenda > 0           ? fmtR(e.cpvenda) : '<span class="dash">—</span>';
   const pctHtml = e.leads > 0
     ? `<span class="col-pct ${pctClass(e.pct)}">${fmtP(e.pct)}</span>`
     : '<span class="dash">—</span>';
@@ -613,6 +620,7 @@ function renderRow(e, level, name, isActive) {
     <td class="num col-imp">${e.desq > 0 ? fmtN(e.desq) : '<span class="dash">—</span>'}</td>
     <td class="num col-cpl">${cpl}</td>
     <td class="num col-cpmql">${cpmql}</td>
+    <td class="num col-cpvenda">${cpvenda}</td>
   </tr>`;
 }
 
@@ -670,6 +678,20 @@ function render() {
   document.getElementById('kpi-desq').textContent   = fmtN(tot.desq);
   document.getElementById('kpi-desq-sub').textContent = 'Consultor: '+tot.desq_c+' · Time<2: '+tot.desq_t+' · Banco: '+tot.desq_b;
 
+  // KPI: Custo por Venda
+  const crm = loadCRM();
+  const mqlSaleRate = (crm.vendas > 0 && tot.mql > 0) ? crm.vendas / tot.mql : 0;
+  tot.cpvenda = crm.vendas > 0 && tot.s > 0 ? tot.s / crm.vendas : 0;
+  document.getElementById('kpi-cpvenda').textContent     = tot.cpvenda > 0 ? fmtR(tot.cpvenda) : '—';
+  document.getElementById('kpi-cpvenda-sub').textContent = crm.vendas > 0
+    ? crm.vendas + ' vendas · taxa MQL→venda: ' + fmtP(mqlSaleRate * 100)
+    : 'Informe as vendas no funil';
+
+  // Custo/Venda projetado por entidade (proporcional ao CPMql × taxa global)
+  [campaigns, adsets, ads].forEach(arr => arr.forEach(e => {
+    e.cpvenda = mqlSaleRate > 0 && e.mql > 0 ? e.cpmql / mqlSaleRate : 0;
+  }));
+
   // Panels
   renderFunnel(tot);
   renderComparison(tot);
@@ -679,7 +701,7 @@ function render() {
   const sortedCamps = sortRows(campaigns, sortCol, sortAsc);
   let html = '';
   if (sortedCamps.length === 0) {
-    html = '<tr class="empty-row"><td colspan="10">Sem dados no período selecionado.</td></tr>';
+    html = '<tr class="empty-row"><td colspan="11">Sem dados no período selecionado.</td></tr>';
   } else {
     for (const c of sortedCamps) {
       const cName = campNames[c.ci] || c.ci || '(sem nome)';
@@ -716,7 +738,7 @@ function sortBy(col) {
   if (sortCol === col) sortAsc = !sortAsc;
   else { sortCol = col; sortAsc = false; }
   document.querySelectorAll('thead th').forEach(th => { th.classList.remove('sort-asc','sort-desc'); });
-  const thIndex = ['name','s','im','cl','leads','mql','pct','desq','cpl','cpmql'].indexOf(col);
+  const thIndex = ['name','s','im','cl','leads','mql','pct','desq','cpl','cpmql','cpvenda'].indexOf(col);
   if (thIndex >= 0) {
     const ths = document.querySelectorAll('thead th');
     ths[thIndex].classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
