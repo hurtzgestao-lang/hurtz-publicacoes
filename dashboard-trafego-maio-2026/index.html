@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta http-equiv="refresh" content="3600"/>
+  <title>Dashboard Tráfego — Maio 2026 · Hurtz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --brasa:      #C06018;
+      --brasa-dim:  #97480E;
+      --brasa-glow: rgba(192,96,24,0.15);
+      --bg:         #181614;
+      --bg-camp:    #232323;
+      --bg-adset:   #1E1E1E;
+      --bg-ad:      #1A1A1A;
+      --surface:    #2A2A2A;
+      --border:     #383838;
+      --border-dim: #2C2C2C;
+      --text:       #E8E4DC;
+      --text-dim:   #8C8880;
+      --text-muted: #5A5652;
+      --good:       #1A7A4A;
+      --good-text:  #4ADE80;
+      --warn-text:  #C06018;
+      --bad:        #B52A2A;
+      --bad-text:   #F87171;
+      --blue:       #3A6FBF;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.5; }
+
+    /* ── Layout ── */
+    .app { display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar {
+      background: var(--bg-camp); border-bottom: 1px solid var(--border);
+      padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-weight: 700; font-size: 15px; color: var(--brasa); letter-spacing: -0.02em; }
+    .logo span { color: var(--text-dim); font-weight: 400; }
+    .topbar-meta { font-size: 11px; color: var(--text-dim); }
+    .topbar-meta strong { color: var(--text); }
+    .main { padding: 20px 24px 40px; max-width: 1600px; margin: 0 auto; width: 100%; }
+
+    /* ── KPIs ── */
+    .kpis { display: grid; grid-template-columns: repeat(5, 1fr); gap: 10px; margin-bottom: 20px; }
+    @media(max-width:1100px){ .kpis { grid-template-columns: repeat(3,1fr); } }
+    @media(max-width:700px) { .kpis { grid-template-columns: repeat(2,1fr); } }
+    .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+    .kpi-label { font-size: 10px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+    .kpi-value { font-size: 24px; font-weight: 700; color: var(--brasa); letter-spacing: -.02em; line-height: 1; }
+    .kpi-sub   { font-size: 11px; color: var(--text-dim); margin-top: 5px; }
+
+    /* ── Period filter ── */
+    .toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .period-btns { display: flex; gap: 4px; }
+    .period-btn {
+      background: var(--surface); border: 1px solid var(--border); color: var(--text-dim);
+      padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer;
+      transition: all .15s;
+    }
+    .period-btn:hover { border-color: var(--brasa); color: var(--text); }
+    .period-btn.active { background: var(--brasa); border-color: var(--brasa); color: #fff; }
+    .refresh-info { font-size: 11px; color: var(--text-muted); }
+    .refresh-info strong { color: var(--text-dim); }
+
+    /* ── Table wrapper ── */
+    .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+
+    /* ── Table header ── */
+    thead th {
+      background: #2F2F2F; color: var(--text-dim); font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .07em; padding: 10px 12px;
+      border-bottom: 1px solid var(--border); white-space: nowrap; text-align: right;
+      cursor: pointer; user-select: none;
+    }
+    thead th:first-child { text-align: left; min-width: 320px; position: sticky; left: 0; background: #2F2F2F; z-index: 2; }
+    thead th:hover { color: var(--text); }
+    thead th.sort-asc::after  { content: ' ↑'; color: var(--brasa); }
+    thead th.sort-desc::after { content: ' ↓'; color: var(--brasa); }
+
+    /* ── Row levels ── */
+    tr.row-camp  { background: var(--bg-camp); }
+    tr.row-adset { background: var(--bg-adset); }
+    tr.row-ad    { background: var(--bg-ad); }
+    tr:hover td  { filter: brightness(1.15); }
+
+    td { padding: 9px 12px; border-bottom: 1px solid var(--border-dim); text-align: right; white-space: nowrap; vertical-align: middle; }
+    td:first-child { text-align: left; position: sticky; left: 0; z-index: 1; }
+    tr.row-camp  td:first-child { background: var(--bg-camp); }
+    tr.row-adset td:first-child { background: var(--bg-adset); }
+    tr.row-ad    td:first-child { background: var(--bg-ad);    }
+    tr:hover td:first-child { filter: brightness(1.15); }
+
+    /* ── Name cell ── */
+    .name-cell { display: flex; align-items: center; gap: 0; }
+    .tree-indent { display: inline-flex; align-items: center; flex-shrink: 0; }
+    .tree-line {
+      width: 24px; height: 36px;
+      border-left: 1px dashed var(--border); border-bottom: 1px dashed var(--border);
+      border-bottom-left-radius: 4px; margin-right: 0; flex-shrink: 0;
+    }
+    .chevron {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 4px; flex-shrink: 0;
+      cursor: pointer; color: var(--text-dim); font-size: 9px; transition: transform .2s;
+      margin-right: 6px;
+    }
+    .chevron:hover { background: var(--brasa-glow); color: var(--brasa); }
+    .chevron.open { transform: rotate(90deg); }
+    .no-chevron { width: 20px; margin-right: 6px; flex-shrink: 0; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); flex-shrink: 0; margin-right: 8px; }
+    .status-dot.active { background: var(--good-text); box-shadow: 0 0 5px rgba(74,222,128,.4); }
+    .entity-name { font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; max-width: 280px; }
+    .row-adset .entity-name { font-weight: 500; color: #C8C4BC; }
+    .row-ad    .entity-name { font-weight: 400; color: var(--text-dim); font-size: 11px; }
+    .row-camp  .entity-name { font-size: 13px; }
+
+    /* ── Metric cells ── */
+    .num { font-variant-numeric: tabular-nums; }
+    .col-spend  { color: var(--text); }
+    .col-leads  { color: var(--text-dim); }
+    .col-mql    { color: var(--good-text); font-weight: 600; }
+    .col-pct    { font-weight: 700; }
+    .col-pct.good { color: var(--good-text); }
+    .col-pct.warn { color: var(--warn-text); }
+    .col-pct.bad  { color: var(--bad-text); }
+    .col-cpl    { color: var(--text-dim); }
+    .col-cpmql  { color: var(--brasa); font-weight: 700; }
+    .col-imp    { color: var(--text-muted); }
+    .dash       { color: var(--text-muted); }
+
+    /* ── Empty state ── */
+    .empty-row td { text-align: center; color: var(--text-dim); padding: 32px; font-style: italic; }
+
+    /* ── Footer ── */
+    footer { text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 24px; padding: 16px 0 8px; border-top: 1px solid var(--border-dim); }
+    footer strong { color: var(--text-dim); }
+  </style>
+</head>
+<body>
+<div class="app">
+
+<div class="topbar">
+  <div class="logo">HURTZ <span>· Dashboard de Tráfego · Maio 2026</span></div>
+  <div class="topbar-meta">Atualizado em <strong>25/05/2026, 10:06:55</strong></div>
+</div>
+
+<div class="main">
+
+  <!-- KPIs -->
+  <div class="kpis" id="kpis">
+    <div class="kpi"><div class="kpi-label">Investimento</div><div class="kpi-value" id="kpi-spend">—</div><div class="kpi-sub" id="kpi-imp">—</div></div>
+    <div class="kpi"><div class="kpi-label">Leads (formulário)</div><div class="kpi-value" id="kpi-leads">—</div><div class="kpi-sub" id="kpi-cpl">—</div></div>
+    <div class="kpi"><div class="kpi-label">MQLs</div><div class="kpi-value" id="kpi-mql">—</div><div class="kpi-sub" id="kpi-pct">—</div></div>
+    <div class="kpi"><div class="kpi-label">Custo por MQL</div><div class="kpi-value" id="kpi-cpmql">—</div><div class="kpi-sub" id="kpi-mql-sub">—</div></div>
+    <div class="kpi"><div class="kpi-label">Desqualificados</div><div class="kpi-value" id="kpi-desq" style="color:var(--text-dim)">—</div><div class="kpi-sub" id="kpi-desq-sub">—</div></div>
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="period-btns">
+      <button class="period-btn" data-period="today" onclick="setPeriod('today')">Hoje</button>
+      <button class="period-btn" data-period="week"  onclick="setPeriod('week')">Esta semana</button>
+      <button class="period-btn active" data-period="month" onclick="setPeriod('month')">Este mês</button>
+    </div>
+    <div class="refresh-info">Próxima atualização em <strong id="countdown">60:00</strong></div>
+  </div>
+
+  <!-- Drill-down table -->
+  <div class="table-wrap">
+    <div class="table-scroll">
+      <table id="dash-table">
+        <thead>
+          <tr>
+            <th onclick="sortBy('name')">Campanha / Conjunto / Anúncio</th>
+            <th onclick="sortBy('s')">Gasto</th>
+            <th onclick="sortBy('im')">Impressões</th>
+            <th onclick="sortBy('cl')">Cliques</th>
+            <th onclick="sortBy('leads')">Leads</th>
+            <th onclick="sortBy('mql')">MQLs</th>
+            <th onclick="sortBy('pct')">% MQL</th>
+            <th onclick="sortBy('desq')">Desqualif.</th>
+            <th onclick="sortBy('cpl')">CPL</th>
+            <th onclick="sortBy('cpmql')">Custo/MQL</th>
+          </tr>
+        </thead>
+        <tbody id="dash-body">
+          <tr class="empty-row"><td colspan="10">Carregando dados...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<footer>
+  Hurtz Company · <strong>Maio 2026</strong> · build-dashboard.js v2
+  · Critério MQL: não-consultor · time≥2 · não-exclusivo-banco
+  · Fontes: 251 leads · 127 linhas Meta Ads
+</footer>
+</div><!-- /app -->
+
+<script>
+// ── Raw data ──────────────────────────────────────────────────
+const INSIGHT_ROWS = [{"dt":"2026-05-01","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":8.77,"im":274,"cl":2,"lm":0},{"dt":"2026-05-01","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":9.1,"im":591,"cl":6,"lm":3},{"dt":"2026-05-01","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":8.54,"im":362,"cl":3,"lm":3},{"dt":"2026-05-01","ci":"120242574797430375","cn":"02 - MULTIMARCAS - LEADS - FORMS NATIVO — Cópia","ai":"120242574797490375","an":"Novo conjunto de anúncios de Leads","di":"120242574797480375","dn":"Novo anúncio de Leads","s":9.02,"im":525,"cl":4,"lm":3},{"dt":"2026-05-01","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":9.39,"im":832,"cl":15,"lm":6},{"dt":"2026-05-01","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":9.41,"im":411,"cl":2,"lm":0},{"dt":"2026-05-01","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":10.58,"im":541,"cl":7,"lm":0},{"dt":"2026-05-01","ci":"120243710710070375","cn":"01 - PROMOVE - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710030375","an":"Novo conjunto de anúncios de Leads","di":"120243710710080375","dn":"Novo anúncio de Leads","s":10.8,"im":400,"cl":5,"lm":0},{"dt":"2026-05-02","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":6.73,"im":195,"cl":6,"lm":3},{"dt":"2026-05-02","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":4.12,"im":256,"cl":3,"lm":0},{"dt":"2026-05-02","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492760370375","dn":"Novo anúncio de Leads — Cópia","s":0.96,"im":49,"cl":0,"lm":0},{"dt":"2026-05-02","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":3.64,"im":193,"cl":2,"lm":0},{"dt":"2026-05-02","ci":"120242574797430375","cn":"02 - MULTIMARCAS - LEADS - FORMS NATIVO — Cópia","ai":"120242574797490375","an":"Novo conjunto de anúncios de Leads","di":"120242574797480375","dn":"Novo anúncio de Leads","s":5.3,"im":387,"cl":5,"lm":0},{"dt":"2026-05-02","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":5.85,"im":556,"cl":13,"lm":3},{"dt":"2026-05-02","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":5.93,"im":211,"cl":6,"lm":3},{"dt":"2026-05-02","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":7.15,"im":330,"cl":3,"lm":3},{"dt":"2026-05-02","ci":"120243710710070375","cn":"01 - PROMOVE - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710030375","an":"Novo conjunto de anúncios de Leads","di":"120243710710080375","dn":"Novo anúncio de Leads","s":4.56,"im":216,"cl":2,"lm":0},{"dt":"2026-05-11","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":10.1,"im":305,"cl":3,"lm":0},{"dt":"2026-05-11","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":10.9,"im":615,"cl":13,"lm":3},{"dt":"2026-05-11","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":9.04,"im":461,"cl":3,"lm":3},{"dt":"2026-05-11","ci":"120242574797430375","cn":"02 - MULTIMARCAS - LEADS - FORMS NATIVO — Cópia","ai":"120242574797490375","an":"Novo conjunto de anúncios de Leads","di":"120242574797480375","dn":"Novo anúncio de Leads","s":8.38,"im":539,"cl":9,"lm":9},{"dt":"2026-05-11","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":10.29,"im":731,"cl":13,"lm":3},{"dt":"2026-05-11","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":9.87,"im":501,"cl":9,"lm":3},{"dt":"2026-05-11","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":8.39,"im":335,"cl":17,"lm":12},{"dt":"2026-05-11","ci":"120243710710070375","cn":"01 - PROMOVE - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710030375","an":"Novo conjunto de anúncios de Leads","di":"120243710710080375","dn":"Novo anúncio de Leads","s":7.18,"im":299,"cl":5,"lm":3},{"dt":"2026-05-12","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":16.2,"im":608,"cl":8,"lm":0},{"dt":"2026-05-12","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":15.01,"im":950,"cl":17,"lm":9},{"dt":"2026-05-12","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492760370375","dn":"Novo anúncio de Leads — Cópia","s":0.29,"im":19,"cl":0,"lm":0},{"dt":"2026-05-12","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":14.62,"im":785,"cl":19,"lm":15},{"dt":"2026-05-12","ci":"120242574797430375","cn":"02 - MULTIMARCAS - LEADS - FORMS NATIVO — Cópia","ai":"120242574797490375","an":"Novo conjunto de anúncios de Leads","di":"120242574797480375","dn":"Novo anúncio de Leads","s":13.59,"im":1263,"cl":37,"lm":12},{"dt":"2026-05-12","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":13.55,"im":1274,"cl":41,"lm":15},{"dt":"2026-05-12","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":15.59,"im":1239,"cl":26,"lm":18},{"dt":"2026-05-12","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":15.14,"im":1037,"cl":17,"lm":9},{"dt":"2026-05-12","ci":"120243710710070375","cn":"01 - PROMOVE - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710030375","an":"Novo conjunto de anúncios de Leads","di":"120243710710080375","dn":"Novo anúncio de Leads","s":15.02,"im":668,"cl":8,"lm":6},{"dt":"2026-05-13","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":13.24,"im":396,"cl":8,"lm":9},{"dt":"2026-05-13","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":12.78,"im":858,"cl":17,"lm":6},{"dt":"2026-05-13","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492760370375","dn":"Novo anúncio de Leads — Cópia","s":0.14,"im":5,"cl":0,"lm":0},{"dt":"2026-05-13","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":14.34,"im":461,"cl":8,"lm":3},{"dt":"2026-05-13","ci":"120242574797430375","cn":"02 - MULTIMARCAS - LEADS - FORMS NATIVO — Cópia","ai":"120242574797490375","an":"Novo conjunto de anúncios de Leads","di":"120242574797480375","dn":"Novo anúncio de Leads","s":12.42,"im":846,"cl":12,"lm":0},{"dt":"2026-05-13","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":11.52,"im":928,"cl":26,"lm":9},{"dt":"2026-05-13","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":12.75,"im":738,"cl":16,"lm":6},{"dt":"2026-05-13","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":12.18,"im":991,"cl":19,"lm":6},{"dt":"2026-05-13","ci":"120243710710070375","cn":"01 - PROMOVE - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710030375","an":"Novo conjunto de anúncios de Leads","di":"120243710710080375","dn":"Novo anúncio de Leads","s":13.67,"im":485,"cl":10,"lm":6},{"dt":"2026-05-14","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":8.54,"im":427,"cl":7,"lm":3},{"dt":"2026-05-14","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":8.72,"im":488,"cl":13,"lm":6},{"dt":"2026-05-14","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492760370375","dn":"Novo anúncio de Leads — Cópia","s":0.12,"im":11,"cl":0,"lm":0},{"dt":"2026-05-14","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":9.53,"im":497,"cl":9,"lm":3},{"dt":"2026-05-14","ci":"120242574797430375","cn":"02 - MULTIMARCAS - LEADS - FORMS NATIVO — Cópia","ai":"120242574797490375","an":"Novo conjunto de anúncios de Leads","di":"120242574797480375","dn":"Novo anúncio de Leads","s":9.17,"im":825,"cl":13,"lm":6},{"dt":"2026-05-14","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":9.49,"im":883,"cl":16,"lm":0},{"dt":"2026-05-14","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":9.54,"im":819,"cl":16,"lm":0},{"dt":"2026-05-14","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":9.34,"im":906,"cl":9,"lm":6},{"dt":"2026-05-14","ci":"120243710710070375","cn":"01 - PROMOVE - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710030375","an":"Novo conjunto de anúncios de Leads","di":"120243710710080375","dn":"Novo anúncio de Leads","s":9.34,"im":582,"cl":6,"lm":0},{"dt":"2026-05-15","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":11.24,"im":428,"cl":3,"lm":0},{"dt":"2026-05-15","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":12.63,"im":748,"cl":24,"lm":12},{"dt":"2026-05-15","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":10.74,"im":588,"cl":4,"lm":0},{"dt":"2026-05-15","ci":"120242574797430375","cn":"02 - MULTIMARCAS - LEADS - FORMS NATIVO — Cópia","ai":"120242574797490375","an":"Novo conjunto de anúncios de Leads","di":"120242574797480375","dn":"Novo anúncio de Leads","s":12.74,"im":968,"cl":11,"lm":3},{"dt":"2026-05-15","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":11.18,"im":1010,"cl":15,"lm":6},{"dt":"2026-05-15","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":10.53,"im":814,"cl":4,"lm":0},{"dt":"2026-05-15","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":11.17,"im":893,"cl":11,"lm":0},{"dt":"2026-05-15","ci":"120243710710070375","cn":"01 - PROMOVE - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710030375","an":"Novo conjunto de anúncios de Leads","di":"120243710710080375","dn":"Novo anúncio de Leads","s":11.75,"im":580,"cl":5,"lm":0},{"dt":"2026-05-15","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120244688246380375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120244688246400375","dn":"Novo anúncio de Leads — Cópia","s":3.35,"im":147,"cl":5,"lm":3},{"dt":"2026-05-16","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":2.07,"im":51,"cl":3,"lm":3},{"dt":"2026-05-16","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":2.97,"im":208,"cl":5,"lm":3},{"dt":"2026-05-16","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":1.68,"im":80,"cl":3,"lm":0},{"dt":"2026-05-16","ci":"120242574797430375","cn":"02 - MULTIMARCAS - LEADS - FORMS NATIVO — Cópia","ai":"120242574797490375","an":"Novo conjunto de anúncios de Leads","di":"120242574797480375","dn":"Novo anúncio de Leads","s":2.15,"im":129,"cl":2,"lm":0},{"dt":"2026-05-16","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":1.61,"im":91,"cl":4,"lm":3},{"dt":"2026-05-16","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":0.83,"im":74,"cl":1,"lm":0},{"dt":"2026-05-16","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":1.15,"im":75,"cl":0,"lm":0},{"dt":"2026-05-16","ci":"120243710710070375","cn":"01 - PROMOVE - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710030375","an":"Novo conjunto de anúncios de Leads","di":"120243710710080375","dn":"Novo anúncio de Leads","s":2.23,"im":76,"cl":0,"lm":0},{"dt":"2026-05-16","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120244688246380375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120244688246400375","dn":"Novo anúncio de Leads — Cópia","s":2.48,"im":156,"cl":2,"lm":3},{"dt":"2026-05-17","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":13.67,"im":397,"cl":6,"lm":3},{"dt":"2026-05-17","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":13.43,"im":1062,"cl":22,"lm":6},{"dt":"2026-05-17","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":13.34,"im":465,"cl":7,"lm":6},{"dt":"2026-05-17","ci":"120242574797430375","cn":"02 - MULTIMARCAS - LEADS - FORMS NATIVO — Cópia","ai":"120242574797490375","an":"Novo conjunto de anúncios de Leads","di":"120242574797480375","dn":"Novo anúncio de Leads","s":11.37,"im":647,"cl":14,"lm":3},{"dt":"2026-05-17","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":11.98,"im":929,"cl":13,"lm":3},{"dt":"2026-05-17","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":12.65,"im":766,"cl":10,"lm":3},{"dt":"2026-05-17","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":12.2,"im":670,"cl":4,"lm":0},{"dt":"2026-05-17","ci":"120243710710070375","cn":"01 - PROMOVE - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710030375","an":"Novo conjunto de anúncios de Leads","di":"120243710710080375","dn":"Novo anúncio de Leads","s":12.5,"im":421,"cl":4,"lm":0},{"dt":"2026-05-17","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120244688246380375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120244688246400375","dn":"Novo anúncio de Leads — Cópia","s":8.84,"im":643,"cl":5,"lm":0},{"dt":"2026-05-18","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":8.54,"im":241,"cl":4,"lm":0},{"dt":"2026-05-18","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":7.11,"im":554,"cl":5,"lm":3},{"dt":"2026-05-18","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":7.02,"im":240,"cl":3,"lm":0},{"dt":"2026-05-18","ci":"120242574797430375","cn":"02 - MULTIMARCAS - LEADS - FORMS NATIVO — Cópia","ai":"120242574797490375","an":"Novo conjunto de anúncios de Leads","di":"120242574797480375","dn":"Novo anúncio de Leads","s":6.12,"im":408,"cl":7,"lm":0},{"dt":"2026-05-18","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":6.7,"im":471,"cl":10,"lm":9},{"dt":"2026-05-18","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":7,"im":549,"cl":10,"lm":3},{"dt":"2026-05-18","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":7.18,"im":497,"cl":6,"lm":3},{"dt":"2026-05-18","ci":"120243710710070375","cn":"01 - PROMOVE - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710030375","an":"Novo conjunto de anúncios de Leads","di":"120243710710080375","dn":"Novo anúncio de Leads","s":6.93,"im":352,"cl":5,"lm":0},{"dt":"2026-05-18","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120244688246380375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120244688246400375","dn":"Novo anúncio de Leads — Cópia","s":5.16,"im":258,"cl":3,"lm":0},{"dt":"2026-05-19","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":7.48,"im":193,"cl":14,"lm":12},{"dt":"2026-05-19","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":11.69,"im":792,"cl":17,"lm":0},{"dt":"2026-05-19","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":7.61,"im":346,"cl":5,"lm":0},{"dt":"2026-05-19","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":13.1,"im":1072,"cl":20,"lm":6},{"dt":"2026-05-19","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":6.35,"im":530,"cl":11,"lm":0},{"dt":"2026-05-19","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":7.78,"im":574,"cl":6,"lm":0},{"dt":"2026-05-19","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120244688246380375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120244688246400375","dn":"Novo anúncio de Leads — Cópia","s":4.08,"im":344,"cl":8,"lm":6},{"dt":"2026-05-20","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":11.91,"im":388,"cl":3,"lm":0},{"dt":"2026-05-20","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":11.86,"im":902,"cl":23,"lm":12},{"dt":"2026-05-20","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":11.57,"im":466,"cl":7,"lm":6},{"dt":"2026-05-20","ci":"120242734697920375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE","ai":"120242734697900375","an":"Novo conjunto de anúncios de Leads","di":"120242734697910375","dn":"Novo anúncio de Leads","s":3.87,"im":180,"cl":8,"lm":3},{"dt":"2026-05-20","ci":"120243710710040375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710090375","an":"Novo conjunto de anúncios de Leads","di":"120243710710050375","dn":"Novo anúncio de Leads","s":3.08,"im":229,"cl":8,"lm":3},{"dt":"2026-05-20","ci":"120243710710020375","cn":"01 - ALPHA ADM - LEADS - FORMS NATIVO - REPRESENTANTE — Cópia","ai":"120243710710100375","an":"Novo conjunto de anúncios de Leads","di":"120243710710060375","dn":"Novo anúncio de Leads","s":3.18,"im":223,"cl":3,"lm":3},{"dt":"2026-05-20","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120244688246380375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120244688246400375","dn":"Novo anúncio de Leads — Cópia","s":11.7,"im":650,"cl":11,"lm":6},{"dt":"2026-05-21","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":11.44,"im":323,"cl":10,"lm":6},{"dt":"2026-05-21","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":12.83,"im":994,"cl":21,"lm":0},{"dt":"2026-05-21","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":12.73,"im":416,"cl":7,"lm":6},{"dt":"2026-05-21","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120244688246380375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120244688246400375","dn":"Novo anúncio de Leads — Cópia","s":8.94,"im":468,"cl":9,"lm":0},{"dt":"2026-05-22","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":8.52,"im":293,"cl":3,"lm":3},{"dt":"2026-05-22","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":12.4,"im":1048,"cl":21,"lm":9},{"dt":"2026-05-22","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":9.99,"im":359,"cl":3,"lm":0},{"dt":"2026-05-22","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120244688246380375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120244688246400375","dn":"Novo anúncio de Leads — Cópia","s":8.72,"im":399,"cl":4,"lm":3},{"dt":"2026-05-23","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":7.71,"im":313,"cl":4,"lm":0},{"dt":"2026-05-23","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":12.87,"im":917,"cl":12,"lm":6},{"dt":"2026-05-23","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":7.53,"im":314,"cl":5,"lm":0},{"dt":"2026-05-23","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120244688246380375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120244688246400375","dn":"Novo anúncio de Leads — Cópia","s":9.58,"im":412,"cl":4,"lm":0},{"dt":"2026-05-24","ci":"120242492396620375","cn":"01 - REPRESENTANTE - LEADS - FORMS NATIVO","ai":"120242492396700375","an":"Novo conjunto de anúncios de Leads","di":"120242492396690375","dn":"Novo anúncio de Leads","s":3.21,"im":69,"cl":1,"lm":0},{"dt":"2026-05-24","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":2.44,"im":157,"cl":0,"lm":0},{"dt":"2026-05-24","ci":"120242574797450375","cn":"PROMOVE - LEADS - FORMS NATIVO","ai":"120242574797520375","an":"Novo conjunto de anúncios de Leads","di":"120242574797470375","dn":"Novo anúncio de Leads","s":2.75,"im":65,"cl":2,"lm":0},{"dt":"2026-05-24","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120244688246380375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120244688246400375","dn":"Novo anúncio de Leads — Cópia","s":2.79,"im":70,"cl":2,"lm":0},{"dt":"2026-05-24","ci":"120245286423290375","cn":"02 - REMARKETING - LEADS - FORMS NATIVO","ai":"120245286423330375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120245286423260375","dn":"Novo anúncio de Leads","s":2.28,"im":78,"cl":2,"lm":0},{"dt":"2026-05-24","ci":"120245286423290375","cn":"02 - REMARKETING - LEADS - FORMS NATIVO","ai":"120245286423340375","an":"Novo conjunto de anúncios de Leads","di":"120245286423270375","dn":"Novo anúncio de Leads","s":3.11,"im":86,"cl":1,"lm":0},{"dt":"2026-05-24","ci":"120245286423290375","cn":"02 - REMARKETING - LEADS - FORMS NATIVO","ai":"120245286423330375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120245286423310375","dn":"Novo anúncio de Leads — Cópia","s":0.16,"im":9,"cl":0,"lm":0},{"dt":"2026-05-24","ci":"120245286423290375","cn":"02 - REMARKETING - LEADS - FORMS NATIVO","ai":"120245286423280375","an":"Novo conjunto de anúncios de Leads — Cópia","di":"120245286423320375","dn":"Novo anúncio de Leads","s":3.33,"im":137,"cl":3,"lm":0},{"dt":"2026-05-24","ci":"120245286423290375","cn":"02 - REMARKETING - LEADS - FORMS NATIVO","ai":"120245286838440375","an":"Novo conjunto de anúncios de Leads — Cópia — Cópia","di":"120245286838470375","dn":"Novo anúncio de Leads","s":2.67,"im":73,"cl":2,"lm":0},{"dt":"2026-05-24","ci":"120245286423290375","cn":"02 - REMARKETING - LEADS - FORMS NATIVO","ai":"120245286838450375","an":"Novo conjunto de anúncios de Leads — Cópia — Cópia","di":"120245287189810375","dn":"Novo anúncio de Leads","s":2.73,"im":87,"cl":2,"lm":3},{"dt":"2026-05-24","ci":"120245286423290375","cn":"02 - REMARKETING - LEADS - FORMS NATIVO","ai":"120245286838430375","an":"Novo conjunto de anúncios de Leads — Cópia — Cópia","di":"120245287214530375","dn":"Novo anúncio de Leads","s":2.77,"im":149,"cl":0,"lm":0},{"dt":"2026-05-24","ci":"120245286423290375","cn":"02 - REMARKETING - LEADS - FORMS NATIVO","ai":"120245287532860375","an":"Novo conjunto de anúncios de Leads — Cópia — Cópia — Cópia","di":"120245287532880375","dn":"Novo anúncio de Leads","s":2.24,"im":106,"cl":0,"lm":0},{"dt":"2026-05-24","ci":"120245286423290375","cn":"02 - REMARKETING - LEADS - FORMS NATIVO","ai":"120245287532870375","an":"Novo conjunto de anúncios de Leads — Cópia — Cópia — Cópia","di":"120245287532890375","dn":"Novo anúncio de Leads","s":2.29,"im":162,"cl":2,"lm":0}];
+const LEAD_ROWS    = [{"d":"2026-05-01","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-01","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-01","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-01","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-01","c":"desq_time","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-02","c":"mql","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-02","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-02","c":"desq_time","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-02","c":"desq_time","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-11","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-11","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-11","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-11","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-11","c":"desq_consultor","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-11","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-11","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-11","c":"desq_time","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-11","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-11","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-11","c":"desq_consultor","ci":"120243710710070375","ai":"120243710710030375","di":"120243710710080375"},{"d":"2026-05-11","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-12","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-12","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-12","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710070375","ai":"120243710710030375","di":"120243710710080375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710070375","ai":"120243710710030375","di":"120243710710080375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-12","c":"desq_time","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-12","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-12","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"mql","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-12","c":"desq_time","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-12","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-13","c":"desq_consultor","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-13","c":"desq_consultor","ci":"120243710710070375","ai":"120243710710030375","di":"120243710710080375"},{"d":"2026-05-13","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-13","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-13","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-13","c":"desq_banco","ci":"120243710710070375","ai":"120243710710030375","di":"120243710710080375"},{"d":"2026-05-13","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-13","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-13","c":"desq_time","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-13","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-13","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-13","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-13","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-13","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-13","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-14","c":"desq_consultor","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-14","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-14","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-14","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-14","c":"mql","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-14","c":"desq_consultor","ci":"","ai":"","di":""},{"d":"2026-05-14","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-14","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-14","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-15","c":"desq_consultor","ci":"120242492697650375","ai":"120244688246380375","di":"120244688246400375"},{"d":"2026-05-15","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-15","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-15","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-15","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-15","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-15","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-15","c":"mql","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-16","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-16","c":"desq_time","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-16","c":"desq_time","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-16","c":"mql","ci":"120242492697650375","ai":"120244688246380375","di":"120244688246400375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-16","c":"desq_time","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-16","c":"mql","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-16","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-16","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-16","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242492697650375","ai":"120244688246380375","di":"120244688246400375"},{"d":"2026-05-17","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-17","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-17","c":"mql","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-17","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-17","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-17","c":"mql","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-17","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-17","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-18","c":"desq_consultor","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-18","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-18","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-18","c":"desq_consultor","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-18","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-18","c":"mql","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-21","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-21","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-21","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-21","c":"desq_time","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-21","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-20","c":"desq_consultor","ci":"120242492697650375","ai":"120244688246380375","di":"120244688246400375"},{"d":"2026-05-20","c":"desq_consultor","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-20","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-20","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-20","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-20","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-20","c":"mql","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-20","c":"desq_time","ci":"120242492697650375","ai":"120244688246380375","di":"120244688246400375"},{"d":"2026-05-20","c":"mql","ci":"120242492697650375","ai":"120244688246380375","di":"120244688246400375"},{"d":"2026-05-20","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-19","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-19","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-19","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-19","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-19","c":"desq_consultor","ci":"120242492697650375","ai":"120244688246380375","di":"120244688246400375"},{"d":"2026-05-19","c":"desq_consultor","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-19","c":"mql","ci":"","ai":"","di":""},{"d":"2026-05-18","c":"desq_consultor","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-18","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-18","c":"desq_consultor","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-18","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-18","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-17","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-17","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-17","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-17","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-17","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-17","c":"desq_consultor","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-17","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-17","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-16","c":"desq_time","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-16","c":"desq_time","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-16","c":"mql","ci":"120242492697650375","ai":"120244688246380375","di":"120244688246400375"},{"d":"2026-05-16","c":"desq_time","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-16","c":"mql","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-16","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-16","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-16","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242492697650375","ai":"120244688246380375","di":"120244688246400375"},{"d":"2026-05-16","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-15","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-15","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-15","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-15","c":"mql","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-15","c":"desq_consultor","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-15","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-15","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-14","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-14","c":"mql","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-14","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-14","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-14","c":"desq_consultor","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-14","c":"desq_consultor","ci":"120243710710070375","ai":"120243710710030375","di":"120243710710080375"},{"d":"2026-05-14","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-14","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-13","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-13","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-13","c":"desq_time","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-13","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-13","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-13","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-13","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-13","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-13","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-13","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-13","c":"desq_consultor","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-13","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-13","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-12","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710070375","ai":"120243710710030375","di":"120243710710080375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710070375","ai":"120243710710030375","di":"120243710710080375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-12","c":"desq_time","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-12","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-12","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"mql","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-12","c":"desq_time","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-12","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-12","c":"desq_consultor","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-12","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-11","c":"desq_time","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-11","c":"mql","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-11","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-11","c":"desq_consultor","ci":"120243710710070375","ai":"120243710710030375","di":"120243710710080375"},{"d":"2026-05-11","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-02","c":"mql","ci":"120243710710040375","ai":"120243710710090375","di":"120243710710050375"},{"d":"2026-05-02","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-02","c":"desq_time","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-02","c":"desq_time","ci":"120243710710020375","ai":"120243710710100375","di":"120243710710060375"},{"d":"2026-05-01","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-01","c":"desq_consultor","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-01","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-01","c":"mql","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-01","c":"desq_time","ci":"120242734697920375","ai":"120242734697900375","di":"120242734697910375"},{"d":"2026-05-01","c":"desq_consultor","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-01","c":"mql","ci":"120242574797430375","ai":"120242574797490375","di":"120242574797480375"},{"d":"2026-05-24","c":"mql","ci":"120245286423290375","ai":"120245286838450375","di":"120245287189810375"},{"d":"2026-05-23","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-23","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-22","c":"mql","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-22","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-22","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-22","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-22","c":"mql","ci":"120242492697650375","ai":"120244688246380375","di":"120244688246400375"},{"d":"2026-05-22","c":"mql","ci":"120242574797450375","ai":"120242574797520375","di":"120242574797470375"},{"d":"2026-05-21","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-25","c":"desq_time","ci":"120245286423290375","ai":"120245286423340375","di":"120245286423270375"},{"d":"2026-05-25","c":"mql","ci":"120245286423290375","ai":"120245286838440375","di":"120245286838470375"},{"d":"2026-05-25","c":"mql","ci":"120245286423290375","ai":"120245286423330375","di":"120245286423310375"},{"d":"2026-05-25","c":"desq_consultor","ci":"120245286423290375","ai":"120245286838430375","di":"120245287214530375"},{"d":"2026-05-25","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-05-24","c":"mql","ci":"120245286423290375","ai":"120245286838430375","di":"120245287214530375"},{"d":"2026-05-24","c":"mql","ci":"120245286423290375","ai":"120245287532860375","di":"120245287532880375"},{"d":"2026-05-24","c":"desq_consultor","ci":"120245286423290375","ai":"120245287532870375","di":"120245287532890375"},{"d":"2026-05-24","c":"desq_consultor","ci":"120245286423290375","ai":"120245286838450375","di":"120245287189810375"},{"d":"2026-05-24","c":"desq_consultor","ci":"120242492396620375","ai":"120242492396700375","di":"120242492396690375"},{"d":"2026-05-24","c":"mql","ci":"120245286423290375","ai":"120245286838430375","di":"120245287214530375"}];
+const MONTH_START  = '2026-05-01';
+
+// ── Helpers ──────────────────────────────────────────────────
+function fmtR(n) {
+  return 'R$ ' + Number(n).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function fmtN(n) { return Number(n).toLocaleString('pt-BR'); }
+function fmtP(n) {
+  return Number(n).toLocaleString('pt-BR', {minimumFractionDigits:1, maximumFractionDigits:1}) + '%';
+}
+function sd(a,b) { return b > 0 ? a / b : 0; }
+
+// ── Period ────────────────────────────────────────────────────
+let currentPeriod = 'month';
+let expandedCamps  = new Set();
+let expandedAdsets = new Set();
+let sortCol = 's'; let sortAsc = false;
+
+function getRange(period) {
+  const now = new Date();
+  const pad = n => String(n).padStart(2,'0');
+  const fmt = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  if (period === 'today') {
+    const t = fmt(now);
+    return [t, t];
+  }
+  if (period === 'week') {
+    const d = new Date(now);
+    const day = d.getDay() === 0 ? 6 : d.getDay() - 1; // Mon=0
+    d.setDate(d.getDate() - day);
+    return [fmt(d), fmt(now)];
+  }
+  // month
+  return [MONTH_START, fmt(now)];
+}
+
+function setPeriod(p) {
+  currentPeriod = p;
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.toggle('active', b.dataset.period === p));
+  render();
+}
+
+// ── Aggregation ───────────────────────────────────────────────
+function aggregate(start, end) {
+  // Filter insight rows
+  const ins = INSIGHT_ROWS.filter(r => r.dt >= start && r.dt <= end);
+  const leads = LEAD_ROWS.filter(r => r.d >= start && r.d <= end);
+
+  // Build name maps from insight rows
+  const campNames  = {};
+  const adsetNames = {};
+  const adNames    = {};
+  for (const r of ins) {
+    if (r.ci) campNames[r.ci]  = r.cn;
+    if (r.ai) adsetNames[r.ai] = r.an;
+    if (r.di) adNames[r.di]    = r.dn;
+  }
+  // Also from lead rows if not in insights
+  for (const l of leads) {
+    if (l.ci && !campNames[l.ci])  campNames[l.ci]  = '';
+    if (l.ai && !adsetNames[l.ai]) adsetNames[l.ai] = '';
+    if (l.di && !adNames[l.di])    adNames[l.di]    = '';
+  }
+
+  // Aggregate at ad level
+  const adMap = {};
+  for (const r of ins) {
+    if (!r.di) continue;
+    const k = r.di;
+    if (!adMap[k]) adMap[k] = {di:r.di, ai:r.ai, ci:r.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    adMap[k].s  += r.s;
+    adMap[k].im += r.im;
+    adMap[k].cl += r.cl;
+    adMap[k].lm += r.lm;
+  }
+  for (const l of leads) {
+    if (!l.di) continue;
+    if (!adMap[l.di]) adMap[l.di] = {di:l.di, ai:l.ai, ci:l.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    adMap[l.di].leads += 1;
+    if (l.c === 'mql')            adMap[l.di].mql += 1;
+    if (l.c === 'desq_consultor') adMap[l.di].desq_c += 1;
+    if (l.c === 'desq_time')      adMap[l.di].desq_t += 1;
+    if (l.c === 'desq_banco')     adMap[l.di].desq_b += 1;
+  }
+
+  // Roll up to adset
+  const adsetMap = {};
+  for (const a of Object.values(adMap)) {
+    if (!a.ai) continue;
+    if (!adsetMap[a.ai]) adsetMap[a.ai] = {ai:a.ai, ci:a.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    const as = adsetMap[a.ai];
+    as.s+=a.s; as.im+=a.im; as.cl+=a.cl; as.lm+=a.lm;
+    as.leads+=a.leads; as.mql+=a.mql; as.desq_c+=a.desq_c; as.desq_t+=a.desq_t; as.desq_b+=a.desq_b;
+  }
+
+  // Roll up to campaign
+  const campMap = {};
+  for (const a of Object.values(adsetMap)) {
+    if (!a.ci) continue;
+    if (!campMap[a.ci]) campMap[a.ci] = {ci:a.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    const c = campMap[a.ci];
+    c.s+=a.s; c.im+=a.im; c.cl+=a.cl; c.lm+=a.lm;
+    c.leads+=a.leads; c.mql+=a.mql; c.desq_c+=a.desq_c; c.desq_t+=a.desq_t; c.desq_b+=a.desq_b;
+  }
+
+  // Derive computed fields
+  function derive(e) {
+    e.desq = e.desq_c + e.desq_t + e.desq_b;
+    e.pct  = sd(e.mql, e.leads) * 100;
+    e.cpl  = sd(e.s, e.leads);
+    e.cpmql = sd(e.s, e.mql);
+    return e;
+  }
+
+  const campaigns = Object.values(campMap).map(derive);
+  const adsets    = Object.values(adsetMap).map(derive);
+  const ads       = Object.values(adMap).map(derive);
+
+  // Totals
+  const tot = {s:0,im:0,cl:0,leads:0,mql:0,desq_c:0,desq_t:0,desq_b:0};
+  for (const c of campaigns) { tot.s+=c.s; tot.im+=c.im; tot.cl+=c.cl; tot.leads+=c.leads; tot.mql+=c.mql; tot.desq_c+=c.desq_c; tot.desq_t+=c.desq_t; tot.desq_b+=c.desq_b; }
+  derive(tot);
+
+  return { campaigns, adsets, ads, tot, campNames, adsetNames, adNames };
+}
+
+// ── Render ────────────────────────────────────────────────────
+function pctClass(pct) { return pct >= 40 ? 'good' : pct >= 20 ? 'warn' : 'bad'; }
+
+function sortRows(arr, col, asc) {
+  return [...arr].sort((a,b) => {
+    let va = col === 'name' ? 0 : (a[col] ?? 0);
+    let vb = col === 'name' ? 0 : (b[col] ?? 0);
+    return asc ? va - vb : vb - va;
+  });
+}
+
+function renderRow(e, level, name, isActive) {
+  const indent = level * 24;
+  const hasChildren = level < 2;
+  const rowClass = ['row-camp','row-adset','row-ad'][level];
+  const dataId   = [e.ci, e.ai, e.di][level];
+  const parentAttr = level === 1 ? `data-camp="${e.ci}"` : level === 2 ? `data-adset="${e.ai}"` : '';
+  const display = level === 0 ? '' : 'display:none';
+  const chevron = hasChildren
+    ? `<span class="chevron${(level===0?expandedCamps:expandedAdsets).has(dataId)?' open':''}" onclick="toggleExpand(event,'${level}','${dataId}')" title="Expandir">&#9654;</span>`
+    : `<span class="no-chevron"></span>`;
+  const treeLine = level > 0 ? `<span class="tree-indent"><span class="tree-line"></span></span>` : '';
+  const dot = `<span class="status-dot${isActive?' active':''}"></span>`;
+
+  const cpl   = e.s > 0 && e.leads > 0 ? fmtR(e.cpl)   : '<span class="dash">—</span>';
+  const cpmql = e.s > 0 && e.mql   > 0 ? fmtR(e.cpmql) : '<span class="dash">—</span>';
+  const pctHtml = e.leads > 0
+    ? `<span class="col-pct ${pctClass(e.pct)}">${fmtP(e.pct)}</span>`
+    : '<span class="dash">—</span>';
+
+  return `<tr class="${rowClass}" ${parentAttr} data-id="${dataId}" style="${display}">
+    <td>
+      <div class="name-cell" style="padding-left:${indent}px">
+        ${treeLine}${chevron}${dot}
+        <span class="entity-name" title="${name}">${name}</span>
+      </div>
+    </td>
+    <td class="num col-spend">${e.s > 0 ? fmtR(e.s) : '<span class="dash">—</span>'}</td>
+    <td class="num col-imp">${e.im > 0 ? fmtN(e.im) : '<span class="dash">—</span>'}</td>
+    <td class="num col-imp">${e.cl > 0 ? fmtN(e.cl) : '<span class="dash">—</span>'}</td>
+    <td class="num col-leads">${e.leads > 0 ? fmtN(e.leads) : '<span class="dash">—</span>'}</td>
+    <td class="num col-mql">${e.mql > 0 ? fmtN(e.mql) : '<span class="dash">—</span>'}</td>
+    <td class="num">${pctHtml}</td>
+    <td class="num col-imp">${e.desq > 0 ? fmtN(e.desq) : '<span class="dash">—</span>'}</td>
+    <td class="num col-cpl">${cpl}</td>
+    <td class="num col-cpmql">${cpmql}</td>
+  </tr>`;
+}
+
+function toggleExpand(evt, level, id) {
+  evt.stopPropagation();
+  const chevron = evt.currentTarget;
+  if (level === '0') {
+    if (expandedCamps.has(id)) {
+      expandedCamps.delete(id);
+      // Also close adsets children
+      document.querySelectorAll(`tr[data-camp="${id}"]`).forEach(r => {
+        r.style.display = 'none';
+        const ai = r.dataset.id;
+        if (ai) {
+          expandedAdsets.delete(ai);
+          document.querySelectorAll(`tr[data-adset="${ai}"]`).forEach(ar => ar.style.display = 'none');
+          const ch = r.querySelector('.chevron');
+          if (ch) ch.classList.remove('open');
+        }
+      });
+    } else {
+      expandedCamps.add(id);
+      document.querySelectorAll(`tr[data-camp="${id}"]`).forEach(r => r.style.display = '');
+    }
+  } else {
+    if (expandedAdsets.has(id)) {
+      expandedAdsets.delete(id);
+      document.querySelectorAll(`tr[data-adset="${id}"]`).forEach(r => r.style.display = 'none');
+    } else {
+      expandedAdsets.add(id);
+      document.querySelectorAll(`tr[data-adset="${id}"]`).forEach(r => r.style.display = '');
+    }
+  }
+  chevron.classList.toggle('open');
+}
+
+function render() {
+  const [start, end] = getRange(currentPeriod);
+  const { campaigns, adsets, ads, tot, campNames, adsetNames, adNames } = aggregate(start, end);
+
+  // Update KPIs
+  document.getElementById('kpi-spend').textContent  = fmtR(tot.s);
+  document.getElementById('kpi-imp').textContent    = fmtN(tot.im) + ' impressões · ' + fmtN(tot.cl) + ' cliques';
+  document.getElementById('kpi-leads').textContent  = fmtN(tot.leads);
+  document.getElementById('kpi-cpl').textContent    = tot.leads > 0 ? 'CPL: ' + fmtR(tot.cpl) : '—';
+  document.getElementById('kpi-mql').textContent    = fmtN(tot.mql);
+  document.getElementById('kpi-pct').textContent    = tot.leads > 0 ? fmtP(tot.pct) + ' dos leads' : '—';
+  document.getElementById('kpi-cpmql').textContent  = tot.mql > 0 ? fmtR(tot.cpmql) : '—';
+  document.getElementById('kpi-mql-sub').textContent = fmtN(tot.mql) + ' MQLs no período';
+  document.getElementById('kpi-desq').textContent   = fmtN(tot.desq);
+  document.getElementById('kpi-desq-sub').textContent = 'Consultor: '+tot.desq_c+' · Time<2: '+tot.desq_t+' · Banco: '+tot.desq_b;
+
+  // Sort campaigns
+  const sortedCamps = sortRows(campaigns, sortCol, sortAsc);
+
+  // Build rows
+  let html = '';
+  if (sortedCamps.length === 0) {
+    html = '<tr class="empty-row"><td colspan="10">Sem dados no período selecionado.</td></tr>';
+  } else {
+    for (const c of sortedCamps) {
+      const cName = campNames[c.ci] || c.ci || '(sem nome)';
+      html += renderRow(c, 0, cName, c.s > 0 || c.leads > 0);
+      const cAdsets = sortRows(adsets.filter(a => a.ci === c.ci), sortCol, sortAsc);
+      for (const a of cAdsets) {
+        const aName = adsetNames[a.ai] || a.ai || '(sem nome)';
+        html += renderRow(a, 1, aName, a.s > 0 || a.leads > 0);
+        const aAds = sortRows(ads.filter(ad => ad.ai === a.ai), sortCol, sortAsc);
+        for (const ad of aAds) {
+          const dName = adNames[ad.di] || ad.di || '(sem nome)';
+          html += renderRow(ad, 2, dName, ad.s > 0 || ad.leads > 0);
+        }
+      }
+    }
+  }
+  document.getElementById('dash-body').innerHTML = html;
+
+  // Re-apply expand state
+  expandedCamps.forEach(id => {
+    document.querySelectorAll(`tr[data-camp="${id}"]`).forEach(r => r.style.display = '');
+    const ch = document.querySelector(`tr[data-id="${id}"] .chevron`);
+    if (ch) ch.classList.add('open');
+  });
+  expandedAdsets.forEach(id => {
+    document.querySelectorAll(`tr[data-adset="${id}"]`).forEach(r => r.style.display = '');
+    const ch = document.querySelector(`tr[data-id="${id}"] .chevron`);
+    if (ch) ch.classList.add('open');
+  });
+}
+
+// ── Sort ─────────────────────────────────────────────────────
+function sortBy(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = false; }
+  document.querySelectorAll('thead th').forEach(th => { th.classList.remove('sort-asc','sort-desc'); });
+  const thIndex = ['name','s','im','cl','leads','mql','pct','desq','cpl','cpmql'].indexOf(col);
+  if (thIndex >= 0) {
+    const ths = document.querySelectorAll('thead th');
+    ths[thIndex].classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+  }
+  render();
+}
+
+// ── Countdown ────────────────────────────────────────────────
+let secsLeft = 3600;
+function updateCountdown() {
+  secsLeft--;
+  if (secsLeft <= 0) { location.reload(); return; }
+  const m = Math.floor(secsLeft / 60).toString().padStart(2,'0');
+  const s = (secsLeft % 60).toString().padStart(2,'0');
+  const el = document.getElementById('countdown');
+  if (el) el.textContent = m + ':' + s;
+}
+setInterval(updateCountdown, 1000);
+
+// ── Init ─────────────────────────────────────────────────────
+render();
+</script>
+</body>
+</html>
