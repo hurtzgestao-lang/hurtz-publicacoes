@@ -85,10 +85,10 @@
     thead th.sort-desc::after { content: ' ↓'; color: var(--brasa); }
 
     /* ── Row levels ── */
-    tr.row-camp  { background: var(--bg-camp); }
-    tr.row-adset { background: var(--bg-adset); }
+    tr.row-camp  { background: var(--bg-camp); cursor: pointer; }
+    tr.row-adset { background: var(--bg-adset); cursor: pointer; }
     tr.row-ad    { background: var(--bg-ad); }
-    tr:hover td  { filter: brightness(1.15); }
+    tr.row-camp:hover td, tr.row-adset:hover td { filter: brightness(1.2); }
 
     td { padding: 9px 12px; border-bottom: 1px solid var(--border-dim); text-align: right; white-space: nowrap; vertical-align: middle; }
     td:first-child { text-align: left; position: sticky; left: 0; z-index: 1; }
@@ -148,7 +148,7 @@
 
 <div class="topbar">
   <div class="logo">HURTZ <span>· Dashboard de Tráfego · Maio 2026</span></div>
-  <div class="topbar-meta">Atualizado em <strong>25/05/2026, 10:06:55</strong></div>
+  <div class="topbar-meta">Atualizado em <strong>25/05/2026, 10:15:13</strong></div>
 </div>
 
 <div class="main">
@@ -353,9 +353,11 @@ function renderRow(e, level, name, isActive) {
   const rowClass = ['row-camp','row-adset','row-ad'][level];
   const dataId   = [e.ci, e.ai, e.di][level];
   const parentAttr = level === 1 ? `data-camp="${e.ci}"` : level === 2 ? `data-adset="${e.ai}"` : '';
-  const display = level === 0 ? '' : 'display:none';
-  const chevron = hasChildren
-    ? `<span class="chevron${(level===0?expandedCamps:expandedAdsets).has(dataId)?' open':''}" onclick="toggleExpand(event,'${level}','${dataId}')" title="Expandir">&#9654;</span>`
+  const display  = level === 0 ? '' : 'display:none';
+  const rowClick = hasChildren ? `onclick="toggleExpand(event,'${level}','${dataId}')"` : '';
+  const isOpen   = (level===0 ? expandedCamps : expandedAdsets).has(dataId);
+  const chevron  = hasChildren
+    ? `<span class="chevron${isOpen ? ' open' : ''}">&#9654;</span>`
     : `<span class="no-chevron"></span>`;
   const treeLine = level > 0 ? `<span class="tree-indent"><span class="tree-line"></span></span>` : '';
   const dot = `<span class="status-dot${isActive?' active':''}"></span>`;
@@ -366,7 +368,7 @@ function renderRow(e, level, name, isActive) {
     ? `<span class="col-pct ${pctClass(e.pct)}">${fmtP(e.pct)}</span>`
     : '<span class="dash">—</span>';
 
-  return `<tr class="${rowClass}" ${parentAttr} data-id="${dataId}" style="${display}">
+  return `<tr class="${rowClass}" ${parentAttr} data-id="${dataId}" style="${display}" ${rowClick}>
     <td>
       <div class="name-cell" style="padding-left:${indent}px">
         ${treeLine}${chevron}${dot}
@@ -387,11 +389,12 @@ function renderRow(e, level, name, isActive) {
 
 function toggleExpand(evt, level, id) {
   evt.stopPropagation();
-  const chevron = evt.currentTarget;
+  const row     = document.querySelector(`tr[data-id="${id}"]`);
+  const chevron = row ? row.querySelector('.chevron') : null;
+
   if (level === '0') {
     if (expandedCamps.has(id)) {
       expandedCamps.delete(id);
-      // Also close adsets children
       document.querySelectorAll(`tr[data-camp="${id}"]`).forEach(r => {
         r.style.display = 'none';
         const ai = r.dataset.id;
@@ -402,20 +405,23 @@ function toggleExpand(evt, level, id) {
           if (ch) ch.classList.remove('open');
         }
       });
+      if (chevron) chevron.classList.remove('open');
     } else {
       expandedCamps.add(id);
       document.querySelectorAll(`tr[data-camp="${id}"]`).forEach(r => r.style.display = '');
+      if (chevron) chevron.classList.add('open');
     }
   } else {
     if (expandedAdsets.has(id)) {
       expandedAdsets.delete(id);
       document.querySelectorAll(`tr[data-adset="${id}"]`).forEach(r => r.style.display = 'none');
+      if (chevron) chevron.classList.remove('open');
     } else {
       expandedAdsets.add(id);
       document.querySelectorAll(`tr[data-adset="${id}"]`).forEach(r => r.style.display = '');
+      if (chevron) chevron.classList.add('open');
     }
   }
-  chevron.classList.toggle('open');
 }
 
 function render() {
