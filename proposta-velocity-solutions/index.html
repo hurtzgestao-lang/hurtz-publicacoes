@@ -1,0 +1,1038 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Proposta Comercial - Velocity Solutions | Hurtz Company</title>
+  <meta name="description" content="Proposta comercial da Hurtz Company para reativacao da operacao de aquisicao da Velocity Solutions em Manaus.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    *, *::before, *::after { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    html, body { margin: 0; padding: 0; }
+
+    :root {
+      --brasa: #C06018;
+      --brasa-hover: #974A12;
+      --carvao: #181614;
+      --grafite: #3D3A36;
+      --pedra: #8C8880;
+      --areia: #E8E4DC;
+      --offwhite: #F5F2EC;
+      --card: #FFFFFF;
+      --font: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    }
+
+    body {
+      font-family: var(--font);
+      font-weight: 400;
+      font-size: 15px;
+      line-height: 1.6;
+      color: var(--carvao);
+      background: var(--offwhite);
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    img { display: block; max-width: 100%; }
+    a { color: inherit; }
+
+    .container {
+      width: min(1160px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .narrow {
+      width: min(860px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .topbar {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      background: rgba(245, 242, 236, 0.96);
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .topbar-inner {
+      min-height: 72px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      text-decoration: none;
+    }
+
+    .brand img { width: 148px; height: auto; }
+
+    .nav {
+      display: flex;
+      align-items: center;
+      gap: 22px;
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--grafite);
+    }
+
+    .nav a {
+      text-decoration: none;
+      transition: color 120ms ease;
+    }
+
+    .nav a:hover { color: var(--brasa); }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 48px;
+      padding: 13px 22px;
+      border: 1.5px solid var(--carvao);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--carvao);
+      font: 700 13px/1 var(--font);
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      white-space: nowrap;
+      transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    }
+
+    .btn:hover {
+      background: var(--carvao);
+      color: var(--offwhite);
+    }
+
+    .btn-primary {
+      background: var(--brasa);
+      border-color: var(--brasa);
+      color: var(--card);
+    }
+
+    .btn-primary:hover {
+      background: var(--brasa-hover);
+      border-color: var(--brasa-hover);
+      color: var(--card);
+    }
+
+    .hero {
+      min-height: calc(100vh - 72px);
+      display: grid;
+      align-items: center;
+      padding: 88px 0 64px;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .hero-grid {
+      display: grid;
+      grid-template-columns: minmax(0, 1.05fr) minmax(340px, 0.95fr);
+      gap: 64px;
+      align-items: center;
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 12px;
+      margin: 0 0 24px;
+      color: var(--brasa);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 48px;
+      height: 2px;
+      background: var(--brasa);
+    }
+
+    h1, h2, h3, p { margin: 0; }
+
+    h1 {
+      max-width: 760px;
+      font-size: clamp(46px, 7vw, 86px);
+      line-height: 0.98;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+
+    .hero-lead {
+      max-width: 640px;
+      margin-top: 28px;
+      color: var(--grafite);
+      font-size: clamp(17px, 1.8vw, 21px);
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+      margin-top: 40px;
+    }
+
+    .hero-card {
+      border: 1px solid var(--areia);
+      border-radius: 8px;
+      background: var(--card);
+      overflow: hidden;
+    }
+
+    .hero-card-head {
+      padding: 26px 28px;
+      background: var(--carvao);
+      color: var(--offwhite);
+    }
+
+    .hero-card-head img {
+      width: 150px;
+      margin-bottom: 34px;
+    }
+
+    .card-kicker {
+      color: var(--brasa);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 10px;
+    }
+
+    .card-title {
+      font-size: 24px;
+      line-height: 1.15;
+      font-weight: 700;
+      color: inherit;
+    }
+
+    .hero-card-body {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      border-top: 1px solid rgba(245, 242, 236, 0.14);
+    }
+
+    .metric {
+      padding: 26px 28px;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .metric:nth-child(odd) { border-right: 1px solid var(--areia); }
+    .metric:nth-last-child(-n+2) { border-bottom: 0; }
+
+    .metric-rule {
+      width: 42px;
+      height: 2px;
+      background: var(--brasa);
+      margin-bottom: 14px;
+    }
+
+    .metric-value {
+      font-size: clamp(32px, 4vw, 46px);
+      line-height: 1;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .metric-label {
+      margin-top: 8px;
+      color: var(--grafite);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    section {
+      padding: 88px 0;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .section-head {
+      display: grid;
+      grid-template-columns: minmax(0, 0.78fr) minmax(280px, 0.52fr);
+      gap: 56px;
+      align-items: end;
+      margin-bottom: 44px;
+    }
+
+    h2 {
+      font-size: clamp(32px, 4.5vw, 54px);
+      line-height: 1.05;
+      font-weight: 700;
+      letter-spacing: 0;
+    }
+
+    .section-copy {
+      color: var(--grafite);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .scenario-grid {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      border: 1px solid var(--areia);
+      background: var(--card);
+    }
+
+    .scenario-item {
+      min-height: 178px;
+      padding: 28px;
+      border-right: 1px solid var(--areia);
+    }
+
+    .scenario-item:last-child { border-right: 0; }
+
+    .scenario-number {
+      display: block;
+      margin-bottom: 28px;
+      color: var(--brasa);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+    }
+
+    .scenario-title {
+      font-size: 18px;
+      line-height: 1.2;
+      font-weight: 700;
+      margin-bottom: 10px;
+    }
+
+    .scenario-text {
+      color: var(--grafite);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .dark {
+      background: var(--carvao);
+      color: var(--offwhite);
+      border-bottom-color: rgba(245, 242, 236, 0.12);
+    }
+
+    .dark .section-copy,
+    .dark .scenario-text,
+    .dark .metric-label {
+      color: rgba(245, 242, 236, 0.68);
+    }
+
+    .dark .scenario-grid {
+      background: transparent;
+      border-color: rgba(245, 242, 236, 0.18);
+    }
+
+    .dark .scenario-item {
+      border-color: rgba(245, 242, 236, 0.18);
+    }
+
+    .dark .scenario-title,
+    .dark .metric-value {
+      color: var(--offwhite);
+    }
+
+    .flow {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 0;
+      border: 1px solid rgba(245, 242, 236, 0.18);
+    }
+
+    .flow-step {
+      padding: 34px;
+      border-right: 1px solid rgba(245, 242, 236, 0.18);
+      min-height: 260px;
+    }
+
+    .flow-step:last-child { border-right: 0; }
+
+    .flow-index {
+      color: var(--brasa);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      margin-bottom: 34px;
+    }
+
+    .flow-step h3 {
+      color: var(--offwhite);
+      font-size: 24px;
+      line-height: 1.12;
+      margin-bottom: 14px;
+    }
+
+    .flow-step p {
+      color: rgba(245, 242, 236, 0.68);
+      font-size: 14px;
+      line-height: 1.65;
+    }
+
+    .split {
+      display: grid;
+      grid-template-columns: 0.85fr 1.15fr;
+      gap: 56px;
+      align-items: start;
+    }
+
+    .feature-list {
+      border: 1px solid var(--areia);
+      background: var(--card);
+    }
+
+    .feature-item {
+      display: grid;
+      grid-template-columns: 32px minmax(0, 1fr);
+      gap: 18px;
+      padding: 22px 26px;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .feature-item:last-child { border-bottom: 0; }
+
+    .check {
+      width: 22px;
+      height: 22px;
+      border: 1.5px solid var(--brasa);
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--brasa);
+      font-size: 13px;
+      line-height: 1;
+      font-weight: 700;
+      margin-top: 2px;
+    }
+
+    .feature-title {
+      font-size: 16px;
+      font-weight: 700;
+      line-height: 1.25;
+      margin-bottom: 5px;
+    }
+
+    .feature-copy {
+      color: var(--grafite);
+      font-size: 13px;
+      line-height: 1.55;
+    }
+
+    .crm-card {
+      border: 1px solid var(--areia);
+      border-radius: 8px;
+      background: var(--card);
+      overflow: hidden;
+    }
+
+    .crm-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 16px;
+      padding: 22px 24px;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      color: var(--brasa);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .dot {
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: var(--brasa);
+    }
+
+    .crm-status {
+      color: var(--pedra);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .crm-body {
+      padding: 28px 24px 24px;
+    }
+
+    .lead-name {
+      font-size: 26px;
+      font-weight: 700;
+      line-height: 1.1;
+      margin-bottom: 20px;
+    }
+
+    .lead-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      border: 1px solid var(--areia);
+    }
+
+    .lead-field {
+      padding: 16px;
+      border-right: 1px solid var(--areia);
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .lead-field:nth-child(even) { border-right: 0; }
+    .lead-field:nth-last-child(-n+2) { border-bottom: 0; }
+
+    .lead-label {
+      color: var(--pedra);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 4px;
+    }
+
+    .lead-value {
+      font-size: 15px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .pipeline {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 8px;
+      margin-top: 22px;
+    }
+
+    .pipe-step {
+      min-height: 42px;
+      border: 1px solid var(--areia);
+      border-radius: 4px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--grafite);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-align: center;
+      padding: 8px;
+    }
+
+    .pipe-step.active {
+      border-color: var(--brasa);
+      color: var(--brasa);
+      background: #F9EDE3;
+    }
+
+    .pricing {
+      background: var(--carvao);
+      color: var(--offwhite);
+      border-bottom: 0;
+    }
+
+    .pricing-grid {
+      display: grid;
+      grid-template-columns: 1.05fr 0.95fr;
+      gap: 0;
+      border: 1px solid rgba(245, 242, 236, 0.18);
+    }
+
+    .price-panel {
+      padding: 42px;
+      border-right: 1px solid rgba(245, 242, 236, 0.18);
+    }
+
+    .price-panel:last-child { border-right: 0; }
+
+    .price-rule {
+      width: 64px;
+      height: 2px;
+      background: var(--brasa);
+      margin-bottom: 22px;
+    }
+
+    .price-label {
+      color: rgba(245, 242, 236, 0.68);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      margin-bottom: 12px;
+    }
+
+    .price-value {
+      font-size: clamp(42px, 6vw, 72px);
+      line-height: 0.96;
+      font-weight: 700;
+      letter-spacing: 0;
+      color: var(--offwhite);
+    }
+
+    .price-value span {
+      color: var(--brasa);
+      font-size: 0.44em;
+    }
+
+    .price-copy {
+      max-width: 460px;
+      margin-top: 18px;
+      color: rgba(245, 242, 236, 0.68);
+      font-size: 15px;
+      line-height: 1.6;
+    }
+
+    .totals {
+      margin-top: 34px;
+      border-top: 1px solid rgba(245, 242, 236, 0.18);
+    }
+
+    .total-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 20px;
+      padding: 18px 0;
+      border-bottom: 1px solid rgba(245, 242, 236, 0.18);
+      color: rgba(245, 242, 236, 0.76);
+    }
+
+    .total-row strong {
+      color: var(--offwhite);
+      text-align: right;
+    }
+
+    .cta {
+      background: var(--offwhite);
+      padding: 96px 0;
+      border-bottom: 0;
+    }
+
+    .cta-box {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto;
+      gap: 36px;
+      align-items: center;
+      padding: 42px;
+      border: 1px solid var(--areia);
+      border-radius: 8px;
+      background: var(--card);
+    }
+
+    .cta h2 {
+      max-width: 720px;
+      margin-bottom: 16px;
+    }
+
+    .cta p {
+      max-width: 620px;
+      color: var(--grafite);
+      font-size: 16px;
+      line-height: 1.65;
+    }
+
+    .footer {
+      padding: 36px 0;
+      border-top: 1px solid var(--areia);
+      color: var(--pedra);
+      font-size: 12px;
+    }
+
+    .footer-inner {
+      display: flex;
+      justify-content: space-between;
+      gap: 24px;
+      flex-wrap: wrap;
+    }
+
+    @media (max-width: 980px) {
+      .nav { display: none; }
+      .hero-grid,
+      .section-head,
+      .split,
+      .pricing-grid,
+      .cta-box {
+        grid-template-columns: 1fr;
+      }
+      .hero {
+        min-height: auto;
+        padding-top: 64px;
+      }
+      .scenario-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+      .scenario-item:nth-child(2) { border-right: 0; }
+      .scenario-item:nth-child(-n+2) { border-bottom: 1px solid var(--areia); }
+      .dark .scenario-item:nth-child(-n+2) { border-bottom-color: rgba(245, 242, 236, 0.18); }
+      .flow { grid-template-columns: 1fr; }
+      .flow-step {
+        min-height: auto;
+        border-right: 0;
+        border-bottom: 1px solid rgba(245, 242, 236, 0.18);
+      }
+      .flow-step:last-child { border-bottom: 0; }
+      .price-panel {
+        border-right: 0;
+        border-bottom: 1px solid rgba(245, 242, 236, 0.18);
+      }
+      .price-panel:last-child { border-bottom: 0; }
+    }
+
+    @media (max-width: 640px) {
+      .container,
+      .narrow {
+        width: min(100% - 32px, 1160px);
+      }
+      .topbar-inner { min-height: 64px; }
+      .brand img { width: 128px; }
+      .topbar .btn { display: none; }
+      .hero,
+      section,
+      .cta {
+        padding: 58px 0;
+      }
+      h1 {
+        font-size: clamp(40px, 13vw, 58px);
+      }
+      .hero-grid { gap: 42px; }
+      .hero-card-body,
+      .scenario-grid,
+      .lead-grid,
+      .pipeline {
+        grid-template-columns: 1fr;
+      }
+      .metric,
+      .scenario-item,
+      .lead-field {
+        border-right: 0 !important;
+        border-bottom: 1px solid var(--areia) !important;
+      }
+      .metric:last-child,
+      .scenario-item:last-child,
+      .lead-field:last-child {
+        border-bottom: 0 !important;
+      }
+      .dark .scenario-item {
+        border-bottom-color: rgba(245, 242, 236, 0.18) !important;
+      }
+      .section-head { margin-bottom: 32px; }
+      .price-panel,
+      .cta-box {
+        padding: 28px;
+      }
+      .footer-inner { display: block; }
+      .footer-inner span { display: block; margin-top: 8px; }
+    }
+  </style>
+</head>
+<body>
+  <header class="topbar">
+    <div class="container topbar-inner">
+      <a class="brand" href="#top" aria-label="Hurtz Company">
+        <img src="assets/logo-lockup-light.svg" alt="Hurtz Company">
+      </a>
+      <nav class="nav" aria-label="Navegacao da proposta">
+        <a href="#cenario">Cenario</a>
+        <a href="#operacao">Operacao</a>
+        <a href="#entregas">Entregas</a>
+        <a href="#investimento">Investimento</a>
+      </nav>
+      <a class="btn btn-primary" href="#investimento">Ver proposta</a>
+    </div>
+  </header>
+
+  <main id="top">
+    <section class="hero">
+      <div class="container hero-grid">
+        <div>
+          <p class="eyebrow">Proposta comercial</p>
+          <h1>Velocity Solutions com uma frente de demanda paga pronta para escalar.</h1>
+          <p class="hero-lead">Uma operacao de aquisicao para Manaus, com foco inicial em veiculo, 2 vendedores dedicados, CRM, simulador, criativos e treinamento comercial.</p>
+          <div class="hero-actions">
+            <a class="btn btn-primary" href="#investimento">Ver investimento</a>
+            <a class="btn" href="#entregas">O que esta incluso</a>
+          </div>
+        </div>
+
+        <aside class="hero-card" aria-label="Resumo da proposta">
+          <div class="hero-card-head">
+            <img src="assets/logo-lockup-dark.svg" alt="Hurtz Company">
+            <p class="card-kicker">Reativacao do projeto</p>
+            <p class="card-title">Comecar controlado, provar resultado nos primeiros vendedores e depois escalar.</p>
+          </div>
+          <div class="hero-card-body">
+            <div class="metric">
+              <div class="metric-rule"></div>
+              <div class="metric-value">22</div>
+              <p class="metric-label">vendedores na operacao atual</p>
+            </div>
+            <div class="metric">
+              <div class="metric-rule"></div>
+              <div class="metric-value">2</div>
+              <p class="metric-label">vendedores focados no inicio</p>
+            </div>
+            <div class="metric">
+              <div class="metric-rule"></div>
+              <div class="metric-value">R$ 50</div>
+              <p class="metric-label">por dia de midia recomendada</p>
+            </div>
+            <div class="metric">
+              <div class="metric-rule"></div>
+              <div class="metric-value">3 meses</div>
+              <p class="metric-label">com condicao reduzida</p>
+            </div>
+          </div>
+        </aside>
+      </div>
+    </section>
+
+    <section id="cenario">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Cenario atual</p>
+            <h2>A Velocity ja tem time. Agora precisa de demanda com processo.</h2>
+          </div>
+          <p class="section-copy">A reuniao deixou claro que o problema nao e falta de vendedor. O ponto e criar uma entrada previsivel de leads, com atendimento certo, CRM funcionando e treinamento para lead vindo de trafego.</p>
+        </div>
+
+        <div class="scenario-grid">
+          <article class="scenario-item">
+            <span class="scenario-number">01</span>
+            <h3 class="scenario-title">Escritorio proprio em Manaus</h3>
+            <p class="scenario-text">Nova fase da representacao, com estrutura independente e operacao comercial em crescimento.</p>
+          </article>
+          <article class="scenario-item">
+            <span class="scenario-number">02</span>
+            <h3 class="scenario-title">R$ 3,5M recentes</h3>
+            <p class="scenario-text">Producao somada do mes anterior, ainda sem a nova estrutura totalmente estabilizada.</p>
+          </article>
+          <article class="scenario-item">
+            <span class="scenario-number">03</span>
+            <h3 class="scenario-title">Foco em veiculo</h3>
+            <p class="scenario-text">Onde o time ja tem mais velocidade, menor barreira de aprendizagem e historico de fechamento.</p>
+          </article>
+          <article class="scenario-item">
+            <span class="scenario-number">04</span>
+            <h3 class="scenario-title">Reativacao com metodo</h3>
+            <p class="scenario-text">A Hurtz entra com campanha, qualificador, CRM, criativo, treinamento e gestao ativa.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="operacao" class="dark">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Estrategia recomendada</p>
+            <h2>Primeiro vender melhor o que a Velocity ja vende bem.</h2>
+          </div>
+          <p class="section-copy">O inicio deve ser concentrado em automovel. Imovel pode entrar como teste controlado, mas sem tirar o foco da frente que tem maior chance de gerar contratos rapidamente.</p>
+        </div>
+
+        <div class="flow">
+          <article class="flow-step">
+            <div class="flow-index">Etapa 01</div>
+            <h3>90% do esforco em veiculo</h3>
+            <p>Campanhas, criativos e simulador direcionados para cartas de auto, respeitando a forma como o time ja vende hoje.</p>
+          </article>
+          <article class="flow-step">
+            <div class="flow-index">Etapa 02</div>
+            <h3>2 vendedores como frente inicial</h3>
+            <p>Lead de trafego fica concentrado em quem vai ligar, organizar, aprender o processo e gerar leitura rapida de conversao.</p>
+          </article>
+          <article class="flow-step">
+            <div class="flow-index">Etapa 03</div>
+            <h3>Escala depois da validacao</h3>
+            <p>Com atendimento, CRM e campanha ajustados, a Velocity pode espalhar o processo para mais vendedores.</p>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section id="entregas">
+      <div class="container split">
+        <div>
+          <p class="eyebrow">Entregas Hurtz</p>
+          <h2>O lead chega com contexto. O time recebe processo.</h2>
+          <p class="section-copy" style="margin-top: 22px;">A entrega combina aquisicao, pre-qualificacao, CRM e treinamento. A gestao nao fica dependendo de lista solta de nome e telefone.</p>
+        </div>
+
+        <div class="feature-list">
+          <article class="feature-item">
+            <div class="check">✓</div>
+            <div>
+              <h3 class="feature-title">Gestao de trafego especializada em consorcio</h3>
+              <p class="feature-copy">Configuracao, testes, otimizacao diaria e ajustes conforme qualidade dos leads.</p>
+            </div>
+          </article>
+          <article class="feature-item">
+            <div class="check">✓</div>
+            <div>
+              <h3 class="feature-title">Criativos prontos para aprovacao</h3>
+              <p class="feature-copy">Anuncios produzidos pela Hurtz com base nas condicoes comerciais da Velocity.</p>
+            </div>
+          </article>
+          <article class="feature-item">
+            <div class="check">✓</div>
+            <div>
+              <h3 class="feature-title">Simulador e qualificador</h3>
+              <p class="feature-copy">Captura tipo de bem, credito desejado, entrada, parcela e momento de compra.</p>
+            </div>
+          </article>
+          <article class="feature-item">
+            <div class="check">✓</div>
+            <div>
+              <h3 class="feature-title">CRM incluso para o time</h3>
+              <p class="feature-copy">Funil, dashboard, distribuicao de leads, acesso mobile, WhatsApp e integracao com Meta.</p>
+            </div>
+          </article>
+          <article class="feature-item">
+            <div class="check">✓</div>
+            <div>
+              <h3 class="feature-title">Treinamento comercial individual</h3>
+              <p class="feature-copy">Treinamento focado na operacao da Velocity, com processo de atendimento para lead de trafego.</p>
+            </div>
+          </article>
+          <article class="feature-item">
+            <div class="check">✓</div>
+            <div>
+              <h3 class="feature-title">Acompanhamento ativo</h3>
+              <p class="feature-copy">Gestor da Hurtz acompanha campanha, criativo, qualidade, CRM e feedback comercial.</p>
+            </div>
+          </article>
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="container split">
+        <div class="crm-card" aria-label="Exemplo de lead qualificado">
+          <div class="crm-top">
+            <span class="tag"><span class="dot"></span> Lead de veiculo</span>
+            <span class="crm-status">Prioridade alta</span>
+          </div>
+          <div class="crm-body">
+            <div class="lead-name">Cliente captado pelo simulador</div>
+            <div class="lead-grid">
+              <div class="lead-field">
+                <div class="lead-label">Credito</div>
+                <div class="lead-value">R$ 100.000</div>
+              </div>
+              <div class="lead-field">
+                <div class="lead-label">Entrada</div>
+                <div class="lead-value">R$ 10.000</div>
+              </div>
+              <div class="lead-field">
+                <div class="lead-label">Bem</div>
+                <div class="lead-value">Veiculo</div>
+              </div>
+              <div class="lead-field">
+                <div class="lead-label">Acao</div>
+                <div class="lead-value">Ligar agora</div>
+              </div>
+            </div>
+            <div class="pipeline" aria-label="Pipeline do CRM">
+              <div class="pipe-step active">Novo</div>
+              <div class="pipe-step">Contato</div>
+              <div class="pipe-step">Negociacao</div>
+              <div class="pipe-step">Fechou</div>
+            </div>
+          </div>
+        </div>
+
+        <div>
+          <p class="eyebrow">CRM e simulador</p>
+          <h2>Menos lead cru. Mais informacao antes da ligacao.</h2>
+          <p class="section-copy" style="margin-top: 22px;">O simulador organiza as informacoes que importam para o vendedor. O CRM distribui, registra e da visao para a gestao acompanhar quem esta atendendo e o que esta virando oportunidade.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="investimento" class="pricing">
+      <div class="container">
+        <div class="section-head">
+          <div>
+            <p class="eyebrow">Investimento</p>
+            <h2>Condicao de reativacao para os 3 primeiros meses.</h2>
+          </div>
+          <p class="section-copy">O desenho financeiro respeita o budget conversado na reuniao e separa a mensalidade da Hurtz da verba paga diretamente para a Meta.</p>
+        </div>
+
+        <div class="pricing-grid">
+          <div class="price-panel">
+            <div class="price-rule"></div>
+            <div class="price-label">Mensalidade Hurtz</div>
+            <div class="price-value">R$ 2.000<span>/mes</span></div>
+            <p class="price-copy">Valor valido nos 3 primeiros meses. O valor normal da operacao e R$ 3.000/mes.</p>
+            <div class="totals">
+              <div class="total-row">
+                <span>Desconto mensal</span>
+                <strong>R$ 1.000</strong>
+              </div>
+              <div class="total-row">
+                <span>Desconto total no inicio</span>
+                <strong>R$ 3.000</strong>
+              </div>
+            </div>
+          </div>
+
+          <div class="price-panel">
+            <div class="price-rule"></div>
+            <div class="price-label">Midia recomendada</div>
+            <div class="price-value">R$ 50<span>/dia</span></div>
+            <p class="price-copy">Aproximadamente R$ 1.500/mes, pago direto para a Meta. Recomendacao: recargas semanais para controlar caixa e leitura de campanha.</p>
+            <div class="totals">
+              <div class="total-row">
+                <span>Total previsto no primeiro mes</span>
+                <strong>R$ 3.500</strong>
+              </div>
+              <div class="total-row">
+                <span>Para iniciar</span>
+                <strong>R$ 2.000 + 1a recarga</strong>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="cta">
+      <div class="container cta-box">
+        <div>
+          <p class="eyebrow">Proximo passo</p>
+          <h2>Quinta-feira, 28/05, 10h de Manaus.</h2>
+          <p>Segunda reuniao para mostrar exemplos de anuncios, confirmar o inicio, alinhar as condicoes comerciais de veiculo e deixar CRM, simulador, criativos e treinamento encaminhados.</p>
+        </div>
+        <a class="btn btn-primary" href="#top">Voltar ao topo</a>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <div class="container footer-inner">
+      <strong>Hurtz Company</strong>
+      <span>Proposta comercial para Velocity Solutions - Manaus</span>
+    </div>
+  </footer>
+</body>
+</html>
