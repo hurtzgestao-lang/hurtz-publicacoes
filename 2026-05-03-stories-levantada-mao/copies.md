@@ -379,7 +379,7 @@ Se não, segue tua jornada.
 - **Posta tudo no mesmo dia, em sequência.** Não distribui ao longo da semana. A escassez ("3 vagas, maio") perde força se quebra.
 - **Repete em ângulos diferentes.** Roda Sequência 1 essa semana, Sequência 2 daqui 10 dias, Sequência 3 no fim do mês. Quem viu uma, vê outra.
 - **Métrica de sucesso é DM, não view.** Story de levantada de mão tem que gerar conversa qualificada — não vista. Se você tem 500 views e 5 DMs com pergunta real, ganhou. 5000 views e 1 DM, perdeu.
-- **Resposta no direct tem que ser em até 1h.** Senão a temperatura cai. Vide [conteudo/social-selling/01-framework-abordagem.md](conteudo/social-selling/01-framework-abordagem.md) pra como continuar a conversa.
+- **Resposta no direct tem que ser em até 1h.** Senão a temperatura cai. Vide [vendas/social-selling/01-framework-abordagem.md](https://github.com/hurtzgestao-lang/hurtz-consorcio/blob/main/vendas/social-selling/01-framework-abordagem.md) pra como continuar a conversa.
 
 ---
 
