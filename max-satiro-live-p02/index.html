@@ -1,0 +1,565 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Aula gratuita para empresários de serviço | Max Satiro</title>
+  <meta name="description" content="Aula gratuita com Max Satiro para empresários de serviço que querem entender onde destravar o crescimento antes de acelerar.">
+  <style>
+    :root {
+      --page: #080706;
+      --shell: #0f0e0c;
+      --panel: #181713;
+      --panel-soft: rgba(239, 237, 234, .045);
+      --cream: #efedea;
+      --soft: rgba(239, 237, 234, .72);
+      --muted: rgba(239, 237, 234, .46);
+      --green: #35c12e;
+      --green-soft: rgba(53, 193, 46, .14);
+      --gold: #c7aa63;
+      --line: rgba(239, 237, 234, .11);
+      --shadow: 0 28px 84px rgba(0, 0, 0, .42);
+      --sans: Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+      --serif: Georgia, "Times New Roman", serif;
+      --mono: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      min-width: 320px;
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      overflow-x: hidden;
+      color: var(--cream);
+      background: var(--page);
+      font-family: var(--sans);
+      letter-spacing: 0;
+    }
+
+    input,
+    button {
+      font: inherit;
+    }
+
+    .page {
+      background:
+        radial-gradient(circle at 72% 16%, rgba(53, 193, 46, .12), transparent 32%),
+        linear-gradient(180deg, var(--page), #0b0a08 44%, var(--page));
+    }
+
+    .wrap {
+      width: min(1180px, calc(100% - 48px));
+      margin: 0 auto;
+    }
+
+    .hero {
+      position: relative;
+      min-height: 88svh;
+      overflow: hidden;
+      isolation: isolate;
+      background:
+        linear-gradient(90deg, rgba(8, 7, 6, 1) 0%, rgba(8, 7, 6, .98) 38%, rgba(8, 7, 6, .72) 61%, rgba(8, 7, 6, .22) 100%),
+        linear-gradient(180deg, rgba(8, 7, 6, .08), rgba(8, 7, 6, .72)),
+        url("assets/max-satiro-atual.jfif") right top / auto 104% no-repeat,
+        var(--page);
+    }
+
+    .hero::before {
+      position: absolute;
+      inset: 0;
+      z-index: -1;
+      content: "";
+      background:
+        radial-gradient(circle at 68% 18%, rgba(53, 193, 46, .18), transparent 24%),
+        linear-gradient(115deg, transparent 0 51%, rgba(239, 237, 234, .07) 51.15%, transparent 51.3% 100%),
+        linear-gradient(115deg, transparent 0 57%, rgba(199, 170, 99, .12) 57.15%, transparent 57.3% 100%);
+      opacity: .9;
+    }
+
+    .hero::after {
+      position: absolute;
+      inset: auto 0 0;
+      z-index: -1;
+      height: 30%;
+      content: "";
+      background: linear-gradient(180deg, transparent, rgba(15, 14, 12, .98));
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: flex-end;
+      padding: 18px 0 8px;
+    }
+
+    .event {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      min-height: 38px;
+      padding: 8px 14px;
+      border: 1px solid rgba(53, 193, 46, .34);
+      border-radius: 999px;
+      color: var(--cream);
+      background: rgba(8, 7, 6, .54);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 800;
+      text-transform: uppercase;
+      white-space: nowrap;
+      backdrop-filter: blur(12px);
+    }
+
+    .event::before {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 18px rgba(53, 193, 46, .58);
+      content: "";
+      flex: 0 0 auto;
+    }
+
+    .hero-inner {
+      display: grid;
+      align-content: center;
+      min-height: calc(88svh - 60px);
+      padding: 26px 0 44px;
+    }
+
+    .hero-copy {
+      max-width: 660px;
+    }
+
+    .kicker {
+      margin: 0 0 14px;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 900;
+      text-transform: uppercase;
+    }
+
+    h1,
+    h2,
+    p {
+      margin-top: 0;
+    }
+
+    h1 {
+      max-width: 660px;
+      margin-bottom: 0;
+      color: #fff;
+      font-family: var(--serif);
+      font-size: 58px;
+      font-weight: 500;
+      line-height: .94;
+      letter-spacing: 0;
+    }
+
+    h1 span {
+      color: var(--gold);
+      font-style: italic;
+    }
+
+    .lead {
+      max-width: 470px;
+      margin: 14px 0 0;
+      color: var(--soft);
+      font-size: 18px;
+      font-weight: 650;
+      line-height: 1.34;
+    }
+
+    .capture-strip {
+      width: min(390px, 100%);
+      margin-top: 22px;
+      padding: 18px;
+      border: 1px solid rgba(239, 237, 234, .13);
+      border-radius: 8px;
+      background:
+        linear-gradient(180deg, rgba(53, 193, 46, .11), transparent 42%),
+        rgba(15, 14, 12, .86);
+      box-shadow: var(--shadow);
+      backdrop-filter: blur(16px);
+    }
+
+    .capture-head {
+      display: flex;
+      align-items: flex-start;
+      flex-direction: column;
+      gap: 6px;
+      margin-bottom: 14px;
+    }
+
+    .capture-title {
+      margin: 0;
+      color: #fff;
+      font-size: 20px;
+      font-weight: 900;
+      line-height: 1.08;
+    }
+
+    .microcopy {
+      margin: 0;
+      color: var(--muted);
+      font-family: var(--mono);
+      font-size: 11px;
+      font-weight: 800;
+      line-height: 1.2;
+      text-transform: uppercase;
+    }
+
+    .fields {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      align-items: stretch;
+    }
+
+    label {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+    }
+
+    input {
+      width: 100%;
+      min-height: 48px;
+      padding: 13px 14px;
+      border: 1px solid rgba(239, 237, 234, .08);
+      border-radius: 7px;
+      outline: none;
+      color: var(--page);
+      background: var(--cream);
+      font-size: 14px;
+      font-weight: 800;
+      transition: border-color .18s ease, box-shadow .18s ease;
+    }
+
+    input::placeholder {
+      color: rgba(8, 7, 6, .5);
+    }
+
+    input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(53, 193, 46, .18);
+    }
+
+    .submit {
+      min-height: 50px;
+      margin-top: 2px;
+      border: 0;
+      border-radius: 7px;
+      color: #071006;
+      background: var(--green);
+      cursor: pointer;
+      font-size: 12px;
+      font-weight: 950;
+      line-height: 1.1;
+      text-transform: uppercase;
+      transition: filter .18s ease, transform .18s ease;
+    }
+
+    .submit:hover {
+      filter: brightness(1.08);
+      transform: translateY(-1px);
+    }
+
+    .authority {
+      position: relative;
+      min-height: 100svh;
+      display: grid;
+      align-items: center;
+      padding: 84px 0;
+      background:
+        linear-gradient(180deg, var(--shell), var(--page)),
+        var(--shell);
+    }
+
+    .authority::before {
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+      content: "";
+      background:
+        linear-gradient(90deg, rgba(239, 237, 234, .05), transparent 1px),
+        linear-gradient(180deg, rgba(239, 237, 234, .04), transparent 1px);
+      background-size: 88px 88px;
+      opacity: .18;
+      mask-image: linear-gradient(180deg, #000, transparent 86%);
+    }
+
+    .authority-grid {
+      position: relative;
+      display: grid;
+      grid-template-columns: minmax(460px, .96fr) minmax(360px, .8fr);
+      gap: 78px;
+      align-items: center;
+    }
+
+    .profile-photo {
+      margin: 0;
+      min-height: 560px;
+      overflow: hidden;
+      border: 1px solid rgba(239, 237, 234, .1);
+      border-radius: 8px;
+      background:
+        linear-gradient(90deg, transparent 58%, rgba(8, 7, 6, .55)),
+        linear-gradient(180deg, rgba(8, 7, 6, .04), rgba(8, 7, 6, .2)),
+        url("assets/max-satiro-atual.jfif") center 28% / cover no-repeat;
+      box-shadow: 0 30px 86px rgba(0, 0, 0, .42);
+    }
+
+    .authority h2 {
+      max-width: 580px;
+      margin-bottom: 18px;
+      color: #fff;
+      font-family: var(--serif);
+      font-size: 70px;
+      font-weight: 500;
+      line-height: .92;
+      letter-spacing: 0;
+    }
+
+    .profile-role {
+      margin-bottom: 24px;
+      color: var(--green);
+      font-family: var(--mono);
+      font-size: 12px;
+      font-weight: 900;
+      letter-spacing: 0;
+      text-transform: uppercase;
+    }
+
+    .profile-text {
+      max-width: 620px;
+      margin-bottom: 0;
+      color: var(--soft);
+      font-size: 21px;
+      font-weight: 500;
+      line-height: 1.5;
+    }
+
+    .profile-text + .profile-text {
+      margin-top: 16px;
+    }
+
+    .profile-text strong {
+      color: #fff;
+      font-weight: 900;
+    }
+
+    @media (max-width: 1040px) {
+      .hero {
+        background:
+          linear-gradient(90deg, rgba(8, 7, 6, 1) 0%, rgba(8, 7, 6, .97) 46%, rgba(8, 7, 6, .75) 72%, rgba(8, 7, 6, .42) 100%),
+          url("assets/max-satiro-atual.jfif") right top / auto 100% no-repeat,
+          var(--page);
+      }
+
+      h1 {
+        max-width: 620px;
+        font-size: 52px;
+      }
+
+      .lead {
+        max-width: 450px;
+        font-size: 17px;
+      }
+
+      .authority-grid {
+        grid-template-columns: 1fr;
+        gap: 36px;
+      }
+
+      .profile-photo {
+        min-height: 420px;
+      }
+    }
+
+    @media (max-width: 780px) {
+      .wrap {
+        width: min(100% - 32px, 1180px);
+      }
+
+      .hero {
+        min-height: auto;
+        background:
+          linear-gradient(180deg, rgba(8, 7, 6, .1) 0%, rgba(8, 7, 6, .78) 34%, rgba(8, 7, 6, 1) 58%),
+          url("assets/max-satiro-atual.jfif") center top / 100% auto no-repeat,
+          var(--page);
+      }
+
+      .topbar {
+        justify-content: flex-start;
+        padding-top: 16px;
+      }
+
+      .event {
+        min-height: 34px;
+        padding: 7px 12px;
+        font-size: 11px;
+      }
+
+      .hero-inner {
+        min-height: auto;
+        padding: 280px 0 36px;
+      }
+
+      h1 {
+        max-width: 620px;
+        font-size: 46px;
+      }
+
+      .lead {
+        max-width: 48ch;
+        font-size: 16px;
+      }
+
+      .microcopy {
+        white-space: normal;
+      }
+
+      .authority {
+        min-height: auto;
+        padding: 70px 0 82px;
+      }
+
+      .authority h2 {
+        font-size: 48px;
+      }
+
+      .profile-text {
+        font-size: 17px;
+      }
+    }
+
+    @media (max-width: 520px) {
+      .wrap {
+        width: min(100% - 28px, 1180px);
+      }
+
+      .hero {
+        background:
+          linear-gradient(180deg, rgba(8, 7, 6, .05) 0%, rgba(8, 7, 6, .72) 30%, rgba(8, 7, 6, 1) 54%),
+          url("assets/max-satiro-atual.jfif") 57% top / 112% auto no-repeat,
+          var(--page);
+      }
+
+      .hero-inner {
+        padding-top: 180px;
+      }
+
+      .kicker {
+        margin-bottom: 10px;
+        font-size: 11px;
+      }
+
+      h1 {
+        max-width: 340px;
+        font-size: 34px;
+      }
+
+      .lead {
+        max-width: 34ch;
+        margin-top: 10px;
+        font-size: 13px;
+        line-height: 1.32;
+      }
+
+      .capture-strip {
+        margin-top: 16px;
+        padding: 12px;
+      }
+
+      .capture-title {
+        font-size: 18px;
+      }
+
+      .fields {
+        gap: 8px;
+      }
+
+      input,
+      .submit {
+        min-height: 42px;
+      }
+
+      .authority-grid {
+        gap: 36px;
+      }
+
+      .authority h2 {
+        font-size: 40px;
+      }
+
+      .profile-photo {
+        min-height: 340px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <section class="hero" aria-label="Aula gratuita para empresários de serviço">
+      <header class="wrap topbar" aria-label="Topo">
+        <div class="event">Segunda-feira, às 19h</div>
+      </header>
+
+      <div class="wrap hero-inner">
+        <div class="hero-copy">
+          <p class="kicker">Aula gratuita ao vivo</p>
+          <h1>Descubra onde sua empresa <span>trava</span></h1>
+          <p class="lead">Antes de tentar vender mais, entenda se o gargalo está em receita, estratégia, gestão ou operação.</p>
+
+          <form class="capture-strip" action="#" method="post" aria-label="Formulário de captura">
+            <div class="capture-head">
+              <p class="capture-title">Receba o link da aula</p>
+              <p class="microcopy">Segunda-feira, às 19h</p>
+            </div>
+
+            <div class="fields">
+              <div class="field">
+                <label for="nome">Nome</label>
+                <input id="nome" name="nome" type="text" autocomplete="name" placeholder="Nome completo" required>
+              </div>
+              <div class="field">
+                <label for="email">E-mail</label>
+                <input id="email" name="email" type="email" autocomplete="email" placeholder="Seu melhor e-mail" required>
+              </div>
+              <div class="field">
+                <label for="whatsapp">WhatsApp</label>
+                <input id="whatsapp" name="whatsapp" type="tel" autocomplete="tel" placeholder="WhatsApp" required>
+              </div>
+              <button class="submit" type="submit">Participar gratuitamente</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </section>
+
+    <section class="authority" aria-label="Quem é Max Satiro">
+      <div class="wrap authority-grid">
+        <figure class="profile-photo" aria-label="Max Satiro"></figure>
+
+        <div class="authority-copy">
+          <p class="kicker">Quem é Max Satiro</p>
+          <h2>Max Satiro</h2>
+          <p class="profile-role">ex-CMO e ex-sócio da V4</p>
+          <p class="profile-text">Max começou como SDR, liderou marketing e comercial e participou do ciclo em que a V4 saiu de cerca de <strong>R$300 mil para R$40 milhões por mês.</strong></p>
+          <p class="profile-text">Hoje, à frente da Sócio Estratégico, ajuda empresários de serviço a enxergar onde o crescimento trava: <strong>receita, estratégia, gestão ou operação.</strong></p>
+        </div>
+      </div>
+    </section>
+  </main>
+</body>
+</html>
