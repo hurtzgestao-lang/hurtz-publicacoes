@@ -1,0 +1,1203 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Simulador de Leads Fictícios | Onboarding SDR Hurtz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brasa: #C06018;
+      --brasa-hover: #974A12;
+      --brasa-minima: #F9EDE3;
+      --carvao: #181614;
+      --grafite: #3D3A36;
+      --pedra: #8C8880;
+      --areia: #E8E4DC;
+      --offwhite: #F5F2EC;
+      --card: #FFFFFF;
+      --resultado: #1A7A4A;
+      --informacao: #3A6FBF;
+      --critico: #B52A2A;
+      --radius: 8px;
+      --content: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--offwhite);
+      color: var(--carvao);
+      font-family: "Inter", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.55;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    input {
+      font: inherit;
+    }
+
+    button {
+      cursor: pointer;
+    }
+
+    .page-shell {
+      width: min(100% - 32px, var(--content));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-bottom: 36px;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 142px;
+      height: auto;
+      display: block;
+    }
+
+    .brand-meta {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--brasa);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .12em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--grafite);
+      font-size: 13px;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1.4fr) minmax(300px, .6fr);
+      gap: 24px;
+      align-items: stretch;
+      margin-bottom: 24px;
+    }
+
+    .hero-main,
+    .panel,
+    .lead-card,
+    .rule-card,
+    .result-box {
+      background: var(--card);
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+    }
+
+    .hero-main {
+      padding: 32px;
+      display: grid;
+      align-content: space-between;
+      gap: 28px;
+    }
+
+    .accent-rule {
+      width: 72px;
+      height: 3px;
+      margin-bottom: 20px;
+      background: var(--brasa);
+    }
+
+    h1 {
+      max-width: 720px;
+      margin: 0;
+      color: var(--carvao);
+      font-size: clamp(34px, 5vw, 64px);
+      line-height: .98;
+      letter-spacing: 0;
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin: 0;
+      color: var(--grafite);
+      font-size: 17px;
+      line-height: 1.55;
+    }
+
+    .hero-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+    }
+
+    .button {
+      min-height: 44px;
+      padding: 11px 16px;
+      border: 1.5px solid var(--carvao);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--carvao);
+      font-weight: 700;
+      letter-spacing: 0;
+      transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+      white-space: nowrap;
+    }
+
+    .button:hover,
+    .button:focus-visible {
+      background: var(--carvao);
+      color: var(--offwhite);
+      outline: none;
+    }
+
+    .button.primary {
+      border-color: var(--brasa);
+      background: var(--brasa);
+      color: var(--card);
+    }
+
+    .button.primary:hover,
+    .button.primary:focus-visible {
+      border-color: var(--brasa-hover);
+      background: var(--brasa-hover);
+      color: var(--card);
+    }
+
+    .button.subtle {
+      border-color: var(--areia);
+      color: var(--grafite);
+      background: var(--card);
+    }
+
+    .button.subtle:hover,
+    .button.subtle:focus-visible {
+      border-color: var(--carvao);
+      color: var(--offwhite);
+      background: var(--carvao);
+    }
+
+    .panel {
+      padding: 24px;
+      display: grid;
+      gap: 18px;
+    }
+
+    .panel h2,
+    .section-title h2 {
+      margin: 0;
+      font-size: 22px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .stat-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .stat {
+      min-height: 96px;
+      padding: 14px;
+      border: 1px solid var(--areia);
+      border-radius: 4px;
+      display: grid;
+      align-content: space-between;
+      gap: 10px;
+      background: var(--offwhite);
+    }
+
+    .stat strong {
+      display: block;
+      font-size: 25px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .stat span {
+      color: var(--pedra);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .rules {
+      display: grid;
+      gap: 10px;
+    }
+
+    .rule-card {
+      padding: 14px;
+      border-left: 3px solid var(--brasa);
+      background: var(--offwhite);
+    }
+
+    .rule-card p {
+      margin: 0;
+      color: var(--grafite);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .toolbar {
+      position: sticky;
+      top: 0;
+      z-index: 2;
+      margin-bottom: 24px;
+      padding: 12px;
+      background: var(--offwhite);
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: center;
+    }
+
+    .filters {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .filter-button {
+      min-height: 38px;
+      padding: 8px 12px;
+      border: 1px solid var(--areia);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--grafite);
+      font-size: 13px;
+      font-weight: 700;
+      transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    }
+
+    .filter-button:hover,
+    .filter-button:focus-visible,
+    .filter-button.active {
+      border-color: var(--carvao);
+      background: var(--carvao);
+      color: var(--offwhite);
+      outline: none;
+    }
+
+    .message {
+      min-height: 22px;
+      color: var(--grafite);
+      font-size: 13px;
+      font-weight: 700;
+      text-align: right;
+    }
+
+    .section-title {
+      display: flex;
+      justify-content: space-between;
+      gap: 16px;
+      align-items: end;
+      margin: 32px 0 16px;
+    }
+
+    .section-title p {
+      max-width: 520px;
+      margin: 0;
+      color: var(--grafite);
+      font-size: 14px;
+    }
+
+    .lead-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 16px;
+    }
+
+    .lead-card {
+      min-height: 100%;
+      display: grid;
+      grid-template-rows: auto 1fr auto;
+      border-left: 4px solid var(--areia);
+      overflow: hidden;
+    }
+
+    .lead-card.correct {
+      border-left-color: var(--resultado);
+    }
+
+    .lead-card.wrong {
+      border-left-color: var(--critico);
+    }
+
+    .lead-card.pending {
+      border-left-color: var(--pedra);
+    }
+
+    .lead-head {
+      padding: 18px 18px 14px;
+      border-bottom: 1px solid var(--areia);
+      display: grid;
+      gap: 10px;
+    }
+
+    .lead-index {
+      width: 34px;
+      height: 34px;
+      border: 1px solid var(--brasa);
+      border-radius: 4px;
+      display: inline-grid;
+      place-items: center;
+      color: var(--brasa);
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .lead-title-row {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      align-items: flex-start;
+    }
+
+    .lead-name {
+      margin: 0;
+      font-size: 18px;
+      line-height: 1.15;
+      letter-spacing: 0;
+    }
+
+    .lead-role {
+      margin: 4px 0 0;
+      color: var(--grafite);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .lead-body {
+      padding: 18px;
+      display: grid;
+      gap: 14px;
+    }
+
+    .field-grid {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 10px;
+    }
+
+    .field {
+      min-height: 74px;
+      padding: 10px;
+      border: 1px solid var(--areia);
+      border-radius: 4px;
+      background: var(--offwhite);
+    }
+
+    .field span {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--pedra);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .field strong {
+      display: block;
+      color: var(--carvao);
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    .signal {
+      padding: 14px;
+      border: 1px solid var(--areia);
+      border-radius: 4px;
+      background: var(--brasa-minima);
+    }
+
+    .signal strong {
+      display: block;
+      margin-bottom: 4px;
+      color: var(--brasa);
+      font-size: 11px;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .signal p {
+      margin: 0;
+      color: var(--grafite);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .decision {
+      padding: 16px 18px 18px;
+      border-top: 1px solid var(--areia);
+      display: grid;
+      gap: 12px;
+    }
+
+    .decision-label {
+      margin: 0;
+      color: var(--pedra);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .answer-group {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 8px;
+    }
+
+    .answer {
+      min-height: 40px;
+      padding: 8px 6px;
+      border: 1px solid var(--areia);
+      border-radius: 4px;
+      background: var(--card);
+      color: var(--carvao);
+      font-size: 13px;
+      font-weight: 700;
+      transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    }
+
+    .answer:hover,
+    .answer:focus-visible {
+      border-color: var(--carvao);
+      outline: none;
+    }
+
+    .answer.selected[data-answer="mql"] {
+      border-color: var(--resultado);
+      background: var(--resultado);
+      color: var(--card);
+    }
+
+    .answer.selected[data-answer="duvida"] {
+      border-color: var(--informacao);
+      background: var(--informacao);
+      color: var(--card);
+    }
+
+    .answer.selected[data-answer="descartar"] {
+      border-color: var(--critico);
+      background: var(--critico);
+      color: var(--card);
+    }
+
+    .feedback {
+      display: none;
+      padding: 14px;
+      border: 1px solid var(--areia);
+      border-radius: 4px;
+      background: var(--offwhite);
+    }
+
+    .feedback.visible {
+      display: grid;
+      gap: 8px;
+    }
+
+    .feedback h3 {
+      margin: 0;
+      font-size: 15px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .feedback p {
+      margin: 0;
+      color: var(--grafite);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .feedback .correct-label {
+      color: var(--resultado);
+      font-weight: 700;
+    }
+
+    .feedback .wrong-label {
+      color: var(--critico);
+      font-weight: 700;
+    }
+
+    .result-box {
+      display: none;
+      margin-top: 24px;
+      padding: 24px;
+      border-left: 4px solid var(--brasa);
+    }
+
+    .result-box.visible {
+      display: grid;
+      gap: 12px;
+    }
+
+    .result-box h2,
+    .result-box p {
+      margin: 0;
+    }
+
+    .result-box p {
+      color: var(--grafite);
+    }
+
+    @media (max-width: 1080px) {
+      .hero,
+      .lead-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+
+      .hero-main {
+        grid-column: 1 / -1;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .page-shell {
+        width: min(100% - 20px, var(--content));
+        padding-top: 18px;
+      }
+
+      .topbar,
+      .section-title,
+      .toolbar {
+        align-items: stretch;
+        flex-direction: column;
+      }
+
+      .topbar {
+        gap: 14px;
+      }
+
+      .hero,
+      .lead-grid,
+      .stat-grid,
+      .field-grid,
+      .answer-group {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-main,
+      .panel {
+        padding: 22px;
+      }
+
+      .brand img {
+        width: 116px;
+      }
+
+      h1 {
+        font-size: 38px;
+      }
+
+      .message {
+        text-align: left;
+      }
+
+      .button {
+        width: 100%;
+      }
+    }
+
+    @media print {
+      body {
+        background: var(--offwhite);
+      }
+
+      .toolbar,
+      .hero-actions,
+      .answer-group {
+        display: none;
+      }
+
+      .page-shell {
+        width: 100%;
+        padding: 0;
+      }
+
+      .hero,
+      .lead-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .lead-card {
+        break-inside: avoid;
+        margin-bottom: 12px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <img src="logo-lockup-light.svg" alt="Hurtz">
+        <div class="brand-meta">
+          <p class="eyebrow">Onboarding SDR</p>
+          <p class="subtitle">Material visual interativo · Treino presencial</p>
+        </div>
+      </div>
+      <p class="subtitle">Dia 1, Dia 2 e Certificação</p>
+    </header>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div class="hero-main">
+        <div>
+          <div class="accent-rule" aria-hidden="true"></div>
+          <h1 id="page-title">Simulador de leads fictícios</h1>
+        </div>
+        <p class="hero-copy">
+          15 casos para treinar a leitura de MQL, dúvida operacional e descarte antes da SDR mexer em lead real no Hurtz CRM.
+        </p>
+        <div class="hero-actions">
+          <button class="button primary" type="button" id="gradeButton">Corrigir simulado</button>
+          <button class="button" type="button" id="resetButton">Reiniciar</button>
+          <button class="button subtle" type="button" id="printButton">Imprimir cards</button>
+        </div>
+      </div>
+
+      <aside class="panel" aria-label="Resumo do treino">
+        <div>
+          <p class="eyebrow">Placar</p>
+          <h2>Critério de aprovação</h2>
+        </div>
+        <div class="stat-grid">
+          <div class="stat">
+            <strong id="answeredStat">0/15</strong>
+            <span>respondidos</span>
+          </div>
+          <div class="stat">
+            <strong id="scoreStat">-</strong>
+            <span>acertos</span>
+          </div>
+          <div class="stat">
+            <strong id="statusStat">Treino</strong>
+            <span>status</span>
+          </div>
+        </div>
+        <div class="rules">
+          <div class="rule-card">
+            <p><strong>MQL:</strong> dono ou gestor, time com 2+ pessoas e administradora independente ou mista.</p>
+          </div>
+          <div class="rule-card">
+            <p><strong>Descartar:</strong> consultor avulso, vendedor funcionário, time de 1 pessoa ou só banco/seguradora/montadora.</p>
+          </div>
+          <div class="rule-card">
+            <p><strong>Dúvida:</strong> sinal de potencial, mas faltou confirmar cargo, time ou administradora antes de aprovar.</p>
+          </div>
+        </div>
+      </aside>
+    </section>
+
+    <nav class="toolbar" aria-label="Filtros do simulador">
+      <div class="filters" id="filters">
+        <button class="filter-button active" type="button" data-filter="todos">Todos</button>
+        <button class="filter-button" type="button" data-filter="pendentes">Pendentes</button>
+        <button class="filter-button" type="button" data-filter="mql">MQL</button>
+        <button class="filter-button" type="button" data-filter="duvida">Dúvida</button>
+        <button class="filter-button" type="button" data-filter="descartar">Descartar</button>
+        <button class="filter-button" type="button" data-filter="erros">Erros</button>
+      </div>
+      <div class="message" id="message" role="status" aria-live="polite"></div>
+    </nav>
+
+    <section class="section-title" aria-labelledby="cards-title">
+      <div>
+        <p class="eyebrow">Banco de treino</p>
+        <h2 id="cards-title">Cards de classificação</h2>
+      </div>
+      <p>Faturamento ajuda a priorizar, mas não elimina por enquanto. A decisão principal vem de cargo, tamanho do time e administradora.</p>
+    </section>
+
+    <section class="lead-grid" id="leadGrid" aria-label="Lista de leads fictícios"></section>
+
+    <section class="result-box" id="resultBox" aria-live="polite"></section>
+  </main>
+
+  <script>
+    const leads = [
+      {
+        id: 1,
+        name: "Camila Albuquerque",
+        role: "Dona da Albuquerque Consórcios",
+        city: "Recife, PE",
+        acts: "Outra administradora",
+        team: "4 pessoas",
+        admins: "Embracon e Rodobens",
+        revenue: "R$ 1,2M/mês",
+        signal: "Formulário cita equipe ativa, lead pelo Meta Ads e dor com baixa qualidade dos contatos.",
+        answer: "mql",
+        reason: "É dona, tem time com 2+ pessoas e atua com administradoras independentes.",
+        next: "Mover para Em Qualificação e fazer primeiro contato em até 5 minutos."
+      },
+      {
+        id: 2,
+        name: "Bruno Nascimento",
+        role: "Consultor de vendas",
+        city: "Fortaleza, CE",
+        acts: "Consultor(a) de vendas",
+        team: "1 pessoa",
+        admins: "Itaú Consórcio",
+        revenue: "Não informado",
+        signal: "Trabalha sozinho, quer saber se a Hurtz gera lead para consultor individual.",
+        answer: "descartar",
+        reason: "Consultor avulso, sem time mínimo e com atuação em banco.",
+        next: "Desqualificar com motivo FORA-ICP e não abrir cadência comercial."
+      },
+      {
+        id: 3,
+        name: "Rafael Mota",
+        role: "Gestor comercial",
+        city: "Goiânia, GO",
+        acts: "Outra administradora",
+        team: "2 pessoas",
+        admins: "Porto Seguro e Embracon",
+        revenue: "R$ 900k/mês",
+        signal: "Já rodou tráfego e reclama que a agenda do time oscila muito.",
+        answer: "mql",
+        reason: "Mistura seguradora com administradora independente. Como não é atuação exclusiva em Porto Seguro, mantém para avaliação.",
+        next: "Qualificar no contato e confirmar se o foco comercial principal é a operação independente."
+      },
+      {
+        id: 4,
+        name: "Luciana Prado",
+        role: "Dona da Prado Cartas",
+        city: "Belém, PA",
+        acts: "Outra administradora",
+        team: "Só eu",
+        admins: "Rodobens",
+        revenue: "R$ 500k/mês",
+        signal: "Tem perfil ativo, mas disse que ainda não montou equipe de vendas.",
+        answer: "descartar",
+        reason: "Mesmo sendo dona e usando administradora independente, não tem time mínimo de 2 pessoas.",
+        next: "Desqualificar por FORA-ICP. Pode virar nutrição futura se montar time."
+      },
+      {
+        id: 5,
+        name: "Henrique Silveira",
+        role: "Responsável comercial",
+        city: "Campinas, SP",
+        acts: "Outra administradora",
+        team: "6 pessoas",
+        admins: "Yamaha Consórcio",
+        revenue: "R$ 2M/mês",
+        signal: "Time grande, mas a operação é exclusiva de montadora.",
+        answer: "descartar",
+        reason: "Atuação exclusiva com montadora tira o lead do ICP da Hurtz.",
+        next: "Desqualificar com motivo administradora fora do ICP."
+      },
+      {
+        id: 6,
+        name: "Patrícia Gomes",
+        role: "Consultora no formulário; bio diz sócia",
+        city: "São Luís, MA",
+        acts: "Consultor(a) de vendas",
+        team: "3 pessoas",
+        admins: "Embracon",
+        revenue: "R$ 1M/mês",
+        signal: "No Instagram aparece como sócia de uma representação com sala comercial e equipe.",
+        answer: "duvida",
+        reason: "O formulário marcou consultora, mas há sinal externo de que pode ser sócia. Não aprovar como MQL sem confirmar.",
+        next: "Fazer pergunta curta para confirmar se ela decide pela representação."
+      },
+      {
+        id: 7,
+        name: "Eduardo Braga",
+        role: "Representante multimarcas",
+        city: "Manaus, AM",
+        acts: "Outra administradora",
+        team: "Campo vazio",
+        admins: "Sompo Consórcios",
+        revenue: "R$ 850k/mês",
+        signal: "Mensagem menciona corretores parceiros, mas o campo de time veio em branco.",
+        answer: "duvida",
+        reason: "Campo de time vazio não pode virar MQL direto, mas há sinal de equipe a confirmar.",
+        next: "Confirmar se existe time de vendas com 2+ pessoas antes de mover para qualificado."
+      },
+      {
+        id: 8,
+        name: "Nathália Vieira",
+        role: "Gestora de equipe",
+        city: "Salvador, BA",
+        acts: "Outra administradora",
+        team: "3 pessoas",
+        admins: "BB Consórcios",
+        revenue: "R$ 1,4M/mês",
+        signal: "Equipe ativa, mas 100% da carteira vem de banco.",
+        answer: "descartar",
+        reason: "Atuação exclusiva com banco é descarte, mesmo com time e cargo bom.",
+        next: "Desqualificar com motivo administradora fora do ICP."
+      },
+      {
+        id: 9,
+        name: "Marcos Dias",
+        role: "Dono da MD Consórcios",
+        city: "Curitiba, PR",
+        acts: "Outra administradora",
+        team: "2 pessoas",
+        admins: "Ademicon e Rodobens",
+        revenue: "R$ 1,8M/mês",
+        signal: "Quer previsibilidade de agenda e diz que a operação depende muito de indicação.",
+        answer: "mql",
+        reason: "Dono, time mínimo validado e administradoras independentes.",
+        next: "Mover para Em Qualificação e puxar dor de previsibilidade no primeiro contato."
+      },
+      {
+        id: 10,
+        name: "Aline Ferreira",
+        role: "Funcionária de uma representação",
+        city: "Belo Horizonte, MG",
+        acts: "Consultor(a) de vendas",
+        team: "8 pessoas na empresa",
+        admins: "Embracon",
+        revenue: "Não decide",
+        signal: "Ela trabalha dentro de uma equipe grande, mas não é gestora nem decisora.",
+        answer: "descartar",
+        reason: "Funcionária ou consultora dentro de outra representação não é MQL para compra do Sistema Cota Vendida.",
+        next: "Desqualificar ou pedir contato do gestor apenas se fizer sentido operacionalmente."
+      },
+      {
+        id: 11,
+        name: "Thiago Reis",
+        role: "Sócio comercial",
+        city: "Natal, RN",
+        acts: "Outra administradora",
+        team: "3 pessoas",
+        admins: "Não informou",
+        revenue: "R$ 1,1M/mês",
+        signal: "Fala em carta de crédito imobiliário, mas não cita administradora nem bandeira principal.",
+        answer: "duvida",
+        reason: "Cargo e time parecem bons, mas falta confirmar a administradora para evitar banco, seguradora ou montadora exclusiva.",
+        next: "Perguntar com quais administradoras opera antes de marcar como MQL."
+      },
+      {
+        id: 12,
+        name: "Vanessa Cruz",
+        role: "Dona da VC Veículos",
+        city: "Ribeirão Preto, SP",
+        acts: "Outra administradora",
+        team: "5 pessoas",
+        admins: "Chevrolet Consórcio",
+        revenue: "R$ 2,3M/mês",
+        signal: "A demanda é só para venda de carta de veículo da montadora.",
+        answer: "descartar",
+        reason: "Operação exclusiva de montadora. Fora do ICP, mesmo com bom faturamento.",
+        next: "Desqualificar com motivo administradora fora do ICP."
+      },
+      {
+        id: 13,
+        name: "Fábio Lima",
+        role: "Gestor de representação",
+        city: "Maceió, AL",
+        acts: "Outra administradora",
+        team: "2 pessoas",
+        admins: "Multimarcas e Embracon",
+        revenue: "R$ 780k/mês",
+        signal: "Faturamento abaixo do ideal, mas quer profissionalizar captação e rotina do time.",
+        answer: "mql",
+        reason: "Faturamento não é critério eliminatório agora. Cargo, time e administradoras estão dentro.",
+        next: "Mover para Em Qualificação e priorizar pela dor declarada de captação."
+      },
+      {
+        id: 14,
+        name: "Kelly Torres",
+        role: "Dona da Torres Consórcios",
+        city: "São Paulo, SP",
+        acts: "Outra administradora",
+        team: "2 pessoas",
+        admins: "Porto Seguro",
+        revenue: "R$ 1,6M/mês",
+        signal: "Equipe enxuta e boa verba, mas carteira exclusiva de seguradora.",
+        answer: "descartar",
+        reason: "Porto Seguro aparece como seguradora. Quando é exclusiva, desqualifica.",
+        next: "Desqualificar com motivo administradora fora do ICP."
+      },
+      {
+        id: 15,
+        name: "Roberta Almeida",
+        role: "Gerente comercial da RA Consórcios",
+        city: "Florianópolis, SC",
+        acts: "Outra administradora",
+        team: "10 pessoas",
+        admins: "HS Consórcios, Disal e Embracon",
+        revenue: "R$ 700k/mês",
+        signal: "Volume ainda baixo para o tamanho do time. Quer organizar aquisição e cadência.",
+        answer: "mql",
+        reason: "Gestora, time robusto e administradoras independentes. Faturamento não elimina.",
+        next: "Mover para Em Qualificação e investigar gargalo de conversão no contato."
+      }
+    ];
+
+    const labels = {
+      mql: "MQL",
+      duvida: "Dúvida",
+      descartar: "Descartar"
+    };
+
+    const state = {
+      answers: {},
+      graded: false,
+      filter: "todos"
+    };
+
+    const leadGrid = document.querySelector("#leadGrid");
+    const answeredStat = document.querySelector("#answeredStat");
+    const scoreStat = document.querySelector("#scoreStat");
+    const statusStat = document.querySelector("#statusStat");
+    const message = document.querySelector("#message");
+    const resultBox = document.querySelector("#resultBox");
+    const gradeButton = document.querySelector("#gradeButton");
+    const resetButton = document.querySelector("#resetButton");
+    const printButton = document.querySelector("#printButton");
+    const filters = document.querySelector("#filters");
+
+    function getScore() {
+      return leads.reduce((total, lead) => total + (state.answers[lead.id] === lead.answer ? 1 : 0), 0);
+    }
+
+    function getAnsweredCount() {
+      return Object.keys(state.answers).length;
+    }
+
+    function escapeText(value) {
+      return String(value)
+        .replaceAll("&", "&amp;")
+        .replaceAll("<", "&lt;")
+        .replaceAll(">", "&gt;")
+        .replaceAll('"', "&quot;")
+        .replaceAll("'", "&#039;");
+    }
+
+    function shouldShowLead(lead) {
+      const userAnswer = state.answers[lead.id];
+      const isWrong = state.graded && userAnswer && userAnswer !== lead.answer;
+
+      if (state.filter === "todos") return true;
+      if (state.filter === "pendentes") return !userAnswer;
+      if (state.filter === "erros") return isWrong;
+      return lead.answer === state.filter;
+    }
+
+    function renderCards() {
+      const cards = leads
+        .filter(shouldShowLead)
+        .map((lead) => {
+          const userAnswer = state.answers[lead.id];
+          const hasAnswer = Boolean(userAnswer);
+          const isCorrect = state.graded && userAnswer === lead.answer;
+          const isWrong = state.graded && hasAnswer && userAnswer !== lead.answer;
+          const cardStatus = state.graded ? (isCorrect ? "correct" : "wrong") : (hasAnswer ? "pending" : "");
+          const feedbackClass = state.graded ? "feedback visible" : "feedback";
+          const feedbackIntro = isCorrect
+            ? `<span class="correct-label">Acertou.</span>`
+            : `<span class="wrong-label">Revisar.</span>`;
+
+          return `
+            <article class="lead-card ${cardStatus}" id="lead-${lead.id}" data-correct="${lead.answer}">
+              <div class="lead-head">
+                <div class="lead-title-row">
+                  <div>
+                    <h3 class="lead-name">${escapeText(lead.name)}</h3>
+                    <p class="lead-role">${escapeText(lead.role)}</p>
+                  </div>
+                  <span class="lead-index">${lead.id}</span>
+                </div>
+              </div>
+              <div class="lead-body">
+                <div class="field-grid">
+                  <div class="field">
+                    <span>Cidade</span>
+                    <strong>${escapeText(lead.city)}</strong>
+                  </div>
+                  <div class="field">
+                    <span>Como atua</span>
+                    <strong>${escapeText(lead.acts)}</strong>
+                  </div>
+                  <div class="field">
+                    <span>Time</span>
+                    <strong>${escapeText(lead.team)}</strong>
+                  </div>
+                  <div class="field">
+                    <span>Administradora</span>
+                    <strong>${escapeText(lead.admins)}</strong>
+                  </div>
+                  <div class="field">
+                    <span>Faturamento</span>
+                    <strong>${escapeText(lead.revenue)}</strong>
+                  </div>
+                  <div class="field">
+                    <span>Decisão esperada</span>
+                    <strong>${state.graded ? escapeText(labels[lead.answer]) : "A classificar"}</strong>
+                  </div>
+                </div>
+                <div class="signal">
+                  <strong>Sinal do lead</strong>
+                  <p>${escapeText(lead.signal)}</p>
+                </div>
+              </div>
+              <div class="decision">
+                <p class="decision-label">Decisão da SDR</p>
+                <div class="answer-group" role="group" aria-label="Classificação do lead ${lead.id}">
+                  ${Object.keys(labels).map((answer) => `
+                    <button
+                      class="answer ${userAnswer === answer ? "selected" : ""}"
+                      type="button"
+                      data-lead-id="${lead.id}"
+                      data-answer="${answer}"
+                      aria-pressed="${userAnswer === answer ? "true" : "false"}"
+                    >${labels[answer]}</button>
+                  `).join("")}
+                </div>
+                <div class="${feedbackClass}">
+                  <h3>${feedbackIntro} Gabarito: ${escapeText(labels[lead.answer])}</h3>
+                  <p><strong>Por quê:</strong> ${escapeText(lead.reason)}</p>
+                  <p><strong>Próximo passo:</strong> ${escapeText(lead.next)}</p>
+                </div>
+              </div>
+            </article>
+          `;
+        })
+        .join("");
+
+      leadGrid.innerHTML = cards || `
+        <article class="lead-card pending">
+          <div class="lead-head">
+            <h3 class="lead-name">Nenhum card neste filtro</h3>
+            <p class="lead-role">Troque o filtro para voltar ao treino completo.</p>
+          </div>
+        </article>
+      `;
+
+      updateStats();
+    }
+
+    function updateStats() {
+      const answered = getAnsweredCount();
+      const score = state.graded ? getScore() : null;
+
+      answeredStat.textContent = `${answered}/${leads.length}`;
+      scoreStat.textContent = state.graded ? `${score}/${leads.length}` : "-";
+
+      if (!state.graded) {
+        statusStat.textContent = answered === leads.length ? "Pronto" : "Treino";
+        return;
+      }
+
+      statusStat.textContent = score >= 13 ? "Aprovada" : "Revisar";
+    }
+
+    function chooseAnswer(leadId, answer) {
+      state.answers[leadId] = answer;
+      state.graded = false;
+      resultBox.classList.remove("visible");
+      resultBox.innerHTML = "";
+      message.textContent = "Resposta registrada.";
+      renderCards();
+    }
+
+    function gradeSimulation() {
+      const answered = getAnsweredCount();
+      if (answered < leads.length) {
+        const missing = leads.length - answered;
+        message.textContent = `Faltam ${missing} card${missing > 1 ? "s" : ""} para corrigir.`;
+        const firstMissing = leads.find((lead) => !state.answers[lead.id]);
+        const firstMissingCard = document.querySelector(`#lead-${firstMissing.id}`);
+        if (firstMissingCard) firstMissingCard.scrollIntoView({ behavior: "smooth", block: "center" });
+        return;
+      }
+
+      state.graded = true;
+      const score = getScore();
+      const wrong = leads.filter((lead) => state.answers[lead.id] !== lead.answer);
+      const approved = score >= 13;
+      const wrongList = wrong.length
+        ? `<p><strong>Revisar agora:</strong> ${wrong.map((lead) => `${lead.id}. ${lead.name}`).join("; ")}.</p>`
+        : "<p><strong>Revisar agora:</strong> nenhum erro de classificação.</p>";
+
+      message.textContent = approved ? "Correção concluída. Pode avançar." : "Correção concluída. Precisa revisar.";
+      resultBox.innerHTML = `
+        <p class="eyebrow">Resultado</p>
+        <h2>${score}/${leads.length} acertos · ${approved ? "aprovada para próximo bloco" : "repetir simulado"}</h2>
+        <p>Meta mínima recomendada: 13 acertos, sem erro grave em consultor avulso, time solo ou administradora exclusiva fora do ICP.</p>
+        ${wrongList}
+      `;
+      resultBox.classList.add("visible");
+      renderCards();
+      resultBox.scrollIntoView({ behavior: "smooth", block: "center" });
+    }
+
+    function resetSimulation() {
+      state.answers = {};
+      state.graded = false;
+      state.filter = "todos";
+      resultBox.classList.remove("visible");
+      resultBox.innerHTML = "";
+      message.textContent = "Simulado reiniciado.";
+      document.querySelectorAll(".filter-button").forEach((button) => {
+        button.classList.toggle("active", button.dataset.filter === "todos");
+      });
+      renderCards();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    leadGrid.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-lead-id][data-answer]");
+      if (!button) return;
+      chooseAnswer(Number(button.dataset.leadId), button.dataset.answer);
+    });
+
+    filters.addEventListener("click", (event) => {
+      const button = event.target.closest("[data-filter]");
+      if (!button) return;
+      state.filter = button.dataset.filter;
+      document.querySelectorAll(".filter-button").forEach((filterButton) => {
+        filterButton.classList.toggle("active", filterButton === button);
+      });
+      message.textContent = "";
+      renderCards();
+    });
+
+    gradeButton.addEventListener("click", gradeSimulation);
+    resetButton.addEventListener("click", resetSimulation);
+    printButton.addEventListener("click", () => window.print());
+
+    renderCards();
+  </script>
+</body>
+</html>
