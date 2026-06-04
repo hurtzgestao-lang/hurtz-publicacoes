@@ -1,0 +1,974 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Roteiro de WhatsApp para Qualificar e Agendar | SDR Hurtz</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;650;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brasa: #C06018;
+      --brasa-minima: #F9EDE3;
+      --carvao: #181614;
+      --grafite: #3D3A36;
+      --pedra: #8C8880;
+      --areia: #E8E4DC;
+      --offwhite: #F5F2EC;
+      --card: #FFFFFF;
+      --verde: #1A7A4A;
+      --verde-bg: #E7F3ED;
+      --azul: #2E5E9E;
+      --azul-bg: #EAF1FA;
+      --vermelho: #B52A2A;
+      --vermelho-bg: #F8E8E8;
+      --radius: 8px;
+      --content: 1220px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--offwhite);
+      color: var(--carvao);
+      font-family: "Inter", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button {
+      font: inherit;
+      cursor: pointer;
+    }
+
+    .page-shell {
+      width: min(100% - 32px, var(--content));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 142px;
+      height: auto;
+      display: block;
+    }
+
+    .brand-meta {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .eyebrow {
+      margin: 0;
+      color: var(--brasa);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .subtitle {
+      margin: 0;
+      color: var(--grafite);
+      font-size: 13px;
+    }
+
+    .button,
+    .copy-button {
+      min-height: 40px;
+      border: 1.5px solid var(--carvao);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--carvao);
+      font-weight: 800;
+      white-space: nowrap;
+      transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    }
+
+    .button {
+      padding: 9px 15px;
+    }
+
+    .copy-button {
+      min-width: 74px;
+      padding: 7px 10px;
+      font-size: 12px;
+    }
+
+    .button:hover,
+    .button:focus-visible,
+    .copy-button:hover,
+    .copy-button:focus-visible {
+      background: var(--carvao);
+      color: var(--offwhite);
+      outline: none;
+    }
+
+    .copy-button.copied {
+      border-color: var(--verde);
+      background: var(--verde);
+      color: #fff;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 860px;
+      font-size: 64px;
+      line-height: .96;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      font-size: 22px;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      font-size: 15px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, .46fr);
+      gap: 28px;
+      align-items: end;
+      padding: 34px 0 28px;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .accent-rule {
+      width: 88px;
+      height: 3px;
+      margin-bottom: 18px;
+      background: var(--brasa);
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin-top: 18px;
+      color: var(--grafite);
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .speed-box {
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 20px;
+      display: grid;
+      gap: 16px;
+    }
+
+    .speed-box strong {
+      display: block;
+      font-size: 42px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .speed-box p {
+      color: var(--grafite);
+      font-size: 14px;
+    }
+
+    .section {
+      padding-top: 28px;
+    }
+
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: end;
+      gap: 18px;
+      margin-bottom: 14px;
+    }
+
+    .section-header p:not(.eyebrow) {
+      max-width: 660px;
+      color: var(--grafite);
+      font-size: 14px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .grid.cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .grid.cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .grid.cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card,
+    .message-card {
+      min-width: 0;
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: var(--card);
+      overflow: hidden;
+    }
+
+    .card {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+      align-content: start;
+    }
+
+    .card strong {
+      font-size: 22px;
+      line-height: 1.1;
+      letter-spacing: 0;
+    }
+
+    .card p {
+      color: var(--grafite);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .card.green {
+      border-left: 4px solid var(--verde);
+      background: linear-gradient(90deg, var(--verde-bg), #fff 42%);
+    }
+
+    .card.blue {
+      border-left: 4px solid var(--azul);
+      background: linear-gradient(90deg, var(--azul-bg), #fff 42%);
+    }
+
+    .card.red {
+      border-left: 4px solid var(--vermelho);
+      background: linear-gradient(90deg, var(--vermelho-bg), #fff 42%);
+    }
+
+    .step {
+      min-height: 148px;
+    }
+
+    .step-top {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+
+    .step-number {
+      width: 30px;
+      height: 30px;
+      display: grid;
+      place-items: center;
+      flex: 0 0 auto;
+      border-radius: 50%;
+      background: var(--carvao);
+      color: var(--offwhite);
+      font-size: 12px;
+      font-weight: 800;
+    }
+
+    .message-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-bottom: 1px solid var(--areia);
+      background: #fbfaf7;
+    }
+
+    .message-top strong {
+      font-size: 14px;
+      line-height: 1.2;
+    }
+
+    .message-top span {
+      display: block;
+      margin-top: 3px;
+      color: var(--pedra);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .message-copy {
+      padding: 15px;
+    }
+
+    .bubble {
+      width: min(100%, 680px);
+      padding: 14px 16px;
+      border-radius: var(--radius);
+      background: var(--brasa-minima);
+      border: 1px solid #eed3bf;
+      color: var(--carvao);
+      font-size: 15px;
+      line-height: 1.45;
+      white-space: pre-wrap;
+    }
+
+    .bubble.safe {
+      background: var(--verde-bg);
+      border-color: #c6e5d4;
+    }
+
+    .bubble.alt {
+      background: var(--azul-bg);
+      border-color: #cfdded;
+    }
+
+    .bubble.danger {
+      background: var(--vermelho-bg);
+      border-color: #edcaca;
+    }
+
+    .example {
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: var(--card);
+      overflow: hidden;
+    }
+
+    .example-header {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--areia);
+      background: #fbfaf7;
+      display: grid;
+      gap: 4px;
+    }
+
+    .chat {
+      padding: 16px;
+      display: grid;
+      gap: 10px;
+    }
+
+    .chat-line {
+      width: min(100%, 720px);
+      padding: 12px 14px;
+      border-radius: var(--radius);
+      background: var(--offwhite);
+      color: var(--grafite);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .chat-line.sdr {
+      margin-left: auto;
+      background: var(--brasa-minima);
+      color: var(--carvao);
+      border: 1px solid #eed3bf;
+    }
+
+    .chat-line.lead {
+      margin-right: auto;
+      background: #fff;
+      border: 1px solid var(--areia);
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: var(--card);
+    }
+
+    table {
+      width: 100%;
+      min-width: 760px;
+      border-collapse: collapse;
+    }
+
+    th,
+    td {
+      padding: 13px 14px;
+      border-bottom: 1px solid var(--areia);
+      text-align: left;
+      vertical-align: top;
+      font-size: 13px;
+      line-height: 1.35;
+    }
+
+    th {
+      background: #fbfaf7;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    td:first-child {
+      color: var(--carvao);
+      font-weight: 800;
+    }
+
+    .note-template {
+      margin: 0;
+      padding: 16px;
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: #11100f;
+      color: #f7f1e8;
+      overflow-x: auto;
+      font-family: ui-monospace, SFMono-Regular, Menlo, Consolas, monospace;
+      font-size: 13px;
+      line-height: 1.5;
+      white-space: pre-wrap;
+    }
+
+    .footer-note {
+      margin-top: 22px;
+      padding-top: 14px;
+      border-top: 1px solid var(--areia);
+      color: var(--pedra);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1040px) {
+      .hero,
+      .grid.cols-4,
+      .grid.cols-3 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      h1 {
+        font-size: 52px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar,
+      .section-header {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .brand {
+        align-items: flex-start;
+      }
+
+      .brand img {
+        width: 118px;
+      }
+
+      .hero,
+      .grid.cols-2,
+      .grid.cols-3,
+      .grid.cols-4 {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 36px;
+        line-height: 1;
+      }
+
+      .speed-box strong {
+        font-size: 34px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page-shell {
+        width: 100%;
+        padding: 0;
+      }
+
+      .button,
+      .copy-button {
+        display: none;
+      }
+
+      .card,
+      .message-card,
+      .example,
+      .section,
+      .hero {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <img src="logo-lockup-light.svg" alt="Hurtz">
+        <div class="brand-meta">
+          <p class="eyebrow">Onboarding SDR</p>
+          <p class="subtitle">Roteiro operacional de WhatsApp para SDR</p>
+        </div>
+      </div>
+      <button class="button" type="button" onclick="window.print()">Imprimir roteiro</button>
+    </header>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <div class="accent-rule" aria-hidden="true"></div>
+        <p class="eyebrow">Qualificação e agendamento</p>
+        <h1 id="page-title">Roteiro de WhatsApp para qualificar e agendar representantes de consórcio</h1>
+        <p class="hero-copy">
+          Use este fluxo para conduzir o representante do primeiro contato ao agendamento com o Closer, validando perfil, estrutura e dor principal sem transformar a conversa em formulário.
+        </p>
+      </div>
+      <aside class="speed-box" aria-label="Regra rápida">
+        <strong>1 pergunta por vez</strong>
+        <p>O SDR valida papel, estrutura e administradora, identifica uma dor principal, cria motivo para a reunião e oferece duas opções de horário.</p>
+      </aside>
+    </section>
+
+    <section class="section" aria-labelledby="regra-title">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Regra de uso</p>
+          <h2 id="regra-title">Princípios do roteiro</h2>
+        </div>
+        <p>O lead precisa sentir conversa, não checklist. Cada resposta abre espaço para a próxima pergunta ou para o convite.</p>
+      </div>
+      <div class="grid cols-3">
+        <article class="card green">
+          <strong>Direto</strong>
+          <p>Perguntas objetivas para confirmar perfil, estrutura e dor principal antes de oferecer horário.</p>
+        </article>
+        <article class="card blue">
+          <strong>Sequencial</strong>
+          <p>Uma pergunta por mensagem. Critério de MQL não vira formulário em bloco único.</p>
+        </article>
+        <article class="card red">
+          <strong>Com saída</strong>
+          <p>Se o lead não for dono, não tiver time ou for só banco/montadora, o SDR registra o motivo e encerra com respeito.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="fluxo-title">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Fluxo do atendimento</p>
+          <h2 id="fluxo-title">O caminho que a SDR segue no WhatsApp</h2>
+        </div>
+        <p>O formulário pode antecipar respostas, mas a SDR confirma o que ainda estiver duvidoso antes de oferecer agenda.</p>
+      </div>
+      <div class="grid cols-4">
+        <article class="card step">
+          <div class="step-top">
+            <span class="step-number">1</span>
+            <h3>Abrir</h3>
+          </div>
+          <p>Confirma a solicitação e faz o lead responder fácil.</p>
+        </article>
+        <article class="card step">
+          <div class="step-top">
+            <span class="step-number">2</span>
+            <h3>Validar papel</h3>
+          </div>
+          <p>Descobre se é dono, gestor ou consultor.</p>
+        </article>
+        <article class="card step">
+          <div class="step-top">
+            <span class="step-number">3</span>
+            <h3>Validar estrutura</h3>
+          </div>
+          <p>Confirma se tem time e administradora compatível.</p>
+        </article>
+        <article class="card step">
+          <div class="step-top">
+            <span class="step-number">4</span>
+            <h3>Dor única</h3>
+          </div>
+          <p>Escolhe uma dor principal para justificar a call.</p>
+        </article>
+        <article class="card step">
+          <div class="step-top">
+            <span class="step-number">5</span>
+            <h3>Pre-pitch</h3>
+          </div>
+          <p>Mostra por que faz sentido falar com o especialista.</p>
+        </article>
+        <article class="card step">
+          <div class="step-top">
+            <span class="step-number">6</span>
+            <h3>Permissão</h3>
+          </div>
+          <p>Pede autorização para passar horários.</p>
+        </article>
+        <article class="card step">
+          <div class="step-top">
+            <span class="step-number">7</span>
+            <h3>Horários</h3>
+          </div>
+          <p>Entrega duas opções e pede escolha.</p>
+        </article>
+        <article class="card step">
+          <div class="step-top">
+            <span class="step-number">8</span>
+            <h3>Confirma</h3>
+          </div>
+          <p>Grupo, presença e anotação no CRM.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="scripts-title">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Copiar e usar</p>
+          <h2 id="scripts-title">Mensagens base, uma etapa por vez</h2>
+        </div>
+        <p>Use em sequência conforme o lead responde. Se uma resposta já veio clara no formulário, avance para a próxima etapa útil.</p>
+      </div>
+      <div class="grid cols-2">
+        <article class="message-card">
+          <div class="message-top">
+            <div>
+              <strong>1. Abertura</strong>
+              <span>Primeira resposta</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="msg-1">Copiar</button>
+          </div>
+          <div class="message-copy">
+            <p class="bubble" id="msg-1">Oi, [NOME]! Aqui é [SDR] da Hurtz.
+
+Vi sua solicitação sobre captação para consórcio e queria te direcionar certo. Hoje você está à frente da operação ou atua mais como consultor?</p>
+          </div>
+        </article>
+
+        <article class="message-card">
+          <div class="message-top">
+            <div>
+              <strong>2. Se ele confirma que decide</strong>
+              <span>Validar estrutura</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="msg-2">Copiar</button>
+          </div>
+          <div class="message-copy">
+            <p class="bubble" id="msg-2">Show. E hoje você tem mais alguém vendendo junto com você ou a operação ainda está solo?</p>
+          </div>
+        </article>
+
+        <article class="message-card">
+          <div class="message-top">
+            <div>
+              <strong>3. Se tem time</strong>
+              <span>Validar administradora</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="msg-3">Copiar</button>
+          </div>
+          <div class="message-copy">
+            <p class="bubble" id="msg-3">Boa. Vocês trabalham mais forte com quais administradoras hoje?</p>
+          </div>
+        </article>
+
+        <article class="message-card">
+          <div class="message-top">
+            <div>
+              <strong>4. Dor única</strong>
+              <span>Dor principal</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="msg-4">Copiar</button>
+          </div>
+          <div class="message-copy">
+            <p class="bubble alt" id="msg-4">Entendi. Hoje o que mais trava crescimento aí: falta de lead, lead ruim ou dificuldade do time converter?</p>
+          </div>
+        </article>
+
+        <article class="message-card">
+          <div class="message-top">
+            <div>
+              <strong>5. Tréplica + pre-pitch</strong>
+              <span>Criar motivo para call</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="msg-5">Copiar</button>
+          </div>
+          <div class="message-copy">
+            <p class="bubble safe" id="msg-5">Saquei. Isso é bem comum em operação que já tem time, mas ainda recebe lead bruto ou sem prioridade clara.
+
+Pelo que você me passou, faz sentido o [CLOSER] olhar isso contigo numa call de 30 minutos. Ele mostra como outros representantes estão organizando captação e qualificação antes do lead chegar no time.
+
+Faz sentido você ver isso?</p>
+          </div>
+        </article>
+
+        <article class="message-card">
+          <div class="message-top">
+            <div>
+              <strong>6. Permissão para horários</strong>
+              <span>Micro-compromisso</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="msg-6">Copiar</button>
+          </div>
+          <div class="message-copy">
+            <p class="bubble safe" id="msg-6">Massa. Posso te passar duas janelas que tenho com ele?</p>
+          </div>
+        </article>
+
+        <article class="message-card">
+          <div class="message-top">
+            <div>
+              <strong>7. Fechamento com 2 horários</strong>
+              <span>Depois do sim</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="msg-7">Copiar</button>
+          </div>
+          <div class="message-copy">
+            <p class="bubble safe" id="msg-7">Tenho [DIA] às [HORÁRIO 1] ou [DIA] às [HORÁRIO 2].
+
+Qual encaixa melhor pra você?</p>
+          </div>
+        </article>
+
+        <article class="message-card">
+          <div class="message-top">
+            <div>
+              <strong>8. Confirmação e grupo</strong>
+              <span>Presença</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="msg-8">Copiar</button>
+          </div>
+          <div class="message-copy">
+            <p class="bubble safe" id="msg-8">Fechado, [NOME]. [DIA] às [HORÁRIO].
+
+Você consegue estar online nesse horário? Vou criar um grupo com você e o [CLOSER] para mandar o link e deixar tudo alinhado.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="examples-title">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Exemplos de uso</p>
+          <h2 id="examples-title">Como a conversa fica no dia a dia</h2>
+        </div>
+        <p>Esses exemplos mostram o ritmo. O SDR não precisa escrever exatamente igual, mas precisa manter a lógica.</p>
+      </div>
+      <div class="grid cols-2">
+        <article class="example">
+          <div class="example-header">
+            <p class="eyebrow">Cenário 1</p>
+            <h3>Lead bom, responde direto</h3>
+          </div>
+          <div class="chat">
+            <p class="chat-line sdr">Oi, Rafael! Aqui é a Ana da Hurtz. Vi sua solicitação sobre captação para consórcio. Hoje você está à frente da operação ou atua mais como consultor?</p>
+            <p class="chat-line lead">Sou sócio da representação.</p>
+            <p class="chat-line sdr">Show. E hoje tem mais alguém vendendo junto com você ou a operação ainda está solo?</p>
+            <p class="chat-line lead">Tenho 4 consultores.</p>
+            <p class="chat-line sdr">Boa. Vocês trabalham mais forte com quais administradoras hoje?</p>
+            <p class="chat-line lead">Embracon e Multimarcas.</p>
+            <p class="chat-line sdr">Entendi. Hoje o que mais trava crescimento aí: falta de lead, lead ruim ou dificuldade do time converter?</p>
+            <p class="chat-line lead">Lead ruim. O time perde tempo demais.</p>
+            <p class="chat-line sdr">Saquei. Pelo que você me passou, faz sentido o Marcos olhar isso contigo numa call de 30 minutos. Ele mostra como outros representantes estão organizando captação e qualificação antes do lead chegar no time. Faz sentido você ver isso?</p>
+            <p class="chat-line lead">Faz.</p>
+            <p class="chat-line sdr">Massa. Tenho hoje às 17h ou amanhã às 10h30. Qual encaixa melhor?</p>
+          </div>
+        </article>
+
+        <article class="example">
+          <div class="example-header">
+            <p class="eyebrow">Cenário 2</p>
+            <h3>Lead pergunta preço cedo</h3>
+          </div>
+          <div class="chat">
+            <p class="chat-line lead">Quanto custa?</p>
+            <p class="chat-line sdr">Boa pergunta. Antes de falar de investimento, preciso entender se faz sentido para sua operação. Se não encaixar, nem te mando para reunião.</p>
+            <p class="chat-line sdr">Hoje você toca a representação ou atua como consultor?</p>
+            <p class="chat-line lead">Sou dono.</p>
+            <p class="chat-line sdr">Massa. Tem time vendendo contigo ou hoje está solo?</p>
+            <p class="chat-line lead">Tenho 3 vendedores.</p>
+            <p class="chat-line sdr">Perfeito. Então faz sentido o Klebson te mostrar o modelo e os números em 30 minutos. Tenho amanhã 9h ou 15h. Qual fica melhor?</p>
+          </div>
+        </article>
+
+        <article class="example">
+          <div class="example-header">
+            <p class="eyebrow">Cenário 3</p>
+            <h3>Lead diz que já tem agência</h3>
+          </div>
+          <div class="chat">
+            <p class="chat-line lead">Eu já tenho agência de tráfego.</p>
+            <p class="chat-line sdr">Ótimo, isso ajuda. A conversa não é para trocar o que você tem. É para ver se existe espaço para melhorar a qualidade e a organização dos leads que chegam.</p>
+            <p class="chat-line sdr">Hoje o problema está mais em volume, qualidade do lead ou conversão do time?</p>
+            <p class="chat-line lead">Qualidade. Chega muita gente sem perfil.</p>
+            <p class="chat-line sdr">Saquei. Esse é justamente o tipo de ponto que vale o especialista olhar. Posso te passar duas janelas com ele?</p>
+          </div>
+        </article>
+
+        <article class="example">
+          <div class="example-header">
+            <p class="eyebrow">Cenário 4</p>
+            <h3>Lead não é MQL</h3>
+          </div>
+          <div class="chat">
+            <p class="chat-line lead">Hoje sou consultor em uma representação.</p>
+            <p class="chat-line sdr">Boa, obrigado por me falar. Hoje essa reunião é mais voltada para dono ou gestor de representação, porque envolve operação, time e decisão de aquisição.</p>
+            <p class="chat-line sdr">Se em algum momento você assumir uma operação própria ou entrar na gestão comercial, me chama por aqui que aí faz mais sentido.</p>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="atalhos-title">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">Ramificações</p>
+          <h2 id="atalhos-title">O que responder sem perder a cadência</h2>
+        </div>
+        <p>Não transforma objeção em debate. Responde com objetividade e volta para a próxima pergunta ou para o horário.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Situação</th>
+              <th>Resposta usável</th>
+              <th>Volta para</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Me manda no WhatsApp</td>
+              <td>Te mando sim. Só que o principal depende do seu cenário, por isso prefiro te direcionar certo antes. Hoje você toca a operação ou atua como consultor?</td>
+              <td>Validar papel</td>
+            </tr>
+            <tr>
+              <td>Quanto custa?</td>
+              <td>O especialista mostra isso com o modelo e o retorno. Número solto agora pode te dar uma leitura errada. Antes disso, deixa eu só validar se encaixa para você.</td>
+              <td>Validar MQL</td>
+            </tr>
+            <tr>
+              <td>Estou sem tempo</td>
+              <td>Tranquilo. A ideia é ser uma call de 30 minutos, objetiva e com foco no seu cenário. Pra você é melhor manhã ou tarde?</td>
+              <td>Horários</td>
+            </tr>
+            <tr>
+              <td>Preciso falar com sócio</td>
+              <td>Faz sentido. Melhor os dois verem juntos, porque a decisão fica mais clara. Qual horário vocês dois conseguem com mais facilidade?</td>
+              <td>Horários para ambos</td>
+            </tr>
+            <tr>
+              <td>Sou consultor</td>
+              <td>Boa. Hoje essa reunião é para dono ou gestor de representação. Se você assumir uma operação própria ou entrar na gestão, retomamos.</td>
+              <td>Desqualificar FORA-ICP</td>
+            </tr>
+            <tr>
+              <td>Operação solo</td>
+              <td>Entendi. Hoje talvez ainda não seja o melhor momento. O sistema funciona melhor quando já existe pelo menos mais uma pessoa para trabalhar os leads.</td>
+              <td>Desqualificar ou nutrir</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" aria-labelledby="crm-title">
+      <div class="section-header">
+        <div>
+          <p class="eyebrow">CRM</p>
+          <h2 id="crm-title">Anotação mínima no CRM</h2>
+        </div>
+        <p>O Closer precisa saber quem é, por que aceitou a call e qual dor puxou o agendamento.</p>
+      </div>
+      <pre class="note-template">MQL: aprovado/reprovado
+Papel: [dono / sócio / gestor / consultor]
+Time: [quantidade ou solo]
+Administradoras: [lista]
+Dor principal: [falta de lead / lead ruim / conversão / outro]
+Objeção relevante: [se teve]
+Decisor: [sozinho / sócio / gestor]
+Horário agendado: [data e hora]
+Grupo WA: criado sim/não
+Confirmação no grupo: sim/não
+Próximo passo: [invite / reminder / retorno]</pre>
+      <p class="footer-note">
+        Quando houver dúvida de perfil, objeção forte ou decisão com sócio ausente, registre a pendência no CRM e mantenha o lead em qualificação antes de marcar como Qualificado.
+      </p>
+    </section>
+  </main>
+
+  <script>
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const target = document.getElementById(button.dataset.copy);
+        if (!target) return;
+
+        const text = target.innerText.trim();
+
+        try {
+          await navigator.clipboard.writeText(text);
+          button.textContent = "Copiado";
+          button.classList.add("copied");
+          window.setTimeout(() => {
+            button.textContent = "Copiar";
+            button.classList.remove("copied");
+          }, 1400);
+        } catch (error) {
+          const range = document.createRange();
+          range.selectNodeContents(target);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          button.textContent = "Selecionado";
+          window.setTimeout(() => {
+            button.textContent = "Copiar";
+          }, 1400);
+        }
+      });
+    });
+  </script>
+</body>
+</html>
