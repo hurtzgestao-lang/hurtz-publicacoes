@@ -79,6 +79,12 @@
       gap: 20px;
     }
 
+    .brand-logo {
+      display: block;
+      width: auto;
+      height: 32px;
+    }
+
     .header-date {
       font-size: 11px;
       font-weight: 700;
@@ -435,6 +441,7 @@
     @media (max-width: 640px) {
       section { padding: 64px 20px; }
       .header .container { align-items: flex-start; }
+      .brand-logo { height: 24px; }
       .header-date { white-space: normal; }
       .para-row,
       .profile-grid,
@@ -467,15 +474,7 @@
 
   <header class="header">
     <div class="container">
-      <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 520 120" fill="none" height="22" aria-label="Hurtz Company">
-        <g fill="#181614">
-          <polygon points="10,86 70,26 94,26 34,86"/>
-          <polygon points="42,86 102,26 126,26 66,86"/>
-          <polygon points="74,86 134,26 158,26 98,86"/>
-        </g>
-        <rect x="184" y="22" width="3" height="76" fill="#C06018"/>
-        <text x="216" y="78" font-family="Inter, Helvetica, Arial, sans-serif" font-weight="700" font-size="62" letter-spacing="6" fill="#181614">HURTZ</text>
-      </svg>
+      <img class="brand-logo" src="assets/hurtz-logo.png" alt="Hurtz Company">
       <span class="header-date">Proposta · 05 Junho 2026</span>
     </div>
   </header>
