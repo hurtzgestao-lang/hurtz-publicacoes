@@ -1,0 +1,1242 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Página de Suporte SDR para Qualificar e Agendar | Hurtz</title>
+  <meta name="description" content="Pagina interna de suporte para SDR qualificar representantes de consorcio por ligacao e WhatsApp.">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;650;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brasa: #C06018;
+      --brasa-bg: #F9EDE3;
+      --carvao: #181614;
+      --grafite: #3D3A36;
+      --pedra: #8C8880;
+      --areia: #E8E4DC;
+      --offwhite: #F5F2EC;
+      --card: #FFFFFF;
+      --verde: #1A7A4A;
+      --verde-bg: #E7F3ED;
+      --azul: #2E5E9E;
+      --azul-bg: #EAF1FA;
+      --vermelho: #B52A2A;
+      --vermelho-bg: #F8E8E8;
+      --amarelo: #8A6500;
+      --amarelo-bg: #FFF3C4;
+      --radius: 8px;
+      --content: 1240px;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      background: var(--offwhite);
+      color: var(--carvao);
+      font-family: "Inter", Arial, sans-serif;
+      font-size: 15px;
+      line-height: 1.5;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    input,
+    select,
+    textarea {
+      font: inherit;
+    }
+
+    button,
+    select {
+      cursor: pointer;
+    }
+
+    h1,
+    h2,
+    h3,
+    p {
+      margin: 0;
+    }
+
+    h1 {
+      max-width: 900px;
+      font-size: 62px;
+      line-height: .96;
+      letter-spacing: 0;
+    }
+
+    h2 {
+      font-size: 24px;
+      line-height: 1.12;
+      letter-spacing: 0;
+    }
+
+    h3 {
+      font-size: 16px;
+      line-height: 1.2;
+      letter-spacing: 0;
+    }
+
+    .page-shell {
+      width: min(100% - 32px, var(--content));
+      margin: 0 auto;
+      padding: 28px 0 56px;
+    }
+
+    .topbar {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 24px;
+      margin-bottom: 24px;
+      padding-bottom: 18px;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      min-width: 0;
+    }
+
+    .brand img {
+      width: 142px;
+      height: auto;
+      display: block;
+    }
+
+    .brand-meta {
+      display: grid;
+      gap: 2px;
+      min-width: 0;
+    }
+
+    .eyebrow {
+      color: var(--brasa);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .1em;
+      text-transform: uppercase;
+    }
+
+    .subtitle,
+    .muted {
+      color: var(--grafite);
+      font-size: 13px;
+    }
+
+    .button,
+    .copy-button {
+      min-height: 40px;
+      border: 1.5px solid var(--carvao);
+      border-radius: 4px;
+      background: transparent;
+      color: var(--carvao);
+      font-weight: 800;
+      white-space: nowrap;
+      transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
+    }
+
+    .button {
+      padding: 9px 15px;
+    }
+
+    .copy-button {
+      padding: 8px 12px;
+      font-size: 12px;
+    }
+
+    .button:hover,
+    .button:focus-visible,
+    .copy-button:hover,
+    .copy-button:focus-visible,
+    .copy-button.copied {
+      background: var(--carvao);
+      color: var(--offwhite);
+      outline: none;
+    }
+
+    .hero {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(320px, .48fr);
+      gap: 28px;
+      align-items: end;
+      padding: 34px 0 28px;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .accent-rule {
+      width: 88px;
+      height: 3px;
+      margin-bottom: 18px;
+      background: var(--brasa);
+    }
+
+    .hero-copy {
+      max-width: 760px;
+      margin-top: 18px;
+      color: var(--grafite);
+      font-size: 17px;
+      line-height: 1.5;
+    }
+
+    .rule-box {
+      display: grid;
+      gap: 16px;
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: var(--card);
+      padding: 20px;
+    }
+
+    .rule-box strong {
+      display: block;
+      font-size: 38px;
+      line-height: 1;
+      letter-spacing: 0;
+    }
+
+    .rule-box p {
+      color: var(--grafite);
+      font-size: 14px;
+    }
+
+    .nav {
+      position: sticky;
+      top: 0;
+      z-index: 10;
+      display: flex;
+      gap: 8px;
+      overflow-x: auto;
+      padding: 12px 0;
+      background: rgba(245, 242, 236, .94);
+      border-bottom: 1px solid var(--areia);
+      backdrop-filter: blur(8px);
+    }
+
+    .nav a {
+      flex: 0 0 auto;
+      border: 1px solid var(--areia);
+      border-radius: 999px;
+      background: var(--card);
+      color: var(--grafite);
+      padding: 7px 11px;
+      font-size: 12px;
+      font-weight: 800;
+      text-decoration: none;
+      white-space: nowrap;
+    }
+
+    .section {
+      padding-top: 34px;
+    }
+
+    .section-header {
+      display: grid;
+      grid-template-columns: minmax(0, .72fr) minmax(280px, .52fr);
+      gap: 28px;
+      align-items: end;
+      margin-bottom: 18px;
+    }
+
+    .section-header > p {
+      color: var(--grafite);
+      font-size: 15px;
+    }
+
+    .section-title {
+      display: grid;
+      gap: 7px;
+    }
+
+    .grid {
+      display: grid;
+      gap: 14px;
+    }
+
+    .mt-14 {
+      margin-top: 14px;
+    }
+
+    .cols-2 {
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+    }
+
+    .cols-3 {
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+    }
+
+    .cols-4 {
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+    }
+
+    .card,
+    .script-card,
+    .classifier,
+    .table-wrap {
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: var(--card);
+      box-shadow: 0 1px 0 rgba(24, 22, 20, .04);
+    }
+
+    .card {
+      min-height: 100%;
+      padding: 18px;
+    }
+
+    .card strong {
+      display: block;
+      margin-bottom: 8px;
+      font-size: 18px;
+      line-height: 1.12;
+    }
+
+    .card p,
+    .card li {
+      color: var(--grafite);
+      font-size: 14px;
+    }
+
+    .card ul {
+      display: grid;
+      gap: 6px;
+      margin: 0;
+      padding-left: 18px;
+    }
+
+    .card.green {
+      border-left: 4px solid var(--verde);
+      background: linear-gradient(90deg, var(--verde-bg), var(--card) 38%);
+    }
+
+    .card.blue {
+      border-left: 4px solid var(--azul);
+      background: linear-gradient(90deg, var(--azul-bg), var(--card) 38%);
+    }
+
+    .card.red {
+      border-left: 4px solid var(--vermelho);
+      background: linear-gradient(90deg, var(--vermelho-bg), var(--card) 38%);
+    }
+
+    .card.amber {
+      border-left: 4px solid var(--amarelo);
+      background: linear-gradient(90deg, var(--amarelo-bg), var(--card) 38%);
+    }
+
+    .step-card {
+      display: grid;
+      grid-template-columns: 44px 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+
+    .step-number {
+      display: grid;
+      width: 36px;
+      height: 36px;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--carvao);
+      color: var(--offwhite);
+      font-weight: 800;
+    }
+
+    .classifier {
+      display: grid;
+      gap: 16px;
+      padding: 18px;
+    }
+
+    .classifier-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 12px;
+    }
+
+    .field {
+      display: grid;
+      gap: 6px;
+    }
+
+    .field label {
+      color: var(--pedra);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .field select {
+      min-height: 42px;
+      width: 100%;
+      border: 1px solid var(--areia);
+      border-radius: 4px;
+      background: #fff;
+      color: var(--carvao);
+      padding: 8px 10px;
+      font-weight: 700;
+    }
+
+    .classifier-output {
+      display: grid;
+      grid-template-columns: 90px 1fr;
+      gap: 14px;
+      align-items: center;
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: var(--offwhite);
+      padding: 14px;
+    }
+
+    .bucket-badge {
+      display: grid;
+      width: 70px;
+      height: 70px;
+      place-items: center;
+      border-radius: 999px;
+      background: var(--carvao);
+      color: var(--offwhite);
+      font-size: 30px;
+      font-weight: 800;
+      line-height: 1;
+    }
+
+    .bucket-copy {
+      display: grid;
+      gap: 3px;
+    }
+
+    .bucket-copy strong {
+      font-size: 18px;
+      line-height: 1.15;
+    }
+
+    .bucket-copy p {
+      color: var(--grafite);
+      font-size: 14px;
+    }
+
+    .script-card {
+      overflow: hidden;
+    }
+
+    .script-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: start;
+      gap: 12px;
+      padding: 16px 18px;
+      border-bottom: 1px solid var(--areia);
+    }
+
+    .script-top div {
+      display: grid;
+      gap: 3px;
+    }
+
+    .script-top strong {
+      font-size: 16px;
+      line-height: 1.18;
+    }
+
+    .script-top span {
+      color: var(--pedra);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    .bubble {
+      margin: 18px;
+      border: 1px solid #E9CBB7;
+      border-radius: 8px;
+      background: #FFF4EC;
+      color: var(--carvao);
+      padding: 16px;
+      white-space: pre-wrap;
+    }
+
+    .bubble.blue {
+      border-color: #C8DAF2;
+      background: #EEF5FF;
+    }
+
+    .bubble.green {
+      border-color: #BFE1CF;
+      background: #EFF8F3;
+    }
+
+    .bubble.red {
+      border-color: #EDC7C7;
+      background: #FFF0F0;
+    }
+
+    .instruction {
+      margin: 0 18px 18px;
+      color: var(--grafite);
+      font-size: 13px;
+    }
+
+    .table-wrap {
+      overflow-x: auto;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      min-width: 720px;
+    }
+
+    th,
+    td {
+      padding: 14px 16px;
+      border-bottom: 1px solid var(--areia);
+      text-align: left;
+      vertical-align: top;
+    }
+
+    th {
+      color: var(--pedra);
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+    }
+
+    td {
+      color: var(--grafite);
+      font-size: 14px;
+    }
+
+    tr:last-child td {
+      border-bottom: 0;
+    }
+
+    .tag {
+      display: inline-flex;
+      align-items: center;
+      min-height: 24px;
+      border-radius: 999px;
+      padding: 3px 8px;
+      font-size: 11px;
+      font-weight: 800;
+      letter-spacing: .06em;
+      text-transform: uppercase;
+    }
+
+    .tag.green {
+      background: var(--verde-bg);
+      color: var(--verde);
+    }
+
+    .tag.blue {
+      background: var(--azul-bg);
+      color: var(--azul);
+    }
+
+    .tag.red {
+      background: var(--vermelho-bg);
+      color: var(--vermelho);
+    }
+
+    .note-template {
+      overflow-x: auto;
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: var(--carvao);
+      color: var(--offwhite);
+      padding: 18px;
+      font-family: "Inter", Arial, sans-serif;
+      font-size: 13px;
+      line-height: 1.6;
+      white-space: pre-wrap;
+    }
+
+    .footer-note {
+      margin-top: 14px;
+      color: var(--pedra);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    @media (max-width: 1040px) {
+      .hero,
+      .section-header,
+      .classifier-grid,
+      .cols-4,
+      .cols-3 {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      h1 {
+        font-size: 50px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .topbar,
+      .script-top {
+        align-items: start;
+        flex-direction: column;
+      }
+
+      .brand {
+        align-items: flex-start;
+      }
+
+      .brand img {
+        width: 118px;
+      }
+
+      .hero,
+      .section-header,
+      .classifier-grid,
+      .classifier-output,
+      .cols-2,
+      .cols-3,
+      .cols-4 {
+        grid-template-columns: 1fr;
+      }
+
+      h1 {
+        font-size: 35px;
+        line-height: 1;
+      }
+
+      .rule-box strong {
+        font-size: 32px;
+      }
+
+      .copy-button,
+      .script-top .button {
+        width: 100%;
+      }
+
+      .bubble {
+        margin: 16px;
+      }
+    }
+
+    @media print {
+      body {
+        background: #fff;
+      }
+
+      .page-shell {
+        width: 100%;
+        padding: 0;
+      }
+
+      .nav,
+      .button,
+      .copy-button {
+        display: none;
+      }
+
+      .card,
+      .script-card,
+      .classifier,
+      .table-wrap,
+      .section,
+      .hero {
+        break-inside: avoid;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page-shell">
+    <header class="topbar">
+      <div class="brand">
+        <img src="logo-lockup-light.svg" alt="Hurtz">
+        <div class="brand-meta">
+          <p class="eyebrow">Onboarding SDR</p>
+          <p class="subtitle">Página de suporte para ligação e WhatsApp</p>
+        </div>
+      </div>
+      <button class="button" type="button" onclick="window.print()">Imprimir suporte</button>
+    </header>
+
+    <section class="hero" aria-labelledby="page-title">
+      <div>
+        <div class="accent-rule" aria-hidden="true"></div>
+        <p class="eyebrow">Qualificação de representantes</p>
+        <h1 id="page-title">Página de suporte do SDR para qualificar e agendar</h1>
+        <p class="hero-copy">
+          Use esta página durante a operação. Ela organiza o script do formulário até a reunião, separando o que confirmar, quais perguntas fazer, como classificar o lead e qual fala usar para puxar o agendamento.
+        </p>
+      </div>
+      <aside class="rule-box" aria-label="Regra principal">
+        <strong>Não recomece do zero</strong>
+        <p>Se o lead veio do formulário, a SDR usa os dados para personalizar. Repetir tudo como interrogatório derruba autoridade e esfria a conversa.</p>
+      </aside>
+    </section>
+
+    <nav class="nav" aria-label="Atalhos da página">
+      <a href="#formulario">Formulário</a>
+      <a href="#classificador">Classificador</a>
+      <a href="#ligacao">Ligação</a>
+      <a href="#whatsapp-form">WhatsApp com form</a>
+      <a href="#whatsapp-direto">WhatsApp sem form</a>
+      <a href="#objecoes">Objeções</a>
+      <a href="#crm">CRM</a>
+    </nav>
+
+    <section class="section" id="formulario" aria-labelledby="formulario-title">
+      <div class="section-header">
+        <div class="section-title">
+          <p class="eyebrow">Antes do contato</p>
+          <h2 id="formulario-title">O formulário dá contexto, não pauta de interrogatório.</h2>
+        </div>
+        <p>O primeiro trabalho da SDR é ler as quatro respostas e decidir onde a conversa precisa avançar. Na ligação, confirme o que já veio preenchido e pergunte só o que ajuda a classificar.</p>
+      </div>
+      <div class="grid cols-4">
+        <article class="card blue">
+          <strong>P1. Papel</strong>
+          <p>Representante, gestor ou consultor. Quem lidera equipe entra no discurso principal. Consultor avulso tende a sair da rota de reunião.</p>
+        </article>
+        <article class="card green">
+          <strong>P2. Administradora</strong>
+          <p>Serve para rapport e prova. Multimarcas, Alpha, Promove e Evoy ajudam a puxar contexto de quem já atua com administradora de adesão.</p>
+        </article>
+        <article class="card amber">
+          <strong>P3. Tamanho do time</strong>
+          <p>Pergunta de dinheiro. Equipe indica escala, capacidade de atender volume e urgência real por previsibilidade.</p>
+        </article>
+        <article class="card amber">
+          <strong>P4. Produção mensal</strong>
+          <p>Pergunta de dinheiro. Mostra bolso, consistência e se o lead deve ser empurrado para diagnóstico ou nutrido em produto menor.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="classificador" aria-labelledby="classificador-title">
+      <div class="section-header">
+        <div class="section-title">
+          <p class="eyebrow">Decisão rápida</p>
+          <h2 id="classificador-title">Classifique o lead antes de oferecer horário.</h2>
+        </div>
+        <p>O balde define o ângulo. Balde A compra consolidação. Balde B compra previsibilidade. Balde C não deve ser forçado para a assessoria principal.</p>
+      </div>
+
+      <div class="classifier" aria-label="Classificador de lead">
+        <div class="classifier-grid">
+          <div class="field">
+            <label for="adminType">Administradora</label>
+            <select id="adminType">
+              <option value="adesao">Adesão / independente</option>
+              <option value="mista">Mista ou dúvida</option>
+              <option value="fora">Banco, seguradora ou montadora</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="teamSize">Equipe</label>
+            <select id="teamSize">
+              <option value="3">3+ pessoas</option>
+              <option value="2">2 pessoas</option>
+              <option value="1">Solo</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="production">Produção</label>
+            <select id="production">
+              <option value="boa">Boa e consistente</option>
+              <option value="oscilante">Oscilante</option>
+              <option value="baixa">Baixa ou sem clareza</option>
+            </select>
+          </div>
+          <div class="field">
+            <label for="capture">Captação atual</label>
+            <select id="capture">
+              <option value="varias">Várias fontes ou tráfego</option>
+              <option value="indicacao">Indicação / orgânico</option>
+              <option value="nenhuma">Sem fonte previsível</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="classifier-output" aria-live="polite">
+          <span class="bucket-badge" id="bucketBadge">A</span>
+          <div class="bucket-copy">
+            <strong id="bucketTitle">ICP cheio: empurrar forte para reunião.</strong>
+            <p id="bucketText">Ângulo: consolidar captação fragmentada, dar previsibilidade e devolver tempo para gestão do time.</p>
+          </div>
+        </div>
+      </div>
+
+      <div class="grid cols-3 mt-14">
+        <article class="card green">
+          <strong>Balde A. ICP cheio</strong>
+          <ul>
+            <li>Administradora de adesão ou independente.</li>
+            <li>Equipe ativa e boa produção.</li>
+            <li>Capta em Marketplace, OLX, lista fria, orgânico ou tráfego.</li>
+          </ul>
+        </article>
+        <article class="card blue">
+          <strong>Balde B. Potencial</strong>
+          <ul>
+            <li>Administradora certa e equipe existe.</li>
+            <li>Produção ainda oscila.</li>
+            <li>Depende de indicação ou orgânico.</li>
+          </ul>
+        </article>
+        <article class="card red">
+          <strong>Balde C. Ticket menor</strong>
+          <ul>
+            <li>Solo, sem equipe ou baixa produção.</li>
+            <li>Administradora fora do foco.</li>
+            <li>Não force assessoria principal.</li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="ligacao" aria-labelledby="ligacao-title">
+      <div class="section-header">
+        <div class="section-title">
+          <p class="eyebrow">Ligação</p>
+          <h2 id="ligacao-title">Estrutura para sair do form e chegar no diagnóstico.</h2>
+        </div>
+        <p>A ligação segue a sequência: abertura com permissão, confirmação do formulário, descoberta, pergunta de roteamento, gap e convite com dois horários fechados.</p>
+      </div>
+
+      <div class="grid cols-2">
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>1. Abertura com permissão</strong>
+              <span>Primeiros 15 segundos</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="call-1">Copiar</button>
+          </div>
+          <p class="bubble" id="call-1">Opa, é o [NOME]? Aqui é o [SDR], da Hurtz.
+
+Você preencheu agorinha um formulário sobre geração de demanda pra equipe de consórcio, lembra?
+
+Te peguei num minuto bom pra gente trocar uma ideia rápida, ou prefere que eu te ligue daqui a pouco?</p>
+          <p class="instruction">Evite abrir com “tudo bem?”. Referenciar o formulário justifica a ligação e corta a objeção de “quem é você?”.</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>2. Confirmação do formulário</strong>
+              <span>Mostra que leu antes</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="call-2">Copiar</button>
+          </div>
+          <p class="bubble" id="call-2">Show. Deixa eu só confirmar umas coisas que você colocou ali pra eu não te fazer repetir nada:
+
+você atua com a [ADMINISTRADORA] e hoje toca uma equipe de [X] pessoas, certo?</p>
+          <p class="instruction">A SDR confirma, não re-pergunta. Isso preserva autoridade e abre espaço para descobrir a dor.</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>3. Descoberta</strong>
+              <span>Perguntas que revelam dinheiro e dor</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="call-3">Copiar</button>
+          </div>
+          <p class="bubble blue" id="call-3">Hoje, de onde vem a maior parte das vendas da sua equipe?
+
+É mais indicação e carteira própria, ou vocês já rodam algum anúncio pra trazer gente nova?
+
+E essa produção de [VALOR DO FORM] tá mais consistente ou varia bastante de um mês pro outro?
+
+Quando bate um mês mais fraco, geralmente é falta de lead pra equipe trabalhar, ou é conversão mesmo?
+
+E sua equipe hoje: tá com a agenda cheia de gente pra atender, ou tem vendedor sobrando esperando lead chegar?</p>
+          <p class="instruction">Se existe vendedor ocioso, a SDR achou a dor exata que a Hurtz resolve.</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>4. Pergunta de roteamento</strong>
+              <span>Define balde A, B ou C</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="call-4">Copiar</button>
+          </div>
+          <p class="bubble blue" id="call-4">E pra montar esse volume de lead hoje, de onde você tira?
+
+É mais indicação, ou você já garimpa em Marketplace, OLX, lista fria, esse tipo de coisa?</p>
+          <p class="instruction">Várias fontes ao mesmo tempo sinalizam operação fragmentada. Esse é o gancho de consolidação.</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>5A. Gap + pitch para Balde A</strong>
+              <span>Consolidação e previsibilidade</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="call-5a">Copiar</button>
+          </div>
+          <p class="bubble green" id="call-5a">Deixa eu te falar o que eu tô enxergando aqui:
+
+você já vende bem, já tem equipe boa, e ainda assim tá tendo que garimpar lead em Marketplace, OLX, lista fria, orgânico... cada um te dá um pedaço, mas nenhum te dá volume previsível.
+
+O que a gente faz é trocar essa garimpagem por uma torneira só: um fluxo diário e constante, com a logo da [ADMINISTRADORA] no anúncio pra filtrar quem é comprador de verdade.
+
+Faz sentido eu te mostrar como isso ficaria pra sua operação numa call de uns 20 minutos? Consegue [AMANHÃ 10H] ou fica melhor [AMANHÃ 16H]?</p>
+          <p class="instruction">Para Balde A, não venda “lead”. Venda previsibilidade, escala e tempo de volta.</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>5B. Gap + pitch para Balde B</strong>
+              <span>Primeiro fluxo previsível</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="call-5b">Copiar</button>
+          </div>
+          <p class="bubble green" id="call-5b">Então deixa eu ver se entendi:
+
+você tem [X] vendedores prontos pra vender, mas o que segura o crescimento hoje não é a equipe. É não ter um fluxo previsível de gente nova chegando todo dia pra eles atenderem.
+
+É mais ou menos isso?
+
+É exatamente isso que a gente resolve: fluxo diário de lead qualificado pra equipe trabalhar. Só que não faz sentido eu te jogar um número por telefone, porque depende da sua administradora, da região e do tamanho do time.
+
+O certo é a gente marcar um diagnóstico de uns 20 minutos. Consegue [AMANHÃ 10H] ou [AMANHÃ 16H]?</p>
+          <p class="instruction">Para Balde B, faça o lead concordar com a própria dor antes de oferecer horário.</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="whatsapp-form" aria-labelledby="whatsapp-form-title">
+      <div class="section-header">
+        <div class="section-title">
+          <p class="eyebrow">WhatsApp com formulário</p>
+          <h2 id="whatsapp-form-title">Quando o lead já preencheu, use o form como ponte.</h2>
+        </div>
+        <p>O texto abre a conversa. O áudio humaniza, confirma os dados e planta o diagnóstico. Depois disso, a SDR oferece dois períodos ou dois horários.</p>
+      </div>
+      <div class="grid cols-3">
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>Mensagem 1</strong>
+              <span>Abertura</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="wform-1">Copiar</button>
+          </div>
+          <p class="bubble" id="wform-1">Opa, [NOME]! Aqui é o [SDR] da Hurtz.
+
+Você preencheu agora há pouco o form sobre geração de demanda pra equipe de consórcio.
+
+Posso te chamar rapidinho aqui pra entender sua operação e te mostrar quantos leads dá pra gerar pro seu time?</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>Áudio de 40 segundos</strong>
+              <span>Roteiro do áudio</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="wform-2">Copiar</button>
+          </div>
+          <p class="bubble blue" id="wform-2">[NOME], vi aqui que você trabalha com [ADMINISTRADORA] e tem uma equipe de [X] pessoas.
+
+Pra eu te direcionar certo: hoje a maior parte das vendas vem de indicação/carteira ou vocês já usam anúncio e outras fontes pra gerar demanda?
+
+E essa produção de [VALOR] costuma ser consistente ou varia bastante?</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>Fechamento A/B</strong>
+              <span>Convite para diagnóstico</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="wform-3">Copiar</button>
+          </div>
+          <p class="bubble green" id="wform-3">Pelo que você me falou, faz total sentido a gente sentar 20 minutos e eu te mostrar o número pra sua operação.
+
+Te mando o link de uma call rápida. Prefere amanhã de manhã ou à tarde?</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="whatsapp-direto" aria-labelledby="whatsapp-direto-title">
+      <div class="section-header">
+        <div class="section-title">
+          <p class="eyebrow">WhatsApp sem formulário</p>
+          <h2 id="whatsapp-direto-title">Quando não tem dados, as perguntas viram conversa.</h2>
+        </div>
+        <p>Sem formulário, a SDR precisa descobrir papel, administradora, equipe e produção. A regra continua a mesma: uma pergunta por mensagem, esperando a resposta antes da próxima.</p>
+      </div>
+
+      <div class="grid cols-2">
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>1. Abertura + permissão</strong>
+              <span>Não começa interrogando</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="wdireto-1">Copiar</button>
+          </div>
+          <p class="bubble" id="wdireto-1">Opa, tudo certo? Aqui é o [SDR] da Hurtz.
+
+A gente trabalha com geração de demanda pra equipe de consórcio.
+
+Posso te fazer 3 perguntinhas rápidas pra entender sua operação e ver se faz sentido pra você?</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>2. Papel</strong>
+              <span>Representante ou consultor</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="wdireto-2">Copiar</button>
+          </div>
+          <p class="bubble" id="wdireto-2">Show! Primeiro: você atua hoje liderando uma equipe de vendas, ou trabalha mais como consultor individual?</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>3. Administradora</strong>
+              <span>Rapport e prova</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="wdireto-3">Copiar</button>
+          </div>
+          <p class="bubble" id="wdireto-3">Boa. E você trabalha com qual administradora?
+
+A gente já roda demanda pra representantes de Multimarcas, Alpha, Promove, Evoy...</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>4. Tamanho da equipe</strong>
+              <span>Pergunta de dinheiro</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="wdireto-4">Copiar</button>
+          </div>
+          <p class="bubble" id="wdireto-4">E hoje você toca essa operação sozinho ou tem uma equipe de vendedores com você?
+
+Se tem, quantos mais ou menos?</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>5. Produção + captação</strong>
+              <span>Roteamento</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="wdireto-5">Copiar</button>
+          </div>
+          <p class="bubble blue" id="wdireto-5">Entendi. E pra fechar:
+
+hoje a produção de vocês tá mais consistente ou varia bastante de um mês pro outro?
+
+E de onde você tira os leads? Mais indicação, ou já garimpa em Marketplace, OLX, lista fria, tráfego?</p>
+        </article>
+
+        <article class="script-card">
+          <div class="script-top">
+            <div>
+              <strong>6. Fechamento A/B</strong>
+              <span>Dois períodos ou horários</span>
+            </div>
+            <button class="copy-button" type="button" data-copy="wdireto-6">Copiar</button>
+          </div>
+          <p class="bubble green" id="wdireto-6">Pelo que você me contou, faz total sentido a gente sentar uns 20 minutos pra eu te mostrar quantos leads dá pra gerar pra sua operação e como sua equipe trabalharia eles.
+
+Prefere amanhã de manhã ou à tarde?</p>
+        </article>
+      </div>
+    </section>
+
+    <section class="section" id="objecoes" aria-labelledby="objecoes-title">
+      <div class="section-header">
+        <div class="section-title">
+          <p class="eyebrow">Contorno de objeções</p>
+          <h2 id="objecoes-title">Responda e volte para o diagnóstico.</h2>
+        </div>
+        <p>Objeção cedo não vira debate. A SDR reposiciona, protege o valor da reunião e volta para a próxima ação.</p>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead>
+            <tr>
+              <th>Situação</th>
+              <th>Resposta usável</th>
+              <th>Volta para</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td><strong>Quanto custa?</strong></td>
+              <td>Boa pergunta. E é exatamente por isso que existe o diagnóstico. O investimento muda conforme o volume de lead que faz sentido pra sua equipe. Te passar valor agora sem entender sua operação seria chute. Na reunião você sai com o número certo pro seu caso. Fechamos [HORÁRIO]?</td>
+              <td><span class="tag green">Horário</span></td>
+            </tr>
+            <tr>
+              <td><strong>Já entrei em assessoria e não deu certo</strong></td>
+              <td>Entendo, e isso é mais comum do que parece. Quase sempre o problema não foi o lead, foi não ter equipe e processo pra atender no tempo certo. No diagnóstico eu te mostro como a gente evita isso, inclusive olhando o que travou da outra vez. Vale 20 minutos pra comparar?</td>
+              <td><span class="tag blue">Dor anterior</span></td>
+            </tr>
+            <tr>
+              <td><strong>Lead pago não converte</strong></td>
+              <td>Faz sentido. Por isso a gente roda com a logo da administradora no anúncio, pra filtrar curioso de quem realmente quer comprar consórcio. O volume real fica entre 40 e 80 leads por dia, e a gente afina a qualidade junto com você. Te mostro exemplos reais na reunião?</td>
+              <td><span class="tag blue">Prova</span></td>
+            </tr>
+            <tr>
+              <td><strong>Vou pensar / me chama depois</strong></td>
+              <td>Tranquilo. Só pra eu não te encher depois sem necessidade: o que te faria olhar isso com mais atenção, entender o número de leads ou ver como sua equipe trabalharia eles? Então o diagnóstico responde os dois em 20 minutos. Prefere [A] ou [B]?</td>
+              <td><span class="tag green">Escolha</span></td>
+            </tr>
+            <tr>
+              <td><strong>Tô sem tempo agora</strong></td>
+              <td>Justamente por isso é só 20 minutos e online. Te dou a manhã ou a tarde. Qual rouba menos do seu dia?</td>
+              <td><span class="tag green">Período</span></td>
+            </tr>
+            <tr>
+              <td><strong>Solo / ticket menor</strong></td>
+              <td>Pelo que você me contou, faz mais sentido começar por uma solução mais enxuta, feita pra quem tá estruturando a operação ainda. Posso te explicar como funciona e ver se encaixa?</td>
+              <td><span class="tag red">Roteamento</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="section" id="crm" aria-labelledby="crm-title">
+      <div class="section-header">
+        <div class="section-title">
+          <p class="eyebrow">Checklist e CRM</p>
+          <h2 id="crm-title">A call só sobe quando o balde está claro.</h2>
+        </div>
+        <p>O Closer precisa saber o que a SDR confirmou, qual dor o lead aceitou e por que a reunião foi marcada.</p>
+      </div>
+
+      <div class="grid cols-2">
+        <article class="card amber">
+          <strong>Checklist rápido da SDR</strong>
+          <ul>
+            <li>Li o formulário antes de ligar?</li>
+            <li>Abri referenciando o form, sem “tudo bem?”</li>
+            <li>Confirmei dados em vez de re-perguntar?</li>
+            <li>Descobri de onde vêm os leads hoje?</li>
+            <li>Classifiquei em Balde A, B ou C?</li>
+            <li>Fiz o lead concordar com a própria dor?</li>
+            <li>Ofereci dois horários fechados?</li>
+            <li>Segurei preço para o diagnóstico?</li>
+          </ul>
+        </article>
+
+        <div>
+          <pre class="note-template">Origem: formulário / WhatsApp direto / indicação
+Papel: [dono / sócio / gestor / consultor]
+Administradora: [nome]
+Equipe: [quantidade]
+Produção mensal: [faixa ou valor informado]
+Captação atual: [indicação / orgânico / marketplace / OLX / lista fria / tráfego]
+Balde: [A ICP cheio / B potencial / C ticket menor]
+Dor aceita pelo lead: [lead insuficiente / lead ruim / vendedor ocioso / produção oscila / operação fragmentada]
+Ângulo usado: [consolidação / previsibilidade / ticket menor]
+Objeção relevante: [se teve]
+Horário oferecido: [opção A / opção B]
+Horário escolhido: [data e hora]
+Próximo passo: [grupo WhatsApp / invite / follow-up / nutrição]</pre>
+          <p class="footer-note">Regra de ouro do script: equipe 3+ e produção consistente empurra forte para reunião. Solo, produção baixa ou administradora fora do foco entra em rota de ticket menor ou nutrição.</p>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    const buttonDefaultText = new WeakMap();
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      buttonDefaultText.set(button, button.textContent);
+      button.addEventListener("click", async () => {
+        const target = document.getElementById(button.dataset.copy);
+        if (!target) return;
+
+        const text = target.innerText.trim();
+
+        try {
+          await navigator.clipboard.writeText(text);
+          button.textContent = "Copiado";
+          button.classList.add("copied");
+        } catch (error) {
+          const range = document.createRange();
+          range.selectNodeContents(target);
+          const selection = window.getSelection();
+          selection.removeAllRanges();
+          selection.addRange(range);
+          button.textContent = "Selecionado";
+        }
+
+        window.setTimeout(() => {
+          button.textContent = buttonDefaultText.get(button);
+          button.classList.remove("copied");
+        }, 1400);
+      });
+    });
+
+    const fields = {
+      adminType: document.getElementById("adminType"),
+      teamSize: document.getElementById("teamSize"),
+      production: document.getElementById("production"),
+      capture: document.getElementById("capture"),
+    };
+
+    const bucketBadge = document.getElementById("bucketBadge");
+    const bucketTitle = document.getElementById("bucketTitle");
+    const bucketText = document.getElementById("bucketText");
+
+    function classifyLead() {
+      const admin = fields.adminType.value;
+      const team = fields.teamSize.value;
+      const production = fields.production.value;
+      const capture = fields.capture.value;
+
+      let bucket = "B";
+      let title = "Potencial: cave a dor e puxe para diagnóstico.";
+      let text = "Ângulo: primeiro fluxo previsível para tirar a equipe da dependência de indicação e orgânico.";
+
+      if (admin === "fora" || team === "1" || production === "baixa") {
+        bucket = "C";
+        title = "Ticket menor: não force a assessoria principal.";
+        text = "Ângulo: solução mais enxuta ou nutrição. Registre o motivo e preserve o relacionamento.";
+      } else if (admin === "adesao" && team === "3" && production === "boa" && capture === "varias") {
+        bucket = "A";
+        title = "ICP cheio: empurrar forte para reunião.";
+        text = "Ângulo: consolidar captação fragmentada, dar previsibilidade e devolver tempo para gestão do time.";
+      }
+
+      bucketBadge.textContent = bucket;
+      bucketTitle.textContent = title;
+      bucketText.textContent = text;
+    }
+
+    Object.values(fields).forEach((field) => {
+      field.addEventListener("change", classifyLead);
+    });
+
+    classifyLead();
+  </script>
+</body>
+</html>
