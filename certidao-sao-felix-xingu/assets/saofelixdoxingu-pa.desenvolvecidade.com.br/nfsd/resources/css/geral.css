@@ -1,0 +1,351 @@
+.tb-show.treebreak {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.asklist > div > ul {
+    padding-left: 0;
+    list-style: none;
+}
+
+.ui-state-disabled {
+    opacity: .75!important;
+    filter: Alpha(Opacity=75)!important;
+   
+ 
+}
+.size-captcha{
+	display: flex;
+align-items: center;
+justify-content: center;
+}
+#donwloadlicenca{
+display: flex;
+justify-content: left;	
+}
+
+.box-licenca{
+display: flex;
+flex-direction: row;
+justify-content: flex-start;
+align-items: center;
+}
+
+.box-file{
+	display: flex;
+flex-direction: column;
+}
+
+.file__name{
+display: flex;
+flex-direction: row;
+justify-content: space-between;
+align-items: baseline;
+}
+
+.ul-licenca > .ui-datalist-content > ul {
+    padding: 0;
+}
+.geral {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	margin: 0 auto -80px;
+}
+
+.geral-hml:after {
+	min-height: 100%;
+	height: auto !important;
+	height: 100%;
+	content: "CAPACITAÇÃO & HOMOLOGAÇÃO";
+	margin: 0 auto -80px;
+	font-size: 2.8em;
+	color: rgba(173, 216, 230, 0.4);
+	z-index: 9999;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+	position: fixed;
+	top: 0;
+	right: 0;
+	bottom: 0;
+	left: 0;
+	-webkit-pointer-events: none;
+	-moz-pointer-events: none;
+	-ms-pointer-events: none;
+	-o-pointer-events: none;
+	pointer-events: none;
+	-webkit-user-select: none;
+	-moz-user-select: none;
+	-ms-user-select: none;
+	-o-user-select: none;
+	user-select: none;
+}
+
+.ui-selection-column.at-mobile-j {
+    text-align: center;
+}
+	
+@media (max-width: 640px) {
+	.at-mobile-j{
+	text-align: justify;
+	}
+	
+	.at-mobile-j > span {
+    min-width: 41% !important;
+}
+
+	.img-municipio {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+}
+	
+	.mobile-content-center{
+	-webkit-box-pack: center !important;
+	-ms-flex-pack: center !important;
+	justify-content: center !important;
+	}
+	
+	.mobile-content-center a{
+	padding: 10px;
+	}
+	.geral-hml:after {
+		font-size: 1.5em;
+	}
+	
+	.text-center-mobile{
+	text-align: center!important;
+	}
+}
+/**** Cores ****/
+.text-grayLight { color: #e6e9ed; }
+.text-grayMiddle { color: #112631; }
+.text-gray { color: #485460; }
+.text-grayDark { color: #1e272e; }
+.text-blueLight { color: #4bcffa; }
+.text-blueMiddle { color: #0fbcf9; }
+.text-blue { color: #575fcf; }
+.text-blueDark { color: #273087; }
+
+.background-grayLight { background: #e6e9ed!important; }
+.background-grayMiddle { background: #112631!important; }
+.background-gray { background: #485460!important; }
+.background-grayDark { background: #1e272e!important; }
+.background-blueLight { background: #4bcffa!important; }
+.background-blueMiddle { background: #0fbcf9!important; }
+.background-blue { background: #575fcf!important; }
+.background-blueDark { background: #273087!important; }
+
+@media (min-width: 576px) { 
+	.border-right-md-blue { border-right: none; }
+	.border-right-blue { margin: 8px 0;}
+}
+@media (min-width: 768px) { 
+	.border-right-md-blue { border-right: 2px solid #575fcf; }
+	.border-right-blue { margin: 8px 0;}
+}
+@media (min-width: 992px) { 
+	.border-right-blue { border-right: 2px solid #575fcf; }
+	.border-right-blue { margin: 0;}
+}
+
+/**** Geral ****/
+.btn-rounded {
+	border-radius: 50px;
+}
+
+/* Logo Página Principal */
+.logoEmpresaDigital {
+    filter: brightness(0) invert(1);
+    height: auto;
+    width: 100px;
+}
+
+/* Âncora topo */
+#back-to-top {
+	position: fixed;
+	z-index: 999;
+	transition: opacity 0.2s ease-out;
+	bottom: 16px;
+	right: 32px;
+	text-decoration: none !important;
+	color: #000000;
+	opacity: 0;
+	cursor: pointer;
+}
+
+#back-to-top.show {
+	opacity: 0.4;
+}
+
+/* Modal Aguarde */
+.modal-aguarde {
+	background-color: unset !important;
+	border: none !important;
+	box-shadow: none !important;
+}
+.modal-aguarde .ui-dialog.ui-widget-content {
+	background-color: unset !important;
+	height: 150px !important;
+}
+.modal-aguarde .ui-dialog-content {
+	background-color: unset !important;
+}
+
+/* Breadcrumb */
+.breadcrumb-top {
+	margin: .5rem;
+	text-transform: uppercase;
+	border-bottom: 1px solid #eef;
+}
+.breadcrumb-top h4 {
+	margin-bottom: .25rem;
+	text-transform: uppercase;
+	letter-spacing: .075em;
+	color: #146Fd7;
+	font-size: .75em;
+}
+.breadcrumb-top h3 {
+	letter-spacing: -.025em;
+}
+
+/* Forms */
+.min-width-auto {
+	min-width: auto !important;
+}
+
+.ui-selectonemenu-panel .ui-selectonemenu-items .ui-selectonemenu-item {
+    word-wrap: break-word;
+    white-space: -moz-pre-wrap;
+    white-space: pre-wrap;
+    text-align: justify;
+}
+    
+ .u-break-tex  {
+ 	width: 100%;
+	word-wrap: break-word;
+	white-space: normal;
+	max-width: 430px;
+ }
+ 
+.ui-inputtextarea-unresizable {
+	resize: none !important;
+}
+
+.card-destaque {
+    border-radius: 1.25rem!important;
+}
+
+.text-color{
+	color: #6c757d;
+}
+
+.background-bluelight {
+    background-color: #0FBCF9!important;
+}
+
+.background-blueSD {
+    background-color: #0F53AE;
+}
+  
+.logoDC {
+    background-color: #fff;
+    padding: 1px 10px;
+    border-radius: 5px;
+    color: #146fd7;
+    margin-left: 30px;
+    cursor: pointer;
+    font-size: 1.2rem;
+    position: absolute;
+    font-weight: 600;
+    display: inline-flex;
+    align-items: center;
+}
+
+.logoDC i {
+    font-size: 1.5rem;
+    margin-right: 5px;
+}
+
+.topbar-logo {
+    height: 30px;
+    width: auto;
+}
+
+.logoDC:hover {
+  color: #146fd7;
+}
+
+.logoNFSD{
+	height: 33px;
+}
+
+#topbar-home-button {
+    display: none;
+    color: #ffffff;
+    vertical-align: middle;
+    height: 36px;
+    position: absolute;
+    top: 12px;
+    transition: all 0.3s;
+}
+
+#botaoPararAtuar {
+    color: #343a40;
+    background-color: #FFFFFF;
+    border: 1px solid transparent;
+    font-size: 10px;
+    font-weight: bold;
+    margin-left: 10%;
+    -moz-transition: background-color 0.3s;
+    -o-transition: background-color 0.3s;
+    -webkit-transition: background-color 0.3s;
+    transition: background-color 0.3s;
+}
+
+@media (max-width: 1024px) {
+    #topbar-home-button {
+        display: block;
+    }
+
+    #topbar-menu-button {
+        right: 12px;
+    }
+}
+
+@media screen and (max-device-width:640px),
+screen and (max-width:640px) {
+    .logoDC {
+        display: none;
+    }
+
+    .topbar-logo {
+        height: 27px !important;
+        top: 18px;
+        position: absolute;
+    }
+
+    .topbar-left {
+        width: 225px !important;
+    }
+
+    a#menu-button {
+        left: 211px !important;
+    }
+
+    #topbar-home-button {
+        right: 72px;
+    }
+    
+    .logoNFSD{
+		height: 29px;
+	}
+}
+
+/iphone 5/5s/
+@media only screen and (min-device-width: 320px) and (max-device-width: 568px) and (-webkit-device-pixel-ratio: 2) and (device-aspect-ratio: 40/71) and (orientation:portrait) {
+    #topbar-home-button {
+        right: 41px;
+    }
+}  

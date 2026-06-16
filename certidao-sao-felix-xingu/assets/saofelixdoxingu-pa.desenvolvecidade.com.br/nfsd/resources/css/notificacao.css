@@ -1,0 +1,137 @@
+.dropdownContainer {
+	z-index: 9998;
+	position: relative;
+	left: 50%;
+}
+
+.dropdown-toggle-n {
+	font-size: 10px;
+	font-weight: 600;
+	cursor: pointer;
+	color: #FFF;
+	background: #00203E;
+	padding: 3px 5px;
+	position: relative;
+	left: 8px;
+	top: -11px;
+}
+
+ul.dropdown {
+	display: none;
+	position: absolute;
+	top: 100%;
+	left: -132px;
+	min-width: 374px;
+	padding: 0;
+	border: 2px solid rgb(92, 194, 234);
+	border-radius: 0 0 .2em .2em;
+	box-shadow: 0 1px 1px rgba(50, 50, 50, 0.1);
+}
+
+/* up arrow*/
+ul.dropdown:before {
+	content: "";
+	width: 0;
+	height: 0;
+	position: absolute;
+	bottom: 100%;
+	right: 127px;
+	border-width: 0 10px 10px 10px;
+	border-style: solid;
+	border-color: rgb(92, 194, 234) transparent;
+}
+
+ul.dropdown:after {
+	content: "";
+	width: 0;
+	height: 0;
+	position: absolute;
+	bottom: 100%;
+	right: 129px;
+	border-width: 0 8px 7px 7px;
+	border-style: solid;
+	border-color: #fff transparent;
+}
+
+ul.dropdown li {
+	height: 45px;
+	list-style-type: none;
+	border-top: 1px solid lightgrey;
+}
+
+ul.dropdown li:hover {
+	background-color: #eee;
+}
+
+ul.dropdown li:first-child {
+	list-style-type: none;
+	border-top: none;
+}
+
+ul.dropdown .fa-circle {
+	font-size: 15px;
+	color: rgb(0, 32, 62);
+}
+
+ul.dropdown li a {
+	text-decoration: none;
+	padding: .5em 1em;
+	display: block;
+	color: black;
+	font-size: 1.2em;
+}
+
+/*View All Notification*/
+ul.dropdown .fa-list {
+	font-size: 15px;
+	padding: 5px;
+	color: rgba(115, 187, 22, 1);
+	border: 2px solid rgba(115, 187, 22, 1);
+	border-radius: 100%;
+}
+
+ul.dropdown li:last-child {
+	text-align: center;
+	padding: 10px;
+}
+
+.dropdown-menu-n {
+	position: absolute;
+	top: 41px;
+	left: -395px;
+	z-index: 1000;
+	display: none;
+	float: left;
+	min-width: 400px;
+	padding: 5px 0;
+	margin: 2px 0 0;
+	list-style: none;
+	font-size: 14px;
+	text-align: left;
+	background-color: rgb(245, 245, 245);
+	border: 1px solid #ccc;
+	border: 1px solid rgba(0, 0, 0, 0.15);
+	border-radius: 4px;
+	-webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+	-webkit-background-clip: padding-box;
+	background-clip: padding-box;
+}
+
+.ui-datascroller-inline .ui-datascroller-content {
+	overflow-x: hidden;
+}
+
+.message {
+	display: block !important;
+	font-size: 12px !important
+}
+
+.time {
+	margin-left: 40px;
+	font-size: 10px;
+	font-style: italic;
+	font-weight: bold;
+	position: absolute;
+	text-align: center;
+}

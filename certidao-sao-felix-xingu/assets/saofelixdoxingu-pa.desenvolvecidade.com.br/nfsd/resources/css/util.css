@@ -1,0 +1,19 @@
+/*-------------------------------------------------------------------------------//
+// CSS Document
+//-------------------------------------------------------------------------------//
+// 
+// Arquivo      : util.css
+// Descricao    : Estilo para definir classes utilitarias do sistema
+//
+//-------------------------------------------------------------------------------*/
+
+.verticalTop {
+	vertical-align: top;
+}
+
+/* Apenas para navegadores webkit (Chrome, Safari, etc.) */  
+@media screen and (-webkit-min-device-pixel-ratio:0) {  
+.positionFixed {
+	position: fixed !important;
+	z-index: 9999999 !important;  
+}

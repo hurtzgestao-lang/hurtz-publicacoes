@@ -1,0 +1,2 @@
+function mascaraIPV4(e,obj){if(document.all){var evt=event.keyCode;}else{var evt=e.charCode;}if(evt<20)return true;if((/^(\d{1,3}\.){3}\d{3}$/).test(obj.value))return false;var chr=String.fromCharCode(evt);if(!(/[\d\.]/).test(chr))return false;if(chr=='.')return(!(/\.$|^(\d{1,3}\.){3}/).test(obj.value));else
+if((/\d{3}$/).test(obj.value))obj.value+='.';return true;}

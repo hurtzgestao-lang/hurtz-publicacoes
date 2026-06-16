@@ -1,0 +1,398 @@
+/* ########### Medias Querys ######### */
+@media screen and (min-width:1600px) and (max-width: 3000px) {
+	.contadores-mobile {
+		display: none;
+	}
+}
+
+
+@media only screen and (min-width: 428px) and (max-width: 767px) {
+	.brasao-prefeitura {
+  background-size: 240px auto;
+  height: auto;
+  width: 240px;
+ }
+ 
+ .logo-nfsd-home {
+  background-size: 240px 41px;
+  height: 41px;
+  width: 240px;
+}
+	
+	}
+
+@media screen and (max-width: 1367px) {
+		
+	.dropdown-menu-n {
+		left: -400px !important;
+	}
+	.copyright {
+		font-size: 0.8em;
+	}
+	.ajusteCarrossel {
+		margin-right: 0px;
+		width: 68px;
+	}
+	.ajusteCarrossel2 {
+		margin-left: -10px;
+		width: 85px !important;
+	}
+	.titulo-header {
+		font-size: 36px;
+		width: 565px;
+	}
+	.sub-titulo-header {
+		font-size: 24px;
+	}
+	.tamanhoBotaoHome {
+		width: 180px;
+		font-size: 13px !important;
+	}
+	.box-indicador-fiscal {
+		width: 154px;
+		font-size: 13px;
+	}
+	.box-indicador-fiscal-panel {
+		margin-left: -11%;
+	}
+	.ajusteMargem1 {
+		margin-left: 55px;
+	}
+	.ajusteMargem2 {
+		margin-left: 55px;
+	}
+	.centralizar-menu {
+		position: relative;
+		top: 40%;
+		left: 5%;
+		width: 95%;
+	}
+	#botaoAcaoSolicitarCertidao {
+		width: 47%
+	}
+	#voltarCertidao {
+		width: 47%
+	}
+	.protocoloCertidao {
+		width: 25%
+	}
+}
+
+/* Para dispositivos com tela até 1600px */
+@media screen and (min-width:1367px) and (max-width: 1600px) {
+	.contadores-mobile {
+		display: none;
+	}
+	#barra {
+		margin-left: 12%;
+	}
+	.footer-top {
+		margin-left: -80px;
+	}
+	#logoEmpresaDigital {
+		float: left;
+	}
+	#botaoAcaoSolicitarCertidao {
+		width: 47%
+	}
+	#voltarCertidao {
+		width: 47%
+	}
+}
+
+/* Para dispositivos com tela até 1900px */
+@media screen and (min-width:1601px) and (max-width: 1950px) {
+	.centralizar-menu {
+		position: relative;
+		top: 40%;
+		left: 20%;
+		width: 70%;
+	}
+	.contadores-mobile {
+		display: none;
+	}
+	#logoEmpresaDigital {
+		float: left;
+	}
+	.ajusteCarrossel2 {
+		width: 72px;
+	}
+	.ajusteMargem3 {
+		margin-left: 10px;
+	}
+	.ajusteMargem4 {
+		margin-left: 10px;
+	}
+	.sub-titulo-header {
+		width: 819px;
+	}
+	#botaoAcaoSolicitarCertidao {
+		width: 47%
+	}
+	#voltarCertidao {
+		width: 47%
+	}
+}
+
+/* Para dispositivos com tela até 640px */
+@media screen and (min-width:640px) and (max-width:768px) {
+	
+	.carrousel .swiper-slide {
+    background-position: 100% center;
+     }
+
+	.size-captcha {
+		transform: scale(0.70) !important;
+		-webkit-transform: scale(0.90) !important;
+		transform-origin: 0 0 !important;
+		-webkit-transform-origin: 0 0 !important;
+	}
+	.ui-panelgrid .ui-grid-responsive .ui-grid-row {
+		border-top: none;
+	}
+	.contadores-mobile {
+		display: none;
+	}
+	.logo-alvara {
+		margin-bottom: 20px;
+		margin-left: 20px;
+	}
+	.imagem-simples {
+		display: none!important;
+	}
+	.logosRodape {
+		display: none;
+	}
+	#item-clock {
+		display: none;
+	}
+	#item-fone {
+		display: none;
+	}
+	.logo-ed {
+		margin: 6px 165px;
+	}
+	/* .brasao-prefeitura {
+		width: 310px;
+		height: 35px;
+		margin: 6px 165px;
+	} */
+	.navbar-default .navbar-brand {
+		color: #ffffff !important;
+		font-family: 'Myriad Pro';
+	}
+	.portais-indicados {
+		width: 311px;
+		height: 78px;
+	}
+	#portaisDiv {
+		margin: 0 auto;
+	}
+	.portais-indicados p {
+		font-size: 0.7em;
+	}
+	.logo-starlab {
+		background-image: url("../imagens/logo-starlab-mobile.png");
+		margin: 10px 0px 0px -10px;
+	}
+	.logo-universitec {
+		background-image: url("../imagens/logo-universitec-mobile.png");
+		margin: 5px 0px 0px 40px;
+	}
+	.logo-jammbo {
+		width: 100%;
+		background-image: url("../imagens/logo-desenvolve-vazada-mobile.png");
+		margin: 15px 0px 0px 0px;
+	}
+	.copyright {
+		text-align: center;
+		margin-left: 0px;
+	}
+}
+
+@media screen and (min-width: 641px) and (max-width: 1367px) {
+	.contadores-mobile {
+		display: none;
+	}
+	
+}
+
+@media screen and (min-width: 900px) and (max-width: 1280px) {
+	.contadores-mobile {
+		display: none;
+	}
+		
+	/* .brasao-prefeitura {
+		margin: 10px 0 6px -80px;
+	} */
+	
+}
+
+@media ( max-width : 640px) {
+	.protocoloCertidao {
+		width: 20%;
+		text-align: center;
+	}
+	.tipoCertidao {
+		width: 25%;
+		text-align: center;
+	}
+	.acaoCertidao {
+		width: 0;
+	}
+	.ui-datatable-reflow .ui-reflow-label, .ui-datatable-reflow .ui-reflow-dropdown
+		{
+		display: none !important;
+	}
+	
+	/* .ui-datatable-reflow .ui-datatable-data td[role="gridcell"] {
+		font-size: 0.9em !important;
+	} */
+	
+	.ui-datatable-reflow .ui-datatable-data td[role="gridcell"]:not(.ui-helper-hidden) {
+    width: 100% !important;
+	}
+	
+	#myCarousel {
+		display: none;
+	}
+	.ui-panelgrid .ui-grid-responsive .ui-grid-row {
+		border-top: none;
+	}
+	
+	.ui-datatable-reflow .ui-datatable-data td[role="gridcell"]:not(.ui-helper-hidden) {
+    text-align: left !important;
+    display: block;
+    border: 0 none;
+    width: 100%;
+    -webkit-box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    box-sizing: border-box;
+    float: left;
+    clear: left;
+}
+}
+
+/* Para dispositivos com tela até 360px */
+@media screen and (min-width:320px) and (max-width: 414px) {
+	.protocoloCertidao {
+		width: 0;
+	}
+	.tipoCertidao {
+		width: 0;
+	}
+	.acaoCertidao {
+		width: 0;
+	}
+	.size-captcha {
+		transform: scale(0.90) !important;
+		-webkit-transform: scale(0.90) !important;
+		transform-origin: 0 0 !important;
+		-webkit-transform-origin: 0 0 !important;
+	}
+	.logo-alvara {
+		margin-bottom: 20px;
+		margin-left: 20px;
+	}
+	.imagem-simples {
+		display: none;
+		!
+		important;
+	}
+	.carousel-control {
+		margin-right: 0px;
+		!
+		important;
+	}
+	.logosRodape {
+		display: none;
+	}
+	#item-clock {
+		display: none;
+	}
+	#item-fone {
+		display: none;
+	}
+	.logo-ed {
+		float: left;
+		margin-left: 25px;
+	}
+	.brasao-prefeitura {
+		background-size: 215px auto;
+		height: auto;
+		width: 215px;
+	}
+	
+	.slider-caption {
+	 max-width: 350px;
+	}
+	
+	.navbar-default .navbar-brand {
+		display: inline-block;
+		color: #ffffff !important;
+		font-family: 'Myriad Pro';
+	}
+	.portais-indicados {
+		width: 311px;
+		height: 78px;
+	}
+	#portaisDiv {
+		margin: 0 auto;
+	}
+	.portais-indicados p {
+		font-size: 0.3em;
+	}
+	.img-portal {
+		height: 35px;
+	}
+	#portal-ibge {
+		margin-bottom: 13px;
+		margin-top: 10px;
+		height: 12px;
+		width: 50px;
+	}
+	.logo-starlab {
+		background-image: url("../imagens/logo-starlab-mobile.png");
+		margin: 10px 0px 0px -10px;
+	}
+	.logo-universitec {
+		background-image: url("../imagens/logo-universitec-mobile.png");
+		margin: 5px 0px 0px 15px;
+	}
+	.logo-jammbo {
+		width: 160%;
+		background-image: url("../imagens/logo-desenvolve-vazada-mobile.png");
+		margin: 15px 0px 0px -20px;
+	}
+	.copyright {
+		text-align: center;
+		margin-left: 0px;
+	}
+	.container-caminho .breadcrumb li {
+		font-size: 10px
+	}
+	.container-caminho .breadcrumb li.active {
+		font-size: 10px;
+	}
+	#myCarousel {
+		display: none;
+	}
+	#painelNoticia {
+		margin-left: -30px;
+	}
+	.dropdown-menu>li>a:hover, .dropdown-menu>li>a:focus {
+		color: #0052a9 !important;
+		background-color: #e7e7e7 ! important;
+	}
+	.dropdown-menu {
+		border: solid #fcfdff2e !important;
+	}
+	#sistemaMenu-h {
+		width: 230px;
+	}
+	.centralizar-menu {
+		position: relative;
+		top: 40%;
+		left: 2%;
+	}
+}

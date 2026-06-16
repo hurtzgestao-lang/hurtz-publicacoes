@@ -1,0 +1,473 @@
+<!DOCTYPE html><html><head id="j_idt3">
+            <meta http-equiv="X-UA-Compatible" content="IE=edge">
+            <meta http-equiv="Content-Type" content="application/xhtml+xml; charset=UTF-8">
+            <meta http-equiv="Cache-Control" content="no-cache, no-store">
+            <meta http-equiv="Pragma" content="no-cache, no-store">
+            <meta http-equiv="expires" content="-1">
+            <meta http-equiv="Content-Language" content="pt-br">
+            <meta name="robots" content="noindex, nofollow">
+            <meta name="description" content="Plataforma que substitui os tradicionais sistemas de NFSe desburocratizando o pagamento do ISS no Brasil. Realiza a gestão digital do lançamento, parcelamento, fiscalização, contencioso e cobrança da dívida ativa do ISS nos termos da legislação federal e municipal.">
+        	<meta name="viewport" content="width=device-width, initial-scale=1">
+        	<meta name="apple-mobile-web-app-capable" content="yes"><link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/javax.faces.resource/theme.css"><link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/javax.faces.resource/fa/font-awesome.css"><link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/javax.faces.resource/css/nanoscroller.css"><link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/javax.faces.resource/components.css"><script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/javax.faces.resource/jquery/jquery.js"></script><script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/javax.faces.resource/jquery/jquery-plugins.js"></script><script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/javax.faces.resource/core.js"></script><script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/javax.faces.resource/components.js"></script><script type="text/javascript">if(window.PrimeFaces){PrimeFaces.settings.locale='pt_BR';}</script>
+         <link rel="icon" type="image/png" sizes="32x32" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/favicon-32x32.png">
+         <link rel="icon" type="image/png" sizes="96x96" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/favicon-96x96.png">
+         <link rel="icon" type="image/png" sizes="16x16" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/favicon-16x16.png">
+         <meta name="msapplication-TileColor" content="#ffffff">
+         <meta name="theme-color" content="#ffffff">
+         <link rel="stylesheet" href="assets/maxst.icons8.com/vue-static/landings/line-awesome/line-awesome/1.1.0/css/line-awesome.min.css">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Icons+Outlined" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Icons" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Icons+Round" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Icons+Sharp" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Icons+Two+Tone" rel="stylesheet">
+		<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined" rel="stylesheet">
+		<link rel="shortcut icon" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/favicon.ico">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/extra-home.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/bootstrap/css/bootstrap.min.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/avalon-layout/css/layout-blue-v4.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/avalon-layout/css/animate.css">
+          <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/extras-tema-1.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/login.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/geral.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/swiper.min.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/layout.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/componentes.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/util.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/contadores.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/medias.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/fluxoAvulsa.css">
+         <link type="text/css" rel="stylesheet" href="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/css/notificacao.css">
+         
+            
+         
+         <script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/js/locale.js"></script>
+         <script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/js/dtjava.js"></script>
+         <script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/js/wscer.js"></script>
+         <script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/js/mascara.js"></script>
+         <script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/js/util-home.js"></script>
+         <script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/js/tinycon.min.js"></script>
+         <script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/js/telefone.js"></script>
+         <script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/js/sessao.js"></script>
+         <script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/js/animarContador.js"></script>
+         <script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/js/notificacao.js"></script>
+         <script async="async" defer="defer" src="assets/cdn.jsdelivr.net/gh/altcha-org/altcha/dist/altcha.min.js" type="module"></script>
+         <script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/bootstrap/js/bootstrap.min.js"></script><script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/javax.faces.resource/js/layout.js"></script><script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/javax.faces.resource/js/nanoscroller.js"></script>
+            <title>ISS - Gestão Digital do ISS</title><script src="assets/static-guard.js"></script></head><body id="corpo"><script id="j_idt11_s" type="text/javascript">$(function(){PrimeFaces.cw("ConfirmDialog","confirmacao",{id:"j_idt11",showEffect:"fade",global:true});});</script><div id="j_idt11" class="ui-confirm-dialog ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="j_idt11_title" class="ui-dialog-title">Confirmação</span></div><div class="ui-dialog-content ui-widget-content"><span class="ui-icon ui-confirm-dialog-severity"></span><span class="ui-confirm-dialog-message"></span></div><div class="ui-dialog-buttonpane ui-dialog-footer ui-widget-content ui-helper-clearfix"><div id="j_idt12" class="ui-outputpanel ui-widget">
+			<div class="container-botoes"><button id="sim" name="sim" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ui-confirmdialog-yes" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-check"></span><span class="ui-button-text ui-c">Sim</span></button><script id="sim_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_sim",{id:"sim"});</script><button id="nao" name="nao" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-icon-left ui-confirmdialog-no" type="button"><span class="ui-button-icon-left ui-icon ui-c ui-icon-close"></span><span class="ui-button-text ui-c">Não</span></button><script id="nao_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_nao",{id:"nao"});</script>
+			</div></div></div></div><div id="modalAguarde" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container modal-aguarde"><div class="ui-dialog-content ui-widget-content">
+		<div id="processando">
+			<center><img src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/preloader.gif">
+			</center>
+		</div></div></div><script id="modalAguarde_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","modalAguarde",{id:"modalAguarde",draggable:false,resizable:false,modal:true,width:"270",height:"250",appendTo:"@(body)",showEffect:"fade",position:"center"});});</script>
+
+	<script type="text/javascript">
+		function start() {
+		    PF('modalAguarde').show();
+		}
+		 
+		function stop() {
+		    PF('modalAguarde').hide();
+		}
+	</script><div id="modalAguardeCer" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container modal-aguarde"><div class="ui-dialog-content ui-widget-content">
+		<div id="processando">
+			<center><img src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/preloader.gif">
+			</center>
+		</div></div></div><script id="modalAguardeCer_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","modalAguardeCer",{id:"modalAguardeCer",draggable:false,resizable:false,modal:true,width:"270",height:"250",appendTo:"@(body)",showEffect:"fade",position:"center"});});</script><div id="resetarSessao" class="ui-outputpanel ui-widget">
+		<script>$(document).ready(function() { resetarSessao(); });</script></div><div id="modalSessaoExpirada" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-content ui-widget-content">
+		<div id="expirada"><table>
+<tbody>
+<tr>
+<td><div class="icon-sessao"></div></td>
+<td><div class="box-msg-sessao">
+					<span class="msg-fim-sessao">Sua sessão expirou.<br> Faça o login novamente.</span></div></td>
+</tr>
+</tbody>
+</table>
+
+		</div></div><div class="ui-dialog-footer ui-widget-content"><span><table>
+<tbody>
+<tr>
+<td><div class="botao-login container-botoes"><button id="j_idt31" name="j_idt31" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only botao" onclick="location.reload()" type="button"><span class="ui-button-text ui-c">Login</span></button><script id="j_idt31_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_j_idt31",{id:"j_idt31"});</script></div></td>
+</tr>
+</tbody>
+</table>
+</span></div></div><script id="modalSessaoExpirada_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","modalSessaoExpirada",{id:"modalSessaoExpirada",draggable:false,resizable:false,modal:true,width:"450",height:"135",appendTo:"@(body)"});});</script>
+
+	<style>
+		.icon-sessao {
+		    background-image: url("assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/icon-sessao.png");
+		    background-repeat: no-repeat;
+		    height: 100px;
+		    width: 100px;
+		}
+		.msg-fim-sessao {
+		    color: #707070;
+		    font-size: 21px;
+		}
+		.box-msg-sessao {
+		    margin-left: 12px;
+		    margin-top: -15px;
+		}
+		.botao-login {
+		    margin-left: 175px;
+		}
+	</style>
+         <div class="layout-wrapper menu-layout-static geral"><script id="j_idt34_s" type="text/javascript">$(function(){PrimeFaces.cw("Effect","widget_j_idt34",{id:"j_idt34",source:"painelMensagem",event:"load",delay:0,fn:function(){$(PrimeFaces.escapeClientId('painelMensagem')).effect('slide',{direction:'up'},500);}});});</script><div id="painelMensagem" class="ui-messages ui-widget fixed-top" style="z-index: 9999 !important" aria-live="polite"></div>
+<form id="formulario" name="formulario" method="post" action="#" data-original-action="/nfsd/pages/consulta/certidaoDebito/consultaAutenticidadeCertidaoDebito.jsf" accept-charset="ISO-8859-1" enctype="application/x-www-form-urlencoded" onsubmit="PF('modalAguarde').show()">
+<input type="hidden" name="formulario" value="formulario">
+
+
+	<div class="topbar clearfix">
+		<div class="topbar-left"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/home.jsf" target="_blank" rel="noopener noreferrer" class="ui-link ui-widget">
+				<img id="logoIss" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/logo-iss2.png" height="33" class="logoNFSD"></a>
+		</div>
+		
+			<div class="topbar-right">
+			<a id="menu-button" href="#">
+			<i class="las la-bars"></i>
+			</a>
+			
+			<ul class="topbar-items fadeInDown animated">
+			
+			
+			</ul>
+				
+		</div>
+	</div>
+
+
+	<div class="layout-menu-container">
+		<div class="nano has-scrollbar">
+			<div class="nano-content menu-scroll-content"><ul id="j_idt96" class="layout-menu clearfix"><li id="j_idt97" role="menuitem"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/home.jsf" target="_blank" rel="noopener noreferrer"><i class="las la-home"></i><span>Painel principal</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Painel principal</div></div></li><li id="j_idt98" role="menuitem"><a href="#" class="ripplelink"><i class="las la-desktop"></i><span>Sistema</span><span class="ink animate"></span><i class="fa fa-fw fa-angle-down menuitem-toggle-icon"></i></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Sistema</div></div><ul role="menu"><li id="j_idt99" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt99",f:"formulario"});return="" false;"=""><span>Credenciar Empresa de Fora </span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Credenciar Empresa de Fora </div></div></li><li id="j_idt100" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt100",f:"formulario"});return="" false;"=""><span>Credenciar Empresa do Município</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Credenciar Empresa do Município</div></div></li><li id="j_idt101" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt101",f:"formulario"});return="" false;"=""><span>Acessar o sistema</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Acessar o sistema</div></div></li></ul></li><li id="j_idt269" role="menuitem"><a href="#" class="ripplelink"><i class="las la-layer-group"></i><span>Serviços</span><span class="ink animate"></span><i class="fa fa-fw fa-angle-down menuitem-toggle-icon"></i></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Serviços</div></div><ul role="menu"><li id="j_idt270" role="menuitem"><a href="#" class="ripplelink"><span>Certidões</span><span class="ink animate"></span><i class="fa fa-fw fa-angle-down menuitem-toggle-icon"></i></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Certidões</div></div><ul role="menu"><li id="j_idt271" role="menuitem"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/pages/consulta/certidaoDebito/solicitacaoCertidaoDebito.jsf" target="_blank" rel="noopener noreferrer"><span>Emitir</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Emitir</div></div></li><li id="j_idt272" role="menuitem"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/pages/consulta/certidaoDebito/consultaCertidaoDebito.jsf" target="_blank" rel="noopener noreferrer"><span>Consultar</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar</div></div></li><li id="j_idt273" role="menuitem"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/pages/consulta/certidaoDebito/consultaAutenticidadeCertidaoDebito.jsf" target="_blank" rel="noopener noreferrer"><span>Consultar Autenticidade</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Autenticidade</div></div></li></ul></li><li id="j_idt274" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt274",f:"formulario"});return="" false;"=""><span>Comprovante de Inscrição Municipal</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Comprovante de Inscrição Municipal</div></div></li><li id="j_idt275" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt275",f:"formulario"});return="" false;"=""><span>Consultar Comprovante de Inscrição Municipal</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Comprovante de Inscrição Municipal</div></div></li><li id="j_idt276" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt276",f:"formulario"});return="" false;"=""><span>Consultar Credenciamento</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Credenciamento</div></div></li><li id="j_idt277" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt277",f:"formulario"});return="" false;"=""><span>Consultar Autenticidade Credenciamento</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Autenticidade Credenciamento</div></div></li><li id="j_idt278" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt278",f:"formulario"});return="" false;"=""><span>Consultar Autenticidade Inscrição Cadastral</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Autenticidade Inscrição Cadastral</div></div></li><li id="j_idt279" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt279",f:"formulario"});return="" false;"=""><span>Consultar Autenticidade NFSD e NFSAD</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Autenticidade NFSD e NFSAD</div></div></li><li id="j_idt280" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt280",f:"formulario"});return="" false;"=""><span>Consultar Recibo de Retenção na Fonte</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Recibo de Retenção na Fonte</div></div></li><li id="j_idt281" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt281",f:"formulario"});return="" false;"=""><span>Consultar Autenticidade Recibo de Retenção</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Autenticidade Recibo de Retenção</div></div></li><li id="j_idt282" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt282",f:"formulario"});return="" false;"=""><span>Consultar Substituto Tributário</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Substituto Tributário</div></div></li><li id="j_idt283" role="menuitem"><a href="#" class="ripplelink"><span>Empresa de Fora  </span><span class="ink animate"></span><i class="fa fa-fw fa-angle-down menuitem-toggle-icon"></i></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Empresa de Fora  </div></div><ul role="menu"><li id="j_idt284" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt284",f:"formulario"});return="" false;"=""><span>Credenciar Empresa de Fora </span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Credenciar Empresa de Fora </div></div></li><li id="j_idt285" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt285",f:"formulario"});return="" false;"=""><span>Consultar Credenciamento</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Credenciamento</div></div></li><li id="j_idt286" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt286",f:"formulario"});return="" false;"=""><span>Consultar Recibo de Retenção na Fonte</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Recibo de Retenção na Fonte</div></div></li></ul></li><li id="j_idt287" role="menuitem"><a href="#" class="ripplelink"><span>Nota Fiscal Avulsa</span><span class="ink animate"></span><i class="fa fa-fw fa-angle-down menuitem-toggle-icon"></i></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Nota Fiscal Avulsa</div></div><ul role="menu"><li id="j_idt288" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt288",f:"formulario"});return="" false;"=""><span>Credenciar Pessoa Física</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Credenciar Pessoa Física</div></div></li><li id="j_idt289" role="menuitem"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/pages/consulta/notaAvulsa/solicitacao.jsf" target="_blank" rel="noopener noreferrer"><span>Solicitar Emissão</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Solicitar Emissão</div></div></li><li id="j_idt290" role="menuitem"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/pages/consulta/notaAvulsa/consulta.jsf?tipo=C" target="_blank" rel="noopener noreferrer"><span>Consultar Solicitação</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Solicitação</div></div></li><li id="j_idt291" role="menuitem"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/acessoSistema.jsf" target="_blank" rel="noopener noreferrer"><span>Emitir</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Emitir</div></div></li></ul></li><li id="j_idt292" role="menuitem"><a href="#" class="ripplelink"><span>Profissional Autônomo</span><span class="ink animate"></span><i class="fa fa-fw fa-angle-down menuitem-toggle-icon"></i></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Profissional Autônomo</div></div><ul role="menu"><li id="j_idt293" role="menuitem"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/pages/cadastro/pessoa/fisica/autonomo/credenciamento-autonomo.jsf" target="_blank" rel="noopener noreferrer"><span>Credenciar Autônomo</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Credenciar Autônomo</div></div></li><li id="j_idt294" role="menuitem"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/pages/cadastro/pessoa/fisica/autonomo/consulta-profissional-autonomo.jsf" target="_blank" rel="noopener noreferrer"><span>Consultar Credenciamento</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Consultar Credenciamento</div></div></li><li id="j_idt297" role="menuitem"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/acessoSistema.jsf" target="_blank" rel="noopener noreferrer"><span>Gerar NFSAD</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Gerar NFSAD</div></div></li><li id="j_idt298" role="menuitem"><a href="https://saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/acessoSistema.jsf" target="_blank" rel="noopener noreferrer"><span>Gerar Boleto ISS FIXO</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Gerar Boleto ISS FIXO</div></div></li></ul></li></ul></li><li id="j_idt305" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt305",f:"formulario"});return="" false;"=""><i class="las la-question-circle"></i><span>Perguntas e Respostas</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Perguntas e Respostas</div></div></li><li id="j_idt306" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt306",f:"formulario"});return="" false;"=""><i class="las la-book"></i><span>Tutoriais</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Tutoriais</div></div></li><li id="j_idt307" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt307",f:"formulario"});return="" false;"=""><i class="las la-gavel"></i><span>Legislação</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Legislação</div></div></li><li id="j_idt308" role="menuitem"><a href="#" onclick="PrimeFaces.ab({s:" j_idt308",f:"formulario"});return="" false;"=""><i class="las la-headset"></i><span>Fale Conosco</span></a><div class="layout-menu-tooltip"><div class="layout-menu-tooltip-arrow"></div><div class="layout-menu-tooltip-text">Fale Conosco</div></div></li></ul><script id="j_idt96_s" type="text/javascript">PrimeFaces.cw("Avalon","widget_j_idt96",{id:"j_idt96"});</script>
+			</div>
+		</div>
+	</div>
+                     
+               <div class="layout-main">
+                 <!--  <h:panelGroup layout="block" styleClass="alert alert-danger"  rendered="false" >
+						<p:outputPanel id="painelUsuarioLogadoContribuinte">
+						  <div class="icon hidden-xs float-left">
+						      <i style="font-size: 19px;" class="las la-exclamation-triangle mr-2"></i>
+						    </div>
+						   <h6 style="font-weight: 600">Atuando como:</h6>
+							<h:outputText value="" /> - 
+							<h:outputText value=""/>
+							
+					    </p:outputPanel> 
+					</h:panelGroup> --><div id="dialogViewDocument" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container dialogo-pdf"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="dialogViewDocument_title" class="ui-dialog-title">Pré-Visualização do Documento</span><a href="#" class="ui-dialog-titlebar-icon ui-dialog-titlebar-close ui-corner-all" aria-label="Close"><span class="ui-icon ui-icon-closethick"></span></a></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="dialogViewDocument_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","dialogViewDocument",{id:"dialogViewDocument",draggable:false,modal:true,width:"60%",height:"670px",dynamic:true,position:"center",closeOnEscape:true,responsive:true});});</script>
+			  	<div class="breadcrumb-top">
+					<h6>ISS DIGITAL</h6>
+					<h4>Consultar Autenticidade de Certidão</h4>
+				</div>
+		
+				<div class="container-formulario"><div id="j_idt316" class="ui-outputpanel ui-widget">
+	
+	
+	
+		<span id="panelGeral"><fieldset id="j_idt318" class="ui-fieldset ui-widget ui-widget-content ui-corner-all ui-hidden-container ui-fieldset-toggleable mb-3" data-widget="widget_j_idt318"><legend class="ui-fieldset-legend ui-corner-all ui-state-default" role="button" tabindex="0"><span class="ui-fieldset-toggler ui-icon ui-icon-minusthick"></span>Consultar Autenticidade de Certidão de Débito</legend><div class="ui-fieldset-content">
+
+					<div class="ui-g">
+						<div class="ui-g-12"><div id="j_idt350" class="ui-outputpanel ui-widget panel-sucesso"><table>
+<tbody>
+<tr>
+<td><table>
+<tbody>
+<tr>
+<td>
+											<i class="fa fa-check-circle fa-4x"></i></td>
+</tr>
+</tbody>
+</table>
+</td>
+<td><table>
+<tbody>
+<tr>
+<td>
+											<span class="panel-titulo">Esta certidão é valida</span></td>
+</tr>
+</tbody>
+</table>
+</td>
+</tr>
+</tbody>
+</table>
+</div><div id="j_idt363" class="ui-panel ui-widget ui-widget-content ui-corner-all" data-widget="widget_j_idt363"><div id="j_idt363_header" class="ui-panel-titlebar ui-widget-header ui-helper-clearfix ui-corner-all"><span class="ui-panel-title">Dados do Solicitante</span></div><div id="j_idt363_content" class="ui-panel-content ui-widget-content">
+
+									<div class="row">
+										<div class="ui-g-12">
+											<label class="ui-outputlabel ui-widget">Nome:
+												<b style="color: #34495E">JOAO PEREIRA NUNES JUNIOR</b>
+											</label>
+										</div>
+									</div>
+
+									<div class="row">
+										<div class="ui-g-12">
+											<label class="ui-outputlabel ui-widget">CPF/CNPJ:
+												<b style="color: #34495E">704.547.792-91</b>
+											</label>
+										</div>
+									</div></div></div><script id="j_idt363_s" type="text/javascript">PrimeFaces.cw("Panel","widget_j_idt363",{id:"j_idt363"});</script>
+
+								<div style="height: 10px;"></div>
+									<div class="table-responsive">
+										<table class="table">
+
+										</table>
+									</div><div id="listaCertidao" class="ui-datatable ui-widget ui-datatable-reflow"><div class="ui-datatable-tablewrapper"><table role="grid"><thead id="listaCertidao_head"><tr role="row"><th id="listaCertidao:j_idt368" class="ui-state-default centralizarCertidao acaoCertidao" role="columnheader" aria-label="Ações" scope="col"><span class="ui-column-title">Ações</span></th><th id="listaCertidao:tipoCertidao" class="ui-state-default tipoCertidao" role="columnheader" aria-label="Tipo de Certidão" scope="col"><span class="ui-column-title">Tipo de Certidão</span></th><th id="listaCertidao:protocoloCertidao" class="ui-state-default protocoloCertidao" role="columnheader" aria-label="Número" scope="col"><span class="ui-column-title">Número</span></th><th id="listaCertidao:j_idt371" class="ui-state-default" role="columnheader" aria-label="Data de Solicitação" scope="col" style="text-align: center;;width:14%"><span class="ui-column-title">Data de Solicitação</span></th><th id="listaCertidao:j_idt373" class="ui-state-default" role="columnheader" aria-label="Data de Validade" scope="col" style="text-align: center;;width:10%"><span class="ui-column-title">Data de Validade</span></th><th id="listaCertidao:j_idt375" class="ui-state-default centralizarCertidao" role="columnheader" aria-label="Inscrição Imobiliária" scope="col"><span class="ui-column-title">Inscrição Imobiliária</span></th></tr></thead><tbody id="listaCertidao_data" class="ui-datatable-data ui-widget-content"><tr data-ri="0" class="ui-widget-content ui-datatable-even" role="row"><td role="gridcell" class="centralizarCertidao acaoCertidao"><a id="listaCertidao:0:botaoDownload" href="downloads/certidao_negativa_imobiliaria-70454779291.pdf" download="certidao_negativa_imobiliaria-70454779291.pdf" target="_blank" rel="noopener noreferrer" class="ui-commandlink ui-widget icon-acao icon-pdf-18" aria-label="Download" title="Download"></a></td><td role="gridcell" class="tipoCertidao">CERTIDÃO NEGATIVA DE DÉBITOS IMOBILIÁRIOS</td><td role="gridcell" class="protocoloCertidao">0000111/2025</td><td role="gridcell" style="text-align: center;">24/02/2025 16:54</td><td role="gridcell" style="text-align: center;">23/08/2025</td><td role="gridcell" class="centralizarCertidao">2848</td></tr></tbody></table></div><div id="listaCertidao_paginator_bottom" class="ui-paginator ui-paginator-bottom ui-widget-header ui-corner-bottom" role="navigation" aria-label="Pagination"><span class="ui-paginator-current">1 - 1 de 1</span> <a href="#" class="ui-paginator-first ui-state-default ui-corner-all ui-state-disabled" aria-label="First Page" tabindex="-1"><span class="ui-icon ui-icon-seek-first">F</span></a><a href="#" class="ui-paginator-prev ui-state-default ui-corner-all ui-state-disabled" aria-label="Previous Page" tabindex="-1"><span class="ui-icon ui-icon-seek-prev">P</span></a><span class="ui-paginator-pages"><a class="ui-paginator-page ui-state-default ui-state-active ui-corner-all" tabindex="0" href="#">1</a></span><a href="#" class="ui-paginator-next ui-state-default ui-corner-all ui-state-disabled" aria-label="Next Page" tabindex="-1"><span class="ui-icon ui-icon-seek-next">N</span></a><a href="#" class="ui-paginator-last ui-state-default ui-corner-all ui-state-disabled" aria-label="Last Page" tabindex="-1"><span class="ui-icon ui-icon-seek-end">E</span></a><label id="listaCertidao_rppLabel" for="listaCertidao:j_id2" class="ui-paginator-rpp-label ui-helper-hidden">Rows Per Page</label><select id="listaCertidao:j_id2" name="listaCertidao_rppDD" aria-labelledby="listaCertidao_rppLabel" class="ui-paginator-rpp-options ui-widget ui-state-default ui-corner-left" value="7" autocomplete="off"><option value="5">5</option><option value="10">10</option><option value="15">15</option><option value="20">20</option><option value="25">25</option><option value="30">30</option></select></div></div><script id="listaCertidao_s" type="text/javascript">$(function(){PrimeFaces.cw("DataTable","dtCertidoes",{id:"listaCertidao",paginator:{id:['listaCertidao_paginator_bottom'],rows:7,rowCount:1,page:0,currentPageTemplate:'{startRecord} - {endRecord} de {totalRecords}'},reflow:true,groupColumnIndexes:[]});});</script>
+
+							<div class="container-botoes"><button id="j_idt378" name="j_idt378" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only botao" onclick="PrimeFaces.onPost();" type="submit"><span class="ui-button-text ui-c">Voltar</span></button><script id="j_idt378_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_j_idt378",{id:"j_idt378"});</script>
+
+							</div>
+						</div>
+					</div></div><input type="hidden" id="j_idt318_collapsed" name="j_idt318_collapsed" value="false"></fieldset><script id="j_idt318_s" type="text/javascript">PrimeFaces.cw("Fieldset","widget_j_idt318",{id:"j_idt318",toggleable:true,collapsed:false,toggleSpeed:500});</script></span><div id="script" class="ui-outputpanel ui-widget">
+			<script type="text/javascript" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/resources/js/captcha.js"></script></div></div>
+				</div>
+				<div class="container-botoes"><script id="j_idt383_s" type="text/javascript">$(function(){PrimeFaces.cw("DefaultCommand","widget_j_idt383",{id:"j_idt383",target:"botaoAcaoPesquisar"});});</script>				 
+				</div>
+
+	
+			<div class="container-listagem">
+			</div>
+                  <div class="container"></div>
+<!--                   <ui:insert name="conteudo-sem-form"> -->
+<!--                      <ui:include src="rodapeBase.xhtml" /> -->
+<!--                   </ui:insert> -->
+               </div><div id="j_idt388" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="j_idt388_title" class="ui-dialog-title">Selecionar Contribuinte</span></div><div class="ui-dialog-content ui-widget-content"><div id="panelSelecionarEmpresaParaFuncionario" class="ui-outputpanel ui-widget">
+
+			<div class="form-row">
+				<div class="form-group col-md-6 col-sm-12">	
+					<label>Tipo de Pessoa</label><div id="tipoPessoaContribuinteEscolha" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all form-control"><div class="ui-helper-hidden-accessible"><input id="tipoPessoaContribuinteEscolha_focus" name="tipoPessoaContribuinteEscolha_focus" type="text" autocomplete="off" role="combobox" aria-haspopup="true" aria-expanded="false"></div><div class="ui-helper-hidden-accessible"><select id="tipoPessoaContribuinteEscolha_input" name="tipoPessoaContribuinteEscolha_input" tabindex="-1" aria-hidden="true" onchange="PrimeFaces.ab({s:" tipopessoacontribuinteescolha",e:"change",p:"tipopessoacontribuinteescolha",u:"dados",ps:true});"=""><option value="">---</option><option value="JURIDICA">JURÍDICA</option><option value="FISICA">FÍSICA</option></select></div><label id="tipoPessoaContribuinteEscolha_label" class="ui-selectonemenu-label ui-inputfield ui-corner-all"> </label><div class="ui-selectonemenu-trigger ui-state-default ui-corner-right"><span class="ui-icon ui-icon-triangle-1-s ui-c"></span></div><div id="tipoPessoaContribuinteEscolha_panel" class="ui-selectonemenu-panel ui-widget ui-widget-content ui-corner-all ui-helper-hidden ui-shadow"><div class="ui-selectonemenu-items-wrapper" style="height:auto"><ul id="tipoPessoaContribuinteEscolha_items" class="ui-selectonemenu-items ui-selectonemenu-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" role="listbox"><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="---" tabindex="-1" role="option">---</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="JURÍDICA" tabindex="-1" role="option">JURÍDICA</li><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="FÍSICA" tabindex="-1" role="option">FÍSICA</li></ul></div></div></div><script id="tipoPessoaContribuinteEscolha_s" type="text/javascript">$(function(){PrimeFaces.cw("SelectOneMenu","widget_tipoPessoaContribuinteEscolha",{id:"tipoPessoaContribuinteEscolha",behaviors:{change:function(ext,event) {PrimeFaces.ab({s:"tipoPessoaContribuinteEscolha",e:"change",p:"tipoPessoaContribuinteEscolha",u:"dados",ps:true},ext);}}});});</script>
+	         	</div>
+		   </div><div id="dados" class="ui-outputpanel ui-widget"></div>
+
+			<div style="height: 20px;"></div>
+
+			
+  
+			<div class="mt-3 mb-3"><span id="descricaoCompletaParaFuncionario"></span>
+			</div></div></div><div class="ui-dialog-footer ui-widget-content"><span>
+			<div class="container-botoes"><button id="botaoConfirmarSelecaoParaFuncionario" name="botaoConfirmarSelecaoParaFuncionario" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-disabled" onclick="PrimeFaces.onPost();" type="submit" disabled="disabled"><span class="ui-button-text ui-c">Confirmar</span></button><script id="botaoConfirmarSelecaoParaFuncionario_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_botaoConfirmarSelecaoParaFuncionario",{id:"botaoConfirmarSelecaoParaFuncionario"});</script><button id="j_idt402" name="j_idt402" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-outlined ui-button-info" onclick="PrimeFaces.ab({s:" j_idt402",onco:function(xhr,status,args){pf('dialogselecionarempresaparafuncionario').hide();}});return="" false;"="" type="submit"><span class="ui-button-text ui-c">Cancelar</span></button><script id="j_idt402_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_j_idt402",{id:"j_idt402"});</script>
+
+				
+
+			</div></span></div></div><script id="j_idt388_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","dialogSelecionarEmpresaParaFuncionario",{id:"j_idt388",draggable:false,resizable:false,modal:true,width:"400",responsive:true});});</script><div id="j_idt404" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container" style="max-width:98% !important; max-height: 90%;"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="j_idt404_title" class="ui-dialog-title">Notificação/Intimação Fiscal</span></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="j_idt404_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","dialogCienciaNotificacao",{id:"j_idt404",draggable:false,resizable:false,modal:true,width:"900px",height:"450px",dynamic:true,position:"center",responsive:true});});</script><div id="j_idt429" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container" style="max-width:98% !important; max-height: 90%;"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="j_idt429_title" class="ui-dialog-title">Notificação/Impugnação</span></div><div class="ui-dialog-content ui-widget-content"></div></div><script id="j_idt429_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","dialogCienciaImpugnacao",{id:"j_idt429",draggable:false,resizable:false,modal:true,width:"900px",height:"450px",dynamic:true,position:"center",responsive:true});});</script><div id="dialogSelecionarPerfil" class="ui-dialog ui-widget ui-widget-content ui-corner-all ui-shadow ui-hidden-container"><div class="ui-dialog-titlebar ui-widget-header ui-helper-clearfix ui-corner-top"><span id="dialogSelecionarPerfil_title" class="ui-dialog-title">Selecionar Contribuinte</span></div><div class="ui-dialog-content ui-widget-content">
+
+		<div class="form-group"><label id="j_idt448" class="ui-outputlabel ui-widget">Selecione o Perfil que deseja trabalhar.</label><div id="contribuinte" class="ui-selectonemenu ui-widget ui-state-default ui-corner-all form-control"><div class="ui-helper-hidden-accessible"><input id="contribuinte_focus" name="contribuinte_focus" type="text" autocomplete="off" role="combobox" aria-haspopup="true" aria-expanded="false"></div><div class="ui-helper-hidden-accessible"><select id="contribuinte_input" name="contribuinte_input" tabindex="-1" aria-hidden="true" onchange="PrimeFaces.ab({s:" contribuinte",e:"change",p:"contribuinte",u:"botaoconfirmarselecaocontribuinte",ps:true});"=""><option value="">...</option></select></div><label id="contribuinte_label" class="ui-selectonemenu-label ui-inputfield ui-corner-all"> </label><div class="ui-selectonemenu-trigger ui-state-default ui-corner-right"><span class="ui-icon ui-icon-triangle-1-s ui-c"></span></div><div id="contribuinte_panel" class="ui-selectonemenu-panel ui-widget ui-widget-content ui-corner-all ui-helper-hidden ui-shadow"><div class="ui-selectonemenu-items-wrapper" style="height:auto"><ul id="contribuinte_items" class="ui-selectonemenu-items ui-selectonemenu-list ui-widget-content ui-widget ui-corner-all ui-helper-reset" role="listbox"><li class="ui-selectonemenu-item ui-selectonemenu-list-item ui-corner-all" data-label="..." tabindex="-1" role="option">...</li></ul></div></div></div><script id="contribuinte_s" type="text/javascript">$(function(){PrimeFaces.cw("SelectOneMenu","widget_contribuinte",{id:"contribuinte",behaviors:{change:function(ext,event) {PrimeFaces.ab({s:"contribuinte",e:"change",p:"contribuinte",u:"botaoConfirmarSelecaoContribuinte",ps:true},ext);}}});});</script>
+		</div></div><div class="ui-dialog-footer ui-widget-content"><span>
+			<div class="container-botoes"><button id="botaoConfirmarSelecaoContribuinte" name="botaoConfirmarSelecaoContribuinte" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-state-disabled mr-1" onclick="PrimeFaces.onPost();" type="submit" disabled="disabled"><span class="ui-button-text ui-c">Confirmar</span></button><script id="botaoConfirmarSelecaoContribuinte_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_botaoConfirmarSelecaoContribuinte",{id:"botaoConfirmarSelecaoContribuinte"});</script><button id="botaoCancelarSelecaoContribuinte" name="botaoCancelarSelecaoContribuinte" class="ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only ui-button-outlined ui-button-info" onclick="PrimeFaces.onPost();" type="submit"><span class="ui-button-text ui-c">Cancelar</span></button><script id="botaoCancelarSelecaoContribuinte_s" type="text/javascript">PrimeFaces.cw("CommandButton","widget_botaoCancelarSelecaoContribuinte",{id:"botaoCancelarSelecaoContribuinte"});</script>
+			</div></span></div></div><script id="dialogSelecionarPerfil_s" type="text/javascript">$(function(){PrimeFaces.cw("Dialog","dialogSelecionarEmpresa",{id:"dialogSelecionarPerfil",draggable:false,resizable:false,modal:true,responsive:true});});</script><input type="hidden" name="javax.faces.ViewState" value="3850608540801405424:-8126670121776784845" autocomplete="off">
+</form>
+            
+            
+           	<div class="layout-main" style="padding: 0px 15px 0px 15px; ">
+   	       	</div>
+           	<div class="layout-main" style="padding: 0px 15px 15px 15px; ">
+
+
+<div class="bg-dark" style="font-size: 14px">
+		<div class="container mt-4 p-4" style="margin-top: 8px!important;">
+			<div class="row align-items-center py-4">
+				<div class="col-md-6 text-white">
+					<div>
+						<img alt="Logo ISS Digital" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/logo-iss2.png" width="350" class="mb-2 img-fluid">
+						<p class="text-justify">A plataforma de Gestão Nacional do Imposto Sobre Serviço (ISS) 
+						é uma ferramenta tecnológica digital responsiva hospedada em cloud de alta performance 
+						24/7/365 dias, que desburocratiza o cumprimento das obrigações tributárias aos contribuintes 
+						e a gestão do imposto aos servidores públicos dos municípios brasileiros. Foi parametrizada 
+						para realizar a aplicação de forma digital, inteligente e automática das regras nacionais 
+						do local do estabelecimento do prestador, do local da prestação ou do domicílio do prestador 
+						do serviço, nos termos da Lei Complementar nº 116/2003, 157/2016, 175/2020 e legislação 
+						municipal.</p>
+							
+						<p class="text-justify">Foi customizada para realizar o cálculo automático das 
+						alíquotas do ISS, o desenquadramento e a exclusão do Regime de Tributação do 
+						Simples Nacional nos termos do disposto na Lei Complementar nº 123/2006, 128/2008, 
+						139/2011, 147/2014. Baseado na experiência do usuário, oferta vários serviços públicos
+						digitais responsivos para serem acessados da palma da mão do servidor público, 
+						empreendedores e contribuintes. </p>
+						
+						<p class="text-justify">Possui Application Programming Interface (API) para 
+						integração em tempo real da plataforma da Prefeitura com ambientes corporativos 
+						públicos e privados. Opera integrada ao Sistema Integrador Estadual e Municipal da 
+						REDESIM, Sistemas de Emissão de Notas Fiscais das Empresas e Programa Gerador do 
+						Documento de Arrecadação do Simples Nacional - Declaratório (PGDAS-D) da Secretaria 
+						da Receita Federal do Brasil, viabilizando o processamento da malha fina fiscal municipal. </p>
+						
+						<p class="text-justify">Dispõe ainda do Processo Administrativo Tributário Digital com 
+						notificações via Domicílio Tributário Digital (DTD) e contencioso digital. Segue as regras 
+						da LGPD e dispõe da Declaração Digital das Instituições Financeiras (DIF) para cálculo 
+						automático do ISS dos Bancos, emissão do boleto de pagamento com registro e PIX,  
+						dentre outros serviços.	</p>
+						
+					</div>
+				</div>
+				<div class="col-md-6">
+					<div class="card cardhome" style="border-radius: 30px 0px 30px 0px;">
+						<br>
+						<h2 class="mb-3">
+							MUNICÍPIO DE<b> SÃO FÉLIX DO XINGU</b>
+						</h2>
+						<p>
+							<span class="font-footer"><span class="mb-25"></span></span></p><p style="text-align: justify; border: 0px; font-family: lato; box-sizing: border-box; margin: 0px 0px 1rem; padding: 0px; line-height: 1.5rem; font-size: 15.9375px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); outline: none !important;"><span style="border: 0px; box-sizing: border-box; outline: none !important;">Localizada no Pará, a cidade de São Félix do Xingu possui uma área territorial de aproximadamente 84.212,903 km². É constituída por seis distritos: Taboca, Nereu, Lindoeste, Sudoeste, Ladeira Vermelha e Teilândia. É rodeada por vários rios, mas os principais são os rios Fresco e Xingu, atrações turísticas do município. Possui uma população estimada de 135.732 habitantes (IBGE, 2021).</span></p><p style="text-align: justify; border: 0px; font-family: lato; box-sizing: border-box; margin: 0px 0px 1rem; padding: 0px; line-height: 1.5rem; font-size: 15.9375px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); outline: none !important;"><span style="border: 0px; box-sizing: border-box; outline: none !important;"></span><span style="border: 0px; box-sizing: border-box; outline: none !important;">O território do atual município de São Félix do Xingu foi habitado primitivamente por indígenas. Quanto à sua origem histórica pouco se conhece. Sabe-se, porém, que foi desmembrado do município de Altamira, ex-Xingu, de onde fazia parte como distrito, nos anos de 1936 e 1937. </span></p><p style="text-align: justify; border: 0px; font-family: lato; box-sizing: border-box; margin: 0px 0px 1rem; padding: 0px; line-height: 1.5rem; font-size: 15.9375px; letter-spacing: -0.4px; background-color: rgb(255, 255, 255); outline: none !important;"><span style="border: 0px; box-sizing: border-box; outline: none !important;">Em 1938 passou a figurar como zona do distrito de Novo Horizonte, no município de Altamira. Com o desenvolvimento da produção do arroz com casca, da borracha, da seringa e do milho, a localidade prosperou e, em 1961, emancipou-se político-administrativamente.</span></p><div id="icpbravoaccess_loaded"></div>
+							
+						<p></p>
+						<br>
+						
+						<div class="col-sm-12"><img id="j_idt460" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/logo-prefeitura.png" alt="" class="mb-2 img-municipio" width="274">
+						<div class="t-sm-center">
+							<i class="las la-map-marker"></i>
+							<div class="detalhe-contato">
+								Av. Goiás, nº 241</div>
+						</div>
+						
+						<div class="t-sm-center">
+							<i class="las la-envelope-open-text"></i>
+							<div class="detalhe-contato">CEP -
+								68380000</div>
+						</div>
+						
+						<div class="t-sm-center">
+							<i class="las la-phone-volume"></i>
+							<div class="detalhe-contato">
+							    +55	(94) 98137-6150
+							 </div>
+						</div>
+						
+						<div class="t-sm-center">
+							<i class="las la-phone-volume"></i>
+							<div class="detalhe-contato">
+							    +55	(94) 98137-6150
+							 </div>
+						</div>
+						<div class="t-sm-center">
+							<i class="las la-envelope"></i>
+							<div class="detalhe-contato">
+								http://saofelixdoxingu-pa.pa.gov.br</div>
+						</div>
+						
+					</div>
+					  
+					  </div>
+					  
+					
+				</div>
+			</div>
+
+			<div class="row">
+				<div class="col-md-12 col-12 ">
+					<h3 class="reduce-text text-center  text-white mb-4 mt-4">Parceiros</h3>
+				</div>
+				<div class="col-md-2 col-6 img-center">
+					<a target="_blank" rel="noreferrer" href="https://brazillab.org.br/noticias/o-que-e-govtech"> 
+						<img alt="Pagina do BrazilLAB.org" height="auto" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/BrazilLab.webp">
+					</a>
+				</div>
+				<div class="col-md-2 col-6 img-center">
+					<a rel="noreferrer" target="_blank" href="https://www.portal.ufpa.br/"> 
+					<img alt="Portal UFPA" height="auto" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/ufpa-logo.webp">
+					</a>
+				</div>
+				<div class="col-md-2 col-sm-12 img-center">
+					<a rel="noreferrer" target="_blank" href="http://universitec.ufpa.br/?s=piebt">
+						<img alt="Pagina PIEBT UFPA" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/logoRodape-piebt.png">
+					</a>
+				</div>
+				<div class="col-md-2 col-6 img-center">
+					<a rel="noreferrer" target="_blank" href="http://www.universitec.ufpa.br/"> 
+					   <img alt="Pagina Universitec" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/logoRodape-universitec.png" class="my-4">
+					</a>
+				</div>
+				<div class="col-md-2 col-6 img-center">
+					<a rel="noreferrer" target="_blank" href="http://www.universitec.ufpa.br/"> 
+					 <img alt="Pagina StartUpLab" style="width: 100%" height="auto" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/logoRodape-startuplab.png" class="my-4">
+					</a>
+				</div>
+				<div class="col-md-2 col-sm-12 img-center">
+					<a rel="noreferrer" target="_blank" href="https://www.pa.gov.br/"> 
+					<img alt="Pagina do Governo do Estado do Pará" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/LOGO-SEASTER_branco.webp" class="my-4">
+					</a>
+				</div>
+			</div>
+			<div class="row d-flex justify-content-center text-white">
+				<div class="col-md-12 col-12 ">
+					<h3 class="reduce-text text-center  mb-4 mt-4">Certificação e
+						Premiação</h3>
+				</div>
+				<div class="col-md-2 col-sm-12 img-center mb-2">
+					<a rel="noreferrer" target="_blank" href="https://selo.brazillab.org.br/"> 
+					<img alt="Pagina Selo BrazilLAB" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/logo-govtech.webp">
+					</a>
+				</div>
+				<div class="col-md-2 col-sm-12 img-center my-2">
+					<a rel="noreferrer" target="_blank" href="https://www.prefeitoempreendedor.sebrae.com.br/"> 
+					 <img alt="Pagina Prefeito Empreendedor - Sebrae" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/Pref-Empreendedor.webp">
+					</a>
+				</div>
+				<div class="col-md-2 col-sm-12 img-center my-2">
+					<a rel="noreferrer" target="_blank" href="https://www.openstartups.net/site/ranking/rankings-categories.html?cat=Top%2010%20GovTechs%202020">
+						<img alt="Pagina Ranking TOP 10 GOVTECHS" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/Top10-GovTechs-white.webp">
+					</a>
+				</div>
+				<div class="col-md-2 col-sm-12 img-center my-2">
+					<a rel="noreferrer" target="_blank" href="https://www.gov.br/inpi/pt-br"> 
+					 <img alt="Pagina INPI" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/INPI.webp">
+					</a>
+				</div>
+				<div class="col-md-2 col-sm-12 img-center my-2">
+					<a rel="noreferrer" target="_blank" href="https://selo.brazillab.org.br/"> 
+					  <img alt="Selo BrazilLAB" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/selo-1-oficio.webp">
+					</a>
+				</div>
+			</div>
+<form id="j_idt462" name="j_idt462" method="post" action="#" data-original-action="/nfsd/pages/consulta/certidaoDebito/consultaAutenticidadeCertidaoDebito.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt462" value="j_idt462">
+
+			<div class="row text-center border-top border-white pt-2">
+				<div class="col"><a id="j_idt462:j_idt464" href="#" class="ui-commandlink ui-widget" onclick="PrimeFaces.monitorDownload(start, stop);;PrimeFaces.addSubmitParam('j_idt462',{'j_idt462:j_idt464':'j_idt462:j_idt464'}).submit('j_idt462');return false;PrimeFaces.onPost();">
+						<span class="text-white font-weight-bold">Termo de Uso</span></a>
+				</div>
+				
+				<div class="col"><a id="j_idt462:j_idt467" href="#" class="ui-commandlink ui-widget" onclick="PrimeFaces.monitorDownload(start, stop);;PrimeFaces.addSubmitParam('j_idt462',{'j_idt462:j_idt467':'j_idt462:j_idt467'}).submit('j_idt462');return false;PrimeFaces.onPost();">
+						<span class="text-white font-weight-bold">Política de Privacidade</span></a>
+				</div>
+				
+				<div class="col">
+				<a rel="noreferrer" href="https://www.desenvolvecidade.com.br/registro-inpi" class="text-white font-weight-bold">
+				Certificados de registros no INPI
+				</a>
+				</div>
+			</div><input type="hidden" name="javax.faces.ViewState" value="3850608540801405424:-8126670121776784845" autocomplete="off">
+</form>
+			
+			<div class="row py-4 align-mobile">
+				<div class="col-lg-9 col-md-9 col-sm-12 text-white">
+					<p class="mb-0">ISS DIGITAL © 2026
+						Desenvolve - Tributação Municipal Sustentável.</p>
+					<p>Todos os direitos reservados.</p>
+				</div>
+				<div class="col-lg-3 col-md-3 col-sm-12">
+					<a rel="noreferrer" target="_blank" href="https://www.desenvolvecidade.com.br">
+						<img alt="Pagina da Desenvolve Cdade" src="assets/saofelixdoxingu-pa.desenvolvecidade.com.br/nfsd/imagens/logoDesenvolve-branca.png">
+					</a>
+				</div>
+			</div>
+	
+		</div>
+	</div>
+    	   	</div>
+    	   	
+    	   	
+         </div>
+         <span id="back-to-top" onclick="backToTop()" class="back-to-top las la-arrow-circle-up fa-3x"></span><div id="ajaxStatusPrincipal"></div><script id="ajaxStatusPrincipal_s" type="text/javascript">$(function(){PrimeFaces.cw("AjaxStatus","widget_ajaxStatusPrincipal",{id:"ajaxStatusPrincipal",complete:function(){PF('modalAguarde').hide()}});});</script>
+         
+         <input type="hidden" id="tempoSessaoHidden" name="tempoSessaoHidden" value="3600">
+<form id="j_idt473" name="j_idt473" method="post" action="#" data-original-action="/nfsd/pages/consulta/certidaoDebito/consultaAutenticidadeCertidaoDebito.jsf" enctype="application/x-www-form-urlencoded">
+<input type="hidden" name="j_idt473" value="j_idt473">
+<script id="j_idt473:j_idt474" type="text/javascript">checarCookie = function() {PrimeFaces.ab({s:"j_idt473:j_idt474",f:"j_idt473",pa:arguments[0]});}</script><input type="hidden" name="javax.faces.ViewState" value="3850608540801405424:-8126670121776784845" autocomplete="off">
+</form>
+        
+         <script>
+            possuiUsuarioLogado = 'false';
+         </script>
+   </body></html>

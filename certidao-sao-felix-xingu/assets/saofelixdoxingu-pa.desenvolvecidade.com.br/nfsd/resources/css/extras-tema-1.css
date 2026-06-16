@@ -1,0 +1,44 @@
+.layout-wrapper .topbar .topbar-right #menu-button {
+	left: 264px;
+}
+.layout-wrapper .topbar .topbar-right .topbar-items > li > a {
+	text-decoration: none;
+}
+.topbar-item-name {
+	max-width: 150px;
+	line-height: 1.25;
+	font-size: 0.75rem;
+}
+.ui-outputpanel-notificacoes-popup a {
+	padding: 0 !important;
+	border: 0 !important;
+}
+
+/*atualizacoes */
+.resp-text {
+    text-align: center!important;
+}
+
+.fluir{
+	width: 100%;
+}
+
+.info-pu>.ui-widget-content{
+	color: #37474F;
+	background-color: #f1f2f6;
+	border: 1px solid #dfe4ea !important;
+	margin-bottom: 10px;
+}
+
+.info-pu > .ui-widget-content > ul {
+    list-style: none !important;
+}
+
+
+@media (max-width: 640px) {
+	.resp-text {
+    text-align:justify!important;
+}
+
+
+}

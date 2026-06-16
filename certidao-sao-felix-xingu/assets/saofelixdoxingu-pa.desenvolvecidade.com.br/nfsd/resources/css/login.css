@@ -1,0 +1,79 @@
+/*Conflito resolvido*/
+.ui-dialog-title {
+	font-size: 20px !important;
+	font-weight: normal !important;
+}
+ 
+.label-login {
+	font-size: 20px;
+	color: #6d7989;
+}
+
+.icon-login {
+	width: 24px;
+	height: 24px;
+	background-image: url('../../imagens/login/icon-login.png') !important;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+}
+
+.icon-password {
+	width: 24px;
+	height: 24px;
+	background-image: url('../../imagens/login/icon-password.png') !important;
+	background-repeat: no-repeat;
+	background-position: 10px center;
+}
+
+.label-checkbox-certificado {
+	font-size: 18px;
+	color: #6d7989;
+}
+
+.btn-entrar {
+    background-color: #3190FF !important;
+    background-image: none !important;
+    border: medium none !important;
+    border-radius: 3px !important;
+    -webkit-box-shadow: 0px 3px 0px #1170df !important;
+  	-moz-box-shadow: 0px 3px 0px #1170df !important;
+  	box-shadow: 0px 3px 0px #1170df !important;
+    color: #ffffff !important;
+    font-size: 18px !important;
+    font-weight: bold;
+    height: 60px !important;
+    margin-left: 0;
+    margin-top: 20px;
+    text-shadow: none !important;
+    width: 393px;
+}
+
+.btn-entrar:hover {	 
+	background-color: #1c7bea !important;
+}
+
+.btn-entrar:active {
+	 -webkit-box-shadow: 0px 2px 0px #1c7bea !important;
+  	-moz-box-shadow: 0px 2px 0px #1c7bea !important;
+  	box-shadow: 0px 2px 0px #1c7bea !important;
+}
+
+.btn-entrar-certificado {
+    background-color: #FFFFFF !important;
+    background-image: url('../../imagens/login/certificado-icon.png') !important;
+    background-repeat: no-repeat !important;
+    background-position: 20px center !important;
+    border: solid 2px #3190FF !important; 
+    border-radius: 3px !important;
+    color: #3190FF !important;
+    font-size: 20px !important;
+    height: 70px !important;
+    margin-left: 0;
+    margin-top: 10px;
+    text-shadow: none !important;
+    width: 393px;
+}
+
+.btn-entrar-certificado:hover {
+	background-color: #e5f1fd !important;
+}
