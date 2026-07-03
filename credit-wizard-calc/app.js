@@ -119,6 +119,7 @@ function viewLogin() {
         <p class="subtitle">Ambiente interno de pré-análise bancária.</p>
         <div class="field" style="margin-top: 20px;">
           <label for="accessPassword">Senha de acesso</label>
+          <input class="sr-only" name="username" type="text" autocomplete="username" value="promove-interno" tabindex="-1" aria-hidden="true" />
           <input id="accessPassword" name="accessPassword" type="password" autocomplete="current-password" autofocus />
           <p class="error" id="loginError"></p>
         </div>
