@@ -148,9 +148,6 @@ function viewSystem() {
           <div class="rail-item"><span class="rail-dot"></span>Matriz bancária</div>
           <div class="rail-item"><span class="rail-dot"></span>Crédito Promove</div>
         </nav>
-        <div class="sidebar-foot">
-          Pré-análise interna. Os nomes das instituições aparecem como régua comparativa, sem vínculo oficial com os bancos citados.
-        </div>
       </aside>
 
       <div class="content">
@@ -294,9 +291,6 @@ function viewSystem() {
                     <strong id="installmentValue">R$ 0,00</strong>
                   </div>
                 </div>
-                <p class="note">
-                  Pré-análise interna demonstrativa. Não representa decisão oficial, consulta real ou vínculo com Caixa, Itaú ou Bradesco.
-                </p>
               </div>
             </div>
           </section>
