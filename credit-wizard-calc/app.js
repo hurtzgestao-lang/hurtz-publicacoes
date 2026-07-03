@@ -82,7 +82,8 @@ function getFormData() {
     phone: document.querySelector("#phone")?.value.trim() || "",
     financingValue: moneyFromDigits(document.querySelector("#financingValue")?.value || ""),
     installments: Number(document.querySelector("#installments")?.value || 150),
-    monthlyIncome: moneyFromDigits(document.querySelector("#monthlyIncome")?.value || "")
+    monthlyIncome: moneyFromDigits(document.querySelector("#monthlyIncome")?.value || ""),
+    assetType: document.querySelector("#assetType")?.value || "Imóvel urbano"
   };
 }
 
@@ -217,6 +218,8 @@ function viewSystem() {
                       <option>Imóvel urbano</option>
                       <option>Imóvel rural</option>
                       <option>Veículo</option>
+                      <option>Veículos pesados</option>
+                      <option>Crédito rural</option>
                       <option>Capital de giro</option>
                     </select>
                   </div>
@@ -252,6 +255,7 @@ function viewSystem() {
                   <div class="file-meta">
                     <span id="fileAmount">Valor não informado</span>
                     <span id="fileTerm">Prazo 150 meses</span>
+                    <span id="fileAsset">Imóvel urbano</span>
                   </div>
                 </div>
                 <div class="score">
@@ -311,7 +315,7 @@ function bankRow(bank) {
 
   return `
     <div class="bank-row ${rowClass}" data-bank="${bank.id}">
-      <div class="bank-icon" aria-label="Logo ${bank.name}">${bankLogo(bank.id)}</div>
+      <div class="bank-icon">${bankLogo(bank.id, bank.name)}</div>
       <div>
         <div class="bank-name">${bank.name}</div>
         <div class="bank-detail">${detail}</div>
@@ -321,43 +325,8 @@ function bankRow(bank) {
   `;
 }
 
-function bankLogo(id) {
-  const logos = {
-    caixa: `
-      <svg class="bank-logo caixa-logo" viewBox="0 0 124 44" role="img" aria-label="Caixa">
-        <rect x="1" y="1" width="122" height="42" rx="8" fill="#ffffff"/>
-        <text x="10" y="29" font-size="21" font-weight="900" fill="#005ca9" font-family="Inter, Arial, sans-serif">CAI</text>
-        <path d="M58 12h8l9 20h-8z" fill="#f39200"/>
-        <path d="M73 12h8L66 32h-8z" fill="#f39200"/>
-        <text x="82" y="29" font-size="21" font-weight="900" fill="#005ca9" font-family="Inter, Arial, sans-serif">A</text>
-      </svg>
-    `,
-    itau: `
-      <svg class="bank-logo itau-logo" viewBox="0 0 86 44" role="img" aria-label="Itaú">
-        <rect x="2" y="2" width="82" height="40" rx="9" fill="#003399"/>
-        <text x="13" y="29" font-size="23" font-weight="900" fill="#ff7a00" font-family="Inter, Arial, sans-serif">itaú</text>
-      </svg>
-    `,
-    bradesco: `
-      <svg class="bank-logo bradesco-logo" viewBox="0 0 138 44" role="img" aria-label="Bradesco">
-        <rect x="1" y="1" width="136" height="42" rx="8" fill="#ffffff"/>
-        <path d="M17 27c5.8-1.2 9.4-4.8 10.8-10.8 4.1 2.3 6.7 5.5 7.7 9.8-2.3-2.4-4.9-3.5-7.7-3.5-3.8 0-7.4 1.5-10.8 4.5Z" fill="#cc092f"/>
-        <path d="M15 19c3.4-6.5 8.1-9.8 14.2-9.8 5.2 0 9.5 2.5 12.9 7.5-3.8-2.1-7.1-3.1-9.9-3.1-6.5 0-12.2 1.8-17.2 5.4Z" fill="#cc092f"/>
-        <text x="48" y="28" font-size="18" font-weight="900" fill="#cc092f" font-family="Inter, Arial, sans-serif">Bradesco</text>
-      </svg>
-    `,
-    promove: `
-      <svg class="bank-logo promove-logo" viewBox="0 0 148 44" role="img" aria-label="Promove Crédito">
-        <rect x="1" y="1" width="146" height="42" rx="8" fill="#ffffff"/>
-        <rect x="9" y="9" width="26" height="26" rx="7" fill="#0f766e"/>
-        <path d="M17 27V16h8.2c3.4 0 5.4 1.8 5.4 4.7 0 3-2 4.8-5.4 4.8h-3.6V27zm4.6-5.4h2.9c1.1 0 1.7-.4 1.7-1.3 0-.8-.6-1.2-1.7-1.2h-2.9z" fill="#ffffff"/>
-        <text x="43" y="23" font-size="17" font-weight="900" fill="#0f766e" font-family="Inter, Arial, sans-serif">Promove</text>
-        <text x="44" y="34" font-size="9" font-weight="900" fill="#123c55" font-family="Inter, Arial, sans-serif">CRÉDITO</text>
-      </svg>
-    `
-  };
-
-  return logos[id] || `<span>${id}</span>`;
+function bankLogo(id, name) {
+  return `<img class="bank-logo-img" src="./assets/logos/${id}.png" alt="Logo ${name}" loading="lazy" decoding="async" />`;
 }
 
 function bindEvents() {
@@ -393,7 +362,7 @@ function bindEvents() {
     event.target.value = maskPhone(event.target.value);
   });
 
-  ["clientName", "installments"].forEach((id) => {
+  ["clientName", "installments", "assetType"].forEach((id) => {
     document.querySelector(`#${id}`).addEventListener("input", syncFile);
     document.querySelector(`#${id}`).addEventListener("change", syncFile);
   });
@@ -415,6 +384,7 @@ function syncFile() {
     ? `Solicitado ${currency(data.financingValue)}`
     : "Valor não informado";
   document.querySelector("#fileTerm").textContent = `Prazo ${data.installments || 150} meses`;
+  document.querySelector("#fileAsset").textContent = data.assetType;
   document.querySelector("#scoreValue").textContent = data.name && data.financingValue ? "742" : "--";
 }
 
