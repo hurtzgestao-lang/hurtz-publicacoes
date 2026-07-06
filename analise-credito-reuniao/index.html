@@ -5,9 +5,11 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
   <meta name="description" content="Pré-análise Hurtz pelo WhatsApp.">
-  <title>Pré-análise Hurtz · WhatsApp</title>
+  <title>Pré-análise Hurtz · Quiz</title>
+  <link rel="icon" href="data:,">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="preconnect" href="https://images.unsplash.com">
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -23,7 +25,6 @@
       --offwhite: #F5F2EC;
       --resultado: #1A7A4A;
       --critico: #B52A2A;
-      --info: #3A6FBF;
       --radius: 4px;
       --radius-lg: 8px;
       --font: Inter, Helvetica, Arial, sans-serif;
@@ -43,9 +44,10 @@
       text-rendering: optimizeLegibility;
     }
 
+    body.modal-open { overflow: hidden; }
+
     button,
-    input,
-    select {
+    input {
       font: inherit;
     }
 
@@ -55,9 +57,10 @@
     }
 
     .page {
-      width: min(100% - 32px, 1120px);
+      width: min(100% - 32px, 1040px);
+      min-height: 100vh;
       margin: 0 auto;
-      padding: 28px 0 52px;
+      padding: 24px 0 42px;
     }
 
     .brand {
@@ -65,7 +68,7 @@
       align-items: center;
       justify-content: space-between;
       gap: 16px;
-      margin-bottom: 26px;
+      margin-bottom: 22px;
     }
 
     .brand img {
@@ -85,13 +88,13 @@
 
     .layout {
       display: grid;
-      grid-template-columns: minmax(220px, 0.58fr) minmax(520px, 1.42fr);
-      gap: 32px;
+      grid-template-columns: minmax(220px, 0.62fr) minmax(520px, 1.38fr);
+      gap: 28px;
       align-items: start;
     }
 
     .intro {
-      padding: 10px 0 0;
+      padding-top: 8px;
     }
 
     .eyebrow {
@@ -113,43 +116,243 @@
       max-width: 320px;
       margin: 0;
       color: var(--carvao);
-      font-size: clamp(28px, 3.2vw, 42px);
+      font-size: clamp(28px, 3vw, 40px);
       line-height: 1.08;
       letter-spacing: 0;
       font-weight: 700;
     }
 
-    .panel {
+    .intro-copy {
+      max-width: 300px;
+      margin: 14px 0 0;
+      color: var(--grafite);
+      font-size: 14px;
+      line-height: 1.55;
+    }
+
+    .quiz-shell {
       border: 1px solid var(--linha-banco);
       border-radius: var(--radius-lg);
       background: #FFFFFF;
       overflow: hidden;
     }
 
-    .panel-head {
-      padding: 18px 20px;
+    .quiz-top {
+      display: grid;
+      gap: 12px;
+      padding: 16px 18px;
       border-bottom: 1px solid var(--linha-banco);
       background: #FFFFFF;
-      color: var(--carvao);
     }
 
-    .panel-head h2 {
-      margin: 0 0 4px;
-      font-size: 18px;
-      line-height: 1.18;
+    .quiz-nav {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+    }
+
+    .progress-label {
+      color: var(--pedra);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .back-btn {
+      display: inline-flex;
+      align-items: center;
+      min-height: 32px;
+      padding: 0 10px;
+      border: 1px solid var(--linha-banco);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      color: var(--grafite);
+      font-size: 12px;
+      font-weight: 700;
+    }
+
+    .back-btn[hidden] { display: none; }
+    .back-btn:hover { border-color: var(--carvao); color: var(--carvao); }
+
+    .progress-track {
+      height: 6px;
+      border: 1px solid var(--linha-banco);
+      border-radius: 999px;
+      background: var(--offwhite);
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: var(--brasa);
+      transition: width 160ms ease;
+    }
+
+    .quiz-stage {
+      min-height: 520px;
+      padding: 20px;
+    }
+
+    .question {
+      display: grid;
+      gap: 18px;
+    }
+
+    .question-head {
+      display: grid;
+      gap: 8px;
+    }
+
+    .question-title {
+      margin: 0;
+      color: var(--carvao);
+      font-size: clamp(22px, 3vw, 30px);
+      line-height: 1.12;
+      font-weight: 700;
       letter-spacing: 0;
     }
 
-    .panel-head p {
+    .question-subtitle {
       margin: 0;
-      color: var(--pedra);
-      font-size: 13px;
+      color: var(--grafite);
+      font-size: 14px;
+      line-height: 1.5;
     }
 
-    form {
+    .choice-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .choice-grid.list {
+      grid-template-columns: 1fr;
+    }
+
+    .choice-card {
+      min-height: 98px;
+      border: 1px solid var(--linha-banco);
+      border-radius: var(--radius-lg);
+      background: #FFFFFF;
+      color: var(--carvao);
+      overflow: hidden;
+      text-align: left;
+      transition: border-color 120ms ease, background-color 120ms ease;
+    }
+
+    .choice-card:hover,
+    .choice-card.selected {
+      border-color: var(--carvao);
+      background: var(--brasa-50);
+    }
+
+    .choice-card.visual {
+      display: grid;
+      grid-template-rows: 132px auto;
+      min-height: 218px;
+    }
+
+    .choice-card.list {
+      display: grid;
+      grid-template-columns: 42px 1fr;
+      gap: 12px;
+      align-items: center;
+      padding: 14px;
+    }
+
+    .choice-card img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
+      background: var(--areia);
+    }
+
+    .choice-copy {
+      display: grid;
+      gap: 4px;
+      padding: 14px;
+    }
+
+    .choice-card.list .choice-copy {
+      padding: 0;
+    }
+
+    .choice-label {
+      color: var(--carvao);
+      font-size: 17px;
+      font-weight: 700;
+      line-height: 1.16;
+    }
+
+    .choice-detail {
+      color: var(--pedra);
+      font-size: 13px;
+      line-height: 1.4;
+    }
+
+    .choice-token {
+      display: grid;
+      place-items: center;
+      width: 42px;
+      height: 42px;
+      border: 1px solid var(--linha-banco);
+      border-radius: var(--radius);
+      background: var(--offwhite);
+      color: var(--brasa);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1;
+    }
+
+    .interlude {
+      display: grid;
+      gap: 20px;
+      align-content: center;
+      min-height: 474px;
+      border: 1px solid var(--linha-banco);
+      border-radius: var(--radius-lg);
+      background: var(--offwhite);
+      padding: 24px;
+    }
+
+    .interlude-visual {
+      display: grid;
+      gap: 10px;
+      max-width: 360px;
+    }
+
+    .data-line {
+      height: 12px;
+      border: 1px solid var(--linha-banco);
+      border-radius: 999px;
+      background: #FFFFFF;
+      overflow: hidden;
+    }
+
+    .data-line span {
+      display: block;
+      height: 100%;
+      background: var(--brasa);
+      animation: fillLine 1100ms ease-in-out infinite alternate;
+    }
+
+    .data-line:nth-child(2) span { width: 74%; animation-delay: 120ms; }
+    .data-line:nth-child(3) span { width: 58%; animation-delay: 240ms; }
+    .data-line:nth-child(4) span { width: 88%; animation-delay: 360ms; }
+
+    @keyframes fillLine {
+      from { transform: translateX(-18%); opacity: 0.45; }
+      to { transform: translateX(0); opacity: 1; }
+    }
+
+    .contact-form {
       display: grid;
       gap: 16px;
-      padding: 20px;
     }
 
     .form-grid {
@@ -175,10 +378,9 @@
       text-transform: uppercase;
     }
 
-    input,
-    select {
+    input {
       width: 100%;
-      min-height: 48px;
+      min-height: 50px;
       border: 1px solid var(--linha-banco);
       border-radius: var(--radius);
       background: #FFFFFF;
@@ -188,10 +390,36 @@
       transition: border-color 120ms ease, background-color 120ms ease;
     }
 
-    input:focus,
-    select:focus {
+    input:focus {
       border-color: var(--carvao);
       background: #FFFFFF;
+    }
+
+    .summary {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+      border: 1px solid var(--linha-banco);
+      border-radius: var(--radius);
+      background: var(--offwhite);
+      padding: 10px;
+    }
+
+    .summary-item span {
+      display: block;
+      color: var(--pedra);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    .summary-item strong {
+      display: block;
+      margin-top: 2px;
+      color: var(--carvao);
+      font-size: 13px;
+      line-height: 1.25;
     }
 
     .btn {
@@ -216,6 +444,15 @@
       cursor: not-allowed;
     }
 
+    .btn.secondary {
+      width: auto;
+      min-width: 180px;
+      background: var(--carvao);
+      color: var(--offwhite);
+    }
+
+    .btn.secondary:hover { background: var(--grafite); }
+
     .feedback {
       display: none;
       border-left: 3px solid var(--critico);
@@ -226,10 +463,6 @@
     }
 
     .feedback.visible { display: block; }
-
-    body.modal-open {
-      overflow: hidden;
-    }
 
     .analysis-modal {
       position: fixed;
@@ -317,13 +550,8 @@
       background: var(--linha-banco);
     }
 
-    .sheet::before {
-      top: 34px;
-    }
-
-    .sheet::after {
-      top: 52px;
-    }
+    .sheet::before { top: 34px; }
+    .sheet::after { top: 52px; }
 
     .sheet.one {
       left: 6px;
@@ -369,13 +597,8 @@
       animation: pulseBar 720ms ease-in-out infinite;
     }
 
-    .analysis-pulse span:nth-child(2) {
-      animation-delay: 120ms;
-    }
-
-    .analysis-pulse span:nth-child(3) {
-      animation-delay: 240ms;
-    }
+    .analysis-pulse span:nth-child(2) { animation-delay: 120ms; }
+    .analysis-pulse span:nth-child(3) { animation-delay: 240ms; }
 
     @keyframes scanDocument {
       0% { transform: translateY(0); opacity: 0.35; }
@@ -508,21 +731,14 @@
       line-height: 1.1;
     }
 
-    .footnote {
-      margin-top: 18px;
-      color: var(--pedra);
-      font-size: 11px;
-      line-height: 1.55;
-    }
-
     @media (max-width: 860px) {
       .page {
         width: min(100% - 24px, 560px);
-        padding: 20px 0 34px;
+        padding: 18px 0 28px;
       }
 
       .brand {
-        margin-bottom: 24px;
+        margin-bottom: 18px;
       }
 
       .brand-tag {
@@ -547,13 +763,20 @@
         font-size: 28px;
       }
 
-      .form-grid,
-      .result-meta {
-        grid-template-columns: 1fr;
+      .intro-copy {
+        display: none;
+      }
+
+      .quiz-stage {
+        min-height: 560px;
       }
     }
 
-    @media (max-width: 420px) {
+    @media (max-width: 520px) {
+      .page {
+        width: min(100% - 20px, 430px);
+      }
+
       .brand img {
         width: 98px;
       }
@@ -566,11 +789,58 @@
         font-size: 26px;
       }
 
-      form,
-      .panel-head,
+      .quiz-stage,
+      .quiz-top,
       .analysis,
       .result {
         padding: 16px;
+      }
+
+      .quiz-stage {
+        min-height: 586px;
+      }
+
+      .question-title {
+        font-size: 24px;
+      }
+
+      .choice-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .choice-grid.visual-grid {
+        grid-template-columns: 1fr 1fr;
+      }
+
+      .choice-card.visual {
+        grid-template-rows: 106px auto;
+        min-height: 190px;
+      }
+
+      .choice-card.visual img {
+        min-height: 0;
+      }
+
+      .choice-card.visual .choice-copy {
+        padding: 10px;
+      }
+
+      .choice-card.visual .choice-label {
+        font-size: 15px;
+      }
+
+      .choice-card.visual .choice-detail {
+        font-size: 12px;
+      }
+
+      .choice-label {
+        font-size: 16px;
+      }
+
+      .summary,
+      .form-grid,
+      .result-meta {
+        grid-template-columns: 1fr;
       }
 
       .analysis-modal {
@@ -590,13 +860,8 @@
         height: 92px;
       }
 
-      .sheet.two {
-        left: 68px;
-      }
-
-      .sheet.three {
-        left: 136px;
-      }
+      .sheet.two { left: 68px; }
+      .sheet.three { left: 136px; }
 
       @keyframes scanDocument {
         0% { transform: translateY(0); opacity: 0.35; }
@@ -610,80 +875,29 @@
   <main class="page">
     <header class="brand" aria-label="Hurtz Company">
       <img src="./assets/logo-atual-claro.png" alt="Hurtz">
-      <div class="brand-tag">Análise financeira inicial</div>
+      <div class="brand-tag">Pré-análise digital</div>
     </header>
 
     <div class="layout">
       <section class="intro">
-        <div class="eyebrow">Dados principais</div>
+        <div class="eyebrow">Consórcio Hurtz</div>
         <div class="accent" aria-hidden="true"></div>
         <h1>Pré-análise Hurtz</h1>
+        <p class="intro-copy">Escolha as opções mais próximas do seu momento para receber uma orientação inicial pelo WhatsApp.</p>
       </section>
 
-      <section class="panel" aria-labelledby="form-title">
-        <div class="panel-head">
-          <h2 id="form-title">Informações para análise</h2>
-          <p>Preencha com valores aproximados.</p>
+      <section class="quiz-shell" aria-labelledby="quizTitle">
+        <div class="quiz-top">
+          <div class="quiz-nav">
+            <span class="progress-label" id="progressLabel">Etapa 1 de 8</span>
+            <button class="back-btn" id="backBtn" type="button" hidden>Voltar</button>
+          </div>
+          <div class="progress-track" aria-hidden="true">
+            <span class="progress-fill" id="progressFill"></span>
+          </div>
         </div>
 
-        <form id="leadForm" novalidate>
-          <div class="form-grid">
-            <div class="field full">
-              <label for="nome">Nome completo</label>
-              <input id="nome" name="nome" autocomplete="name" required minlength="2" placeholder="Seu nome">
-            </div>
-
-            <div class="field">
-              <label for="whatsapp">WhatsApp</label>
-              <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000">
-            </div>
-
-            <div class="field">
-              <label for="cidade">Cidade</label>
-              <input id="cidade" name="cidade" autocomplete="address-level2" placeholder="Ex: Parauapebas">
-            </div>
-
-            <div class="field">
-              <label for="tipo_bem">Tipo de bem</label>
-              <select id="tipo_bem" name="tipo_bem" required>
-                <option value="">Selecione</option>
-                <option value="Imóvel">Imóvel</option>
-                <option value="Veículo">Veículo</option>
-                <option value="Caminhão ou maquinário">Caminhão ou maquinário</option>
-                <option value="Serviço">Serviço</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="urgencia">Prazo estimado</label>
-              <select id="urgencia" name="urgencia" required>
-                <option value="">Selecione</option>
-                <option value="Agora ou em até 30 dias">Agora ou em até 30 dias</option>
-                <option value="Em 1 a 3 meses">Em 1 a 3 meses</option>
-                <option value="Sem prazo definido">Sem prazo definido</option>
-              </select>
-            </div>
-
-            <div class="field">
-              <label for="valor_credito">Valor desejado</label>
-              <input id="valor_credito" name="valor_credito" inputmode="numeric" required placeholder="R$ 300.000">
-            </div>
-
-            <div class="field">
-              <label for="valor_entrada">Entrada disponível</label>
-              <input id="valor_entrada" name="valor_entrada" inputmode="numeric" required placeholder="R$ 60.000">
-            </div>
-
-            <div class="field">
-              <label for="renda_mensal">Renda mensal</label>
-              <input id="renda_mensal" name="renda_mensal" inputmode="numeric" required placeholder="R$ 12.000">
-            </div>
-          </div>
-
-          <div class="feedback" id="feedback" role="alert"></div>
-
-          <button class="btn" id="submitBtn" type="submit">Iniciar pré-análise →</button>
-        </form>
+        <div class="quiz-stage" id="quizStage"></div>
       </section>
     </div>
   </main>
@@ -716,7 +930,7 @@
 
       <div class="result" id="resultBox" aria-live="polite">
         <span class="status">Pré-análise concluída</span>
-        <h3>Perfil aprovado para atendimento presencial.</h3>
+        <h3>Perfil pronto para atendimento Hurtz.</h3>
         <p>Um consultor vai te chamar no WhatsApp com o próximo passo.</p>
         <div class="result-meta">
           <div class="metric"><span>Prioridade</span><strong id="resultTemp">Em análise</strong></div>
@@ -730,45 +944,294 @@
   <script>
     const API_URL = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/analise-credito-submit";
 
-    const form = document.getElementById("leadForm");
-    const feedback = document.getElementById("feedback");
-    const submitBtn = document.getElementById("submitBtn");
+    const steps = [
+      {
+        id: "tipo_bem",
+        type: "choice",
+        layout: "visual",
+        title: "Qual bem você quer conquistar?",
+        subtitle: "Escolha a opção mais próxima do seu objetivo.",
+        options: [
+          {
+            label: "Imóvel",
+            value: "Imóvel",
+            detail: "Casa, apartamento ou terreno",
+            image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=720&q=70"
+          },
+          {
+            label: "Veículo",
+            value: "Veículo",
+            detail: "Carro para uso pessoal ou trabalho",
+            image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=720&q=70"
+          },
+          {
+            label: "Caminhão ou maquinário",
+            value: "Caminhão ou maquinário",
+            detail: "Estrutura para operar ou expandir",
+            image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=720&q=70"
+          },
+          {
+            label: "Investimento",
+            value: "Investimento",
+            detail: "Capital, serviço ou planejamento",
+            image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=720&q=70"
+          }
+        ]
+      },
+      {
+        id: "valor_credito",
+        type: "choice",
+        title: "Qual valor aproximado você procura?",
+        subtitle: "Pode ser uma estimativa. O consultor ajusta depois com você.",
+        options: [
+          { label: "Até R$ 100 mil", value: 100000, detail: "Primeira faixa", token: "1" },
+          { label: "R$ 100 mil a R$ 250 mil", value: 250000, detail: "Faixa intermediária", token: "2" },
+          { label: "R$ 250 mil a R$ 500 mil", value: 500000, detail: "Projeto maior", token: "3" },
+          { label: "Acima de R$ 500 mil", value: 750000, detail: "Carta alta", token: "4" }
+        ]
+      },
+      {
+        id: "valor_entrada",
+        type: "choice",
+        title: "Quanto você consegue separar de entrada?",
+        subtitle: "Use o valor que você considera viável hoje.",
+        options: [
+          { label: "Até R$ 5 mil", value: 5000, detail: "Entrada inicial", token: "A" },
+          { label: "R$ 5 mil a R$ 15 mil", value: 15000, detail: "Boa margem de início", token: "B" },
+          { label: "R$ 15 mil a R$ 40 mil", value: 40000, detail: "Perfil mais competitivo", token: "C" },
+          { label: "Acima de R$ 40 mil", value: 80000, detail: "Maior poder de negociação", token: "D" }
+        ]
+      },
+      {
+        id: "renda_mensal",
+        type: "choice",
+        title: "Qual sua renda mensal aproximada?",
+        subtitle: "Selecione uma faixa para orientar a simulação inicial.",
+        options: [
+          { label: "Até R$ 3 mil", value: 3000, detail: "Renda inicial", token: "3" },
+          { label: "R$ 3 mil a R$ 6 mil", value: 6000, detail: "Faixa comum", token: "6" },
+          { label: "R$ 6 mil a R$ 12 mil", value: 12000, detail: "Boa capacidade", token: "12" },
+          { label: "Acima de R$ 12 mil", value: 18000, detail: "Maior flexibilidade", token: "+" }
+        ]
+      },
+      {
+        id: "urgencia",
+        type: "choice",
+        title: "Quando você quer começar?",
+        subtitle: "Isso ajuda a definir a prioridade do atendimento.",
+        options: [
+          { label: "Agora", value: "Agora ou em até 30 dias", detail: "Quero conversar o quanto antes", token: "30" },
+          { label: "Nos próximos 30 dias", value: "Agora ou em até 30 dias", detail: "Estou comparando caminhos", token: "30" },
+          { label: "Em até 3 meses", value: "Em 1 a 3 meses", detail: "Quero me organizar", token: "90" },
+          { label: "Ainda estou entendendo", value: "Sem prazo definido", detail: "Quero orientação inicial", token: "?" }
+        ]
+      },
+      {
+        type: "interlude",
+        title: "Estamos montando seu perfil inicial.",
+        subtitle: "Suas respostas ajudam a indicar o melhor caminho de atendimento para o seu momento."
+      },
+      {
+        id: "duvida",
+        type: "choice",
+        title: "O que você mais quer entender agora?",
+        subtitle: "Escolha o ponto que mais pesa na sua decisão.",
+        options: [
+          { label: "Valor de parcela", value: "Dúvida principal: valor de parcela", detail: "Quero saber se cabe no mês", token: "R$" },
+          { label: "Como usar a entrada", value: "Dúvida principal: entrada disponível", detail: "Quero entender a melhor estratégia", token: "%" },
+          { label: "Tempo para contemplar", value: "Dúvida principal: prazo e contemplação", detail: "Quero clareza sobre o caminho", token: "T" },
+          { label: "Qual carta escolher", value: "Dúvida principal: valor de carta", detail: "Quero evitar escolher errado", token: "C" }
+        ]
+      },
+      {
+        type: "contact",
+        title: "Para onde enviamos sua orientação?",
+        subtitle: "Um consultor vai seguir pelo WhatsApp com base nas suas respostas."
+      }
+    ];
+
+    const quizStage = document.getElementById("quizStage");
+    const progressLabel = document.getElementById("progressLabel");
+    const progressFill = document.getElementById("progressFill");
+    const backBtn = document.getElementById("backBtn");
     const analysisModal = document.getElementById("analysisModal");
     const analysisBox = document.getElementById("analysisBox");
     const resultBox = document.getElementById("resultBox");
     const resultTemp = document.getElementById("resultTemp");
     const resultProtocol = document.getElementById("resultProtocol");
     const modalClose = document.getElementById("modalClose");
-    const moneyInputs = ["valor_credito", "valor_entrada", "renda_mensal"].map((id) => document.getElementById(id));
-    const phoneInput = document.getElementById("whatsapp");
-
     const params = new URLSearchParams(window.location.search);
+
+    let currentStep = 0;
+    let answers = {};
     let animationTimers = [];
+    let isSubmitting = false;
 
-    modalClose.addEventListener("click", hideAnalysisModal);
-
-    phoneInput.addEventListener("input", () => {
-      let value = phoneInput.value.replace(/\D/g, "").slice(0, 11);
-      if (value.length > 10) value = value.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, "($1) $2-$3");
-      else if (value.length > 6) value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
-      else if (value.length > 2) value = value.replace(/^(\d{2})(\d{0,5}).*/, "($1) $2");
-      else if (value.length > 0) value = value.replace(/^(\d{0,2}).*/, "($1");
-      phoneInput.value = value;
+    backBtn.addEventListener("click", () => {
+      if (isSubmitting || currentStep === 0) return;
+      currentStep -= 1;
+      renderStep();
     });
 
-    moneyInputs.forEach((input) => {
-      input.addEventListener("input", () => {
-        const value = parseMoney(input.value);
-        input.value = value ? formatBRL(value) : "";
+    modalClose.addEventListener("click", () => {
+      hideAnalysisModal();
+      resetQuiz();
+    });
+
+    renderStep();
+
+    function renderStep() {
+      const step = steps[currentStep];
+      const progress = ((currentStep + 1) / steps.length) * 100;
+      progressLabel.textContent = `Etapa ${currentStep + 1} de ${steps.length}`;
+      progressFill.style.width = `${progress}%`;
+      backBtn.hidden = currentStep === 0 || isSubmitting;
+
+      if (step.type === "interlude") {
+        quizStage.innerHTML = renderInterlude(step);
+        document.getElementById("continueBtn").addEventListener("click", goNext);
+        return;
+      }
+
+      if (step.type === "contact") {
+        quizStage.innerHTML = renderContact(step);
+        bindContactStep();
+        return;
+      }
+
+      quizStage.innerHTML = renderChoiceStep(step);
+      quizStage.querySelectorAll("[data-option]").forEach((button) => {
+        button.addEventListener("click", () => selectOption(button.dataset.option));
       });
-    });
+    }
 
-    form.addEventListener("submit", async (event) => {
+    function renderChoiceStep(step) {
+      const visual = step.layout === "visual";
+      return `
+        <div class="question">
+          <div class="question-head">
+            <h2 class="question-title" id="quizTitle">${step.title}</h2>
+            <p class="question-subtitle">${step.subtitle}</p>
+          </div>
+          <div class="choice-grid ${visual ? "visual-grid" : "list"}">
+            ${step.options.map((option, index) => renderOption(step, option, index)).join("")}
+          </div>
+        </div>
+      `;
+    }
+
+    function renderOption(step, option, index) {
+      const selected = answers[step.id] === option.value ? " selected" : "";
+      if (step.layout === "visual") {
+        return `
+          <button class="choice-card visual${selected}" type="button" data-option="${index}">
+            <img src="${option.image}" alt="">
+            <span class="choice-copy">
+              <span class="choice-label">${option.label}</span>
+              <span class="choice-detail">${option.detail}</span>
+            </span>
+          </button>
+        `;
+      }
+
+      return `
+        <button class="choice-card list${selected}" type="button" data-option="${index}">
+          <span class="choice-token">${option.token}</span>
+          <span class="choice-copy">
+            <span class="choice-label">${option.label}</span>
+            <span class="choice-detail">${option.detail}</span>
+          </span>
+        </button>
+      `;
+    }
+
+    function renderInterlude(step) {
+      return `
+        <div class="interlude">
+          <div class="question-head">
+            <p class="eyebrow">Perfil inicial</p>
+            <h2 class="question-title" id="quizTitle">${step.title}</h2>
+            <p class="question-subtitle">${step.subtitle}</p>
+          </div>
+          <div class="interlude-visual" aria-hidden="true">
+            <span class="data-line"><span style="width: 66%"></span></span>
+            <span class="data-line"><span></span></span>
+            <span class="data-line"><span></span></span>
+            <span class="data-line"><span></span></span>
+          </div>
+          <button class="btn secondary" id="continueBtn" type="button">Continuar →</button>
+        </div>
+      `;
+    }
+
+    function renderContact(step) {
+      return `
+        <form class="contact-form" id="leadForm" novalidate>
+          <div class="question-head">
+            <h2 class="question-title" id="quizTitle">${step.title}</h2>
+            <p class="question-subtitle">${step.subtitle}</p>
+          </div>
+
+          <div class="summary">
+            <div class="summary-item"><span>Objetivo</span><strong>${getLabel("tipo_bem")}</strong></div>
+            <div class="summary-item"><span>Valor</span><strong>${getLabel("valor_credito")}</strong></div>
+            <div class="summary-item"><span>Entrada</span><strong>${getLabel("valor_entrada")}</strong></div>
+          </div>
+
+          <div class="form-grid">
+            <div class="field full">
+              <label for="nome">Nome completo</label>
+              <input id="nome" name="nome" autocomplete="name" required minlength="2" placeholder="Seu nome">
+            </div>
+
+            <div class="field">
+              <label for="whatsapp">WhatsApp</label>
+              <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000">
+            </div>
+
+            <div class="field">
+              <label for="cidade">Cidade</label>
+              <input id="cidade" name="cidade" autocomplete="address-level2" placeholder="Ex: Parauapebas">
+            </div>
+          </div>
+
+          <div class="feedback" id="feedback" role="alert"></div>
+          <button class="btn" id="submitBtn" type="submit">Receber orientação →</button>
+        </form>
+      `;
+    }
+
+    function selectOption(index) {
+      const step = steps[currentStep];
+      const option = step.options[Number(index)];
+      answers[step.id] = option.value;
+      answers[`${step.id}_label`] = option.label;
+      quizStage.querySelectorAll(".choice-card").forEach((card) => card.classList.remove("selected"));
+      quizStage.querySelector(`[data-option="${index}"]`).classList.add("selected");
+      window.setTimeout(goNext, 180);
+    }
+
+    function goNext() {
+      currentStep = Math.min(currentStep + 1, steps.length - 1);
+      renderStep();
+    }
+
+    function bindContactStep() {
+      const form = document.getElementById("leadForm");
+      const phoneInput = document.getElementById("whatsapp");
+      phoneInput.addEventListener("input", () => formatPhoneInput(phoneInput));
+      form.addEventListener("submit", submitLead);
+    }
+
+    async function submitLead(event) {
       event.preventDefault();
-      hideFeedback();
+      const form = event.currentTarget;
+      const feedback = document.getElementById("feedback");
+      const submitBtn = document.getElementById("submitBtn");
+      hideFeedback(feedback);
 
       if (!form.checkValidity()) {
-        showFeedback("Confere os campos obrigatórios antes de iniciar a pré-análise.");
+        showFeedback(feedback, "Confere seu nome e WhatsApp antes de enviar.");
         return;
       }
 
@@ -776,20 +1239,24 @@
         nome: form.nome.value.trim(),
         whatsapp: form.whatsapp.value.trim(),
         cidade: form.cidade.value.trim(),
-        tipo_bem: form.tipo_bem.value,
-        valor_credito: parseMoney(form.valor_credito.value),
-        valor_entrada: parseMoney(form.valor_entrada.value),
-        renda_mensal: parseMoney(form.renda_mensal.value),
-        urgencia: form.urgencia.value,
-        experiencia_consorcio: "",
+        tipo_bem: answers.tipo_bem || "",
+        valor_credito: Number(answers.valor_credito || 0),
+        valor_entrada: Number(answers.valor_entrada || 0),
+        renda_mensal: Number(answers.renda_mensal || 0),
+        urgencia: answers.urgencia || "",
+        experiencia_consorcio: answers.duvida || "",
         consentimento_lgpd: true,
         utm_source: params.get("utm_source") || "",
         utm_campaign: params.get("utm_campaign") || "",
-        client_slug: params.get("client_slug") || "default"
+        client_slug: params.get("client_slug") || "default",
+        quiz_version: "v2-visual",
+        quiz_answers: answers
       };
 
+      isSubmitting = true;
       submitBtn.disabled = true;
       submitBtn.textContent = "Analisando...";
+      backBtn.hidden = true;
       startAnalysisAnimation();
 
       try {
@@ -803,7 +1270,7 @@
         ]);
 
         const data = await response.json().catch(() => ({}));
-        if (!response.ok || !data.success) throw new Error(data.error || "Não foi possível salvar a análise.");
+        if (!response.ok || !data.success) throw new Error(data.error || "Não foi possível salvar a pré-análise.");
 
         completeAnalysis();
         resultTemp.textContent = labelTemperature(data.temperatura);
@@ -812,13 +1279,34 @@
         resultBox.classList.add("visible");
         form.reset();
       } catch (error) {
-        showFeedback(error.message || "Não foi possível enviar agora. Tente de novo em instantes.");
+        showFeedback(feedback, error.message || "Não foi possível enviar agora. Tente de novo em instantes.");
         hideAnalysisModal();
       } finally {
+        isSubmitting = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = "Iniciar pré-análise →";
+        submitBtn.textContent = "Receber orientação →";
+        backBtn.hidden = currentStep === 0;
       }
-    });
+    }
+
+    function getLabel(id) {
+      return answers[`${id}_label`] || "Selecionado";
+    }
+
+    function formatPhoneInput(input) {
+      let value = input.value.replace(/\D/g, "").slice(0, 11);
+      if (value.length > 10) value = value.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, "($1) $2-$3");
+      else if (value.length > 6) value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+      else if (value.length > 2) value = value.replace(/^(\d{2})(\d{0,5}).*/, "($1) $2");
+      else if (value.length > 0) value = value.replace(/^(\d{0,2}).*/, "($1");
+      input.value = value;
+    }
+
+    function resetQuiz() {
+      currentStep = 0;
+      answers = {};
+      renderStep();
+    }
 
     function startAnalysisAnimation() {
       clearAnalysisTimers();
@@ -871,32 +1359,19 @@
       animationTimers = [];
     }
 
-    function parseMoney(value) {
-      const digits = String(value || "").replace(/\D/g, "");
-      return digits ? Number(digits) : 0;
-    }
-
-    function formatBRL(value) {
-      return Number(value || 0).toLocaleString("pt-BR", {
-        style: "currency",
-        currency: "BRL",
-        maximumFractionDigits: 0
-      });
-    }
-
     function labelTemperature(value) {
       const map = { quente: "Alta", morno: "Média", frio: "Baixa" };
       return map[value] || "Registrada";
     }
 
-    function showFeedback(message) {
-      feedback.textContent = message;
-      feedback.classList.add("visible");
+    function showFeedback(element, message) {
+      element.textContent = message;
+      element.classList.add("visible");
     }
 
-    function hideFeedback() {
-      feedback.textContent = "";
-      feedback.classList.remove("visible");
+    function hideFeedback(element) {
+      element.textContent = "";
+      element.classList.remove("visible");
     }
 
     function wait(ms) {
