@@ -1337,13 +1337,13 @@
     <div class="analysis-card">
       <div class="analysis" id="analysisBox" aria-live="polite">
         <div>
-          <p class="analysis-title" id="analysisTitle">Montando seu perfil</p>
-          <p class="analysis-subtitle">Estamos organizando suas respostas para preparar uma orientação inicial.</p>
+          <p class="analysis-title" id="analysisTitle">Enviando suas respostas</p>
+          <p class="analysis-subtitle">Estamos deixando tudo pronto para te chamar no WhatsApp.</p>
         </div>
 
         <div class="analysis-dashboard" aria-hidden="true">
           <div class="analysis-ring" id="analysisRing">
-            <div><strong id="analysisPercent">18</strong><span>perfil</span></div>
+            <div><strong id="analysisPercent">18</strong><span>ok</span></div>
           </div>
           <div class="analysis-bars">
             <span>Objetivo <i style="--w: 76%"></i></span>
@@ -1354,22 +1354,22 @@
         </div>
 
         <div class="steps">
-          <div class="step" data-step="0"><span class="dot"><i data-lucide="target"></i></span><span>Objetivo mapeado</span><span class="state">Pendente</span></div>
-          <div class="step" data-step="1"><span class="dot"><i data-lucide="percent"></i></span><span>Entrada posicionada</span><span class="state">Pendente</span></div>
-          <div class="step" data-step="2"><span class="dot"><i data-lucide="bar-chart-3"></i></span><span>Faixa mensal organizada</span><span class="state">Pendente</span></div>
-          <div class="step" data-step="3"><span class="dot"><i data-lucide="route"></i></span><span>Próximo passo definido</span><span class="state">Pendente</span></div>
+          <div class="step" data-step="0"><span class="dot"><i data-lucide="target"></i></span><span>Objetivo recebido</span><span class="state">Aguarde</span></div>
+          <div class="step" data-step="1"><span class="dot"><i data-lucide="percent"></i></span><span>Valores recebidos</span><span class="state">Aguarde</span></div>
+          <div class="step" data-step="2"><span class="dot"><i data-lucide="bar-chart-3"></i></span><span>Contato confirmado</span><span class="state">Aguarde</span></div>
+          <div class="step" data-step="3"><span class="dot"><i data-lucide="message-circle"></i></span><span>WhatsApp pronto</span><span class="state">Aguarde</span></div>
         </div>
       </div>
 
       <div class="result" id="resultBox" aria-live="polite">
-        <span class="status">Perfil pronto</span>
-        <h3>Seu atendimento já pode começar.</h3>
-        <p>Um consultor vai te chamar no WhatsApp com uma orientação para o seu caso.</p>
+        <span class="status">Tudo certo</span>
+        <h3>Recebemos suas respostas.</h3>
+        <p>Um consultor vai te chamar no WhatsApp para continuar.</p>
         <div class="result-meta">
-          <div class="metric"><span>Prioridade</span><strong id="resultTemp">Em análise</strong></div>
-          <div class="metric"><span>Protocolo</span><strong id="resultProtocol">--</strong></div>
+          <div class="metric"><span>Status</span><strong id="resultTemp">Recebido</strong></div>
+          <div class="metric"><span>Código</span><strong id="resultProtocol">--</strong></div>
         </div>
-        <button class="primary-btn modal-action" id="modalClose" type="button">Continuar <i data-lucide="arrow-right"></i></button>
+        <button class="primary-btn modal-action" id="modalClose" type="button">Finalizar <i data-lucide="arrow-right"></i></button>
       </div>
     </div>
   </div>
@@ -1384,7 +1384,7 @@
         type: "visual",
         section: "Comece pelo objetivo",
         title: "Pré-análise Hurtz",
-        subtitle: "Escolha o que você quer planejar agora.",
+        subtitle: "Escolha o que você quer conquistar.",
         prompt: "O que você quer conquistar?",
         options: [
           {
@@ -1420,22 +1420,22 @@
       {
         type: "contact",
         section: "Seus dados",
-        title: "Para onde enviamos sua orientação?",
-        subtitle: "Depois disso, seguimos com as faixas para entender seu momento."
+        title: "Qual seu WhatsApp?",
+        subtitle: "A gente vai usar esse número para te chamar depois que você terminar."
       },
       {
         id: "valor_credito",
         type: "range",
-        section: "Tamanho do plano",
-        title: "Qual valor você quer planejar?",
-        subtitle: "Escolha a faixa mais próxima.",
+        section: "Valor desejado",
+        title: "Qual valor você está buscando?",
+        subtitle: "Pode ser aproximado.",
         insightIcon: "line-chart",
-        insight: () => `${getLabel("tipo_bem")} costuma ficar mais claro quando a gente começa pelo valor aproximado.`,
+        insight: () => `Escolha uma faixa de valor parecida com o que você procura.`,
         options: [
-          { label: "Até R$ 100 mil", value: 100000, detail: "Plano de menor valor", icon: "badge-dollar-sign" },
-          { label: "R$ 100 mil a R$ 250 mil", value: 250000, detail: "Faixa intermediária", icon: "landmark" },
-          { label: "R$ 250 mil a R$ 500 mil", value: 500000, detail: "Objetivo maior", icon: "building-2" },
-          { label: "Acima de R$ 500 mil", value: 750000, detail: "Carta mais alta", icon: "gem" }
+          { label: "Até R$ 100 mil", value: 100000, detail: "Para um valor menor", icon: "badge-dollar-sign" },
+          { label: "R$ 100 mil a R$ 250 mil", value: 250000, detail: "Uma faixa intermediária", icon: "landmark" },
+          { label: "R$ 250 mil a R$ 500 mil", value: 500000, detail: "Para um objetivo maior", icon: "building-2" },
+          { label: "Acima de R$ 500 mil", value: 750000, detail: "Para valores mais altos", icon: "gem" }
         ]
       },
       {
@@ -1443,65 +1443,65 @@
         type: "meter",
         section: "Entrada disponível",
         title: "Quanto você já consegue separar?",
-        subtitle: "A entrada mostra o quanto o plano pode começar mais organizado.",
+        subtitle: "Escolha uma faixa que faça sentido hoje.",
         insightIcon: "badge-percent",
-        insight: () => `Para ${getLabel("valor_credito").toLowerCase()}, a entrada muda o caminho de orientação.`,
+        insight: () => `Marque uma faixa próxima do dinheiro que você tem separado hoje.`,
         options: [
-          { label: "Até R$ 5 mil", value: 5000, detail: "Estou começando agora", level: "Início", gauge: 22, icon: "wallet-cards" },
-          { label: "R$ 5 mil a R$ 15 mil", value: 15000, detail: "Tenho uma reserva inicial", level: "Base", gauge: 44, icon: "piggy-bank" },
-          { label: "R$ 15 mil a R$ 40 mil", value: 40000, detail: "Tenho uma entrada mais forte", level: "Forte", gauge: 68, icon: "trending-up" },
-          { label: "Acima de R$ 40 mil", value: 80000, detail: "Quero usar uma entrada maior", level: "Alta", gauge: 88, icon: "circle-dollar-sign" }
+          { label: "Até R$ 5 mil", value: 5000, detail: "Tenho pouco separado agora", level: "Até 5k", gauge: 22, icon: "wallet-cards" },
+          { label: "R$ 5 mil a R$ 15 mil", value: 15000, detail: "Tenho uma reserva inicial", level: "5-15k", gauge: 44, icon: "piggy-bank" },
+          { label: "R$ 15 mil a R$ 40 mil", value: 40000, detail: "Tenho uma entrada maior", level: "15-40k", gauge: 68, icon: "trending-up" },
+          { label: "Acima de R$ 40 mil", value: 80000, detail: "Consigo separar mais de R$ 40 mil", level: "40k+", gauge: 88, icon: "circle-dollar-sign" }
         ]
       },
       {
         id: "renda_mensal",
         type: "bars",
-        section: "Perfil mensal",
-        title: "Qual faixa mais se aproxima da sua renda?",
-        subtitle: "Escolha a opção mais confortável para seguir.",
+        section: "Renda mensal",
+        title: "Qual é sua renda mensal aproximada?",
+        subtitle: "Marque a faixa mais próxima.",
         insightIcon: "bar-chart-3",
-        insight: () => `Agora vamos cruzar o objetivo com uma faixa mensal confortável.`,
+        insight: () => `Escolha a faixa que mais parece com sua renda de hoje.`,
         options: [
-          { label: "Até R$ 3 mil", value: 3000, detail: "Renda inicial", bar: 30, icon: "bar-chart" },
-          { label: "R$ 3 mil a R$ 6 mil", value: 6000, detail: "Faixa intermediária", bar: 48, icon: "bar-chart-2" },
-          { label: "R$ 6 mil a R$ 12 mil", value: 12000, detail: "Boa capacidade mensal", bar: 70, icon: "bar-chart-3" },
-          { label: "Acima de R$ 12 mil", value: 18000, detail: "Maior flexibilidade", bar: 92, icon: "bar-chart-4" }
+          { label: "Até R$ 3 mil", value: 3000, detail: "Até R$ 3 mil por mês", bar: 30, icon: "bar-chart" },
+          { label: "R$ 3 mil a R$ 6 mil", value: 6000, detail: "Entre R$ 3 mil e R$ 6 mil", bar: 48, icon: "bar-chart-2" },
+          { label: "R$ 6 mil a R$ 12 mil", value: 12000, detail: "Entre R$ 6 mil e R$ 12 mil", bar: 70, icon: "bar-chart-3" },
+          { label: "Acima de R$ 12 mil", value: 18000, detail: "Mais de R$ 12 mil por mês", bar: 92, icon: "bar-chart-4" }
         ]
       },
       {
         id: "urgencia",
         type: "timeline",
-        section: "Momento",
-        title: "Quando você quer dar o próximo passo?",
-        subtitle: "O prazo muda a forma de orientar sua estratégia.",
+        section: "Prazo",
+        title: "Quando você quer começar?",
+        subtitle: "Escolha o prazo mais próximo.",
         insightIcon: "calendar-clock",
-        insight: () => `Com entrada e renda mapeadas, o prazo ajuda a definir prioridade de atendimento.`,
+        insight: () => `Marque o prazo que combina melhor com o que você quer fazer.`,
         options: [
-          { label: "Agora", value: "Agora ou em até 30 dias", detail: "Quero falar com alguém logo", chip: "Hoje", icon: "zap" },
-          { label: "Nos próximos 30 dias", value: "Agora ou em até 30 dias", detail: "Estou comparando opções", chip: "30d", icon: "calendar-days" },
-          { label: "Em até 3 meses", value: "Em 1 a 3 meses", detail: "Quero me organizar melhor", chip: "90d", icon: "calendar-range" },
-          { label: "Ainda estou entendendo", value: "Sem prazo definido", detail: "Quero só uma orientação inicial", chip: "Ver", icon: "search" }
+          { label: "Agora", value: "Agora ou em até 30 dias", detail: "Quero começar logo", chip: "Hoje", icon: "zap" },
+          { label: "Nos próximos 30 dias", value: "Agora ou em até 30 dias", detail: "Quero ver isso ainda este mês", chip: "30d", icon: "calendar-days" },
+          { label: "Em até 3 meses", value: "Em 1 a 3 meses", detail: "Quero me organizar primeiro", chip: "90d", icon: "calendar-range" },
+          { label: "Ainda estou entendendo", value: "Sem prazo definido", detail: "Estou pesquisando as opções", chip: "Ver", icon: "search" }
         ]
       },
       {
         type: "interlude",
-        section: "Seu perfil",
-        title: "Organizando seu perfil",
+        section: "Carregando",
+        title: "Carregando suas respostas",
         subtitle: "Só mais um instante."
       },
       {
         id: "duvida",
         type: "insights",
-        section: "Ponto principal",
-        title: "O que você quer clarear primeiro?",
-        subtitle: "Escolha o assunto que mais pesa na sua decisão.",
+        section: "Dúvida principal",
+        title: "O que você quer entender primeiro?",
+        subtitle: "Marque o ponto que mais pesa na sua decisão.",
         insightIcon: "messages-square",
-        insight: () => `Seu resumo inicial está pronto. Falta só entender qual ponto precisa vir primeiro na orientação.`,
+        insight: () => `Escolha o assunto que você quer resolver primeiro no WhatsApp.`,
         options: [
-          { label: "Valor de parcela", value: "Dúvida principal: valor de parcela", detail: "Quero saber se cabe no mês", icon: "receipt" },
-          { label: "Como usar a entrada", value: "Dúvida principal: entrada disponível", detail: "Quero saber qual estratégia faz sentido", icon: "badge-percent" },
-          { label: "Tempo para contemplar", value: "Dúvida principal: prazo e contemplação", detail: "Quero entender o caminho", icon: "clock-3" },
-          { label: "Qual carta escolher", value: "Dúvida principal: valor de carta", detail: "Quero evitar começar errado", icon: "layers-3" }
+          { label: "Valor de parcela", value: "Dúvida principal: valor de parcela", detail: "Quero saber se cabe no meu mês", icon: "receipt" },
+          { label: "Como usar a entrada", value: "Dúvida principal: entrada disponível", detail: "Quero usar melhor o dinheiro que tenho", icon: "badge-percent" },
+          { label: "Tempo para contemplar", value: "Dúvida principal: prazo e contemplação", detail: "Quero entender os prazos", icon: "clock-3" },
+          { label: "Qual carta escolher", value: "Dúvida principal: valor de carta", detail: "Quero escolher um valor sem errar", icon: "layers-3" }
         ]
       }
     ];
@@ -1588,7 +1588,7 @@
           <span class="context-icon"><i data-lucide="${step.insightIcon || "sparkles"}"></i></span>
           <span>
             <strong>${step.insight()}</strong>
-            <span>Responda por aproximação. O ajuste fino fica para o atendimento.</span>
+            <span>Pode marcar por aproximação.</span>
           </span>
         </div>
       `;
@@ -1614,7 +1614,7 @@
             <span class="context-icon"><i data-lucide="compass"></i></span>
             <span>
               <strong>${step.prompt}</strong>
-              <span>A primeira escolha define o tipo de planejamento.</span>
+              <span>Toque na opção que mais combina com você.</span>
             </span>
           </div>
           <div class="visual-grid">
@@ -1676,8 +1676,8 @@
                 <div><strong>${entryRatioLabel()}</strong><span>entrada</span></div>
               </div>
               <div class="meter-copy">
-                <strong>A entrada funciona como uma alavanca de organização.</strong>
-                <span>Escolha uma faixa realista para o seu momento atual.</span>
+                <strong>Não precisa ser o valor exato.</strong>
+                <span>Marque o que você consegue considerar hoje.</span>
               </div>
             </div>
             <div class="choice-stack">
@@ -1710,8 +1710,8 @@
                 <i style="--h: 92%" data-label="+12"></i>
               </div>
               <div class="chart-copy">
-                <strong>A renda ajuda a entender o conforto mensal.</strong>
-                <span>A resposta não precisa ser exata. Escolha a faixa mais próxima.</span>
+                <strong>Pense no que entra por mês.</strong>
+                <span>Escolha a faixa mais parecida com sua renda atual.</span>
               </div>
             </div>
             <div class="choice-stack">
@@ -1743,8 +1743,8 @@
               <span class="time-node"><i></i>entender</span>
             </div>
             <div class="timeline-copy">
-              <strong>Prazo curto pede uma conversa mais direta.</strong>
-              <span>Se ainda estiver pesquisando, a orientação começa pelo caminho mais seguro para comparar.</span>
+              <strong>Escolha o prazo mais realista.</strong>
+              <span>Se ainda estiver pesquisando, pode marcar que está entendendo.</span>
             </div>
             <div class="choice-stack">
               ${step.options.map((option, index) => `
@@ -1903,7 +1903,7 @@
         ]);
 
         const data = await response.json().catch(() => ({}));
-        if (!response.ok || !data.success) throw new Error(data.error || "Não foi possível salvar a pré-análise.");
+        if (!response.ok || !data.success) throw new Error(data.error || "Não conseguimos enviar agora.");
 
         completeAnalysis();
         resultTemp.textContent = labelTemperature(data.temperatura);
@@ -1913,7 +1913,7 @@
         refreshIcons();
       } catch (error) {
         hideAnalysisModal();
-        showStageFeedback(error.message || "Não foi possível enviar agora. Tente de novo em instantes.");
+        showStageFeedback(error.message || "Não conseguimos enviar agora. Tente de novo em instantes.");
       } finally {
         isSubmitting = false;
         backBtn.hidden = currentStep === 0 || steps[currentStep]?.type === "interlude";
@@ -1988,7 +1988,7 @@
       refreshIcons();
       document.querySelectorAll(".step").forEach((step) => {
         step.classList.remove("active", "done");
-        step.querySelector(".state").textContent = "Pendente";
+        step.querySelector(".state").textContent = "Aguarde";
       });
 
       const ringValues = [24, 42, 64, 82, 100];
@@ -2003,7 +2003,7 @@
       document.querySelectorAll(".step").forEach((step, index) => {
         const activeTimer = setTimeout(() => {
           step.classList.add("active");
-          step.querySelector(".state").textContent = "Organizando";
+          step.querySelector(".state").textContent = "Conferindo";
         }, 360 + index * 700);
 
         const doneTimer = setTimeout(() => {
@@ -2048,8 +2048,8 @@
     }
 
     function labelTemperature(value) {
-      const map = { quente: "Alta", morno: "Média", frio: "Inicial" };
-      return map[value] || "Registrada";
+      const map = { quente: "Recebido", morno: "Recebido", frio: "Recebido" };
+      return map[value] || "Recebido";
     }
 
     function showFeedback(element, message) {
