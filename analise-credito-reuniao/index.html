@@ -85,13 +85,13 @@
 
     .layout {
       display: grid;
-      grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
-      gap: 24px;
+      grid-template-columns: minmax(220px, 0.58fr) minmax(520px, 1.42fr);
+      gap: 32px;
       align-items: start;
     }
 
     .intro {
-      padding: 12px 0 0;
+      padding: 10px 0 0;
     }
 
     .eyebrow {
@@ -110,50 +110,13 @@
     }
 
     h1 {
-      max-width: 420px;
+      max-width: 320px;
       margin: 0;
       color: var(--carvao);
       font-size: clamp(28px, 3.2vw, 42px);
       line-height: 1.08;
       letter-spacing: 0;
       font-weight: 700;
-    }
-
-    .lede {
-      max-width: 500px;
-      margin: 12px 0 0;
-      color: var(--grafite);
-      font-size: 15px;
-    }
-
-    .proof-row {
-      display: grid;
-      grid-template-columns: repeat(3, minmax(0, 1fr));
-      gap: 10px;
-      max-width: 560px;
-      margin-top: 20px;
-    }
-
-    .proof {
-      min-height: 86px;
-      border: 1px solid var(--linha-banco);
-      border-radius: var(--radius);
-      background: var(--offwhite);
-      padding: 14px;
-    }
-
-    .proof strong {
-      display: block;
-      margin-bottom: 4px;
-      font-size: 22px;
-      line-height: 1;
-      color: var(--carvao);
-    }
-
-    .proof span {
-      color: var(--pedra);
-      font-size: 12px;
-      line-height: 1.35;
     }
 
     .panel {
@@ -431,16 +394,6 @@
         font-size: 28px;
       }
 
-      .lede {
-        max-width: 100%;
-        font-size: 14px;
-        line-height: 1.5;
-      }
-
-      .proof-row {
-        display: none;
-      }
-
       .form-grid,
       .result-meta {
         grid-template-columns: 1fr;
@@ -481,13 +434,6 @@
         <div class="eyebrow">Dados principais</div>
         <div class="accent" aria-hidden="true"></div>
         <h1>Pré-análise Hurtz</h1>
-        <p class="lede">Informe os valores principais para receber uma orientação inicial pelo WhatsApp.</p>
-
-        <div class="proof-row" aria-label="Resumo da análise">
-          <div class="proof"><strong>30s</strong><span>para informar os valores principais.</span></div>
-          <div class="proof"><strong>3</strong><span>dados financeiros essenciais.</span></div>
-          <div class="proof"><strong>1</strong><span>retorno inicial pelo WhatsApp.</span></div>
-        </div>
       </section>
 
       <section class="panel" aria-labelledby="form-title">
