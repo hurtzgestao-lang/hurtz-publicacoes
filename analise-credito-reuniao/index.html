@@ -1,0 +1,759 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="robots" content="noindex,nofollow">
+  <meta name="description" content="Pré-análise para reunião presencial.">
+  <title>Pré-análise para reunião presencial · Hurtz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --brasa: #C06018;
+      --brasa-hover: #974A12;
+      --brasa-50: #F9EDE3;
+      --brasa-900: #2C1404;
+      --carvao: #181614;
+      --grafite: #3D3A36;
+      --pedra: #8C8880;
+      --areia: #E8E4DC;
+      --offwhite: #F5F2EC;
+      --resultado: #1A7A4A;
+      --critico: #B52A2A;
+      --info: #3A6FBF;
+      --radius: 4px;
+      --radius-lg: 8px;
+      --font: Inter, Helvetica, Arial, sans-serif;
+    }
+
+    *, *::before, *::after { box-sizing: border-box; }
+    html, body { margin: 0; padding: 0; }
+
+    body {
+      min-height: 100vh;
+      background: var(--offwhite);
+      color: var(--carvao);
+      font-family: var(--font);
+      font-size: 15px;
+      line-height: 1.6;
+      -webkit-font-smoothing: antialiased;
+      text-rendering: optimizeLegibility;
+    }
+
+    button,
+    input,
+    select {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      cursor: pointer;
+    }
+
+    .page {
+      width: min(100% - 32px, 1120px);
+      margin: 0 auto;
+      padding: 28px 0 52px;
+    }
+
+    .brand {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 34px;
+    }
+
+    .brand img {
+      width: 112px;
+      height: auto;
+      display: block;
+    }
+
+    .brand-tag {
+      color: var(--pedra);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      text-align: right;
+    }
+
+    .layout {
+      display: grid;
+      grid-template-columns: minmax(0, 0.95fr) minmax(360px, 1.05fr);
+      gap: 24px;
+      align-items: start;
+    }
+
+    .intro {
+      padding: 22px 0 0;
+    }
+
+    .eyebrow {
+      color: var(--brasa);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .accent {
+      width: 58px;
+      height: 2px;
+      margin: 18px 0 22px;
+      background: var(--brasa);
+    }
+
+    h1 {
+      max-width: 540px;
+      margin: 0;
+      color: var(--carvao);
+      font-size: clamp(32px, 5vw, 58px);
+      line-height: 1.05;
+      letter-spacing: 0;
+      font-weight: 700;
+    }
+
+    .lede {
+      max-width: 500px;
+      margin: 18px 0 0;
+      color: var(--grafite);
+      font-size: 16px;
+    }
+
+    .proof-row {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      max-width: 560px;
+      margin-top: 28px;
+    }
+
+    .proof {
+      min-height: 86px;
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 14px;
+    }
+
+    .proof strong {
+      display: block;
+      margin-bottom: 4px;
+      font-size: 22px;
+      line-height: 1;
+      color: var(--carvao);
+    }
+
+    .proof span {
+      color: var(--pedra);
+      font-size: 12px;
+      line-height: 1.35;
+    }
+
+    .panel {
+      border: 1px solid var(--areia);
+      border-radius: var(--radius-lg);
+      background: #FFFFFF;
+      overflow: hidden;
+    }
+
+    .panel-head {
+      padding: 20px;
+      border-bottom: 1px solid var(--areia);
+      background: var(--carvao);
+      color: var(--offwhite);
+    }
+
+    .panel-head h2 {
+      margin: 0 0 4px;
+      font-size: 20px;
+      line-height: 1.18;
+      letter-spacing: 0;
+    }
+
+    .panel-head p {
+      margin: 0;
+      color: var(--areia);
+      font-size: 13px;
+    }
+
+    form {
+      display: grid;
+      gap: 16px;
+      padding: 20px;
+    }
+
+    .form-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+
+    .field {
+      display: grid;
+      gap: 7px;
+    }
+
+    .field.full {
+      grid-column: 1 / -1;
+    }
+
+    label {
+      color: var(--carvao);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.10em;
+      text-transform: uppercase;
+    }
+
+    input,
+    select {
+      width: 100%;
+      min-height: 48px;
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: var(--offwhite);
+      color: var(--carvao);
+      padding: 12px 13px;
+      outline: none;
+      transition: border-color 120ms ease, background-color 120ms ease;
+    }
+
+    input:focus,
+    select:focus {
+      border-color: var(--carvao);
+      background: #FFFFFF;
+    }
+
+    .consent {
+      display: grid;
+      grid-template-columns: 18px 1fr;
+      gap: 10px;
+      align-items: start;
+      color: var(--grafite);
+      font-size: 12px;
+      line-height: 1.45;
+    }
+
+    .consent input {
+      min-height: 18px;
+      height: 18px;
+      margin: 2px 0 0;
+      accent-color: var(--brasa);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      min-height: 52px;
+      width: 100%;
+      border-radius: var(--radius);
+      background: var(--brasa);
+      color: #FFFFFF;
+      font-size: 15px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      transition: background-color 120ms ease;
+    }
+
+    .btn:hover { background: var(--brasa-hover); }
+    .btn:active { background: var(--brasa-900); }
+    .btn:disabled {
+      background: var(--pedra);
+      cursor: not-allowed;
+    }
+
+    .feedback {
+      display: none;
+      border-left: 3px solid var(--critico);
+      background: var(--offwhite);
+      padding: 12px 14px;
+      color: var(--carvao);
+      font-size: 13px;
+    }
+
+    .feedback.visible { display: block; }
+
+    .analysis {
+      display: none;
+      padding: 20px;
+      border-top: 1px solid var(--areia);
+      background: var(--offwhite);
+    }
+
+    .analysis.visible { display: block; }
+
+    .analysis-title {
+      margin: 0 0 14px;
+      color: var(--carvao);
+      font-size: 16px;
+      font-weight: 700;
+    }
+
+    .steps {
+      display: grid;
+      gap: 10px;
+    }
+
+    .step {
+      display: grid;
+      grid-template-columns: 20px 1fr auto;
+      gap: 10px;
+      align-items: center;
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 11px 12px;
+      color: var(--grafite);
+      font-size: 13px;
+    }
+
+    .dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--areia);
+    }
+
+    .step.active .dot { background: var(--brasa); }
+    .step.done .dot { background: var(--resultado); }
+    .step.done .state { color: var(--resultado); }
+
+    .state {
+      color: var(--pedra);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .result {
+      display: none;
+      padding: 20px;
+      border-top: 1px solid var(--areia);
+      background: var(--brasa-50);
+    }
+
+    .result.visible { display: block; }
+
+    .result .status {
+      display: inline-flex;
+      align-items: center;
+      gap: 7px;
+      min-height: 28px;
+      padding: 5px 10px;
+      border-radius: 999px;
+      background: #FFFFFF;
+      color: var(--resultado);
+      font-size: 11px;
+      font-weight: 700;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+    }
+
+    .result .status::before {
+      content: "";
+      width: 7px;
+      height: 7px;
+      border-radius: 50%;
+      background: currentColor;
+    }
+
+    .result h3 {
+      margin: 14px 0 8px;
+      color: var(--carvao);
+      font-size: 24px;
+      line-height: 1.15;
+    }
+
+    .result p {
+      margin: 0;
+      color: var(--grafite);
+    }
+
+    .result-meta {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      margin-top: 16px;
+    }
+
+    .metric {
+      border: 1px solid var(--areia);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+      padding: 12px;
+    }
+
+    .metric span {
+      display: block;
+      color: var(--pedra);
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+    }
+
+    .metric strong {
+      display: block;
+      margin-top: 4px;
+      color: var(--carvao);
+      font-size: 18px;
+      line-height: 1.1;
+    }
+
+    .footnote {
+      margin-top: 18px;
+      color: var(--pedra);
+      font-size: 11px;
+      line-height: 1.55;
+    }
+
+    @media (max-width: 860px) {
+      .page {
+        width: min(100% - 24px, 560px);
+        padding: 20px 0 34px;
+      }
+
+      .brand {
+        margin-bottom: 24px;
+      }
+
+      .brand-tag {
+        max-width: 170px;
+      }
+
+      .layout {
+        grid-template-columns: 1fr;
+        gap: 22px;
+      }
+
+      .intro {
+        padding: 0;
+      }
+
+      .lede {
+        font-size: 15px;
+      }
+
+      .proof-row {
+        grid-template-columns: 1fr;
+        margin-top: 20px;
+      }
+
+      .proof {
+        min-height: auto;
+      }
+
+      .form-grid,
+      .result-meta {
+        grid-template-columns: 1fr;
+      }
+    }
+
+    @media (max-width: 420px) {
+      .brand img {
+        width: 98px;
+      }
+
+      .brand-tag {
+        font-size: 10px;
+      }
+
+      h1 {
+        font-size: 31px;
+      }
+
+      form,
+      .panel-head,
+      .analysis,
+      .result {
+        padding: 16px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="page">
+    <header class="brand" aria-label="Hurtz Company">
+      <img src="./assets/logo-atual-claro.png" alt="Hurtz">
+      <div class="brand-tag">Análise para atendimento presencial</div>
+    </header>
+
+    <div class="layout">
+      <section class="intro">
+        <div class="eyebrow">Pré-análise · WhatsApp</div>
+        <div class="accent" aria-hidden="true"></div>
+        <h1>Veja se seu perfil está pronto para uma reunião presencial.</h1>
+        <p class="lede">Preencha os dados principais do crédito. O vendedor recebe a ficha completa no CRM e usa o resultado como gancho para te chamar no WhatsApp.</p>
+
+        <div class="proof-row" aria-label="Resumo da análise">
+          <div class="proof"><strong>30s</strong><span>para preencher os dados principais.</span></div>
+          <div class="proof"><strong>0</strong><span>documentos ou CPF na primeira versão.</span></div>
+          <div class="proof"><strong>1</strong><span>próximo passo claro: reunião presencial.</span></div>
+        </div>
+      </section>
+
+      <section class="panel" aria-labelledby="form-title">
+        <div class="panel-head">
+          <h2 id="form-title">Dados da pré-análise</h2>
+          <p>Sem promessa de crédito. A resposta qualifica o atendimento.</p>
+        </div>
+
+        <form id="leadForm" novalidate>
+          <div class="form-grid">
+            <div class="field full">
+              <label for="nome">Nome completo</label>
+              <input id="nome" name="nome" autocomplete="name" required minlength="2" placeholder="Seu nome">
+            </div>
+
+            <div class="field">
+              <label for="whatsapp">WhatsApp</label>
+              <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000">
+            </div>
+
+            <div class="field">
+              <label for="cidade">Cidade</label>
+              <input id="cidade" name="cidade" autocomplete="address-level2" placeholder="Ex: Parauapebas">
+            </div>
+
+            <div class="field">
+              <label for="tipo_bem">Tipo de bem</label>
+              <select id="tipo_bem" name="tipo_bem" required>
+                <option value="">Selecione</option>
+                <option value="Imóvel">Imóvel</option>
+                <option value="Veículo">Veículo</option>
+                <option value="Caminhão ou maquinário">Caminhão ou maquinário</option>
+                <option value="Serviço">Serviço</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="urgencia">Quando quer avançar</label>
+              <select id="urgencia" name="urgencia" required>
+                <option value="">Selecione</option>
+                <option value="Agora ou em até 30 dias">Agora ou em até 30 dias</option>
+                <option value="Em 1 a 3 meses">Em 1 a 3 meses</option>
+                <option value="Só pesquisando">Só pesquisando</option>
+              </select>
+            </div>
+
+            <div class="field">
+              <label for="valor_credito">Valor desejado</label>
+              <input id="valor_credito" name="valor_credito" inputmode="numeric" required placeholder="R$ 300.000">
+            </div>
+
+            <div class="field">
+              <label for="valor_entrada">Entrada disponível</label>
+              <input id="valor_entrada" name="valor_entrada" inputmode="numeric" required placeholder="R$ 60.000">
+            </div>
+
+            <div class="field">
+              <label for="renda_mensal">Renda mensal</label>
+              <input id="renda_mensal" name="renda_mensal" inputmode="numeric" required placeholder="R$ 12.000">
+            </div>
+
+            <div class="field">
+              <label for="experiencia_consorcio">Já pesquisou consórcio?</label>
+              <select id="experiencia_consorcio" name="experiencia_consorcio" required>
+                <option value="">Selecione</option>
+                <option value="Sim, já conheço">Sim, já conheço</option>
+                <option value="Pesquisei pouco">Pesquisei pouco</option>
+                <option value="Ainda não entendo bem">Ainda não entendo bem</option>
+              </select>
+            </div>
+          </div>
+
+          <label class="consent">
+            <input id="consentimento_lgpd" name="consentimento_lgpd" type="checkbox" required>
+            <span>Autorizo o uso dos dados enviados para pré-análise, contato pelo WhatsApp e organização do atendimento no CRM.</span>
+          </label>
+
+          <div class="feedback" id="feedback" role="alert"></div>
+
+          <button class="btn" id="submitBtn" type="submit">Iniciar pré-análise →</button>
+
+          <p class="footnote">A análise é comercial e preliminar. A aprovação final de crédito, contemplação ou contratação depende das regras da administradora e da avaliação formal.</p>
+        </form>
+
+        <div class="analysis" id="analysisBox" aria-live="polite">
+          <p class="analysis-title">Analisando informações</p>
+          <div class="steps">
+            <div class="step" data-step="0"><span class="dot"></span><span>Dados recebidos</span><span class="state">Pendente</span></div>
+            <div class="step" data-step="1"><span class="dot"></span><span>Entrada disponível</span><span class="state">Pendente</span></div>
+            <div class="step" data-step="2"><span class="dot"></span><span>Renda compatível</span><span class="state">Pendente</span></div>
+            <div class="step" data-step="3"><span class="dot"></span><span>Prioridade do vendedor</span><span class="state">Pendente</span></div>
+          </div>
+        </div>
+
+        <div class="result" id="resultBox" aria-live="polite">
+          <span class="status">Aprovado para reunião</span>
+          <h3>Pré-análise aprovada para reunião presencial.</h3>
+          <p>Um consultor vai te chamar no WhatsApp com o próximo passo.</p>
+          <div class="result-meta">
+            <div class="metric"><span>Temperatura</span><strong id="resultTemp">Em análise</strong></div>
+            <div class="metric"><span>Protocolo</span><strong id="resultProtocol">--</strong></div>
+          </div>
+        </div>
+      </section>
+    </div>
+  </main>
+
+  <script>
+    const API_URL = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/analise-credito-submit";
+
+    const form = document.getElementById("leadForm");
+    const feedback = document.getElementById("feedback");
+    const submitBtn = document.getElementById("submitBtn");
+    const analysisBox = document.getElementById("analysisBox");
+    const resultBox = document.getElementById("resultBox");
+    const resultTemp = document.getElementById("resultTemp");
+    const resultProtocol = document.getElementById("resultProtocol");
+    const moneyInputs = ["valor_credito", "valor_entrada", "renda_mensal"].map((id) => document.getElementById(id));
+    const phoneInput = document.getElementById("whatsapp");
+
+    const params = new URLSearchParams(window.location.search);
+
+    phoneInput.addEventListener("input", () => {
+      let value = phoneInput.value.replace(/\D/g, "").slice(0, 11);
+      if (value.length > 10) value = value.replace(/^(\d{2})(\d{5})(\d{0,4}).*/, "($1) $2-$3");
+      else if (value.length > 6) value = value.replace(/^(\d{2})(\d{4})(\d{0,4}).*/, "($1) $2-$3");
+      else if (value.length > 2) value = value.replace(/^(\d{2})(\d{0,5}).*/, "($1) $2");
+      else if (value.length > 0) value = value.replace(/^(\d{0,2}).*/, "($1");
+      phoneInput.value = value;
+    });
+
+    moneyInputs.forEach((input) => {
+      input.addEventListener("input", () => {
+        const value = parseMoney(input.value);
+        input.value = value ? formatBRL(value) : "";
+      });
+    });
+
+    form.addEventListener("submit", async (event) => {
+      event.preventDefault();
+      hideFeedback();
+
+      if (!form.checkValidity()) {
+        showFeedback("Confere os campos obrigatórios antes de iniciar a pré-análise.");
+        return;
+      }
+
+      const payload = {
+        nome: form.nome.value.trim(),
+        whatsapp: form.whatsapp.value.trim(),
+        cidade: form.cidade.value.trim(),
+        tipo_bem: form.tipo_bem.value,
+        valor_credito: parseMoney(form.valor_credito.value),
+        valor_entrada: parseMoney(form.valor_entrada.value),
+        renda_mensal: parseMoney(form.renda_mensal.value),
+        urgencia: form.urgencia.value,
+        experiencia_consorcio: form.experiencia_consorcio.value,
+        consentimento_lgpd: form.consentimento_lgpd.checked,
+        utm_source: params.get("utm_source") || "",
+        utm_campaign: params.get("utm_campaign") || "",
+        client_slug: params.get("client_slug") || "default"
+      };
+
+      submitBtn.disabled = true;
+      submitBtn.textContent = "Analisando...";
+      resultBox.classList.remove("visible");
+      startAnalysisAnimation();
+
+      try {
+        const [response] = await Promise.all([
+          fetch(API_URL, {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          }),
+          wait(3800)
+        ]);
+
+        const data = await response.json().catch(() => ({}));
+        if (!response.ok || !data.success) throw new Error(data.error || "Não foi possível salvar a análise.");
+
+        completeAnalysis();
+        resultTemp.textContent = labelTemperature(data.temperatura);
+        resultProtocol.textContent = String(data.submission_id || "--").slice(0, 8).toUpperCase();
+        resultBox.classList.add("visible");
+        resultBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
+        form.reset();
+      } catch (error) {
+        showFeedback(error.message || "Não foi possível enviar agora. Tente de novo em instantes.");
+        analysisBox.classList.remove("visible");
+      } finally {
+        submitBtn.disabled = false;
+        submitBtn.textContent = "Iniciar pré-análise →";
+      }
+    });
+
+    function startAnalysisAnimation() {
+      analysisBox.classList.add("visible");
+      document.querySelectorAll(".step").forEach((step) => {
+        step.classList.remove("active", "done");
+        step.querySelector(".state").textContent = "Pendente";
+      });
+
+      document.querySelectorAll(".step").forEach((step, index) => {
+        setTimeout(() => {
+          step.classList.add("active");
+          step.querySelector(".state").textContent = "Analisando";
+        }, 350 + index * 700);
+
+        setTimeout(() => {
+          step.classList.remove("active");
+          step.classList.add("done");
+          step.querySelector(".state").textContent = "OK";
+        }, 900 + index * 700);
+      });
+    }
+
+    function completeAnalysis() {
+      document.querySelectorAll(".step").forEach((step) => {
+        step.classList.remove("active");
+        step.classList.add("done");
+        step.querySelector(".state").textContent = "OK";
+      });
+    }
+
+    function parseMoney(value) {
+      const digits = String(value || "").replace(/\D/g, "");
+      return digits ? Number(digits) : 0;
+    }
+
+    function formatBRL(value) {
+      return Number(value || 0).toLocaleString("pt-BR", {
+        style: "currency",
+        currency: "BRL",
+        maximumFractionDigits: 0
+      });
+    }
+
+    function labelTemperature(value) {
+      const map = { quente: "Alta", morno: "Média", frio: "Baixa" };
+      return map[value] || "Registrada";
+    }
+
+    function showFeedback(message) {
+      feedback.textContent = message;
+      feedback.classList.add("visible");
+    }
+
+    function hideFeedback() {
+      feedback.textContent = "";
+      feedback.classList.remove("visible");
+    }
+
+    function wait(ms) {
+      return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+  </script>
+</body>
+</html>
