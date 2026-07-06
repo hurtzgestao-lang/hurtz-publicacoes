@@ -1675,7 +1675,7 @@
           throw submitError;
         }
 
-        trackMetaLead(data.event_id || payload.event_id);
+        trackMetaLead(data.event_id || payload.event_id, data.temperatura);
         completeAnalysis();
         resultTemp.textContent = labelTemperature(data.temperatura);
         resultProtocol.textContent = String(data.submission_id || "--").slice(0, 8).toUpperCase();
@@ -2022,9 +2022,13 @@
       window.__hurtzMetaPixelInitialized = pixelId;
     }
 
-    async function trackMetaLead(eventId) {
+    function shouldSendMetaLead(temperatura) {
+      return ["quente", "morno"].includes(String(temperatura || "").toLowerCase());
+    }
+
+    async function trackMetaLead(eventId, temperatura) {
       const finalEventId = String(eventId || "").trim();
-      if (!finalEventId) return;
+      if (!finalEventId || !shouldSendMetaLead(temperatura)) return;
       if (!metaPixelId && pixelConfigPromise) {
         await pixelConfigPromise.catch(() => null);
       }
