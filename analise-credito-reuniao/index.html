@@ -13,17 +13,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --ink: #0D0C0B;
-      --ink-2: #171513;
-      --paper: #F4EDE2;
-      --paper-2: #FFF9EF;
-      --muted: #A49A8E;
-      --line: #3A342D;
-      --line-light: #D8CCBC;
-      --accent: #C86A19;
-      --accent-dark: #A95010;
-      --ok: #228A54;
-      --danger: #C13B2D;
+      --ink: #F4F7FB;
+      --ink-2: #FFFFFF;
+      --paper: #0F172A;
+      --paper-2: #FFFFFF;
+      --muted: #64748B;
+      --line: #D7E1EA;
+      --line-light: #E5ECF3;
+      --accent: #0E7490;
+      --accent-dark: #0B5F73;
+      --accent-soft: #E7F5F8;
+      --ok: #12805C;
+      --danger: #B42318;
       --radius: 8px;
       --font: Inter, Helvetica, Arial, sans-serif;
     }
@@ -149,7 +150,7 @@
 
     .progress-line {
       height: 4px;
-      background: #27231E;
+      background: #DDE7F0;
       border-radius: 999px;
       overflow: hidden;
     }
@@ -220,10 +221,10 @@
 
     .visual-card {
       min-height: 232px;
-      border: 1px solid #2D2822;
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #211E1A;
-      color: var(--ink);
+      background: #FFFFFF;
+      color: var(--paper);
       overflow: hidden;
       text-align: left;
       transition: border-color 120ms ease, transform 120ms ease;
@@ -231,7 +232,7 @@
 
     .visual-card:hover,
     .visual-card.selected {
-      border-color: var(--paper);
+      border-color: var(--accent);
     }
 
     .visual-card img {
@@ -239,7 +240,7 @@
       height: 150px;
       display: block;
       object-fit: cover;
-      background: #2A251F;
+      background: #E6EEF5;
     }
 
     .visual-footer {
@@ -249,12 +250,13 @@
       gap: 10px;
       align-items: center;
       padding: 13px;
-      background: var(--paper);
+      background: #FFFFFF;
+      border-top: 1px solid var(--line-light);
     }
 
     .visual-label {
       display: block;
-      color: var(--ink);
+      color: var(--paper);
       font-size: 18px;
       font-weight: 700;
       line-height: 1.08;
@@ -263,7 +265,7 @@
     .visual-detail {
       display: block;
       margin-top: 3px;
-      color: #766C60;
+      color: var(--muted);
       font-size: 12px;
       line-height: 1.25;
     }
@@ -274,8 +276,8 @@
       width: 34px;
       height: 34px;
       border-radius: 50%;
-      background: var(--ink);
-      color: var(--paper);
+      background: var(--accent);
+      color: #FFFFFF;
       font-size: 21px;
       line-height: 1;
     }
@@ -292,9 +294,9 @@
       align-items: center;
       min-height: 76px;
       padding: 13px;
-      border: 1px solid #332E27;
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #191714;
+      background: #FFFFFF;
       color: var(--paper);
       text-align: left;
       transition: border-color 120ms ease, background-color 120ms ease;
@@ -302,8 +304,8 @@
 
     .list-card:hover,
     .list-card.selected {
-      border-color: var(--paper);
-      background: #211E1A;
+      border-color: var(--accent);
+      background: var(--accent-soft);
     }
 
     .token {
@@ -312,8 +314,8 @@
       width: 52px;
       height: 52px;
       border-radius: var(--radius);
-      background: var(--paper);
-      color: var(--ink);
+      background: var(--accent-soft);
+      color: var(--accent-dark);
       font-size: 18px;
       font-weight: 700;
     }
@@ -345,9 +347,9 @@
     .profile-panel {
       display: grid;
       gap: 14px;
-      border: 1px solid #332E27;
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #191714;
+      background: #FFFFFF;
       padding: 18px;
     }
 
@@ -371,7 +373,7 @@
     .bar {
       height: 10px;
       border-radius: 999px;
-      background: #2A251F;
+      background: #DDE7F0;
       overflow: hidden;
     }
 
@@ -404,16 +406,16 @@
 
     .primary-btn:hover { background: var(--accent-dark); }
     .primary-btn:disabled {
-      background: #6E6254;
+      background: #94A3B8;
       cursor: not-allowed;
     }
 
     .contact-card {
       display: grid;
       gap: 16px;
-      border: 1px solid #332E27;
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #191714;
+      background: #FFFFFF;
       padding: 16px;
     }
 
@@ -423,13 +425,13 @@
       gap: 10px;
       padding: 12px;
       border-radius: var(--radius);
-      background: var(--paper);
-      color: var(--ink);
+      background: var(--accent-soft);
+      color: var(--paper);
     }
 
     .summary-item span {
       display: block;
-      color: #766C60;
+      color: var(--muted);
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.12em;
@@ -439,7 +441,7 @@
     .summary-item strong {
       display: block;
       margin-top: 2px;
-      color: var(--ink);
+      color: var(--paper);
       font-size: 14px;
       line-height: 1.2;
     }
@@ -462,22 +464,22 @@
     input {
       width: 100%;
       min-height: 54px;
-      border: 1px solid #3C352D;
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: var(--ink);
+      background: #FFFFFF;
       color: var(--paper);
       padding: 13px 14px;
       outline: none;
       font-size: 16px;
     }
 
-    input::placeholder { color: #6F665C; }
-    input:focus { border-color: var(--paper); }
+    input::placeholder { color: #94A3B8; }
+    input:focus { border-color: var(--accent); }
 
     .feedback {
       display: none;
       border-left: 3px solid var(--danger);
-      background: #271B18;
+      background: #FFF1F0;
       color: var(--paper);
       padding: 12px 14px;
       font-size: 13px;
@@ -504,7 +506,7 @@
       overflow: auto;
       border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: #191714;
+      background: #FFFFFF;
     }
 
     .analysis {
@@ -533,7 +535,7 @@
     .analysis-visual {
       position: relative;
       min-height: 176px;
-      border: 1px solid #332E27;
+      border: 1px solid var(--line);
       border-radius: var(--radius);
       background: var(--ink);
       overflow: hidden;
@@ -545,9 +547,9 @@
       right: 24px;
       top: 28px;
       height: 118px;
-      border: 1px solid #3C352D;
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: var(--paper);
+      background: #FFFFFF;
     }
 
     .scan-card::before,
@@ -558,7 +560,7 @@
       right: 18px;
       height: 10px;
       border-radius: 999px;
-      background: #D6C9B6;
+      background: #DCE6EF;
     }
 
     .scan-card::before { top: 36px; }
@@ -591,9 +593,9 @@
       gap: 10px;
       align-items: center;
       min-height: 46px;
-      border: 1px solid #332E27;
+      border: 1px solid var(--line);
       border-radius: var(--radius);
-      background: var(--ink);
+      background: #FFFFFF;
       padding: 10px 12px;
       color: var(--paper);
       font-size: 13px;
@@ -603,7 +605,7 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: #4B4238;
+      background: #B8C6D4;
     }
 
     .step.active .dot { background: var(--accent); }
@@ -623,8 +625,8 @@
     .result {
       display: none;
       padding: 22px;
-      background: var(--paper);
-      color: var(--ink);
+      background: #FFFFFF;
+      color: var(--paper);
     }
 
     .result.visible { display: block; }
@@ -636,7 +638,7 @@
       min-height: 30px;
       padding: 6px 10px;
       border-radius: var(--radius);
-      background: #FFFFFF;
+      background: #EAF8F1;
       color: var(--ok);
       font-size: 11px;
       font-weight: 700;
@@ -654,14 +656,14 @@
 
     .result h3 {
       margin: 16px 0 10px;
-      color: var(--ink);
+      color: var(--paper);
       font-size: 32px;
       line-height: 1.06;
     }
 
     .result p {
       margin: 0;
-      color: #50483F;
+      color: var(--muted);
       font-size: 17px;
     }
 
@@ -681,7 +683,7 @@
 
     .metric span {
       display: block;
-      color: #8A8074;
+      color: var(--muted);
       font-size: 10px;
       font-weight: 700;
       letter-spacing: 0.10em;
@@ -691,7 +693,7 @@
     .metric strong {
       display: block;
       margin-top: 5px;
-      color: var(--ink);
+      color: var(--paper);
       font-size: 22px;
       line-height: 1.1;
     }
