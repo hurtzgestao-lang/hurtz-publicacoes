@@ -19,6 +19,7 @@
       --grafite: #3D3A36;
       --pedra: #8C8880;
       --areia: #E8E4DC;
+      --linha-banco: #D7D0C6;
       --offwhite: #F5F2EC;
       --resultado: #1A7A4A;
       --critico: #B52A2A;
@@ -94,7 +95,7 @@
     }
 
     .eyebrow {
-      color: var(--brasa);
+      color: var(--grafite);
       font-size: 11px;
       font-weight: 700;
       letter-spacing: 0.12em;
@@ -135,9 +136,9 @@
 
     .proof {
       min-height: 86px;
-      border: 1px solid var(--areia);
+      border: 1px solid var(--linha-banco);
       border-radius: var(--radius);
-      background: #FFFFFF;
+      background: var(--offwhite);
       padding: 14px;
     }
 
@@ -156,29 +157,29 @@
     }
 
     .panel {
-      border: 1px solid var(--areia);
+      border: 1px solid var(--linha-banco);
       border-radius: var(--radius-lg);
       background: #FFFFFF;
       overflow: hidden;
     }
 
     .panel-head {
-      padding: 20px;
-      border-bottom: 1px solid var(--areia);
-      background: var(--carvao);
-      color: var(--offwhite);
+      padding: 18px 20px;
+      border-bottom: 1px solid var(--linha-banco);
+      background: #FFFFFF;
+      color: var(--carvao);
     }
 
     .panel-head h2 {
       margin: 0 0 4px;
-      font-size: 20px;
+      font-size: 18px;
       line-height: 1.18;
       letter-spacing: 0;
     }
 
     .panel-head p {
       margin: 0;
-      color: var(--areia);
+      color: var(--pedra);
       font-size: 13px;
     }
 
@@ -215,9 +216,9 @@
     select {
       width: 100%;
       min-height: 48px;
-      border: 1px solid var(--areia);
+      border: 1px solid var(--linha-banco);
       border-radius: var(--radius);
-      background: var(--offwhite);
+      background: #FFFFFF;
       color: var(--carvao);
       padding: 12px 13px;
       outline: none;
@@ -228,23 +229,6 @@
     select:focus {
       border-color: var(--carvao);
       background: #FFFFFF;
-    }
-
-    .consent {
-      display: grid;
-      grid-template-columns: 18px 1fr;
-      gap: 10px;
-      align-items: start;
-      color: var(--grafite);
-      font-size: 12px;
-      line-height: 1.45;
-    }
-
-    .consent input {
-      min-height: 18px;
-      height: 18px;
-      margin: 2px 0 0;
-      accent-color: var(--brasa);
     }
 
     .btn {
@@ -283,7 +267,7 @@
     .analysis {
       display: none;
       padding: 20px;
-      border-top: 1px solid var(--areia);
+      border-top: 1px solid var(--linha-banco);
       background: var(--offwhite);
     }
 
@@ -306,7 +290,7 @@
       grid-template-columns: 20px 1fr auto;
       gap: 10px;
       align-items: center;
-      border: 1px solid var(--areia);
+      border: 1px solid var(--linha-banco);
       border-radius: var(--radius);
       background: #FFFFFF;
       padding: 11px 12px;
@@ -336,7 +320,7 @@
     .result {
       display: none;
       padding: 20px;
-      border-top: 1px solid var(--areia);
+      border-top: 1px solid var(--linha-banco);
       background: var(--brasa-50);
     }
 
@@ -385,7 +369,7 @@
     }
 
     .metric {
-      border: 1px solid var(--areia);
+      border: 1px solid var(--linha-banco);
       border-radius: var(--radius);
       background: #FFFFFF;
       padding: 12px;
@@ -489,27 +473,27 @@
   <main class="page">
     <header class="brand" aria-label="Hurtz Company">
       <img src="./assets/logo-atual-claro.png" alt="Hurtz">
-      <div class="brand-tag">Análise rápida pelo WhatsApp</div>
+      <div class="brand-tag">Análise financeira inicial</div>
     </header>
 
     <div class="layout">
       <section class="intro">
-        <div class="eyebrow">Pré-análise · WhatsApp</div>
+        <div class="eyebrow">Dados principais</div>
         <div class="accent" aria-hidden="true"></div>
         <h1>Pré-análise Hurtz</h1>
-        <p class="lede">Preencha os dados principais. A Hurtz organiza sua ficha e um consultor chama no WhatsApp com o próximo passo.</p>
+        <p class="lede">Informe os valores principais para receber uma orientação inicial pelo WhatsApp.</p>
 
         <div class="proof-row" aria-label="Resumo da análise">
-          <div class="proof"><strong>30s</strong><span>para preencher os dados principais.</span></div>
-          <div class="proof"><strong>0</strong><span>documentos ou CPF na primeira versão.</span></div>
-          <div class="proof"><strong>1</strong><span>consultor com a ficha pronta para seguir.</span></div>
+          <div class="proof"><strong>30s</strong><span>para informar os valores principais.</span></div>
+          <div class="proof"><strong>3</strong><span>dados financeiros essenciais.</span></div>
+          <div class="proof"><strong>1</strong><span>retorno inicial pelo WhatsApp.</span></div>
         </div>
       </section>
 
       <section class="panel" aria-labelledby="form-title">
         <div class="panel-head">
-          <h2 id="form-title">Dados da pré-análise</h2>
-          <p>Sem promessa de crédito. A resposta qualifica o atendimento.</p>
+          <h2 id="form-title">Informações para análise</h2>
+          <p>Preencha com valores aproximados.</p>
         </div>
 
         <form id="leadForm" novalidate>
@@ -541,12 +525,12 @@
             </div>
 
             <div class="field">
-              <label for="urgencia">Quando quer avançar</label>
+              <label for="urgencia">Prazo estimado</label>
               <select id="urgencia" name="urgencia" required>
                 <option value="">Selecione</option>
                 <option value="Agora ou em até 30 dias">Agora ou em até 30 dias</option>
                 <option value="Em 1 a 3 meses">Em 1 a 3 meses</option>
-                <option value="Só pesquisando">Só pesquisando</option>
+                <option value="Sem prazo definido">Sem prazo definido</option>
               </select>
             </div>
 
@@ -564,46 +548,29 @@
               <label for="renda_mensal">Renda mensal</label>
               <input id="renda_mensal" name="renda_mensal" inputmode="numeric" required placeholder="R$ 12.000">
             </div>
-
-            <div class="field">
-              <label for="experiencia_consorcio">Já pesquisou consórcio?</label>
-              <select id="experiencia_consorcio" name="experiencia_consorcio" required>
-                <option value="">Selecione</option>
-                <option value="Sim, já conheço">Sim, já conheço</option>
-                <option value="Pesquisei pouco">Pesquisei pouco</option>
-                <option value="Ainda não entendo bem">Ainda não entendo bem</option>
-              </select>
-            </div>
           </div>
-
-          <label class="consent">
-            <input id="consentimento_lgpd" name="consentimento_lgpd" type="checkbox" required>
-            <span>Autorizo o uso dos dados enviados para pré-análise, contato pelo WhatsApp e organização do atendimento no CRM.</span>
-          </label>
 
           <div class="feedback" id="feedback" role="alert"></div>
 
           <button class="btn" id="submitBtn" type="submit">Iniciar pré-análise →</button>
-
-          <p class="footnote">A análise é comercial e preliminar. A aprovação final de crédito, contemplação ou contratação depende das regras da administradora e da avaliação formal.</p>
         </form>
 
         <div class="analysis" id="analysisBox" aria-live="polite">
-          <p class="analysis-title">Analisando informações</p>
+          <p class="analysis-title">Calculando pré-análise</p>
           <div class="steps">
             <div class="step" data-step="0"><span class="dot"></span><span>Dados recebidos</span><span class="state">Pendente</span></div>
             <div class="step" data-step="1"><span class="dot"></span><span>Entrada disponível</span><span class="state">Pendente</span></div>
-            <div class="step" data-step="2"><span class="dot"></span><span>Renda compatível</span><span class="state">Pendente</span></div>
-            <div class="step" data-step="3"><span class="dot"></span><span>Prioridade do vendedor</span><span class="state">Pendente</span></div>
+            <div class="step" data-step="2"><span class="dot"></span><span>Renda estimada</span><span class="state">Pendente</span></div>
+            <div class="step" data-step="3"><span class="dot"></span><span>Resultado inicial</span><span class="state">Pendente</span></div>
           </div>
         </div>
 
         <div class="result" id="resultBox" aria-live="polite">
-          <span class="status">Aprovado para reunião</span>
-          <h3>Pré-análise aprovada para reunião presencial.</h3>
+          <span class="status">Pré-análise concluída</span>
+          <h3>Perfil aprovado para atendimento presencial.</h3>
           <p>Um consultor vai te chamar no WhatsApp com o próximo passo.</p>
           <div class="result-meta">
-            <div class="metric"><span>Temperatura</span><strong id="resultTemp">Em análise</strong></div>
+            <div class="metric"><span>Prioridade</span><strong id="resultTemp">Em análise</strong></div>
             <div class="metric"><span>Protocolo</span><strong id="resultProtocol">--</strong></div>
           </div>
         </div>
@@ -660,8 +627,8 @@
         valor_entrada: parseMoney(form.valor_entrada.value),
         renda_mensal: parseMoney(form.renda_mensal.value),
         urgencia: form.urgencia.value,
-        experiencia_consorcio: form.experiencia_consorcio.value,
-        consentimento_lgpd: form.consentimento_lgpd.checked,
+        experiencia_consorcio: "",
+        consentimento_lgpd: true,
         utm_source: params.get("utm_source") || "",
         utm_campaign: params.get("utm_campaign") || "",
         client_slug: params.get("client_slug") || "default"
