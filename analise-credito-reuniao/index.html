@@ -651,6 +651,15 @@
       box-shadow: 0 0 0 4px var(--primary-soft);
     }
 
+    .input-note {
+      color: var(--danger);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0;
+      line-height: 1.35;
+      text-transform: none;
+    }
+
     .feedback {
       display: none;
       border-left: 3px solid var(--danger);
@@ -1196,9 +1205,11 @@
     let animationTimers = [];
     let autoAdvanceTimer = null;
     let isSubmitting = false;
+    let pendingCorrection = null;
 
     backBtn.addEventListener("click", () => {
       if (isSubmitting || currentStep === 0) return;
+      pendingCorrection = null;
       currentStep -= 1;
       renderStep();
     });
@@ -1231,6 +1242,7 @@
       quizStage.querySelectorAll("[data-option]").forEach((button) => {
         button.addEventListener("click", () => selectOption(button.dataset.option));
       });
+      showCorrectionForCurrentStep();
     }
 
     function renderHead(step) {
@@ -1373,6 +1385,13 @@
     }
 
     function renderContact(step) {
+      const correctionMessage = pendingCorrection?.targetStepIndex === currentStep
+        ? pendingCorrection.message
+        : "";
+      const correctionField = pendingCorrection?.targetStepIndex === currentStep
+        ? pendingCorrection.field
+        : "";
+      const formFeedback = correctionMessage && !correctionField ? correctionMessage : "";
       return `
         <form class="screen" id="leadForm" novalidate>
           ${renderHead(step)}
@@ -1383,15 +1402,17 @@
             <div class="fields">
               <label for="nome">Nome
                 <input id="nome" name="nome" autocomplete="name" required minlength="2" placeholder="Seu nome completo" value="${escapeHtml(leadInfo.nome)}">
+                ${correctionField === "nome" ? `<span class="input-note">${escapeHtml(correctionMessage)}</span>` : ""}
               </label>
               <label for="whatsapp">WhatsApp
                 <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000" value="${escapeHtml(leadInfo.whatsapp)}">
+                ${correctionField === "whatsapp" ? `<span class="input-note">${escapeHtml(correctionMessage)}</span>` : ""}
               </label>
               <label for="cidade">Cidade
                 <input id="cidade" name="cidade" autocomplete="address-level2" placeholder="Ex: Parauapebas" value="${escapeHtml(leadInfo.cidade)}">
               </label>
             </div>
-            <div class="feedback" id="feedback" role="alert"></div>
+            <div class="feedback${formFeedback ? " visible" : ""}" id="feedback" role="alert">${escapeHtml(formFeedback)}</div>
             <button class="primary-btn" id="contactContinueBtn" type="submit">Continuar <i data-lucide="arrow-right"></i></button>
           </div>
         </form>
@@ -1406,6 +1427,10 @@
       answers[`${step.id}_detail`] = option.detail || "";
       quizStage.querySelectorAll(".asset-card, .band-option, .meter-option, .bar-option, .timeline-option").forEach((card) => card.classList.remove("selected"));
       quizStage.querySelector(`[data-option="${index}"]`).classList.add("selected");
+      if (pendingCorrection?.targetStepIndex === currentStep) {
+        retryAfterCorrection();
+        return;
+      }
       if (step.id === "urgencia") {
         autoAdvanceTimer = window.setTimeout(submitLead, 220);
         return;
@@ -1423,6 +1448,7 @@
       const phoneInput = document.getElementById("whatsapp");
       phoneInput.addEventListener("input", () => formatPhoneInput(phoneInput));
       form.addEventListener("submit", saveContactAndContinue);
+      focusCorrectionField();
     }
 
     function saveContactAndContinue(event) {
@@ -1431,24 +1457,32 @@
       const feedback = document.getElementById("feedback");
       hideFeedback(feedback);
 
-      if (!form.checkValidity()) {
-        showFeedback(feedback, "Confere seu nome e WhatsApp antes de continuar.");
+      const nome = form.nome.value.trim();
+      const whatsapp = form.whatsapp.value.trim();
+
+      if (nome.length < 2 || getPhoneDigits(whatsapp).length < 8) {
+        showFeedback(feedback, "Preenche nome e WhatsApp para continuar.");
         return;
       }
 
       leadInfo = {
-        nome: form.nome.value.trim(),
-        whatsapp: form.whatsapp.value.trim(),
+        nome,
+        whatsapp,
         cidade: form.cidade.value.trim()
       };
+      if (pendingCorrection?.targetStepIndex === currentStep) {
+        retryAfterCorrection();
+        return;
+      }
       goNext();
     }
 
     async function submitLead() {
       if (isSubmitting) return;
+      const submitStepIndex = currentStep;
       const payload = {
         nome: leadInfo.nome,
-        whatsapp: leadInfo.whatsapp,
+        whatsapp: normalizePhoneForPayload(leadInfo.whatsapp),
         cidade: leadInfo.cidade,
         tipo_bem: answers.tipo_bem || "",
         valor_credito: Number(answers.valor_credito || 0),
@@ -1479,7 +1513,12 @@
         ]);
 
         const data = await response.json().catch(() => ({}));
-        if (!response.ok || !data.success) throw new Error(data.error || "Não conseguimos enviar agora.");
+        if (!response.ok || !data.success) {
+          const submitError = new Error(data.error || "Não conseguimos enviar agora.");
+          submitError.status = response.status;
+          submitError.submitStepIndex = submitStepIndex;
+          throw submitError;
+        }
 
         completeAnalysis();
         resultTemp.textContent = labelTemperature(data.temperatura);
@@ -1489,7 +1528,7 @@
         refreshIcons();
       } catch (error) {
         hideAnalysisModal();
-        showStageFeedback(error.message || "Não conseguimos enviar agora. Tente de novo em instantes.");
+        handleSubmitError(error, submitStepIndex);
       } finally {
         isSubmitting = false;
         backBtn.hidden = currentStep === 0;
@@ -1509,11 +1548,22 @@
       input.value = value;
     }
 
+    function getPhoneDigits(value) {
+      return String(value || "").replace(/\D/g, "");
+    }
+
+    function normalizePhoneForPayload(value) {
+      let digits = getPhoneDigits(value);
+      if (digits.length === 10 || digits.length === 11) digits = `55${digits}`;
+      return digits || String(value || "").trim();
+    }
+
     function resetQuiz() {
       clearAutoAdvance();
       currentStep = 0;
       answers = {};
       leadInfo = { nome: "", whatsapp: "", cidade: "" };
+      pendingCorrection = null;
       renderStep();
     }
 
@@ -1584,6 +1634,90 @@
       if (!autoAdvanceTimer) return;
       window.clearTimeout(autoAdvanceTimer);
       autoAdvanceTimer = null;
+    }
+
+    function handleSubmitError(error, submitStepIndex) {
+      const message = String(error?.message || "").trim();
+      const correction = inferCorrection(message);
+      if (correction) {
+        pendingCorrection = {
+          ...correction,
+          resumeStepIndex: submitStepIndex,
+          retrySubmit: true
+        };
+        currentStep = correction.targetStepIndex;
+        renderStep();
+        return;
+      }
+
+      showStageFeedback("Não conseguimos enviar agora. Toque no prazo escolhido de novo para tentar.");
+    }
+
+    function inferCorrection(message) {
+      const normalized = removeAccents(message).toLowerCase();
+      const contactIndex = steps.findIndex((step) => step.type === "contact");
+
+      if (normalized.includes("whatsapp") || normalized.includes("telefone") || normalized.includes("ddd")) {
+        return {
+          targetStepIndex: contactIndex,
+          field: "whatsapp",
+          message: "Confere seu WhatsApp com DDD. Depois disso a análise continua daqui."
+        };
+      }
+
+      if (normalized.includes("nome")) {
+        return {
+          targetStepIndex: contactIndex,
+          field: "nome",
+          message: "Confere seu nome para a gente continuar."
+        };
+      }
+
+      const fieldRoutes = [
+        { terms: ["credito", "valor desejado"], id: "valor_credito", message: "Escolha novamente o valor que você está buscando." },
+        { terms: ["entrada"], id: "valor_entrada", message: "Escolha novamente a entrada que faz sentido hoje." },
+        { terms: ["renda"], id: "renda_mensal", message: "Escolha novamente sua faixa de renda." },
+        { terms: ["urgencia", "prazo"], id: "urgencia", message: "Escolha novamente quando você quer começar." }
+      ];
+
+      const route = fieldRoutes.find((item) => item.terms.some((term) => normalized.includes(term)));
+      if (!route) return null;
+      return {
+        targetStepIndex: steps.findIndex((step) => step.id === route.id),
+        field: null,
+        message: route.message
+      };
+    }
+
+    function retryAfterCorrection() {
+      const correction = pendingCorrection;
+      pendingCorrection = null;
+      currentStep = Number.isInteger(correction?.resumeStepIndex)
+        ? correction.resumeStepIndex
+        : steps.length - 1;
+      renderStep();
+      if (correction?.retrySubmit) {
+        autoAdvanceTimer = window.setTimeout(submitLead, 180);
+      }
+    }
+
+    function showCorrectionForCurrentStep() {
+      if (pendingCorrection?.targetStepIndex !== currentStep || !pendingCorrection.message) return;
+      showStageFeedback(pendingCorrection.message);
+    }
+
+    function focusCorrectionField() {
+      if (pendingCorrection?.targetStepIndex !== currentStep || !pendingCorrection.field) return;
+      window.setTimeout(() => {
+        const field = document.getElementById(pendingCorrection.field);
+        if (!field) return;
+        field.focus({ preventScroll: true });
+        field.scrollIntoView({ block: "center", behavior: "smooth" });
+      }, 80);
+    }
+
+    function removeAccents(value) {
+      return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "");
     }
 
     function labelTemperature(value) {
