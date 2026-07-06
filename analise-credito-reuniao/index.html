@@ -4,7 +4,7 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex,nofollow">
-  <meta name="description" content="Pré-análise Hurtz pelo WhatsApp.">
+  <meta name="description" content="Quiz de pré-análise Hurtz pelo WhatsApp.">
   <title>Pré-análise Hurtz · Quiz</title>
   <link rel="icon" href="data:,">
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -13,20 +13,18 @@
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <style>
     :root {
-      --brasa: #C06018;
-      --brasa-hover: #974A12;
-      --brasa-50: #F9EDE3;
-      --brasa-900: #2C1404;
-      --carvao: #181614;
-      --grafite: #3D3A36;
-      --pedra: #8C8880;
-      --areia: #E8E4DC;
-      --linha-banco: #D7D0C6;
-      --offwhite: #F5F2EC;
-      --resultado: #1A7A4A;
-      --critico: #B52A2A;
-      --radius: 4px;
-      --radius-lg: 8px;
+      --ink: #0D0C0B;
+      --ink-2: #171513;
+      --paper: #F4EDE2;
+      --paper-2: #FFF9EF;
+      --muted: #A49A8E;
+      --line: #3A342D;
+      --line-light: #D8CCBC;
+      --accent: #C86A19;
+      --accent-dark: #A95010;
+      --ok: #228A54;
+      --danger: #C13B2D;
+      --radius: 8px;
       --font: Inter, Helvetica, Arial, sans-serif;
     }
 
@@ -35,11 +33,11 @@
 
     body {
       min-height: 100vh;
-      background: var(--offwhite);
-      color: var(--carvao);
+      background: var(--ink);
+      color: var(--paper);
       font-family: var(--font);
       font-size: 15px;
-      line-height: 1.6;
+      line-height: 1.45;
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
@@ -57,130 +55,102 @@
     }
 
     .page {
-      width: min(100% - 32px, 1040px);
       min-height: 100vh;
-      margin: 0 auto;
-      padding: 24px 0 42px;
-    }
-
-    .brand {
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 16px;
-      margin-bottom: 22px;
-    }
-
-    .brand img {
-      width: 112px;
-      height: auto;
       display: block;
+      padding: 0;
+      background: var(--ink);
     }
 
-    .brand-tag {
-      color: var(--pedra);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      text-align: right;
-    }
-
-    .layout {
+    .quiz-app {
+      width: 100%;
+      min-height: 100vh;
       display: grid;
-      grid-template-columns: minmax(220px, 0.62fr) minmax(520px, 1.38fr);
-      gap: 28px;
-      align-items: start;
-    }
-
-    .intro {
-      padding-top: 8px;
-    }
-
-    .eyebrow {
-      color: var(--grafite);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
-
-    .accent {
-      width: 58px;
-      height: 2px;
-      margin: 14px 0 16px;
-      background: var(--brasa);
-    }
-
-    h1 {
-      max-width: 320px;
-      margin: 0;
-      color: var(--carvao);
-      font-size: clamp(28px, 3vw, 40px);
-      line-height: 1.08;
-      letter-spacing: 0;
-      font-weight: 700;
-    }
-
-    .intro-copy {
-      max-width: 300px;
-      margin: 14px 0 0;
-      color: var(--grafite);
-      font-size: 14px;
-      line-height: 1.55;
-    }
-
-    .quiz-shell {
-      border: 1px solid var(--linha-banco);
-      border-radius: var(--radius-lg);
-      background: #FFFFFF;
+      grid-template-rows: auto 1fr;
+      border: 0;
+      border-radius: 0;
+      background: var(--ink);
       overflow: hidden;
     }
 
-    .quiz-top {
+    .app-top {
+      position: sticky;
+      top: 0;
+      z-index: 2;
       display: grid;
-      gap: 12px;
-      padding: 16px 18px;
-      border-bottom: 1px solid var(--linha-banco);
-      background: #FFFFFF;
+      gap: 16px;
+      padding: 18px max(18px, calc((100vw - 480px) / 2 + 18px)) 14px;
+      background: var(--ink);
+      border-bottom: 1px solid var(--line);
     }
 
-    .quiz-nav {
-      display: flex;
+    .brand-row {
+      display: grid;
+      grid-template-columns: 40px 1fr 40px;
       align-items: center;
-      justify-content: space-between;
-      gap: 12px;
+      gap: 10px;
     }
 
-    .progress-label {
-      color: var(--pedra);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+    .back-btn,
+    .menu-mark {
+      width: 40px;
+      height: 40px;
+      border-radius: var(--radius);
+      background: transparent;
+      color: var(--paper);
     }
 
     .back-btn {
-      display: inline-flex;
-      align-items: center;
-      min-height: 32px;
-      padding: 0 10px;
-      border: 1px solid var(--linha-banco);
-      border-radius: var(--radius);
-      background: #FFFFFF;
-      color: var(--grafite);
-      font-size: 12px;
-      font-weight: 700;
+      display: grid;
+      place-items: center;
+      border: 1px solid var(--line);
+      font-size: 24px;
+      line-height: 1;
     }
 
-    .back-btn[hidden] { display: none; }
-    .back-btn:hover { border-color: var(--carvao); color: var(--carvao); }
+    .back-btn[hidden] {
+      visibility: hidden;
+      display: grid;
+    }
 
-    .progress-track {
-      height: 6px;
-      border: 1px solid var(--linha-banco);
+    .menu-mark {
+      position: relative;
+      justify-self: end;
+      border: 0;
+    }
+
+    .menu-mark::before,
+    .menu-mark::after,
+    .menu-mark span {
+      content: "";
+      position: absolute;
+      left: 8px;
+      right: 8px;
+      height: 2px;
+      background: var(--paper);
+    }
+
+    .menu-mark::before { top: 12px; }
+    .menu-mark span { top: 19px; }
+    .menu-mark::after { top: 26px; }
+
+    .brand-name {
+      justify-self: center;
+      color: var(--paper);
+      font-size: 28px;
+      font-weight: 700;
+      letter-spacing: 0.02em;
+      line-height: 1;
+    }
+
+    .progress-wrap {
+      display: grid;
+      gap: 9px;
+    }
+
+    .progress-line {
+      height: 4px;
+      background: #27231E;
       border-radius: 999px;
-      background: var(--offwhite);
       overflow: hidden;
     }
 
@@ -188,277 +158,328 @@
       display: block;
       width: 0%;
       height: 100%;
-      background: var(--brasa);
-      transition: width 160ms ease;
+      background: var(--accent);
+      transition: width 180ms ease;
     }
 
-    .quiz-stage {
-      min-height: 520px;
-      padding: 20px;
-    }
-
-    .question {
-      display: grid;
-      gap: 18px;
-    }
-
-    .question-head {
-      display: grid;
-      gap: 8px;
-    }
-
-    .question-title {
-      margin: 0;
-      color: var(--carvao);
-      font-size: clamp(22px, 3vw, 30px);
-      line-height: 1.12;
+    .progress-label {
+      color: var(--muted);
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
     }
 
-    .question-subtitle {
+    .stage {
+      width: min(100%, 480px);
+      margin: 0 auto;
+      padding: 24px 20px 28px;
+      display: grid;
+      align-content: start;
+    }
+
+    .screen {
+      display: grid;
+      gap: 20px;
+    }
+
+    .screen-head {
+      display: grid;
+      gap: 10px;
+    }
+
+    .section-label {
+      color: var(--muted);
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+    }
+
+    .title {
       margin: 0;
-      color: var(--grafite);
-      font-size: 14px;
-      line-height: 1.5;
+      color: var(--paper);
+      font-size: 35px;
+      line-height: 1.05;
+      letter-spacing: 0;
+      font-weight: 700;
     }
 
-    .choice-grid {
+    .subtitle {
+      margin: 0;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.45;
+    }
+
+    .hero-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 12px;
     }
 
-    .choice-grid.list {
-      grid-template-columns: 1fr;
+    .visual-card {
+      min-height: 232px;
+      border: 1px solid #2D2822;
+      border-radius: var(--radius);
+      background: #211E1A;
+      color: var(--ink);
+      overflow: hidden;
+      text-align: left;
+      transition: border-color 120ms ease, transform 120ms ease;
     }
 
-    .choice-card {
-      min-height: 98px;
-      border: 1px solid var(--linha-banco);
-      border-radius: var(--radius-lg);
-      background: #FFFFFF;
-      color: var(--carvao);
-      overflow: hidden;
+    .visual-card:hover,
+    .visual-card.selected {
+      border-color: var(--paper);
+    }
+
+    .visual-card img {
+      width: 100%;
+      height: 150px;
+      display: block;
+      object-fit: cover;
+      background: #2A251F;
+    }
+
+    .visual-footer {
+      min-height: 82px;
+      display: grid;
+      grid-template-columns: 1fr 34px;
+      gap: 10px;
+      align-items: center;
+      padding: 13px;
+      background: var(--paper);
+    }
+
+    .visual-label {
+      display: block;
+      color: var(--ink);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.08;
+    }
+
+    .visual-detail {
+      display: block;
+      margin-top: 3px;
+      color: #766C60;
+      font-size: 12px;
+      line-height: 1.25;
+    }
+
+    .arrow-chip {
+      display: grid;
+      place-items: center;
+      width: 34px;
+      height: 34px;
+      border-radius: 50%;
+      background: var(--ink);
+      color: var(--paper);
+      font-size: 21px;
+      line-height: 1;
+    }
+
+    .choice-list {
+      display: grid;
+      gap: 10px;
+    }
+
+    .list-card {
+      display: grid;
+      grid-template-columns: 52px 1fr 28px;
+      gap: 12px;
+      align-items: center;
+      min-height: 76px;
+      padding: 13px;
+      border: 1px solid #332E27;
+      border-radius: var(--radius);
+      background: #191714;
+      color: var(--paper);
       text-align: left;
       transition: border-color 120ms ease, background-color 120ms ease;
     }
 
-    .choice-card:hover,
-    .choice-card.selected {
-      border-color: var(--carvao);
-      background: var(--brasa-50);
+    .list-card:hover,
+    .list-card.selected {
+      border-color: var(--paper);
+      background: #211E1A;
     }
 
-    .choice-card.visual {
-      display: grid;
-      grid-template-rows: 132px auto;
-      min-height: 218px;
-    }
-
-    .choice-card.list {
-      display: grid;
-      grid-template-columns: 42px 1fr;
-      gap: 12px;
-      align-items: center;
-      padding: 14px;
-    }
-
-    .choice-card img {
-      width: 100%;
-      height: 100%;
-      display: block;
-      object-fit: cover;
-      background: var(--areia);
-    }
-
-    .choice-copy {
-      display: grid;
-      gap: 4px;
-      padding: 14px;
-    }
-
-    .choice-card.list .choice-copy {
-      padding: 0;
-    }
-
-    .choice-label {
-      color: var(--carvao);
-      font-size: 17px;
-      font-weight: 700;
-      line-height: 1.16;
-    }
-
-    .choice-detail {
-      color: var(--pedra);
-      font-size: 13px;
-      line-height: 1.4;
-    }
-
-    .choice-token {
+    .token {
       display: grid;
       place-items: center;
-      width: 42px;
-      height: 42px;
-      border: 1px solid var(--linha-banco);
+      width: 52px;
+      height: 52px;
       border-radius: var(--radius);
-      background: var(--offwhite);
-      color: var(--brasa);
+      background: var(--paper);
+      color: var(--ink);
       font-size: 18px;
       font-weight: 700;
-      line-height: 1;
+    }
+
+    .list-copy {
+      display: grid;
+      gap: 3px;
+    }
+
+    .list-label {
+      color: var(--paper);
+      font-size: 18px;
+      font-weight: 700;
+      line-height: 1.15;
+    }
+
+    .list-detail {
+      color: var(--muted);
+      font-size: 13px;
     }
 
     .interlude {
+      min-height: 560px;
       display: grid;
-      gap: 20px;
       align-content: center;
-      min-height: 474px;
-      border: 1px solid var(--linha-banco);
-      border-radius: var(--radius-lg);
-      background: var(--offwhite);
-      padding: 24px;
+      gap: 24px;
     }
 
-    .interlude-visual {
+    .profile-panel {
       display: grid;
-      gap: 10px;
-      max-width: 360px;
-    }
-
-    .data-line {
-      height: 12px;
-      border: 1px solid var(--linha-banco);
-      border-radius: 999px;
-      background: #FFFFFF;
-      overflow: hidden;
-    }
-
-    .data-line span {
-      display: block;
-      height: 100%;
-      background: var(--brasa);
-      animation: fillLine 1100ms ease-in-out infinite alternate;
-    }
-
-    .data-line:nth-child(2) span { width: 74%; animation-delay: 120ms; }
-    .data-line:nth-child(3) span { width: 58%; animation-delay: 240ms; }
-    .data-line:nth-child(4) span { width: 88%; animation-delay: 360ms; }
-
-    @keyframes fillLine {
-      from { transform: translateX(-18%); opacity: 0.45; }
-      to { transform: translateX(0); opacity: 1; }
-    }
-
-    .contact-form {
-      display: grid;
-      gap: 16px;
-    }
-
-    .form-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
       gap: 14px;
+      border: 1px solid #332E27;
+      border-radius: var(--radius);
+      background: #191714;
+      padding: 18px;
     }
 
-    .field {
+    .profile-row {
       display: grid;
-      gap: 7px;
-    }
-
-    .field.full {
-      grid-column: 1 / -1;
-    }
-
-    label {
-      color: var(--carvao);
-      font-size: 11px;
+      grid-template-columns: 90px 1fr;
+      gap: 12px;
+      align-items: center;
+      color: var(--paper);
+      font-size: 13px;
       font-weight: 700;
-      letter-spacing: 0.10em;
+    }
+
+    .profile-row span:first-child {
+      color: var(--muted);
+      font-size: 10px;
+      letter-spacing: 0.14em;
       text-transform: uppercase;
     }
 
-    input {
+    .bar {
+      height: 10px;
+      border-radius: 999px;
+      background: #2A251F;
+      overflow: hidden;
+    }
+
+    .bar strong {
+      display: block;
+      height: 100%;
+      background: var(--accent);
+      animation: pulseBar 980ms ease-in-out infinite alternate;
+    }
+
+    .profile-row:nth-child(2) .bar strong { width: 72%; animation-delay: 120ms; }
+    .profile-row:nth-child(3) .bar strong { width: 54%; animation-delay: 240ms; }
+    .profile-row:nth-child(4) .bar strong { width: 86%; animation-delay: 360ms; }
+
+    @keyframes pulseBar {
+      from { opacity: 0.45; transform: translateX(-14%); }
+      to { opacity: 1; transform: translateX(0); }
+    }
+
+    .primary-btn {
+      min-height: 58px;
       width: 100%;
-      min-height: 50px;
-      border: 1px solid var(--linha-banco);
       border-radius: var(--radius);
-      background: #FFFFFF;
-      color: var(--carvao);
-      padding: 12px 13px;
-      outline: none;
-      transition: border-color 120ms ease, background-color 120ms ease;
+      background: var(--accent);
+      color: #FFFFFF;
+      font-size: 17px;
+      font-weight: 700;
+      transition: background-color 120ms ease;
     }
 
-    input:focus {
-      border-color: var(--carvao);
-      background: #FFFFFF;
+    .primary-btn:hover { background: var(--accent-dark); }
+    .primary-btn:disabled {
+      background: #6E6254;
+      cursor: not-allowed;
     }
 
-    .summary {
+    .contact-card {
       display: grid;
-      grid-template-columns: repeat(3, 1fr);
-      gap: 10px;
-      border: 1px solid var(--linha-banco);
+      gap: 16px;
+      border: 1px solid #332E27;
       border-radius: var(--radius);
-      background: var(--offwhite);
-      padding: 10px;
+      background: #191714;
+      padding: 16px;
+    }
+
+    .summary-strip {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 10px;
+      padding: 12px;
+      border-radius: var(--radius);
+      background: var(--paper);
+      color: var(--ink);
     }
 
     .summary-item span {
       display: block;
-      color: var(--pedra);
+      color: #766C60;
       font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.10em;
+      letter-spacing: 0.12em;
       text-transform: uppercase;
     }
 
     .summary-item strong {
       display: block;
       margin-top: 2px;
-      color: var(--carvao);
-      font-size: 13px;
-      line-height: 1.25;
+      color: var(--ink);
+      font-size: 14px;
+      line-height: 1.2;
     }
 
-    .btn {
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      min-height: 52px;
-      width: 100%;
-      border-radius: var(--radius);
-      background: var(--brasa);
-      color: #FFFFFF;
-      font-size: 15px;
+    .fields {
+      display: grid;
+      gap: 10px;
+    }
+
+    label {
+      display: grid;
+      gap: 7px;
+      color: var(--muted);
+      font-size: 11px;
       font-weight: 700;
-      letter-spacing: 0.02em;
-      transition: background-color 120ms ease;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
     }
 
-    .btn:hover { background: var(--brasa-hover); }
-    .btn:active { background: var(--brasa-900); }
-    .btn:disabled {
-      background: var(--pedra);
-      cursor: not-allowed;
+    input {
+      width: 100%;
+      min-height: 54px;
+      border: 1px solid #3C352D;
+      border-radius: var(--radius);
+      background: var(--ink);
+      color: var(--paper);
+      padding: 13px 14px;
+      outline: none;
+      font-size: 16px;
     }
 
-    .btn.secondary {
-      width: auto;
-      min-width: 180px;
-      background: var(--carvao);
-      color: var(--offwhite);
-    }
-
-    .btn.secondary:hover { background: var(--grafite); }
+    input::placeholder { color: #6F665C; }
+    input:focus { border-color: var(--paper); }
 
     .feedback {
       display: none;
-      border-left: 3px solid var(--critico);
-      background: var(--offwhite);
+      border-left: 3px solid var(--danger);
+      background: #271B18;
+      color: var(--paper);
       padding: 12px 14px;
-      color: var(--carvao);
       font-size: 13px;
     }
 
@@ -471,105 +492,77 @@
       display: none;
       align-items: center;
       justify-content: center;
-      padding: 20px;
-      background: var(--carvao);
+      padding: 18px;
+      background: var(--ink);
     }
 
-    .analysis-modal.visible {
-      display: flex;
-    }
+    .analysis-modal.visible { display: flex; }
 
     .analysis-card {
-      width: min(100%, 460px);
-      max-height: calc(100vh - 40px);
+      width: min(100%, 440px);
+      max-height: calc(100vh - 36px);
       overflow: auto;
-      border: 1px solid var(--linha-banco);
-      border-radius: var(--radius-lg);
-      background: #FFFFFF;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #191714;
     }
 
     .analysis {
       display: none;
-      gap: 20px;
+      gap: 22px;
       padding: 22px;
-      background: #FFFFFF;
     }
 
     .analysis.visible { display: grid; }
 
-    .analysis-head {
-      display: grid;
-      gap: 6px;
-    }
-
     .analysis-title {
       margin: 0;
-      color: var(--carvao);
-      font-size: 20px;
+      color: var(--paper);
+      font-size: 27px;
       font-weight: 700;
-      line-height: 1.18;
+      line-height: 1.08;
     }
 
     .analysis-subtitle {
-      margin: 0;
-      color: var(--pedra);
-      font-size: 13px;
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 14px;
       line-height: 1.45;
     }
 
     .analysis-visual {
       position: relative;
-      min-height: 160px;
-      border: 1px solid var(--linha-banco);
+      min-height: 176px;
+      border: 1px solid #332E27;
       border-radius: var(--radius);
-      background: var(--offwhite);
+      background: var(--ink);
       overflow: hidden;
     }
 
-    .document-stack {
+    .scan-card {
       position: absolute;
-      inset: 22px 28px;
-    }
-
-    .sheet {
-      position: absolute;
-      width: 146px;
-      height: 104px;
-      border: 1px solid var(--linha-banco);
+      left: 24px;
+      right: 24px;
+      top: 28px;
+      height: 118px;
+      border: 1px solid #3C352D;
       border-radius: var(--radius);
-      background: #FFFFFF;
+      background: var(--paper);
     }
 
-    .sheet::before,
-    .sheet::after {
+    .scan-card::before,
+    .scan-card::after {
       content: "";
       position: absolute;
-      left: 16px;
-      right: 16px;
-      height: 2px;
-      background: var(--linha-banco);
+      left: 18px;
+      right: 18px;
+      height: 10px;
+      border-radius: 999px;
+      background: #D6C9B6;
     }
 
-    .sheet::before { top: 34px; }
-    .sheet::after { top: 52px; }
-
-    .sheet.one {
-      left: 6px;
-      top: 18px;
-      transform: rotate(-4deg);
-    }
-
-    .sheet.two {
-      left: 86px;
-      top: 10px;
-      transform: rotate(3deg);
-    }
-
-    .sheet.three {
-      left: 166px;
-      top: 24px;
-      transform: rotate(-2deg);
-    }
+    .scan-card::before { top: 36px; }
+    .scan-card::after { top: 58px; right: 82px; }
 
     .scan-line {
       position: absolute;
@@ -577,38 +570,14 @@
       right: 0;
       top: 0;
       height: 3px;
-      background: var(--brasa);
-      animation: scanDocument 1.15s ease-in-out infinite;
+      background: var(--accent);
+      animation: scanMove 1.08s ease-in-out infinite;
     }
 
-    .analysis-pulse {
-      position: absolute;
-      right: 24px;
-      bottom: 18px;
-      display: flex;
-      gap: 6px;
-      align-items: flex-end;
-    }
-
-    .analysis-pulse span {
-      width: 6px;
-      height: 16px;
-      background: var(--brasa);
-      animation: pulseBar 720ms ease-in-out infinite;
-    }
-
-    .analysis-pulse span:nth-child(2) { animation-delay: 120ms; }
-    .analysis-pulse span:nth-child(3) { animation-delay: 240ms; }
-
-    @keyframes scanDocument {
+    @keyframes scanMove {
       0% { transform: translateY(0); opacity: 0.35; }
-      20% { opacity: 1; }
-      100% { transform: translateY(157px); opacity: 0.35; }
-    }
-
-    @keyframes pulseBar {
-      0%, 100% { transform: scaleY(0.45); opacity: 0.45; }
-      50% { transform: scaleY(1); opacity: 1; }
+      18% { opacity: 1; }
+      100% { transform: translateY(173px); opacity: 0.35; }
     }
 
     .steps {
@@ -618,14 +587,15 @@
 
     .step {
       display: grid;
-      grid-template-columns: 20px 1fr auto;
+      grid-template-columns: 14px 1fr auto;
       gap: 10px;
       align-items: center;
-      border: 1px solid var(--linha-banco);
+      min-height: 46px;
+      border: 1px solid #332E27;
       border-radius: var(--radius);
-      background: #FFFFFF;
-      padding: 11px 12px;
-      color: var(--grafite);
+      background: var(--ink);
+      padding: 10px 12px;
+      color: var(--paper);
       font-size: 13px;
     }
 
@@ -633,50 +603,48 @@
       width: 10px;
       height: 10px;
       border-radius: 50%;
-      background: var(--areia);
+      background: #4B4238;
     }
 
-    .step.active .dot { background: var(--brasa); }
-    .step.active {
-      border-color: var(--brasa);
-      color: var(--carvao);
-    }
-    .step.active .state { color: var(--brasa); }
-    .step.done .dot { background: var(--resultado); }
-    .step.done .state { color: var(--resultado); }
+    .step.active .dot { background: var(--accent); }
+    .step.done .dot { background: var(--ok); }
 
     .state {
-      color: var(--pedra);
-      font-size: 11px;
+      color: var(--muted);
+      font-size: 10px;
       font-weight: 700;
       text-transform: uppercase;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.10em;
     }
+
+    .step.active .state { color: var(--accent); }
+    .step.done .state { color: var(--ok); }
 
     .result {
       display: none;
       padding: 22px;
-      background: var(--brasa-50);
+      background: var(--paper);
+      color: var(--ink);
     }
 
     .result.visible { display: block; }
 
-    .result .status {
+    .status {
       display: inline-flex;
       align-items: center;
       gap: 7px;
-      min-height: 28px;
-      padding: 5px 10px;
-      border-radius: 999px;
+      min-height: 30px;
+      padding: 6px 10px;
+      border-radius: var(--radius);
       background: #FFFFFF;
-      color: var(--resultado);
+      color: var(--ok);
       font-size: 11px;
       font-weight: 700;
       text-transform: uppercase;
       letter-spacing: 0.08em;
     }
 
-    .result .status::before {
+    .status::before {
       content: "";
       width: 7px;
       height: 7px;
@@ -685,30 +653,27 @@
     }
 
     .result h3 {
-      margin: 14px 0 8px;
-      color: var(--carvao);
-      font-size: 24px;
-      line-height: 1.15;
+      margin: 16px 0 10px;
+      color: var(--ink);
+      font-size: 32px;
+      line-height: 1.06;
     }
 
     .result p {
       margin: 0;
-      color: var(--grafite);
+      color: #50483F;
+      font-size: 17px;
     }
 
     .result-meta {
       display: grid;
       grid-template-columns: 1fr 1fr;
       gap: 10px;
-      margin-top: 16px;
-    }
-
-    .modal-action {
       margin-top: 18px;
     }
 
     .metric {
-      border: 1px solid var(--linha-banco);
+      border: 1px solid var(--line-light);
       border-radius: var(--radius);
       background: #FFFFFF;
       padding: 12px;
@@ -716,227 +681,128 @@
 
     .metric span {
       display: block;
-      color: var(--pedra);
-      font-size: 11px;
+      color: #8A8074;
+      font-size: 10px;
       font-weight: 700;
-      letter-spacing: 0.08em;
+      letter-spacing: 0.10em;
       text-transform: uppercase;
     }
 
     .metric strong {
       display: block;
-      margin-top: 4px;
-      color: var(--carvao);
-      font-size: 18px;
+      margin-top: 5px;
+      color: var(--ink);
+      font-size: 22px;
       line-height: 1.1;
     }
 
-    @media (max-width: 860px) {
+    .modal-action {
+      margin-top: 20px;
+    }
+
+    @media (max-width: 560px) {
       .page {
-        width: min(100% - 24px, 560px);
-        padding: 18px 0 28px;
-      }
-
-      .brand {
-        margin-bottom: 18px;
-      }
-
-      .brand-tag {
-        max-width: 170px;
-      }
-
-      .layout {
-        grid-template-columns: 1fr;
-        gap: 14px;
-      }
-
-      .intro {
+        display: block;
         padding: 0;
       }
 
-      .accent {
-        margin: 10px 0 12px;
+      .quiz-app {
+        min-height: 100vh;
+        width: 100%;
       }
 
-      h1 {
-        max-width: 100%;
-        font-size: 28px;
+      .stage {
+        padding: 22px 18px 26px;
       }
 
-      .intro-copy {
-        display: none;
-      }
-
-      .quiz-stage {
-        min-height: 560px;
+      .title {
+        font-size: 32px;
       }
     }
 
-    @media (max-width: 520px) {
-      .page {
-        width: min(100% - 20px, 430px);
+    @media (max-width: 390px) {
+      .stage {
+        padding-left: 14px;
+        padding-right: 14px;
       }
 
-      .brand img {
-        width: 98px;
+      .hero-grid {
+        gap: 10px;
       }
 
-      .brand-tag {
-        font-size: 10px;
+      .visual-card {
+        min-height: 218px;
       }
 
-      h1 {
-        font-size: 26px;
+      .visual-card img {
+        height: 134px;
       }
 
-      .quiz-stage,
-      .quiz-top,
-      .analysis,
-      .result {
-        padding: 16px;
+      .visual-footer {
+        padding: 11px;
       }
 
-      .quiz-stage {
-        min-height: 586px;
-      }
-
-      .question-title {
-        font-size: 24px;
-      }
-
-      .choice-grid {
-        grid-template-columns: 1fr;
-      }
-
-      .choice-grid.visual-grid {
-        grid-template-columns: 1fr 1fr;
-      }
-
-      .choice-card.visual {
-        grid-template-rows: 106px auto;
-        min-height: 190px;
-      }
-
-      .choice-card.visual img {
-        min-height: 0;
-      }
-
-      .choice-card.visual .choice-copy {
-        padding: 10px;
-      }
-
-      .choice-card.visual .choice-label {
-        font-size: 15px;
-      }
-
-      .choice-card.visual .choice-detail {
-        font-size: 12px;
-      }
-
-      .choice-label {
+      .visual-label {
         font-size: 16px;
       }
 
-      .summary,
-      .form-grid,
-      .result-meta {
-        grid-template-columns: 1fr;
-      }
-
-      .analysis-modal {
-        padding: 12px;
-      }
-
-      .analysis-visual {
-        min-height: 142px;
-      }
-
-      .document-stack {
-        inset: 18px 16px;
-      }
-
-      .sheet {
-        width: 116px;
-        height: 92px;
-      }
-
-      .sheet.two { left: 68px; }
-      .sheet.three { left: 136px; }
-
-      @keyframes scanDocument {
-        0% { transform: translateY(0); opacity: 0.35; }
-        20% { opacity: 1; }
-        100% { transform: translateY(139px); opacity: 0.35; }
+      .visual-detail {
+        font-size: 11px;
       }
     }
   </style>
 </head>
 <body>
   <main class="page">
-    <header class="brand" aria-label="Hurtz Company">
-      <img src="./assets/logo-atual-claro.png" alt="Hurtz">
-      <div class="brand-tag">Pré-análise digital</div>
-    </header>
-
-    <div class="layout">
-      <section class="intro">
-        <div class="eyebrow">Consórcio Hurtz</div>
-        <div class="accent" aria-hidden="true"></div>
-        <h1>Pré-análise Hurtz</h1>
-        <p class="intro-copy">Escolha as opções mais próximas do seu momento para receber uma orientação inicial pelo WhatsApp.</p>
-      </section>
-
-      <section class="quiz-shell" aria-labelledby="quizTitle">
-        <div class="quiz-top">
-          <div class="quiz-nav">
-            <span class="progress-label" id="progressLabel">Etapa 1 de 8</span>
-            <button class="back-btn" id="backBtn" type="button" hidden>Voltar</button>
-          </div>
-          <div class="progress-track" aria-hidden="true">
+    <section class="quiz-app" aria-label="Pré-análise Hurtz">
+      <header class="app-top">
+        <div class="brand-row">
+          <button class="back-btn" id="backBtn" type="button" aria-label="Voltar" hidden>‹</button>
+          <div class="brand-name">Hurtz</div>
+          <div class="menu-mark" aria-hidden="true"><span></span></div>
+        </div>
+        <div class="progress-wrap">
+          <div class="progress-line" aria-hidden="true">
             <span class="progress-fill" id="progressFill"></span>
           </div>
+          <div class="progress-label" id="progressLabel">Etapa 1 de 8</div>
         </div>
+      </header>
 
-        <div class="quiz-stage" id="quizStage"></div>
-      </section>
-    </div>
+      <div class="stage" id="quizStage"></div>
+    </section>
   </main>
 
   <div class="analysis-modal" id="analysisModal" role="dialog" aria-modal="true" aria-labelledby="analysisTitle" aria-hidden="true">
     <div class="analysis-card">
       <div class="analysis" id="analysisBox" aria-live="polite">
-        <div class="analysis-head">
-          <p class="analysis-title" id="analysisTitle">Calculando pré-análise</p>
-          <p class="analysis-subtitle">Conferindo os dados enviados e cruzando os valores principais.</p>
+        <div>
+          <p class="analysis-title" id="analysisTitle">Montando seu perfil</p>
+          <p class="analysis-subtitle">Estamos cruzando suas respostas para preparar o próximo passo.</p>
         </div>
 
         <div class="analysis-visual" aria-hidden="true">
-          <div class="document-stack">
-            <span class="sheet one"></span>
-            <span class="sheet two"></span>
-            <span class="sheet three"></span>
-          </div>
+          <div class="scan-card"></div>
           <span class="scan-line"></span>
-          <div class="analysis-pulse"><span></span><span></span><span></span></div>
         </div>
 
         <div class="steps">
           <div class="step" data-step="0"><span class="dot"></span><span>Dados recebidos</span><span class="state">Pendente</span></div>
           <div class="step" data-step="1"><span class="dot"></span><span>Entrada disponível</span><span class="state">Pendente</span></div>
           <div class="step" data-step="2"><span class="dot"></span><span>Renda estimada</span><span class="state">Pendente</span></div>
-          <div class="step" data-step="3"><span class="dot"></span><span>Resultado inicial</span><span class="state">Pendente</span></div>
+          <div class="step" data-step="3"><span class="dot"></span><span>Perfil inicial</span><span class="state">Pendente</span></div>
         </div>
       </div>
 
       <div class="result" id="resultBox" aria-live="polite">
-        <span class="status">Pré-análise concluída</span>
-        <h3>Perfil pronto para atendimento Hurtz.</h3>
-        <p>Um consultor vai te chamar no WhatsApp com o próximo passo.</p>
+        <span class="status">Perfil pronto</span>
+        <h3>Seu atendimento já pode começar.</h3>
+        <p>Um consultor vai te chamar no WhatsApp com uma orientação para o seu caso.</p>
         <div class="result-meta">
           <div class="metric"><span>Prioridade</span><strong id="resultTemp">Em análise</strong></div>
           <div class="metric"><span>Protocolo</span><strong id="resultProtocol">--</strong></div>
         </div>
-        <button class="btn modal-action" id="modalClose" type="button">Continuar →</button>
+        <button class="primary-btn modal-action" id="modalClose" type="button">Continuar →</button>
       </div>
     </div>
   </div>
@@ -947,106 +813,113 @@
     const steps = [
       {
         id: "tipo_bem",
-        type: "choice",
-        layout: "visual",
-        title: "Qual bem você quer conquistar?",
-        subtitle: "Escolha a opção mais próxima do seu objetivo.",
+        type: "visual",
+        section: "Escolha seu objetivo",
+        title: "O que você quer conquistar?",
+        subtitle: "Toque na opção que mais parece com o seu plano.",
         options: [
           {
-            label: "Imóvel",
+            label: "Meu imóvel",
             value: "Imóvel",
             detail: "Casa, apartamento ou terreno",
             image: "https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&w=720&q=70"
           },
           {
-            label: "Veículo",
+            label: "Meu carro",
             value: "Veículo",
-            detail: "Carro para uso pessoal ou trabalho",
+            detail: "Uso pessoal ou trabalho",
             image: "https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=720&q=70"
           },
           {
-            label: "Caminhão ou maquinário",
+            label: "Meu negócio",
             value: "Caminhão ou maquinário",
-            detail: "Estrutura para operar ou expandir",
+            detail: "Caminhão ou maquinário",
             image: "https://images.unsplash.com/photo-1519003722824-194d4455a60c?auto=format&fit=crop&w=720&q=70"
           },
           {
-            label: "Investimento",
+            label: "Meu capital",
             value: "Investimento",
-            detail: "Capital, serviço ou planejamento",
+            detail: "Serviço ou planejamento",
             image: "https://images.unsplash.com/photo-1554224155-6726b3ff858f?auto=format&fit=crop&w=720&q=70"
           }
         ]
       },
       {
         id: "valor_credito",
-        type: "choice",
-        title: "Qual valor aproximado você procura?",
-        subtitle: "Pode ser uma estimativa. O consultor ajusta depois com você.",
+        type: "list",
+        section: "Valor desejado",
+        title: "Qual faixa combina com o que você procura?",
+        subtitle: "Não precisa ser exato. A ideia é entender o tamanho do objetivo.",
         options: [
-          { label: "Até R$ 100 mil", value: 100000, detail: "Primeira faixa", token: "1" },
-          { label: "R$ 100 mil a R$ 250 mil", value: 250000, detail: "Faixa intermediária", token: "2" },
-          { label: "R$ 250 mil a R$ 500 mil", value: 500000, detail: "Projeto maior", token: "3" },
-          { label: "Acima de R$ 500 mil", value: 750000, detail: "Carta alta", token: "4" }
+          { label: "Até R$ 100 mil", value: 100000, detail: "Para começar com uma carta menor", token: "1" },
+          { label: "R$ 100 mil a R$ 250 mil", value: 250000, detail: "A faixa mais comum para entrada no plano", token: "2" },
+          { label: "R$ 250 mil a R$ 500 mil", value: 500000, detail: "Para um objetivo maior", token: "3" },
+          { label: "Acima de R$ 500 mil", value: 750000, detail: "Para cartas mais altas", token: "4" }
         ]
       },
       {
         id: "valor_entrada",
-        type: "choice",
-        title: "Quanto você consegue separar de entrada?",
-        subtitle: "Use o valor que você considera viável hoje.",
+        type: "list",
+        section: "Entrada disponível",
+        title: "Quanto você já consegue separar?",
+        subtitle: "Isso ajuda a indicar um caminho mais realista para o atendimento.",
         options: [
-          { label: "Até R$ 5 mil", value: 5000, detail: "Entrada inicial", token: "A" },
-          { label: "R$ 5 mil a R$ 15 mil", value: 15000, detail: "Boa margem de início", token: "B" },
-          { label: "R$ 15 mil a R$ 40 mil", value: 40000, detail: "Perfil mais competitivo", token: "C" },
-          { label: "Acima de R$ 40 mil", value: 80000, detail: "Maior poder de negociação", token: "D" }
+          { label: "Até R$ 5 mil", value: 5000, detail: "Estou começando agora", token: "A" },
+          { label: "R$ 5 mil a R$ 15 mil", value: 15000, detail: "Tenho uma reserva inicial", token: "B" },
+          { label: "R$ 15 mil a R$ 40 mil", value: 40000, detail: "Tenho uma entrada mais forte", token: "C" },
+          { label: "Acima de R$ 40 mil", value: 80000, detail: "Quero usar uma entrada maior", token: "D" }
         ]
       },
       {
         id: "renda_mensal",
-        type: "choice",
-        title: "Qual sua renda mensal aproximada?",
-        subtitle: "Selecione uma faixa para orientar a simulação inicial.",
+        type: "list",
+        section: "Perfil mensal",
+        title: "Qual faixa mais se aproxima da sua renda?",
+        subtitle: "Escolha a opção mais confortável para continuar.",
         options: [
           { label: "Até R$ 3 mil", value: 3000, detail: "Renda inicial", token: "3" },
-          { label: "R$ 3 mil a R$ 6 mil", value: 6000, detail: "Faixa comum", token: "6" },
-          { label: "R$ 6 mil a R$ 12 mil", value: 12000, detail: "Boa capacidade", token: "12" },
+          { label: "R$ 3 mil a R$ 6 mil", value: 6000, detail: "Faixa intermediária", token: "6" },
+          { label: "R$ 6 mil a R$ 12 mil", value: 12000, detail: "Boa capacidade mensal", token: "12" },
           { label: "Acima de R$ 12 mil", value: 18000, detail: "Maior flexibilidade", token: "+" }
         ]
       },
       {
         id: "urgencia",
-        type: "choice",
-        title: "Quando você quer começar?",
-        subtitle: "Isso ajuda a definir a prioridade do atendimento.",
+        type: "list",
+        section: "Momento",
+        title: "Quando você quer dar o próximo passo?",
+        subtitle: "O prazo muda a forma de orientar sua estratégia.",
         options: [
-          { label: "Agora", value: "Agora ou em até 30 dias", detail: "Quero conversar o quanto antes", token: "30" },
-          { label: "Nos próximos 30 dias", value: "Agora ou em até 30 dias", detail: "Estou comparando caminhos", token: "30" },
-          { label: "Em até 3 meses", value: "Em 1 a 3 meses", detail: "Quero me organizar", token: "90" },
-          { label: "Ainda estou entendendo", value: "Sem prazo definido", detail: "Quero orientação inicial", token: "?" }
+          { label: "Agora", value: "Agora ou em até 30 dias", detail: "Quero falar com alguém logo", token: "!" },
+          { label: "Nos próximos 30 dias", value: "Agora ou em até 30 dias", detail: "Estou comparando opções", token: "30" },
+          { label: "Em até 3 meses", value: "Em 1 a 3 meses", detail: "Quero me organizar melhor", token: "90" },
+          { label: "Ainda estou entendendo", value: "Sem prazo definido", detail: "Quero só uma orientação inicial", token: "?" }
         ]
       },
       {
         type: "interlude",
-        title: "Estamos montando seu perfil inicial.",
-        subtitle: "Suas respostas ajudam a indicar o melhor caminho de atendimento para o seu momento."
+        section: "Seu perfil",
+        title: "Já dá para enxergar um caminho.",
+        subtitle: "A última pergunta ajuda a direcionar o atendimento para o que mais importa agora."
       },
       {
         id: "duvida",
-        type: "choice",
-        title: "O que você mais quer entender agora?",
-        subtitle: "Escolha o ponto que mais pesa na sua decisão.",
+        type: "list",
+        section: "Sua dúvida principal",
+        title: "O que você mais quer entender?",
+        subtitle: "Essa resposta ajuda o consultor a começar pelo ponto certo.",
         options: [
           { label: "Valor de parcela", value: "Dúvida principal: valor de parcela", detail: "Quero saber se cabe no mês", token: "R$" },
-          { label: "Como usar a entrada", value: "Dúvida principal: entrada disponível", detail: "Quero entender a melhor estratégia", token: "%" },
-          { label: "Tempo para contemplar", value: "Dúvida principal: prazo e contemplação", detail: "Quero clareza sobre o caminho", token: "T" },
-          { label: "Qual carta escolher", value: "Dúvida principal: valor de carta", detail: "Quero evitar escolher errado", token: "C" }
+          { label: "Como usar a entrada", value: "Dúvida principal: entrada disponível", detail: "Quero saber qual estratégia faz sentido", token: "%" },
+          { label: "Tempo para contemplar", value: "Dúvida principal: prazo e contemplação", detail: "Quero entender o caminho", token: "T" },
+          { label: "Qual carta escolher", value: "Dúvida principal: valor de carta", detail: "Quero evitar começar errado", token: "C" }
         ]
       },
       {
         type: "contact",
+        section: "Resultado",
         title: "Para onde enviamos sua orientação?",
-        subtitle: "Um consultor vai seguir pelo WhatsApp com base nas suas respostas."
+        subtitle: "Preencha os dados para um consultor continuar pelo WhatsApp."
       }
     ];
 
@@ -1099,104 +972,105 @@
         return;
       }
 
-      quizStage.innerHTML = renderChoiceStep(step);
+      quizStage.innerHTML = step.type === "visual"
+        ? renderVisualStep(step)
+        : renderListStep(step);
+
       quizStage.querySelectorAll("[data-option]").forEach((button) => {
         button.addEventListener("click", () => selectOption(button.dataset.option));
       });
     }
 
-    function renderChoiceStep(step) {
-      const visual = step.layout === "visual";
+    function renderHead(step) {
       return `
-        <div class="question">
-          <div class="question-head">
-            <h2 class="question-title" id="quizTitle">${step.title}</h2>
-            <p class="question-subtitle">${step.subtitle}</p>
-          </div>
-          <div class="choice-grid ${visual ? "visual-grid" : "list"}">
-            ${step.options.map((option, index) => renderOption(step, option, index)).join("")}
+        <div class="screen-head">
+          <div class="section-label">${step.section}</div>
+          <h1 class="title">${step.title}</h1>
+          <p class="subtitle">${step.subtitle}</p>
+        </div>
+      `;
+    }
+
+    function renderVisualStep(step) {
+      return `
+        <div class="screen">
+          ${renderHead(step)}
+          <div class="hero-grid">
+            ${step.options.map((option, index) => `
+              <button class="visual-card${answers[step.id] === option.value ? " selected" : ""}" type="button" data-option="${index}">
+                <img src="${option.image}" alt="">
+                <span class="visual-footer">
+                  <span>
+                    <span class="visual-label">${option.label}</span>
+                    <span class="visual-detail">${option.detail}</span>
+                  </span>
+                  <span class="arrow-chip">›</span>
+                </span>
+              </button>
+            `).join("")}
           </div>
         </div>
       `;
     }
 
-    function renderOption(step, option, index) {
-      const selected = answers[step.id] === option.value ? " selected" : "";
-      if (step.layout === "visual") {
-        return `
-          <button class="choice-card visual${selected}" type="button" data-option="${index}">
-            <img src="${option.image}" alt="">
-            <span class="choice-copy">
-              <span class="choice-label">${option.label}</span>
-              <span class="choice-detail">${option.detail}</span>
-            </span>
-          </button>
-        `;
-      }
-
+    function renderListStep(step) {
       return `
-        <button class="choice-card list${selected}" type="button" data-option="${index}">
-          <span class="choice-token">${option.token}</span>
-          <span class="choice-copy">
-            <span class="choice-label">${option.label}</span>
-            <span class="choice-detail">${option.detail}</span>
-          </span>
-        </button>
+        <div class="screen">
+          ${renderHead(step)}
+          <div class="choice-list">
+            ${step.options.map((option, index) => `
+              <button class="list-card${answers[step.id] === option.value ? " selected" : ""}" type="button" data-option="${index}">
+                <span class="token">${option.token}</span>
+                <span class="list-copy">
+                  <span class="list-label">${option.label}</span>
+                  <span class="list-detail">${option.detail}</span>
+                </span>
+                <span class="arrow-chip">›</span>
+              </button>
+            `).join("")}
+          </div>
+        </div>
       `;
     }
 
     function renderInterlude(step) {
       return `
         <div class="interlude">
-          <div class="question-head">
-            <p class="eyebrow">Perfil inicial</p>
-            <h2 class="question-title" id="quizTitle">${step.title}</h2>
-            <p class="question-subtitle">${step.subtitle}</p>
+          ${renderHead(step)}
+          <div class="profile-panel" aria-hidden="true">
+            <div class="profile-row"><span>Objetivo</span><strong>${getLabel("tipo_bem")}</strong></div>
+            <div class="profile-row"><span>Valores</span><span class="bar"><strong></strong></span></div>
+            <div class="profile-row"><span>Renda</span><span class="bar"><strong></strong></span></div>
+            <div class="profile-row"><span>Momento</span><span class="bar"><strong></strong></span></div>
           </div>
-          <div class="interlude-visual" aria-hidden="true">
-            <span class="data-line"><span style="width: 66%"></span></span>
-            <span class="data-line"><span></span></span>
-            <span class="data-line"><span></span></span>
-            <span class="data-line"><span></span></span>
-          </div>
-          <button class="btn secondary" id="continueBtn" type="button">Continuar →</button>
+          <button class="primary-btn" id="continueBtn" type="button">Continuar →</button>
         </div>
       `;
     }
 
     function renderContact(step) {
       return `
-        <form class="contact-form" id="leadForm" novalidate>
-          <div class="question-head">
-            <h2 class="question-title" id="quizTitle">${step.title}</h2>
-            <p class="question-subtitle">${step.subtitle}</p>
-          </div>
-
-          <div class="summary">
-            <div class="summary-item"><span>Objetivo</span><strong>${getLabel("tipo_bem")}</strong></div>
-            <div class="summary-item"><span>Valor</span><strong>${getLabel("valor_credito")}</strong></div>
-            <div class="summary-item"><span>Entrada</span><strong>${getLabel("valor_entrada")}</strong></div>
-          </div>
-
-          <div class="form-grid">
-            <div class="field full">
-              <label for="nome">Nome completo</label>
-              <input id="nome" name="nome" autocomplete="name" required minlength="2" placeholder="Seu nome">
+        <form class="screen" id="leadForm" novalidate>
+          ${renderHead(step)}
+          <div class="contact-card">
+            <div class="summary-strip">
+              <div class="summary-item"><span>Objetivo</span><strong>${getLabel("tipo_bem")}</strong></div>
+              <div class="summary-item"><span>Valor</span><strong>${getLabel("valor_credito")}</strong></div>
             </div>
-
-            <div class="field">
-              <label for="whatsapp">WhatsApp</label>
-              <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000">
+            <div class="fields">
+              <label for="nome">Nome
+                <input id="nome" name="nome" autocomplete="name" required minlength="2" placeholder="Seu nome completo">
+              </label>
+              <label for="whatsapp">WhatsApp
+                <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000">
+              </label>
+              <label for="cidade">Cidade
+                <input id="cidade" name="cidade" autocomplete="address-level2" placeholder="Ex: Parauapebas">
+              </label>
             </div>
-
-            <div class="field">
-              <label for="cidade">Cidade</label>
-              <input id="cidade" name="cidade" autocomplete="address-level2" placeholder="Ex: Parauapebas">
-            </div>
+            <div class="feedback" id="feedback" role="alert"></div>
+            <button class="primary-btn" id="submitBtn" type="submit">Ver meu resultado →</button>
           </div>
-
-          <div class="feedback" id="feedback" role="alert"></div>
-          <button class="btn" id="submitBtn" type="submit">Receber orientação →</button>
         </form>
       `;
     }
@@ -1206,9 +1080,9 @@
       const option = step.options[Number(index)];
       answers[step.id] = option.value;
       answers[`${step.id}_label`] = option.label;
-      quizStage.querySelectorAll(".choice-card").forEach((card) => card.classList.remove("selected"));
+      quizStage.querySelectorAll(".visual-card, .list-card").forEach((card) => card.classList.remove("selected"));
       quizStage.querySelector(`[data-option="${index}"]`).classList.add("selected");
-      window.setTimeout(goNext, 180);
+      window.setTimeout(goNext, 170);
     }
 
     function goNext() {
@@ -1231,7 +1105,7 @@
       hideFeedback(feedback);
 
       if (!form.checkValidity()) {
-        showFeedback(feedback, "Confere seu nome e WhatsApp antes de enviar.");
+        showFeedback(feedback, "Confere seu nome e WhatsApp antes de ver o resultado.");
         return;
       }
 
@@ -1249,7 +1123,7 @@
         utm_source: params.get("utm_source") || "",
         utm_campaign: params.get("utm_campaign") || "",
         client_slug: params.get("client_slug") || "default",
-        quiz_version: "v2-visual",
+        quiz_version: "v3-app-visual",
         quiz_answers: answers
       };
 
@@ -1284,7 +1158,7 @@
       } finally {
         isSubmitting = false;
         submitBtn.disabled = false;
-        submitBtn.textContent = "Receber orientação →";
+        submitBtn.textContent = "Ver meu resultado →";
         backBtn.hidden = currentStep === 0;
       }
     }
