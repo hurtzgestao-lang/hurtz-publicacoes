@@ -389,7 +389,6 @@
     .meter-panel,
     .bar-panel,
     .timeline-panel,
-    .insight-panel,
     .contact-card {
       display: grid;
       gap: 14px;
@@ -455,8 +454,7 @@
     .band-option,
     .meter-option,
     .bar-option,
-    .timeline-option,
-    .insight-option {
+    .timeline-option {
       width: 100%;
       min-height: 72px;
       display: grid;
@@ -482,30 +480,10 @@
     .bar-option:hover,
     .bar-option.selected,
     .timeline-option:hover,
-    .timeline-option.selected,
-    .insight-option:hover,
-    .insight-option.selected {
+    .timeline-option.selected {
       border-color: var(--primary);
       background: var(--primary-soft);
       transform: translateY(-1px);
-    }
-
-    .mini-spark {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 4px;
-      align-items: end;
-      height: 36px;
-      padding: 6px;
-      border-radius: var(--radius);
-      background: var(--blue-soft);
-    }
-
-    .mini-spark i {
-      display: block;
-      height: var(--h);
-      border-radius: 999px 999px 2px 2px;
-      background: var(--blue);
     }
 
     .value-chip {
@@ -516,62 +494,6 @@
       border-radius: var(--radius);
       background: var(--blue-soft);
       color: var(--blue);
-    }
-
-    .meter-hero {
-      display: grid;
-      grid-template-columns: 132px 1fr;
-      gap: 14px;
-      align-items: center;
-    }
-
-    .gauge {
-      --value: 54%;
-      width: 132px;
-      aspect-ratio: 1;
-      border-radius: 50%;
-      display: grid;
-      place-items: center;
-      background:
-        radial-gradient(circle at center, #FFFFFF 0 57%, transparent 58%),
-        conic-gradient(var(--primary) var(--value), #DDE7F0 0);
-      border: 1px solid var(--line-soft);
-    }
-
-    .gauge strong {
-      color: var(--ink);
-      font-size: 25px;
-      line-height: 1;
-    }
-
-    .gauge span {
-      display: block;
-      margin-top: 2px;
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 800;
-      text-transform: uppercase;
-      letter-spacing: 0.08em;
-      text-align: center;
-    }
-
-    .meter-copy strong,
-    .chart-copy strong,
-    .timeline-copy strong {
-      display: block;
-      color: var(--ink);
-      font-size: 17px;
-      line-height: 1.16;
-    }
-
-    .meter-copy span,
-    .chart-copy span,
-    .timeline-copy span {
-      display: block;
-      margin-top: 5px;
-      color: var(--muted);
-      font-size: 13px;
-      line-height: 1.35;
     }
 
     .meter-option {
@@ -597,118 +519,17 @@
       font-weight: 800;
     }
 
-    .bar-visual {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-      align-items: center;
-      padding: 12px;
-      border-radius: var(--radius);
-      background: var(--surface-2);
-      border: 1px solid var(--line-soft);
-    }
-
-    .chart {
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 8px;
-      align-items: end;
-      height: 126px;
-      padding: 10px;
-      border-radius: var(--radius);
-      background: #FFFFFF;
-      border: 1px solid var(--line-soft);
-    }
-
-    .chart i {
-      position: relative;
-      display: block;
-      min-height: 24px;
-      height: var(--h);
-      border-radius: 999px 999px 4px 4px;
-      background: linear-gradient(180deg, var(--blue), var(--primary));
-    }
-
-    .chart i::after {
-      content: attr(data-label);
-      position: absolute;
-      left: 50%;
-      bottom: -18px;
-      transform: translateX(-50%);
-      color: var(--muted);
-      font-size: 9px;
-      font-weight: 800;
-    }
-
     .bar-option {
-      grid-template-columns: 52px 1fr 52px;
+      grid-template-columns: 54px 1fr 58px;
       padding: 11px;
-    }
-
-    .mini-bar {
-      display: grid;
-      align-items: end;
-      justify-items: center;
-      height: 48px;
-      border-radius: var(--radius);
-      background: var(--blue-soft);
-    }
-
-    .mini-bar i {
-      width: 18px;
-      height: var(--h);
-      min-height: 12px;
-      border-radius: 999px 999px 3px 3px;
-      background: var(--blue);
     }
 
     .timeline-panel {
       gap: 12px;
     }
 
-    .timeline-rail {
-      position: relative;
-      display: grid;
-      grid-template-columns: repeat(4, 1fr);
-      gap: 7px;
-      padding: 10px 4px 4px;
-    }
-
-    .timeline-rail::before {
-      content: "";
-      position: absolute;
-      left: 8%;
-      right: 8%;
-      top: 21px;
-      height: 3px;
-      border-radius: 999px;
-      background: #DDE7F0;
-    }
-
-    .time-node {
-      position: relative;
-      z-index: 1;
-      display: grid;
-      justify-items: center;
-      gap: 8px;
-      color: var(--muted);
-      font-size: 10px;
-      font-weight: 800;
-      text-align: center;
-      line-height: 1.1;
-    }
-
-    .time-node i {
-      width: 24px;
-      height: 24px;
-      border-radius: 50%;
-      border: 5px solid var(--surface);
-      background: var(--primary);
-      box-shadow: 0 0 0 1px var(--line);
-    }
-
     .timeline-option {
-      grid-template-columns: 52px 1fr;
+      grid-template-columns: 54px 1fr;
       padding: 12px;
     }
 
@@ -723,104 +544,6 @@
       color: var(--primary-dark);
       font-size: 13px;
       font-weight: 800;
-    }
-
-    .interlude {
-      min-height: calc(100vh - 120px);
-      display: grid;
-      align-content: center;
-      gap: 18px;
-    }
-
-    .insight-panel {
-      padding: 16px;
-    }
-
-    .auto-card {
-      display: grid;
-      justify-items: center;
-      gap: 18px;
-      border: 1px solid var(--line);
-      border-radius: 16px;
-      background: rgba(255, 255, 255, 0.92);
-      padding: 26px 18px;
-      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
-      text-align: center;
-    }
-
-    .auto-card h2 {
-      margin: 0;
-      color: var(--ink);
-      font-size: 24px;
-      line-height: 1.08;
-    }
-
-    .auto-card p {
-      margin: 0;
-      color: var(--muted);
-      font-size: 14px;
-      line-height: 1.4;
-    }
-
-    .auto-orbit {
-      position: relative;
-      width: 128px;
-      height: 128px;
-      border-radius: 50%;
-      background:
-        radial-gradient(circle at center, #FFFFFF 0 48%, transparent 49%),
-        conic-gradient(var(--primary) 0 34%, #DDE7F0 34% 100%);
-      animation: orbitFill 1.55s ease-in-out infinite alternate;
-    }
-
-    .auto-orbit::before,
-    .auto-orbit::after {
-      content: "";
-      position: absolute;
-      width: 18px;
-      height: 18px;
-      border-radius: 50%;
-      background: var(--blue);
-      box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.10);
-    }
-
-    .auto-orbit::before {
-      top: 10px;
-      right: 20px;
-    }
-
-    .auto-orbit::after {
-      left: 16px;
-      bottom: 22px;
-      background: var(--primary);
-      box-shadow: 0 0 0 8px rgba(15, 118, 110, 0.10);
-    }
-
-    @keyframes orbitFill {
-      from { filter: saturate(0.9); transform: rotate(-8deg); }
-      to { filter: saturate(1.1); transform: rotate(10deg); }
-    }
-
-    .auto-progress {
-      width: min(100%, 280px);
-      height: 8px;
-      border-radius: 999px;
-      background: #DDE7F0;
-      overflow: hidden;
-    }
-
-    .auto-progress i {
-      display: block;
-      width: 38%;
-      height: 100%;
-      border-radius: inherit;
-      background: linear-gradient(90deg, var(--primary), var(--blue));
-      animation: autoSlide 1.35s ease-in-out infinite;
-    }
-
-    @keyframes autoSlide {
-      0% { transform: translateX(-105%); }
-      100% { transform: translateX(270%); }
     }
 
     .dashboard-grid {
@@ -893,26 +616,6 @@
       background: #94A3B8;
       cursor: not-allowed;
       transform: none;
-    }
-
-    .insight-grid {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 10px;
-    }
-
-    .insight-option {
-      min-height: 144px;
-      align-content: start;
-      grid-template-columns: 1fr;
-      padding: 13px;
-    }
-
-    .insight-option .choice-icon {
-      width: 48px;
-      height: 48px;
-      background: var(--blue-soft);
-      color: var(--blue);
     }
 
     .summary-strip {
@@ -1269,8 +972,7 @@
         padding-right: 14px;
       }
 
-      .visual-grid,
-      .insight-grid {
+      .visual-grid {
         gap: 9px;
       }
 
@@ -1296,13 +998,10 @@
         padding: 11px;
       }
 
-      .meter-hero,
-      .bar-visual,
       .analysis-dashboard {
         grid-template-columns: 1fr;
       }
 
-      .gauge,
       .analysis-ring {
         justify-self: center;
       }
@@ -1323,8 +1022,8 @@
             <span class="progress-fill" id="progressFill"></span>
           </div>
           <div class="progress-meta">
-            <span id="progressLabel">Etapa 1 de 8</span>
-            <span id="progressPercent">13%</span>
+            <span id="progressLabel">Etapa 1 de 6</span>
+            <span id="progressPercent">17%</span>
           </div>
         </div>
       </header>
@@ -1349,7 +1048,7 @@
             <span>Objetivo <i style="--w: 76%"></i></span>
             <span>Entrada <i style="--w: 58%"></i></span>
             <span>Renda <i style="--w: 68%"></i></span>
-            <span>Momento <i style="--w: 86%"></i></span>
+            <span>Prazo <i style="--w: 86%"></i></span>
           </div>
         </div>
 
@@ -1429,8 +1128,6 @@
         section: "Valor desejado",
         title: "Qual valor você está buscando?",
         subtitle: "Pode ser aproximado.",
-        insightIcon: "line-chart",
-        insight: () => `Escolha uma faixa de valor parecida com o que você procura.`,
         options: [
           { label: "Até R$ 100 mil", value: 100000, detail: "Para um valor menor", icon: "badge-dollar-sign" },
           { label: "R$ 100 mil a R$ 250 mil", value: 250000, detail: "Uma faixa intermediária", icon: "landmark" },
@@ -1444,13 +1141,11 @@
         section: "Entrada disponível",
         title: "Quanto você já consegue separar?",
         subtitle: "Escolha uma faixa que faça sentido hoje.",
-        insightIcon: "badge-percent",
-        insight: () => `Marque uma faixa próxima do dinheiro que você tem separado hoje.`,
         options: [
-          { label: "Até R$ 5 mil", value: 5000, detail: "Tenho pouco separado agora", level: "Até 5k", gauge: 22, icon: "wallet-cards" },
-          { label: "R$ 5 mil a R$ 15 mil", value: 15000, detail: "Tenho uma reserva inicial", level: "5-15k", gauge: 44, icon: "piggy-bank" },
-          { label: "R$ 15 mil a R$ 40 mil", value: 40000, detail: "Tenho uma entrada maior", level: "15-40k", gauge: 68, icon: "trending-up" },
-          { label: "Acima de R$ 40 mil", value: 80000, detail: "Consigo separar mais de R$ 40 mil", level: "40k+", gauge: 88, icon: "circle-dollar-sign" }
+          { label: "Até R$ 5 mil", value: 5000, detail: "Tenho pouco separado agora", level: "Até 5k", icon: "wallet-cards" },
+          { label: "R$ 5 mil a R$ 15 mil", value: 15000, detail: "Tenho uma reserva inicial", level: "5-15k", icon: "piggy-bank" },
+          { label: "R$ 15 mil a R$ 40 mil", value: 40000, detail: "Tenho uma entrada maior", level: "15-40k", icon: "trending-up" },
+          { label: "Acima de R$ 40 mil", value: 80000, detail: "Consigo separar mais de R$ 40 mil", level: "40k+", icon: "circle-dollar-sign" }
         ]
       },
       {
@@ -1459,13 +1154,11 @@
         section: "Renda mensal",
         title: "Qual é sua renda mensal aproximada?",
         subtitle: "Marque a faixa mais próxima.",
-        insightIcon: "bar-chart-3",
-        insight: () => `Escolha a faixa que mais parece com sua renda de hoje.`,
         options: [
-          { label: "Até R$ 3 mil", value: 3000, detail: "Até R$ 3 mil por mês", bar: 30, icon: "bar-chart" },
-          { label: "R$ 3 mil a R$ 6 mil", value: 6000, detail: "Entre R$ 3 mil e R$ 6 mil", bar: 48, icon: "bar-chart-2" },
-          { label: "R$ 6 mil a R$ 12 mil", value: 12000, detail: "Entre R$ 6 mil e R$ 12 mil", bar: 70, icon: "bar-chart-3" },
-          { label: "Acima de R$ 12 mil", value: 18000, detail: "Mais de R$ 12 mil por mês", bar: 92, icon: "bar-chart-4" }
+          { label: "Até R$ 3 mil", value: 3000, detail: "Até R$ 3 mil por mês", level: "Até 3k", icon: "badge-dollar-sign" },
+          { label: "R$ 3 mil a R$ 6 mil", value: 6000, detail: "Entre R$ 3 mil e R$ 6 mil", level: "3-6k", icon: "wallet" },
+          { label: "R$ 6 mil a R$ 12 mil", value: 12000, detail: "Entre R$ 6 mil e R$ 12 mil", level: "6-12k", icon: "landmark" },
+          { label: "Acima de R$ 12 mil", value: 18000, detail: "Mais de R$ 12 mil por mês", level: "12k+", icon: "chart-no-axes-combined" }
         ]
       },
       {
@@ -1474,34 +1167,11 @@
         section: "Prazo",
         title: "Quando você quer começar?",
         subtitle: "Escolha o prazo mais próximo.",
-        insightIcon: "calendar-clock",
-        insight: () => `Marque o prazo que combina melhor com o que você quer fazer.`,
         options: [
           { label: "Agora", value: "Agora ou em até 30 dias", detail: "Quero começar logo", chip: "Hoje", icon: "zap" },
           { label: "Nos próximos 30 dias", value: "Agora ou em até 30 dias", detail: "Quero ver isso ainda este mês", chip: "30d", icon: "calendar-days" },
           { label: "Em até 3 meses", value: "Em 1 a 3 meses", detail: "Quero me organizar primeiro", chip: "90d", icon: "calendar-range" },
           { label: "Ainda estou entendendo", value: "Sem prazo definido", detail: "Estou pesquisando as opções", chip: "Ver", icon: "search" }
-        ]
-      },
-      {
-        type: "interlude",
-        section: "Carregando",
-        title: "Carregando suas respostas",
-        subtitle: "Só mais um instante."
-      },
-      {
-        id: "duvida",
-        type: "insights",
-        section: "Dúvida principal",
-        title: "O que você quer entender primeiro?",
-        subtitle: "Marque o ponto que mais pesa na sua decisão.",
-        insightIcon: "messages-square",
-        insight: () => `Escolha o assunto que você quer resolver primeiro no WhatsApp.`,
-        options: [
-          { label: "Valor de parcela", value: "Dúvida principal: valor de parcela", detail: "Quero saber se cabe no meu mês", icon: "receipt" },
-          { label: "Como usar a entrada", value: "Dúvida principal: entrada disponível", detail: "Quero usar melhor o dinheiro que tenho", icon: "badge-percent" },
-          { label: "Tempo para contemplar", value: "Dúvida principal: prazo e contemplação", detail: "Quero entender os prazos", icon: "clock-3" },
-          { label: "Qual carta escolher", value: "Dúvida principal: valor de carta", detail: "Quero escolher um valor sem errar", icon: "layers-3" }
         ]
       }
     ];
@@ -1548,14 +1218,7 @@
       progressLabel.textContent = `Etapa ${currentStep + 1} de ${steps.length}`;
       progressPercent.textContent = `${progress}%`;
       progressFill.style.width = `${progress}%`;
-      backBtn.hidden = currentStep === 0 || isSubmitting || step.type === "interlude";
-
-      if (step.type === "interlude") {
-        quizStage.innerHTML = renderInterlude(step);
-        refreshIcons();
-        autoAdvanceTimer = window.setTimeout(goNext, 2200);
-        return;
-      }
+      backBtn.hidden = currentStep === 0 || isSubmitting;
 
       if (step.type === "contact") {
         quizStage.innerHTML = renderContact(step);
@@ -1581,27 +1244,13 @@
       `;
     }
 
-    function renderContext(step) {
-      if (!step.insight) return "";
-      return `
-        <div class="context-card">
-          <span class="context-icon"><i data-lucide="${step.insightIcon || "sparkles"}"></i></span>
-          <span>
-            <strong>${step.insight()}</strong>
-            <span>Pode marcar por aproximação.</span>
-          </span>
-        </div>
-      `;
-    }
-
     function renderChoiceStep(step) {
       const renderers = {
         visual: renderVisualStep,
         range: renderRangeStep,
         meter: renderMeterStep,
         bars: renderBarsStep,
-        timeline: renderTimelineStep,
-        insights: renderInsightsStep
+        timeline: renderTimelineStep
       };
       return renderers[step.type](step);
     }
@@ -1671,15 +1320,6 @@
         <div class="screen">
           ${renderHead(step)}
           <div class="meter-panel">
-            <div class="meter-hero">
-              <div class="gauge" style="--value: ${entryGauge()}%">
-                <div><strong>${entryRatioLabel()}</strong><span>entrada</span></div>
-              </div>
-              <div class="meter-copy">
-                <strong>Não precisa ser o valor exato.</strong>
-                <span>Marque o que você consegue considerar hoje.</span>
-              </div>
-            </div>
             <div class="choice-stack">
               ${step.options.map((option, index) => `
                 <button class="meter-option${answers[step.id] === option.value ? " selected" : ""}" type="button" data-option="${index}">
@@ -1702,27 +1342,15 @@
         <div class="screen">
           ${renderHead(step)}
           <div class="bar-panel">
-            <div class="bar-visual">
-              <div class="chart" aria-hidden="true">
-                <i style="--h: 30%" data-label="3k"></i>
-                <i style="--h: 48%" data-label="6k"></i>
-                <i style="--h: 70%" data-label="12k"></i>
-                <i style="--h: 92%" data-label="+12"></i>
-              </div>
-              <div class="chart-copy">
-                <strong>Pense no que entra por mês.</strong>
-                <span>Escolha a faixa mais parecida com sua renda atual.</span>
-              </div>
-            </div>
             <div class="choice-stack">
               ${step.options.map((option, index) => `
                 <button class="bar-option${answers[step.id] === option.value ? " selected" : ""}" type="button" data-option="${index}">
-                  <span class="mini-bar" aria-hidden="true"><i style="--h: ${option.bar}%"></i></span>
+                  <span class="choice-icon"><i data-lucide="${option.icon}"></i></span>
                   <span>
                     <span class="choice-label">${option.label}</span>
                     <span class="choice-detail">${option.detail}</span>
                   </span>
-                  <span class="choice-icon"><i data-lucide="${option.icon}"></i></span>
+                  <span class="level-pill">${option.level}</span>
                 </button>
               `).join("")}
             </div>
@@ -1736,16 +1364,6 @@
         <div class="screen">
           ${renderHead(step)}
           <div class="timeline-panel">
-            <div class="timeline-rail" aria-hidden="true">
-              <span class="time-node"><i></i>hoje</span>
-              <span class="time-node"><i></i>30 dias</span>
-              <span class="time-node"><i></i>3 meses</span>
-              <span class="time-node"><i></i>entender</span>
-            </div>
-            <div class="timeline-copy">
-              <strong>Escolha o prazo mais realista.</strong>
-              <span>Se ainda estiver pesquisando, pode marcar que está entendendo.</span>
-            </div>
             <div class="choice-stack">
               ${step.options.map((option, index) => `
                 <button class="timeline-option${answers[step.id] === option.value ? " selected" : ""}" type="button" data-option="${index}">
@@ -1757,40 +1375,6 @@
                 </button>
               `).join("")}
             </div>
-          </div>
-        </div>
-      `;
-    }
-
-    function renderInsightsStep(step) {
-      return `
-        <div class="screen">
-          ${renderHead(step)}
-          <div class="insight-grid">
-            ${step.options.map((option, index) => `
-              <button class="insight-option${answers[step.id] === option.value ? " selected" : ""}" type="button" data-option="${index}">
-                <span class="choice-icon"><i data-lucide="${option.icon}"></i></span>
-                <span>
-                  <span class="choice-label">${option.label}</span>
-                  <span class="choice-detail">${option.detail}</span>
-                </span>
-              </button>
-            `).join("")}
-          </div>
-        </div>
-      `;
-    }
-
-    function renderInterlude(step) {
-      return `
-        <div class="interlude">
-          <div class="auto-card" aria-live="polite">
-            <span class="auto-orbit" aria-hidden="true"></span>
-            <div>
-              <h2>${step.title}</h2>
-              <p>${step.subtitle}</p>
-            </div>
-            <span class="auto-progress" aria-hidden="true"><i></i></span>
           </div>
         </div>
       `;
@@ -1828,9 +1412,9 @@
       answers[step.id] = option.value;
       answers[`${step.id}_label`] = option.label;
       answers[`${step.id}_detail`] = option.detail || "";
-      quizStage.querySelectorAll(".asset-card, .band-option, .meter-option, .bar-option, .timeline-option, .insight-option").forEach((card) => card.classList.remove("selected"));
+      quizStage.querySelectorAll(".asset-card, .band-option, .meter-option, .bar-option, .timeline-option").forEach((card) => card.classList.remove("selected"));
       quizStage.querySelector(`[data-option="${index}"]`).classList.add("selected");
-      if (step.id === "duvida") {
+      if (step.id === "urgencia") {
         autoAdvanceTimer = window.setTimeout(submitLead, 220);
         return;
       }
@@ -1879,7 +1463,7 @@
         valor_entrada: Number(answers.valor_entrada || 0),
         renda_mensal: Number(answers.renda_mensal || 0),
         urgencia: answers.urgencia || "",
-        experiencia_consorcio: answers.duvida || "",
+        experiencia_consorcio: "",
         consentimento_lgpd: true,
         utm_source: params.get("utm_source") || "",
         utm_campaign: params.get("utm_campaign") || "",
@@ -1916,49 +1500,12 @@
         showStageFeedback(error.message || "Não conseguimos enviar agora. Tente de novo em instantes.");
       } finally {
         isSubmitting = false;
-        backBtn.hidden = currentStep === 0 || steps[currentStep]?.type === "interlude";
+        backBtn.hidden = currentStep === 0;
       }
     }
 
     function getLabel(id) {
       return answers[`${id}_label`] || "Selecionado";
-    }
-
-    function entryGauge() {
-      const credit = Number(answers.valor_credito || 0);
-      const entry = Number(answers.valor_entrada || 0);
-      if (!credit || !entry) return 54;
-      return Math.max(18, Math.min(92, Math.round((entry / credit) * 100 * 2.6)));
-    }
-
-    function entryRatioLabel() {
-      const credit = Number(answers.valor_credito || 0);
-      const entry = Number(answers.valor_entrada || 0);
-      if (!credit || !entry) return "Em cálculo";
-      const ratio = Math.max(1, Math.round((entry / credit) * 100));
-      return `${ratio}%`;
-    }
-
-    function creditWeight() {
-      const value = Number(answers.valor_credito || 0);
-      if (value >= 750000) return 92;
-      if (value >= 500000) return 74;
-      if (value >= 250000) return 58;
-      return 42;
-    }
-
-    function urgencyWeight() {
-      const value = answers.urgencia || "";
-      if (value.includes("30 dias")) return 88;
-      if (value.includes("1 a 3")) return 66;
-      if (value.includes("Sem prazo")) return 38;
-      return 72;
-    }
-
-    function shortUrgency() {
-      const label = getLabel("urgencia");
-      if (label === "Selecionado") return label;
-      return label.replace("Nos próximos ", "").replace("Ainda estou ", "");
     }
 
     function formatPhoneInput(input) {
