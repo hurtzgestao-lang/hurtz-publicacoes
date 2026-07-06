@@ -737,6 +737,18 @@
       border-radius: var(--radius);
       background: var(--green-soft);
       color: var(--primary-dark);
+      overflow: hidden;
+    }
+
+    .social-toast-icon svg {
+      display: block;
+      width: 18px;
+      height: 18px;
+    }
+
+    .social-toast-copy {
+      display: block;
+      min-width: 0;
     }
 
     .social-toast strong {
@@ -746,7 +758,7 @@
       line-height: 1.15;
     }
 
-    .social-toast span {
+    .social-toast-copy span {
       display: block;
       margin-top: 2px;
       color: var(--muted);
@@ -1189,7 +1201,7 @@
       { name: "Pedro", action: "acabou de simular", detail: "Imóvel em Parauapebas", icon: "home" },
       { name: "Camila", action: "começou uma simulação", detail: "Carta acima de R$ 250 mil", icon: "landmark" },
       { name: "Rafael", action: "acabou de simular", detail: "Entrada inicial informada", icon: "wallet-cards" },
-      { name: "Mariana", action: "está simulando agora", detail: "Comparando valores de imóvel", icon: "bar-chart-3" },
+      { name: "Mariana", action: "está simulando agora", detail: "Comparando valores de imóvel", icon: "trending-up" },
       { name: "Lucas", action: "finalizou uma simulação", detail: "Atendimento pelo WhatsApp", icon: "message-circle" },
       { name: "Amanda", action: "acabou de simular", detail: "Plano para os próximos 30 dias", icon: "calendar-days" }
     ];
@@ -1950,7 +1962,7 @@
       toast.className = "social-toast";
       toast.innerHTML = `
         <span class="social-toast-icon"><i data-lucide="${item.icon}"></i></span>
-        <span>
+        <span class="social-toast-copy">
           <strong>${escapeHtml(item.name)} ${escapeHtml(item.action)}</strong>
           <span>${escapeHtml(item.detail)}</span>
         </span>
