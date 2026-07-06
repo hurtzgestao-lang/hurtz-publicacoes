@@ -96,24 +96,20 @@
       backdrop-filter: blur(16px);
     }
 
-    .brand-row {
+    .live-row {
       display: grid;
-      grid-template-columns: 42px 1fr 42px;
+      grid-template-columns: auto minmax(0, 1fr);
       align-items: center;
       gap: 10px;
     }
 
-    .back-btn,
-    .menu-mark {
+    .back-btn {
       width: 42px;
       height: 42px;
       border-radius: var(--radius);
       background: var(--surface);
       color: var(--ink);
       border: 1px solid var(--line);
-    }
-
-    .back-btn {
       display: grid;
       place-items: center;
       font-size: 25px;
@@ -122,38 +118,48 @@
     }
 
     .back-btn[hidden] {
-      visibility: hidden;
+      display: none;
+    }
+
+    .live-proof {
+      min-height: 42px;
       display: grid;
+      grid-template-columns: auto 1fr;
+      align-items: center;
+      gap: 10px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.82);
+      padding: 9px 12px;
+      box-shadow: 0 10px 24px rgba(15, 23, 42, 0.05);
     }
 
-    .menu-mark {
-      position: relative;
-      justify-self: end;
+    .live-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: var(--green);
+      box-shadow: 0 0 0 0 rgba(17, 132, 91, 0.34);
+      animation: livePulse 1.6s ease-out infinite;
     }
 
-    .menu-mark::before,
-    .menu-mark::after,
-    .menu-mark span {
-      content: "";
-      position: absolute;
-      left: 10px;
-      right: 10px;
-      height: 2px;
-      border-radius: 999px;
-      background: var(--ink);
+    @keyframes livePulse {
+      0% { box-shadow: 0 0 0 0 rgba(17, 132, 91, 0.34); }
+      70% { box-shadow: 0 0 0 10px rgba(17, 132, 91, 0); }
+      100% { box-shadow: 0 0 0 0 rgba(17, 132, 91, 0); }
     }
 
-    .menu-mark::before { top: 13px; }
-    .menu-mark span { top: 20px; }
-    .menu-mark::after { top: 27px; }
-
-    .brand-name {
-      justify-self: center;
+    .live-copy {
+      min-width: 0;
       color: var(--ink);
-      font-size: 20px;
+      font-size: 13px;
       font-weight: 800;
       letter-spacing: 0;
-      line-height: 1;
+      line-height: 1.2;
+    }
+
+    .live-copy strong {
+      color: var(--primary-dark);
     }
 
     .progress-wrap {
@@ -687,6 +693,64 @@
 
     .analysis-modal.visible { display: flex; }
 
+    .social-proof-stack {
+      position: fixed;
+      right: max(14px, env(safe-area-inset-right));
+      bottom: max(14px, env(safe-area-inset-bottom));
+      z-index: 12;
+      display: grid;
+      gap: 8px;
+      width: min(292px, calc(100vw - 28px));
+      pointer-events: none;
+    }
+
+    .social-toast {
+      display: grid;
+      grid-template-columns: 38px 1fr;
+      align-items: center;
+      gap: 10px;
+      min-height: 58px;
+      border: 1px solid rgba(220, 229, 238, 0.95);
+      border-radius: var(--radius);
+      background: rgba(255, 255, 255, 0.96);
+      box-shadow: 0 18px 34px rgba(15, 23, 42, 0.14);
+      padding: 10px;
+      opacity: 0;
+      transform: translateY(10px);
+      transition: opacity 180ms ease, transform 180ms ease;
+      backdrop-filter: blur(12px);
+    }
+
+    .social-toast.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .social-toast-icon {
+      width: 38px;
+      height: 38px;
+      display: grid;
+      place-items: center;
+      border-radius: var(--radius);
+      background: var(--green-soft);
+      color: var(--primary-dark);
+    }
+
+    .social-toast strong {
+      display: block;
+      color: var(--ink);
+      font-size: 13px;
+      line-height: 1.15;
+    }
+
+    .social-toast span {
+      display: block;
+      margin-top: 2px;
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1.25;
+    }
+
     .analysis-card {
       width: min(100%, 450px);
       max-height: calc(100vh - 36px);
@@ -1017,10 +1081,12 @@
   <main class="page">
     <section class="quiz-app" aria-label="Pré-análise Hurtz">
       <header class="app-top">
-        <div class="brand-row">
+        <div class="live-row">
           <button class="back-btn" id="backBtn" type="button" aria-label="Voltar" hidden>&lsaquo;</button>
-          <div class="brand-name">Hurtz</div>
-          <div class="menu-mark" aria-hidden="true"><span></span></div>
+          <div class="live-proof" aria-live="polite">
+            <span class="live-dot" aria-hidden="true"></span>
+            <span class="live-copy"><strong id="activeSimulations">10</strong> pessoas fazendo simulação em <strong>Parauapebas</strong></span>
+          </div>
         </div>
         <div class="progress-wrap">
           <div class="progress-line" aria-hidden="true">
@@ -1036,6 +1102,8 @@
       <div class="stage" id="quizStage"></div>
     </section>
   </main>
+
+  <div class="social-proof-stack" id="socialProofStack" aria-live="polite" aria-atomic="false"></div>
 
   <div class="analysis-modal" id="analysisModal" role="dialog" aria-modal="true" aria-labelledby="analysisTitle" aria-hidden="true">
     <div class="analysis-card">
@@ -1114,6 +1182,14 @@
       currency: "BRL",
       value: 0
     };
+    const SOCIAL_PROOF_NOTIFICATIONS = [
+      { name: "Pedro", action: "acabou de simular", detail: "Imóvel em Parauapebas", icon: "home" },
+      { name: "Camila", action: "começou uma simulação", detail: "Carta acima de R$ 250 mil", icon: "landmark" },
+      { name: "Rafael", action: "acabou de simular", detail: "Entrada inicial informada", icon: "wallet-cards" },
+      { name: "Mariana", action: "está simulando agora", detail: "Comparando valores de imóvel", icon: "bar-chart-3" },
+      { name: "Lucas", action: "finalizou uma simulação", detail: "Atendimento pelo WhatsApp", icon: "message-circle" },
+      { name: "Amanda", action: "acabou de simular", detail: "Plano para os próximos 30 dias", icon: "calendar-days" }
+    ];
 
     const steps = [
       {
@@ -1227,6 +1303,8 @@
     const resultTemp = document.getElementById("resultTemp");
     const resultProtocol = document.getElementById("resultProtocol");
     const modalClose = document.getElementById("modalClose");
+    const activeSimulations = document.getElementById("activeSimulations");
+    const socialProofStack = document.getElementById("socialProofStack");
     const params = new URLSearchParams(window.location.search);
     const clientSlug = params.get("client_slug") || "default";
 
@@ -1241,6 +1319,10 @@
     let leadEventId = createEventId();
     let metaPixelId = "";
     let pixelConfigPromise = null;
+    let activeSimulationCount = getInitialSimulationCount();
+    let liveCounterTimer = null;
+    let socialProofTimer = null;
+    let socialProofIndex = Math.floor(Math.random() * SOCIAL_PROOF_NOTIFICATIONS.length);
 
     backBtn.addEventListener("click", () => {
       if (isSubmitting || currentStep === 0) return;
@@ -1256,6 +1338,8 @@
 
     pixelConfigPromise = loadPublicConfig();
     renderStep();
+    startLiveCounter();
+    scheduleSocialProof(2600);
 
     function renderStep() {
       clearAutoAdvance();
@@ -1628,6 +1712,7 @@
 
     function startAnalysisAnimation() {
       clearAnalysisTimers();
+      clearSocialProofToasts();
       analysisModal.classList.add("visible");
       analysisModal.setAttribute("aria-hidden", "false");
       document.body.classList.add("modal-open");
@@ -1817,6 +1902,69 @@
 
     function wait(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    function getInitialSimulationCount() {
+      const seed = Math.floor(Date.now() / 60000) + Math.floor(Math.random() * 7);
+      return 9 + (seed % 4);
+    }
+
+    function startLiveCounter() {
+      updateLiveCounter();
+      queueLiveCounterUpdate();
+    }
+
+    function queueLiveCounterUpdate() {
+      if (liveCounterTimer) window.clearTimeout(liveCounterTimer);
+      const delay = 4200 + Math.floor(Math.random() * 3600);
+      liveCounterTimer = window.setTimeout(() => {
+        const direction = Math.random() > 0.46 ? 1 : -1;
+        activeSimulationCount = Math.max(8, Math.min(14, activeSimulationCount + direction));
+        updateLiveCounter();
+        queueLiveCounterUpdate();
+      }, delay);
+    }
+
+    function updateLiveCounter() {
+      if (!activeSimulations) return;
+      activeSimulations.textContent = String(activeSimulationCount);
+    }
+
+    function scheduleSocialProof(delay = 9000) {
+      if (socialProofTimer) window.clearTimeout(socialProofTimer);
+      socialProofTimer = window.setTimeout(() => {
+        showSocialProofToast();
+        scheduleSocialProof(8400 + Math.floor(Math.random() * 6400));
+      }, delay);
+    }
+
+    function showSocialProofToast() {
+      if (!socialProofStack || document.hidden || document.body.classList.contains("modal-open")) return;
+      const item = SOCIAL_PROOF_NOTIFICATIONS[socialProofIndex % SOCIAL_PROOF_NOTIFICATIONS.length];
+      socialProofIndex += 1;
+
+      const toast = document.createElement("div");
+      toast.className = "social-toast";
+      toast.innerHTML = `
+        <span class="social-toast-icon"><i data-lucide="${item.icon}"></i></span>
+        <span>
+          <strong>${escapeHtml(item.name)} ${escapeHtml(item.action)}</strong>
+          <span>${escapeHtml(item.detail)}</span>
+        </span>
+      `;
+
+      socialProofStack.appendChild(toast);
+      refreshIcons();
+      window.setTimeout(() => toast.classList.add("visible"), 20);
+      window.setTimeout(() => {
+        toast.classList.remove("visible");
+        window.setTimeout(() => toast.remove(), 220);
+      }, 5200);
+    }
+
+    function clearSocialProofToasts() {
+      if (!socialProofStack) return;
+      socialProofStack.querySelectorAll(".social-toast").forEach((toast) => toast.remove());
     }
 
     async function loadPublicConfig() {
