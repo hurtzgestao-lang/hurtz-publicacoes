@@ -1084,6 +1084,36 @@
   <script src="https://unpkg.com/lucide@0.468.0/dist/umd/lucide.min.js"></script>
   <script>
     const API_URL = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/analise-credito-submit";
+    const QUIZ_VERSION = "v4-financial-interactive-early-contact";
+    const TRACKING_STORAGE_KEY = "hurtz_analise_credito_tracking";
+    const TRACKING_PARAM_NAMES = [
+      "utm_source",
+      "utm_medium",
+      "utm_campaign",
+      "utm_campaign_id",
+      "utm_content",
+      "utm_term",
+      "utm_adset",
+      "utm_adset_id",
+      "utm_ad",
+      "utm_ad_id",
+      "campaign_id",
+      "campaign_name",
+      "adset_id",
+      "adset_name",
+      "ad_id",
+      "ad_name",
+      "placement",
+      "site_source_name",
+      "fbclid",
+      "client_slug"
+    ];
+    const META_LEAD_DATA = {
+      content_name: "Pré-análise Hurtz",
+      content_category: "Consórcio",
+      currency: "BRL",
+      value: 0
+    };
 
     const steps = [
       {
@@ -1198,6 +1228,7 @@
     const resultProtocol = document.getElementById("resultProtocol");
     const modalClose = document.getElementById("modalClose");
     const params = new URLSearchParams(window.location.search);
+    const clientSlug = params.get("client_slug") || "default";
 
     let currentStep = 0;
     let answers = {};
@@ -1206,6 +1237,10 @@
     let autoAdvanceTimer = null;
     let isSubmitting = false;
     let pendingCorrection = null;
+    let tracking = initTracking();
+    let leadEventId = createEventId();
+    let metaPixelId = "";
+    let pixelConfigPromise = null;
 
     backBtn.addEventListener("click", () => {
       if (isSubmitting || currentStep === 0) return;
@@ -1219,6 +1254,7 @@
       resetQuiz();
     });
 
+    pixelConfigPromise = loadPublicConfig();
     renderStep();
 
     function renderStep() {
@@ -1480,6 +1516,7 @@
     async function submitLead() {
       if (isSubmitting) return;
       const submitStepIndex = currentStep;
+      const currentTracking = getCurrentTracking();
       const payload = {
         nome: leadInfo.nome,
         whatsapp: normalizePhoneForPayload(leadInfo.whatsapp),
@@ -1491,11 +1528,30 @@
         urgencia: answers.urgencia || "",
         experiencia_consorcio: "",
         consentimento_lgpd: true,
-        utm_source: params.get("utm_source") || "",
-        utm_campaign: params.get("utm_campaign") || "",
-        client_slug: params.get("client_slug") || "default",
-        quiz_version: "v4-financial-interactive-early-contact",
-        quiz_answers: answers
+        utm_source: currentTracking.utm_source || "",
+        utm_medium: currentTracking.utm_medium || "",
+        utm_campaign: currentTracking.utm_campaign || "",
+        utm_content: currentTracking.utm_content || "",
+        utm_term: currentTracking.utm_term || "",
+        utm_campaign_id: currentTracking.utm_campaign_id || currentTracking.campaign_id || "",
+        utm_adset: currentTracking.utm_adset || currentTracking.adset_name || "",
+        utm_adset_id: currentTracking.utm_adset_id || currentTracking.adset_id || "",
+        utm_ad: currentTracking.utm_ad || currentTracking.ad_name || "",
+        utm_ad_id: currentTracking.utm_ad_id || currentTracking.ad_id || "",
+        campaign_id: currentTracking.campaign_id || currentTracking.utm_campaign_id || "",
+        adset_id: currentTracking.adset_id || currentTracking.utm_adset_id || "",
+        ad_id: currentTracking.ad_id || currentTracking.utm_ad_id || "",
+        fbclid: currentTracking.fbclid || "",
+        fbp: currentTracking.fbp || "",
+        fbc: currentTracking.fbc || "",
+        placement: currentTracking.placement || "",
+        site_source_name: currentTracking.site_source_name || "",
+        client_slug: clientSlug,
+        quiz_version: QUIZ_VERSION,
+        quiz_answers: answers,
+        tracking: currentTracking,
+        event_id: leadEventId,
+        event_source_url: currentTracking.event_source_url || window.location.href
       };
 
       isSubmitting = true;
@@ -1520,6 +1576,7 @@
           throw submitError;
         }
 
+        trackMetaLead(data.event_id || payload.event_id);
         completeAnalysis();
         resultTemp.textContent = labelTemperature(data.temperatura);
         resultProtocol.textContent = String(data.submission_id || "--").slice(0, 8).toUpperCase();
@@ -1564,6 +1621,8 @@
       answers = {};
       leadInfo = { nome: "", whatsapp: "", cidade: "" };
       pendingCorrection = null;
+      tracking = initTracking();
+      leadEventId = createEventId();
       renderStep();
     }
 
@@ -1758,6 +1817,159 @@
 
     function wait(ms) {
       return new Promise((resolve) => setTimeout(resolve, ms));
+    }
+
+    async function loadPublicConfig() {
+      try {
+        const response = await fetch(`${API_URL}?config=1&client_slug=${encodeURIComponent(clientSlug)}`);
+        const data = await response.json().catch(() => ({}));
+        const pixelId = String(data?.meta_pixel_id || "").trim();
+        if (response.ok && pixelId) installMetaPixel(pixelId);
+      } catch (error) {
+        console.warn("[analise-credito] Configuração pública indisponível", error);
+      }
+    }
+
+    function installMetaPixel(pixelId) {
+      if (!pixelId || window.__hurtzMetaPixelInitialized === pixelId) return;
+      metaPixelId = pixelId;
+
+      if (typeof window.fbq !== "function") {
+        const pixel = function() {
+          pixel.callMethod
+            ? pixel.callMethod.apply(pixel, arguments)
+            : pixel.queue.push(arguments);
+        };
+        window.fbq = pixel;
+        if (!window._fbq) window._fbq = pixel;
+        pixel.push = pixel;
+        pixel.loaded = true;
+        pixel.version = "2.0";
+        pixel.queue = [];
+
+        const script = document.createElement("script");
+        script.async = true;
+        script.src = "https://connect.facebook.net/en_US/fbevents.js";
+        const firstScript = document.getElementsByTagName("script")[0];
+        firstScript.parentNode.insertBefore(script, firstScript);
+      }
+
+      window.fbq("init", pixelId);
+      window.fbq("track", "PageView");
+      window.__hurtzMetaPixelInitialized = pixelId;
+    }
+
+    async function trackMetaLead(eventId) {
+      const finalEventId = String(eventId || "").trim();
+      if (!finalEventId) return;
+      if (!metaPixelId && pixelConfigPromise) {
+        await pixelConfigPromise.catch(() => null);
+      }
+      if (!metaPixelId || typeof window.fbq !== "function") return;
+      window.fbq("track", "Lead", META_LEAD_DATA, { eventID: finalEventId });
+    }
+
+    function initTracking() {
+      const stored = safeSessionRead(TRACKING_STORAGE_KEY);
+      const collected = collectTrackingParams(stored);
+      const merged = {
+        ...stored,
+        ...collected,
+        first_landing_url: stored.first_landing_url || collected.landing_url || window.location.href,
+        quiz_version: QUIZ_VERSION
+      };
+      safeSessionWrite(TRACKING_STORAGE_KEY, merged);
+      return merged;
+    }
+
+    function getCurrentTracking() {
+      const collected = collectTrackingParams(tracking);
+      tracking = {
+        ...tracking,
+        ...collected,
+        event_id: leadEventId,
+        event_source_url: window.location.href,
+        quiz_version: QUIZ_VERSION
+      };
+      safeSessionWrite(TRACKING_STORAGE_KEY, tracking);
+      return { ...tracking };
+    }
+
+    function collectTrackingParams(stored = {}) {
+      const collected = {
+        landing_url: window.location.href,
+        event_source_url: window.location.href,
+        page_path: window.location.pathname
+      };
+
+      if (document.referrer || stored.referrer_url) {
+        collected.referrer_url = document.referrer || stored.referrer_url;
+      }
+
+      TRACKING_PARAM_NAMES.forEach((key) => {
+        const value = cleanTrackingValue(params.get(key));
+        if (value) collected[key] = value;
+      });
+
+      params.forEach((value, key) => {
+        if (!key.startsWith("utm_")) return;
+        const cleaned = cleanTrackingValue(value);
+        if (cleaned) collected[key] = cleaned;
+      });
+
+      const fbp = cleanTrackingValue(readCookie("_fbp") || stored.fbp);
+      if (fbp) collected.fbp = fbp;
+
+      const fbclid = cleanTrackingValue(collected.fbclid || stored.fbclid);
+      let fbc = cleanTrackingValue(readCookie("_fbc") || stored.fbc);
+      if (fbclid && !fbc) {
+        fbc = `fb.1.${Date.now()}.${fbclid}`;
+        setCookie("_fbc", fbc, 90);
+      }
+      if (fbclid) collected.fbclid = fbclid;
+      if (fbc) collected.fbc = fbc;
+
+      return collected;
+    }
+
+    function cleanTrackingValue(value) {
+      return String(value || "").trim().slice(0, 500);
+    }
+
+    function safeSessionRead(key) {
+      try {
+        return JSON.parse(window.sessionStorage.getItem(key) || "{}") || {};
+      } catch {
+        return {};
+      }
+    }
+
+    function safeSessionWrite(key, value) {
+      try {
+        window.sessionStorage.setItem(key, JSON.stringify(value));
+      } catch {
+        // Navegadores in-app podem bloquear storage; o envio continua com os dados em memória.
+      }
+    }
+
+    function readCookie(name) {
+      const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+      const match = document.cookie.match(new RegExp(`(?:^|; )${escaped}=([^;]*)`));
+      return match ? decodeURIComponent(match[1]) : "";
+    }
+
+    function setCookie(name, value, days) {
+      try {
+        const maxAge = days * 24 * 60 * 60;
+        document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}; SameSite=Lax`;
+      } catch {
+        // Cookie indisponível não bloqueia a captação do lead.
+      }
+    }
+
+    function createEventId() {
+      if (window.crypto?.randomUUID) return window.crypto.randomUUID();
+      return `analise_credito_${Date.now()}_${Math.random().toString(16).slice(2)}`;
     }
 
     function refreshIcons() {
