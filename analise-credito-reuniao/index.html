@@ -227,20 +227,165 @@
 
     .feedback.visible { display: block; }
 
-    .analysis {
-      display: none;
-      padding: 20px;
-      border-top: 1px solid var(--linha-banco);
-      background: var(--offwhite);
+    body.modal-open {
+      overflow: hidden;
     }
 
-    .analysis.visible { display: block; }
+    .analysis-modal {
+      position: fixed;
+      inset: 0;
+      z-index: 20;
+      display: none;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+      background: var(--carvao);
+    }
+
+    .analysis-modal.visible {
+      display: flex;
+    }
+
+    .analysis-card {
+      width: min(100%, 460px);
+      max-height: calc(100vh - 40px);
+      overflow: auto;
+      border: 1px solid var(--linha-banco);
+      border-radius: var(--radius-lg);
+      background: #FFFFFF;
+    }
+
+    .analysis {
+      display: none;
+      gap: 20px;
+      padding: 22px;
+      background: #FFFFFF;
+    }
+
+    .analysis.visible { display: grid; }
+
+    .analysis-head {
+      display: grid;
+      gap: 6px;
+    }
 
     .analysis-title {
-      margin: 0 0 14px;
+      margin: 0;
       color: var(--carvao);
-      font-size: 16px;
+      font-size: 20px;
       font-weight: 700;
+      line-height: 1.18;
+    }
+
+    .analysis-subtitle {
+      margin: 0;
+      color: var(--pedra);
+      font-size: 13px;
+      line-height: 1.45;
+    }
+
+    .analysis-visual {
+      position: relative;
+      min-height: 160px;
+      border: 1px solid var(--linha-banco);
+      border-radius: var(--radius);
+      background: var(--offwhite);
+      overflow: hidden;
+    }
+
+    .document-stack {
+      position: absolute;
+      inset: 22px 28px;
+    }
+
+    .sheet {
+      position: absolute;
+      width: 146px;
+      height: 104px;
+      border: 1px solid var(--linha-banco);
+      border-radius: var(--radius);
+      background: #FFFFFF;
+    }
+
+    .sheet::before,
+    .sheet::after {
+      content: "";
+      position: absolute;
+      left: 16px;
+      right: 16px;
+      height: 2px;
+      background: var(--linha-banco);
+    }
+
+    .sheet::before {
+      top: 34px;
+    }
+
+    .sheet::after {
+      top: 52px;
+    }
+
+    .sheet.one {
+      left: 6px;
+      top: 18px;
+      transform: rotate(-4deg);
+    }
+
+    .sheet.two {
+      left: 86px;
+      top: 10px;
+      transform: rotate(3deg);
+    }
+
+    .sheet.three {
+      left: 166px;
+      top: 24px;
+      transform: rotate(-2deg);
+    }
+
+    .scan-line {
+      position: absolute;
+      left: 0;
+      right: 0;
+      top: 0;
+      height: 3px;
+      background: var(--brasa);
+      animation: scanDocument 1.15s ease-in-out infinite;
+    }
+
+    .analysis-pulse {
+      position: absolute;
+      right: 24px;
+      bottom: 18px;
+      display: flex;
+      gap: 6px;
+      align-items: flex-end;
+    }
+
+    .analysis-pulse span {
+      width: 6px;
+      height: 16px;
+      background: var(--brasa);
+      animation: pulseBar 720ms ease-in-out infinite;
+    }
+
+    .analysis-pulse span:nth-child(2) {
+      animation-delay: 120ms;
+    }
+
+    .analysis-pulse span:nth-child(3) {
+      animation-delay: 240ms;
+    }
+
+    @keyframes scanDocument {
+      0% { transform: translateY(0); opacity: 0.35; }
+      20% { opacity: 1; }
+      100% { transform: translateY(157px); opacity: 0.35; }
+    }
+
+    @keyframes pulseBar {
+      0%, 100% { transform: scaleY(0.45); opacity: 0.45; }
+      50% { transform: scaleY(1); opacity: 1; }
     }
 
     .steps {
@@ -269,6 +414,11 @@
     }
 
     .step.active .dot { background: var(--brasa); }
+    .step.active {
+      border-color: var(--brasa);
+      color: var(--carvao);
+    }
+    .step.active .state { color: var(--brasa); }
     .step.done .dot { background: var(--resultado); }
     .step.done .state { color: var(--resultado); }
 
@@ -282,8 +432,7 @@
 
     .result {
       display: none;
-      padding: 20px;
-      border-top: 1px solid var(--linha-banco);
+      padding: 22px;
       background: var(--brasa-50);
     }
 
@@ -329,6 +478,10 @@
       grid-template-columns: 1fr 1fr;
       gap: 10px;
       margin-top: 16px;
+    }
+
+    .modal-action {
+      margin-top: 18px;
     }
 
     .metric {
@@ -419,6 +572,37 @@
       .result {
         padding: 16px;
       }
+
+      .analysis-modal {
+        padding: 12px;
+      }
+
+      .analysis-visual {
+        min-height: 142px;
+      }
+
+      .document-stack {
+        inset: 18px 16px;
+      }
+
+      .sheet {
+        width: 116px;
+        height: 92px;
+      }
+
+      .sheet.two {
+        left: 68px;
+      }
+
+      .sheet.three {
+        left: 136px;
+      }
+
+      @keyframes scanDocument {
+        0% { transform: translateY(0); opacity: 0.35; }
+        20% { opacity: 1; }
+        100% { transform: translateY(139px); opacity: 0.35; }
+      }
     }
   </style>
 </head>
@@ -500,29 +684,48 @@
 
           <button class="btn" id="submitBtn" type="submit">Iniciar pré-análise →</button>
         </form>
-
-        <div class="analysis" id="analysisBox" aria-live="polite">
-          <p class="analysis-title">Calculando pré-análise</p>
-          <div class="steps">
-            <div class="step" data-step="0"><span class="dot"></span><span>Dados recebidos</span><span class="state">Pendente</span></div>
-            <div class="step" data-step="1"><span class="dot"></span><span>Entrada disponível</span><span class="state">Pendente</span></div>
-            <div class="step" data-step="2"><span class="dot"></span><span>Renda estimada</span><span class="state">Pendente</span></div>
-            <div class="step" data-step="3"><span class="dot"></span><span>Resultado inicial</span><span class="state">Pendente</span></div>
-          </div>
-        </div>
-
-        <div class="result" id="resultBox" aria-live="polite">
-          <span class="status">Pré-análise concluída</span>
-          <h3>Perfil aprovado para atendimento presencial.</h3>
-          <p>Um consultor vai te chamar no WhatsApp com o próximo passo.</p>
-          <div class="result-meta">
-            <div class="metric"><span>Prioridade</span><strong id="resultTemp">Em análise</strong></div>
-            <div class="metric"><span>Protocolo</span><strong id="resultProtocol">--</strong></div>
-          </div>
-        </div>
       </section>
     </div>
   </main>
+
+  <div class="analysis-modal" id="analysisModal" role="dialog" aria-modal="true" aria-labelledby="analysisTitle" aria-hidden="true">
+    <div class="analysis-card">
+      <div class="analysis" id="analysisBox" aria-live="polite">
+        <div class="analysis-head">
+          <p class="analysis-title" id="analysisTitle">Calculando pré-análise</p>
+          <p class="analysis-subtitle">Conferindo os dados enviados e cruzando os valores principais.</p>
+        </div>
+
+        <div class="analysis-visual" aria-hidden="true">
+          <div class="document-stack">
+            <span class="sheet one"></span>
+            <span class="sheet two"></span>
+            <span class="sheet three"></span>
+          </div>
+          <span class="scan-line"></span>
+          <div class="analysis-pulse"><span></span><span></span><span></span></div>
+        </div>
+
+        <div class="steps">
+          <div class="step" data-step="0"><span class="dot"></span><span>Dados recebidos</span><span class="state">Pendente</span></div>
+          <div class="step" data-step="1"><span class="dot"></span><span>Entrada disponível</span><span class="state">Pendente</span></div>
+          <div class="step" data-step="2"><span class="dot"></span><span>Renda estimada</span><span class="state">Pendente</span></div>
+          <div class="step" data-step="3"><span class="dot"></span><span>Resultado inicial</span><span class="state">Pendente</span></div>
+        </div>
+      </div>
+
+      <div class="result" id="resultBox" aria-live="polite">
+        <span class="status">Pré-análise concluída</span>
+        <h3>Perfil aprovado para atendimento presencial.</h3>
+        <p>Um consultor vai te chamar no WhatsApp com o próximo passo.</p>
+        <div class="result-meta">
+          <div class="metric"><span>Prioridade</span><strong id="resultTemp">Em análise</strong></div>
+          <div class="metric"><span>Protocolo</span><strong id="resultProtocol">--</strong></div>
+        </div>
+        <button class="btn modal-action" id="modalClose" type="button">Continuar →</button>
+      </div>
+    </div>
+  </div>
 
   <script>
     const API_URL = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/analise-credito-submit";
@@ -530,14 +733,19 @@
     const form = document.getElementById("leadForm");
     const feedback = document.getElementById("feedback");
     const submitBtn = document.getElementById("submitBtn");
+    const analysisModal = document.getElementById("analysisModal");
     const analysisBox = document.getElementById("analysisBox");
     const resultBox = document.getElementById("resultBox");
     const resultTemp = document.getElementById("resultTemp");
     const resultProtocol = document.getElementById("resultProtocol");
+    const modalClose = document.getElementById("modalClose");
     const moneyInputs = ["valor_credito", "valor_entrada", "renda_mensal"].map((id) => document.getElementById(id));
     const phoneInput = document.getElementById("whatsapp");
 
     const params = new URLSearchParams(window.location.search);
+    let animationTimers = [];
+
+    modalClose.addEventListener("click", hideAnalysisModal);
 
     phoneInput.addEventListener("input", () => {
       let value = phoneInput.value.replace(/\D/g, "").slice(0, 11);
@@ -582,7 +790,6 @@
 
       submitBtn.disabled = true;
       submitBtn.textContent = "Analisando...";
-      resultBox.classList.remove("visible");
       startAnalysisAnimation();
 
       try {
@@ -601,12 +808,12 @@
         completeAnalysis();
         resultTemp.textContent = labelTemperature(data.temperatura);
         resultProtocol.textContent = String(data.submission_id || "--").slice(0, 8).toUpperCase();
+        analysisBox.classList.remove("visible");
         resultBox.classList.add("visible");
-        resultBox.scrollIntoView({ behavior: "smooth", block: "nearest" });
         form.reset();
       } catch (error) {
         showFeedback(error.message || "Não foi possível enviar agora. Tente de novo em instantes.");
-        analysisBox.classList.remove("visible");
+        hideAnalysisModal();
       } finally {
         submitBtn.disabled = false;
         submitBtn.textContent = "Iniciar pré-análise →";
@@ -614,32 +821,54 @@
     });
 
     function startAnalysisAnimation() {
+      clearAnalysisTimers();
+      analysisModal.classList.add("visible");
+      analysisModal.setAttribute("aria-hidden", "false");
+      document.body.classList.add("modal-open");
       analysisBox.classList.add("visible");
+      resultBox.classList.remove("visible");
       document.querySelectorAll(".step").forEach((step) => {
         step.classList.remove("active", "done");
         step.querySelector(".state").textContent = "Pendente";
       });
 
       document.querySelectorAll(".step").forEach((step, index) => {
-        setTimeout(() => {
+        const activeTimer = setTimeout(() => {
           step.classList.add("active");
           step.querySelector(".state").textContent = "Analisando";
         }, 350 + index * 700);
 
-        setTimeout(() => {
+        const doneTimer = setTimeout(() => {
           step.classList.remove("active");
           step.classList.add("done");
           step.querySelector(".state").textContent = "OK";
         }, 900 + index * 700);
+
+        animationTimers.push(activeTimer, doneTimer);
       });
     }
 
     function completeAnalysis() {
+      clearAnalysisTimers();
       document.querySelectorAll(".step").forEach((step) => {
         step.classList.remove("active");
         step.classList.add("done");
         step.querySelector(".state").textContent = "OK";
       });
+    }
+
+    function hideAnalysisModal() {
+      clearAnalysisTimers();
+      analysisModal.classList.remove("visible");
+      analysisModal.setAttribute("aria-hidden", "true");
+      document.body.classList.remove("modal-open");
+      analysisBox.classList.remove("visible");
+      resultBox.classList.remove("visible");
+    }
+
+    function clearAnalysisTimers() {
+      animationTimers.forEach((timer) => clearTimeout(timer));
+      animationTimers = [];
     }
 
     function parseMoney(value) {
