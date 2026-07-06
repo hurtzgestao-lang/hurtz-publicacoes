@@ -230,7 +230,7 @@
     .title {
       margin: 0;
       color: var(--ink);
-      font-size: 31px;
+      font-size: 28px;
       line-height: 1.05;
       letter-spacing: 0;
       font-weight: 800;
@@ -400,46 +400,50 @@
       box-shadow: 0 14px 32px rgba(15, 23, 42, 0.06);
     }
 
-    .finance-ruler {
+    .finance-scale {
+      position: relative;
       display: grid;
       grid-template-columns: repeat(4, 1fr);
-      gap: 6px;
-      padding: 8px;
+      gap: 8px;
+      min-height: 58px;
+      padding: 10px 6px 0;
       border-radius: var(--radius);
       background: var(--surface-2);
       border: 1px solid var(--line-soft);
     }
 
-    .ruler-segment {
-      position: relative;
-      min-height: 58px;
-      border-radius: var(--radius);
-      background: linear-gradient(180deg, #FFFFFF, #EFF6FF);
-      border: 1px solid var(--line-soft);
-      overflow: hidden;
-    }
-
-    .ruler-segment::before {
+    .finance-scale::before {
       content: "";
       position: absolute;
-      left: 0;
-      right: 0;
-      bottom: 0;
-      height: var(--height);
-      background: linear-gradient(180deg, rgba(37, 99, 235, 0.20), rgba(15, 118, 110, 0.70));
-      border-radius: 999px 999px 0 0;
+      left: 10%;
+      right: 10%;
+      top: 23px;
+      height: 4px;
+      border-radius: 999px;
+      background: linear-gradient(90deg, var(--primary), var(--blue));
     }
 
-    .ruler-segment span {
-      position: absolute;
-      left: 8px;
-      right: 8px;
-      bottom: 8px;
+    .scale-tick {
+      position: relative;
       z-index: 1;
+      display: grid;
+      justify-items: center;
+      gap: 8px;
       color: var(--ink);
       font-size: 10px;
       font-weight: 800;
       line-height: 1.1;
+      text-align: center;
+    }
+
+    .scale-tick::before {
+      content: "";
+      width: 18px;
+      height: 18px;
+      border: 4px solid var(--surface-2);
+      border-radius: 50%;
+      background: var(--primary);
+      box-shadow: 0 0 0 1px var(--line);
     }
 
     .band-options,
@@ -467,7 +471,7 @@
     }
 
     .band-option {
-      grid-template-columns: 1fr 74px;
+      grid-template-columns: 48px 1fr 32px;
       padding: 12px;
     }
 
@@ -502,6 +506,16 @@
       height: var(--h);
       border-radius: 999px 999px 2px 2px;
       background: var(--blue);
+    }
+
+    .value-chip {
+      display: grid;
+      place-items: center;
+      width: 48px;
+      height: 48px;
+      border-radius: var(--radius);
+      background: var(--blue-soft);
+      color: var(--blue);
     }
 
     .meter-hero {
@@ -722,6 +736,93 @@
       padding: 16px;
     }
 
+    .auto-card {
+      display: grid;
+      justify-items: center;
+      gap: 18px;
+      border: 1px solid var(--line);
+      border-radius: 16px;
+      background: rgba(255, 255, 255, 0.92);
+      padding: 26px 18px;
+      box-shadow: 0 18px 42px rgba(15, 23, 42, 0.08);
+      text-align: center;
+    }
+
+    .auto-card h2 {
+      margin: 0;
+      color: var(--ink);
+      font-size: 24px;
+      line-height: 1.08;
+    }
+
+    .auto-card p {
+      margin: 0;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.4;
+    }
+
+    .auto-orbit {
+      position: relative;
+      width: 128px;
+      height: 128px;
+      border-radius: 50%;
+      background:
+        radial-gradient(circle at center, #FFFFFF 0 48%, transparent 49%),
+        conic-gradient(var(--primary) 0 34%, #DDE7F0 34% 100%);
+      animation: orbitFill 1.55s ease-in-out infinite alternate;
+    }
+
+    .auto-orbit::before,
+    .auto-orbit::after {
+      content: "";
+      position: absolute;
+      width: 18px;
+      height: 18px;
+      border-radius: 50%;
+      background: var(--blue);
+      box-shadow: 0 0 0 8px rgba(37, 99, 235, 0.10);
+    }
+
+    .auto-orbit::before {
+      top: 10px;
+      right: 20px;
+    }
+
+    .auto-orbit::after {
+      left: 16px;
+      bottom: 22px;
+      background: var(--primary);
+      box-shadow: 0 0 0 8px rgba(15, 118, 110, 0.10);
+    }
+
+    @keyframes orbitFill {
+      from { filter: saturate(0.9); transform: rotate(-8deg); }
+      to { filter: saturate(1.1); transform: rotate(10deg); }
+    }
+
+    .auto-progress {
+      width: min(100%, 280px);
+      height: 8px;
+      border-radius: 999px;
+      background: #DDE7F0;
+      overflow: hidden;
+    }
+
+    .auto-progress i {
+      display: block;
+      width: 38%;
+      height: 100%;
+      border-radius: inherit;
+      background: linear-gradient(90deg, var(--primary), var(--blue));
+      animation: autoSlide 1.35s ease-in-out infinite;
+    }
+
+    @keyframes autoSlide {
+      0% { transform: translateX(-105%); }
+      100% { transform: translateX(270%); }
+    }
+
     .dashboard-grid {
       display: grid;
       grid-template-columns: 1fr 1fr;
@@ -822,6 +923,10 @@
       border-radius: var(--radius);
       background: var(--primary-soft);
       color: var(--ink);
+    }
+
+    .contact-card.is-early .summary-strip {
+      grid-template-columns: 1fr;
     }
 
     .summary-item span {
@@ -1146,7 +1251,7 @@
       }
 
       .title {
-        font-size: 29px;
+        font-size: 27px;
       }
 
       .asset-card {
@@ -1170,7 +1275,7 @@
       }
 
       .title {
-        font-size: 27px;
+        font-size: 26px;
       }
 
       .asset-label,
@@ -1313,18 +1418,24 @@
         ]
       },
       {
+        type: "contact",
+        section: "Seus dados",
+        title: "Para onde enviamos sua orientação?",
+        subtitle: "Depois disso, seguimos com as faixas para entender seu momento."
+      },
+      {
         id: "valor_credito",
         type: "range",
         section: "Tamanho do plano",
-        title: "Qual faixa combina com o que você procura?",
-        subtitle: "Não precisa ser exato. A faixa ajuda a organizar a orientação.",
+        title: "Qual valor você quer planejar?",
+        subtitle: "Escolha a faixa mais próxima.",
         insightIcon: "line-chart",
         insight: () => `${getLabel("tipo_bem")} costuma ficar mais claro quando a gente começa pelo valor aproximado.`,
         options: [
-          { label: "Até R$ 100 mil", value: 100000, detail: "Para começar com uma carta menor", level: "Baixa", spark: [24, 34, 42, 50] },
-          { label: "R$ 100 mil a R$ 250 mil", value: 250000, detail: "Faixa comum para entrada no plano", level: "Média", spark: [30, 44, 56, 66] },
-          { label: "R$ 250 mil a R$ 500 mil", value: 500000, detail: "Para um objetivo maior", level: "Alta", spark: [36, 54, 68, 82] },
-          { label: "Acima de R$ 500 mil", value: 750000, detail: "Para cartas mais altas", level: "Premium", spark: [42, 62, 80, 96] }
+          { label: "Até R$ 100 mil", value: 100000, detail: "Plano de menor valor", icon: "badge-dollar-sign" },
+          { label: "R$ 100 mil a R$ 250 mil", value: 250000, detail: "Faixa intermediária", icon: "landmark" },
+          { label: "R$ 250 mil a R$ 500 mil", value: 500000, detail: "Objetivo maior", icon: "building-2" },
+          { label: "Acima de R$ 500 mil", value: 750000, detail: "Carta mais alta", icon: "gem" }
         ]
       },
       {
@@ -1375,8 +1486,8 @@
       {
         type: "interlude",
         section: "Seu perfil",
-        title: "Já dá para enxergar um caminho.",
-        subtitle: "A última pergunta ajuda a direcionar a conversa para o que mais importa agora."
+        title: "Organizando seu perfil",
+        subtitle: "Só mais um instante."
       },
       {
         id: "duvida",
@@ -1392,12 +1503,6 @@
           { label: "Tempo para contemplar", value: "Dúvida principal: prazo e contemplação", detail: "Quero entender o caminho", icon: "clock-3" },
           { label: "Qual carta escolher", value: "Dúvida principal: valor de carta", detail: "Quero evitar começar errado", icon: "layers-3" }
         ]
-      },
-      {
-        type: "contact",
-        section: "Orientação",
-        title: "Para onde enviamos sua orientação?",
-        subtitle: "Preencha seus dados para um consultor continuar pelo WhatsApp."
       }
     ];
 
@@ -1418,7 +1523,9 @@
 
     let currentStep = 0;
     let answers = {};
+    let leadInfo = { nome: "", whatsapp: "", cidade: "" };
     let animationTimers = [];
+    let autoAdvanceTimer = null;
     let isSubmitting = false;
 
     backBtn.addEventListener("click", () => {
@@ -1435,17 +1542,18 @@
     renderStep();
 
     function renderStep() {
+      clearAutoAdvance();
       const step = steps[currentStep];
       const progress = Math.round(((currentStep + 1) / steps.length) * 100);
       progressLabel.textContent = `Etapa ${currentStep + 1} de ${steps.length}`;
       progressPercent.textContent = `${progress}%`;
       progressFill.style.width = `${progress}%`;
-      backBtn.hidden = currentStep === 0 || isSubmitting;
+      backBtn.hidden = currentStep === 0 || isSubmitting || step.type === "interlude";
 
       if (step.type === "interlude") {
         quizStage.innerHTML = renderInterlude(step);
         refreshIcons();
-        document.getElementById("continueBtn").addEventListener("click", goNext);
+        autoAdvanceTimer = window.setTimeout(goNext, 2200);
         return;
       }
 
@@ -1534,24 +1642,22 @@
       return `
         <div class="screen">
           ${renderHead(step)}
-          ${renderContext(step)}
           <div class="finance-panel">
-            <div class="finance-ruler" aria-hidden="true">
-              <span class="ruler-segment" style="--height: 32%"><span>até 100k</span></span>
-              <span class="ruler-segment" style="--height: 48%"><span>250k</span></span>
-              <span class="ruler-segment" style="--height: 68%"><span>500k</span></span>
-              <span class="ruler-segment" style="--height: 88%"><span>500k+</span></span>
+            <div class="finance-scale" aria-hidden="true">
+              <span class="scale-tick">100k</span>
+              <span class="scale-tick">250k</span>
+              <span class="scale-tick">500k</span>
+              <span class="scale-tick">500k+</span>
             </div>
             <div class="band-options">
               ${step.options.map((option, index) => `
                 <button class="band-option${answers[step.id] === option.value ? " selected" : ""}" type="button" data-option="${index}">
+                  <span class="value-chip"><i data-lucide="${option.icon}"></i></span>
                   <span>
                     <span class="choice-label">${option.label}</span>
                     <span class="choice-detail">${option.detail}</span>
                   </span>
-                  <span class="mini-spark" aria-hidden="true">
-                    ${option.spark.map((height) => `<i style="--h: ${height}%"></i>`).join("")}
-                  </span>
+                  <span class="arrow-chip"><i data-lucide="arrow-right"></i></span>
                 </button>
               `).join("")}
             </div>
@@ -1564,7 +1670,6 @@
       return `
         <div class="screen">
           ${renderHead(step)}
-          ${renderContext(step)}
           <div class="meter-panel">
             <div class="meter-hero">
               <div class="gauge" style="--value: ${entryGauge()}%">
@@ -1596,7 +1701,6 @@
       return `
         <div class="screen">
           ${renderHead(step)}
-          ${renderContext(step)}
           <div class="bar-panel">
             <div class="bar-visual">
               <div class="chart" aria-hidden="true">
@@ -1631,7 +1735,6 @@
       return `
         <div class="screen">
           ${renderHead(step)}
-          ${renderContext(step)}
           <div class="timeline-panel">
             <div class="timeline-rail" aria-hidden="true">
               <span class="time-node"><i></i>hoje</span>
@@ -1663,7 +1766,6 @@
       return `
         <div class="screen">
           ${renderHead(step)}
-          ${renderContext(step)}
           <div class="insight-grid">
             ${step.options.map((option, index) => `
               <button class="insight-option${answers[step.id] === option.value ? " selected" : ""}" type="button" data-option="${index}">
@@ -1682,32 +1784,14 @@
     function renderInterlude(step) {
       return `
         <div class="interlude">
-          ${renderHead(step)}
-          <div class="insight-panel">
-            <div class="dashboard-grid" aria-hidden="true">
-              <div class="dash-card">
-                <span>Objetivo</span>
-                <strong>${getLabel("tipo_bem")}</strong>
-                <span class="dash-meter"><i style="--w: 82%"></i></span>
-              </div>
-              <div class="dash-card">
-                <span>Valor</span>
-                <strong>${getLabel("valor_credito")}</strong>
-                <span class="dash-meter"><i style="--w: ${creditWeight()}%"></i></span>
-              </div>
-              <div class="dash-card">
-                <span>Entrada</span>
-                <strong>${entryRatioLabel()}</strong>
-                <span class="dash-meter"><i style="--w: ${entryGauge()}%"></i></span>
-              </div>
-              <div class="dash-card">
-                <span>Momento</span>
-                <strong>${getLabel("urgencia")}</strong>
-                <span class="dash-meter"><i style="--w: ${urgencyWeight()}%"></i></span>
-              </div>
+          <div class="auto-card" aria-live="polite">
+            <span class="auto-orbit" aria-hidden="true"></span>
+            <div>
+              <h2>${step.title}</h2>
+              <p>${step.subtitle}</p>
             </div>
+            <span class="auto-progress" aria-hidden="true"><i></i></span>
           </div>
-          <button class="primary-btn" id="continueBtn" type="button">Continuar <i data-lucide="arrow-right"></i></button>
         </div>
       `;
     }
@@ -1716,26 +1800,23 @@
       return `
         <form class="screen" id="leadForm" novalidate>
           ${renderHead(step)}
-          <div class="contact-card">
+          <div class="contact-card is-early">
             <div class="summary-strip">
               <div class="summary-item"><span>Objetivo</span><strong>${getLabel("tipo_bem")}</strong></div>
-              <div class="summary-item"><span>Valor</span><strong>${getLabel("valor_credito")}</strong></div>
-              <div class="summary-item"><span>Entrada</span><strong>${getLabel("valor_entrada")}</strong></div>
-              <div class="summary-item"><span>Prioridade</span><strong>${shortUrgency()}</strong></div>
             </div>
             <div class="fields">
               <label for="nome">Nome
-                <input id="nome" name="nome" autocomplete="name" required minlength="2" placeholder="Seu nome completo">
+                <input id="nome" name="nome" autocomplete="name" required minlength="2" placeholder="Seu nome completo" value="${escapeHtml(leadInfo.nome)}">
               </label>
               <label for="whatsapp">WhatsApp
-                <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000">
+                <input id="whatsapp" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" required placeholder="(00) 00000-0000" value="${escapeHtml(leadInfo.whatsapp)}">
               </label>
               <label for="cidade">Cidade
-                <input id="cidade" name="cidade" autocomplete="address-level2" placeholder="Ex: Parauapebas">
+                <input id="cidade" name="cidade" autocomplete="address-level2" placeholder="Ex: Parauapebas" value="${escapeHtml(leadInfo.cidade)}">
               </label>
             </div>
             <div class="feedback" id="feedback" role="alert"></div>
-            <button class="primary-btn" id="submitBtn" type="submit">Preparar minha orientação <i data-lucide="arrow-right"></i></button>
+            <button class="primary-btn" id="contactContinueBtn" type="submit">Continuar <i data-lucide="arrow-right"></i></button>
           </div>
         </form>
       `;
@@ -1749,6 +1830,10 @@
       answers[`${step.id}_detail`] = option.detail || "";
       quizStage.querySelectorAll(".asset-card, .band-option, .meter-option, .bar-option, .timeline-option, .insight-option").forEach((card) => card.classList.remove("selected"));
       quizStage.querySelector(`[data-option="${index}"]`).classList.add("selected");
+      if (step.id === "duvida") {
+        autoAdvanceTimer = window.setTimeout(submitLead, 220);
+        return;
+      }
       window.setTimeout(goNext, 190);
     }
 
@@ -1761,14 +1846,13 @@
       const form = document.getElementById("leadForm");
       const phoneInput = document.getElementById("whatsapp");
       phoneInput.addEventListener("input", () => formatPhoneInput(phoneInput));
-      form.addEventListener("submit", submitLead);
+      form.addEventListener("submit", saveContactAndContinue);
     }
 
-    async function submitLead(event) {
+    function saveContactAndContinue(event) {
       event.preventDefault();
       const form = event.currentTarget;
       const feedback = document.getElementById("feedback");
-      const submitBtn = document.getElementById("submitBtn");
       hideFeedback(feedback);
 
       if (!form.checkValidity()) {
@@ -1776,10 +1860,20 @@
         return;
       }
 
-      const payload = {
+      leadInfo = {
         nome: form.nome.value.trim(),
         whatsapp: form.whatsapp.value.trim(),
-        cidade: form.cidade.value.trim(),
+        cidade: form.cidade.value.trim()
+      };
+      goNext();
+    }
+
+    async function submitLead() {
+      if (isSubmitting) return;
+      const payload = {
+        nome: leadInfo.nome,
+        whatsapp: leadInfo.whatsapp,
+        cidade: leadInfo.cidade,
         tipo_bem: answers.tipo_bem || "",
         valor_credito: Number(answers.valor_credito || 0),
         valor_entrada: Number(answers.valor_entrada || 0),
@@ -1790,13 +1884,11 @@
         utm_source: params.get("utm_source") || "",
         utm_campaign: params.get("utm_campaign") || "",
         client_slug: params.get("client_slug") || "default",
-        quiz_version: "v4-financial-interactive",
+        quiz_version: "v4-financial-interactive-early-contact",
         quiz_answers: answers
       };
 
       isSubmitting = true;
-      submitBtn.disabled = true;
-      submitBtn.innerHTML = 'Preparando orientação...';
       backBtn.hidden = true;
       startAnalysisAnimation();
 
@@ -1819,16 +1911,12 @@
         analysisBox.classList.remove("visible");
         resultBox.classList.add("visible");
         refreshIcons();
-        form.reset();
       } catch (error) {
-        showFeedback(feedback, error.message || "Não foi possível enviar agora. Tente de novo em instantes.");
         hideAnalysisModal();
+        showStageFeedback(error.message || "Não foi possível enviar agora. Tente de novo em instantes.");
       } finally {
         isSubmitting = false;
-        submitBtn.disabled = false;
-        submitBtn.innerHTML = 'Preparar minha orientação <i data-lucide="arrow-right"></i>';
-        refreshIcons();
-        backBtn.hidden = currentStep === 0;
+        backBtn.hidden = currentStep === 0 || steps[currentStep]?.type === "interlude";
       }
     }
 
@@ -1883,8 +1971,10 @@
     }
 
     function resetQuiz() {
+      clearAutoAdvance();
       currentStep = 0;
       answers = {};
+      leadInfo = { nome: "", whatsapp: "", cidade: "" };
       renderStep();
     }
 
@@ -1951,6 +2041,12 @@
       animationTimers = [];
     }
 
+    function clearAutoAdvance() {
+      if (!autoAdvanceTimer) return;
+      window.clearTimeout(autoAdvanceTimer);
+      autoAdvanceTimer = null;
+    }
+
     function labelTemperature(value) {
       const map = { quente: "Alta", morno: "Média", frio: "Inicial" };
       return map[value] || "Registrada";
@@ -1964,6 +2060,27 @@
     function hideFeedback(element) {
       element.textContent = "";
       element.classList.remove("visible");
+    }
+
+    function showStageFeedback(message) {
+      let feedback = document.getElementById("stageFeedback");
+      if (!feedback) {
+        feedback = document.createElement("div");
+        feedback.id = "stageFeedback";
+        feedback.className = "feedback visible";
+        feedback.setAttribute("role", "alert");
+        quizStage.appendChild(feedback);
+      }
+      feedback.textContent = message;
+      feedback.classList.add("visible");
+    }
+
+    function escapeHtml(value) {
+      return String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/"/g, "&quot;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;");
     }
 
     function wait(ms) {
