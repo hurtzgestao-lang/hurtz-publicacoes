@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta http-equiv="refresh" content="3600"/>
+  <title>Dashboard Tráfego — Julho 2026 · Hurtz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --brasa:      #C06018;
+      --brasa-dim:  #97480E;
+      --brasa-glow: rgba(192,96,24,0.15);
+      --bg:         #181614;
+      --bg-camp:    #232323;
+      --bg-adset:   #1E1E1E;
+      --bg-ad:      #1A1A1A;
+      --surface:    #2A2A2A;
+      --border:     #383838;
+      --border-dim: #2C2C2C;
+      --text:       #E8E4DC;
+      --text-dim:   #8C8880;
+      --text-muted: #5A5652;
+      --good:       #1A7A4A;
+      --good-text:  #4ADE80;
+      --warn-text:  #C06018;
+      --bad:        #B52A2A;
+      --bad-text:   #F87171;
+      --blue:       #3A6FBF;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.5; }
+
+    /* ── Layout ── */
+    .app { display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar {
+      background: var(--bg-camp); border-bottom: 1px solid var(--border);
+      padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-weight: 700; font-size: 15px; color: var(--brasa); letter-spacing: -0.02em; }
+    .logo span { color: var(--text-dim); font-weight: 400; }
+    .topbar-meta { font-size: 11px; color: var(--text-dim); }
+    .topbar-meta strong { color: var(--text); }
+    .main { padding: 20px 24px 40px; max-width: 1600px; margin: 0 auto; width: 100%; }
+
+    /* ── KPIs ── */
+    .kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 14px; }
+    @media(max-width:1300px){ .kpis { grid-template-columns: repeat(3,1fr); } }
+    @media(max-width:700px) { .kpis { grid-template-columns: repeat(2,1fr); } }
+    .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+    .kpi-label { font-size: 10px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+    .kpi-value { font-size: 24px; font-weight: 700; color: var(--brasa); letter-spacing: -.02em; line-height: 1; }
+    .kpi-sub   { font-size: 11px; color: var(--text-dim); margin-top: 5px; }
+
+    /* ── Panels row ── */
+    .panels { display: grid; grid-template-columns: 240px 1fr 220px; gap: 10px; margin-bottom: 14px; }
+    @media(max-width:1200px){ .panels { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:700px) { .panels { grid-template-columns: 1fr; } }
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+    .panel-title { font-size: 10px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+
+    /* ── Comparison ── */
+    .comp-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border-dim); font-size: 11px; gap: 8px; }
+    .comp-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .comp-label { color: var(--text-dim); flex-shrink: 0; }
+    .comp-right { text-align: right; }
+    .comp-cur { color: var(--text); font-weight: 600; font-size: 12px; }
+    .comp-apr { color: var(--text-muted); font-size: 10px; margin-top: 1px; }
+
+    /* ── Funnel ── */
+    .funnel-steps { display: flex; align-items: flex-start; gap: 2px; overflow-x: auto; padding-bottom: 4px; }
+    .funnel-step { display: flex; flex-direction: column; align-items: center; min-width: 72px; flex: 1; padding: 0 4px; }
+    .funnel-arrow { display: flex; align-items: center; padding-top: 18px; color: var(--text-muted); font-size: 16px; flex-shrink: 0; }
+    .funnel-name { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-dim); margin-bottom: 5px; text-align: center; white-space: nowrap; }
+    .funnel-val { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1; }
+    .funnel-val.mql   { color: var(--good-text); }
+    .funnel-val.sql   { color: var(--brasa); }
+    .funnel-val.venda { color: var(--good-text); font-size: 22px; }
+    .funnel-val.none  { color: var(--text-muted); font-size: 16px; }
+    .funnel-pct { font-size: 10px; font-weight: 600; margin-top: 4px; padding: 1px 7px; border-radius: 20px; background: var(--bg); }
+    .funnel-pct.good { color: var(--good-text); }
+    .funnel-pct.warn { color: var(--warn-text); }
+    .funnel-pct.bad  { color: var(--bad-text); }
+    .funnel-ref { font-size: 9px; color: var(--text-muted); margin-top: 4px; text-align: center; }
+
+    /* ── CRM inputs ── */
+    .crm-inputs { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-dim); display: flex; gap: 6px; align-items: flex-end; flex-wrap: wrap; }
+    .crm-inputs-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); width: 100%; margin-bottom: -2px; }
+    .crm-field { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 56px; }
+    .crm-field label { font-size: 9px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; }
+    .crm-field input {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+      color: var(--text); font-size: 13px; font-weight: 600; padding: 5px 7px;
+      width: 100%; font-family: inherit; outline: none;
+    }
+    .crm-field input:focus { border-color: var(--brasa); }
+    .crm-field input::placeholder { color: var(--text-muted); font-weight: 400; }
+
+    /* ── Desq bars ── */
+    .desq-bar-row { margin-bottom: 12px; }
+    .desq-bar-row:last-child { margin-bottom: 0; }
+    .desq-bar-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .desq-bar-label { font-size: 10px; color: var(--text-dim); }
+    .desq-bar-count { font-size: 11px; font-weight: 600; color: var(--text); }
+    .desq-bar-pct { font-size: 10px; color: var(--text-muted); font-weight: 400; margin-left: 2px; }
+    .desq-bar-track { height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; }
+    .desq-bar-fill { height: 100%; border-radius: 3px; transition: width .4s ease; }
+    .desq-total { font-size: 10px; color: var(--text-muted); margin-bottom: 10px; }
+
+    /* ── Period filter ── */
+    .toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .period-btns { display: flex; gap: 4px; }
+    .period-btn {
+      background: var(--surface); border: 1px solid var(--border); color: var(--text-dim);
+      padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer;
+      transition: all .15s;
+    }
+    .period-btn:hover { border-color: var(--brasa); color: var(--text); }
+    .period-btn.active { background: var(--brasa); border-color: var(--brasa); color: #fff; }
+    .refresh-info { font-size: 11px; color: var(--text-muted); }
+    .refresh-info strong { color: var(--text-dim); }
+
+    /* ── Table wrapper ── */
+    .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+
+    /* ── Table header ── */
+    thead th {
+      background: #2F2F2F; color: var(--text-dim); font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .07em; padding: 10px 12px;
+      border-bottom: 1px solid var(--border); white-space: nowrap; text-align: right;
+      cursor: pointer; user-select: none;
+    }
+    thead th:first-child { text-align: left; min-width: 320px; position: sticky; left: 0; background: #2F2F2F; z-index: 2; }
+    thead th:hover { color: var(--text); }
+    thead th.sort-asc::after  { content: ' ↑'; color: var(--brasa); }
+    thead th.sort-desc::after { content: ' ↓'; color: var(--brasa); }
+
+    /* ── Row levels ── */
+    tr.row-camp  { background: var(--bg-camp); cursor: pointer; }
+    tr.row-adset { background: var(--bg-adset); cursor: pointer; }
+    tr.row-ad    { background: var(--bg-ad); }
+    tr.row-camp:hover td, tr.row-adset:hover td { filter: brightness(1.2); }
+
+    td { padding: 9px 12px; border-bottom: 1px solid var(--border-dim); text-align: right; white-space: nowrap; vertical-align: middle; }
+    td:first-child { text-align: left; position: sticky; left: 0; z-index: 1; }
+    tr.row-camp  td:first-child { background: var(--bg-camp); }
+    tr.row-adset td:first-child { background: var(--bg-adset); }
+    tr.row-ad    td:first-child { background: var(--bg-ad);    }
+    tr:hover td:first-child { filter: brightness(1.15); }
+
+    /* ── Name cell ── */
+    .name-cell { display: flex; align-items: center; gap: 0; }
+    .tree-indent { display: inline-flex; align-items: center; flex-shrink: 0; }
+    .tree-line {
+      width: 24px; height: 36px;
+      border-left: 1px dashed var(--border); border-bottom: 1px dashed var(--border);
+      border-bottom-left-radius: 4px; margin-right: 0; flex-shrink: 0;
+    }
+    .chevron {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 4px; flex-shrink: 0;
+      cursor: pointer; color: var(--text-dim); font-size: 9px; transition: transform .2s;
+      margin-right: 6px;
+    }
+    .chevron:hover { background: var(--brasa-glow); color: var(--brasa); }
+    .chevron.open { transform: rotate(90deg); }
+    .no-chevron { width: 20px; margin-right: 6px; flex-shrink: 0; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); flex-shrink: 0; margin-right: 8px; }
+    .status-dot.active { background: var(--good-text); box-shadow: 0 0 5px rgba(74,222,128,.4); }
+    .entity-name { font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; max-width: 280px; }
+    .row-adset .entity-name { font-weight: 500; color: #C8C4BC; }
+    .row-ad    .entity-name { font-weight: 400; color: var(--text-dim); font-size: 11px; }
+    .row-camp  .entity-name { font-size: 13px; }
+
+    /* ── Metric cells ── */
+    .num { font-variant-numeric: tabular-nums; }
+    .col-spend  { color: var(--text); }
+    .col-leads  { color: var(--text-dim); }
+    .col-mql    { color: var(--good-text); font-weight: 600; }
+    .col-pct    { font-weight: 700; }
+    .col-pct.good { color: var(--good-text); }
+    .col-pct.warn { color: var(--warn-text); }
+    .col-pct.bad  { color: var(--bad-text); }
+    .col-cpl    { color: var(--text-dim); }
+    .col-cpmql  { color: var(--brasa); font-weight: 700; }
+    .col-cpvenda { color: var(--good-text); font-weight: 700; }
+    .col-imp    { color: var(--text-muted); }
+    .dash       { color: var(--text-muted); }
+
+    /* ── Empty state ── */
+    .empty-row td { text-align: center; color: var(--text-dim); padding: 32px; font-style: italic; }
+
+    /* ── Footer ── */
+    footer { text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 24px; padding: 16px 0 8px; border-top: 1px solid var(--border-dim); }
+    footer strong { color: var(--text-dim); }
+  </style>
+</head>
+<body>
+<div class="app">
+
+<div class="topbar">
+  <div class="logo">HURTZ <span>· Dashboard de Tráfego · Julho 2026</span></div>
+  <div class="topbar-meta">Atualizado em <strong>15/07/2026, 17:20:51</strong></div>
+</div>
+
+<div class="main">
+
+  <!-- KPIs -->
+  <div class="kpis" id="kpis">
+    <div class="kpi"><div class="kpi-label">Investimento</div><div class="kpi-value" id="kpi-spend">—</div><div class="kpi-sub" id="kpi-imp">—</div></div>
+    <div class="kpi"><div class="kpi-label">Leads (formulário)</div><div class="kpi-value" id="kpi-leads">—</div><div class="kpi-sub" id="kpi-cpl">—</div></div>
+    <div class="kpi"><div class="kpi-label">MQLs</div><div class="kpi-value" id="kpi-mql">—</div><div class="kpi-sub" id="kpi-pct">—</div></div>
+    <div class="kpi"><div class="kpi-label">Custo por MQL</div><div class="kpi-value" id="kpi-cpmql">—</div><div class="kpi-sub" id="kpi-mql-sub">—</div></div>
+    <div class="kpi"><div class="kpi-label">Custo por Venda</div><div class="kpi-value" id="kpi-cpvenda" style="color:var(--good-text)">—</div><div class="kpi-sub" id="kpi-cpvenda-sub">—</div></div>
+    <div class="kpi"><div class="kpi-label">Desqualificados</div><div class="kpi-value" id="kpi-desq" style="color:var(--text-dim)">—</div><div class="kpi-sub" id="kpi-desq-sub">—</div></div>
+  </div>
+
+  <!-- Panels: Comparação | Funil | Desqualificações -->
+  <div class="panels">
+
+    <!-- Comparação Abril vs Mês atual -->
+    <div class="panel">
+      <div class="panel-title">Abril vs Julho 2026</div>
+      <div id="comp-grid"></div>
+    </div>
+
+    <!-- Funil de Conversão -->
+    <div class="panel">
+      <div class="panel-title">Funil de Conversão</div>
+      <div class="funnel-steps" id="funnel-steps"></div>
+      <div class="crm-inputs">
+        <div class="crm-inputs-label">Dados CRM — atualizar manualmente</div>
+        <div class="crm-field"><label>SQL</label><input type="number" id="crm-sql" min="0" placeholder="0" oninput="saveCRM()"/></div>
+        <div class="crm-field"><label>Agenda</label><input type="number" id="crm-agenda" min="0" placeholder="0" oninput="saveCRM()"/></div>
+        <div class="crm-field"><label>Vendas</label><input type="number" id="crm-vendas" min="0" placeholder="0" oninput="saveCRM()"/></div>
+      </div>
+    </div>
+
+    <!-- Desqualificações -->
+    <div class="panel">
+      <div class="panel-title">Motivo Desqualificação</div>
+      <div id="desq-bars"></div>
+    </div>
+
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="period-btns">
+      <button class="period-btn" data-period="today" onclick="setPeriod('today')">Hoje</button>
+      <button class="period-btn" data-period="week"  onclick="setPeriod('week')">Esta semana</button>
+      <button class="period-btn active" data-period="month" onclick="setPeriod('month')">Este mês</button>
+    </div>
+    <div class="refresh-info">Próxima atualização em <strong id="countdown">60:00</strong></div>
+  </div>
+
+  <!-- Drill-down table -->
+  <div class="table-wrap">
+    <div class="table-scroll">
+      <table id="dash-table">
+        <thead>
+          <tr>
+            <th onclick="sortBy('name')">Campanha / Conjunto / Anúncio</th>
+            <th onclick="sortBy('s')">Gasto</th>
+            <th onclick="sortBy('im')">Impressões</th>
+            <th onclick="sortBy('cl')">Cliques</th>
+            <th onclick="sortBy('leads')">Leads</th>
+            <th onclick="sortBy('mql')">MQLs</th>
+            <th onclick="sortBy('pct')">% MQL</th>
+            <th onclick="sortBy('desq')">Desqualif.</th>
+            <th onclick="sortBy('cpl')">CPL</th>
+            <th onclick="sortBy('cpmql')">Custo/MQL</th>
+            <th onclick="sortBy('cpvenda')" title="Custo/Venda projetado via taxa MQL→Venda global">Custo/Venda</th>
+          </tr>
+        </thead>
+        <tbody id="dash-body">
+          <tr class="empty-row"><td colspan="10">Carregando dados...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<footer>
+  Hurtz Company · <strong>Julho 2026</strong> · build-dashboard.js v3
+  · Critério MQL: não-consultor · time≥2 · não-exclusivo-banco
+  · Fontes: 9 leads · 195 linhas Meta Ads
+</footer>
+</div><!-- /app -->
+
+<script>
+// ── Raw data ──────────────────────────────────────────────────
+const INSIGHT_ROWS  = [{"dt":"2026-07-03","ci":"120242514712750761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120242514712860761","an":"NOVOS - 26/03","di":"120242514712800761","dn":"06","s":0.13,"im":7,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120242525173850761","cn":"05 - IMÓVEIS - ANEXA","ai":"120242525173970761","an":"05 - IMÓVEIS - ANEXA","di":"120242525173910761","dn":"05 - IMÓVEIS - ANEXA","s":2.71,"im":159,"cl":5,"lm":1},{"dt":"2026-07-03","ci":"120248294151540761","cn":"05 - IMÓVEIS - ANEXA — Cópia","ai":"120248294151600761","an":"05 - IMÓVEIS - ANEXA","di":"120248294151590761","dn":"05 - IMÓVEIS - ANEXA","s":1.51,"im":162,"cl":3,"lm":0},{"dt":"2026-07-03","ci":"120248294151570761","cn":"07 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151660761","an":"NOVOS - 26/03","di":"120248294151650761","dn":"07","s":2.14,"im":222,"cl":14,"lm":2},{"dt":"2026-07-03","ci":"120248294151580761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151680761","an":"NOVOS - 26/03","di":"120248294151670761","dn":"06","s":4.27,"im":355,"cl":2,"lm":0},{"dt":"2026-07-03","ci":"120248419248970761","cn":"05 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249090761","an":"Parauapebas e Canaã","di":"120248419249030761","dn":"01","s":0.79,"im":97,"cl":8,"lm":2},{"dt":"2026-07-03","ci":"120248419249000761","cn":"07 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249110761","an":"Parauapebas e Canaã","di":"120248419249050761","dn":"01","s":0.2,"im":11,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248858242690761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120248858242650761","an":"NOVOS - 26/03","di":"120248858242660761","dn":"06","s":1.73,"im":160,"cl":3,"lm":0},{"dt":"2026-07-03","ci":"120248858242690761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120248858242650761","an":"NOVOS - 26/03","di":"120248977851110761","dn":"LR 2026-07-02 V01 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":5.66,"im":406,"cl":6,"lm":1},{"dt":"2026-07-03","ci":"120248858242690761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120248858242650761","an":"NOVOS - 26/03","di":"120248977854000761","dn":"LR 2026-07-02 V02 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":0.23,"im":17,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248858242690761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120248858242650761","an":"NOVOS - 26/03","di":"120248977856690761","dn":"LR 2026-07-02 V03 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":1.78,"im":130,"cl":2,"lm":1},{"dt":"2026-07-03","ci":"120248858242690761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120248858242650761","an":"NOVOS - 26/03","di":"120248977861000761","dn":"LR 2026-07-02 V04 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":0.11,"im":10,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248858242690761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120248858242650761","an":"NOVOS - 26/03","di":"120248977863260761","dn":"LR 2026-07-02 V05 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":0.07,"im":9,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248858242680761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120248858242530761","an":"NOVOS - 26/03","di":"120248977865700761","dn":"LR 2026-07-02 V01 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":3.91,"im":322,"cl":11,"lm":2},{"dt":"2026-07-03","ci":"120248858242680761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120248858242530761","an":"NOVOS - 26/03","di":"120248977867870761","dn":"LR 2026-07-02 V02 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":0.35,"im":12,"cl":2,"lm":0},{"dt":"2026-07-03","ci":"120248858242680761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120248858242530761","an":"NOVOS - 26/03","di":"120248977868930761","dn":"LR 2026-07-02 V03 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":2.88,"im":174,"cl":9,"lm":2},{"dt":"2026-07-03","ci":"120248858242680761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120248858242530761","an":"NOVOS - 26/03","di":"120248977870930761","dn":"LR 2026-07-02 V04 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":0.48,"im":19,"cl":2,"lm":1},{"dt":"2026-07-03","ci":"120248858242680761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120248858242530761","an":"NOVOS - 26/03","di":"120248977872510761","dn":"LR 2026-07-02 V05 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":0.01,"im":11,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248858242670761","cn":"05 - IMÓVEIS - ANEXA","ai":"120248858242620761","an":"05 - IMÓVEIS - ANEXA","di":"120248977875340761","dn":"LR 2026-07-02 V01 | 05 - IMÓVEIS - ANEXA","s":2.59,"im":234,"cl":2,"lm":0},{"dt":"2026-07-03","ci":"120248858242670761","cn":"05 - IMÓVEIS - ANEXA","ai":"120248858242620761","an":"05 - IMÓVEIS - ANEXA","di":"120248977876800761","dn":"LR 2026-07-02 V02 | 05 - IMÓVEIS - ANEXA","s":0.82,"im":21,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248858242670761","cn":"05 - IMÓVEIS - ANEXA","ai":"120248858242620761","an":"05 - IMÓVEIS - ANEXA","di":"120248977879800761","dn":"LR 2026-07-02 V03 | 05 - IMÓVEIS - ANEXA","s":2.49,"im":122,"cl":3,"lm":0},{"dt":"2026-07-03","ci":"120248858242670761","cn":"05 - IMÓVEIS - ANEXA","ai":"120248858242620761","an":"05 - IMÓVEIS - ANEXA","di":"120248977881290761","dn":"LR 2026-07-02 V04 | 05 - IMÓVEIS - ANEXA","s":0.39,"im":18,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248858242670761","cn":"05 - IMÓVEIS - ANEXA","ai":"120248858242620761","an":"05 - IMÓVEIS - ANEXA","di":"120248977882550761","dn":"LR 2026-07-02 V05 | 05 - IMÓVEIS - ANEXA","s":0.92,"im":56,"cl":2,"lm":1},{"dt":"2026-07-03","ci":"120248466211960761","cn":"10 - IMÓVEIS - ANEXA - 24/06","ai":"120248466212040761","an":"Parauapebas e Canaã","di":"120248977884370761","dn":"LR 2026-07-02 V01 | 10 - IMÓVEIS - ANEXA - 24/06","s":2.81,"im":216,"cl":4,"lm":0},{"dt":"2026-07-03","ci":"120248466211960761","cn":"10 - IMÓVEIS - ANEXA - 24/06","ai":"120248466212040761","an":"Parauapebas e Canaã","di":"120248977885690761","dn":"LR 2026-07-02 V02 | 10 - IMÓVEIS - ANEXA - 24/06","s":0.22,"im":16,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248466211960761","cn":"10 - IMÓVEIS - ANEXA - 24/06","ai":"120248466212040761","an":"Parauapebas e Canaã","di":"120248977889490761","dn":"LR 2026-07-02 V03 | 10 - IMÓVEIS - ANEXA - 24/06","s":1.72,"im":133,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248466211960761","cn":"10 - IMÓVEIS - ANEXA - 24/06","ai":"120248466212040761","an":"Parauapebas e Canaã","di":"120248977892050761","dn":"LR 2026-07-02 V04 | 10 - IMÓVEIS - ANEXA - 24/06","s":0.11,"im":10,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248466211960761","cn":"10 - IMÓVEIS - ANEXA - 24/06","ai":"120248466212040761","an":"Parauapebas e Canaã","di":"120248977894220761","dn":"LR 2026-07-02 V05 | 10 - IMÓVEIS - ANEXA - 24/06","s":0.05,"im":9,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248419249000761","cn":"07 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249110761","an":"Parauapebas e Canaã","di":"120248977896260761","dn":"LR 2026-07-02 V01 | 07 - IMÓVEIS - ANEXA - 24/06","s":0.51,"im":70,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248419249000761","cn":"07 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249110761","an":"Parauapebas e Canaã","di":"120248977897800761","dn":"LR 2026-07-02 V02 | 07 - IMÓVEIS - ANEXA - 24/06","s":2.42,"im":98,"cl":4,"lm":1},{"dt":"2026-07-03","ci":"120248419249000761","cn":"07 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249110761","an":"Parauapebas e Canaã","di":"120248977899950761","dn":"LR 2026-07-02 V03 | 07 - IMÓVEIS - ANEXA - 24/06","s":3.62,"im":298,"cl":5,"lm":1},{"dt":"2026-07-03","ci":"120248419249000761","cn":"07 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249110761","an":"Parauapebas e Canaã","di":"120248977903310761","dn":"LR 2026-07-02 V04 | 07 - IMÓVEIS - ANEXA - 24/06","s":0.96,"im":58,"cl":7,"lm":2},{"dt":"2026-07-03","ci":"120248419249000761","cn":"07 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249110761","an":"Parauapebas e Canaã","di":"120248977907390761","dn":"LR 2026-07-02 V05 | 07 - IMÓVEIS - ANEXA - 24/06","s":0.87,"im":71,"cl":1,"lm":0},{"dt":"2026-07-03","ci":"120248419248970761","cn":"05 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249090761","an":"Parauapebas e Canaã","di":"120248977909750761","dn":"LR 2026-07-02 V01 | 05 - IMÓVEIS - ANEXA - 24/06","s":0.38,"im":36,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248419248970761","cn":"05 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249090761","an":"Parauapebas e Canaã","di":"120248977911910761","dn":"LR 2026-07-02 V02 | 05 - IMÓVEIS - ANEXA - 24/06","s":0.57,"im":55,"cl":1,"lm":0},{"dt":"2026-07-03","ci":"120248419248970761","cn":"05 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249090761","an":"Parauapebas e Canaã","di":"120248977913130761","dn":"LR 2026-07-02 V03 | 05 - IMÓVEIS - ANEXA - 24/06","s":0.03,"im":6,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248419248970761","cn":"05 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249090761","an":"Parauapebas e Canaã","di":"120248977915250761","dn":"LR 2026-07-02 V04 | 05 - IMÓVEIS - ANEXA - 24/06","s":0.37,"im":6,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248419248970761","cn":"05 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249090761","an":"Parauapebas e Canaã","di":"120248977917010761","dn":"LR 2026-07-02 V05 | 05 - IMÓVEIS - ANEXA - 24/06","s":0.1,"im":6,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248419248950761","cn":"02 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249060761","an":"Parauapebas e Canaã","di":"120248977919660761","dn":"LR 2026-07-02 V01 | 02 - IMÓVEIS - ANEXA - 24/06","s":5.68,"im":430,"cl":7,"lm":0},{"dt":"2026-07-03","ci":"120248419248950761","cn":"02 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249060761","an":"Parauapebas e Canaã","di":"120248977921430761","dn":"LR 2026-07-02 V02 | 02 - IMÓVEIS - ANEXA - 24/06","s":0.32,"im":20,"cl":3,"lm":0},{"dt":"2026-07-03","ci":"120248419248950761","cn":"02 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249060761","an":"Parauapebas e Canaã","di":"120248977922780761","dn":"LR 2026-07-02 V03 | 02 - IMÓVEIS - ANEXA - 24/06","s":2.93,"im":224,"cl":17,"lm":5},{"dt":"2026-07-03","ci":"120248419248950761","cn":"02 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249060761","an":"Parauapebas e Canaã","di":"120248977924210761","dn":"LR 2026-07-02 V04 | 02 - IMÓVEIS - ANEXA - 24/06","s":1.07,"im":61,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248419248950761","cn":"02 - IMÓVEIS - ANEXA - 24/06","ai":"120248419249060761","an":"Parauapebas e Canaã","di":"120248977925770761","dn":"LR 2026-07-02 V05 | 02 - IMÓVEIS - ANEXA - 24/06","s":0.39,"im":36,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248294151580761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151680761","an":"NOVOS - 26/03","di":"120248977928540761","dn":"LR 2026-07-02 V01 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","s":2.93,"im":192,"cl":5,"lm":2},{"dt":"2026-07-03","ci":"120248294151580761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151680761","an":"NOVOS - 26/03","di":"120248977931840761","dn":"LR 2026-07-02 V02 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","s":0.24,"im":15,"cl":1,"lm":0},{"dt":"2026-07-03","ci":"120248294151580761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151680761","an":"NOVOS - 26/03","di":"120248977933910761","dn":"LR 2026-07-02 V03 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","s":1.95,"im":144,"cl":1,"lm":0},{"dt":"2026-07-03","ci":"120248294151580761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151680761","an":"NOVOS - 26/03","di":"120248977937480761","dn":"LR 2026-07-02 V04 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","s":0.03,"im":7,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248294151580761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151680761","an":"NOVOS - 26/03","di":"120248977939380761","dn":"LR 2026-07-02 V05 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","s":0.3,"im":33,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248294151570761","cn":"07 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151660761","an":"NOVOS - 26/03","di":"120248977941330761","dn":"LR 2026-07-02 V01 | 07 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","s":1.55,"im":141,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248294151570761","cn":"07 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151660761","an":"NOVOS - 26/03","di":"120248977944630761","dn":"LR 2026-07-02 V02 | 07 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","s":0.69,"im":53,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248294151570761","cn":"07 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151660761","an":"NOVOS - 26/03","di":"120248977950780761","dn":"LR 2026-07-02 V03 | 07 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","s":2.44,"im":163,"cl":2,"lm":0},{"dt":"2026-07-03","ci":"120248294151570761","cn":"07 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151660761","an":"NOVOS - 26/03","di":"120248977954490761","dn":"LR 2026-07-02 V04 | 07 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","s":0.51,"im":20,"cl":3,"lm":0},{"dt":"2026-07-03","ci":"120248294151570761","cn":"07 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","ai":"120248294151660761","an":"NOVOS - 26/03","di":"120248977956210761","dn":"LR 2026-07-02 V05 | 07 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03 — Cópia","s":1.35,"im":96,"cl":1,"lm":0},{"dt":"2026-07-03","ci":"120248294151540761","cn":"05 - IMÓVEIS - ANEXA — Cópia","ai":"120248294151600761","an":"05 - IMÓVEIS - ANEXA","di":"120248977959030761","dn":"LR 2026-07-02 V01 | 05 - IMÓVEIS - ANEXA — Cópia","s":0.81,"im":76,"cl":4,"lm":1},{"dt":"2026-07-03","ci":"120248294151540761","cn":"05 - IMÓVEIS - ANEXA — Cópia","ai":"120248294151600761","an":"05 - IMÓVEIS - ANEXA","di":"120248977961020761","dn":"LR 2026-07-02 V02 | 05 - IMÓVEIS - ANEXA — Cópia","s":1,"im":63,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248294151540761","cn":"05 - IMÓVEIS - ANEXA — Cópia","ai":"120248294151600761","an":"05 - IMÓVEIS - ANEXA","di":"120248977963750761","dn":"LR 2026-07-02 V03 | 05 - IMÓVEIS - ANEXA — Cópia","s":0.85,"im":47,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248294151540761","cn":"05 - IMÓVEIS - ANEXA — Cópia","ai":"120248294151600761","an":"05 - IMÓVEIS - ANEXA","di":"120248977966380761","dn":"LR 2026-07-02 V04 | 05 - IMÓVEIS - ANEXA — Cópia","s":1.09,"im":46,"cl":1,"lm":0},{"dt":"2026-07-03","ci":"120248294151540761","cn":"05 - IMÓVEIS - ANEXA — Cópia","ai":"120248294151600761","an":"05 - IMÓVEIS - ANEXA","di":"120248977968120761","dn":"LR 2026-07-02 V05 | 05 - IMÓVEIS - ANEXA — Cópia","s":0.51,"im":46,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248204340510761","cn":"00 - IMÓVEIS - WHATSAPP - 18/06 — Cópia","ai":"120248204340550761","an":"7378","di":"120248977970520761","dn":"LR 2026-07-02 V01 | 00 - IMÓVEIS - WHATSAPP - 18/06 — Cópia","s":0.11,"im":5,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248204340510761","cn":"00 - IMÓVEIS - WHATSAPP - 18/06 — Cópia","ai":"120248204340550761","an":"7378","di":"120248977972400761","dn":"LR 2026-07-02 V02 | 00 - IMÓVEIS - WHATSAPP - 18/06 — Cópia","s":0.01,"im":1,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248204340510761","cn":"00 - IMÓVEIS - WHATSAPP - 18/06 — Cópia","ai":"120248204340550761","an":"7378","di":"120248977975660761","dn":"LR 2026-07-02 V03 | 00 - IMÓVEIS - WHATSAPP - 18/06 — Cópia","s":0.03,"im":3,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248204340510761","cn":"00 - IMÓVEIS - WHATSAPP - 18/06 — Cópia","ai":"120248204340550761","an":"7378","di":"120248977977320761","dn":"LR 2026-07-02 V04 | 00 - IMÓVEIS - WHATSAPP - 18/06 — Cópia","s":0.08,"im":9,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120248204340510761","cn":"00 - IMÓVEIS - WHATSAPP - 18/06 — Cópia","ai":"120248204340550761","an":"7378","di":"120248977980690761","dn":"LR 2026-07-02 V05 | 00 - IMÓVEIS - WHATSAPP - 18/06 — Cópia","s":0.02,"im":2,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120242525173850761","cn":"05 - IMÓVEIS - ANEXA","ai":"120242525173970761","an":"05 - IMÓVEIS - ANEXA","di":"120248977985450761","dn":"LR 2026-07-02 V01 | 05 - IMÓVEIS - ANEXA","s":1.93,"im":156,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120242525173850761","cn":"05 - IMÓVEIS - ANEXA","ai":"120242525173970761","an":"05 - IMÓVEIS - ANEXA","di":"120248977987920761","dn":"LR 2026-07-02 V02 | 05 - IMÓVEIS - ANEXA","s":6.09,"im":282,"cl":10,"lm":2},{"dt":"2026-07-03","ci":"120242525173850761","cn":"05 - IMÓVEIS - ANEXA","ai":"120242525173970761","an":"05 - IMÓVEIS - ANEXA","di":"120248977993440761","dn":"LR 2026-07-02 V03 | 05 - IMÓVEIS - ANEXA","s":0.11,"im":16,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120242525173850761","cn":"05 - IMÓVEIS - ANEXA","ai":"120242525173970761","an":"05 - IMÓVEIS - ANEXA","di":"120248977996490761","dn":"LR 2026-07-02 V04 | 05 - IMÓVEIS - ANEXA","s":0.54,"im":22,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120242525173850761","cn":"05 - IMÓVEIS - ANEXA","ai":"120242525173970761","an":"05 - IMÓVEIS - ANEXA","di":"120248977999500761","dn":"LR 2026-07-02 V05 | 05 - IMÓVEIS - ANEXA","s":1.54,"im":110,"cl":1,"lm":0},{"dt":"2026-07-03","ci":"120242514712750761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120242514712860761","an":"NOVOS - 26/03","di":"120248978001750761","dn":"LR 2026-07-02 V01 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":0.04,"im":8,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120242514712750761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120242514712860761","an":"NOVOS - 26/03","di":"120248978003680761","dn":"LR 2026-07-02 V02 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":0.16,"im":6,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120242514712750761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120242514712860761","an":"NOVOS - 26/03","di":"120248978005670761","dn":"LR 2026-07-02 V03 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":0.12,"im":13,"cl":0,"lm":1},{"dt":"2026-07-03","ci":"120242514712750761","cn":"06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","ai":"120242514712860761","an":"NOVOS - 26/03","di":"120248978008430761","dn":"LR 2026-07-02 V05 | 06 - IMÓVEIS - FORMULÁRIO CONDICIONAL - 26/03","s":0.06,"im":7,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120242140295140761","cn":"01 - IMÓVEL - FORMULÁRIO CONDICIONAL - 18/03","ai":"120242140295280761","an":"01 - IMÓVEL - FORMULÁRIO CONDICIONAL","di":"120248978043610761","dn":"LR 2026-07-02 V01 | 01 - IMÓVEL - FORMULÁRIO CONDICIONAL - 18/03","s":0.87,"im":83,"cl":1,"lm":0},{"dt":"2026-07-03","ci":"120242140295140761","cn":"01 - IMÓVEL - FORMULÁRIO CONDICIONAL - 18/03","ai":"120242140295280761","an":"01 - IMÓVEL - FORMULÁRIO CONDICIONAL","di":"120248978045830761","dn":"LR 2026-07-02 V02 | 01 - IMÓVEL - FORMULÁRIO CONDICIONAL - 18/03","s":1.19,"im":43,"cl":3,"lm":1},{"dt":"2026-07-03","ci":"120242140295140761","cn":"01 - IMÓVEL - FORMULÁRIO CONDICIONAL - 18/03","ai":"120242140295280761","an":"01 - IMÓVEL - FORMULÁRIO CONDICIONAL","di":"120248978048010761","dn":"LR 2026-07-02 V03 | 01 - IMÓVEL - FORMULÁRIO CONDICIONAL - 18/03","s":0.17,"im":8,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120242140295140761","cn":"01 - IMÓVEL - FORMULÁRIO CONDICIONAL - 18/03","ai":"120242140295280761","an":"01 - IMÓVEL - FORMULÁRIO CONDICIONAL","di":"120248978049730761","dn":"LR 2026-07-02 V04 | 01 - IMÓVEL - FORMULÁRIO CONDICIONAL - 18/03","s":0.85,"im":59,"cl":0,"lm":0},{"dt":"2026-07-03","ci":"120242140295140761","cn":"01 - IMÓVEL - FORMULÁRIO CONDICIONAL - 18/03","ai":"120242140295280761","an":"01 - IMÓVEL - FORMULÁRIO CONDICIONAL","di":"120248978051320761","dn":"LR 2026-07-02 V05 | 01 - IMÓVEL - FORMULÁRIO CONDICIONAL - 18/03","s":0.96,"im":98,"cl":1,"lm":0},{"dt":"2026-07-12","ci":"120242492396640375","cn":"03 - ANCORA - LEADS - FORMS NATIVO","ai":"120242492396720375","an":"Novo conjunto de anúncios de Leads","di":"120242492396660375","dn":"Novo anúncio de Leads","s":6.7,"im":352,"cl":7,"lm":0},{"dt":"2026-07-12","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":8.8,"im":316,"cl":3,"lm":0},{"dt":"2026-07-13","ci":"120242492396640375","cn":"03 - ANCORA - LEADS - FORMS NATIVO","ai":"120242492396720375","an":"Novo conjunto de anúncios de Leads","di":"120242492396660375","dn":"Novo anúncio de Leads","s":5.56,"im":276,"cl":7,"lm":1},{"dt":"2026-07-13","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":3.56,"im":156,"cl":8,"lm":1},{"dt":"2026-07-14","ci":"120242492396640375","cn":"03 - ANCORA - LEADS - FORMS NATIVO","ai":"120242492396720375","an":"Novo conjunto de anúncios de Leads","di":"120242492396660375","dn":"Novo anúncio de Leads","s":10.37,"im":624,"cl":14,"lm":0},{"dt":"2026-07-14","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":7.24,"im":564,"cl":16,"lm":2},{"dt":"2026-07-14","ci":"120248315729190375","cn":"01 TESTE DE CRIATIVO - LEADS - FORMS NATIVO","ai":"120248315729180375","an":"Novo conjunto de anúncios de Leads","di":"120248315729200375","dn":"Novo anúncio de Leads","s":7.22,"im":258,"cl":2,"lm":0},{"dt":"2026-07-14","ci":"120248315752470375","cn":"02 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752600375","an":"Novo conjunto de anúncios de Leads","di":"120248315752540375","dn":"Novo anúncio de Leads","s":6.02,"im":290,"cl":1,"lm":0},{"dt":"2026-07-14","ci":"120248315752480375","cn":"03 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752620375","an":"Novo conjunto de anúncios de Leads","di":"120248315752550375","dn":"Novo anúncio de Leads","s":7.83,"im":318,"cl":1,"lm":0},{"dt":"2026-07-14","ci":"120248315752500375","cn":"04 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752610375","an":"Novo conjunto de anúncios de Leads","di":"120248315752560375","dn":"Novo anúncio de Leads","s":7.64,"im":235,"cl":2,"lm":0},{"dt":"2026-07-14","ci":"120248315752520375","cn":"06 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752640375","an":"Novo conjunto de anúncios de Leads","di":"120248315752570375","dn":"Novo anúncio de Leads","s":7.74,"im":293,"cl":2,"lm":0},{"dt":"2026-07-14","ci":"120248315752530375","cn":"05 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752630375","an":"Novo conjunto de anúncios de Leads","di":"120248315752580375","dn":"Novo anúncio de Leads","s":7.85,"im":302,"cl":3,"lm":0},{"dt":"2026-07-14","ci":"120248315752510375","cn":"07 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752490375","an":"Novo conjunto de anúncios de Leads","di":"120248315752590375","dn":"Novo anúncio de Leads","s":9.23,"im":235,"cl":0,"lm":0},{"dt":"2026-07-15","ci":"120242492396640375","cn":"03 - ANCORA - LEADS - FORMS NATIVO","ai":"120242492396720375","an":"Novo conjunto de anúncios de Leads","di":"120242492396660375","dn":"Novo anúncio de Leads","s":2.22,"im":107,"cl":1,"lm":0},{"dt":"2026-07-15","ci":"120242492697650375","cn":"01 - REMARKETING - LEADS - FORMS NATIVO — Cópia","ai":"120242492697670375","an":"Novo conjunto de anúncios de Leads","di":"120242492697660375","dn":"Novo anúncio de Leads","s":4.19,"im":342,"cl":8,"lm":1},{"dt":"2026-07-15","ci":"120248315729190375","cn":"01 TESTE DE CRIATIVO - LEADS - FORMS NATIVO","ai":"120248315729180375","an":"Novo conjunto de anúncios de Leads","di":"120248315729200375","dn":"Novo anúncio de Leads","s":11.16,"im":260,"cl":2,"lm":0},{"dt":"2026-07-15","ci":"120248315752470375","cn":"02 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752600375","an":"Novo conjunto de anúncios de Leads","di":"120248315752540375","dn":"Novo anúncio de Leads","s":13.03,"im":289,"cl":11,"lm":2},{"dt":"2026-07-15","ci":"120248315752480375","cn":"03 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752620375","an":"Novo conjunto de anúncios de Leads","di":"120248315752550375","dn":"Novo anúncio de Leads","s":13.17,"im":353,"cl":1,"lm":0},{"dt":"2026-07-15","ci":"120248315752500375","cn":"04 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752610375","an":"Novo conjunto de anúncios de Leads","di":"120248315752560375","dn":"Novo anúncio de Leads","s":11.33,"im":192,"cl":0,"lm":0},{"dt":"2026-07-15","ci":"120248315752520375","cn":"06 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752640375","an":"Novo conjunto de anúncios de Leads","di":"120248315752570375","dn":"Novo anúncio de Leads","s":9.25,"im":218,"cl":2,"lm":1},{"dt":"2026-07-15","ci":"120248315752530375","cn":"05 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752630375","an":"Novo conjunto de anúncios de Leads","di":"120248315752580375","dn":"Novo anúncio de Leads","s":11.18,"im":251,"cl":3,"lm":1},{"dt":"2026-07-15","ci":"120248315752510375","cn":"07 TESTE DE CRIATIVO - LEADS - FORMS NATIVO — Cópia","ai":"120248315752490375","an":"Novo conjunto de anúncios de Leads","di":"120248315752590375","dn":"Novo anúncio de Leads","s":10,"im":227,"cl":3,"lm":0},{"dt":"2026-07-08","ci":"120248960122620262","cn":"11 - CLINICA PBS - LEADS FORMS - TESTE","ai":"120248960122630262","an":"Novo conjunto de anúncios de Leads","di":"120248960122610262","dn":"Novo anúncio de Leads","s":6.81,"im":175,"cl":5,"lm":0},{"dt":"2026-07-08","ci":"120248960504460262","cn":"02 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504290262","an":"Novo conjunto de anúncios de Leads","di":"120248960504230262","dn":"Novo anúncio de Leads","s":6.92,"im":149,"cl":7,"lm":0},{"dt":"2026-07-08","ci":"120248960504440262","cn":"04 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504250262","an":"Novo conjunto de anúncios de Leads","di":"120248960504340262","dn":"Novo anúncio de Leads","s":7.66,"im":139,"cl":4,"lm":0},{"dt":"2026-07-08","ci":"120248960504470262","cn":"01 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504260262","an":"Novo conjunto de anúncios de Leads","di":"120248960504350262","dn":"Novo anúncio de Leads","s":8.15,"im":204,"cl":1,"lm":0},{"dt":"2026-07-08","ci":"120248960504450262","cn":"07 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504240262","an":"Novo conjunto de anúncios de Leads","di":"120248960504360262","dn":"Novo anúncio de Leads","s":7.15,"im":200,"cl":4,"lm":0},{"dt":"2026-07-08","ci":"120248960504480262","cn":"03 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504270262","an":"Novo conjunto de anúncios de Leads","di":"120248960504380262","dn":"Novo anúncio de Leads","s":6.06,"im":186,"cl":3,"lm":0},{"dt":"2026-07-08","ci":"120248960504370262","cn":"10 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504280262","an":"Novo conjunto de anúncios de Leads","di":"120248960504390262","dn":"Novo anúncio de Leads","s":7.87,"im":126,"cl":6,"lm":0},{"dt":"2026-07-08","ci":"120248960504490262","cn":"05 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504300262","an":"Novo conjunto de anúncios de Leads","di":"120248960504400262","dn":"Novo anúncio de Leads","s":7.58,"im":198,"cl":5,"lm":0},{"dt":"2026-07-08","ci":"120248960504500262","cn":"06 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504320262","an":"Novo conjunto de anúncios de Leads","di":"120248960504410262","dn":"Novo anúncio de Leads","s":9.75,"im":146,"cl":6,"lm":0},{"dt":"2026-07-08","ci":"120248960504220262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504310262","an":"Novo conjunto de anúncios de Leads","di":"120248960504420262","dn":"Novo anúncio de Leads","s":8.52,"im":148,"cl":4,"lm":0},{"dt":"2026-07-08","ci":"120248960504210262","cn":"08 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504330262","an":"Novo conjunto de anúncios de Leads","di":"120248960504430262","dn":"Novo anúncio de Leads","s":8.69,"im":145,"cl":4,"lm":0},{"dt":"2026-07-09","ci":"120248960122620262","cn":"11 - CLINICA PBS - LEADS FORMS - TESTE","ai":"120248960122630262","an":"Novo conjunto de anúncios de Leads","di":"120248960122610262","dn":"Novo anúncio de Leads","s":8.34,"im":210,"cl":2,"lm":0},{"dt":"2026-07-09","ci":"120248960504460262","cn":"02 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504290262","an":"Novo conjunto de anúncios de Leads","di":"120248960504230262","dn":"Novo anúncio de Leads","s":11.75,"im":287,"cl":7,"lm":0},{"dt":"2026-07-09","ci":"120248960504440262","cn":"04 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504250262","an":"Novo conjunto de anúncios de Leads","di":"120248960504340262","dn":"Novo anúncio de Leads","s":9.88,"im":279,"cl":3,"lm":0},{"dt":"2026-07-09","ci":"120248960504470262","cn":"01 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504260262","an":"Novo conjunto de anúncios de Leads","di":"120248960504350262","dn":"Novo anúncio de Leads","s":9.81,"im":283,"cl":3,"lm":0},{"dt":"2026-07-09","ci":"120248960504450262","cn":"07 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504240262","an":"Novo conjunto de anúncios de Leads","di":"120248960504360262","dn":"Novo anúncio de Leads","s":9.91,"im":209,"cl":2,"lm":0},{"dt":"2026-07-09","ci":"120248960504480262","cn":"03 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504270262","an":"Novo conjunto de anúncios de Leads","di":"120248960504380262","dn":"Novo anúncio de Leads","s":9.73,"im":432,"cl":7,"lm":0},{"dt":"2026-07-09","ci":"120248960504370262","cn":"10 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504280262","an":"Novo conjunto de anúncios de Leads","di":"120248960504390262","dn":"Novo anúncio de Leads","s":8.7,"im":250,"cl":2,"lm":0},{"dt":"2026-07-09","ci":"120248960504490262","cn":"05 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504300262","an":"Novo conjunto de anúncios de Leads","di":"120248960504400262","dn":"Novo anúncio de Leads","s":9.11,"im":248,"cl":5,"lm":0},{"dt":"2026-07-09","ci":"120248960504500262","cn":"06 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504320262","an":"Novo conjunto de anúncios de Leads","di":"120248960504410262","dn":"Novo anúncio de Leads","s":10.66,"im":211,"cl":4,"lm":0},{"dt":"2026-07-09","ci":"120248960504220262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504310262","an":"Novo conjunto de anúncios de Leads","di":"120248960504420262","dn":"Novo anúncio de Leads","s":11.7,"im":255,"cl":9,"lm":0},{"dt":"2026-07-09","ci":"120248960504210262","cn":"08 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504330262","an":"Novo conjunto de anúncios de Leads","di":"120248960504430262","dn":"Novo anúncio de Leads","s":7.39,"im":177,"cl":2,"lm":0},{"dt":"2026-07-10","ci":"120248960122620262","cn":"11 - CLINICA PBS - LEADS FORMS - TESTE","ai":"120248960122630262","an":"Novo conjunto de anúncios de Leads","di":"120248960122610262","dn":"Novo anúncio de Leads","s":6.52,"im":84,"cl":0,"lm":0},{"dt":"2026-07-10","ci":"120248960504460262","cn":"02 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504290262","an":"Novo conjunto de anúncios de Leads","di":"120248960504230262","dn":"Novo anúncio de Leads","s":10.64,"im":206,"cl":1,"lm":0},{"dt":"2026-07-10","ci":"120248960504440262","cn":"04 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504250262","an":"Novo conjunto de anúncios de Leads","di":"120248960504340262","dn":"Novo anúncio de Leads","s":7.62,"im":115,"cl":1,"lm":0},{"dt":"2026-07-10","ci":"120248960504470262","cn":"01 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504260262","an":"Novo conjunto de anúncios de Leads","di":"120248960504350262","dn":"Novo anúncio de Leads","s":4.62,"im":164,"cl":1,"lm":0},{"dt":"2026-07-10","ci":"120248960504450262","cn":"07 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504240262","an":"Novo conjunto de anúncios de Leads","di":"120248960504360262","dn":"Novo anúncio de Leads","s":4.75,"im":106,"cl":2,"lm":1},{"dt":"2026-07-10","ci":"120248960504480262","cn":"03 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504270262","an":"Novo conjunto de anúncios de Leads","di":"120248960504380262","dn":"Novo anúncio de Leads","s":11.96,"im":400,"cl":6,"lm":0},{"dt":"2026-07-10","ci":"120248960504370262","cn":"10 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504280262","an":"Novo conjunto de anúncios de Leads","di":"120248960504390262","dn":"Novo anúncio de Leads","s":7.37,"im":119,"cl":2,"lm":0},{"dt":"2026-07-10","ci":"120248960504490262","cn":"05 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504300262","an":"Novo conjunto de anúncios de Leads","di":"120248960504400262","dn":"Novo anúncio de Leads","s":10.88,"im":330,"cl":7,"lm":0},{"dt":"2026-07-10","ci":"120248960504500262","cn":"06 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504320262","an":"Novo conjunto de anúncios de Leads","di":"120248960504410262","dn":"Novo anúncio de Leads","s":7.4,"im":189,"cl":3,"lm":0},{"dt":"2026-07-10","ci":"120248960504220262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504310262","an":"Novo conjunto de anúncios de Leads","di":"120248960504420262","dn":"Novo anúncio de Leads","s":8.6,"im":206,"cl":5,"lm":1},{"dt":"2026-07-10","ci":"120248960504210262","cn":"08 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504330262","an":"Novo conjunto de anúncios de Leads","di":"120248960504430262","dn":"Novo anúncio de Leads","s":6.47,"im":129,"cl":3,"lm":0},{"dt":"2026-07-10","ci":"120249031010690262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010780262","an":"Novo conjunto de anúncios de Leads","di":"120249031010730262","dn":"Novo anúncio de Leads","s":7.71,"im":149,"cl":2,"lm":0},{"dt":"2026-07-10","ci":"120249031010680262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010790262","an":"Novo conjunto de anúncios de Leads","di":"120249031010740262","dn":"Novo anúncio de Leads","s":7.94,"im":123,"cl":2,"lm":0},{"dt":"2026-07-10","ci":"120249031010700262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010810262","an":"Novo conjunto de anúncios de Leads","di":"120249031010750262","dn":"Novo anúncio de Leads","s":6.56,"im":138,"cl":1,"lm":0},{"dt":"2026-07-10","ci":"120249031010720262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010800262","an":"Novo conjunto de anúncios de Leads","di":"120249031010760262","dn":"Novo anúncio de Leads","s":9.01,"im":112,"cl":6,"lm":1},{"dt":"2026-07-10","ci":"120249031010710262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010820262","an":"Novo conjunto de anúncios de Leads","di":"120249031010770262","dn":"Novo anúncio de Leads","s":9.78,"im":109,"cl":4,"lm":0},{"dt":"2026-07-10","ci":"120249032385890262","cn":"01 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385940262","an":"Novo conjunto de anúncios de Leads","di":"120249032385960262","dn":"Novo anúncio de Leads","s":1.63,"im":16,"cl":2,"lm":0},{"dt":"2026-07-10","ci":"120249032385900262","cn":"02 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385950262","an":"Novo conjunto de anúncios de Leads","di":"120249032385970262","dn":"Novo anúncio de Leads","s":0.02,"im":4,"cl":0,"lm":0},{"dt":"2026-07-10","ci":"120249032385930262","cn":"03 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385990262","an":"Novo conjunto de anúncios de Leads","di":"120249032385980262","dn":"Novo anúncio de Leads","s":0.42,"im":17,"cl":0,"lm":0},{"dt":"2026-07-10","ci":"120249032385910262","cn":"04 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032386010262","an":"Novo conjunto de anúncios de Leads","di":"120249032386000262","dn":"Novo anúncio de Leads","s":0.64,"im":13,"cl":0,"lm":0},{"dt":"2026-07-10","ci":"120249032385920262","cn":"05 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385880262","an":"Novo conjunto de anúncios de Leads","di":"120249032386020262","dn":"Novo anúncio de Leads","s":0.57,"im":8,"cl":0,"lm":0},{"dt":"2026-07-10","ci":"120249032385910262","cn":"04 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032386010262","an":"Novo conjunto de anúncios de Leads","di":"120249032386030262","dn":"Novo anúncio de Leads — Cópia","s":0.58,"im":1,"cl":0,"lm":0},{"dt":"2026-07-11","ci":"120248960504460262","cn":"02 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504290262","an":"Novo conjunto de anúncios de Leads","di":"120248960504230262","dn":"Novo anúncio de Leads","s":5.97,"im":216,"cl":1,"lm":0},{"dt":"2026-07-11","ci":"120248960504480262","cn":"03 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504270262","an":"Novo conjunto de anúncios de Leads","di":"120248960504380262","dn":"Novo anúncio de Leads","s":6.03,"im":285,"cl":2,"lm":0},{"dt":"2026-07-11","ci":"120248960504490262","cn":"05 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504300262","an":"Novo conjunto de anúncios de Leads","di":"120248960504400262","dn":"Novo anúncio de Leads","s":6.06,"im":211,"cl":3,"lm":0},{"dt":"2026-07-11","ci":"120248960504500262","cn":"06 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504320262","an":"Novo conjunto de anúncios de Leads","di":"120248960504410262","dn":"Novo anúncio de Leads","s":6.07,"im":209,"cl":2,"lm":0},{"dt":"2026-07-11","ci":"120248960504220262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504310262","an":"Novo conjunto de anúncios de Leads","di":"120248960504420262","dn":"Novo anúncio de Leads","s":6.05,"im":229,"cl":8,"lm":1},{"dt":"2026-07-11","ci":"120249031010690262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010780262","an":"Novo conjunto de anúncios de Leads","di":"120249031010730262","dn":"Novo anúncio de Leads","s":6.03,"im":154,"cl":2,"lm":0},{"dt":"2026-07-11","ci":"120249031010680262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010790262","an":"Novo conjunto de anúncios de Leads","di":"120249031010740262","dn":"Novo anúncio de Leads","s":6.08,"im":154,"cl":2,"lm":0},{"dt":"2026-07-11","ci":"120249031010700262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010810262","an":"Novo conjunto de anúncios de Leads","di":"120249031010750262","dn":"Novo anúncio de Leads","s":5.95,"im":190,"cl":3,"lm":0},{"dt":"2026-07-11","ci":"120249031010720262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010800262","an":"Novo conjunto de anúncios de Leads","di":"120249031010760262","dn":"Novo anúncio de Leads","s":6,"im":160,"cl":3,"lm":0},{"dt":"2026-07-11","ci":"120249031010710262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010820262","an":"Novo conjunto de anúncios de Leads","di":"120249031010770262","dn":"Novo anúncio de Leads","s":5.91,"im":172,"cl":3,"lm":0},{"dt":"2026-07-11","ci":"120249032385890262","cn":"01 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385940262","an":"Novo conjunto de anúncios de Leads","di":"120249032385960262","dn":"Novo anúncio de Leads","s":6.07,"im":146,"cl":2,"lm":0},{"dt":"2026-07-11","ci":"120249032385900262","cn":"02 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385950262","an":"Novo conjunto de anúncios de Leads","di":"120249032385970262","dn":"Novo anúncio de Leads","s":6.07,"im":173,"cl":0,"lm":0},{"dt":"2026-07-11","ci":"120249032385930262","cn":"03 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385990262","an":"Novo conjunto de anúncios de Leads","di":"120249032385980262","dn":"Novo anúncio de Leads","s":6.07,"im":157,"cl":1,"lm":0},{"dt":"2026-07-11","ci":"120249032385910262","cn":"04 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032386010262","an":"Novo conjunto de anúncios de Leads","di":"120249032386000262","dn":"Novo anúncio de Leads","s":3.21,"im":138,"cl":5,"lm":0},{"dt":"2026-07-11","ci":"120249032385920262","cn":"05 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385880262","an":"Novo conjunto de anúncios de Leads","di":"120249032386020262","dn":"Novo anúncio de Leads","s":6.02,"im":173,"cl":0,"lm":0},{"dt":"2026-07-11","ci":"120249032385910262","cn":"04 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032386010262","an":"Novo conjunto de anúncios de Leads","di":"120249032386030262","dn":"Novo anúncio de Leads — Cópia","s":2.82,"im":112,"cl":1,"lm":0},{"dt":"2026-07-12","ci":"120248960504460262","cn":"02 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504290262","an":"Novo conjunto de anúncios de Leads","di":"120248960504230262","dn":"Novo anúncio de Leads","s":9.64,"im":228,"cl":1,"lm":0},{"dt":"2026-07-12","ci":"120248960504480262","cn":"03 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504270262","an":"Novo conjunto de anúncios de Leads","di":"120248960504380262","dn":"Novo anúncio de Leads","s":8.29,"im":346,"cl":5,"lm":0},{"dt":"2026-07-12","ci":"120248960504490262","cn":"05 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504300262","an":"Novo conjunto de anúncios de Leads","di":"120248960504400262","dn":"Novo anúncio de Leads","s":9.43,"im":234,"cl":5,"lm":1},{"dt":"2026-07-12","ci":"120248960504500262","cn":"06 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504320262","an":"Novo conjunto de anúncios de Leads","di":"120248960504410262","dn":"Novo anúncio de Leads","s":8.25,"im":262,"cl":2,"lm":0},{"dt":"2026-07-12","ci":"120248960504220262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504310262","an":"Novo conjunto de anúncios de Leads","di":"120248960504420262","dn":"Novo anúncio de Leads","s":9.93,"im":241,"cl":2,"lm":1},{"dt":"2026-07-12","ci":"120249031010690262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010780262","an":"Novo conjunto de anúncios de Leads","di":"120249031010730262","dn":"Novo anúncio de Leads","s":8.99,"im":204,"cl":3,"lm":0},{"dt":"2026-07-12","ci":"120249031010680262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010790262","an":"Novo conjunto de anúncios de Leads","di":"120249031010740262","dn":"Novo anúncio de Leads","s":10.07,"im":181,"cl":2,"lm":0},{"dt":"2026-07-12","ci":"120249031010700262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010810262","an":"Novo conjunto de anúncios de Leads","di":"120249031010750262","dn":"Novo anúncio de Leads","s":9.86,"im":249,"cl":1,"lm":0},{"dt":"2026-07-12","ci":"120249031010720262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010800262","an":"Novo conjunto de anúncios de Leads","di":"120249031010760262","dn":"Novo anúncio de Leads","s":10.11,"im":208,"cl":2,"lm":0},{"dt":"2026-07-12","ci":"120249031010710262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010820262","an":"Novo conjunto de anúncios de Leads","di":"120249031010770262","dn":"Novo anúncio de Leads","s":9.55,"im":158,"cl":3,"lm":1},{"dt":"2026-07-12","ci":"120249032385890262","cn":"01 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385940262","an":"Novo conjunto de anúncios de Leads","di":"120249032385960262","dn":"Novo anúncio de Leads","s":10.07,"im":162,"cl":0,"lm":0},{"dt":"2026-07-12","ci":"120249032385900262","cn":"02 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385950262","an":"Novo conjunto de anúncios de Leads","di":"120249032385970262","dn":"Novo anúncio de Leads","s":9.62,"im":202,"cl":2,"lm":0},{"dt":"2026-07-12","ci":"120249032385930262","cn":"03 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385990262","an":"Novo conjunto de anúncios de Leads","di":"120249032385980262","dn":"Novo anúncio de Leads","s":10.17,"im":180,"cl":1,"lm":0},{"dt":"2026-07-12","ci":"120249032385910262","cn":"04 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032386010262","an":"Novo conjunto de anúncios de Leads","di":"120249032386000262","dn":"Novo anúncio de Leads","s":6.43,"im":143,"cl":1,"lm":0},{"dt":"2026-07-12","ci":"120249032385920262","cn":"05 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385880262","an":"Novo conjunto de anúncios de Leads","di":"120249032386020262","dn":"Novo anúncio de Leads","s":9.83,"im":178,"cl":4,"lm":1},{"dt":"2026-07-12","ci":"120249032385910262","cn":"04 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032386010262","an":"Novo conjunto de anúncios de Leads","di":"120249032386030262","dn":"Novo anúncio de Leads — Cópia","s":3.25,"im":61,"cl":0,"lm":0},{"dt":"2026-07-13","ci":"120248960504460262","cn":"02 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504290262","an":"Novo conjunto de anúncios de Leads","di":"120248960504230262","dn":"Novo anúncio de Leads","s":8.83,"im":181,"cl":1,"lm":0},{"dt":"2026-07-13","ci":"120248960504480262","cn":"03 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504270262","an":"Novo conjunto de anúncios de Leads","di":"120248960504380262","dn":"Novo anúncio de Leads","s":5.52,"im":239,"cl":3,"lm":0},{"dt":"2026-07-13","ci":"120248960504490262","cn":"05 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504300262","an":"Novo conjunto de anúncios de Leads","di":"120248960504400262","dn":"Novo anúncio de Leads","s":3.63,"im":125,"cl":2,"lm":0},{"dt":"2026-07-13","ci":"120248960504500262","cn":"06 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504320262","an":"Novo conjunto de anúncios de Leads","di":"120248960504410262","dn":"Novo anúncio de Leads","s":7.91,"im":236,"cl":3,"lm":0},{"dt":"2026-07-13","ci":"120248960504220262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia","ai":"120248960504310262","an":"Novo conjunto de anúncios de Leads","di":"120248960504420262","dn":"Novo anúncio de Leads","s":5.96,"im":172,"cl":3,"lm":0},{"dt":"2026-07-13","ci":"120249031010690262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010780262","an":"Novo conjunto de anúncios de Leads","di":"120249031010730262","dn":"Novo anúncio de Leads","s":1.82,"im":59,"cl":1,"lm":0},{"dt":"2026-07-13","ci":"120249031010680262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010790262","an":"Novo conjunto de anúncios de Leads","di":"120249031010740262","dn":"Novo anúncio de Leads","s":3.1,"im":64,"cl":0,"lm":0},{"dt":"2026-07-13","ci":"120249031010700262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010810262","an":"Novo conjunto de anúncios de Leads","di":"120249031010750262","dn":"Novo anúncio de Leads","s":1.48,"im":46,"cl":0,"lm":0},{"dt":"2026-07-13","ci":"120249031010720262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010800262","an":"Novo conjunto de anúncios de Leads","di":"120249031010760262","dn":"Novo anúncio de Leads","s":8.9,"im":186,"cl":1,"lm":0},{"dt":"2026-07-13","ci":"120249031010710262","cn":"09 - CLINICA PBS - LEADS FORMS - TESTE — Cópia — Cópia","ai":"120249031010820262","an":"Novo conjunto de anúncios de Leads","di":"120249031010770262","dn":"Novo anúncio de Leads","s":9.88,"im":160,"cl":4,"lm":0},{"dt":"2026-07-13","ci":"120249032385890262","cn":"01 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385940262","an":"Novo conjunto de anúncios de Leads","di":"120249032385960262","dn":"Novo anúncio de Leads","s":1.65,"im":30,"cl":0,"lm":0},{"dt":"2026-07-13","ci":"120249032385900262","cn":"02 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385950262","an":"Novo conjunto de anúncios de Leads","di":"120249032385970262","dn":"Novo anúncio de Leads","s":2.35,"im":46,"cl":0,"lm":0},{"dt":"2026-07-13","ci":"120249032385930262","cn":"03 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385990262","an":"Novo conjunto de anúncios de Leads","di":"120249032385980262","dn":"Novo anúncio de Leads","s":4.05,"im":52,"cl":0,"lm":0},{"dt":"2026-07-13","ci":"120249032385910262","cn":"04 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032386010262","an":"Novo conjunto de anúncios de Leads","di":"120249032386000262","dn":"Novo anúncio de Leads","s":2.18,"im":50,"cl":0,"lm":0},{"dt":"2026-07-13","ci":"120249032385920262","cn":"05 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032385880262","an":"Novo conjunto de anúncios de Leads","di":"120249032386020262","dn":"Novo anúncio de Leads","s":4.11,"im":48,"cl":2,"lm":0},{"dt":"2026-07-13","ci":"120249032385910262","cn":"04 - CLÍNICA - TERCERIZA COMER - LEADS FORMS PBS +100K","ai":"120249032386010262","an":"Novo conjunto de anúncios de Leads","di":"120249032386030262","dn":"Novo anúncio de Leads — Cópia","s":0.92,"im":26,"cl":0,"lm":0},{"dt":"2026-07-15","ci":"120249146863320262","cn":"01 - PARAUAPEBAS CLÍNICA  TERCERIZA - LEADS FORMS","ai":"120249146863350262","an":"Novo conjunto de anúncios de Leads","di":"120249146863340262","dn":"Novo anúncio de Leads","s":3.43,"im":100,"cl":2,"lm":0},{"dt":"2026-07-15","ci":"120249146863330262","cn":"02 - CANAA CLÍNICA - TERCERIZA COMER - LEADS FORMS","ai":"120249146863370262","an":"Novo conjunto de anúncios de Leads","di":"120249146863360262","dn":"Novo anúncio de Leads","s":1.37,"im":25,"cl":1,"lm":0},{"dt":"2026-07-15","ci":"120249147029130262","cn":"01 - PARAUAPEBAS CLÍNICA  TERCERIZA - WHATSAPP","ai":"120249147029140262","an":"Novo conjunto de anúncios de Engajamento","di":"120249147029150262","dn":"Novo anúncio de Engajamento","s":3.31,"im":62,"cl":0,"lm":0},{"dt":"2026-07-15","ci":"120249147127900262","cn":"02 - CANAA CLÍNICA  TERCERIZA - WHATSAPP","ai":"120249147127880262","an":"Novo conjunto de anúncios de Engajamento","di":"120249147127890262","dn":"Novo anúncio de Engajamento","s":1.44,"im":34,"cl":1,"lm":0}];
+const LEAD_ROWS     = [{"d":"2026-07-13","c":"desq_time","ci":"120242492396640375","ai":"120242492396720375","di":"120242492396660375"},{"d":"2026-07-13","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-07-14","c":"mql","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-07-14","c":"desq_time","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-07-15","c":"desq_consultor","ci":"120242492697650375","ai":"120242492697670375","di":"120242492697660375"},{"d":"2026-07-15","c":"desq_time","ci":"120248315752530375","ai":"120248315752630375","di":"120248315752580375"},{"d":"2026-07-15","c":"mql","ci":"120248315752520375","ai":"120248315752640375","di":"120248315752570375"},{"d":"2026-07-15","c":"mql","ci":"120248315752470375","ai":"120248315752600375","di":"120248315752540375"},{"d":"2026-07-15","c":"mql","ci":"120248315752470375","ai":"120248315752600375","di":"120248315752540375"}];
+const MONTH_START   = '2026-07-01';
+const CRM_DEFAULTS  = null; // pré-carregado de vendas-crm-{mes}-{ano}.json
+
+// ── Referência histórica — Abril 2026 ─────────────────────────
+const ABRIL = {
+  spend:          1514.75,
+  leads:          452,
+  mqls:           169,
+  mql_pct:        37.4,
+  cpl:            1514.75 / 452,   // ~3.35
+  cpmql:          1514.75 / 169,   // ~8.96
+  sql:            63,
+  agendamentos:   37,
+  vendas:         2,
+  cpvenda:        1514.75 / 2,     // ~757.38
+};
+
+// ── Helpers ──────────────────────────────────────────────────
+function fmtR(n) {
+  return 'R$ ' + Number(n).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function fmtN(n) { return Number(n).toLocaleString('pt-BR'); }
+function fmtP(n) {
+  return Number(n).toLocaleString('pt-BR', {minimumFractionDigits:1, maximumFractionDigits:1}) + '%';
+}
+function sd(a,b) { return b > 0 ? a / b : 0; }
+function pctClass(pct) { return pct >= 40 ? 'good' : pct >= 20 ? 'warn' : 'bad'; }
+
+// ── Period ────────────────────────────────────────────────────
+let currentPeriod = 'month';
+let expandedCamps  = new Set();
+let expandedAdsets = new Set();
+let sortCol = 's'; let sortAsc = false;
+
+function getRange(period) {
+  const now = new Date();
+  const pad = n => String(n).padStart(2,'0');
+  const fmt = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  if (period === 'today') {
+    const t = fmt(now);
+    return [t, t];
+  }
+  if (period === 'week') {
+    const d = new Date(now);
+    const day = d.getDay() === 0 ? 6 : d.getDay() - 1;
+    d.setDate(d.getDate() - day);
+    return [fmt(d), fmt(now)];
+  }
+  return [MONTH_START, fmt(now)];
+}
+
+function setPeriod(p) {
+  currentPeriod = p;
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.toggle('active', b.dataset.period === p));
+  render();
+}
+
+// ── CRM manual data ───────────────────────────────────────────
+// Prioridade: localStorage > CRM_DEFAULTS (do arquivo vendas-crm-{mes}-{ano}.json)
+function loadCRM() {
+  try {
+    const saved = localStorage.getItem('hurtz_crm');
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return CRM_DEFAULTS || {};
+}
+function saveCRM() {
+  const crm = {
+    sql:         +(document.getElementById('crm-sql')?.value    || 0),
+    agendamentos:+(document.getElementById('crm-agenda')?.value || 0),
+    vendas:      +(document.getElementById('crm-vendas')?.value || 0),
+  };
+  localStorage.setItem('hurtz_crm', JSON.stringify(crm));
+  render();
+}
+function initCRMInputs() {
+  const crm = loadCRM();
+  const s = document.getElementById('crm-sql');
+  const a = document.getElementById('crm-agenda');
+  const v = document.getElementById('crm-vendas');
+  if (s) s.value = crm.sql         || '';
+  if (a) a.value = crm.agendamentos || '';
+  if (v) v.value = crm.vendas      || '';
+}
+
+// ── Aggregation ───────────────────────────────────────────────
+function aggregate(start, end) {
+  const ins   = INSIGHT_ROWS.filter(r => r.dt >= start && r.dt <= end);
+  const leads = LEAD_ROWS.filter(r => r.d >= start && r.d <= end);
+
+  const campNames  = {};
+  const adsetNames = {};
+  const adNames    = {};
+  for (const r of ins) {
+    if (r.ci) campNames[r.ci]  = r.cn;
+    if (r.ai) adsetNames[r.ai] = r.an;
+    if (r.di) adNames[r.di]    = r.dn;
+  }
+  for (const l of leads) {
+    if (l.ci && !campNames[l.ci])  campNames[l.ci]  = '';
+    if (l.ai && !adsetNames[l.ai]) adsetNames[l.ai] = '';
+    if (l.di && !adNames[l.di])    adNames[l.di]    = '';
+  }
+
+  const adMap = {};
+  for (const r of ins) {
+    if (!r.di) continue;
+    const k = r.di;
+    if (!adMap[k]) adMap[k] = {di:r.di, ai:r.ai, ci:r.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    adMap[k].s  += r.s;
+    adMap[k].im += r.im;
+    adMap[k].cl += r.cl;
+    adMap[k].lm += r.lm;
+  }
+  for (const l of leads) {
+    if (!l.di) continue;
+    if (!adMap[l.di]) adMap[l.di] = {di:l.di, ai:l.ai, ci:l.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    adMap[l.di].leads += 1;
+    if (l.c === 'mql')            adMap[l.di].mql    += 1;
+    if (l.c === 'desq_consultor') adMap[l.di].desq_c += 1;
+    if (l.c === 'desq_time')      adMap[l.di].desq_t += 1;
+    if (l.c === 'desq_banco')     adMap[l.di].desq_b += 1;
+  }
+
+  const adsetMap = {};
+  for (const a of Object.values(adMap)) {
+    if (!a.ai) continue;
+    if (!adsetMap[a.ai]) adsetMap[a.ai] = {ai:a.ai, ci:a.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    const as = adsetMap[a.ai];
+    as.s+=a.s; as.im+=a.im; as.cl+=a.cl; as.lm+=a.lm;
+    as.leads+=a.leads; as.mql+=a.mql; as.desq_c+=a.desq_c; as.desq_t+=a.desq_t; as.desq_b+=a.desq_b;
+  }
+
+  const campMap = {};
+  for (const a of Object.values(adsetMap)) {
+    if (!a.ci) continue;
+    if (!campMap[a.ci]) campMap[a.ci] = {ci:a.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    const c = campMap[a.ci];
+    c.s+=a.s; c.im+=a.im; c.cl+=a.cl; c.lm+=a.lm;
+    c.leads+=a.leads; c.mql+=a.mql; c.desq_c+=a.desq_c; c.desq_t+=a.desq_t; c.desq_b+=a.desq_b;
+  }
+
+  function derive(e) {
+    e.desq  = e.desq_c + e.desq_t + e.desq_b;
+    e.pct   = sd(e.mql, e.leads) * 100;
+    e.cpl   = sd(e.s, e.leads);
+    e.cpmql = sd(e.s, e.mql);
+    return e;
+  }
+
+  const campaigns = Object.values(campMap).map(derive);
+  const adsets    = Object.values(adsetMap).map(derive);
+  const ads       = Object.values(adMap).map(derive);
+
+  const tot = {s:0,im:0,cl:0,leads:0,mql:0,desq_c:0,desq_t:0,desq_b:0};
+  for (const c of campaigns) { tot.s+=c.s; tot.im+=c.im; tot.cl+=c.cl; tot.leads+=c.leads; tot.mql+=c.mql; tot.desq_c+=c.desq_c; tot.desq_t+=c.desq_t; tot.desq_b+=c.desq_b; }
+  derive(tot);
+
+  return { campaigns, adsets, ads, tot, campNames, adsetNames, adNames };
+}
+
+// ── Render: Funil ─────────────────────────────────────────────
+function renderFunnel(tot) {
+  const crm = loadCRM();
+  const sql    = crm.sql    > 0 ? crm.sql    : null;
+  const agenda = crm.agendamentos > 0 ? crm.agendamentos : null;
+  const vendas = crm.vendas > 0 ? crm.vendas : null;
+
+  const steps = [
+    { name: 'Leads', val: tot.leads, ref: ABRIL.leads, cls: '', prev: null, prevRef: null },
+    { name: 'MQLs',  val: tot.mql,   ref: ABRIL.mqls,  cls: 'mql', prev: tot.leads, prevRef: ABRIL.leads },
+    { name: 'SQL',   val: sql,        ref: ABRIL.sql,   cls: 'sql', prev: tot.mql, prevRef: ABRIL.mqls },
+    { name: 'Agenda',val: agenda,     ref: ABRIL.agendamentos, cls: 'sql', prev: sql, prevRef: ABRIL.sql },
+    { name: 'Vendas',val: vendas,     ref: ABRIL.vendas, cls: 'venda', prev: agenda, prevRef: ABRIL.agendamentos },
+  ];
+
+  const el = document.getElementById('funnel-steps');
+  if (!el) return;
+  let html = '';
+
+  steps.forEach((st, i) => {
+    if (i > 0) html += '<div class="funnel-arrow">›</div>';
+
+    const pct = st.prev != null && st.prev > 0 && st.val != null
+      ? (st.val / st.prev * 100) : null;
+    const pctRef = st.prevRef != null && st.prevRef > 0
+      ? (st.ref / st.prevRef * 100) : null;
+
+    const pctHtml = pct != null
+      ? `<div class="funnel-pct ${pctClass(pct)}">${pct.toFixed(0)}%</div>`
+      : '<div style="height:20px"></div>';
+
+    const valHtml = st.val != null
+      ? `<div class="funnel-val ${st.cls}">${fmtN(st.val)}</div>`
+      : `<div class="funnel-val none">—</div>`;
+
+    const refPct = pctRef != null ? ` (${pctRef.toFixed(0)}%)` : '';
+
+    html += `<div class="funnel-step">
+      <div class="funnel-name">${st.name}</div>
+      ${valHtml}
+      ${pctHtml}
+      <div class="funnel-ref">Abr: ${fmtN(st.ref)}${refPct}</div>
+    </div>`;
+  });
+
+  el.innerHTML = html;
+}
+
+// ── Render: Comparação ────────────────────────────────────────
+function renderComparison(tot) {
+  const crm = loadCRM();
+  const rows = [
+    { label: 'Investimento', cur: fmtR(tot.s),          apr: fmtR(ABRIL.spend) },
+    { label: 'Leads',        cur: fmtN(tot.leads),       apr: fmtN(ABRIL.leads) },
+    { label: 'MQLs',         cur: tot.leads > 0 ? `${fmtN(tot.mql)} (${fmtP(tot.pct)})` : '—',
+                             apr: `${fmtN(ABRIL.mqls)} (37,4%)` },
+    { label: 'CPL',          cur: tot.leads > 0 ? fmtR(tot.cpl)   : '—', apr: fmtR(ABRIL.cpl) },
+    { label: 'Custo/MQL',    cur: tot.mql   > 0 ? fmtR(tot.cpmql) : '—', apr: fmtR(ABRIL.cpmql) },
+    { label: 'SQL',          cur: crm.sql         > 0 ? fmtN(crm.sql)         : '—', apr: fmtN(ABRIL.sql) },
+    { label: 'Agenda',       cur: crm.agendamentos > 0 ? fmtN(crm.agendamentos) : '—', apr: fmtN(ABRIL.agendamentos) },
+    { label: 'Vendas',       cur: crm.vendas      > 0 ? fmtN(crm.vendas)      : '—', apr: fmtN(ABRIL.vendas) },
+    { label: 'Custo/Venda',  cur: (crm.vendas > 0 && tot.s > 0) ? fmtR(tot.s / crm.vendas) : '—',
+                             apr: fmtR(ABRIL.cpvenda) },
+    { label: 'Leads/Venda',  cur: (crm.vendas > 0 && tot.leads > 0) ? fmtN(Math.round(tot.leads / crm.vendas)) : '—',
+                             apr: fmtN(Math.round(ABRIL.leads / ABRIL.vendas)) },
+  ];
+
+  const el = document.getElementById('comp-grid');
+  if (!el) return;
+  let html = '';
+  rows.forEach(r => {
+    html += `<div class="comp-row">
+      <span class="comp-label">${r.label}</span>
+      <div class="comp-right">
+        <div class="comp-cur">${r.cur}</div>
+        <div class="comp-apr">Abr: ${r.apr}</div>
+      </div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+// ── Render: Desqualificações ──────────────────────────────────
+function renderDesq(tot) {
+  const total = tot.desq || 0;
+  const el = document.getElementById('desq-bars');
+  if (!el) return;
+
+  if (total === 0) {
+    el.innerHTML = '<div style="color:var(--text-muted);font-size:11px">Sem desqualificações no período.</div>';
+    return;
+  }
+
+  const bars = [
+    { label: 'Consultor comercial', val: tot.desq_c, color: 'var(--text-dim)' },
+    { label: 'Time insuficiente (<2)', val: tot.desq_t, color: 'var(--warn-text)' },
+    { label: 'Banco exclusivo', val: tot.desq_b, color: 'var(--bad-text)' },
+  ];
+
+  let html = `<div class="desq-total">${total} desqualificados no período</div>`;
+  bars.forEach(b => {
+    const pct = total > 0 ? (b.val / total * 100) : 0;
+    html += `<div class="desq-bar-row">
+      <div class="desq-bar-header">
+        <span class="desq-bar-label">${b.label}</span>
+        <span class="desq-bar-count">${b.val}<span class="desq-bar-pct"> (${pct.toFixed(0)}%)</span></span>
+      </div>
+      <div class="desq-bar-track">
+        <div class="desq-bar-fill" style="width:${pct.toFixed(1)}%;background:${b.color}"></div>
+      </div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+// ── Render: Table row ─────────────────────────────────────────
+function sortRows(arr, col, asc) {
+  return [...arr].sort((a,b) => {
+    let va = col === 'name' ? 0 : (a[col] ?? 0);
+    let vb = col === 'name' ? 0 : (b[col] ?? 0);
+    return asc ? va - vb : vb - va;
+  });
+}
+
+function renderRow(e, level, name, isActive) {
+  const indent = level * 24;
+  const hasChildren = level < 2;
+  const rowClass = ['row-camp','row-adset','row-ad'][level];
+  const dataId   = [e.ci, e.ai, e.di][level];
+  const parentAttr = level === 1 ? `data-camp="${e.ci}"` : level === 2 ? `data-adset="${e.ai}"` : '';
+  const display  = level === 0 ? '' : 'display:none';
+  const rowClick = hasChildren ? `onclick="toggleExpand(event,'${level}','${dataId}')"` : '';
+  const isOpen   = (level===0 ? expandedCamps : expandedAdsets).has(dataId);
+  const chevron  = hasChildren
+    ? `<span class="chevron${isOpen ? ' open' : ''}">&#9654;</span>`
+    : `<span class="no-chevron"></span>`;
+  const treeLine = level > 0 ? `<span class="tree-indent"><span class="tree-line"></span></span>` : '';
+  const dot = `<span class="status-dot${isActive?' active':''}"></span>`;
+
+  const cpl     = e.s > 0 && e.leads > 0 ? fmtR(e.cpl)    : '<span class="dash">—</span>';
+  const cpmql   = e.s > 0 && e.mql   > 0 ? fmtR(e.cpmql)  : '<span class="dash">—</span>';
+  const cpvenda = e.cpvenda > 0           ? fmtR(e.cpvenda) : '<span class="dash">—</span>';
+  const pctHtml = e.leads > 0
+    ? `<span class="col-pct ${pctClass(e.pct)}">${fmtP(e.pct)}</span>`
+    : '<span class="dash">—</span>';
+
+  return `<tr class="${rowClass}" ${parentAttr} data-id="${dataId}" style="${display}" ${rowClick}>
+    <td>
+      <div class="name-cell" style="padding-left:${indent}px">
+        ${treeLine}${chevron}${dot}
+        <span class="entity-name" title="${name}">${name}</span>
+      </div>
+    </td>
+    <td class="num col-spend">${e.s > 0 ? fmtR(e.s) : '<span class="dash">—</span>'}</td>
+    <td class="num col-imp">${e.im > 0 ? fmtN(e.im) : '<span class="dash">—</span>'}</td>
+    <td class="num col-imp">${e.cl > 0 ? fmtN(e.cl) : '<span class="dash">—</span>'}</td>
+    <td class="num col-leads">${e.leads > 0 ? fmtN(e.leads) : '<span class="dash">—</span>'}</td>
+    <td class="num col-mql">${e.mql > 0 ? fmtN(e.mql) : '<span class="dash">—</span>'}</td>
+    <td class="num">${pctHtml}</td>
+    <td class="num col-imp">${e.desq > 0 ? fmtN(e.desq) : '<span class="dash">—</span>'}</td>
+    <td class="num col-cpl">${cpl}</td>
+    <td class="num col-cpmql">${cpmql}</td>
+    <td class="num col-cpvenda">${cpvenda}</td>
+  </tr>`;
+}
+
+function toggleExpand(evt, level, id) {
+  evt.stopPropagation();
+  const row     = document.querySelector(`tr[data-id="${id}"]`);
+  const chevron = row ? row.querySelector('.chevron') : null;
+
+  if (level === '0') {
+    if (expandedCamps.has(id)) {
+      expandedCamps.delete(id);
+      document.querySelectorAll(`tr[data-camp="${id}"]`).forEach(r => {
+        r.style.display = 'none';
+        const ai = r.dataset.id;
+        if (ai) {
+          expandedAdsets.delete(ai);
+          document.querySelectorAll(`tr[data-adset="${ai}"]`).forEach(ar => ar.style.display = 'none');
+          const ch = r.querySelector('.chevron');
+          if (ch) ch.classList.remove('open');
+        }
+      });
+      if (chevron) chevron.classList.remove('open');
+    } else {
+      expandedCamps.add(id);
+      document.querySelectorAll(`tr[data-camp="${id}"]`).forEach(r => r.style.display = '');
+      if (chevron) chevron.classList.add('open');
+    }
+  } else {
+    if (expandedAdsets.has(id)) {
+      expandedAdsets.delete(id);
+      document.querySelectorAll(`tr[data-adset="${id}"]`).forEach(r => r.style.display = 'none');
+      if (chevron) chevron.classList.remove('open');
+    } else {
+      expandedAdsets.add(id);
+      document.querySelectorAll(`tr[data-adset="${id}"]`).forEach(r => r.style.display = '');
+      if (chevron) chevron.classList.add('open');
+    }
+  }
+}
+
+// ── Render (main) ─────────────────────────────────────────────
+function render() {
+  const [start, end] = getRange(currentPeriod);
+  const { campaigns, adsets, ads, tot, campNames, adsetNames, adNames } = aggregate(start, end);
+
+  // KPIs
+  document.getElementById('kpi-spend').textContent  = fmtR(tot.s);
+  document.getElementById('kpi-imp').textContent    = fmtN(tot.im) + ' impressões · ' + fmtN(tot.cl) + ' cliques';
+  document.getElementById('kpi-leads').textContent  = fmtN(tot.leads);
+  document.getElementById('kpi-cpl').textContent    = tot.leads > 0 ? 'CPL: ' + fmtR(tot.cpl) : '—';
+  document.getElementById('kpi-mql').textContent    = fmtN(tot.mql);
+  document.getElementById('kpi-pct').textContent    = tot.leads > 0 ? fmtP(tot.pct) + ' dos leads' : '—';
+  document.getElementById('kpi-cpmql').textContent  = tot.mql > 0 ? fmtR(tot.cpmql) : '—';
+  document.getElementById('kpi-mql-sub').textContent = fmtN(tot.mql) + ' MQLs no período';
+  document.getElementById('kpi-desq').textContent   = fmtN(tot.desq);
+  document.getElementById('kpi-desq-sub').textContent = 'Consultor: '+tot.desq_c+' · Time<2: '+tot.desq_t+' · Banco: '+tot.desq_b;
+
+  // KPI: Custo por Venda
+  const crm = loadCRM();
+  const mqlSaleRate = (crm.vendas > 0 && tot.mql > 0) ? crm.vendas / tot.mql : 0;
+  tot.cpvenda = crm.vendas > 0 && tot.s > 0 ? tot.s / crm.vendas : 0;
+  document.getElementById('kpi-cpvenda').textContent     = tot.cpvenda > 0 ? fmtR(tot.cpvenda) : '—';
+  document.getElementById('kpi-cpvenda-sub').textContent = crm.vendas > 0
+    ? crm.vendas + ' vendas · taxa MQL→venda: ' + fmtP(mqlSaleRate * 100)
+    : 'Informe as vendas no funil';
+
+  // Custo/Venda projetado por entidade (proporcional ao CPMql × taxa global)
+  [campaigns, adsets, ads].forEach(arr => arr.forEach(e => {
+    e.cpvenda = mqlSaleRate > 0 && e.mql > 0 ? e.cpmql / mqlSaleRate : 0;
+  }));
+
+  // Panels
+  renderFunnel(tot);
+  renderComparison(tot);
+  renderDesq(tot);
+
+  // Table
+  const sortedCamps = sortRows(campaigns, sortCol, sortAsc);
+  let html = '';
+  if (sortedCamps.length === 0) {
+    html = '<tr class="empty-row"><td colspan="11">Sem dados no período selecionado.</td></tr>';
+  } else {
+    for (const c of sortedCamps) {
+      const cName = campNames[c.ci] || c.ci || '(sem nome)';
+      html += renderRow(c, 0, cName, c.s > 0 || c.leads > 0);
+      const cAdsets = sortRows(adsets.filter(a => a.ci === c.ci), sortCol, sortAsc);
+      for (const a of cAdsets) {
+        const aName = adsetNames[a.ai] || a.ai || '(sem nome)';
+        html += renderRow(a, 1, aName, a.s > 0 || a.leads > 0);
+        const aAds = sortRows(ads.filter(ad => ad.ai === a.ai), sortCol, sortAsc);
+        for (const ad of aAds) {
+          const dName = adNames[ad.di] || ad.di || '(sem nome)';
+          html += renderRow(ad, 2, dName, ad.s > 0 || ad.leads > 0);
+        }
+      }
+    }
+  }
+  document.getElementById('dash-body').innerHTML = html;
+
+  // Re-apply expand state
+  expandedCamps.forEach(id => {
+    document.querySelectorAll(`tr[data-camp="${id}"]`).forEach(r => r.style.display = '');
+    const ch = document.querySelector(`tr[data-id="${id}"] .chevron`);
+    if (ch) ch.classList.add('open');
+  });
+  expandedAdsets.forEach(id => {
+    document.querySelectorAll(`tr[data-adset="${id}"]`).forEach(r => r.style.display = '');
+    const ch = document.querySelector(`tr[data-id="${id}"] .chevron`);
+    if (ch) ch.classList.add('open');
+  });
+}
+
+// ── Sort ─────────────────────────────────────────────────────
+function sortBy(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = false; }
+  document.querySelectorAll('thead th').forEach(th => { th.classList.remove('sort-asc','sort-desc'); });
+  const thIndex = ['name','s','im','cl','leads','mql','pct','desq','cpl','cpmql','cpvenda'].indexOf(col);
+  if (thIndex >= 0) {
+    const ths = document.querySelectorAll('thead th');
+    ths[thIndex].classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+  }
+  render();
+}
+
+// ── Countdown ────────────────────────────────────────────────
+let secsLeft = 3600;
+function updateCountdown() {
+  secsLeft--;
+  if (secsLeft <= 0) { location.reload(); return; }
+  const m = Math.floor(secsLeft / 60).toString().padStart(2,'0');
+  const s = (secsLeft % 60).toString().padStart(2,'0');
+  const el = document.getElementById('countdown');
+  if (el) el.textContent = m + ':' + s;
+}
+setInterval(updateCountdown, 1000);
+
+// ── Init ─────────────────────────────────────────────────────
+initCRMInputs();
+render();
+</script>
+</body>
+</html>
