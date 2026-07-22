@@ -4,12 +4,12 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta name="robots" content="noindex">
-  <meta name="theme-color" content="#F5F2EC">
-  <meta name="description" content="Entrada direta para o grupo da Hurtz no WhatsApp.">
-  <meta property="og:title" content="Grupo Hurtz no WhatsApp">
+  <meta name="theme-color" content="#F4F4F4">
+  <meta name="description" content="Entrar no grupo Lançamento chácaras Refúgio do Lago pelo WhatsApp.">
+  <meta property="og:title" content="Lançamento chácaras Refúgio do Lago">
   <meta property="og:description" content="Toque para entrar no grupo pelo WhatsApp.">
   <meta property="og:type" content="website">
-  <title>Grupo Hurtz no WhatsApp</title>
+  <title>Lançamento chácaras Refúgio do Lago</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
@@ -17,414 +17,258 @@
     *, *::before, *::after { box-sizing: border-box; }
 
     :root {
-      --brasa: #C06018;
-      --brasa-hover: #974A12;
-      --carvao: #181614;
-      --grafite: #3D3A36;
-      --pedra: #8C8880;
-      --areia: #E8E4DC;
-      --offwhite: #F5F2EC;
-      --brasa-50: #F9EDE3;
-      --white-card: #FFFFFF;
-      --radius: 4px;
-      --content: 1040px;
+      --bg: #F4F4F4;
+      --text: #333333;
+      --muted: #4D4D4D;
+      --line: #D0D0D0;
+      --green: #87E986;
+      --green-hover: #72D972;
+      --topbar: #42364E;
+      --link: #0057B8;
     }
 
-    html {
+    html,
+    body {
       min-height: 100%;
-      background: var(--offwhite);
+      margin: 0;
     }
 
     body {
-      min-height: 100vh;
-      margin: 0;
       font-family: Inter, Helvetica, Arial, sans-serif;
-      font-size: 15px;
-      line-height: 1.6;
-      color: var(--carvao);
-      background: var(--offwhite);
+      color: var(--text);
+      background: var(--bg);
       -webkit-font-smoothing: antialiased;
       text-rendering: optimizeLegibility;
     }
 
-    a { color: inherit; }
-
-    .page {
-      min-height: 100vh;
-      display: flex;
-      flex-direction: column;
-    }
-
     .topbar {
       width: 100%;
-      border-bottom: 1px solid var(--areia);
-    }
-
-    .topbar-inner {
-      width: min(100%, var(--content));
-      height: 72px;
-      margin: 0 auto;
-      padding: 0 24px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      gap: 24px;
-    }
-
-    .logo {
-      width: 154px;
-      height: auto;
-      display: block;
-    }
-
-    .status-pill {
-      display: inline-flex;
-      align-items: center;
-      gap: 8px;
-      min-height: 32px;
-      padding: 6px 12px;
-      border: 1px solid var(--areia);
-      border-radius: 999px;
-      color: var(--grafite);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-      white-space: nowrap;
-    }
-
-    .status-dot {
-      width: 7px;
-      height: 7px;
-      border-radius: 50%;
-      background: var(--brasa);
-      flex: 0 0 auto;
+      height: 30px;
+      background: var(--topbar);
     }
 
     main {
-      flex: 1;
+      min-height: calc(100vh - 30px);
+      display: flex;
+      justify-content: center;
+      padding: 88px 20px 48px;
+    }
+
+    .invite {
+      width: min(100%, 560px);
+      text-align: center;
+    }
+
+    .avatar {
+      width: clamp(190px, 32vw, 300px);
+      aspect-ratio: 1;
+      margin: 0 auto 70px;
       display: grid;
-      align-items: center;
-      padding: 48px 24px;
-    }
-
-    .shell {
-      width: min(100%, var(--content));
-      margin: 0 auto;
-      display: grid;
-      grid-template-columns: minmax(0, 1.05fr) minmax(320px, 0.72fr);
-      gap: 48px;
-      align-items: center;
-    }
-
-    .accent {
-      width: 72px;
-      height: 3px;
-      margin: 0 0 24px;
-      background: var(--brasa);
-    }
-
-    .eyebrow {
-      margin: 0 0 14px;
-      color: var(--brasa);
-      font-size: 11px;
+      place-items: center;
+      border-radius: 50%;
+      background: #111016;
+      color: #F7F7F7;
+      font-size: clamp(54px, 9vw, 82px);
       font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
+      letter-spacing: 0;
+      overflow: hidden;
+    }
+
+    .avatar span {
+      display: inline-flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .avatar span::after {
+      content: "";
+      width: 14px;
+      height: 14px;
+      border-radius: 50%;
+      background: #8758F2;
     }
 
     h1 {
-      max-width: 720px;
-      margin: 0;
-      color: var(--carvao);
-      font-size: clamp(38px, 6vw, 68px);
+      margin: 0 auto 56px;
+      max-width: 640px;
+      color: var(--text);
+      font-size: clamp(34px, 5vw, 48px);
       font-weight: 700;
-      line-height: 1.02;
+      line-height: 1.22;
       letter-spacing: 0;
     }
 
-    .lede {
-      max-width: 600px;
-      margin: 24px 0 0;
-      color: var(--grafite);
-      font-size: clamp(17px, 2vw, 20px);
-      line-height: 1.5;
-    }
-
     .actions {
-      margin-top: 32px;
-      display: flex;
-      flex-wrap: wrap;
-      gap: 12px;
-      align-items: center;
+      display: grid;
+      gap: 28px;
+      margin: 0 auto;
     }
 
-    .btn {
-      min-height: 50px;
+    .button {
+      width: 100%;
+      min-height: 86px;
       display: inline-flex;
       align-items: center;
       justify-content: center;
-      gap: 8px;
-      padding: 13px 22px;
-      border-radius: var(--radius);
+      border-radius: 14px;
       font: inherit;
-      font-weight: 700;
-      line-height: 1.2;
+      font-size: clamp(28px, 4vw, 38px);
+      font-weight: 400;
+      line-height: 1.1;
       text-decoration: none;
       cursor: pointer;
-      transition: background-color 120ms ease, color 120ms ease, border-color 120ms ease;
     }
 
-    .btn-primary {
-      border: 1.5px solid var(--brasa);
-      background: var(--brasa);
-      color: #FFFFFF;
+    .enter {
+      border: 1px solid #A7F4A5;
+      background: var(--green);
+      color: #111016;
     }
 
-    .btn-primary:hover { background: var(--brasa-hover); border-color: var(--brasa-hover); }
+    .enter:hover { background: var(--green-hover); }
 
-    .btn-ghost {
-      border: 1.5px solid var(--carvao);
+    .copy {
+      border: 1px solid var(--line);
       background: transparent;
-      color: var(--carvao);
+      color: var(--text);
     }
 
-    .btn-ghost:hover {
-      background: var(--carvao);
-      color: var(--offwhite);
+    .copy.copied {
+      border-color: var(--green-hover);
+      background: #ECFFEC;
     }
 
-    .note {
-      margin: 18px 0 0;
-      max-width: 560px;
-      color: var(--pedra);
-      font-size: 13px;
+    .help {
+      max-width: 520px;
+      margin: 22px auto 0;
+      color: var(--muted);
+      font-size: clamp(19px, 3vw, 24px);
+      line-height: 1.42;
     }
 
-    .panel {
-      border: 1px solid var(--areia);
-      border-radius: var(--radius);
-      background: var(--white-card);
-      padding: 28px;
+    .help a {
+      color: var(--link);
+      text-decoration: none;
     }
 
-    .panel-label {
-      margin: 0 0 12px;
-      color: var(--pedra);
-      font-size: 11px;
-      font-weight: 700;
-      letter-spacing: 0.12em;
-      text-transform: uppercase;
-    }
+    @media (max-width: 560px) {
+      .topbar { height: 24px; }
 
-    .device {
-      margin: 0;
-      font-size: 32px;
-      font-weight: 700;
-      line-height: 1.1;
-      color: var(--carvao);
-    }
+      main {
+        min-height: calc(100vh - 24px);
+        padding: 52px 20px 34px;
+      }
 
-    .steps {
-      display: grid;
-      gap: 14px;
-      margin-top: 28px;
-      padding-top: 24px;
-      border-top: 1px solid var(--areia);
-    }
+      .avatar {
+        width: 190px;
+        margin-bottom: 48px;
+      }
 
-    .step {
-      display: grid;
-      grid-template-columns: 28px minmax(0, 1fr);
-      gap: 12px;
-      align-items: start;
-    }
+      h1 {
+        margin-bottom: 40px;
+        font-size: 32px;
+      }
 
-    .step-number {
-      width: 28px;
-      height: 28px;
-      display: inline-flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: var(--radius);
-      background: var(--brasa-50);
-      color: var(--brasa);
-      font-size: 13px;
-      font-weight: 700;
-    }
+      .actions { gap: 18px; }
 
-    .step p {
-      margin: 0;
-      color: var(--grafite);
-    }
+      .button {
+        min-height: 68px;
+        border-radius: 12px;
+        font-size: 25px;
+      }
 
-    footer {
-      width: min(100%, var(--content));
-      margin: 0 auto;
-      padding: 0 24px 24px;
-      color: var(--pedra);
-      font-size: 12px;
-    }
-
-    @media (max-width: 820px) {
-      .topbar-inner { height: 64px; }
-      .logo { width: 130px; }
-      .status-pill { display: none; }
-      main { align-items: start; padding: 42px 20px 28px; }
-      .shell { grid-template-columns: 1fr; gap: 32px; }
-      h1 { font-size: clamp(34px, 13vw, 52px); }
-      .actions { display: grid; }
-      .btn { width: 100%; }
-      .panel { padding: 22px; }
-      footer { padding: 0 20px 20px; }
+      .help { font-size: 18px; }
     }
   </style>
 </head>
 <body>
-  <div class="page">
-    <header class="topbar">
-      <div class="topbar-inner">
-        <img class="logo" src="assets/logo-hurtz.png" alt="Hurtz Company">
-        <div class="status-pill" aria-live="polite">
-          <span class="status-dot" aria-hidden="true"></span>
-          <span id="top-status">Abrindo WhatsApp</span>
-        </div>
+  <div class="topbar" aria-hidden="true"></div>
+
+  <main>
+    <section class="invite" aria-label="Convite do grupo no WhatsApp">
+      <div class="avatar" aria-hidden="true">
+        <span>RL</span>
       </div>
-    </header>
 
-    <main>
-      <section class="shell" aria-label="Entrada para grupo no WhatsApp">
-        <div>
-          <div class="accent" aria-hidden="true"></div>
-          <p class="eyebrow">Grupo oficial</p>
-          <h1>Entrada direta para o grupo da Hurtz no WhatsApp.</h1>
-          <p class="lede">A página vai tentar abrir o WhatsApp automaticamente. Se o app não abrir, use o botão abaixo e entre pelo navegador.</p>
+      <h1>Lançamento chácaras Refúgio do Lago</h1>
 
-          <div class="actions">
-            <a class="btn btn-primary" id="open-whatsapp" href="https://chat.whatsapp.com/FIxOHkY29pfEWQYmG2EaTd?mode=gi_t" rel="noopener">Entrar no grupo →</a>
-            <button class="btn btn-ghost" id="try-again" type="button">Tentar abrir o app</button>
-          </div>
+      <div class="actions">
+        <a class="button enter" id="enter-group" href="https://chat.whatsapp.com/Ifu9SAw0OztDD5rbzgZbPj?mode=gi_t" rel="noopener">Entrar</a>
+        <button class="button copy" id="copy-link" type="button">Copiar o link do grupo</button>
+      </div>
 
-          <p class="note" id="redirect-note">Estamos identificando seu dispositivo para abrir o melhor caminho.</p>
-        </div>
-
-        <aside class="panel">
-          <p class="panel-label">Acesso detectado</p>
-          <p class="device" id="device-label">Dispositivo</p>
-          <div class="steps">
-            <div class="step">
-              <span class="step-number">1</span>
-              <p id="step-one">Identificar o dispositivo.</p>
-            </div>
-            <div class="step">
-              <span class="step-number">2</span>
-              <p id="step-two">Abrir o convite no melhor formato.</p>
-            </div>
-            <div class="step">
-              <span class="step-number">3</span>
-              <p>Se o app não responder, o botão abre o grupo pelo navegador.</p>
-            </div>
-          </div>
-        </aside>
-      </section>
-    </main>
-
-    <footer>Hurtz Company · Marketing e vendas para representantes de consórcio</footer>
-  </div>
+      <p class="help">
+        Caso esteja com problemas para entrar no grupo,<br>
+        abra o WhatsApp e cole o link em uma conversa.<br>
+        Então clique no link para abrir direto no grupo.
+      </p>
+    </section>
+  </main>
 
   <script>
     (function () {
-      var groupCode = 'FIxOHkY29pfEWQYmG2EaTd';
-      var webUrl = 'https://chat.whatsapp.com/' + groupCode + '?mode=gi_t';
+      var groupCode = 'Ifu9SAw0OztDD5rbzgZbPj';
+      var groupUrl = 'https://chat.whatsapp.com/' + groupCode + '?mode=gi_t';
       var appUrl = 'whatsapp://chat/?code=' + groupCode;
       var androidIntent = 'intent://chat/?code=' + groupCode +
         '#Intent;scheme=whatsapp;package=com.whatsapp;S.browser_fallback_url=' +
-        encodeURIComponent(webUrl) + ';end';
-      var ua = navigator.userAgent || navigator.vendor || window.opera || '';
+        encodeURIComponent(groupUrl) + ';end';
+
+      var ua = navigator.userAgent || navigator.vendor || '';
       var isAndroid = /android/i.test(ua);
-      var isIOS = /iPad|iPhone|iPod/.test(ua) || (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
+      var isIOS = /iPad|iPhone|iPod/.test(ua) ||
+        (navigator.platform === 'MacIntel' && navigator.maxTouchPoints > 1);
       var isMobile = isAndroid || isIOS || /Mobi|Mobile/i.test(ua);
-      var attempted = false;
       var hasLeftPage = false;
 
-      var deviceLabel = document.getElementById('device-label');
-      var topStatus = document.getElementById('top-status');
-      var note = document.getElementById('redirect-note');
-      var stepOne = document.getElementById('step-one');
-      var stepTwo = document.getElementById('step-two');
-      var openButton = document.getElementById('open-whatsapp');
-      var tryAgain = document.getElementById('try-again');
+      var enterButton = document.getElementById('enter-group');
+      var copyButton = document.getElementById('copy-link');
 
-      function setCopy(kind) {
-        if (kind === 'android') {
-          deviceLabel.textContent = 'Android';
-          topStatus.textContent = 'Abrindo no Android';
-          note.textContent = 'Se o WhatsApp estiver instalado, o convite abre direto no app.';
-          stepOne.textContent = 'Detectamos um celular Android.';
-          stepTwo.textContent = 'Vamos abrir o convite no WhatsApp instalado.';
-          return;
-        }
-
-        if (kind === 'ios') {
-          deviceLabel.textContent = 'iPhone';
-          topStatus.textContent = 'Abrindo no iPhone';
-          note.textContent = 'Se o WhatsApp estiver instalado, confirme a abertura do app.';
-          stepOne.textContent = 'Detectamos um iPhone ou iPad.';
-          stepTwo.textContent = 'Vamos abrir o convite no WhatsApp instalado.';
-          return;
-        }
-
-        if (kind === 'mobile') {
-          deviceLabel.textContent = 'Celular';
-          topStatus.textContent = 'Abrindo no celular';
-          note.textContent = 'Vamos tentar abrir o WhatsApp. Se não funcionar, entre pelo navegador.';
-          stepOne.textContent = 'Detectamos um navegador mobile.';
-          stepTwo.textContent = 'Vamos tentar abrir o convite no app.';
-          return;
-        }
-
-        deviceLabel.textContent = 'Computador';
-        topStatus.textContent = 'Abrindo no navegador';
-        note.textContent = 'No computador, o convite abre pelo WhatsApp Web ou pelo app desktop.';
-        stepOne.textContent = 'Detectamos um computador.';
-        stepTwo.textContent = 'Vamos abrir o convite no WhatsApp Web.';
+      function bestTarget() {
+        if (isAndroid) return androidIntent;
+        if (isIOS || isMobile) return appUrl;
+        return groupUrl;
       }
 
-      function openForDevice(manual) {
-        var target = webUrl;
-
-        if (isAndroid) {
-          target = androidIntent;
-          setCopy('android');
-        } else if (isIOS) {
-          target = appUrl;
-          setCopy('ios');
-        } else if (isMobile) {
-          target = appUrl;
-          setCopy('mobile');
-        } else {
-          setCopy('desktop');
-        }
-
-        if (manual || !attempted) {
-          attempted = true;
-          window.location.href = target;
-        }
+      function openGroup(event) {
+        if (event) event.preventDefault();
+        window.location.href = bestTarget();
       }
 
-      openButton.href = webUrl;
-      tryAgain.addEventListener('click', function () { openForDevice(true); });
+      function copyLink() {
+        function done() {
+          copyButton.textContent = 'Link copiado';
+          copyButton.classList.add('copied');
+          setTimeout(function () {
+            copyButton.textContent = 'Copiar o link do grupo';
+            copyButton.classList.remove('copied');
+          }, 1800);
+        }
+
+        if (navigator.clipboard && window.isSecureContext) {
+          navigator.clipboard.writeText(groupUrl).then(done).catch(function () {
+            window.prompt('Copie o link do grupo:', groupUrl);
+          });
+          return;
+        }
+
+        window.prompt('Copie o link do grupo:', groupUrl);
+      }
+
+      enterButton.href = groupUrl;
+      enterButton.addEventListener('click', openGroup);
+      copyButton.addEventListener('click', copyLink);
 
       window.addEventListener('pagehide', function () { hasLeftPage = true; });
       document.addEventListener('visibilitychange', function () {
         if (document.hidden) hasLeftPage = true;
       });
 
-      setTimeout(function () { openForDevice(false); }, 250);
+      setTimeout(openGroup, 250);
 
       setTimeout(function () {
-        if (!hasLeftPage && (isIOS || isMobile)) {
-          window.location.href = webUrl;
+        if (!hasLeftPage && isMobile) {
+          window.location.href = groupUrl;
         }
       }, 1400);
     })();
