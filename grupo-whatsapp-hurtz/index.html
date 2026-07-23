@@ -8,6 +8,7 @@
   <meta name="description" content="Entrar no grupo Lançamento chácaras Refúgio do Lago pelo WhatsApp.">
   <meta property="og:title" content="Lançamento chácaras Refúgio do Lago">
   <meta property="og:description" content="Toque para entrar no grupo pelo WhatsApp.">
+  <meta property="og:image" content="assets/foto-grupo.jpg">
   <meta property="og:type" content="website">
   <title>Lançamento chácaras Refúgio do Lago</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -63,29 +64,16 @@
       width: clamp(190px, 32vw, 300px);
       aspect-ratio: 1;
       margin: 0 auto 70px;
-      display: grid;
-      place-items: center;
       border-radius: 50%;
-      background: #111016;
-      color: #F7F7F7;
-      font-size: clamp(54px, 9vw, 82px);
-      font-weight: 700;
-      letter-spacing: 0;
       overflow: hidden;
+      background: #111016;
     }
 
-    .avatar span {
-      display: inline-flex;
-      align-items: center;
-      gap: 14px;
-    }
-
-    .avatar span::after {
-      content: "";
-      width: 14px;
-      height: 14px;
-      border-radius: 50%;
-      background: #8758F2;
+    .avatar img {
+      width: 100%;
+      height: 100%;
+      display: block;
+      object-fit: cover;
     }
 
     h1 {
@@ -186,8 +174,8 @@
 
   <main>
     <section class="invite" aria-label="Convite do grupo no WhatsApp">
-      <div class="avatar" aria-hidden="true">
-        <span>RL</span>
+      <div class="avatar">
+        <img src="assets/foto-grupo.jpg" alt="Foto do grupo Lançamento chácaras Refúgio do Lago">
       </div>
 
       <h1>Lançamento chácaras Refúgio do Lago</h1>
