@@ -897,21 +897,12 @@
       box-shadow: var(--shadow);
     }
 
-    .field,
-    .field-row {
+    .field {
       display: grid;
       gap: 8px;
     }
 
-    .field-row {
-      grid-template-columns: 1fr 1fr;
-      gap: 12px;
-    }
-
-    .field + .field,
-    .field + .field-row,
-    .field-row + .field,
-    .field-row + .consent {
+    .field + .field {
       margin-top: 14px;
     }
 
@@ -940,25 +931,6 @@
       border-color: var(--sage);
       outline: 0;
       box-shadow: 0 0 0 3px rgba(49, 93, 80, 0.12);
-    }
-
-    .consent {
-      display: grid;
-      grid-template-columns: 18px minmax(0, 1fr);
-      gap: 10px;
-      align-items: start;
-      margin-top: 16px;
-      color: var(--muted);
-      cursor: pointer;
-      font-size: 11px;
-      line-height: 1.45;
-    }
-
-    .consent input {
-      width: 18px;
-      height: 18px;
-      margin: 0;
-      accent-color: var(--sage);
     }
 
     .lead-form .primary-btn,
@@ -1811,14 +1783,6 @@
         padding: 18px;
       }
 
-      .field-row {
-        grid-template-columns: 1fr;
-      }
-
-      .field-row .field + .field {
-        margin-top: 6px;
-      }
-
       .processing-board {
         gap: 14px;
         margin-top: 22px;
@@ -2265,24 +2229,14 @@
                 <input id="nameInput" name="name" type="text" autocomplete="name" placeholder="Nome e sobrenome" required>
               </div>
               <div class="field">
-                <label for="clinicInput">Nome da clínica</label>
-                <input id="clinicInput" name="clinic" type="text" autocomplete="organization" placeholder="Nome da clínica" required>
+                <label for="instagramInput">Instagram da clínica</label>
+                <input id="instagramInput" name="instagram" type="text" inputmode="text" autocomplete="off" autocapitalize="none" spellcheck="false" placeholder="@instagramdaclinica" required>
               </div>
-              <div class="field-row">
-                <div class="field">
-                  <label for="whatsappInput">WhatsApp</label>
-                  <input id="whatsappInput" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" required>
-                </div>
-                <div class="field">
-                  <label for="cityInput">Cidade / UF</label>
-                  <input id="cityInput" name="city" type="text" autocomplete="address-level2" placeholder="Ex.: Belém / PA" required>
-                </div>
+              <div class="field">
+                <label for="whatsappInput">WhatsApp</label>
+                <input id="whatsappInput" name="whatsapp" type="tel" inputmode="tel" autocomplete="tel" placeholder="(00) 00000-0000" required>
               </div>
-              <label class="consent">
-                <input id="consentInput" type="checkbox" required>
-                <span>Concordo em receber contato sobre estratégias comerciais para a agenda da clínica.</span>
-              </label>
-              <p class="form-error" id="formError">Preencha os campos e confirme a autorização para continuar.</p>
+              <p class="form-error" id="formError">Preencha seu nome, o Instagram da clínica e o WhatsApp para continuar.</p>
               <button class="primary-btn" type="submit">Processar diagnóstico <span class="arrow">→</span></button>
               <button class="secondary-btn" type="button" data-back="followup"><span class="arrow">←</span> Revisar respostas</button>
             </form>
@@ -2615,6 +2569,19 @@
         return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
       };
 
+      const normalizeInstagram = (value) => {
+        const handle = String(value || "")
+          .trim()
+          .replace(/^https?:\/\/(www\.)?instagram\.com\//i, "")
+          .replace(/^(www\.)?instagram\.com\//i, "")
+          .replace(/[/?#].*$/, "")
+          .replace(/^@+/, "")
+          .replace(/[^a-z0-9._]/gi, "")
+          .slice(0, 30);
+
+        return handle ? `@${handle}` : "";
+      };
+
       const procedureLabel = () => {
         if (state.procedure === "Rinoplastia") return "Rinoplastia";
         if (state.procedure === "Blefaroplastia") return "Blefaroplastia";
@@ -2779,7 +2746,7 @@
 
         return {
           quiz: "Simulador APR - Rino e Blefaro",
-          version: "2.2",
+          version: "2.3",
           created_at: new Date().toISOString(),
           procedure: state.procedure,
           current_surgeries_month: state.current,
@@ -2827,8 +2794,7 @@
           "Olá! Fiz o Simulador APR e quero analisar a implementação na minha clínica.",
           "",
           `Nome: ${payload.lead.name}`,
-          `Clínica: ${payload.lead.clinic}`,
-          `Cidade: ${payload.lead.city}`,
+          `Instagram da clínica: ${payload.lead.instagram}`,
           `Foco: ${procedureLabel()}`,
           `Hoje: ${payload.current_surgeries_label} cirurgias/mês a ${payload.current_ticket_label} (${formatCurrency(payload.current_revenue)})`,
           `Meta: ${payload.desired_surgeries_label} cirurgias/mês a ${payload.desired_ticket_label} (${formatCurrency(payload.goal_revenue)})`,
@@ -2921,7 +2887,7 @@
           ? Math.ceil(state.goal / conversion)
           : Math.max(state.goal * 3, state.goal);
 
-        document.getElementById("resultTitle").textContent = `Projeção da ${state.lead.clinic || "sua clínica"}`;
+        document.getElementById("resultTitle").textContent = `Projeção para ${state.lead.instagram || "sua clínica"}`;
         document.getElementById("resultIntro").textContent =
           `Com os dados informados por ${state.lead.name || "você"}, calculamos o cenário atual, o objetivo e as frentes necessárias para aproximar os dois.`;
         document.getElementById("resultProcedure").textContent = procedureLabel();
@@ -3019,7 +2985,7 @@
         ];
 
         board.className = "processing-board phase-1";
-        document.getElementById("processingTitle").textContent = `Montando o mapa da ${state.lead.clinic || "sua clínica"}`;
+        document.getElementById("processingTitle").textContent = `Montando o mapa para ${state.lead.instagram || "sua clínica"}`;
         document.getElementById("processingCurrentRevenue").textContent = formatCurrency(currentRevenue());
         document.getElementById("processingCurrentDetail").textContent = `${state.currentLabel} cirurgias/mês`;
         document.getElementById("processingGoalRevenue").textContent = formatCurrency(goalRevenue());
@@ -3064,6 +3030,10 @@
         const form = event.currentTarget;
         const error = document.getElementById("formError");
         const phoneDigits = getDigits(whatsappInput.value);
+        const instagramInput = document.getElementById("instagramInput");
+        const instagram = normalizeInstagram(instagramInput.value);
+
+        instagramInput.setCustomValidity(instagram ? "" : "Informe o Instagram da clínica.");
 
         if (!form.checkValidity() || phoneDigits.length < 10) {
           error.classList.add("is-visible");
@@ -3074,9 +3044,8 @@
         error.classList.remove("is-visible");
         state.lead = {
           name: document.getElementById("nameInput").value.trim(),
-          clinic: document.getElementById("clinicInput").value.trim(),
-          whatsapp: phoneDigits,
-          city: document.getElementById("cityInput").value.trim()
+          instagram,
+          whatsapp: phoneDigits
         };
 
         await submitPayload(buildPayload());
