@@ -8,27 +8,29 @@
   <title>Simulador APR | Agenda Previsível de Rino &amp; Bléfaro</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&amp;family=Playfair+Display:wght@500;600&amp;display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
   <style>
     :root {
-      --paper: #f6f7f4;
+      --paper: #f3f7f6;
       --surface: #ffffff;
-      --surface-alt: #edf2ef;
-      --ink: #17211e;
+      --surface-alt: #e9f3ef;
+      --ink: #17212a;
       --muted: #66716d;
       --line: #d5ddd8;
-      --sage: #315d50;
-      --sage-dark: #21483d;
-      --sage-soft: #dce9e3;
-      --wine: #7b3448;
+      --sage: #2f7d69;
+      --sage-dark: #205d4e;
+      --sage-soft: #dff1eb;
+      --wine: #a8435b;
       --wine-soft: #f3e5e9;
-      --gold: #a27a3e;
+      --gold: #b57b29;
       --gold-soft: #f3ecde;
+      --blue: #47789a;
+      --blue-soft: #e7f0f6;
       --danger: #9d3434;
       --shadow: 0 16px 44px rgba(23, 33, 30, 0.08);
       --radius: 8px;
-      --sans: "DM Sans", Arial, sans-serif;
-      --serif: "Playfair Display", Georgia, serif;
+      --sans: "Nunito", Arial, sans-serif;
+      --serif: "Nunito", Arial, sans-serif;
     }
 
     * {
@@ -51,6 +53,7 @@
       font-family: var(--sans);
       font-size: 16px;
       letter-spacing: 0;
+      -webkit-font-smoothing: antialiased;
     }
 
     button,
@@ -79,11 +82,7 @@
     .app-shell {
       min-height: 100vh;
       min-height: 100dvh;
-      background:
-        linear-gradient(rgba(49, 93, 80, 0.035) 1px, transparent 1px),
-        linear-gradient(90deg, rgba(49, 93, 80, 0.035) 1px, transparent 1px),
-        var(--paper);
-      background-size: 48px 48px;
+      background: var(--paper);
     }
 
     .quiz-pane {
@@ -167,10 +166,11 @@
     }
 
     .progress-wrap {
-      display: flex;
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) auto auto;
       align-items: center;
       gap: 12px;
-      padding: 0 28px 13px;
+      padding: 0 28px 10px;
     }
 
     .progress-track {
@@ -190,12 +190,74 @@
     }
 
     .progress-label {
-      min-width: 78px;
+      min-width: 68px;
       color: var(--muted);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       text-align: right;
       text-transform: uppercase;
+    }
+
+    .progress-percent {
+      min-width: 35px;
+      color: var(--sage-dark);
+      font-size: 11px;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .phase-nav {
+      display: grid;
+      width: min(100%, 980px);
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 8px;
+      margin: 0 auto;
+      padding: 0 28px 12px;
+    }
+
+    .phase-item {
+      display: flex;
+      min-width: 0;
+      min-height: 30px;
+      align-items: center;
+      justify-content: center;
+      gap: 7px;
+      border: 1px solid transparent;
+      border-radius: 6px;
+      color: #8b9691;
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+      transition: background 180ms ease, border-color 180ms ease, color 180ms ease, transform 180ms ease;
+    }
+
+    .phase-number {
+      display: grid;
+      width: 19px;
+      height: 19px;
+      flex: 0 0 19px;
+      place-items: center;
+      border: 1px solid #cfd8d3;
+      border-radius: 50%;
+      font-size: 9px;
+    }
+
+    .phase-item.is-active {
+      border-color: #b9d8ce;
+      background: var(--sage-soft);
+      color: var(--sage-dark);
+      transform: translateY(-1px);
+    }
+
+    .phase-item.is-active .phase-number,
+    .phase-item.is-done .phase-number {
+      border-color: var(--sage);
+      background: var(--sage);
+      color: #ffffff;
+    }
+
+    .phase-item.is-done {
+      color: var(--sage-dark);
     }
 
     .stage-wrap {
@@ -216,7 +278,7 @@
     .step {
       display: none;
       width: 100%;
-      animation: step-in 260ms ease both;
+      animation: step-in 380ms cubic-bezier(0.22, 1, 0.36, 1) both;
     }
 
     .step.is-active {
@@ -226,7 +288,7 @@
     @keyframes step-in {
       from {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateX(18px) scale(0.985);
       }
       to {
         opacity: 1;
@@ -243,7 +305,7 @@
       margin: 0 0 13px;
       color: var(--sage);
       font-size: 11px;
-      font-weight: 700;
+      font-weight: 800;
       line-height: 1.25;
       text-transform: uppercase;
     }
@@ -253,8 +315,8 @@
       margin: 0;
       font-family: var(--serif);
       font-size: 38px;
-      font-weight: 500;
-      line-height: 1.12;
+      font-weight: 800;
+      line-height: 1.08;
       letter-spacing: 0;
     }
 
@@ -296,6 +358,7 @@
     .image-choice[aria-pressed="true"] {
       border-color: var(--sage);
       box-shadow: 0 0 0 2px var(--sage);
+      animation: choice-pop 220ms ease both;
     }
 
     .image-choice img {
@@ -340,10 +403,215 @@
     }
 
     .image-choice[aria-pressed="true"] .choice-check,
-    .text-choice[aria-pressed="true"] .choice-check {
+    .text-choice[aria-pressed="true"] .choice-check,
+    .metric-choice[aria-pressed="true"] .choice-check {
       border-color: var(--sage);
       background: var(--sage);
       color: #ffffff;
+    }
+
+    @keyframes choice-pop {
+      50% { transform: scale(1.025); }
+    }
+
+    .metric-grid {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 11px;
+      margin-top: 28px;
+    }
+
+    .metric-choice {
+      position: relative;
+      display: grid;
+      min-width: 0;
+      min-height: 104px;
+      place-items: center;
+      gap: 2px;
+      padding: 16px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      color: var(--ink);
+      cursor: pointer;
+      text-align: center;
+      transition: border-color 160ms ease, background 160ms ease, box-shadow 160ms ease, transform 160ms ease;
+    }
+
+    .metric-choice:hover {
+      border-color: #9cbcb2;
+      box-shadow: 0 12px 28px rgba(23, 33, 30, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .metric-choice[aria-pressed="true"] {
+      border-color: var(--sage);
+      background: var(--sage-soft);
+      box-shadow: 0 0 0 2px rgba(47, 125, 105, 0.22);
+      animation: choice-pop 220ms ease both;
+    }
+
+    .metric-choice .choice-check {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+    }
+
+    .metric-number {
+      display: block;
+      max-width: 100%;
+      font-size: 31px;
+      font-weight: 800;
+      line-height: 1;
+      overflow-wrap: anywhere;
+    }
+
+    .metric-unit {
+      display: block;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 700;
+      line-height: 1.25;
+    }
+
+    .quick-back {
+      display: inline-flex;
+      min-height: 42px;
+      align-items: center;
+      gap: 7px;
+      margin-top: 16px;
+      padding: 8px 0;
+      border: 0;
+      background: transparent;
+      color: var(--muted);
+      cursor: pointer;
+      font-size: 13px;
+      font-weight: 700;
+    }
+
+    .milestone {
+      max-width: 700px;
+      margin: 0 auto;
+      text-align: center;
+    }
+
+    .milestone-mark {
+      display: grid;
+      width: 58px;
+      height: 58px;
+      margin: 0 auto 18px;
+      place-items: center;
+      border-radius: 50%;
+      background: var(--sage);
+      color: #ffffff;
+      font-size: 26px;
+      font-weight: 800;
+      box-shadow: 0 0 0 9px var(--sage-soft);
+      animation: milestone-pop 460ms cubic-bezier(0.22, 1, 0.36, 1) both;
+    }
+
+    @keyframes milestone-pop {
+      from { opacity: 0; transform: scale(0.55) rotate(-10deg); }
+      to { opacity: 1; transform: scale(1) rotate(0); }
+    }
+
+    .milestone .step-title,
+    .milestone .step-copy {
+      margin-left: auto;
+      margin-right: auto;
+    }
+
+    .milestone-stats {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      margin-top: 26px;
+      text-align: left;
+    }
+
+    .milestone-stat {
+      padding: 16px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .milestone-stat span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .milestone-stat strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 18px;
+      line-height: 1.2;
+    }
+
+    .milestone-actions {
+      display: flex;
+      max-width: 420px;
+      gap: 10px;
+      margin: 24px auto 0;
+    }
+
+    .milestone-compare {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 42px minmax(0, 1fr);
+      align-items: center;
+      gap: 8px;
+      margin-top: 26px;
+    }
+
+    .milestone-value {
+      padding: 18px 12px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .milestone-value.target {
+      border-color: #b9d8ce;
+      background: var(--sage-soft);
+    }
+
+    .milestone-value span,
+    .milestone-impact span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .milestone-value strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 22px;
+      line-height: 1.1;
+    }
+
+    .milestone-arrow {
+      color: var(--sage);
+      font-size: 24px;
+      font-weight: 800;
+    }
+
+    .milestone-impact {
+      margin-top: 12px;
+      padding: 14px;
+      border-radius: var(--radius);
+      background: var(--wine-soft);
+      color: var(--wine);
+    }
+
+    .milestone-impact strong {
+      display: block;
+      margin-top: 3px;
+      font-size: 20px;
     }
 
     .number-shell {
@@ -716,41 +984,9 @@
     }
 
     .processing-step {
-      max-width: 700px;
+      max-width: 760px;
       margin: 0 auto;
       text-align: center;
-    }
-
-    .processing-mark {
-      position: relative;
-      display: grid;
-      width: 86px;
-      height: 86px;
-      margin: 0 auto 26px;
-      place-items: center;
-      border: 1px solid var(--line);
-      border-radius: 50%;
-      background: var(--surface);
-      font-family: var(--serif);
-      font-size: 18px;
-      font-weight: 600;
-    }
-
-    .processing-mark::after {
-      position: absolute;
-      inset: -7px;
-      border: 3px solid transparent;
-      border-top-color: var(--sage);
-      border-right-color: var(--wine);
-      border-radius: 50%;
-      content: "";
-      animation: spin 1s linear infinite;
-    }
-
-    @keyframes spin {
-      to {
-        transform: rotate(360deg);
-      }
     }
 
     .processing-step .step-title,
@@ -759,83 +995,196 @@
       margin-right: auto;
     }
 
-    .analysis-track {
-      height: 7px;
-      max-width: 520px;
-      margin: 30px auto 22px;
-      overflow: hidden;
-      border-radius: 4px;
-      background: #dfe5e1;
+    .processing-board {
+      display: grid;
+      gap: 18px;
+      margin-top: 28px;
+      padding: 24px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+      box-shadow: var(--shadow);
     }
 
-    .analysis-fill {
-      width: 5%;
+    .processing-scenarios {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) 76px minmax(0, 1fr);
+      align-items: center;
+      gap: 12px;
+    }
+
+    .processing-scenario {
+      min-width: 0;
+      padding: 18px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: #f8faf9;
+      opacity: 0.42;
+      text-align: left;
+      transform: scale(0.96);
+      transition: opacity 300ms ease, transform 300ms ease, border-color 300ms ease, background 300ms ease;
+    }
+
+    .processing-scenario span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .processing-scenario strong {
+      display: block;
+      margin-top: 5px;
+      font-size: 24px;
+      font-weight: 800;
+      line-height: 1.1;
+    }
+
+    .processing-scenario small {
+      display: block;
+      margin-top: 5px;
+      color: var(--muted);
+      font-size: 11px;
+      font-weight: 600;
+    }
+
+    .processing-board.phase-1 .processing-scenario.current,
+    .processing-board.phase-2 .processing-scenario,
+    .processing-board.phase-3 .processing-scenario,
+    .processing-board.phase-4 .processing-scenario {
+      opacity: 1;
+      transform: scale(1);
+    }
+
+    .processing-board.phase-1 .processing-scenario.current {
+      border-color: #b8c7c1;
+    }
+
+    .processing-board.phase-2 .processing-scenario.target,
+    .processing-board.phase-3 .processing-scenario.target,
+    .processing-board.phase-4 .processing-scenario.target {
+      border-color: #abd1c5;
+      background: var(--sage-soft);
+    }
+
+    .processing-route {
+      position: relative;
+      height: 4px;
+      overflow: visible;
+      border-radius: 2px;
+      background: #dfe6e2;
+    }
+
+    .processing-route-fill {
+      width: 0;
       height: 100%;
       border-radius: inherit;
       background: var(--sage);
-      transition: width 520ms ease;
+      transition: width 520ms cubic-bezier(0.22, 1, 0.36, 1);
     }
 
-    .analysis-list {
+    .processing-route-dot {
+      position: absolute;
+      top: 50%;
+      left: 0;
+      width: 15px;
+      height: 15px;
+      border: 3px solid #ffffff;
+      border-radius: 50%;
+      background: var(--sage);
+      box-shadow: 0 0 0 1px var(--sage);
+      transform: translate(-50%, -50%);
+      transition: left 520ms cubic-bezier(0.22, 1, 0.36, 1);
+    }
+
+    .processing-board.phase-1 .processing-route-fill { width: 18%; }
+    .processing-board.phase-1 .processing-route-dot { left: 18%; }
+    .processing-board.phase-2 .processing-route-fill { width: 52%; }
+    .processing-board.phase-2 .processing-route-dot { left: 52%; }
+    .processing-board.phase-3 .processing-route-fill { width: 78%; }
+    .processing-board.phase-3 .processing-route-dot { left: 78%; }
+    .processing-board.phase-4 .processing-route-fill { width: 100%; }
+    .processing-board.phase-4 .processing-route-dot { left: 100%; }
+
+    .processing-gap {
+      display: flex;
+      min-height: 58px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 12px 15px;
+      border-radius: var(--radius);
+      background: var(--wine-soft);
+      color: var(--wine);
+      opacity: 0.35;
+      transform: translateY(5px);
+      transition: opacity 280ms ease, transform 280ms ease;
+    }
+
+    .processing-board.phase-3 .processing-gap,
+    .processing-board.phase-4 .processing-gap {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    .processing-gap span {
+      font-size: 11px;
+      font-weight: 800;
+      text-align: left;
+      text-transform: uppercase;
+    }
+
+    .processing-gap strong {
+      font-size: 20px;
+      font-weight: 800;
+      text-align: right;
+    }
+
+    .processing-status {
       display: grid;
-      max-width: 520px;
-      gap: 0;
-      margin: 0 auto;
-      padding: 0;
-      list-style: none;
+      grid-template-columns: 52px minmax(0, 1fr);
+      gap: 13px;
+      align-items: center;
       text-align: left;
     }
 
-    .analysis-item {
+    .processing-percent {
       display: grid;
-      grid-template-columns: 24px minmax(0, 1fr);
-      gap: 10px;
-      align-items: center;
-      padding: 12px 0;
-      border-bottom: 1px solid var(--line);
-      color: #9aa39f;
-      font-size: 13px;
-      transition: color 200ms ease;
-    }
-
-    .analysis-item:first-child {
-      border-top: 1px solid var(--line);
-    }
-
-    .analysis-dot {
-      display: grid;
-      width: 22px;
-      height: 22px;
+      width: 52px;
+      height: 52px;
       place-items: center;
-      border: 1px solid var(--line);
       border-radius: 50%;
+      background: var(--blue-soft);
+      color: var(--blue);
+      font-size: 13px;
+      font-weight: 800;
+    }
+
+    .processing-status strong,
+    .processing-status span {
+      display: block;
+    }
+
+    .processing-status strong {
+      font-size: 14px;
+      line-height: 1.25;
+    }
+
+    .processing-status span {
+      margin-top: 3px;
+      color: var(--muted);
       font-size: 11px;
+      line-height: 1.35;
     }
 
-    .analysis-item.is-active {
-      color: var(--ink);
-    }
-
-    .analysis-item.is-active .analysis-dot {
-      border-color: var(--sage);
-      color: var(--sage);
-      animation: pulse 800ms ease infinite alternate;
-    }
-
-    .analysis-item.is-done {
-      color: var(--ink);
-    }
-
-    .analysis-item.is-done .analysis-dot {
-      border-color: var(--sage);
-      background: var(--sage);
-      color: #ffffff;
-    }
-
-    @keyframes pulse {
-      to {
-        background: var(--sage-soft);
-      }
+    .processing-status .processing-percent {
+      display: grid;
+      margin-top: 0;
+      place-items: center;
+      color: var(--blue);
+      font-size: 13px;
+      line-height: 1;
     }
 
     .result {
@@ -1253,25 +1602,48 @@
 
       .progress-wrap {
         gap: 9px;
-        padding: 0 16px 10px;
+        padding: 0 16px 8px;
       }
 
       .progress-label {
-        min-width: 65px;
+        min-width: 54px;
         font-size: 9px;
+      }
+
+      .progress-percent {
+        min-width: 28px;
+        font-size: 9px;
+      }
+
+      .phase-nav {
+        gap: 4px;
+        padding: 0 16px 10px;
+      }
+
+      .phase-item {
+        min-height: 27px;
+        gap: 4px;
+        font-size: 8px;
+      }
+
+      .phase-number {
+        width: 17px;
+        height: 17px;
+        flex-basis: 17px;
+        font-size: 8px;
       }
 
       .stage-wrap,
       .stage-wrap.is-result {
         display: block;
         width: 100%;
-        padding: 30px 18px calc(32px + env(safe-area-inset-bottom));
+        padding: 25px 18px calc(32px + env(safe-area-inset-bottom));
       }
 
       .step-title,
       .result-head .step-title {
-        font-size: 30px;
-        line-height: 1.12;
+        font-size: 29px;
+        line-height: 1.08;
       }
 
       .step-copy {
@@ -1304,6 +1676,56 @@
         min-width: 0;
         min-height: 78px;
         padding: 14px 16px;
+      }
+
+      .metric-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+        gap: 9px;
+        margin-top: 22px;
+      }
+
+      .metric-choice {
+        min-height: 84px;
+        padding: 13px 9px;
+      }
+
+      .metric-number {
+        font-size: 26px;
+      }
+
+      .metric-unit {
+        font-size: 10px;
+      }
+
+      .milestone-stats {
+        grid-template-columns: 1fr 1fr;
+        gap: 9px;
+      }
+
+      .milestone-stat:last-child {
+        grid-column: 1 / -1;
+      }
+
+      .milestone-actions {
+        display: grid;
+      }
+
+      .milestone-actions .primary-btn,
+      .milestone-actions .secondary-btn {
+        width: 100%;
+      }
+
+      .milestone-compare {
+        grid-template-columns: minmax(0, 1fr) 28px minmax(0, 1fr);
+        gap: 5px;
+      }
+
+      .milestone-value {
+        padding: 15px 8px;
+      }
+
+      .milestone-value strong {
+        font-size: 18px;
       }
 
       .number-shell {
@@ -1397,14 +1819,32 @@
         margin-top: 6px;
       }
 
-      .processing-mark {
-        width: 76px;
-        height: 76px;
-        margin-bottom: 22px;
+      .processing-board {
+        gap: 14px;
+        margin-top: 22px;
+        padding: 14px;
       }
 
-      .analysis-track {
-        margin-top: 24px;
+      .processing-scenarios {
+        grid-template-columns: minmax(0, 1fr) 44px minmax(0, 1fr);
+        gap: 7px;
+      }
+
+      .processing-scenario {
+        padding: 13px 10px;
+      }
+
+      .processing-scenario strong {
+        font-size: 19px;
+      }
+
+      .processing-gap {
+        min-height: 54px;
+        padding: 10px 12px;
+      }
+
+      .processing-gap strong {
+        font-size: 17px;
       }
 
       .result-head,
@@ -1583,7 +2023,15 @@
           <div class="progress-track" role="progressbar" aria-valuemin="0" aria-valuemax="100" aria-valuenow="10" aria-label="Progresso do simulador">
             <div class="progress-fill" id="progressFill"></div>
           </div>
-          <span class="progress-label" id="progressLabel">1 de 10</span>
+          <span class="progress-label" id="progressLabel">Etapa 1/10</span>
+          <span class="progress-percent" id="progressPercent">10%</span>
+        </div>
+
+        <div class="phase-nav" id="phaseNav" aria-label="Fases do diagnóstico">
+          <span class="phase-item is-active" data-phase="focus"><span class="phase-number">1</span><span>Foco</span></span>
+          <span class="phase-item" data-phase="today"><span class="phase-number">2</span><span>Hoje</span></span>
+          <span class="phase-item" data-phase="target"><span class="phase-number">3</span><span>Meta</span></span>
+          <span class="phase-item" data-phase="operation"><span class="phase-number">4</span><span>Operação</span></span>
         </div>
       </div>
 
@@ -1610,111 +2058,120 @@
         </section>
 
         <section class="step question-step" data-step="current">
-          <p class="eyebrow">Cenário atual · Volume</p>
-          <h2 class="step-title">Quantas cirurgias você realiza hoje por mês?</h2>
-          <p class="step-copy">Use a média dos últimos três meses para representar o ritmo atual da clínica.</p>
+          <p class="eyebrow">Hoje · 1 de 3</p>
+          <h2 class="step-title">Quantas cirurgias você vende por mês hoje?</h2>
+          <p class="step-copy">Escolha o número mais próximo da média dos últimos três meses.</p>
 
-          <div class="number-shell">
-            <div class="number-control">
-              <button class="number-btn" type="button" data-adjust="current" data-delta="-1" aria-label="Diminuir cirurgias atuais">−</button>
-              <div class="number-input-wrap">
-                <input class="number-input" id="currentInput" type="number" inputmode="numeric" min="0" max="300" step="1" value="5" aria-label="Cirurgias realizadas atualmente por mês">
-              </div>
-              <button class="number-btn" type="button" data-adjust="current" data-delta="1" aria-label="Aumentar cirurgias atuais">+</button>
-            </div>
-            <p class="input-note">Ritmo informado: <strong id="currentNote">5 cirurgias por mês</strong>.</p>
+          <div class="metric-grid" role="group" aria-label="Cirurgias vendidas atualmente por mês">
+            <button class="metric-choice" type="button" data-choice="current" data-value="0" data-numeric="true" data-next-choice="current-ticket" aria-pressed="false"><span class="metric-number">0</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="current" data-value="3" data-numeric="true" data-next-choice="current-ticket" aria-pressed="false"><span class="metric-number">3</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="current" data-value="5" data-numeric="true" data-next-choice="current-ticket" aria-pressed="true"><span class="metric-number">5</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="current" data-value="8" data-numeric="true" data-next-choice="current-ticket" aria-pressed="false"><span class="metric-number">8</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="current" data-value="10" data-numeric="true" data-next-choice="current-ticket" aria-pressed="false"><span class="metric-number">10</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="current" data-value="15" data-numeric="true" data-next-choice="current-ticket" aria-pressed="false"><span class="metric-number">15</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
           </div>
-
-          <div class="step-actions">
-            <button class="secondary-btn" type="button" data-back="procedure"><span class="arrow">←</span> Voltar</button>
-            <button class="primary-btn" type="button" data-next="current-ticket">Continuar <span class="arrow">→</span></button>
-          </div>
+          <button class="quick-back" type="button" data-back="procedure"><span class="arrow">←</span> Voltar</button>
         </section>
 
         <section class="step question-step" data-step="current-ticket">
-          <p class="eyebrow">Cenário atual · Ticket</p>
-          <h2 class="step-title">Qual é o ticket médio vendido hoje?</h2>
-          <p class="step-copy">Considere o valor médio que efetivamente entra na clínica por cirurgia.</p>
+          <p class="eyebrow">Hoje · 2 de 3</p>
+          <h2 class="step-title">Qual ticket médio você vende hoje?</h2>
+          <p class="step-copy">Marque o valor mais próximo do que realmente entra por cirurgia.</p>
 
-          <div class="number-shell">
-            <div class="currency-control">
-              <span class="currency-prefix">R$</span>
-              <input class="currency-input" id="currentTicketInput" type="text" inputmode="numeric" value="4.000" aria-label="Ticket médio vendido atualmente em reais">
-            </div>
-            <p class="input-note">Faturamento cirúrgico atual estimado: <strong id="currentRevenueNote">R$ 20.000 por mês</strong>.</p>
+          <div class="metric-grid" role="group" aria-label="Ticket médio vendido atualmente">
+            <button class="metric-choice" type="button" data-choice="currentTicket" data-value="4000" data-numeric="true" data-next-choice="evaluations" aria-pressed="true"><span class="metric-number">R$ 4 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="currentTicket" data-value="6000" data-numeric="true" data-next-choice="evaluations" aria-pressed="false"><span class="metric-number">R$ 6 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="currentTicket" data-value="8000" data-numeric="true" data-next-choice="evaluations" aria-pressed="false"><span class="metric-number">R$ 8 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="currentTicket" data-value="10000" data-numeric="true" data-next-choice="evaluations" aria-pressed="false"><span class="metric-number">R$ 10 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="currentTicket" data-value="12000" data-numeric="true" data-next-choice="evaluations" aria-pressed="false"><span class="metric-number">R$ 12 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="currentTicket" data-value="15000" data-numeric="true" data-next-choice="evaluations" aria-pressed="false"><span class="metric-number">R$ 15 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
           </div>
+          <button class="quick-back" type="button" data-back="current"><span class="arrow">←</span> Voltar</button>
+        </section>
 
-          <div class="step-actions">
-            <button class="secondary-btn" type="button" data-back="current"><span class="arrow">←</span> Voltar</button>
-            <button class="primary-btn" type="button" data-next="goal">Continuar <span class="arrow">→</span></button>
+        <section class="step question-step" data-step="evaluations">
+          <p class="eyebrow">Hoje · 3 de 3</p>
+          <h2 class="step-title">Quantas avaliações cirúrgicas são realizadas por mês?</h2>
+          <p class="step-copy">Considere apenas pacientes que chegaram até uma consulta de avaliação.</p>
+
+          <div class="metric-grid" role="group" aria-label="Avaliações cirúrgicas realizadas por mês">
+            <button class="metric-choice" type="button" data-choice="evaluations" data-value="5" data-numeric="true" data-next-choice="baseline" aria-pressed="false"><span class="metric-number">5</span><span class="metric-unit">avaliações/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="evaluations" data-value="10" data-numeric="true" data-next-choice="baseline" aria-pressed="false"><span class="metric-number">10</span><span class="metric-unit">avaliações/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="evaluations" data-value="15" data-numeric="true" data-next-choice="baseline" aria-pressed="true"><span class="metric-number">15</span><span class="metric-unit">avaliações/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="evaluations" data-value="20" data-numeric="true" data-next-choice="baseline" aria-pressed="false"><span class="metric-number">20</span><span class="metric-unit">avaliações/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="evaluations" data-value="30" data-numeric="true" data-next-choice="baseline" aria-pressed="false"><span class="metric-number">30</span><span class="metric-unit">avaliações/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="evaluations" data-value="40" data-numeric="true" data-next-choice="baseline" aria-pressed="false"><span class="metric-number">40</span><span class="metric-unit">avaliações/mês</span><span class="choice-check">✓</span></button>
+          </div>
+          <button class="quick-back" type="button" data-back="current-ticket"><span class="arrow">←</span> Voltar</button>
+        </section>
+
+        <section class="step milestone" data-step="baseline">
+          <div class="milestone-mark" aria-hidden="true">✓</div>
+          <p class="eyebrow">Cenário de hoje mapeado</p>
+          <h2 class="step-title">Já entendemos seu ponto de partida.</h2>
+          <p class="step-copy" id="baselineCopy">Agora dá para enxergar quanto a agenda atual representa e como ela converte.</p>
+          <div class="milestone-stats">
+            <div class="milestone-stat"><span>Cirurgias</span><strong id="baselineCount">5 por mês</strong></div>
+            <div class="milestone-stat"><span>Faturamento</span><strong id="baselineRevenue">R$ 20.000</strong></div>
+            <div class="milestone-stat"><span>Conversão estimada</span><strong id="baselineConversion">33%</strong></div>
+          </div>
+          <div class="milestone-actions">
+            <button class="secondary-btn" type="button" data-back="evaluations"><span class="arrow">←</span> Revisar</button>
+            <button class="primary-btn" type="button" data-next="goal">Definir minha meta <span class="arrow">→</span></button>
           </div>
         </section>
 
         <section class="step question-step" data-step="goal">
-          <p class="eyebrow">Meta · Volume</p>
-          <h2 class="step-title">Quantas cirurgias você quer realizar por mês?</h2>
-          <p class="step-copy">Informe a meta mensal que a operação deve sustentar com previsibilidade.</p>
+          <p class="eyebrow">Meta · 1 de 2</p>
+          <h2 class="step-title">Quantas cirurgias você quer vender por mês?</h2>
+          <p class="step-copy">Escolha o ritmo que você quer construir para a clínica.</p>
 
-          <div class="number-shell">
-            <div class="number-control">
-              <button class="number-btn" type="button" data-adjust="goal" data-delta="-1" aria-label="Diminuir meta de cirurgias">−</button>
-              <div class="number-input-wrap">
-                <input class="number-input" id="goalInput" type="number" inputmode="numeric" min="1" max="300" step="1" value="10" aria-label="Meta de cirurgias por mês">
-              </div>
-              <button class="number-btn" type="button" data-adjust="goal" data-delta="1" aria-label="Aumentar meta de cirurgias">+</button>
-            </div>
-            <p class="input-note">Meta informada: <strong id="goalNote">10 cirurgias por mês</strong>.</p>
+          <div class="metric-grid" role="group" aria-label="Meta de cirurgias vendidas por mês">
+            <button class="metric-choice" type="button" data-choice="goal" data-value="5" data-numeric="true" data-next-choice="target-ticket" aria-pressed="false"><span class="metric-number">5</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="goal" data-value="8" data-numeric="true" data-next-choice="target-ticket" aria-pressed="false"><span class="metric-number">8</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="goal" data-value="10" data-numeric="true" data-next-choice="target-ticket" aria-pressed="true"><span class="metric-number">10</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="goal" data-value="15" data-numeric="true" data-next-choice="target-ticket" aria-pressed="false"><span class="metric-number">15</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="goal" data-value="20" data-numeric="true" data-next-choice="target-ticket" aria-pressed="false"><span class="metric-number">20</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="goal" data-value="30" data-numeric="true" data-next-choice="target-ticket" aria-pressed="false"><span class="metric-number">30</span><span class="metric-unit">cirurgias/mês</span><span class="choice-check">✓</span></button>
           </div>
-
-          <div class="step-actions">
-            <button class="secondary-btn" type="button" data-back="current-ticket"><span class="arrow">←</span> Voltar</button>
-            <button class="primary-btn" type="button" data-next="target-ticket">Continuar <span class="arrow">→</span></button>
-          </div>
+          <button class="quick-back" type="button" data-back="baseline"><span class="arrow">←</span> Voltar</button>
         </section>
 
         <section class="step question-step" data-step="target-ticket">
-          <p class="eyebrow">Meta · Ticket</p>
-          <h2 class="step-title">Qual ticket médio você quer vender?</h2>
-          <p class="step-copy">Use o ticket desejado considerando posicionamento, proposta e mix de procedimentos.</p>
+          <p class="eyebrow">Meta · 2 de 2</p>
+          <h2 class="step-title">Qual ticket médio você quer alcançar?</h2>
+          <p class="step-copy">Escolha o valor desejado considerando posicionamento e proposta.</p>
 
-          <div class="number-shell">
-            <div class="currency-control">
-              <span class="currency-prefix">R$</span>
-              <input class="currency-input" id="targetTicketInput" type="text" inputmode="numeric" value="6.000" aria-label="Ticket médio desejado em reais">
-            </div>
-            <p class="input-note">Com volume e ticket desejados, a projeção é de <strong id="goalRevenueNote">R$ 60.000 por mês</strong>.</p>
+          <div class="metric-grid" role="group" aria-label="Ticket médio desejado">
+            <button class="metric-choice" type="button" data-choice="targetTicket" data-value="6000" data-numeric="true" data-next-choice="target-summary" aria-pressed="true"><span class="metric-number">R$ 6 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="targetTicket" data-value="8000" data-numeric="true" data-next-choice="target-summary" aria-pressed="false"><span class="metric-number">R$ 8 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="targetTicket" data-value="10000" data-numeric="true" data-next-choice="target-summary" aria-pressed="false"><span class="metric-number">R$ 10 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="targetTicket" data-value="12000" data-numeric="true" data-next-choice="target-summary" aria-pressed="false"><span class="metric-number">R$ 12 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="targetTicket" data-value="15000" data-numeric="true" data-next-choice="target-summary" aria-pressed="false"><span class="metric-number">R$ 15 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
+            <button class="metric-choice" type="button" data-choice="targetTicket" data-value="20000" data-numeric="true" data-next-choice="target-summary" aria-pressed="false"><span class="metric-number">R$ 20 mil</span><span class="metric-unit">por cirurgia</span><span class="choice-check">✓</span></button>
           </div>
-
-          <div class="step-actions">
-            <button class="secondary-btn" type="button" data-back="goal"><span class="arrow">←</span> Voltar</button>
-            <button class="primary-btn" type="button" data-next="evaluations">Continuar <span class="arrow">→</span></button>
-          </div>
+          <button class="quick-back" type="button" data-back="goal"><span class="arrow">←</span> Voltar</button>
         </section>
 
-        <section class="step question-step" data-step="evaluations">
-          <p class="eyebrow">Demanda atual</p>
-          <h2 class="step-title">Quantas avaliações cirúrgicas são realizadas por mês?</h2>
-          <p class="step-copy">Inclua apenas consultas com pacientes interessados em rino ou bléfaro.</p>
-
-          <div class="number-shell">
-            <div class="number-control">
-              <button class="number-btn" type="button" data-adjust="evaluations" data-delta="-1" aria-label="Diminuir avaliações mensais">−</button>
-              <div class="number-input-wrap">
-                <input class="number-input" id="evaluationsInput" type="number" inputmode="numeric" min="0" max="1000" step="1" value="15" aria-label="Avaliações cirúrgicas por mês">
-              </div>
-              <button class="number-btn" type="button" data-adjust="evaluations" data-delta="1" aria-label="Aumentar avaliações mensais">+</button>
-            </div>
-            <p class="input-note">Conversão aproximada em cirurgia: <strong id="conversionNote">33%</strong>.</p>
+        <section class="step milestone" data-step="target-summary">
+          <div class="milestone-mark" aria-hidden="true">✓</div>
+          <p class="eyebrow">Meta construída</p>
+          <h2 class="step-title">Agora o antes e o depois estão claros.</h2>
+          <p class="step-copy">Falta entender o que precisa mudar na operação para aproximar esses dois cenários.</p>
+          <div class="milestone-compare">
+            <div class="milestone-value"><span>Hoje</span><strong id="targetCurrentRevenue">R$ 20.000</strong></div>
+            <span class="milestone-arrow" aria-hidden="true">→</span>
+            <div class="milestone-value target"><span>Meta</span><strong id="targetGoalRevenue">R$ 60.000</strong></div>
           </div>
-
-          <div class="step-actions">
-            <button class="secondary-btn" type="button" data-back="target-ticket"><span class="arrow">←</span> Voltar</button>
-            <button class="primary-btn" type="button" data-next="source">Continuar <span class="arrow">→</span></button>
+          <div class="milestone-impact"><span>Espaço de crescimento identificado</span><strong id="targetGapRevenue">+R$ 40.000 por mês</strong></div>
+          <div class="milestone-actions">
+            <button class="secondary-btn" type="button" data-back="target-ticket"><span class="arrow">←</span> Revisar</button>
+            <button class="primary-btn" type="button" data-next="source">Mapear minha operação <span class="arrow">→</span></button>
           </div>
         </section>
 
         <section class="step question-step" data-step="source">
-          <p class="eyebrow">Origem dos pacientes</p>
+          <p class="eyebrow">Operação · 1 de 3</p>
           <h2 class="step-title">De onde vem a maior parte das oportunidades hoje?</h2>
           <p class="step-copy">Escolha o canal que mais alimenta as avaliações cirúrgicas da clínica.</p>
 
@@ -1734,12 +2191,12 @@
           </div>
 
           <div class="step-actions choice-actions">
-            <button class="secondary-btn minimal" type="button" data-back="evaluations"><span class="arrow">←</span> Voltar</button>
+            <button class="secondary-btn minimal" type="button" data-back="target-summary"><span class="arrow">←</span> Voltar</button>
           </div>
         </section>
 
         <section class="step question-step" data-step="handler">
-          <p class="eyebrow">Atendimento comercial</p>
+          <p class="eyebrow">Operação · 2 de 3</p>
           <h2 class="step-title">Quem conduz o primeiro contato com o paciente?</h2>
           <p class="step-copy">Considere quem responde, qualifica e tenta levar o contato até a avaliação.</p>
 
@@ -1764,7 +2221,7 @@
         </section>
 
         <section class="step question-step" data-step="followup">
-          <p class="eyebrow">Acompanhamento</p>
+          <p class="eyebrow">Operação · 3 de 3</p>
           <h2 class="step-title">Como a clínica acompanha quem não fecha de imediato?</h2>
           <p class="step-copy">Pense no que acontece depois do primeiro contato ou de uma avaliação sem fechamento.</p>
 
@@ -1833,18 +2290,39 @@
         </section>
 
         <section class="step processing-step" data-step="processing">
-          <div class="processing-mark" aria-hidden="true">APR</div>
-          <p class="eyebrow">Análise da clínica</p>
-          <h2 class="step-title" id="processingTitle">Processando seus dados</h2>
-          <p class="step-copy">Estamos cruzando volume, ticket, demanda e processo comercial para montar a projeção.</p>
+          <p class="eyebrow">Mapa APR em construção</p>
+          <h2 class="step-title" id="processingTitle">Montando o mapa da sua clínica</h2>
+          <p class="step-copy">Agora vamos conectar o ponto de partida, a meta e o processo comercial.</p>
 
-          <div class="analysis-track" aria-hidden="true"><div class="analysis-fill" id="analysisFill"></div></div>
-          <ul class="analysis-list" id="analysisList">
-            <li class="analysis-item"><span class="analysis-dot">1</span><span>Consolidando operação atual e meta</span></li>
-            <li class="analysis-item"><span class="analysis-dot">2</span><span>Calculando faturamento e capacidade necessária</span></li>
-            <li class="analysis-item"><span class="analysis-dot">3</span><span>Identificando o principal gargalo comercial</span></li>
-            <li class="analysis-item"><span class="analysis-dot">4</span><span>Montando o plano de ação APR</span></li>
-          </ul>
+          <div class="processing-board phase-1" id="processingBoard">
+            <div class="processing-scenarios">
+              <div class="processing-scenario current">
+                <span>Hoje</span>
+                <strong id="processingCurrentRevenue">R$ 20.000</strong>
+                <small id="processingCurrentDetail">5 cirurgias/mês</small>
+              </div>
+              <div class="processing-route" aria-hidden="true">
+                <div class="processing-route-fill"></div>
+                <span class="processing-route-dot"></span>
+              </div>
+              <div class="processing-scenario target">
+                <span>Meta</span>
+                <strong id="processingGoalRevenue">R$ 60.000</strong>
+                <small id="processingGoalDetail">10 cirurgias/mês</small>
+              </div>
+            </div>
+            <div class="processing-gap">
+              <span>Potencial mensal identificado</span>
+              <strong id="processingGapRevenue">+R$ 40.000</strong>
+            </div>
+            <div class="processing-status">
+              <span class="processing-percent" id="processingPercent">25%</span>
+              <div>
+                <strong id="processingStage">Lendo o cenário atual</strong>
+                <span id="processingDetail">Organizando volume, ticket e faturamento de hoje.</span>
+              </div>
+            </div>
+          </div>
         </section>
 
         <section class="step" data-step="result">
@@ -1961,18 +2439,37 @@
       };
 
       const progressData = {
-        procedure: [10, "1 de 10"],
-        current: [20, "2 de 10"],
-        "current-ticket": [30, "3 de 10"],
-        goal: [40, "4 de 10"],
-        "target-ticket": [50, "5 de 10"],
-        evaluations: [60, "6 de 10"],
-        source: [70, "7 de 10"],
-        handler: [80, "8 de 10"],
-        followup: [90, "9 de 10"],
-        lead: [100, "10 de 10"],
+        procedure: [10, "Etapa 1/10"],
+        current: [20, "Etapa 2/10"],
+        "current-ticket": [30, "Etapa 3/10"],
+        evaluations: [40, "Etapa 4/10"],
+        baseline: [40, "Hoje completo"],
+        goal: [50, "Etapa 5/10"],
+        "target-ticket": [60, "Etapa 6/10"],
+        "target-summary": [60, "Meta completa"],
+        source: [70, "Etapa 7/10"],
+        handler: [80, "Etapa 8/10"],
+        followup: [90, "Etapa 9/10"],
+        lead: [100, "Etapa 10/10"],
         processing: [100, "Analisando"],
         result: [100, "Concluído"]
+      };
+
+      const phaseData = {
+        procedure: "focus",
+        current: "today",
+        "current-ticket": "today",
+        evaluations: "today",
+        baseline: "today",
+        goal: "target",
+        "target-ticket": "target",
+        "target-summary": "target",
+        source: "operation",
+        handler: "operation",
+        followup: "operation",
+        lead: "operation",
+        processing: "operation",
+        result: "operation"
       };
 
       const planCopy = {
@@ -2085,12 +2582,10 @@
       const progressWrap = document.getElementById("progressWrap");
       const progressFill = document.getElementById("progressFill");
       const progressLabel = document.getElementById("progressLabel");
+      const progressPercent = document.getElementById("progressPercent");
       const progressTrack = document.querySelector(".progress-track");
-      const currentInput = document.getElementById("currentInput");
-      const goalInput = document.getElementById("goalInput");
-      const evaluationsInput = document.getElementById("evaluationsInput");
-      const currentTicketInput = document.getElementById("currentTicketInput");
-      const targetTicketInput = document.getElementById("targetTicketInput");
+      const phaseNav = document.getElementById("phaseNav");
+      const phaseItems = Array.from(document.querySelectorAll(".phase-item"));
       const whatsappInput = document.getElementById("whatsappInput");
       let processingTimers = [];
 
@@ -2130,27 +2625,33 @@
       };
 
       const syncNumbers = () => {
-        state.current = clamp(parseInt(currentInput.value, 10) || 0, 0, 300);
-        state.goal = clamp(parseInt(goalInput.value, 10) || 1, 1, 300);
-        state.evaluations = clamp(parseInt(evaluationsInput.value, 10) || 0, 0, 1000);
-        state.currentTicket = clamp(parseInt(getDigits(currentTicketInput.value), 10) || 0, 0, 1000000);
-        state.targetTicket = clamp(parseInt(getDigits(targetTicketInput.value), 10) || 0, 0, 1000000);
+        state.current = clamp(Number(state.current) || 0, 0, 300);
+        state.goal = clamp(Number(state.goal) || 1, 1, 300);
+        state.evaluations = clamp(Number(state.evaluations) || 0, 0, 1000);
+        state.currentTicket = clamp(Number(state.currentTicket) || 0, 0, 1000000);
+        state.targetTicket = clamp(Number(state.targetTicket) || 0, 0, 1000000);
+      };
 
-        currentInput.value = state.current;
-        goalInput.value = state.goal;
-        evaluationsInput.value = state.evaluations;
-        currentTicketInput.value = formatInteger(state.currentTicket);
-        targetTicketInput.value = formatInteger(state.targetTicket);
+      const syncChoiceStates = () => {
+        document.querySelectorAll("[data-choice]").forEach((choice) => {
+          const value = choice.dataset.numeric === "true" ? Number(choice.dataset.value) : choice.dataset.value;
+          choice.setAttribute("aria-pressed", String(state[choice.dataset.choice] === value));
+        });
+      };
 
-        document.getElementById("currentNote").textContent = `${formatInteger(state.current)} cirurgias por mês`;
-        document.getElementById("goalNote").textContent = `${formatInteger(state.goal)} cirurgias por mês`;
-        document.getElementById("currentRevenueNote").textContent = `${formatCurrency(currentRevenue())} por mês`;
-        document.getElementById("goalRevenueNote").textContent = `${formatCurrency(goalRevenue())} por mês`;
-
+      const updateMilestones = () => {
         const conversion = currentConversion();
-        document.getElementById("conversionNote").textContent = conversion > 0
+        const revenueGap = Math.max(goalRevenue() - currentRevenue(), 0);
+        document.getElementById("baselineCount").textContent = `${formatInteger(state.current)} por mês`;
+        document.getElementById("baselineRevenue").textContent = formatCurrency(currentRevenue());
+        document.getElementById("baselineConversion").textContent = conversion > 0
           ? `${Math.round(conversion * 100)}%`
-          : "Ainda sem base suficiente";
+          : "Sem base";
+        document.getElementById("targetCurrentRevenue").textContent = formatCurrency(currentRevenue());
+        document.getElementById("targetGoalRevenue").textContent = formatCurrency(goalRevenue());
+        document.getElementById("targetGapRevenue").textContent = revenueGap > 0
+          ? `+${formatCurrency(revenueGap)} por mês`
+          : "Meta já alcançada no faturamento";
       };
 
       const updateLeadSummary = () => {
@@ -2163,6 +2664,8 @@
       };
 
       const showStep = (name) => {
+        syncNumbers();
+        syncChoiceStates();
         steps.forEach((step) => {
           step.classList.toggle("is-active", step.dataset.step === name);
         });
@@ -2170,10 +2673,24 @@
         const progress = progressData[name] || [0, ""];
         progressFill.style.width = `${progress[0]}%`;
         progressLabel.textContent = progress[1];
+        progressPercent.textContent = `${progress[0]}%`;
         progressTrack.setAttribute("aria-valuenow", String(progress[0]));
         stageWrap.classList.toggle("is-result", name === "result");
-        progressWrap.hidden = name === "result";
+        progressWrap.hidden = false;
+        phaseNav.hidden = false;
 
+        const activePhase = phaseData[name] || "focus";
+        const phaseOrder = ["focus", "today", "target", "operation"];
+        const activeIndex = phaseOrder.indexOf(activePhase);
+        phaseItems.forEach((item) => {
+          const itemIndex = phaseOrder.indexOf(item.dataset.phase);
+          const isResult = name === "result";
+          item.classList.toggle("is-active", !isResult && item.dataset.phase === activePhase);
+          item.classList.toggle("is-done", isResult || itemIndex < activeIndex);
+          item.querySelector(".phase-number").textContent = isResult || itemIndex < activeIndex ? "✓" : String(itemIndex + 1);
+        });
+
+        if (name === "baseline" || name === "target-summary") updateMilestones();
         if (name === "lead") updateLeadSummary();
         if (name === "processing") runProcessing();
         if (name === "result") renderResult();
@@ -2186,24 +2703,11 @@
         document.querySelectorAll(`[data-choice="${group}"]`).forEach((choice) => {
           choice.setAttribute("aria-pressed", String(choice === button));
         });
-        state[group] = button.dataset.value;
+        state[group] = button.dataset.numeric === "true" ? Number(button.dataset.value) : button.dataset.value;
 
         if (button.dataset.nextChoice) {
-          window.setTimeout(() => showStep(button.dataset.nextChoice), 170);
+          window.setTimeout(() => showStep(button.dataset.nextChoice), 260);
         }
-      };
-
-      const adjustNumber = (target, delta) => {
-        const inputMap = {
-          current: currentInput,
-          goal: goalInput,
-          evaluations: evaluationsInput
-        };
-        const input = inputMap[target];
-        const minimum = target === "goal" ? 1 : 0;
-        const maximum = target === "evaluations" ? 1000 : 300;
-        input.value = clamp((parseInt(input.value, 10) || minimum) + delta, minimum, maximum);
-        syncNumbers();
       };
 
       const collectUtm = () => {
@@ -2266,7 +2770,7 @@
 
         return {
           quiz: "Simulador APR - Rino e Blefaro",
-          version: "2.0",
+          version: "2.1",
           created_at: new Date().toISOString(),
           procedure: state.procedure,
           current_surgeries_month: state.current,
@@ -2470,46 +2974,60 @@
 
       const runProcessing = () => {
         clearProcessingTimers();
-        const items = Array.from(document.querySelectorAll(".analysis-item"));
-        const fill = document.getElementById("analysisFill");
+        const board = document.getElementById("processingBoard");
         const reducedMotion = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
-        const interval = reducedMotion ? 120 : 620;
+        const interval = reducedMotion ? 120 : 760;
+        const stages = [
+          {
+            phase: 1,
+            percent: "25%",
+            title: "Lendo o cenário atual",
+            detail: "Organizando volume, ticket e faturamento de hoje."
+          },
+          {
+            phase: 2,
+            percent: "50%",
+            title: "Posicionando a meta",
+            detail: "Projetando o novo volume e o ticket desejado."
+          },
+          {
+            phase: 3,
+            percent: "75%",
+            title: "Medindo a distância",
+            detail: "Calculando o crescimento mensal possível entre os cenários."
+          },
+          {
+            phase: 4,
+            percent: "100%",
+            title: "Criando o plano APR",
+            detail: "Transformando demanda, atendimento e follow-up em prioridades."
+          }
+        ];
 
-        items.forEach((item) => item.classList.remove("is-active", "is-done"));
-        fill.style.width = "5%";
-        document.getElementById("processingTitle").textContent = `Analisando ${state.lead.clinic || "sua clínica"}`;
+        board.className = "processing-board phase-1";
+        document.getElementById("processingTitle").textContent = `Montando o mapa da ${state.lead.clinic || "sua clínica"}`;
+        document.getElementById("processingCurrentRevenue").textContent = formatCurrency(currentRevenue());
+        document.getElementById("processingCurrentDetail").textContent = `${formatInteger(state.current)} cirurgias/mês`;
+        document.getElementById("processingGoalRevenue").textContent = formatCurrency(goalRevenue());
+        document.getElementById("processingGoalDetail").textContent = `${formatInteger(state.goal)} cirurgias/mês`;
+        document.getElementById("processingGapRevenue").textContent = `+${formatCurrency(Math.max(goalRevenue() - currentRevenue(), 0))}`;
 
-        items.forEach((item, index) => {
+        stages.forEach((stage, index) => {
           processingTimers.push(window.setTimeout(() => {
-            items.forEach((candidate, candidateIndex) => {
-              candidate.classList.toggle("is-active", candidateIndex === index);
-              candidate.classList.toggle("is-done", candidateIndex < index);
-              candidate.querySelector(".analysis-dot").textContent = candidateIndex < index ? "✓" : String(candidateIndex + 1);
-            });
-            fill.style.width = `${25 * (index + 1)}%`;
+            board.className = `processing-board phase-${stage.phase}`;
+            document.getElementById("processingPercent").textContent = stage.percent;
+            document.getElementById("processingStage").textContent = stage.title;
+            document.getElementById("processingDetail").textContent = stage.detail;
           }, interval * index));
         });
 
         processingTimers.push(window.setTimeout(() => {
-          items.forEach((item) => {
-            item.classList.remove("is-active");
-            item.classList.add("is-done");
-            item.querySelector(".analysis-dot").textContent = "✓";
-          });
-          fill.style.width = "100%";
-        }, interval * items.length));
-
-        processingTimers.push(window.setTimeout(() => {
           showStep("result");
-        }, interval * items.length + (reducedMotion ? 100 : 480)));
+        }, interval * stages.length + (reducedMotion ? 80 : 420)));
       };
 
       document.querySelectorAll("[data-choice]").forEach((button) => {
         button.addEventListener("click", () => selectChoice(button));
-      });
-
-      document.querySelectorAll("[data-adjust]").forEach((button) => {
-        button.addEventListener("click", () => adjustNumber(button.dataset.adjust, Number(button.dataset.delta)));
       });
 
       document.querySelectorAll("[data-next]").forEach((button) => {
@@ -2521,21 +3039,6 @@
 
       document.querySelectorAll("[data-back]").forEach((button) => {
         button.addEventListener("click", () => showStep(button.dataset.back));
-      });
-
-      [currentInput, goalInput, evaluationsInput].forEach((input) => {
-        input.addEventListener("input", syncNumbers);
-        input.addEventListener("blur", syncNumbers);
-      });
-
-      [currentTicketInput, targetTicketInput].forEach((input) => {
-        input.addEventListener("input", () => {
-          const value = clamp(parseInt(getDigits(input.value), 10) || 0, 0, 1000000);
-          input.value = formatInteger(value);
-          input.setSelectionRange(input.value.length, input.value.length);
-          syncNumbers();
-        });
-        input.addEventListener("blur", syncNumbers);
       });
 
       whatsappInput.addEventListener("input", () => {
@@ -2569,18 +3072,25 @@
       document.getElementById("restartButton").addEventListener("click", () => {
         clearProcessingTimers();
         state.procedure = "";
+        state.current = 5;
+        state.currentTicket = 4000;
+        state.goal = 10;
+        state.targetTicket = 6000;
+        state.evaluations = 15;
         state.source = "";
         state.handler = "";
         state.followup = "";
-        document.querySelectorAll("[data-choice]").forEach((choice) => {
-          choice.setAttribute("aria-pressed", "false");
-        });
+        state.lead = {};
+        document.getElementById("leadForm").reset();
         progressWrap.hidden = false;
+        phaseNav.hidden = false;
+        syncChoiceStates();
         showStep("procedure");
       });
 
       collectUtm();
       syncNumbers();
+      syncChoiceStates();
     })();
   </script>
 </body>
