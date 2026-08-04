@@ -1463,6 +1463,153 @@
       line-height: 1.4;
     }
 
+    .funnel-board {
+      border-top: 1px solid var(--line);
+      border-bottom: 1px solid var(--line);
+      background: rgba(255, 255, 255, 0.58);
+    }
+
+    .funnel-header,
+    .funnel-row {
+      display: grid;
+      grid-template-columns: minmax(0, 1fr) minmax(150px, 0.72fr) minmax(0, 1fr);
+      gap: 14px;
+      align-items: stretch;
+    }
+
+    .funnel-header {
+      padding: 16px 18px 12px;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-align: center;
+      text-transform: uppercase;
+    }
+
+    .funnel-header span:first-child {
+      text-align: left;
+    }
+
+    .funnel-header span:last-child {
+      text-align: right;
+    }
+
+    .funnel-list {
+      display: grid;
+      gap: 10px;
+      padding: 0 18px 18px;
+    }
+
+    .funnel-row {
+      min-height: 108px;
+    }
+
+    .funnel-side,
+    .funnel-action {
+      min-width: 0;
+      padding: 15px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .funnel-side strong,
+    .funnel-action strong {
+      display: block;
+      font-size: 17px;
+      line-height: 1.2;
+    }
+
+    .funnel-side span,
+    .funnel-action span {
+      display: block;
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 12px;
+      line-height: 1.42;
+    }
+
+    .funnel-action {
+      border-color: #b9d8ce;
+      background: var(--sage-soft);
+    }
+
+    .funnel-action strong {
+      color: var(--sage-dark);
+    }
+
+    .funnel-stage {
+      position: relative;
+      display: grid;
+      min-width: 0;
+      place-items: center;
+      padding: 12px;
+      color: #ffffff;
+      text-align: center;
+    }
+
+    .funnel-stage::before {
+      position: absolute;
+      inset: 0;
+      border-radius: 7px;
+      background: var(--sage);
+      clip-path: polygon(var(--left-cut, 0) 0, calc(100% - var(--right-cut, 0)) 0, 100% 100%, 0 100%);
+      content: "";
+    }
+
+    .funnel-row:nth-child(2) .funnel-stage::before { --left-cut: 8%; --right-cut: 8%; background: #327b69; }
+    .funnel-row:nth-child(3) .funnel-stage::before { --left-cut: 15%; --right-cut: 15%; background: #376f70; }
+    .funnel-row:nth-child(4) .funnel-stage::before { --left-cut: 22%; --right-cut: 22%; background: #5f6770; }
+
+    .funnel-stage span,
+    .funnel-stage strong {
+      position: relative;
+      z-index: 1;
+      display: block;
+    }
+
+    .funnel-stage span {
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .funnel-stage strong {
+      margin-top: 4px;
+      font-size: 16px;
+      line-height: 1.2;
+    }
+
+    .funnel-summary {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 10px;
+      padding: 16px 18px;
+      border-top: 1px solid var(--line);
+    }
+
+    .funnel-summary-item {
+      min-width: 0;
+      padding: 14px;
+      border-radius: var(--radius);
+      background: var(--surface);
+    }
+
+    .funnel-summary-item span {
+      display: block;
+      color: var(--muted);
+      font-size: 10px;
+      font-weight: 800;
+      text-transform: uppercase;
+    }
+
+    .funnel-summary-item strong {
+      display: block;
+      margin-top: 6px;
+      font-size: 16px;
+      line-height: 1.25;
+    }
+
     .plan-grid {
       display: grid;
       grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -1954,6 +2101,41 @@
         font-size: 15px;
       }
 
+      .funnel-header {
+        display: none;
+      }
+
+      .funnel-list {
+        gap: 13px;
+        padding: 16px 0;
+      }
+
+      .funnel-row {
+        display: grid;
+        min-height: 0;
+        grid-template-columns: 1fr;
+        gap: 8px;
+      }
+
+      .funnel-stage {
+        min-height: 62px;
+        order: -1;
+      }
+
+      .funnel-stage::before {
+        clip-path: none;
+      }
+
+      .funnel-side,
+      .funnel-action {
+        padding: 14px;
+      }
+
+      .funnel-summary {
+        grid-template-columns: 1fr;
+        padding: 14px 0 0;
+      }
+
       .result-actions {
         display: grid;
       }
@@ -2435,6 +2617,26 @@
               </div>
             </section>
 
+            <section class="result-section" aria-labelledby="funnelTitle">
+              <div class="section-head">
+                <h3 id="funnelTitle">Funil recomendado</h3>
+                <p>Como transformar o cenário informado em uma rotina simples de aquisição, consulta e fechamento.</p>
+              </div>
+              <div class="funnel-board" id="funnelBoard">
+                <div class="funnel-header" aria-hidden="true">
+                  <span>Hoje</span>
+                  <span>Etapa do funil</span>
+                  <span>Com APR</span>
+                </div>
+                <div class="funnel-list" id="funnelList"></div>
+                <div class="funnel-summary" aria-label="Resumo do plano do funil">
+                  <div class="funnel-summary-item"><span>Meta operacional</span><strong id="funnelOperationalGoal">--</strong></div>
+                  <div class="funnel-summary-item"><span>Rotina mínima</span><strong id="funnelRoutine">--</strong></div>
+                  <div class="funnel-summary-item"><span>Placar semanal</span><strong id="funnelScoreboard">--</strong></div>
+                </div>
+              </div>
+            </section>
+
             <section class="result-section" aria-labelledby="planTitle">
               <div class="section-head">
                 <h3 id="planTitle">Plano de ação recomendado</h3>
@@ -2798,7 +3000,7 @@
           landing_url: window.location.href,
           event_source_url: window.location.href,
           page_path: window.location.pathname,
-          quiz_version: "2.5"
+          quiz_version: "2.6"
         };
 
         if (document.referrer) tracking.referrer_url = document.referrer;
@@ -2876,7 +3078,7 @@
 
         return {
           quiz: "Simulador APR - Cirurgias Esteticas",
-          version: "2.5",
+          version: "2.6",
           created_at: new Date().toISOString(),
           procedure: state.procedure,
           current_surgeries_month: state.current,
@@ -2948,6 +3150,13 @@
         return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(message)}`;
       };
 
+      const escapeHtml = (value) => String(value || "")
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#039;");
+
       const renderPlan = (priorityKey) => {
         const sourcePlan = planCopy.source[state.source] || planCopy.source["Indicações"];
         const handlerPlan = planCopy.handler[state.handler] || planCopy.handler["Sem responsável definido"];
@@ -3010,6 +3219,83 @@
             <ul>${plan.tasks.map((task) => `<li>${task}</li>`).join("")}</ul>
           </article>
         `).join("");
+      };
+
+      const renderFunnelRoadmap = ({ evaluationsNeeded, conversion, priorityKey }) => {
+        const weeklyConsultations = Math.ceil(evaluationsNeeded / 4);
+        const weeklySurgeries = Math.ceil(state.goal / 4);
+        const sourceAction = state.source === "Tráfego pago"
+          ? `Separar campanhas de ${procedureLabel().toLowerCase()} e otimizar por consulta qualificada.`
+          : `Criar uma fonte previsível para gerar consultas de ${procedureLabel().toLowerCase()} toda semana.`;
+        const handlerAction = state.handler === "Equipe comercial"
+          ? "Definir SLA de resposta, roteiro de qualificação e agenda protegida."
+          : "Escolher um responsável pelo primeiro contato e tirar a venda do improviso.";
+        const followupAction = state.followup === "CRM com etapas e tarefas"
+          ? "Usar o CRM para medir proposta, retorno e cirurgia fechada."
+          : "Criar cadência de retorno para quem consultou, pediu proposta ou parou de responder.";
+
+        const steps = [
+          {
+            title: "Entrada",
+            label: "Oportunidades",
+            today: state.source ? `Principal fonte: ${state.source}` : "Fonte principal ainda indefinida",
+            todayNote: `${state.evaluationsLabel} consultas/mês viram a base do diagnóstico.`,
+            apr: `${formatInteger(evaluationsNeeded)} consultas/mês como referência`,
+            aprNote: sourceAction,
+            priority: priorityKey === "source"
+          },
+          {
+            title: "Atendimento",
+            label: "Consulta",
+            today: `${state.evaluationsLabel} consultas/mês`,
+            todayNote: state.handler ? `Primeiro contato: ${state.handler}.` : "Responsável pelo contato ainda indefinido.",
+            apr: `${formatInteger(weeklyConsultations)} consultas por semana`,
+            aprNote: handlerAction,
+            priority: priorityKey === "handler"
+          },
+          {
+            title: "Fechamento",
+            label: "Cirurgias",
+            today: `${state.currentLabel} cirurgias/mês`,
+            todayNote: conversion > 0 ? `${Math.round(conversion * 100)}% de conversão estimada.` : "Conversão ainda sem base.",
+            apr: `${state.goalLabel} cirurgias/mês`,
+            aprNote: `Manter pelo menos ${formatInteger(weeklySurgeries)} cirurgias fechadas por semana no placar.`,
+            priority: priorityKey === "conversion" || priorityKey === "scale"
+          },
+          {
+            title: "Recuperação",
+            label: "Follow-up",
+            today: state.followup || "Sem processo informado",
+            todayNote: `Potencial não capturado: ${formatCurrency(Math.max(goalRevenue() - currentRevenue(), 0))}/mês.`,
+            apr: "Cadência de 7, 30, 60 e 90 dias",
+            aprNote: followupAction,
+            priority: priorityKey === "followup"
+          }
+        ];
+
+        document.getElementById("funnelList").innerHTML = steps.map((step) => `
+          <div class="funnel-row">
+            <div class="funnel-side">
+              <strong>${escapeHtml(step.today)}</strong>
+              <span>${escapeHtml(step.todayNote)}</span>
+            </div>
+            <div class="funnel-stage">
+              <span>${escapeHtml(step.label)}</span>
+              <strong>${escapeHtml(step.title)}</strong>
+            </div>
+            <div class="funnel-action">
+              <strong>${escapeHtml(step.apr)}${step.priority ? " · prioridade" : ""}</strong>
+              <span>${escapeHtml(step.aprNote)}</span>
+            </div>
+          </div>
+        `).join("");
+
+        document.getElementById("funnelOperationalGoal").textContent =
+          `${formatInteger(evaluationsNeeded)} consultas para buscar ${state.goalLabel} cirurgias/mês`;
+        document.getElementById("funnelRoutine").textContent =
+          `${formatInteger(weeklyConsultations)} consultas e ${formatInteger(weeklySurgeries)} fechamentos por semana`;
+        document.getElementById("funnelScoreboard").textContent =
+          `Origem, atendimento, consulta, proposta e cirurgia fechada`;
       };
 
       const renderResult = () => {
@@ -3083,6 +3369,7 @@
         if (volumeContribution > 0 && volumeContribution === ticketContribution) composition = "Volume e ticket dividem o avanço";
         document.getElementById("growthComposition").textContent = composition;
 
+        renderFunnelRoadmap({ evaluationsNeeded, conversion, priorityKey: priority.key });
         renderPlan(priority.key);
         document.getElementById("whatsappCta").href = buildWhatsappUrl(payload);
       };
