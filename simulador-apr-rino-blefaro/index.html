@@ -4,8 +4,8 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
   <meta name="theme-color" content="#f6f7f4">
-  <meta name="description" content="Simulador APR: diagnóstico e projeção de agenda para clínicas que vendem rinoplastia e blefaroplastia.">
-  <title>Simulador APR | Agenda Previsível de Rino &amp; Bléfaro</title>
+  <meta name="description" content="Simulador APR: diagnóstico e projeção de agenda para clínicas que vendem cirurgias estéticas.">
+  <title>Simulador APR | Agenda Previsível para Cirurgias Estéticas</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700;800&amp;display=swap" rel="stylesheet">
@@ -361,6 +361,11 @@
       animation: choice-pop 220ms ease both;
     }
 
+    .image-choice.outros .choice-check {
+      border-color: #b9d8ce;
+      color: var(--sage-dark);
+    }
+
     .image-choice img {
       width: 100%;
       aspect-ratio: 4 / 3;
@@ -368,15 +373,50 @@
     }
 
     .image-choice.rino img {
-      object-position: 67% center;
+      object-position: 58% center;
     }
 
     .image-choice.blefaro img {
       object-position: 48% 40%;
     }
 
-    .image-choice.ambas img {
-      object-position: 54% center;
+    .image-choice.lipo-papada img,
+    .image-choice.lifting-facial img,
+    .image-choice.deep-plane img {
+      object-position: center;
+    }
+
+    .image-choice.otoplastia img {
+      object-fit: contain;
+      background: #f0ebe6;
+    }
+
+    .choice-mosaic {
+      display: grid;
+      aspect-ratio: 4 / 3;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      overflow: hidden;
+      background: #f0ebe6;
+    }
+
+    .choice-mosaic img {
+      width: 100%;
+      height: 100%;
+      aspect-ratio: auto;
+      object-fit: cover;
+    }
+
+    .choice-placeholder {
+      display: grid;
+      aspect-ratio: 4 / 3;
+      place-items: center;
+      padding: 18px;
+      background:
+        linear-gradient(135deg, rgba(47, 125, 105, 0.14), rgba(168, 67, 91, 0.1)),
+        var(--surface-alt);
+      color: var(--sage-dark);
+      font-size: 40px;
+      font-weight: 800;
     }
 
     .choice-label {
@@ -1644,6 +1684,19 @@
         aspect-ratio: auto;
       }
 
+      .choice-mosaic,
+      .choice-placeholder {
+        width: 96px;
+        height: 100%;
+        min-height: 78px;
+        aspect-ratio: auto;
+      }
+
+      .choice-mosaic img {
+        width: 100%;
+        min-height: 0;
+      }
+
       .choice-label {
         min-width: 0;
         min-height: 78px;
@@ -1977,7 +2030,7 @@
             <span class="apr-mark">APR</span>
             <span>
               <span class="apr-name">Simulador APR</span>
-              <span class="apr-subtitle">Agenda Previsível de Rino &amp; Bléfaro</span>
+              <span class="apr-subtitle">Agenda Previsível para Cirurgias Estéticas</span>
             </span>
           </div>
           <img class="hurtz-signature" src="assets/hurtz-logo.png" alt="Hurtz">
@@ -2007,18 +2060,53 @@
 
           <div class="choice-grid" role="group" aria-label="Cirurgia prioritária">
             <button class="image-choice rino" type="button" data-choice="procedure" data-value="Rinoplastia" data-next-choice="current" aria-pressed="false">
-              <img src="assets/rino-profile.jpg" alt="">
+              <img src="assets/procedimento-rino.jpg" alt="">
               <span class="choice-label">Rino <span class="choice-check">✓</span></span>
             </button>
             <button class="image-choice blefaro" type="button" data-choice="procedure" data-value="Blefaroplastia" data-next-choice="current" aria-pressed="false">
-              <img src="assets/blefaro-mature.jpg" alt="">
+              <img src="assets/procedimento-blefaro.jpg" alt="">
               <span class="choice-label">Bléfaro <span class="choice-check">✓</span></span>
             </button>
-            <button class="image-choice ambas" type="button" data-choice="procedure" data-value="Rinoplastia e blefaroplastia" data-next-choice="current" aria-pressed="false">
-              <img src="assets/clinic-consultation.jpg" alt="">
-              <span class="choice-label">Ambas <span class="choice-check">✓</span></span>
+            <button class="image-choice outros" type="button" data-next="procedure-other" aria-label="Ver outras cirurgias">
+              <span class="choice-mosaic" aria-hidden="true">
+                <img src="assets/procedimento-lipo-papada.jpg" alt="">
+                <img src="assets/procedimento-lifting-facial.jpg" alt="">
+                <img src="assets/procedimento-otoplastia.jpg" alt="">
+                <img src="assets/procedimento-deep-plane.jpg" alt="">
+              </span>
+              <span class="choice-label">Outros <span class="choice-check">→</span></span>
             </button>
           </div>
+        </section>
+
+        <section class="step question-step" data-step="procedure-other">
+          <p class="eyebrow">Outras cirurgias</p>
+          <h2 class="step-title">Qual procedimento você quer puxar mais?</h2>
+          <p class="step-copy">Escolha o principal procedimento que deve receber mais demanda nos próximos meses.</p>
+
+          <div class="choice-grid" role="group" aria-label="Outras cirurgias prioritárias">
+            <button class="image-choice lipo-papada" type="button" data-choice="procedure" data-value="Lipo de papada" data-next-choice="current" aria-pressed="false">
+              <img src="assets/procedimento-lipo-papada.jpg" alt="">
+              <span class="choice-label">Lipo de papada <span class="choice-check">✓</span></span>
+            </button>
+            <button class="image-choice lifting-facial" type="button" data-choice="procedure" data-value="Lifting facial" data-next-choice="current" aria-pressed="false">
+              <img src="assets/procedimento-lifting-facial.jpg" alt="">
+              <span class="choice-label">Lifting facial <span class="choice-check">✓</span></span>
+            </button>
+            <button class="image-choice otoplastia" type="button" data-choice="procedure" data-value="Otoplastia" data-next-choice="current" aria-pressed="false">
+              <img src="assets/procedimento-otoplastia.jpg" alt="">
+              <span class="choice-label">Otoplastia <span class="choice-check">✓</span></span>
+            </button>
+            <button class="image-choice deep-plane" type="button" data-choice="procedure" data-value="Deep Plane" data-next-choice="current" aria-pressed="false">
+              <img src="assets/procedimento-deep-plane.jpg" alt="">
+              <span class="choice-label">Deep Plane <span class="choice-check">✓</span></span>
+            </button>
+            <button class="image-choice outro-procedimento" type="button" data-choice="procedure" data-value="Outro procedimento" data-next-choice="current" aria-pressed="false">
+              <span class="choice-placeholder" aria-hidden="true">+</span>
+              <span class="choice-label">Outro procedimento <span class="choice-check">✓</span></span>
+            </button>
+          </div>
+          <button class="quick-back" type="button" data-back="procedure"><span class="arrow">←</span> Voltar</button>
         </section>
 
         <section class="step question-step" data-step="current">
@@ -2056,7 +2144,7 @@
         <section class="step question-step" data-step="evaluations">
           <p class="eyebrow">Hoje · 3 de 3</p>
           <h2 class="step-title">Quantas consultas sua clínica realiza por mês?</h2>
-          <p class="step-copy">Considere as consultas de pacientes interessados em rino ou bléfaro.</p>
+          <p class="step-copy">Considere as consultas de pacientes interessados no procedimento escolhido.</p>
 
           <div class="metric-grid" role="group" aria-label="Consultas realizadas por mês">
             <button class="metric-choice" type="button" data-choice="evaluations" data-value="5" data-label="Até 5" data-numeric="true" data-next-choice="baseline" aria-pressed="false"><span class="metric-number">Até 5</span><span class="metric-unit">consultas/mês</span><span class="choice-check">✓</span></button>
@@ -2219,7 +2307,7 @@
               <div class="scenario-summary" aria-label="Resumo dos dados informados">
                 <div class="scenario-row"><span>Hoje</span><strong id="leadCurrentSummary">5 cirurgias · R$ 20.000/mês</strong></div>
                 <div class="scenario-row"><span>Meta</span><strong id="leadGoalSummary">10 cirurgias · R$ 60.000/mês</strong></div>
-                <div class="scenario-row"><span>Foco</span><strong id="leadProcedureSummary">Rino &amp; Bléfaro</strong></div>
+                <div class="scenario-row"><span>Foco</span><strong id="leadProcedureSummary">Procedimento escolhido</strong></div>
               </div>
             </div>
 
@@ -2287,7 +2375,7 @@
                 <h2 class="step-title" id="resultTitle">Projeção da sua clínica</h2>
                 <p class="step-copy" id="resultIntro">Este é o espaço entre a operação atual e a meta informada.</p>
               </div>
-              <span class="result-badge" id="resultProcedure">Rino &amp; Bléfaro</span>
+              <span class="result-badge" id="resultProcedure">Procedimento escolhido</span>
             </div>
 
             <div class="revenue-projection" aria-label="Comparação de faturamento mensal">
@@ -2363,7 +2451,7 @@
             <p class="disclaimer">Projeção matemática baseada nos dados informados. Os valores não representam garantia de agenda ou faturamento. O resultado real depende de capacidade operacional, investimento, execução comercial, aderência da oferta e condições de mercado.</p>
 
             <div class="result-signature">
-              <span>Simulador APR · Agenda Previsível de Rino &amp; Bléfaro</span>
+              <span>Simulador APR · Agenda Previsível para Cirurgias Estéticas</span>
               <img src="assets/hurtz-logo.png" alt="Hurtz">
             </div>
           </div>
@@ -2399,6 +2487,7 @@
 
       const progressData = {
         procedure: [10, "Etapa 1/10"],
+        "procedure-other": [10, "Etapa 1/10"],
         current: [20, "Etapa 2/10"],
         "current-ticket": [30, "Etapa 3/10"],
         evaluations: [40, "Etapa 4/10"],
@@ -2416,6 +2505,7 @@
 
       const phaseData = {
         procedure: "focus",
+        "procedure-other": "focus",
         current: "today",
         "current-ticket": "today",
         evaluations: "today",
@@ -2583,9 +2673,7 @@
       };
 
       const procedureLabel = () => {
-        if (state.procedure === "Rinoplastia") return "Rinoplastia";
-        if (state.procedure === "Blefaroplastia") return "Blefaroplastia";
-        return "Rino & Bléfaro";
+        return state.procedure || "Procedimento escolhido";
       };
 
       const currentRevenue = () => state.current * state.currentTicket;
@@ -2745,8 +2833,8 @@
         const priority = determinePriority();
 
         return {
-          quiz: "Simulador APR - Rino e Blefaro",
-          version: "2.3",
+          quiz: "Simulador APR - Cirurgias Esteticas",
+          version: "2.4",
           created_at: new Date().toISOString(),
           procedure: state.procedure,
           current_surgeries_month: state.current,

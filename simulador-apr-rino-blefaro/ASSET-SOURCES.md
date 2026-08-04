@@ -1,20 +1,27 @@
 # Fontes das imagens
 
-As imagens deste simulador foram selecionadas e inspecionadas visualmente antes do uso. Os arquivos locais foram apenas redimensionados e comprimidos para carregamento na web.
+As imagens deste simulador foram fornecidas pela equipe e salvas em Downloads como `1.png` a `6.png`. Os arquivos locais foram inspecionados visualmente, renomeados conforme o procedimento, redimensionados e comprimidos para carregamento na web.
 
-- `assets/rino-profile.jpg`
-  - Foto: Andrea Piacquadio
-  - Fonte: https://www.pexels.com/photo/side-profile-of-a-woman-5062726/
-  - Uso: perfil lateral para representar rinoplastia sem recorrer a antes e depois.
+- `assets/procedimento-rino.jpg`
+  - Origem: `~/Downloads/1.png`
+  - Uso: primeira opção do quiz, representando Rino.
 
-- `assets/blefaro-mature.jpg`
-  - Foto: Polina Tankilevitch
-  - Fonte: https://www.pexels.com/photo/elderly-woman-posing-in-white-background-5473082/
-  - Uso: retrato maduro com região dos olhos visível para representar blefaroplastia.
+- `assets/procedimento-blefaro.jpg`
+  - Origem: `~/Downloads/2.png`
+  - Uso: primeira opção do quiz, representando Bléfaro.
 
-- `assets/clinic-consultation.jpg`
-  - Foto: Anna Shvets
-  - Fonte: https://www.pexels.com/photo/a-woman-consulting-with-a-cosmetologist-doctor-4586740/
-  - Uso: cena de consulta e avaliação facial em ambiente clínico.
+- `assets/procedimento-lipo-papada.jpg`
+  - Origem: `~/Downloads/3.png`
+  - Uso: opção secundária, representando Lipo de papada.
 
-Todas as imagens são publicadas no Pexels como gratuitas para uso segundo a licença da plataforma: https://www.pexels.com/license/
+- `assets/procedimento-lifting-facial.jpg`
+  - Origem: `~/Downloads/4.png`
+  - Uso: opção secundária, representando Lifting facial.
+
+- `assets/procedimento-otoplastia.jpg`
+  - Origem: `~/Downloads/5.png`
+  - Uso: opção secundária, representando Otoplastia.
+
+- `assets/procedimento-deep-plane.jpg`
+  - Origem: `~/Downloads/6.png`
+  - Uso: opção secundária, representando Deep Plane.
