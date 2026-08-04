@@ -2462,7 +2462,7 @@
 
   <script>
     (() => {
-      const WEBHOOK_URL = "";
+      const WEBHOOK_URL = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/apr-submit";
       const WHATSAPP_NUMBER = "5594988082290";
       const STORAGE_KEY = "apr-rino-blefaro-lead";
 
@@ -2482,7 +2482,8 @@
         handler: "",
         followup: "",
         lead: {},
-        utm: {}
+        utm: {},
+        tracking: {}
       };
 
       const progressData = {
@@ -2774,11 +2775,52 @@
         }
       };
 
+      const cleanTrackingValue = (value) => String(value || "").trim().slice(0, 500);
+
+      const readCookie = (name) => {
+        const escaped = name.replace(/[.*+?^${}()|[\]\\]/g, "\\$&");
+        const match = document.cookie.match(new RegExp(`(?:^|; )${escaped}=([^;]*)`));
+        return match ? decodeURIComponent(match[1]) : "";
+      };
+
+      const setCookie = (name, value, days) => {
+        try {
+          const maxAge = days * 24 * 60 * 60;
+          document.cookie = `${name}=${encodeURIComponent(value)}; path=/; max-age=${maxAge}; SameSite=Lax`;
+        } catch {
+          // Cookie indisponível não bloqueia a captação do lead.
+        }
+      };
+
       const collectUtm = () => {
         const params = new URLSearchParams(window.location.search);
-        ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].forEach((key) => {
-          if (params.get(key)) state.utm[key] = params.get(key);
+        const tracking = {
+          landing_url: window.location.href,
+          event_source_url: window.location.href,
+          page_path: window.location.pathname,
+          quiz_version: "2.5"
+        };
+
+        if (document.referrer) tracking.referrer_url = document.referrer;
+
+        params.forEach((value, key) => {
+          const cleaned = cleanTrackingValue(value);
+          if (!cleaned) return;
+          if (key.startsWith("utm_")) state.utm[key] = cleaned;
+          tracking[key] = cleaned;
         });
+
+        const fbp = cleanTrackingValue(readCookie("_fbp"));
+        const fbclid = cleanTrackingValue(tracking.fbclid);
+        let fbc = cleanTrackingValue(readCookie("_fbc"));
+        if (fbclid && !fbc) {
+          fbc = `fb.1.${Date.now()}.${fbclid}`;
+          setCookie("_fbc", fbc, 90);
+        }
+        if (fbp) tracking.fbp = fbp;
+        if (fbc) tracking.fbc = fbc;
+
+        state.tracking = tracking;
       };
 
       const determinePriority = () => {
@@ -2834,7 +2876,7 @@
 
         return {
           quiz: "Simulador APR - Cirurgias Esteticas",
-          version: "2.4",
+          version: "2.5",
           created_at: new Date().toISOString(),
           procedure: state.procedure,
           current_surgeries_month: state.current,
@@ -2857,24 +2899,34 @@
           followup_process: state.followup,
           priority: priority.title,
           lead: state.lead,
-          utm: state.utm
+          utm: state.utm,
+          tracking: {
+            ...state.tracking,
+            event_source_url: window.location.href,
+            landing_url: state.tracking.landing_url || window.location.href
+          },
+          event_source_url: window.location.href
         };
       };
 
-      const submitPayload = async (payload) => {
+      const submitPayload = (payload) => {
         localStorage.setItem(STORAGE_KEY, JSON.stringify(payload));
         if (!WEBHOOK_URL) return;
 
-        try {
-          await fetch(WEBHOOK_URL, {
+        window.setTimeout(() => {
+          fetch(WEBHOOK_URL, {
             method: "POST",
             headers: { "Content-Type": "application/json" },
             body: JSON.stringify(payload),
             keepalive: true
+          }).then((response) => {
+            if (!response.ok) {
+              console.warn("Webhook APR respondeu com erro.", response.status);
+            }
+          }).catch((error) => {
+            console.warn("Nao foi possivel enviar o lead ao webhook.", error);
           });
-        } catch (error) {
-          console.warn("Nao foi possivel enviar o lead ao webhook.", error);
-        }
+        }, 0);
       };
 
       const buildWhatsappUrl = (payload) => {
