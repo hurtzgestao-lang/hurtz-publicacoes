@@ -613,9 +613,7 @@
 
       const loadDashboard = async () => {
         authError.classList.remove("visible");
-        const response = await fetch(buildUrl(), {
-          headers: { "x-dashboard-token": state.token }
-        });
+        const response = await fetch(buildUrl());
         const data = await response.json().catch(() => ({}));
         if (!response.ok || !data.success) {
           if (response.status === 401) {
