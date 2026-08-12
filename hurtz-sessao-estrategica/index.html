@@ -238,17 +238,30 @@
   .form-card{background:var(--cream); padding:36px; border:1px solid #242220;}
   .form-card h3{font-family:'Inter', sans-serif; font-weight:700; font-size:19px; margin-bottom:6px; color:var(--black);}
   .form-card .form-note{font-size:13px; color:var(--stone); margin-bottom:24px;}
-  .field{margin-bottom:16px;}
-  .field label{display:block; font-family:'Inter', sans-serif; font-weight:700; font-size:12.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--stone); margin-bottom:8px;}
+  .field{margin-bottom:0;}
+  .field label{
+    min-height:32px;
+    display:flex;
+    align-items:flex-end;
+    font-family:'Inter', sans-serif;
+    font-weight:700;
+    font-size:12.5px;
+    text-transform:uppercase;
+    letter-spacing:.04em;
+    color:var(--stone);
+    margin-bottom:8px;
+  }
   .field input, .field select{
     width:100%; border:1px solid var(--line); background:#fff;
     padding:14px 15px; font-family:'Inter', sans-serif; font-size:16px; color:var(--black);
     outline:none; transition:border-color .2s ease;
+    min-height:52px;
   }
   .field input::placeholder{color:#8c8880;}
   .field input:focus, .field select:focus{border-color:var(--rust);}
-  .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
-  .form-card .btn{width:100%; justify-content:center; margin-top:8px; padding:17px;}
+  .field-grid{display:grid; grid-template-columns:repeat(2,minmax(0,1fr)); gap:18px 16px;}
+  .field-wide{grid-column:1 / -1;}
+  .form-card .btn{width:100%; justify-content:center; margin-top:24px; padding:17px;}
   .form-card .btn[disabled]{background:var(--rust-dark); cursor:wait;}
   .form-status{
     min-height:22px;
@@ -275,6 +288,9 @@
     .stat:first-child{border-top:none;}
     .degrau{grid-template-columns:1fr; gap:8px;}
     .field-row{grid-template-columns:1fr;}
+    .field-grid{grid-template-columns:1fr;}
+    .field-wide{grid-column:auto;}
+    .field label{min-height:auto;}
     section{padding:64px 0;}
     header .wrap{min-height:58px;}
     .header-claim{font-size:clamp(12px,3.3vw,15px); letter-spacing:.08em;}
@@ -436,19 +452,25 @@
       <h3>Insira seus dados abaixo</h3>
       <p class="form-note">Levamos até 1 dia útil para retornar via WhatsApp.</p>
       <form id="lead-form" autocomplete="on" onsubmit="submitLeadForm(event)">
-        <div class="field-row">
+        <div class="field-grid">
           <div class="field"><label for="lead-name">Nome completo</label><input id="lead-name" name="name" type="text" autocomplete="name" placeholder="Seu nome completo" required></div>
           <div class="field"><label for="lead-email">E-mail</label><input id="lead-email" name="email" type="email" autocomplete="email" placeholder="seu@email.com" required></div>
-        </div>
-        <div class="field-row">
           <div class="field"><label for="lead-phone">Telefone / WhatsApp</label><input id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 99999-9999" required></div>
-          <div class="field"><label for="lead-revenue">Faturamento médio mensal</label><input id="lead-revenue" name="monthly_revenue" type="text" autocomplete="on" inputmode="numeric" placeholder="Ex: R$ 120.000/mês" required></div>
-        </div>
-        <div class="field-row">
-          <div class="field"><label for="lead-clinic-owner">Você já possui clínica própria?</label>
+          <div class="field"><label for="lead-instagram">Instagram</label><input id="lead-instagram" name="instagram" type="text" autocomplete="url" placeholder="@sua_clinica" required></div>
+          <div class="field"><label for="lead-clinic-owner">Clínica própria?</label>
             <select id="lead-clinic-owner" name="clinic_owner" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select>
           </div>
-          <div class="field"><label for="lead-surgeries">Cirurgias vendidas por mês</label><input id="lead-surgeries" name="surgeries_month" type="text" autocomplete="on" inputmode="numeric" placeholder="Ex: 6 a 8" required></div>
+          <div class="field"><label for="lead-revenue">Faturamento médio mensal</label>
+            <select id="lead-revenue" name="monthly_revenue" autocomplete="on" required>
+              <option value="">Selecione a faixa</option>
+              <option value="menos_de_30000" data-amount="0">Menos de R$ 30 mil/mês</option>
+              <option value="30000_50000" data-amount="30000">R$ 30 a 50 mil/mês</option>
+              <option value="50000_70000" data-amount="50000">R$ 50 a 70 mil/mês</option>
+              <option value="70000_100000" data-amount="70000">R$ 70 a 100 mil/mês</option>
+              <option value="mais_de_100000" data-amount="100000">Mais de R$ 100 mil/mês</option>
+            </select>
+          </div>
+          <div class="field field-wide"><label for="lead-surgeries">Cirurgias vendidas por mês</label><input id="lead-surgeries" name="surgeries_month" type="text" autocomplete="on" inputmode="numeric" placeholder="Ex: 6 a 8" required></div>
         </div>
         <button type="submit" class="btn">Quero ser selecionado
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6"/></svg>
@@ -485,7 +507,10 @@
       name: form.elements.namedItem("name").value.trim(),
       email: form.elements.namedItem("email").value.trim(),
       phone: form.elements.namedItem("phone").value.trim(),
-      monthlyRevenue: form.elements.namedItem("monthly_revenue").value.trim(),
+      instagram: form.elements.namedItem("instagram").value.trim(),
+      monthlyRevenue: selectedOptionLabel(form.elements.namedItem("monthly_revenue")),
+      monthlyRevenueValue: form.elements.namedItem("monthly_revenue").value.trim(),
+      monthlyRevenueAmount: Number(form.elements.namedItem("monthly_revenue").selectedOptions[0]?.dataset.amount || 0),
       clinicOwner: form.elements.namedItem("clinic_owner").value.trim(),
       surgeriesMonth: form.elements.namedItem("surgeries_month").value.trim()
     };
@@ -493,6 +518,7 @@
       `Nome completo: ${fields.name}`,
       `E-mail: ${fields.email}`,
       `Telefone / WhatsApp: ${fields.phone}`,
+      `Instagram: ${fields.instagram}`,
       `Faturamento médio mensal: ${fields.monthlyRevenue}`,
       `Clínica própria: ${fields.clinicOwner}`,
       `Cirurgias vendidas por mês: ${fields.surgeriesMonth}`
@@ -530,7 +556,7 @@
   }
 
   async function saveLead(fields) {
-    const currentRevenue = parseMoney(fields.monthlyRevenue);
+    const currentRevenue = Number.isFinite(fields.monthlyRevenueAmount) ? fields.monthlyRevenueAmount : 0;
     const currentSurgeries = parseInteger(fields.surgeriesMonth);
     const payload = {
       quiz: "sessao_estrategica",
@@ -560,13 +586,15 @@
         nome: fields.name,
         email: fields.email,
         whatsapp: fields.phone,
-        instagram: "nao_informado"
+        instagram: fields.instagram
       },
       form_answers: {
         nome: fields.name,
         email: fields.email,
         telefone: fields.phone,
+        instagram: fields.instagram,
         faturamento_medio_mensal: fields.monthlyRevenue,
+        faturamento_medio_mensal_valor: fields.monthlyRevenueValue,
         clinica_propria: fields.clinicOwner,
         cirurgias_vendidas_por_mes: fields.surgeriesMonth
       },
@@ -586,13 +614,8 @@
     return data;
   }
 
-  function parseMoney(value) {
-    const normalized = String(value || "")
-      .replace(/[^\d,.-]/g, "")
-      .replace(/\.(?=\d{3}(\D|$))/g, "")
-      .replace(",", ".");
-    const parsed = Number(normalized);
-    return Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
+  function selectedOptionLabel(select) {
+    return select.selectedOptions[0]?.textContent?.trim() || "";
   }
 
   function parseInteger(value) {
