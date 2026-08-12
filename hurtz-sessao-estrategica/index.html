@@ -7,6 +7,20 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<script>
+  window.HURTZ_META_PIXEL_ID = "2215367202619844";
+  window.HURTZ_META_PAGEVIEW_EVENT_ID = `pageview_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+  !function(f,b,e,v,n,t,s){
+    if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+    if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version="2.0";
+    n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];
+    s.parentNode.insertBefore(t,s)
+  }(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+  fbq("init", window.HURTZ_META_PIXEL_ID);
+  fbq("track", "PageView", {}, { eventID: window.HURTZ_META_PAGEVIEW_EVENT_ID });
+</script>
 <style>
   :root{
     --cream:#F5F2EC;
@@ -303,6 +317,7 @@
 </style>
 </head>
 <body>
+<noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=2215367202619844&ev=PageView&noscript=1" alt=""></noscript>
 
 <header>
   <div class="wrap">
@@ -496,6 +511,11 @@
 <script>
   const HURTZ_WHATSAPP = "5594988082290";
   const LEAD_ENDPOINT = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/apr-submit";
+  const META_PIXEL_ID = window.HURTZ_META_PIXEL_ID || "2215367202619844";
+
+  window.setTimeout(() => {
+    sendServerMetaEvent("PageView", window.HURTZ_META_PAGEVIEW_EVENT_ID);
+  }, 600);
 
   async function submitLeadForm(event) {
     event.preventDefault();
@@ -537,7 +557,14 @@
     button.firstChild.textContent = "Enviando ";
 
     try {
-      await saveLead(fields);
+      const leadEventId = createMetaEventId("lead");
+      await saveLead(fields, leadEventId);
+      trackMetaBrowserEvent("Lead", {
+        content_name: "Sessão Estratégica Gratuita",
+        content_category: "Lead",
+        currency: "BRL",
+        value: Number.isFinite(fields.monthlyRevenueAmount) ? fields.monthlyRevenueAmount : 0
+      }, leadEventId);
       setFormStatus(status, "Dados recebidos. Vamos abrir o WhatsApp para continuar o atendimento.", "is-success");
       button.firstChild.textContent = "Dados enviados ";
 
@@ -555,9 +582,12 @@
     }
   }
 
-  async function saveLead(fields) {
+  async function saveLead(fields, leadEventId) {
     const currentRevenue = Number.isFinite(fields.monthlyRevenueAmount) ? fields.monthlyRevenueAmount : 0;
     const currentSurgeries = parseInteger(fields.surgeriesMonth);
+    const tracking = getTrackingData();
+    tracking.meta_pixel_id = META_PIXEL_ID;
+    tracking.meta_event_id_lead = leadEventId;
     const payload = {
       quiz: "sessao_estrategica",
       version: "sessao_estrategica_simplificada_2026-08-12",
@@ -598,7 +628,11 @@
         clinica_propria: fields.clinicOwner,
         cirurgias_vendidas_por_mes: fields.surgeriesMonth
       },
-      tracking: getTrackingData(),
+      meta: {
+        pixel_id: META_PIXEL_ID,
+        lead_event_id: leadEventId
+      },
+      tracking,
       event_source_url: window.location.href
     };
 
@@ -640,7 +674,63 @@
       const value = params.get(key);
       if (value) tracking[key] = value;
     });
+    const fbp = getCookie("_fbp");
+    const fbc = getCookie("_fbc") || buildFbcFromUrl(params.get("fbclid"));
+    if (fbp) tracking.fbp = fbp;
+    if (fbc) tracking.fbc = fbc;
     return tracking;
+  }
+
+  async function sendServerMetaEvent(eventName, eventId, customData = {}) {
+    const safeEventId = eventId || createMetaEventId(eventName.toLowerCase());
+    try {
+      await fetch(LEAD_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          event_only: true,
+          event_name: eventName,
+          event_id: safeEventId,
+          event_source_url: window.location.href,
+          meta: { pixel_id: META_PIXEL_ID },
+          tracking: {
+            ...getTrackingData(),
+            meta_pixel_id: META_PIXEL_ID,
+            meta_event_id: safeEventId
+          },
+          custom_data: {
+            content_name: "Sessão Estratégica Gratuita",
+            content_category: "Landing Page",
+            ...customData
+          }
+        }),
+        keepalive: true
+      });
+    } catch (error) {
+      console.warn("[meta] server event skipped", error);
+    }
+  }
+
+  function trackMetaBrowserEvent(eventName, data, eventId) {
+    if (typeof window.fbq !== "function") return;
+    window.fbq("track", eventName, data || {}, { eventID: eventId });
+  }
+
+  function createMetaEventId(type) {
+    return `${type}_${Date.now()}_${Math.random().toString(16).slice(2)}`;
+  }
+
+  function getCookie(name) {
+    const prefix = `${name}=`;
+    return document.cookie
+      .split(";")
+      .map((part) => part.trim())
+      .find((part) => part.startsWith(prefix))
+      ?.slice(prefix.length) || "";
+  }
+
+  function buildFbcFromUrl(fbclid) {
+    return fbclid ? `fb.1.${Date.now()}.${fbclid}` : "";
   }
 
   function setFormStatus(target, message, className) {
