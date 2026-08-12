@@ -444,6 +444,12 @@
           <div class="field"><label for="lead-phone">Telefone / WhatsApp</label><input id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 99999-9999" required></div>
           <div class="field"><label for="lead-revenue">Faturamento médio mensal</label><input id="lead-revenue" name="monthly_revenue" type="text" autocomplete="on" inputmode="numeric" placeholder="Ex: R$ 120.000/mês" required></div>
         </div>
+        <div class="field-row">
+          <div class="field"><label for="lead-clinic-owner">Você já possui clínica própria?</label>
+            <select id="lead-clinic-owner" name="clinic_owner" required><option value="">Selecione</option><option>Sim</option><option>Não</option></select>
+          </div>
+          <div class="field"><label for="lead-surgeries">Cirurgias vendidas por mês</label><input id="lead-surgeries" name="surgeries_month" type="text" autocomplete="on" inputmode="numeric" placeholder="Ex: 6 a 8" required></div>
+        </div>
         <button type="submit" class="btn">Quero ser selecionado
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6"/></svg>
         </button>
@@ -479,13 +485,17 @@
       name: form.elements.namedItem("name").value.trim(),
       email: form.elements.namedItem("email").value.trim(),
       phone: form.elements.namedItem("phone").value.trim(),
-      monthlyRevenue: form.elements.namedItem("monthly_revenue").value.trim()
+      monthlyRevenue: form.elements.namedItem("monthly_revenue").value.trim(),
+      clinicOwner: form.elements.namedItem("clinic_owner").value.trim(),
+      surgeriesMonth: form.elements.namedItem("surgeries_month").value.trim()
     };
     const answers = [
       `Nome completo: ${fields.name}`,
       `E-mail: ${fields.email}`,
       `Telefone / WhatsApp: ${fields.phone}`,
-      `Faturamento médio mensal: ${fields.monthlyRevenue}`
+      `Faturamento médio mensal: ${fields.monthlyRevenue}`,
+      `Clínica própria: ${fields.clinicOwner}`,
+      `Cirurgias vendidas por mês: ${fields.surgeriesMonth}`
     ];
 
     const message = [
@@ -521,12 +531,13 @@
 
   async function saveLead(fields) {
     const currentRevenue = parseMoney(fields.monthlyRevenue);
+    const currentSurgeries = parseInteger(fields.surgeriesMonth);
     const payload = {
       quiz: "sessao_estrategica",
       version: "sessao_estrategica_simplificada_2026-08-12",
       procedure: "Sessão Estratégica Gratuita",
-      current_surgeries_month: 0,
-      current_surgeries_label: "Não informado",
+      current_surgeries_month: currentSurgeries,
+      current_surgeries_label: fields.surgeriesMonth,
       current_average_ticket: 1,
       current_ticket_label: "Não informado",
       current_revenue: currentRevenue,
@@ -555,7 +566,9 @@
         nome: fields.name,
         email: fields.email,
         telefone: fields.phone,
-        faturamento_medio_mensal: fields.monthlyRevenue
+        faturamento_medio_mensal: fields.monthlyRevenue,
+        clinica_propria: fields.clinicOwner,
+        cirurgias_vendidas_por_mes: fields.surgeriesMonth
       },
       tracking: getTrackingData(),
       event_source_url: window.location.href
@@ -580,6 +593,12 @@
       .replace(",", ".");
     const parsed = Number(normalized);
     return Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
+  }
+
+  function parseInteger(value) {
+    const match = String(value || "").match(/\d+/);
+    const parsed = match ? Number(match[0]) : 0;
+    return Number.isFinite(parsed) ? Math.max(0, Math.round(parsed)) : 0;
   }
 
   function getTrackingData() {
