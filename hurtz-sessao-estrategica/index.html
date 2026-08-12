@@ -30,6 +30,9 @@
   }
   img{max-width:100%; display:block;}
   .wrap{max-width:1120px; margin:0 auto; padding:0 24px;}
+  header .wrap,
+  .hero > .wrap,
+  .stats .wrap{max-width:1888px; padding:0 clamp(24px,3.9vw,80px);}
   .eyebrow{
     font-size:11.5px;
     letter-spacing:.12em;
@@ -49,7 +52,7 @@
     background:var(--rust);
     color:var(--cream);
     border:none;
-    padding:18px 34px;
+    padding:15px 26px;
     display:inline-flex;
     align-items:center;
     gap:12px;
@@ -64,29 +67,29 @@
     background:var(--cream);
     border-bottom:1px solid var(--line);
   }
-  header .wrap{display:flex; align-items:center; justify-content:space-between; height:76px;}
+  header .wrap{display:flex; align-items:center; justify-content:space-between; height:64px;}
   .logo{display:flex; align-items:center; gap:12px;}
   .logo img{height:22px; width:auto; display:block;}
   .logo-word{font-family:'Inter', sans-serif; font-weight:700; font-size:20px; letter-spacing:.08em;}
   footer .logo img{height:24px;}
   footer .logo-word{color:var(--cream);}
-  header .btn{padding:12px 20px; font-size:12px;}
+  header .btn{padding:10px 18px; font-size:12px;}
 
   /* ---------- HERO ---------- */
-  .hero{padding:76px 0 40px; position:relative;}
-  .hero-grid{display:grid; grid-template-columns:1.1fr .9fr; gap:64px; align-items:center;}
-  .hero h1{font-size:clamp(38px,5.4vw,68px); margin:22px 0 24px;}
+  .hero{padding:34px 0 0; position:relative;}
+  .hero-grid{display:grid; grid-template-columns:minmax(0,1fr) minmax(380px,.9fr); gap:64px; align-items:end;}
+  .hero h1{font-size:clamp(34px,4vw,50px); margin:14px 0 16px; max-width:860px; line-height:1.04;}
   .hero h1 em{
     font-style:normal; color:var(--rust);
     position:relative;
   }
-  .hero-sub{font-size:19px; line-height:1.65; color:var(--stone); max-width:540px; margin-bottom:34px;}
+  .hero-sub{font-size:17px; line-height:1.5; color:var(--stone); max-width:620px; margin-bottom:18px;}
   .hero-sub strong{color:var(--black); font-weight:700;}
-  .hero-cta-row{display:flex; align-items:center; gap:18px; flex-wrap:wrap;}
-  .hero-note{font-size:13px; color:var(--stone); font-weight:700; letter-spacing:.04em; text-transform:uppercase;}
+  .hero-cta-row{display:flex; align-items:center; gap:12px; flex-wrap:wrap;}
+  .hero-note{font-size:11.5px; color:var(--stone); font-weight:700; letter-spacing:.04em; text-transform:uppercase;}
 
   /* staircase signature graphic */
-  .stairs{position:relative; height:340px;}
+  .stairs{position:relative; height:260px;}
   .stair-bar{
     position:absolute; bottom:0;
     background:var(--rust);
@@ -116,9 +119,9 @@
   }
 
   /* stat strip */
-  .stats{border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:56px;}
+  .stats{border-top:1px solid var(--line); border-bottom:1px solid var(--line); margin-top:24px;}
   .stats-grid{display:grid; grid-template-columns:repeat(3,1fr);}
-  .stat{padding:28px 24px; text-align:center; border-left:1px solid var(--line);}
+  .stat{padding:16px 24px; text-align:center; border-left:1px solid var(--line);}
   .stat:first-child{border-left:none;}
   .stat .n{font-family:'Inter', sans-serif; font-weight:700; font-size:clamp(24px,3vw,34px); color:var(--rust);}
   .stat .l{font-size:12.5px; line-height:1.5; color:var(--stone); margin-top:8px; text-transform:uppercase; letter-spacing:.04em; font-weight:700;}
@@ -244,6 +247,12 @@
     .field-row{grid-template-columns:1fr;}
     section{padding:64px 0;}
     header .btn{display:none;}
+    header .wrap{height:60px;}
+    .hero{padding-top:34px;}
+    .hero h1{font-size:clamp(34px,12vw,48px);}
+    .hero-sub{font-size:17px; max-width:none;}
+    .hero-grid > div:nth-child(2){display:none;}
+    .stats{margin-top:28px;}
   }
 </style>
 </head>
@@ -263,7 +272,7 @@
   <div class="wrap hero-grid">
     <div>
       <span class="eyebrow">Exclusivo para cirurgiões da face</span>
-      <h1>Sua técnica já vende.<br>Quem não vende é <em>sua clínica.</em></h1>
+      <h1>Sua técnica já vende.<br>Quem não vende<br>é <em>sua clínica.</em></h1>
       <p class="hero-sub">Rino e Blefaro boas você já sabe fazer. O que falta é uma <strong>Estrutura Comercial Independente</strong> que vende todos os meses mesmo com você na sala de cirurgia. Em 30 minutos, você sai com o plano para pelo menos <strong>20 cirurgias/mês.</strong></p>
       <div class="hero-cta-row">
         <a href="#form" class="btn">Quero minha sessão gratuita
