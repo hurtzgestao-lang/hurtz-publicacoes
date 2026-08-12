@@ -235,19 +235,31 @@
   .form-side .list-item:first-of-type{border-top:none;}
   .form-side .mark{color:var(--rust);}
 
-  .form-card{background:var(--cream); padding:44px; border:1px solid #242220;}
+  .form-card{background:var(--cream); padding:36px; border:1px solid #242220;}
   .form-card h3{font-family:'Inter', sans-serif; font-weight:700; font-size:19px; margin-bottom:6px; color:var(--black);}
-  .form-card .form-note{font-size:13px; color:var(--stone); margin-bottom:28px;}
-  .field{margin-bottom:18px;}
+  .form-card .form-note{font-size:13px; color:var(--stone); margin-bottom:24px;}
+  .field{margin-bottom:16px;}
   .field label{display:block; font-family:'Inter', sans-serif; font-weight:700; font-size:12.5px; text-transform:uppercase; letter-spacing:.04em; color:var(--stone); margin-bottom:8px;}
   .field input, .field select{
     width:100%; border:1px solid var(--line); background:#fff;
     padding:14px 15px; font-family:'Inter', sans-serif; font-size:16px; color:var(--black);
     outline:none; transition:border-color .2s ease;
   }
+  .field input::placeholder{color:#8c8880;}
   .field input:focus, .field select:focus{border-color:var(--rust);}
   .field-row{display:grid; grid-template-columns:1fr 1fr; gap:16px;}
   .form-card .btn{width:100%; justify-content:center; margin-top:8px; padding:17px;}
+  .form-card .btn[disabled]{background:var(--rust-dark); cursor:wait;}
+  .form-status{
+    min-height:22px;
+    margin-top:14px;
+    font-size:13px;
+    line-height:1.5;
+    color:var(--stone);
+  }
+  .form-status.is-success{color:#1A7A4A; font-weight:700;}
+  .form-status.is-error{color:#B52A2A; font-weight:700;}
+  .form-status a{color:var(--rust); font-weight:700;}
 
   /* ---------- FOOTER ---------- */
   footer{background:var(--black); color:#75705f; padding:40px 0 32px; border-top:1px solid #201d19;}
@@ -423,29 +435,19 @@
     <div class="form-card">
       <h3>Insira seus dados abaixo</h3>
       <p class="form-note">Levamos até 1 dia útil para retornar via WhatsApp.</p>
-      <form onsubmit="submitLeadForm(event)">
+      <form id="lead-form" autocomplete="on" onsubmit="submitLeadForm(event)">
         <div class="field-row">
-          <div class="field"><label>Nome completo</label><input type="text" required></div>
-          <div class="field"><label>Instagram</label><input type="text" placeholder="@seuclinica" required></div>
+          <div class="field"><label for="lead-name">Nome completo</label><input id="lead-name" name="name" type="text" autocomplete="name" placeholder="Seu nome completo" required></div>
+          <div class="field"><label for="lead-email">E-mail</label><input id="lead-email" name="email" type="email" autocomplete="email" placeholder="seu@email.com" required></div>
         </div>
         <div class="field-row">
-          <div class="field"><label>E-mail</label><input type="email" required></div>
-          <div class="field"><label>Telefone / WhatsApp</label><input type="tel" required></div>
-        </div>
-        <div class="field"><label>Você já possui clínica própria?</label>
-          <select required><option value="">Selecione</option><option>Sim</option><option>Não</option></select>
-        </div>
-        <div class="field-row">
-          <div class="field"><label>Quantas cirurgias você vende/mês?</label><input type="text" required></div>
-          <div class="field"><label>Ticket médio do procedimento</label><input type="text" required></div>
-        </div>
-        <div class="field-row">
-          <div class="field"><label>Faturamento médio mensal</label><input type="text" required></div>
-          <div class="field"><label>Melhor horário para contato</label><input type="text" required></div>
+          <div class="field"><label for="lead-phone">Telefone / WhatsApp</label><input id="lead-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" placeholder="(11) 99999-9999" required></div>
+          <div class="field"><label for="lead-revenue">Faturamento médio mensal</label><input id="lead-revenue" name="monthly_revenue" type="text" autocomplete="on" inputmode="numeric" placeholder="Ex: R$ 120.000/mês" required></div>
         </div>
         <button type="submit" class="btn">Quero ser selecionado
           <svg width="16" height="16" viewBox="0 0 16 16" fill="none"><path d="M3 8H13M13 8L9 4M13 8L9 12" stroke="currentColor" stroke-width="1.6"/></svg>
         </button>
+        <p class="form-status" id="form-status" aria-live="polite"></p>
       </form>
     </div>
   </div>
@@ -465,27 +467,143 @@
 
 <script>
   const HURTZ_WHATSAPP = "5594988082290";
+  const LEAD_ENDPOINT = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/apr-submit";
 
-  function submitLeadForm(event) {
+  async function submitLeadForm(event) {
     event.preventDefault();
 
     const form = event.currentTarget;
-    const answers = Array.from(form.querySelectorAll(".field"))
-      .map((field) => {
-        const label = field.querySelector("label")?.textContent?.trim();
-        const control = field.querySelector("input, select, textarea");
-        const value = control?.value?.trim();
-        return label && value ? `${label}: ${value}` : null;
-      })
-      .filter(Boolean);
+    const status = document.getElementById("form-status");
+    const button = form.querySelector("button[type='submit']");
+    const fields = {
+      name: form.elements.namedItem("name").value.trim(),
+      email: form.elements.namedItem("email").value.trim(),
+      phone: form.elements.namedItem("phone").value.trim(),
+      monthlyRevenue: form.elements.namedItem("monthly_revenue").value.trim()
+    };
+    const answers = [
+      `Nome completo: ${fields.name}`,
+      `E-mail: ${fields.email}`,
+      `Telefone / WhatsApp: ${fields.phone}`,
+      `Faturamento médio mensal: ${fields.monthlyRevenue}`
+    ];
 
     const message = [
       "Olá, quero ser selecionado para a Sessão Estratégica Gratuita.",
       "",
       ...answers
     ].join("\n");
+    const whatsappUrl = `https://wa.me/${HURTZ_WHATSAPP}?text=${encodeURIComponent(message)}`;
 
-    window.open(`https://wa.me/${HURTZ_WHATSAPP}?text=${encodeURIComponent(message)}`, "_blank", "noopener");
+    setFormStatus(status, "Salvando seus dados...", "");
+    button.disabled = true;
+    button.dataset.originalText = button.dataset.originalText || button.textContent.trim();
+    button.firstChild.textContent = "Enviando ";
+
+    try {
+      await saveLead(fields);
+      setFormStatus(status, "Dados recebidos. Vamos abrir o WhatsApp para continuar o atendimento.", "is-success");
+      button.firstChild.textContent = "Dados enviados ";
+
+      window.setTimeout(() => {
+        const opened = window.open(whatsappUrl, "_blank", "noopener");
+        if (!opened) {
+          status.innerHTML = `Dados recebidos. <a href="${whatsappUrl}" target="_blank" rel="noopener">Abrir WhatsApp</a>`;
+        }
+      }, 350);
+    } catch (error) {
+      console.error("[lead-form] submit failed", error);
+      setFormStatus(status, "Não consegui confirmar o envio agora. Tente novamente em alguns segundos.", "is-error");
+      button.disabled = false;
+      button.firstChild.textContent = "Quero ser selecionado ";
+    }
+  }
+
+  async function saveLead(fields) {
+    const currentRevenue = parseMoney(fields.monthlyRevenue);
+    const payload = {
+      quiz: "sessao_estrategica",
+      version: "sessao_estrategica_simplificada_2026-08-12",
+      procedure: "Sessão Estratégica Gratuita",
+      current_surgeries_month: 0,
+      current_surgeries_label: "Não informado",
+      current_average_ticket: 1,
+      current_ticket_label: "Não informado",
+      current_revenue: currentRevenue,
+      desired_surgeries_month: 20,
+      desired_surgeries_label: "20+",
+      desired_average_ticket: 1,
+      desired_ticket_label: "Não informado",
+      goal_revenue: Math.max(currentRevenue, 20),
+      growth_surgeries: 20,
+      growth_revenue: 0,
+      evaluations_month: 0,
+      consultations_label: "Não informado",
+      estimated_conversion: 0,
+      main_source: "Sessão Estratégica",
+      first_contact_owner: "WhatsApp",
+      followup_process: "Retorno via WhatsApp em até 1 dia útil",
+      priority: "Lead da Sessão Estratégica",
+      lead: {
+        name: fields.name,
+        nome: fields.name,
+        email: fields.email,
+        whatsapp: fields.phone,
+        instagram: "nao_informado"
+      },
+      form_answers: {
+        nome: fields.name,
+        email: fields.email,
+        telefone: fields.phone,
+        faturamento_medio_mensal: fields.monthlyRevenue
+      },
+      tracking: getTrackingData(),
+      event_source_url: window.location.href
+    };
+
+    const response = await fetch(LEAD_ENDPOINT, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(payload)
+    });
+    const data = await response.json().catch(() => ({}));
+    if (!response.ok || !data.success) {
+      throw new Error(data.error || "Não foi possível salvar o lead.");
+    }
+    return data;
+  }
+
+  function parseMoney(value) {
+    const normalized = String(value || "")
+      .replace(/[^\d,.-]/g, "")
+      .replace(/\.(?=\d{3}(\D|$))/g, "")
+      .replace(",", ".");
+    const parsed = Number(normalized);
+    return Number.isFinite(parsed) ? Math.max(0, parsed) : 0;
+  }
+
+  function getTrackingData() {
+    const params = new URLSearchParams(window.location.search);
+    const keys = [
+      "utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term",
+      "utm_campaign_id", "utm_adset", "utm_adset_id", "utm_ad", "utm_ad_id",
+      "campaign_id", "adset_id", "ad_id", "placement", "site_source_name", "fbclid"
+    ];
+    const tracking = {
+      landing_url: window.location.href,
+      referrer_url: document.referrer || "",
+      event_source_url: window.location.href
+    };
+    keys.forEach((key) => {
+      const value = params.get(key);
+      if (value) tracking[key] = value;
+    });
+    return tracking;
+  }
+
+  function setFormStatus(target, message, className) {
+    target.className = `form-status ${className || ""}`.trim();
+    target.textContent = message;
   }
 </script>
 </body>
