@@ -685,12 +685,15 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     try {
       const leadEventId = createMetaEventId("lead");
       await saveLead(fields, leadEventId);
-      trackMetaBrowserEvent("Lead", {
+      const leadMetaData = {
         content_name: "Sessão Estratégica Gratuita",
-        content_category: "Lead",
-        currency: "BRL",
-        value: Number.isFinite(fields.monthlyRevenueAmount) ? fields.monthlyRevenueAmount : 0
-      }, leadEventId);
+        content_category: "Lead"
+      };
+      if (Number.isFinite(fields.monthlyRevenueAmount) && fields.monthlyRevenueAmount > 0) {
+        leadMetaData.currency = "BRL";
+        leadMetaData.value = fields.monthlyRevenueAmount;
+      }
+      trackMetaBrowserEvent("Lead", leadMetaData, leadEventId, true);
       setFormStatus(status, "Dados recebidos. Vamos abrir o WhatsApp para continuar o atendimento.", "is-success");
       button.firstChild.textContent = "Dados enviados ";
 
@@ -855,9 +858,31 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     }
   }
 
-  function trackMetaBrowserEvent(eventName, data, eventId) {
-    if (typeof window.fbq !== "function") return;
-    window.fbq("track", eventName, data || {}, { eventID: eventId });
+  function trackMetaBrowserEvent(eventName, data, eventId, useImageFallback = false) {
+    if (typeof window.fbq === "function") {
+      window.fbq("track", eventName, data || {}, { eventID: eventId });
+    }
+    if (useImageFallback) {
+      fireMetaPixelImage(eventName, data || {}, eventId);
+    }
+  }
+
+  function fireMetaPixelImage(eventName, data, eventId) {
+    const params = new URLSearchParams({
+      id: META_PIXEL_ID,
+      ev: eventName,
+      noscript: "1"
+    });
+    if (eventId) params.set("eid", eventId);
+    Object.entries(data).forEach(([key, value]) => {
+      if (value !== undefined && value !== null && value !== "") {
+        params.set(`cd[${key}]`, String(value));
+      }
+    });
+    const pixel = new Image(1, 1);
+    pixel.style.display = "none";
+    pixel.src = `https://www.facebook.com/tr?${params.toString()}`;
+    document.body.appendChild(pixel);
   }
 
   function createMetaEventId(type) {
