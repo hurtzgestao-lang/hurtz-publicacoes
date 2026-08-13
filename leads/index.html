@@ -288,7 +288,7 @@
     $("loginForm").classList.add("hidden");
     $("dashboard").classList.remove("hidden");
     setStatus("Carregando leads...");
-    const params = new URLSearchParams({ dashboard: "1" });
+    const params = new URLSearchParams({ dashboard: "1", session_strategic: "1" });
     if ($("sinceInput").value) params.set("since", $("sinceInput").value);
     if ($("untilInput").value) params.set("until", $("untilInput").value);
 
