@@ -299,11 +299,11 @@
       });
       const data = await response.json();
       if (!response.ok || !data.success) throw new Error(data.error || "Erro ao carregar leads");
-      state.rows = Array.isArray(data.rows) ? data.rows : [];
-      hydrateSelects(data.breakdowns || {});
+      state.rows = (Array.isArray(data.rows) ? data.rows : []).filter(isSessionStrategicLead);
+      hydrateSelects(buildBreakdowns(state.rows));
       applyFilters();
       const updatedAt = data.generated_at ? dateTime.format(new Date(data.generated_at)) : "";
-      setStatus(`Atualizado em ${updatedAt}. Exibindo até 500 leads mais recentes.`);
+      setStatus(`Atualizado em ${updatedAt}. Exibindo leads da Sessão Estratégica encontrados entre os 500 registros mais recentes.`);
     } catch (error) {
       setStatus(error.message || "Erro ao carregar leads", true);
       if (/token/i.test(error.message || "")) logout();
@@ -313,6 +313,24 @@
   function hydrateSelects(breakdowns) {
     hydrateSelect("sourceInput", breakdowns.sources || [], "Todas");
     hydrateSelect("priorityInput", breakdowns.priorities || [], "Todas");
+  }
+
+  function buildBreakdowns(rows) {
+    return {
+      sources: countRowsBy(rows, "main_source"),
+      priorities: countRowsBy(rows, "priority")
+    };
+  }
+
+  function countRowsBy(rows, key) {
+    const counts = new Map();
+    rows.forEach((row) => {
+      const label = String(row[key] || "Não informado").trim() || "Não informado";
+      counts.set(label, (counts.get(label) || 0) + 1);
+    });
+    return Array.from(counts.entries())
+      .map(([label, value]) => ({ label, value }))
+      .sort((a, b) => b.value - a.value || a.label.localeCompare(b.label));
   }
 
   function hydrateSelect(id, items, fallbackLabel) {
@@ -404,6 +422,15 @@
   function setStatus(message, isError = false) {
     $("statusLine").textContent = message;
     $("statusLine").classList.toggle("error", !!isError);
+  }
+  function isSessionStrategicLead(row) {
+    const haystack = normalize([
+      row.procedure,
+      row.main_source,
+      row.priority,
+      row.utm_campaign
+    ].join(" "));
+    return haystack.includes("sessao estrategica");
   }
   function normalize(value) {
     return String(value || "").normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
