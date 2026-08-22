@@ -1,0 +1,766 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <meta http-equiv="refresh" content="3600"/>
+  <title>Dashboard Tráfego — Agosto 2026 · Hurtz</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com"/>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+  <style>
+    :root {
+      --brasa:      #C06018;
+      --brasa-dim:  #97480E;
+      --brasa-glow: rgba(192,96,24,0.15);
+      --bg:         #181614;
+      --bg-camp:    #232323;
+      --bg-adset:   #1E1E1E;
+      --bg-ad:      #1A1A1A;
+      --surface:    #2A2A2A;
+      --border:     #383838;
+      --border-dim: #2C2C2C;
+      --text:       #E8E4DC;
+      --text-dim:   #8C8880;
+      --text-muted: #5A5652;
+      --good:       #1A7A4A;
+      --good-text:  #4ADE80;
+      --warn-text:  #C06018;
+      --bad:        #B52A2A;
+      --bad-text:   #F87171;
+      --blue:       #3A6FBF;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body { font-family: 'Inter', system-ui, sans-serif; background: var(--bg); color: var(--text); font-size: 13px; line-height: 1.5; }
+
+    /* ── Layout ── */
+    .app { display: flex; flex-direction: column; min-height: 100vh; }
+    .topbar {
+      background: var(--bg-camp); border-bottom: 1px solid var(--border);
+      padding: 0 24px; height: 56px; display: flex; align-items: center; justify-content: space-between;
+      position: sticky; top: 0; z-index: 100;
+    }
+    .logo { font-weight: 700; font-size: 15px; color: var(--brasa); letter-spacing: -0.02em; }
+    .logo span { color: var(--text-dim); font-weight: 400; }
+    .topbar-meta { font-size: 11px; color: var(--text-dim); }
+    .topbar-meta strong { color: var(--text); }
+    .main { padding: 20px 24px 40px; max-width: 1600px; margin: 0 auto; width: 100%; }
+
+    /* ── KPIs ── */
+    .kpis { display: grid; grid-template-columns: repeat(6, 1fr); gap: 10px; margin-bottom: 14px; }
+    @media(max-width:1300px){ .kpis { grid-template-columns: repeat(3,1fr); } }
+    @media(max-width:700px) { .kpis { grid-template-columns: repeat(2,1fr); } }
+    .kpi { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+    .kpi-label { font-size: 10px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 8px; }
+    .kpi-value { font-size: 24px; font-weight: 700; color: var(--brasa); letter-spacing: -.02em; line-height: 1; }
+    .kpi-sub   { font-size: 11px; color: var(--text-dim); margin-top: 5px; }
+
+    /* ── Panels row ── */
+    .panels { display: grid; grid-template-columns: 240px 1fr 220px; gap: 10px; margin-bottom: 14px; }
+    @media(max-width:1200px){ .panels { grid-template-columns: 1fr 1fr; } }
+    @media(max-width:700px) { .panels { grid-template-columns: 1fr; } }
+    .panel { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 14px 16px; }
+    .panel-title { font-size: 10px; font-weight: 600; color: var(--text-dim); text-transform: uppercase; letter-spacing: .08em; margin-bottom: 12px; }
+
+    /* ── Comparison ── */
+    .comp-row { display: flex; justify-content: space-between; align-items: center; padding: 6px 0; border-bottom: 1px solid var(--border-dim); font-size: 11px; gap: 8px; }
+    .comp-row:last-child { border-bottom: none; padding-bottom: 0; }
+    .comp-label { color: var(--text-dim); flex-shrink: 0; }
+    .comp-right { text-align: right; }
+    .comp-cur { color: var(--text); font-weight: 600; font-size: 12px; }
+    .comp-apr { color: var(--text-muted); font-size: 10px; margin-top: 1px; }
+
+    /* ── Funnel ── */
+    .funnel-steps { display: flex; align-items: flex-start; gap: 2px; overflow-x: auto; padding-bottom: 4px; }
+    .funnel-step { display: flex; flex-direction: column; align-items: center; min-width: 72px; flex: 1; padding: 0 4px; }
+    .funnel-arrow { display: flex; align-items: center; padding-top: 18px; color: var(--text-muted); font-size: 16px; flex-shrink: 0; }
+    .funnel-name { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-dim); margin-bottom: 5px; text-align: center; white-space: nowrap; }
+    .funnel-val { font-size: 20px; font-weight: 700; color: var(--text); line-height: 1; }
+    .funnel-val.mql   { color: var(--good-text); }
+    .funnel-val.sql   { color: var(--brasa); }
+    .funnel-val.venda { color: var(--good-text); font-size: 22px; }
+    .funnel-val.none  { color: var(--text-muted); font-size: 16px; }
+    .funnel-pct { font-size: 10px; font-weight: 600; margin-top: 4px; padding: 1px 7px; border-radius: 20px; background: var(--bg); }
+    .funnel-pct.good { color: var(--good-text); }
+    .funnel-pct.warn { color: var(--warn-text); }
+    .funnel-pct.bad  { color: var(--bad-text); }
+    .funnel-ref { font-size: 9px; color: var(--text-muted); margin-top: 4px; text-align: center; }
+
+    /* ── CRM inputs ── */
+    .crm-inputs { margin-top: 12px; padding-top: 10px; border-top: 1px solid var(--border-dim); display: flex; gap: 6px; align-items: flex-end; flex-wrap: wrap; }
+    .crm-inputs-label { font-size: 9px; font-weight: 600; text-transform: uppercase; letter-spacing: .07em; color: var(--text-muted); width: 100%; margin-bottom: -2px; }
+    .crm-field { display: flex; flex-direction: column; gap: 3px; flex: 1; min-width: 56px; }
+    .crm-field label { font-size: 9px; color: var(--text-dim); text-transform: uppercase; letter-spacing: .06em; }
+    .crm-field input {
+      background: var(--bg); border: 1px solid var(--border); border-radius: 4px;
+      color: var(--text); font-size: 13px; font-weight: 600; padding: 5px 7px;
+      width: 100%; font-family: inherit; outline: none;
+    }
+    .crm-field input:focus { border-color: var(--brasa); }
+    .crm-field input::placeholder { color: var(--text-muted); font-weight: 400; }
+
+    /* ── Desq bars ── */
+    .desq-bar-row { margin-bottom: 12px; }
+    .desq-bar-row:last-child { margin-bottom: 0; }
+    .desq-bar-header { display: flex; justify-content: space-between; margin-bottom: 5px; }
+    .desq-bar-label { font-size: 10px; color: var(--text-dim); }
+    .desq-bar-count { font-size: 11px; font-weight: 600; color: var(--text); }
+    .desq-bar-pct { font-size: 10px; color: var(--text-muted); font-weight: 400; margin-left: 2px; }
+    .desq-bar-track { height: 6px; background: var(--bg); border-radius: 3px; overflow: hidden; }
+    .desq-bar-fill { height: 100%; border-radius: 3px; transition: width .4s ease; }
+    .desq-total { font-size: 10px; color: var(--text-muted); margin-bottom: 10px; }
+
+    /* ── Period filter ── */
+    .toolbar { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
+    .period-btns { display: flex; gap: 4px; }
+    .period-btn {
+      background: var(--surface); border: 1px solid var(--border); color: var(--text-dim);
+      padding: 6px 14px; border-radius: 6px; font-size: 12px; font-weight: 500; cursor: pointer;
+      transition: all .15s;
+    }
+    .period-btn:hover { border-color: var(--brasa); color: var(--text); }
+    .period-btn.active { background: var(--brasa); border-color: var(--brasa); color: #fff; }
+    .refresh-info { font-size: 11px; color: var(--text-muted); }
+    .refresh-info strong { color: var(--text-dim); }
+
+    /* ── Table wrapper ── */
+    .table-wrap { background: var(--surface); border: 1px solid var(--border); border-radius: 8px; overflow: hidden; }
+    .table-scroll { overflow-x: auto; }
+    table { width: 100%; border-collapse: collapse; font-size: 12px; }
+
+    /* ── Table header ── */
+    thead th {
+      background: #2F2F2F; color: var(--text-dim); font-size: 10px; font-weight: 600;
+      text-transform: uppercase; letter-spacing: .07em; padding: 10px 12px;
+      border-bottom: 1px solid var(--border); white-space: nowrap; text-align: right;
+      cursor: pointer; user-select: none;
+    }
+    thead th:first-child { text-align: left; min-width: 320px; position: sticky; left: 0; background: #2F2F2F; z-index: 2; }
+    thead th:hover { color: var(--text); }
+    thead th.sort-asc::after  { content: ' ↑'; color: var(--brasa); }
+    thead th.sort-desc::after { content: ' ↓'; color: var(--brasa); }
+
+    /* ── Row levels ── */
+    tr.row-camp  { background: var(--bg-camp); cursor: pointer; }
+    tr.row-adset { background: var(--bg-adset); cursor: pointer; }
+    tr.row-ad    { background: var(--bg-ad); }
+    tr.row-camp:hover td, tr.row-adset:hover td { filter: brightness(1.2); }
+
+    td { padding: 9px 12px; border-bottom: 1px solid var(--border-dim); text-align: right; white-space: nowrap; vertical-align: middle; }
+    td:first-child { text-align: left; position: sticky; left: 0; z-index: 1; }
+    tr.row-camp  td:first-child { background: var(--bg-camp); }
+    tr.row-adset td:first-child { background: var(--bg-adset); }
+    tr.row-ad    td:first-child { background: var(--bg-ad);    }
+    tr:hover td:first-child { filter: brightness(1.15); }
+
+    /* ── Name cell ── */
+    .name-cell { display: flex; align-items: center; gap: 0; }
+    .tree-indent { display: inline-flex; align-items: center; flex-shrink: 0; }
+    .tree-line {
+      width: 24px; height: 36px;
+      border-left: 1px dashed var(--border); border-bottom: 1px dashed var(--border);
+      border-bottom-left-radius: 4px; margin-right: 0; flex-shrink: 0;
+    }
+    .chevron {
+      display: inline-flex; align-items: center; justify-content: center;
+      width: 20px; height: 20px; border-radius: 4px; flex-shrink: 0;
+      cursor: pointer; color: var(--text-dim); font-size: 9px; transition: transform .2s;
+      margin-right: 6px;
+    }
+    .chevron:hover { background: var(--brasa-glow); color: var(--brasa); }
+    .chevron.open { transform: rotate(90deg); }
+    .no-chevron { width: 20px; margin-right: 6px; flex-shrink: 0; }
+    .status-dot { width: 7px; height: 7px; border-radius: 50%; background: var(--text-muted); flex-shrink: 0; margin-right: 8px; }
+    .status-dot.active { background: var(--good-text); box-shadow: 0 0 5px rgba(74,222,128,.4); }
+    .entity-name { font-weight: 600; color: var(--text); overflow: hidden; text-overflow: ellipsis; max-width: 280px; }
+    .row-adset .entity-name { font-weight: 500; color: #C8C4BC; }
+    .row-ad    .entity-name { font-weight: 400; color: var(--text-dim); font-size: 11px; }
+    .row-camp  .entity-name { font-size: 13px; }
+
+    /* ── Metric cells ── */
+    .num { font-variant-numeric: tabular-nums; }
+    .col-spend  { color: var(--text); }
+    .col-leads  { color: var(--text-dim); }
+    .col-mql    { color: var(--good-text); font-weight: 600; }
+    .col-pct    { font-weight: 700; }
+    .col-pct.good { color: var(--good-text); }
+    .col-pct.warn { color: var(--warn-text); }
+    .col-pct.bad  { color: var(--bad-text); }
+    .col-cpl    { color: var(--text-dim); }
+    .col-cpmql  { color: var(--brasa); font-weight: 700; }
+    .col-cpvenda { color: var(--good-text); font-weight: 700; }
+    .col-imp    { color: var(--text-muted); }
+    .dash       { color: var(--text-muted); }
+
+    /* ── Empty state ── */
+    .empty-row td { text-align: center; color: var(--text-dim); padding: 32px; font-style: italic; }
+
+    /* ── Footer ── */
+    footer { text-align: center; color: var(--text-muted); font-size: 11px; margin-top: 24px; padding: 16px 0 8px; border-top: 1px solid var(--border-dim); }
+    footer strong { color: var(--text-dim); }
+  </style>
+</head>
+<body>
+<div class="app">
+
+<div class="topbar">
+  <div class="logo">HURTZ <span>· Dashboard de Tráfego · Agosto 2026</span></div>
+  <div class="topbar-meta">Atualizado em <strong>21/08/2026, 22:42:35</strong></div>
+</div>
+
+<div class="main">
+
+  <!-- KPIs -->
+  <div class="kpis" id="kpis">
+    <div class="kpi"><div class="kpi-label">Investimento</div><div class="kpi-value" id="kpi-spend">—</div><div class="kpi-sub" id="kpi-imp">—</div></div>
+    <div class="kpi"><div class="kpi-label">Leads (formulário)</div><div class="kpi-value" id="kpi-leads">—</div><div class="kpi-sub" id="kpi-cpl">—</div></div>
+    <div class="kpi"><div class="kpi-label">MQLs</div><div class="kpi-value" id="kpi-mql">—</div><div class="kpi-sub" id="kpi-pct">—</div></div>
+    <div class="kpi"><div class="kpi-label">Custo por MQL</div><div class="kpi-value" id="kpi-cpmql">—</div><div class="kpi-sub" id="kpi-mql-sub">—</div></div>
+    <div class="kpi"><div class="kpi-label">Custo por Venda</div><div class="kpi-value" id="kpi-cpvenda" style="color:var(--good-text)">—</div><div class="kpi-sub" id="kpi-cpvenda-sub">—</div></div>
+    <div class="kpi"><div class="kpi-label">Desqualificados</div><div class="kpi-value" id="kpi-desq" style="color:var(--text-dim)">—</div><div class="kpi-sub" id="kpi-desq-sub">—</div></div>
+  </div>
+
+  <!-- Panels: Comparação | Funil | Desqualificações -->
+  <div class="panels">
+
+    <!-- Comparação Abril vs Mês atual -->
+    <div class="panel">
+      <div class="panel-title">Abril vs Agosto 2026</div>
+      <div id="comp-grid"></div>
+    </div>
+
+    <!-- Funil de Conversão -->
+    <div class="panel">
+      <div class="panel-title">Funil de Conversão</div>
+      <div class="funnel-steps" id="funnel-steps"></div>
+      <div class="crm-inputs">
+        <div class="crm-inputs-label">Dados CRM — atualizar manualmente</div>
+        <div class="crm-field"><label>SQL</label><input type="number" id="crm-sql" min="0" placeholder="0" oninput="saveCRM()"/></div>
+        <div class="crm-field"><label>Agenda</label><input type="number" id="crm-agenda" min="0" placeholder="0" oninput="saveCRM()"/></div>
+        <div class="crm-field"><label>Vendas</label><input type="number" id="crm-vendas" min="0" placeholder="0" oninput="saveCRM()"/></div>
+      </div>
+    </div>
+
+    <!-- Desqualificações -->
+    <div class="panel">
+      <div class="panel-title">Motivo Desqualificação</div>
+      <div id="desq-bars"></div>
+    </div>
+
+  </div>
+
+  <!-- Toolbar -->
+  <div class="toolbar">
+    <div class="period-btns">
+      <button class="period-btn" data-period="today" onclick="setPeriod('today')">Hoje</button>
+      <button class="period-btn" data-period="week"  onclick="setPeriod('week')">Esta semana</button>
+      <button class="period-btn active" data-period="month" onclick="setPeriod('month')">Este mês</button>
+    </div>
+    <div class="refresh-info">Próxima atualização em <strong id="countdown">60:00</strong></div>
+  </div>
+
+  <!-- Drill-down table -->
+  <div class="table-wrap">
+    <div class="table-scroll">
+      <table id="dash-table">
+        <thead>
+          <tr>
+            <th onclick="sortBy('name')">Campanha / Conjunto / Anúncio</th>
+            <th onclick="sortBy('s')">Gasto</th>
+            <th onclick="sortBy('im')">Impressões</th>
+            <th onclick="sortBy('cl')">Cliques</th>
+            <th onclick="sortBy('leads')">Leads</th>
+            <th onclick="sortBy('mql')">MQLs</th>
+            <th onclick="sortBy('pct')">% MQL</th>
+            <th onclick="sortBy('desq')">Desqualif.</th>
+            <th onclick="sortBy('cpl')">CPL</th>
+            <th onclick="sortBy('cpmql')">Custo/MQL</th>
+            <th onclick="sortBy('cpvenda')" title="Custo/Venda projetado via taxa MQL→Venda global">Custo/Venda</th>
+          </tr>
+        </thead>
+        <tbody id="dash-body">
+          <tr class="empty-row"><td colspan="10">Carregando dados...</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+</div><!-- /main -->
+
+<footer>
+  Hurtz Company · <strong>Agosto 2026</strong> · build-dashboard.js v3
+  · Critério MQL: não-consultor · time≥2 · não-exclusivo-banco
+  · Fontes: 0 leads · 123 linhas Meta Ads
+</footer>
+</div><!-- /app -->
+
+<script>
+// ── Raw data ──────────────────────────────────────────────────
+const INSIGHT_ROWS  = [{"dt":"2026-08-01","ci":"120251181956240100","cn":"06 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251181956300100","an":"STORIES E REELS 25 A 50","di":"120251181956260100","dn":"BLEFARO","s":7.25,"im":229,"cl":3,"lm":1},{"dt":"2026-08-01","ci":"120251204359200100","cn":"05 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251204359180100","an":"STORIES E REELS 25 A 50","di":"120251204359190100","dn":"BLEFARO","s":8.21,"im":211,"cl":3,"lm":0},{"dt":"2026-08-01","ci":"120251213935480100","cn":"04 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251213935520100","an":"STORIES E REELS 25 A 50","di":"120251213935500100","dn":"rino","s":6.44,"im":205,"cl":1,"lm":0},{"dt":"2026-08-01","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":6.4,"im":170,"cl":1,"lm":0},{"dt":"2026-08-01","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":5.39,"im":154,"cl":1,"lm":0},{"dt":"2026-08-01","ci":"120251275722200100","cn":"03 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722170100","an":"IG - [FEED] [STORIES] [REELS] 30 A 50","di":"120251275722220100","dn":"BLEFARO","s":8.27,"im":183,"cl":5,"lm":0},{"dt":"2026-08-02","ci":"120251181956240100","cn":"06 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251181956300100","an":"STORIES E REELS 25 A 50","di":"120251181956260100","dn":"BLEFARO","s":7.32,"im":222,"cl":2,"lm":0},{"dt":"2026-08-02","ci":"120251204359200100","cn":"05 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251204359180100","an":"STORIES E REELS 25 A 50","di":"120251204359190100","dn":"BLEFARO","s":6.25,"im":191,"cl":2,"lm":0},{"dt":"2026-08-02","ci":"120251213935480100","cn":"04 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251213935520100","an":"STORIES E REELS 25 A 50","di":"120251213935500100","dn":"rino","s":7.71,"im":217,"cl":0,"lm":0},{"dt":"2026-08-02","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":6.43,"im":176,"cl":0,"lm":0},{"dt":"2026-08-02","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":9.4,"im":132,"cl":2,"lm":0},{"dt":"2026-08-02","ci":"120251275722200100","cn":"03 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722170100","an":"IG - [FEED] [STORIES] [REELS] 30 A 50","di":"120251275722220100","dn":"BLEFARO","s":7.24,"im":191,"cl":8,"lm":0},{"dt":"2026-08-03","ci":"120251181956240100","cn":"06 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251181956300100","an":"STORIES E REELS 25 A 50","di":"120251181956260100","dn":"BLEFARO","s":19.13,"im":389,"cl":11,"lm":1},{"dt":"2026-08-03","ci":"120251204359200100","cn":"05 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251204359180100","an":"STORIES E REELS 25 A 50","di":"120251204359190100","dn":"BLEFARO","s":25.32,"im":564,"cl":20,"lm":1},{"dt":"2026-08-03","ci":"120251213935480100","cn":"04 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251213935520100","an":"STORIES E REELS 25 A 50","di":"120251213935500100","dn":"rino","s":21.73,"im":416,"cl":12,"lm":2},{"dt":"2026-08-03","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":25.22,"im":472,"cl":6,"lm":1},{"dt":"2026-08-03","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":25.28,"im":354,"cl":5,"lm":0},{"dt":"2026-08-03","ci":"120251275722200100","cn":"03 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722170100","an":"IG - [FEED] [STORIES] [REELS] 30 A 50","di":"120251275722220100","dn":"BLEFARO","s":22.15,"im":246,"cl":13,"lm":2},{"dt":"2026-08-03","ci":"120251377143840100","cn":"REMARKEING - FORMS 02 RINO - LEADS - BUCOS — Cópia","ai":"120251377143790100","an":"01 - ENVOLVIMENTO - STORIES E REELS 25 A 50","di":"120251377143810100","dn":"rino","s":15.57,"im":195,"cl":2,"lm":0},{"dt":"2026-08-03","ci":"120251377478050100","cn":"VISITAS AO PERFIL","ai":"120251377478060100","an":"ABERTO","di":"120251377478070100","dn":"PLANO PRATICO","s":9.35,"im":2306,"cl":55,"lm":0},{"dt":"2026-08-03","ci":"120251377478050100","cn":"VISITAS AO PERFIL","ai":"120251377478060100","an":"ABERTO","di":"120251391378130100","dn":"PLANO PRATICO — Cópia","s":8.59,"im":2133,"cl":56,"lm":0},{"dt":"2026-08-03","ci":"120251377478050100","cn":"VISITAS AO PERFIL","ai":"120251377478060100","an":"ABERTO","di":"120251391379030100","dn":"PLANO PRATICO — Cópia","s":5.85,"im":973,"cl":25,"lm":0},{"dt":"2026-08-04","ci":"120251181956240100","cn":"06 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251181956300100","an":"STORIES E REELS 25 A 50","di":"120251181956260100","dn":"BLEFARO","s":17.91,"im":289,"cl":2,"lm":0},{"dt":"2026-08-04","ci":"120251204359200100","cn":"05 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251204359180100","an":"STORIES E REELS 25 A 50","di":"120251204359190100","dn":"BLEFARO","s":20.97,"im":507,"cl":15,"lm":0},{"dt":"2026-08-04","ci":"120251213935480100","cn":"04 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251213935520100","an":"STORIES E REELS 25 A 50","di":"120251213935500100","dn":"rino","s":24.86,"im":538,"cl":5,"lm":0},{"dt":"2026-08-04","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":22.34,"im":377,"cl":15,"lm":1},{"dt":"2026-08-04","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":21.15,"im":325,"cl":7,"lm":1},{"dt":"2026-08-04","ci":"120251275722200100","cn":"03 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722170100","an":"IG - [FEED] [STORIES] [REELS] 30 A 50","di":"120251275722220100","dn":"BLEFARO","s":21.76,"im":271,"cl":3,"lm":0},{"dt":"2026-08-04","ci":"120251377143840100","cn":"REMARKEING - FORMS 02 RINO - LEADS - BUCOS — Cópia","ai":"120251377143790100","an":"01 - ENVOLVIMENTO - STORIES E REELS 25 A 50","di":"120251377143810100","dn":"rino","s":5.15,"im":72,"cl":2,"lm":0},{"dt":"2026-08-04","ci":"120251377478050100","cn":"VISITAS AO PERFIL","ai":"120251377478060100","an":"ABERTO","di":"120251377478070100","dn":"PLANO PRATICO","s":3.78,"im":645,"cl":32,"lm":0},{"dt":"2026-08-04","ci":"120251377478050100","cn":"VISITAS AO PERFIL","ai":"120251377478060100","an":"ABERTO","di":"120251391378130100","dn":"PLANO PRATICO — Cópia","s":3.31,"im":682,"cl":23,"lm":0},{"dt":"2026-08-04","ci":"120251377478050100","cn":"VISITAS AO PERFIL","ai":"120251377478060100","an":"ABERTO","di":"120251391379030100","dn":"PLANO PRATICO — Cópia","s":4.15,"im":553,"cl":23,"lm":0},{"dt":"2026-08-05","ci":"120251181956240100","cn":"06 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251181956300100","an":"STORIES E REELS 25 A 50","di":"120251181956260100","dn":"BLEFARO","s":14.02,"im":269,"cl":3,"lm":0},{"dt":"2026-08-05","ci":"120251204359200100","cn":"05 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251204359180100","an":"STORIES E REELS 25 A 50","di":"120251204359190100","dn":"BLEFARO","s":13.87,"im":296,"cl":8,"lm":0},{"dt":"2026-08-05","ci":"120251213935480100","cn":"04 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251213935520100","an":"STORIES E REELS 25 A 50","di":"120251213935500100","dn":"rino","s":15.4,"im":383,"cl":4,"lm":0},{"dt":"2026-08-05","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":15.4,"im":292,"cl":9,"lm":3},{"dt":"2026-08-05","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":15.25,"im":247,"cl":3,"lm":0},{"dt":"2026-08-05","ci":"120251275722200100","cn":"03 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722170100","an":"IG - [FEED] [STORIES] [REELS] 30 A 50","di":"120251275722220100","dn":"BLEFARO","s":14.29,"im":239,"cl":5,"lm":0},{"dt":"2026-08-06","ci":"120251181956240100","cn":"06 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251181956300100","an":"STORIES E REELS 25 A 50","di":"120251181956260100","dn":"BLEFARO","s":8.12,"im":149,"cl":4,"lm":0},{"dt":"2026-08-06","ci":"120251204359200100","cn":"05 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251204359180100","an":"STORIES E REELS 25 A 50","di":"120251204359190100","dn":"BLEFARO","s":8.71,"im":203,"cl":4,"lm":0},{"dt":"2026-08-06","ci":"120251213935480100","cn":"04 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251213935520100","an":"STORIES E REELS 25 A 50","di":"120251213935500100","dn":"rino","s":8.8,"im":271,"cl":1,"lm":0},{"dt":"2026-08-06","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":23.76,"im":666,"cl":6,"lm":1},{"dt":"2026-08-06","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":23.82,"im":411,"cl":10,"lm":2},{"dt":"2026-08-06","ci":"120251275722200100","cn":"03 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722170100","an":"IG - [FEED] [STORIES] [REELS] 30 A 50","di":"120251275722220100","dn":"BLEFARO","s":8.44,"im":113,"cl":2,"lm":0},{"dt":"2026-08-07","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":57.84,"im":1985,"cl":23,"lm":4},{"dt":"2026-08-07","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":57.57,"im":764,"cl":13,"lm":1},{"dt":"2026-08-07","ci":"120251474469010100","cn":"03 - [LEADS] [FORMS NATIVO] [RINO] [BUCO] — Cópia","ai":"120251474469080100","an":"STORIES E REELS 25 A 50","di":"120251474468970100","dn":"rino","s":21.15,"im":541,"cl":4,"lm":0},{"dt":"2026-08-07","ci":"120251474469020100","cn":"01 - [LEADS] [FORMS NATIVO] [RINO] [DENTISTA] — Cópia","ai":"120251474469060100","an":"STORIES E REELS 25 A 50","di":"120251474468980100","dn":"rino","s":22.27,"im":321,"cl":3,"lm":0},{"dt":"2026-08-07","ci":"120251474469030100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO] — Cópia","ai":"120251474469070100","an":"STORIES E REELS 25 A 50","di":"120251474468990100","dn":"rino","s":25.14,"im":594,"cl":10,"lm":0},{"dt":"2026-08-07","ci":"120251474469000100","cn":"04 - [LEADS] [FORMS NATIVO] [RINO] [DENTISTA]","ai":"120251474469050100","an":"STORIES E REELS 25 A 50","di":"120251474469040100","dn":"rino","s":18.83,"im":483,"cl":2,"lm":0},{"dt":"2026-08-08","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":38.56,"im":922,"cl":17,"lm":1},{"dt":"2026-08-08","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":35.82,"im":497,"cl":15,"lm":3},{"dt":"2026-08-09","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":63.73,"im":1435,"cl":22,"lm":4},{"dt":"2026-08-09","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":65.52,"im":765,"cl":16,"lm":1},{"dt":"2026-08-10","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":55.07,"im":1943,"cl":27,"lm":3},{"dt":"2026-08-10","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":52.71,"im":703,"cl":23,"lm":3},{"dt":"2026-08-11","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":49.05,"im":1713,"cl":11,"lm":1},{"dt":"2026-08-11","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":54.95,"im":642,"cl":13,"lm":2},{"dt":"2026-08-11","ci":"120251474469010100","cn":"03 - [LEADS] [FORMS NATIVO] [RINO] [BUCO] — Cópia","ai":"120251474469080100","an":"STORIES E REELS 25 A 50","di":"120251474468970100","dn":"rino","s":0,"im":0,"cl":0,"lm":0},{"dt":"2026-08-11","ci":"120251583393740100","cn":"VISITAS AO PERFIL — Cópia","ai":"120251583393730100","an":"ABERTO","di":"120251583393770100","dn":"PLANO PRATICO","s":6.35,"im":2062,"cl":37,"lm":0},{"dt":"2026-08-12","ci":"120251275722210100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO]","ai":"120251275722120100","an":"STORIES E REELS 25 A 50","di":"120251275722140100","dn":"rino","s":28.69,"im":801,"cl":7,"lm":0},{"dt":"2026-08-12","ci":"120251275722100100","cn":"01 - [LEADS] [FORMS NATIVO] [BLEFARO] [BUCO]","ai":"120251275722160100","an":"STORIES E REELS 25 A 50","di":"120251275722150100","dn":"BLEFARO","s":26.98,"im":337,"cl":5,"lm":0},{"dt":"2026-08-12","ci":"120251583393740100","cn":"VISITAS AO PERFIL — Cópia","ai":"120251583393730100","an":"ABERTO","di":"120251583393770100","dn":"PLANO PRATICO","s":6.91,"im":2336,"cl":40,"lm":0},{"dt":"2026-08-12","ci":"120251616142370100","cn":"02 - [LEADS] [SITE] [RINO] [BUCO]","ai":"120251616142380100","an":"STORIES E REELS 25 A 50","di":"120251616142390100","dn":"rino","s":11.53,"im":395,"cl":9,"lm":0},{"dt":"2026-08-12","ci":"120251616254650100","cn":"01 - [LEADS] [SITE] [BLEFARO] [BUCO]","ai":"120251616254660100","an":"STORIES E REELS 25 A 50","di":"120251616254670100","dn":"BLEFARO","s":12.1,"im":278,"cl":11,"lm":0},{"dt":"2026-08-13","ci":"120251583393740100","cn":"VISITAS AO PERFIL — Cópia","ai":"120251583393730100","an":"ABERTO","di":"120251583393770100","dn":"PLANO PRATICO","s":5.22,"im":1553,"cl":24,"lm":0},{"dt":"2026-08-13","ci":"120251616142370100","cn":"02 - [LEADS] [SITE] [RINO] [BUCO]","ai":"120251616142380100","an":"STORIES E REELS 25 A 50","di":"120251616142390100","dn":"rino","s":32.73,"im":467,"cl":12,"lm":0},{"dt":"2026-08-13","ci":"120251616254650100","cn":"01 - [LEADS] [SITE] [BLEFARO] [BUCO]","ai":"120251616254660100","an":"STORIES E REELS 25 A 50","di":"120251616254670100","dn":"BLEFARO","s":35.62,"im":420,"cl":9,"lm":1},{"dt":"2026-08-13","ci":"120251632624400100","cn":"01 - [LEADS] [SITE] [BLEFARO] [BUCO] — Cópia","ai":"120251632624490100","an":"STORIES E REELS 25 A 50","di":"120251632624450100","dn":"BLEFARO","s":26.37,"im":465,"cl":8,"lm":0},{"dt":"2026-08-13","ci":"120251632624480100","cn":"01 - [LEADS] [SITE] [BLEFARO] [BUCO] — Cópia","ai":"120251632624470100","an":"STORIES E REELS 25 A 50","di":"120251632624460100","dn":"BLEFARO","s":31.11,"im":398,"cl":10,"lm":0},{"dt":"2026-08-14","ci":"120251583393740100","cn":"VISITAS AO PERFIL — Cópia","ai":"120251583393730100","an":"ABERTO","di":"120251583393770100","dn":"PLANO PRATICO","s":12.39,"im":3705,"cl":37,"lm":0},{"dt":"2026-08-14","ci":"120251616142370100","cn":"02 - [LEADS] [SITE] [RINO] [BUCO]","ai":"120251616142380100","an":"STORIES E REELS 25 A 50","di":"120251616142390100","dn":"rino","s":55.54,"im":886,"cl":8,"lm":0},{"dt":"2026-08-14","ci":"120251616254650100","cn":"01 - [LEADS] [SITE] [BLEFARO] [BUCO]","ai":"120251616254660100","an":"STORIES E REELS 25 A 50","di":"120251616254670100","dn":"BLEFARO","s":47.83,"im":782,"cl":15,"lm":0},{"dt":"2026-08-14","ci":"120251632624400100","cn":"01 - [LEADS] [SITE] [BLEFARO] [BUCO] — Cópia","ai":"120251632624490100","an":"STORIES E REELS 25 A 50","di":"120251632624450100","dn":"BLEFARO","s":33.85,"im":680,"cl":8,"lm":1},{"dt":"2026-08-14","ci":"120251632624480100","cn":"01 - [LEADS] [SITE] [BLEFARO] [BUCO] — Cópia","ai":"120251632624470100","an":"STORIES E REELS 25 A 50","di":"120251632624460100","dn":"BLEFARO","s":31.81,"im":268,"cl":0,"lm":0},{"dt":"2026-08-15","ci":"120251583393740100","cn":"VISITAS AO PERFIL — Cópia","ai":"120251583393730100","an":"ABERTO","di":"120251583393770100","dn":"PLANO PRATICO","s":14.37,"im":4402,"cl":67,"lm":0},{"dt":"2026-08-15","ci":"120251616142370100","cn":"02 - [LEADS] [SITE] [RINO] [BUCO]","ai":"120251616142380100","an":"STORIES E REELS 25 A 50","di":"120251616142390100","dn":"rino","s":55.27,"im":653,"cl":16,"lm":1},{"dt":"2026-08-15","ci":"120251616254650100","cn":"01 - [LEADS] [SITE] [BLEFARO] [BUCO]","ai":"120251616254660100","an":"STORIES E REELS 25 A 50","di":"120251616254670100","dn":"BLEFARO","s":56.88,"im":997,"cl":29,"lm":0},{"dt":"2026-08-15","ci":"120251632624400100","cn":"01 - [LEADS] [SITE] [BLEFARO] [BUCO] — Cópia","ai":"120251632624490100","an":"STORIES E REELS 25 A 50","di":"120251632624450100","dn":"BLEFARO","s":58.7,"im":1177,"cl":15,"lm":1},{"dt":"2026-08-15","ci":"120251632624480100","cn":"01 - [LEADS] [SITE] [BLEFARO] [BUCO] — Cópia","ai":"120251632624470100","an":"STORIES E REELS 25 A 50","di":"120251632624460100","dn":"BLEFARO","s":56.64,"im":538,"cl":11,"lm":1},{"dt":"2026-08-16","ci":"120251583393740100","cn":"VISITAS AO PERFIL — Cópia","ai":"120251583393730100","an":"ABERTO","di":"120251583393770100","dn":"PLANO PRATICO","s":13.04,"im":4541,"cl":47,"lm":0},{"dt":"2026-08-16","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686304250100","an":"CPL R$9,78 | RINO | ORIGINAL | R$25 DIA","di":"120251686305670100","dn":"RINO | VENCEDOR CPL R$9,78","s":22.19,"im":563,"cl":5,"lm":1},{"dt":"2026-08-16","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686305940100","an":"CPL R$13,32 | BLEFARO | ORIGINAL | R$25 DIA","di":"120251686306870100","dn":"BLEFARO | VENCEDOR CPL R$13,32","s":22.88,"im":464,"cl":6,"lm":0},{"dt":"2026-08-16","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686307000100","an":"ICP | RINO | 3 ICPs | R$25 DIA","di":"120251686307880100","dn":"RINO | VENCEDOR ICP | 3 ICPs","s":20.26,"im":417,"cl":11,"lm":2},{"dt":"2026-08-16","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686308260100","an":"ICP | BLEFARO | 3 ICPs | R$25 DIA","di":"120251686311050100","dn":"BLEFARO | VENCEDOR ICP | 3 ICPs","s":26.69,"im":447,"cl":15,"lm":1},{"dt":"2026-08-17","ci":"120251583393740100","cn":"VISITAS AO PERFIL — Cópia","ai":"120251583393730100","an":"ABERTO","di":"120251583393770100","dn":"PLANO PRATICO","s":4.26,"im":1477,"cl":20,"lm":0},{"dt":"2026-08-17","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686304250100","an":"CPL R$9,78 | RINO | ORIGINAL | R$25 DIA","di":"120251686305670100","dn":"RINO | VENCEDOR CPL R$9,78","s":27.55,"im":678,"cl":5,"lm":0},{"dt":"2026-08-17","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686305940100","an":"CPL R$13,32 | BLEFARO | ORIGINAL | R$25 DIA","di":"120251686306870100","dn":"BLEFARO | VENCEDOR CPL R$13,32","s":4.26,"im":45,"cl":0,"lm":0},{"dt":"2026-08-17","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686307000100","an":"ICP | RINO | 3 ICPs | R$25 DIA","di":"120251686307880100","dn":"RINO | VENCEDOR ICP | 3 ICPs","s":38.37,"im":766,"cl":9,"lm":1},{"dt":"2026-08-17","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686308260100","an":"ICP | BLEFARO | 3 ICPs | R$25 DIA","di":"120251686311050100","dn":"BLEFARO | VENCEDOR ICP | 3 ICPs","s":28.78,"im":447,"cl":11,"lm":3},{"dt":"2026-08-18","ci":"120251616142370100","cn":"02 - [LEADS] [SITE] [RINO] [BUCO]","ai":"120251616142380100","an":"STORIES E REELS 25 A 50","di":"120251616142390100","dn":"rino","s":0,"im":0,"cl":0,"lm":1},{"dt":"2026-08-18","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686304250100","an":"CPL R$9,78 | RINO | ORIGINAL | R$25 DIA","di":"120251686305670100","dn":"RINO | VENCEDOR CPL R$9,78","s":11.64,"im":318,"cl":4,"lm":0},{"dt":"2026-08-18","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686307000100","an":"ICP | RINO | 3 ICPs | R$25 DIA","di":"120251686307880100","dn":"RINO | VENCEDOR ICP | 3 ICPs","s":24.47,"im":539,"cl":7,"lm":0},{"dt":"2026-08-18","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686308260100","an":"ICP | BLEFARO | 3 ICPs | R$25 DIA","di":"120251686311050100","dn":"BLEFARO | VENCEDOR ICP | 3 ICPs","s":32.06,"im":503,"cl":10,"lm":2},{"dt":"2026-08-18","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746321420100","an":"TESTE CRIATIVO | BLEFARO | 20 CONSULTAS | ICP BLEFARO | 2026-08-18","di":"120251746322250100","dn":"BLEFARO | 20 Consultas por Mes | 2026-08-18","s":0.08,"im":1,"cl":0,"lm":0},{"dt":"2026-08-19","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686308260100","an":"ICP | BLEFARO | 3 ICPs | R$25 DIA","di":"120251686311050100","dn":"BLEFARO | VENCEDOR ICP | 3 ICPs","s":33.25,"im":367,"cl":8,"lm":1},{"dt":"2026-08-19","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746314490100","an":"TESTE CRIATIVO | RINO | GARGALO 20 RINOS | ICP RINO | 2026-08-18","di":"120251746318630100","dn":"RINO | Gargalo 20 Rinos | 2026-08-18","s":17.83,"im":243,"cl":4,"lm":0},{"dt":"2026-08-19","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746319180100","an":"TESTE CRIATIVO | RINO | DIAGNOSTICO 20 RINOS | ICP RINO | 2026-08-18","di":"120251746319670100","dn":"RINO | Diagnostico 20 Rinos | 2026-08-18","s":18.9,"im":243,"cl":5,"lm":1},{"dt":"2026-08-19","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746320140100","an":"TESTE CRIATIVO | RINO | 20 CONSULTAS | ICP RINO | 2026-08-18","di":"120251746321140100","dn":"RINO | 20 Consultas por Mes | 2026-08-18","s":16.09,"im":261,"cl":1,"lm":0},{"dt":"2026-08-19","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746321420100","an":"TESTE CRIATIVO | BLEFARO | 20 CONSULTAS | ICP BLEFARO | 2026-08-18","di":"120251746322250100","dn":"BLEFARO | 20 Consultas por Mes | 2026-08-18","s":17.35,"im":264,"cl":3,"lm":0},{"dt":"2026-08-19","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746322660100","an":"TESTE CRIATIVO | CLINICA | TECNICA JA VENDE | ICP BLEFARO | 2026-08-18","di":"120251746323460100","dn":"CLINICA | Tecnica Ja Vende | 2026-08-18","s":14.08,"im":286,"cl":2,"lm":0},{"dt":"2026-08-19","ci":"120251757869800100","cn":"VISITAS AO PERFIL — Cópia — Cópia","ai":"120251757869790100","an":"ABERTO","di":"120251757869780100","dn":"PLANO PRATICO","s":7.38,"im":1767,"cl":42,"lm":0},{"dt":"2026-08-19","ci":"120251758081520100","cn":"01 - VISITAS AO PERFIL","ai":"120251758081530100","an":"ABERTO","di":"120251758081540100","dn":"PLANO PRATICO","s":7.48,"im":1886,"cl":36,"lm":0},{"dt":"2026-08-20","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686307000100","an":"ICP | RINO | 3 ICPs | R$25 DIA","di":"120251686307880100","dn":"RINO | VENCEDOR ICP | 3 ICPs","s":9.9,"im":202,"cl":1,"lm":0},{"dt":"2026-08-20","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686308260100","an":"ICP | BLEFARO | 3 ICPs | R$25 DIA","di":"120251686311050100","dn":"BLEFARO | VENCEDOR ICP | 3 ICPs","s":29.67,"im":501,"cl":8,"lm":1},{"dt":"2026-08-20","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746314490100","an":"TESTE CRIATIVO | RINO | GARGALO 20 RINOS | ICP RINO | 2026-08-18","di":"120251746318630100","dn":"RINO | Gargalo 20 Rinos | 2026-08-18","s":4.43,"im":67,"cl":2,"lm":0},{"dt":"2026-08-20","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746319180100","an":"TESTE CRIATIVO | RINO | DIAGNOSTICO 20 RINOS | ICP RINO | 2026-08-18","di":"120251746319670100","dn":"RINO | Diagnostico 20 Rinos | 2026-08-18","s":18.55,"im":253,"cl":8,"lm":1},{"dt":"2026-08-20","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746320140100","an":"TESTE CRIATIVO | RINO | 20 CONSULTAS | ICP RINO | 2026-08-18","di":"120251746321140100","dn":"RINO | 20 Consultas por Mes | 2026-08-18","s":4.71,"im":75,"cl":1,"lm":0},{"dt":"2026-08-20","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746321420100","an":"TESTE CRIATIVO | BLEFARO | 20 CONSULTAS | ICP BLEFARO | 2026-08-18","di":"120251746322250100","dn":"BLEFARO | 20 Consultas por Mes | 2026-08-18","s":16.51,"im":220,"cl":6,"lm":0},{"dt":"2026-08-20","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746322660100","an":"TESTE CRIATIVO | CLINICA | TECNICA JA VENDE | ICP BLEFARO | 2026-08-18","di":"120251746323460100","dn":"CLINICA | Tecnica Ja Vende | 2026-08-18","s":21.85,"im":327,"cl":7,"lm":1},{"dt":"2026-08-20","ci":"120251757869800100","cn":"VISITAS AO PERFIL — Cópia — Cópia","ai":"120251757869790100","an":"ABERTO","di":"120251757869780100","dn":"PLANO PRATICO","s":5.65,"im":1309,"cl":36,"lm":0},{"dt":"2026-08-20","ci":"120251758081520100","cn":"01 - VISITAS AO PERFIL","ai":"120251758081530100","an":"ABERTO","di":"120251758081540100","dn":"PLANO PRATICO","s":6.31,"im":1494,"cl":41,"lm":0},{"dt":"2026-08-21","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686307000100","an":"ICP | RINO | 3 ICPs | R$25 DIA","di":"120251686307880100","dn":"RINO | VENCEDOR ICP | 3 ICPs","s":15.05,"im":328,"cl":7,"lm":1},{"dt":"2026-08-21","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251686308260100","an":"ICP | BLEFARO | 3 ICPs | R$25 DIA","di":"120251686311050100","dn":"BLEFARO | VENCEDOR ICP | 3 ICPs","s":26.99,"im":357,"cl":8,"lm":1},{"dt":"2026-08-21","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746319180100","an":"TESTE CRIATIVO | RINO | DIAGNOSTICO 20 RINOS | ICP RINO | 2026-08-18","di":"120251746319670100","dn":"RINO | Diagnostico 20 Rinos | 2026-08-18","s":18.76,"im":269,"cl":11,"lm":0},{"dt":"2026-08-21","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746321420100","an":"TESTE CRIATIVO | BLEFARO | 20 CONSULTAS | ICP BLEFARO | 2026-08-18","di":"120251746322250100","dn":"BLEFARO | 20 Consultas por Mes | 2026-08-18","s":15.42,"im":199,"cl":3,"lm":0},{"dt":"2026-08-21","ci":"120251686303800100","cn":"01 - [LEADS] [FORM NATIVO] [CLINICAS] [VENCEDORES CPL + ICP] [R$100 DIA]","ai":"120251746322660100","an":"TESTE CRIATIVO | CLINICA | TECNICA JA VENDE | ICP BLEFARO | 2026-08-18","di":"120251746323460100","dn":"CLINICA | Tecnica Ja Vende | 2026-08-18","s":17.82,"im":252,"cl":1,"lm":0},{"dt":"2026-08-21","ci":"120251780553020100","cn":"01 - VISITAS AO PERFIL — Cópia","ai":"120251780553060100","an":"ABERTO","di":"120251780553040100","dn":"PLANO PRATICO","s":3.41,"im":399,"cl":29,"lm":0},{"dt":"2026-08-21","ci":"120251780553030100","cn":"02 - VISITAS AO PERFIL — Cópia","ai":"120251780553070100","an":"ABERTO","di":"120251780553050100","dn":"PLANO PRATICO","s":3.26,"im":361,"cl":25,"lm":0},{"dt":"2026-08-21","ci":"120251780589140100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO] — Cópia","ai":"120251780589170100","an":"STORIES E REELS 25 A 50","di":"120251780589160100","dn":"rino","s":20.86,"im":411,"cl":2,"lm":0},{"dt":"2026-08-21","ci":"120251780589150100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO] — Cópia","ai":"120251780589190100","an":"STORIES E REELS 25 A 50","di":"120251780589180100","dn":"rino","s":22.85,"im":304,"cl":3,"lm":0},{"dt":"2026-08-21","ci":"120251789663130100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO] — Cópia — Cópia","ai":"120251789663110100","an":"STORIES E REELS 25 A 50","di":"120251789663100100","dn":"rino","s":15.79,"im":209,"cl":4,"lm":0},{"dt":"2026-08-21","ci":"120251789663120100","cn":"02 - [LEADS] [FORMS NATIVO] [RINO] [BUCO] — Cópia — Cópia","ai":"120251789663090100","an":"STORIES E REELS 25 A 50","di":"120251789663140100","dn":"rino","s":15,"im":164,"cl":2,"lm":0}];
+const LEAD_ROWS     = [];
+const MONTH_START   = '2026-08-01';
+const CRM_DEFAULTS  = null; // pré-carregado de vendas-crm-{mes}-{ano}.json
+
+// ── Referência histórica — Abril 2026 ─────────────────────────
+const ABRIL = {
+  spend:          1514.75,
+  leads:          452,
+  mqls:           169,
+  mql_pct:        37.4,
+  cpl:            1514.75 / 452,   // ~3.35
+  cpmql:          1514.75 / 169,   // ~8.96
+  sql:            63,
+  agendamentos:   37,
+  vendas:         2,
+  cpvenda:        1514.75 / 2,     // ~757.38
+};
+
+// ── Helpers ──────────────────────────────────────────────────
+function fmtR(n) {
+  return 'R$ ' + Number(n).toLocaleString('pt-BR', {minimumFractionDigits:2, maximumFractionDigits:2});
+}
+function fmtN(n) { return Number(n).toLocaleString('pt-BR'); }
+function fmtP(n) {
+  return Number(n).toLocaleString('pt-BR', {minimumFractionDigits:1, maximumFractionDigits:1}) + '%';
+}
+function sd(a,b) { return b > 0 ? a / b : 0; }
+function pctClass(pct) { return pct >= 40 ? 'good' : pct >= 20 ? 'warn' : 'bad'; }
+
+// ── Period ────────────────────────────────────────────────────
+let currentPeriod = 'month';
+let expandedCamps  = new Set();
+let expandedAdsets = new Set();
+let sortCol = 's'; let sortAsc = false;
+
+function getRange(period) {
+  const now = new Date();
+  const pad = n => String(n).padStart(2,'0');
+  const fmt = d => `${d.getFullYear()}-${pad(d.getMonth()+1)}-${pad(d.getDate())}`;
+  if (period === 'today') {
+    const t = fmt(now);
+    return [t, t];
+  }
+  if (period === 'week') {
+    const d = new Date(now);
+    const day = d.getDay() === 0 ? 6 : d.getDay() - 1;
+    d.setDate(d.getDate() - day);
+    return [fmt(d), fmt(now)];
+  }
+  return [MONTH_START, fmt(now)];
+}
+
+function setPeriod(p) {
+  currentPeriod = p;
+  document.querySelectorAll('.period-btn').forEach(b => b.classList.toggle('active', b.dataset.period === p));
+  render();
+}
+
+// ── CRM manual data ───────────────────────────────────────────
+// Prioridade: localStorage > CRM_DEFAULTS (do arquivo vendas-crm-{mes}-{ano}.json)
+function loadCRM() {
+  try {
+    const saved = localStorage.getItem('hurtz_crm');
+    if (saved) return JSON.parse(saved);
+  } catch(e) {}
+  return CRM_DEFAULTS || {};
+}
+function saveCRM() {
+  const crm = {
+    sql:         +(document.getElementById('crm-sql')?.value    || 0),
+    agendamentos:+(document.getElementById('crm-agenda')?.value || 0),
+    vendas:      +(document.getElementById('crm-vendas')?.value || 0),
+  };
+  localStorage.setItem('hurtz_crm', JSON.stringify(crm));
+  render();
+}
+function initCRMInputs() {
+  const crm = loadCRM();
+  const s = document.getElementById('crm-sql');
+  const a = document.getElementById('crm-agenda');
+  const v = document.getElementById('crm-vendas');
+  if (s) s.value = crm.sql         || '';
+  if (a) a.value = crm.agendamentos || '';
+  if (v) v.value = crm.vendas      || '';
+}
+
+// ── Aggregation ───────────────────────────────────────────────
+function aggregate(start, end) {
+  const ins   = INSIGHT_ROWS.filter(r => r.dt >= start && r.dt <= end);
+  const leads = LEAD_ROWS.filter(r => r.d >= start && r.d <= end);
+
+  const campNames  = {};
+  const adsetNames = {};
+  const adNames    = {};
+  for (const r of ins) {
+    if (r.ci) campNames[r.ci]  = r.cn;
+    if (r.ai) adsetNames[r.ai] = r.an;
+    if (r.di) adNames[r.di]    = r.dn;
+  }
+  for (const l of leads) {
+    if (l.ci && !campNames[l.ci])  campNames[l.ci]  = '';
+    if (l.ai && !adsetNames[l.ai]) adsetNames[l.ai] = '';
+    if (l.di && !adNames[l.di])    adNames[l.di]    = '';
+  }
+
+  const adMap = {};
+  for (const r of ins) {
+    if (!r.di) continue;
+    const k = r.di;
+    if (!adMap[k]) adMap[k] = {di:r.di, ai:r.ai, ci:r.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    adMap[k].s  += r.s;
+    adMap[k].im += r.im;
+    adMap[k].cl += r.cl;
+    adMap[k].lm += r.lm;
+  }
+  for (const l of leads) {
+    if (!l.di) continue;
+    if (!adMap[l.di]) adMap[l.di] = {di:l.di, ai:l.ai, ci:l.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    adMap[l.di].leads += 1;
+    if (l.c === 'mql')            adMap[l.di].mql    += 1;
+    if (l.c === 'desq_consultor') adMap[l.di].desq_c += 1;
+    if (l.c === 'desq_time')      adMap[l.di].desq_t += 1;
+    if (l.c === 'desq_banco')     adMap[l.di].desq_b += 1;
+  }
+
+  const adsetMap = {};
+  for (const a of Object.values(adMap)) {
+    if (!a.ai) continue;
+    if (!adsetMap[a.ai]) adsetMap[a.ai] = {ai:a.ai, ci:a.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    const as = adsetMap[a.ai];
+    as.s+=a.s; as.im+=a.im; as.cl+=a.cl; as.lm+=a.lm;
+    as.leads+=a.leads; as.mql+=a.mql; as.desq_c+=a.desq_c; as.desq_t+=a.desq_t; as.desq_b+=a.desq_b;
+  }
+
+  const campMap = {};
+  for (const a of Object.values(adsetMap)) {
+    if (!a.ci) continue;
+    if (!campMap[a.ci]) campMap[a.ci] = {ci:a.ci, s:0, im:0, cl:0, lm:0, leads:0, mql:0, desq_c:0, desq_t:0, desq_b:0};
+    const c = campMap[a.ci];
+    c.s+=a.s; c.im+=a.im; c.cl+=a.cl; c.lm+=a.lm;
+    c.leads+=a.leads; c.mql+=a.mql; c.desq_c+=a.desq_c; c.desq_t+=a.desq_t; c.desq_b+=a.desq_b;
+  }
+
+  function derive(e) {
+    e.desq  = e.desq_c + e.desq_t + e.desq_b;
+    e.pct   = sd(e.mql, e.leads) * 100;
+    e.cpl   = sd(e.s, e.leads);
+    e.cpmql = sd(e.s, e.mql);
+    return e;
+  }
+
+  const campaigns = Object.values(campMap).map(derive);
+  const adsets    = Object.values(adsetMap).map(derive);
+  const ads       = Object.values(adMap).map(derive);
+
+  const tot = {s:0,im:0,cl:0,leads:0,mql:0,desq_c:0,desq_t:0,desq_b:0};
+  for (const c of campaigns) { tot.s+=c.s; tot.im+=c.im; tot.cl+=c.cl; tot.leads+=c.leads; tot.mql+=c.mql; tot.desq_c+=c.desq_c; tot.desq_t+=c.desq_t; tot.desq_b+=c.desq_b; }
+  derive(tot);
+
+  return { campaigns, adsets, ads, tot, campNames, adsetNames, adNames };
+}
+
+// ── Render: Funil ─────────────────────────────────────────────
+function renderFunnel(tot) {
+  const crm = loadCRM();
+  const sql    = crm.sql    > 0 ? crm.sql    : null;
+  const agenda = crm.agendamentos > 0 ? crm.agendamentos : null;
+  const vendas = crm.vendas > 0 ? crm.vendas : null;
+
+  const steps = [
+    { name: 'Leads', val: tot.leads, ref: ABRIL.leads, cls: '', prev: null, prevRef: null },
+    { name: 'MQLs',  val: tot.mql,   ref: ABRIL.mqls,  cls: 'mql', prev: tot.leads, prevRef: ABRIL.leads },
+    { name: 'SQL',   val: sql,        ref: ABRIL.sql,   cls: 'sql', prev: tot.mql, prevRef: ABRIL.mqls },
+    { name: 'Agenda',val: agenda,     ref: ABRIL.agendamentos, cls: 'sql', prev: sql, prevRef: ABRIL.sql },
+    { name: 'Vendas',val: vendas,     ref: ABRIL.vendas, cls: 'venda', prev: agenda, prevRef: ABRIL.agendamentos },
+  ];
+
+  const el = document.getElementById('funnel-steps');
+  if (!el) return;
+  let html = '';
+
+  steps.forEach((st, i) => {
+    if (i > 0) html += '<div class="funnel-arrow">›</div>';
+
+    const pct = st.prev != null && st.prev > 0 && st.val != null
+      ? (st.val / st.prev * 100) : null;
+    const pctRef = st.prevRef != null && st.prevRef > 0
+      ? (st.ref / st.prevRef * 100) : null;
+
+    const pctHtml = pct != null
+      ? `<div class="funnel-pct ${pctClass(pct)}">${pct.toFixed(0)}%</div>`
+      : '<div style="height:20px"></div>';
+
+    const valHtml = st.val != null
+      ? `<div class="funnel-val ${st.cls}">${fmtN(st.val)}</div>`
+      : `<div class="funnel-val none">—</div>`;
+
+    const refPct = pctRef != null ? ` (${pctRef.toFixed(0)}%)` : '';
+
+    html += `<div class="funnel-step">
+      <div class="funnel-name">${st.name}</div>
+      ${valHtml}
+      ${pctHtml}
+      <div class="funnel-ref">Abr: ${fmtN(st.ref)}${refPct}</div>
+    </div>`;
+  });
+
+  el.innerHTML = html;
+}
+
+// ── Render: Comparação ────────────────────────────────────────
+function renderComparison(tot) {
+  const crm = loadCRM();
+  const rows = [
+    { label: 'Investimento', cur: fmtR(tot.s),          apr: fmtR(ABRIL.spend) },
+    { label: 'Leads',        cur: fmtN(tot.leads),       apr: fmtN(ABRIL.leads) },
+    { label: 'MQLs',         cur: tot.leads > 0 ? `${fmtN(tot.mql)} (${fmtP(tot.pct)})` : '—',
+                             apr: `${fmtN(ABRIL.mqls)} (37,4%)` },
+    { label: 'CPL',          cur: tot.leads > 0 ? fmtR(tot.cpl)   : '—', apr: fmtR(ABRIL.cpl) },
+    { label: 'Custo/MQL',    cur: tot.mql   > 0 ? fmtR(tot.cpmql) : '—', apr: fmtR(ABRIL.cpmql) },
+    { label: 'SQL',          cur: crm.sql         > 0 ? fmtN(crm.sql)         : '—', apr: fmtN(ABRIL.sql) },
+    { label: 'Agenda',       cur: crm.agendamentos > 0 ? fmtN(crm.agendamentos) : '—', apr: fmtN(ABRIL.agendamentos) },
+    { label: 'Vendas',       cur: crm.vendas      > 0 ? fmtN(crm.vendas)      : '—', apr: fmtN(ABRIL.vendas) },
+    { label: 'Custo/Venda',  cur: (crm.vendas > 0 && tot.s > 0) ? fmtR(tot.s / crm.vendas) : '—',
+                             apr: fmtR(ABRIL.cpvenda) },
+    { label: 'Leads/Venda',  cur: (crm.vendas > 0 && tot.leads > 0) ? fmtN(Math.round(tot.leads / crm.vendas)) : '—',
+                             apr: fmtN(Math.round(ABRIL.leads / ABRIL.vendas)) },
+  ];
+
+  const el = document.getElementById('comp-grid');
+  if (!el) return;
+  let html = '';
+  rows.forEach(r => {
+    html += `<div class="comp-row">
+      <span class="comp-label">${r.label}</span>
+      <div class="comp-right">
+        <div class="comp-cur">${r.cur}</div>
+        <div class="comp-apr">Abr: ${r.apr}</div>
+      </div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+// ── Render: Desqualificações ──────────────────────────────────
+function renderDesq(tot) {
+  const total = tot.desq || 0;
+  const el = document.getElementById('desq-bars');
+  if (!el) return;
+
+  if (total === 0) {
+    el.innerHTML = '<div style="color:var(--text-muted);font-size:11px">Sem desqualificações no período.</div>';
+    return;
+  }
+
+  const bars = [
+    { label: 'Consultor comercial', val: tot.desq_c, color: 'var(--text-dim)' },
+    { label: 'Time insuficiente (<2)', val: tot.desq_t, color: 'var(--warn-text)' },
+    { label: 'Banco exclusivo', val: tot.desq_b, color: 'var(--bad-text)' },
+  ];
+
+  let html = `<div class="desq-total">${total} desqualificados no período</div>`;
+  bars.forEach(b => {
+    const pct = total > 0 ? (b.val / total * 100) : 0;
+    html += `<div class="desq-bar-row">
+      <div class="desq-bar-header">
+        <span class="desq-bar-label">${b.label}</span>
+        <span class="desq-bar-count">${b.val}<span class="desq-bar-pct"> (${pct.toFixed(0)}%)</span></span>
+      </div>
+      <div class="desq-bar-track">
+        <div class="desq-bar-fill" style="width:${pct.toFixed(1)}%;background:${b.color}"></div>
+      </div>
+    </div>`;
+  });
+  el.innerHTML = html;
+}
+
+// ── Render: Table row ─────────────────────────────────────────
+function sortRows(arr, col, asc) {
+  return [...arr].sort((a,b) => {
+    let va = col === 'name' ? 0 : (a[col] ?? 0);
+    let vb = col === 'name' ? 0 : (b[col] ?? 0);
+    return asc ? va - vb : vb - va;
+  });
+}
+
+function renderRow(e, level, name, isActive) {
+  const indent = level * 24;
+  const hasChildren = level < 2;
+  const rowClass = ['row-camp','row-adset','row-ad'][level];
+  const dataId   = [e.ci, e.ai, e.di][level];
+  const parentAttr = level === 1 ? `data-camp="${e.ci}"` : level === 2 ? `data-adset="${e.ai}"` : '';
+  const display  = level === 0 ? '' : 'display:none';
+  const rowClick = hasChildren ? `onclick="toggleExpand(event,'${level}','${dataId}')"` : '';
+  const isOpen   = (level===0 ? expandedCamps : expandedAdsets).has(dataId);
+  const chevron  = hasChildren
+    ? `<span class="chevron${isOpen ? ' open' : ''}">&#9654;</span>`
+    : `<span class="no-chevron"></span>`;
+  const treeLine = level > 0 ? `<span class="tree-indent"><span class="tree-line"></span></span>` : '';
+  const dot = `<span class="status-dot${isActive?' active':''}"></span>`;
+
+  const cpl     = e.s > 0 && e.leads > 0 ? fmtR(e.cpl)    : '<span class="dash">—</span>';
+  const cpmql   = e.s > 0 && e.mql   > 0 ? fmtR(e.cpmql)  : '<span class="dash">—</span>';
+  const cpvenda = e.cpvenda > 0           ? fmtR(e.cpvenda) : '<span class="dash">—</span>';
+  const pctHtml = e.leads > 0
+    ? `<span class="col-pct ${pctClass(e.pct)}">${fmtP(e.pct)}</span>`
+    : '<span class="dash">—</span>';
+
+  return `<tr class="${rowClass}" ${parentAttr} data-id="${dataId}" style="${display}" ${rowClick}>
+    <td>
+      <div class="name-cell" style="padding-left:${indent}px">
+        ${treeLine}${chevron}${dot}
+        <span class="entity-name" title="${name}">${name}</span>
+      </div>
+    </td>
+    <td class="num col-spend">${e.s > 0 ? fmtR(e.s) : '<span class="dash">—</span>'}</td>
+    <td class="num col-imp">${e.im > 0 ? fmtN(e.im) : '<span class="dash">—</span>'}</td>
+    <td class="num col-imp">${e.cl > 0 ? fmtN(e.cl) : '<span class="dash">—</span>'}</td>
+    <td class="num col-leads">${e.leads > 0 ? fmtN(e.leads) : '<span class="dash">—</span>'}</td>
+    <td class="num col-mql">${e.mql > 0 ? fmtN(e.mql) : '<span class="dash">—</span>'}</td>
+    <td class="num">${pctHtml}</td>
+    <td class="num col-imp">${e.desq > 0 ? fmtN(e.desq) : '<span class="dash">—</span>'}</td>
+    <td class="num col-cpl">${cpl}</td>
+    <td class="num col-cpmql">${cpmql}</td>
+    <td class="num col-cpvenda">${cpvenda}</td>
+  </tr>`;
+}
+
+function toggleExpand(evt, level, id) {
+  evt.stopPropagation();
+  const row     = document.querySelector(`tr[data-id="${id}"]`);
+  const chevron = row ? row.querySelector('.chevron') : null;
+
+  if (level === '0') {
+    if (expandedCamps.has(id)) {
+      expandedCamps.delete(id);
+      document.querySelectorAll(`tr[data-camp="${id}"]`).forEach(r => {
+        r.style.display = 'none';
+        const ai = r.dataset.id;
+        if (ai) {
+          expandedAdsets.delete(ai);
+          document.querySelectorAll(`tr[data-adset="${ai}"]`).forEach(ar => ar.style.display = 'none');
+          const ch = r.querySelector('.chevron');
+          if (ch) ch.classList.remove('open');
+        }
+      });
+      if (chevron) chevron.classList.remove('open');
+    } else {
+      expandedCamps.add(id);
+      document.querySelectorAll(`tr[data-camp="${id}"]`).forEach(r => r.style.display = '');
+      if (chevron) chevron.classList.add('open');
+    }
+  } else {
+    if (expandedAdsets.has(id)) {
+      expandedAdsets.delete(id);
+      document.querySelectorAll(`tr[data-adset="${id}"]`).forEach(r => r.style.display = 'none');
+      if (chevron) chevron.classList.remove('open');
+    } else {
+      expandedAdsets.add(id);
+      document.querySelectorAll(`tr[data-adset="${id}"]`).forEach(r => r.style.display = '');
+      if (chevron) chevron.classList.add('open');
+    }
+  }
+}
+
+// ── Render (main) ─────────────────────────────────────────────
+function render() {
+  const [start, end] = getRange(currentPeriod);
+  const { campaigns, adsets, ads, tot, campNames, adsetNames, adNames } = aggregate(start, end);
+
+  // KPIs
+  document.getElementById('kpi-spend').textContent  = fmtR(tot.s);
+  document.getElementById('kpi-imp').textContent    = fmtN(tot.im) + ' impressões · ' + fmtN(tot.cl) + ' cliques';
+  document.getElementById('kpi-leads').textContent  = fmtN(tot.leads);
+  document.getElementById('kpi-cpl').textContent    = tot.leads > 0 ? 'CPL: ' + fmtR(tot.cpl) : '—';
+  document.getElementById('kpi-mql').textContent    = fmtN(tot.mql);
+  document.getElementById('kpi-pct').textContent    = tot.leads > 0 ? fmtP(tot.pct) + ' dos leads' : '—';
+  document.getElementById('kpi-cpmql').textContent  = tot.mql > 0 ? fmtR(tot.cpmql) : '—';
+  document.getElementById('kpi-mql-sub').textContent = fmtN(tot.mql) + ' MQLs no período';
+  document.getElementById('kpi-desq').textContent   = fmtN(tot.desq);
+  document.getElementById('kpi-desq-sub').textContent = 'Consultor: '+tot.desq_c+' · Time<2: '+tot.desq_t+' · Banco: '+tot.desq_b;
+
+  // KPI: Custo por Venda
+  const crm = loadCRM();
+  const mqlSaleRate = (crm.vendas > 0 && tot.mql > 0) ? crm.vendas / tot.mql : 0;
+  tot.cpvenda = crm.vendas > 0 && tot.s > 0 ? tot.s / crm.vendas : 0;
+  document.getElementById('kpi-cpvenda').textContent     = tot.cpvenda > 0 ? fmtR(tot.cpvenda) : '—';
+  document.getElementById('kpi-cpvenda-sub').textContent = crm.vendas > 0
+    ? crm.vendas + ' vendas · taxa MQL→venda: ' + fmtP(mqlSaleRate * 100)
+    : 'Informe as vendas no funil';
+
+  // Custo/Venda projetado por entidade (proporcional ao CPMql × taxa global)
+  [campaigns, adsets, ads].forEach(arr => arr.forEach(e => {
+    e.cpvenda = mqlSaleRate > 0 && e.mql > 0 ? e.cpmql / mqlSaleRate : 0;
+  }));
+
+  // Panels
+  renderFunnel(tot);
+  renderComparison(tot);
+  renderDesq(tot);
+
+  // Table
+  const sortedCamps = sortRows(campaigns, sortCol, sortAsc);
+  let html = '';
+  if (sortedCamps.length === 0) {
+    html = '<tr class="empty-row"><td colspan="11">Sem dados no período selecionado.</td></tr>';
+  } else {
+    for (const c of sortedCamps) {
+      const cName = campNames[c.ci] || c.ci || '(sem nome)';
+      html += renderRow(c, 0, cName, c.s > 0 || c.leads > 0);
+      const cAdsets = sortRows(adsets.filter(a => a.ci === c.ci), sortCol, sortAsc);
+      for (const a of cAdsets) {
+        const aName = adsetNames[a.ai] || a.ai || '(sem nome)';
+        html += renderRow(a, 1, aName, a.s > 0 || a.leads > 0);
+        const aAds = sortRows(ads.filter(ad => ad.ai === a.ai), sortCol, sortAsc);
+        for (const ad of aAds) {
+          const dName = adNames[ad.di] || ad.di || '(sem nome)';
+          html += renderRow(ad, 2, dName, ad.s > 0 || ad.leads > 0);
+        }
+      }
+    }
+  }
+  document.getElementById('dash-body').innerHTML = html;
+
+  // Re-apply expand state
+  expandedCamps.forEach(id => {
+    document.querySelectorAll(`tr[data-camp="${id}"]`).forEach(r => r.style.display = '');
+    const ch = document.querySelector(`tr[data-id="${id}"] .chevron`);
+    if (ch) ch.classList.add('open');
+  });
+  expandedAdsets.forEach(id => {
+    document.querySelectorAll(`tr[data-adset="${id}"]`).forEach(r => r.style.display = '');
+    const ch = document.querySelector(`tr[data-id="${id}"] .chevron`);
+    if (ch) ch.classList.add('open');
+  });
+}
+
+// ── Sort ─────────────────────────────────────────────────────
+function sortBy(col) {
+  if (sortCol === col) sortAsc = !sortAsc;
+  else { sortCol = col; sortAsc = false; }
+  document.querySelectorAll('thead th').forEach(th => { th.classList.remove('sort-asc','sort-desc'); });
+  const thIndex = ['name','s','im','cl','leads','mql','pct','desq','cpl','cpmql','cpvenda'].indexOf(col);
+  if (thIndex >= 0) {
+    const ths = document.querySelectorAll('thead th');
+    ths[thIndex].classList.add(sortAsc ? 'sort-asc' : 'sort-desc');
+  }
+  render();
+}
+
+// ── Countdown ────────────────────────────────────────────────
+let secsLeft = 3600;
+function updateCountdown() {
+  secsLeft--;
+  if (secsLeft <= 0) { location.reload(); return; }
+  const m = Math.floor(secsLeft / 60).toString().padStart(2,'0');
+  const s = (secsLeft % 60).toString().padStart(2,'0');
+  const el = document.getElementById('countdown');
+  if (el) el.textContent = m + ':' + s;
+}
+setInterval(updateCountdown, 1000);
+
+// ── Init ─────────────────────────────────────────────────────
+initCRMInputs();
+render();
+</script>
+</body>
+</html>
