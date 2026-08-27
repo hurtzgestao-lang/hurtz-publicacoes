@@ -71,15 +71,15 @@ button { font: inherit; }
   color: var(--paper);
 }
 .hero__portrait { position: absolute; inset: 0 0 0 44%; }
-.hero__portrait::after { content: ""; position: absolute; inset: 0; background: rgba(24, 22, 20, 0.2); }
-.hero__portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 28%; filter: saturate(0.74) contrast(1.06); }
+.hero__portrait::after { content: ""; position: absolute; inset: 0; background: rgba(24, 22, 20, 0.06); }
+.hero__portrait img { width: 100%; height: 100%; object-fit: cover; object-position: center 20%; filter: saturate(0.86) contrast(1.03); }
 .hero__content { position: relative; z-index: 2; padding: 150px 0 110px; }
 .eyebrow { margin: 0 0 20px; color: var(--accent); font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .eyebrow--light { color: var(--paper); }
-.hero h1 { max-width: 760px; margin: 0; font-size: clamp(68px, 9vw, 132px); line-height: 0.86; letter-spacing: 0; text-transform: uppercase; }
-.hero__focus { margin: 32px 0 0; color: var(--paper); font-size: clamp(25px, 3.1vw, 46px); font-weight: 700; }
+.hero h1 { max-width: 505px; margin: 0; font-size: clamp(68px, 7.2vw, 106px); line-height: 0.86; letter-spacing: 0; text-transform: uppercase; }
+.hero__focus { margin: 32px 0 0; color: var(--paper); font-size: clamp(25px, 2.5vw, 38px); font-weight: 700; }
 .hero__focus span { color: var(--accent); }
-.hero__lead { max-width: 650px; margin: 30px 0 0; font-size: 19px; }
+.hero__lead { max-width: 470px; margin: 30px 0 0; font-size: 19px; }
 .hero__meta { display: flex; gap: 30px; margin-top: 52px; font-size: 12px; font-weight: 700; text-transform: uppercase; }
 .scroll-cue { position: absolute; z-index: 3; right: 28px; bottom: 28px; display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
 .scroll-cue svg { width: 16px; }
@@ -118,7 +118,6 @@ blockquote span { display: block; margin-bottom: 16px; color: var(--accent); fon
 .profile-actions span { min-height: 30px; display: grid; place-items: center; padding: 4px 7px; background: #ededed; border-radius: 4px; font-size: 10px; font-weight: 700; text-align: center; }
 .profile-actions span:first-child { color: white; background: #1d83da; }
 .profile-actions svg { width: 14px; }
-.profile-actions--after span:first-child { background: var(--accent); }
 .story-row { display: flex; gap: 13px; min-height: 78px; overflow: hidden; padding: 2px 18px 12px; }
 .story-row span { position: relative; min-width: 52px; padding-top: 52px; font-size: 8px; text-align: center; }
 .story-row span::before { content: ""; position: absolute; inset: 0 auto auto 5px; width: 42px; height: 42px; background: #e6e6e6; border: 1px solid #d2d2d2; border-radius: 50%; }
@@ -224,19 +223,6 @@ dd { margin: 5px 0 0; font-size: 13px; }
 .feed-plan__legend strong { font-size: 18px; }
 .feed-plan__legend p { margin: 4px 0 0; }
 
-.prompt-list { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
-.prompt-card { position: relative; min-height: 300px; padding: 28px; background: var(--paper); border: 1px solid var(--line); }
-.prompt-card__head { display: flex; align-items: flex-start; justify-content: space-between; gap: 16px; padding-bottom: 18px; border-bottom: 1px solid var(--line); font-size: 10px; font-weight: 700; text-transform: uppercase; }
-.prompt-card__head span { color: var(--accent); }
-.prompt-card h3 { margin: 34px 0 10px; font-size: 27px; }
-.prompt-card > p { max-width: 470px; margin: 0 0 34px; }
-.prompt-card pre { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: pre-wrap; }
-.copy-button { display: inline-flex; align-items: center; gap: 9px; padding: 10px 13px; color: var(--paper); background: var(--ink); border: 1px solid var(--ink); border-radius: 4px; cursor: pointer; font-size: 12px; font-weight: 700; }
-.copy-button:hover { color: var(--ink); background: transparent; }
-.copy-button svg { width: 15px; }
-.prompt-card--result { border-top: 6px solid var(--accent); }
-.text-link { display: inline-flex; align-items: center; gap: 8px; margin-top: 36px; color: var(--accent); font-size: 13px; font-weight: 700; }
-.text-link svg { width: 15px; }
 
 .timeline { margin: 0; padding: 0; list-style: none; }
 .timeline li { display: grid; grid-template-columns: 100px 1fr; gap: 34px; padding: 30px 0; border-top: 1px solid var(--line); }
@@ -261,8 +247,6 @@ dd { margin: 5px 0 0; font-size: 13px; }
 .footer img { width: 100px; }
 .footer span { font-size: 10px; }
 
-.toast { position: fixed; z-index: 140; left: 50%; bottom: 22px; transform: translate(-50%, 20px); padding: 10px 14px; color: var(--paper); background: var(--accent); border-radius: 4px; font-size: 12px; font-weight: 700; opacity: 0; pointer-events: none; transition: opacity 120ms ease, transform 120ms ease; }
-.toast.is-visible { opacity: 1; transform: translate(-50%, 0); }
 .reveal { opacity: 0; transform: translateY(12px); transition: opacity 260ms ease, transform 260ms ease; }
 .reveal.is-visible { opacity: 1; transform: translateY(0); }
 
@@ -337,8 +321,6 @@ dd { margin: 5px 0 0; font-size: 13px; }
   .evidence-chain svg { display: none; }
   .feed-plan { gap: 36px; }
   .feed-plan__grid .tile b { font-size: 14px; }
-  .prompt-list { grid-template-columns: 1fr; }
-  .prompt-card { min-height: 280px; padding: 24px; }
   .timeline li { grid-template-columns: 62px 1fr; gap: 18px; }
   .deliverables { padding: 28px; }
   .compliance-grid { grid-template-columns: 1fr; }
@@ -356,7 +338,6 @@ dd { margin: 5px 0 0; font-size: 13px; }
   .feed-plan__grid .tile { padding: 8%; }
   .feed-plan__grid .tile b { font-size: 11px; }
   .tile small { font-size: 6px; }
-  .prompt-card__head { flex-direction: column; }
 }
 
 @media (prefers-reduced-motion: reduce) {
@@ -368,11 +349,10 @@ dd { margin: 5px 0 0; font-size: 13px; }
   @page { size: A4 landscape; margin: 0; }
   * { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
   body { background: var(--paper); }
-  .topbar, .progress, .scroll-cue, .toast, .copy-button { display: none !important; }
+  .topbar, .progress, .scroll-cue { display: none !important; }
   .print-page { break-before: page; break-inside: avoid; min-height: 210mm; padding: 18mm 16mm; }
   .hero.print-page { padding: 0; }
   .reveal { opacity: 1 !important; transform: none !important; }
   .section-heading { margin-bottom: 36px; }
   .footer { break-before: page; }
-  .prompt-card { min-height: 210px; }
 }
