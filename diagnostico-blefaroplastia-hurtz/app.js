@@ -164,7 +164,7 @@
 
     progressFill.style.width = `${((current + 1) / steps.length) * 100}%`;
     progressLabel.textContent = `Passo ${current + 1} de ${steps.length}`;
-    title.innerHTML = "Responda 6 perguntas para avaliarmos sua <span>operação de blefaroplastia</span>.";
+    title.innerHTML = "Preencha seus dados abaixo para <span>falar com nosso time:</span>";
 
     form.innerHTML = `
       <div class="step is-active" data-key="${step.key}">
