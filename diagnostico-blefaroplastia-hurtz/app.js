@@ -438,7 +438,6 @@
     form.innerHTML = `
       <div class="success">
         <span class="accent-line" aria-hidden="true"></span>
-        <h2>Resumo pronto.</h2>
         <p>Abra o WhatsApp para enviar a avaliação ao time da Hurtz.</p>
         <ul class="summary">
           ${steps
