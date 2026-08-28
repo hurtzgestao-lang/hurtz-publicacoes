@@ -279,7 +279,7 @@ dd { margin: 5px 0 0; font-size: 13px; }
 
 @media (max-width: 720px) {
   :root { --shell: calc(100% - 32px); }
-  .topbar { inset: 10px 10px auto; }
+  .topbar { position: absolute; inset: 10px 10px auto; }
   .hero { min-height: 790px; align-items: end; }
   .hero__portrait { inset: 0 0 32% 0; opacity: .58; }
   .hero__portrait img { object-position: center 24%; }
@@ -332,12 +332,22 @@ dd { margin: 5px 0 0; font-size: 13px; }
 @media (max-width: 460px) {
   .hero h1 { font-size: 48px; }
   .section-heading h2, .statement h2 { font-size: 34px; }
-  .photo-spec, .photo-spec--patient { grid-template-columns: 1fr; }
-  .photo-spec__image, .photo-placeholder { min-height: 320px; }
+  .photo-spec, .photo-spec--patient { grid-template-columns: 40% 1fr; min-height: 250px; }
+  .photo-spec__image, .photo-placeholder { min-height: 250px; }
+  .photo-spec__copy { padding: 16px; }
+  .photo-spec__copy h3 { font-size: 16px; }
+  .photo-spec__copy p { font-size: 12px; }
+  .photo-spec__copy small { margin-top: 14px; font-size: 9px; }
+  .photo-placeholder span { font-size: 8px; }
   .highlight-flow { grid-template-columns: repeat(2, 1fr); }
   .feed-plan__grid .tile { padding: 8%; }
   .feed-plan__grid .tile b { font-size: 11px; }
   .tile small { font-size: 6px; }
+}
+
+@media (max-width: 330px) {
+  .photo-spec, .photo-spec--patient { grid-template-columns: 1fr; }
+  .photo-spec__image, .photo-placeholder { min-height: 260px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
