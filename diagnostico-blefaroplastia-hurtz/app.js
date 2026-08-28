@@ -4,14 +4,44 @@
   const WHATSAPP_NUMBER = "5594988082290";
   const STORAGE_KEY = "hurtz-blefaroplastia-form-v1";
   const TRACKING_KEY = "hurtz-blefaroplastia-tracking-v1";
+  const ITI_VERSION = "29.2.3";
+  const ITI_UTILS = `https://cdn.jsdelivr.net/npm/intl-tel-input@${ITI_VERSION}/dist/js/utils.js`;
+  const DDDS_VALIDOS = [
+    11, 12, 13, 14, 15, 16, 17, 18, 19,
+    21, 22, 24, 27, 28,
+    31, 32, 33, 34, 35, 37, 38,
+    41, 42, 43, 44, 45, 46, 47, 48, 49,
+    51, 53, 54, 55,
+    61, 62, 63, 64, 65, 66, 67, 68, 69,
+    71, 73, 74, 75, 77, 79,
+    81, 82, 83, 84, 85, 86, 87, 88, 89,
+    91, 92, 93, 94, 95, 96, 97, 98, 99,
+  ];
 
   const steps = [
+    {
+      key: "nome",
+      label: "Qual o seu nome?",
+      type: "text",
+      placeholder: "Digite seu nome completo",
+      autocomplete: "name",
+      error: "Precisamos do seu nome para continuar.",
+    },
+    {
+      key: "telefone",
+      label: "Qual seu telefone?",
+      type: "tel",
+      placeholder: "(11) 99999-9999",
+      autocomplete: "tel",
+      inputmode: "tel",
+      error: "Digite o telefone com DDD.",
+    },
     {
       key: "dono_clinica",
       label: "Você é dono de clínica?",
       type: "choice",
       error: "Escolha uma opção para continuar.",
-      options: ["Sim, sou dono ou sócio", "Sou médico responsável", "Sou gestor da clínica", "Não"],
+      options: ["Sim", "Não, sou médico responsável", "Não, sou gestor da clínica", "Não"],
     },
     {
       key: "realiza_blefaroplastia",
@@ -63,7 +93,15 @@
 
   let current = 0;
   let data = loadData();
+  let phoneIti = null;
   const tracking = loadTracking();
+  const dynamicImport = (() => {
+    try {
+      return new Function("url", "return import(url);");
+    } catch {
+      return null;
+    }
+  })();
 
   function loadData() {
     try {
@@ -111,17 +149,26 @@
       .replaceAll('"', "&quot;");
   }
 
+  function maskPhone(value) {
+    const digits = value.replace(/\D/g, "").slice(0, 11);
+    if (!digits) return "";
+    if (digits.length <= 2) return `(${digits}`;
+    if (digits.length <= 6) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+    if (digits.length <= 10) return `(${digits.slice(0, 2)}) ${digits.slice(2, 6)}-${digits.slice(6)}`;
+    return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+  }
+
   function render() {
     const step = steps[current];
     const isLast = current === steps.length - 1;
 
     progressFill.style.width = `${((current + 1) / steps.length) * 100}%`;
     progressLabel.textContent = `Passo ${current + 1} de ${steps.length}`;
-    title.innerHTML = "Responda 6 perguntas para avaliarmos sua <span>operação de blefaroplastia</span>.";
+    title.innerHTML = "Deixe seu contato e responda 6 perguntas sobre <span>blefaroplastia</span>.";
 
     form.innerHTML = `
       <div class="step is-active" data-key="${step.key}">
-        <div class="field">
+        <div class="field ${step.key === "telefone" ? "field-tel" : ""}">
           ${renderField(step)}
           <span class="field-error" role="alert"></span>
         </div>
@@ -210,6 +257,7 @@
     }
 
     if (input) {
+      if (step.key === "telefone") initPhone(input);
       input.focus({ preventScroll: true });
       input.addEventListener("keydown", (event) => {
         if (event.key === "Enter") {
@@ -218,6 +266,7 @@
         }
       });
       input.addEventListener("input", () => {
+        if (step.key === "telefone" && !phoneIti) input.value = maskPhone(input.value);
         if (step.type === "currency") input.value = maskCurrency(input.value);
         data[step.key] = input.value.trim();
         saveData();
@@ -262,6 +311,7 @@
     }
 
     if (current < steps.length - 1) {
+      if (step.key === "telefone") data.telefone_e164 = phoneE164();
       current += 1;
       render();
       return;
@@ -274,8 +324,72 @@
     if (step.type === "choice") return value ? "" : step.error;
     if (step.type === "currency") return value.replace(/\D/g, "").length >= 3 ? "" : step.error;
     if (step.key === "nome") return value.trim().length >= 2 ? "" : step.error;
+    if (step.key === "telefone") return validatePhone(value);
     if (step.key === "email") return /^[^\s@]+@[^\s@]+\.[^\s@]{2,}$/.test(value.trim()) ? "" : step.error;
     return value.trim() ? "" : step.error;
+  }
+
+  function initPhone(input) {
+    phoneIti = null;
+    if (typeof window.intlTelInput !== "function") return;
+
+    try {
+      phoneIti = window.intlTelInput(input, {
+        initialCountry: "br",
+        separateDialCode: true,
+        countrySearch: true,
+        dropdownParent: document.body,
+        formatAsYouType: true,
+        strictMode: true,
+        countryNameLocale: "pt-BR",
+        countryOrder: ["br", "pt", "us", "ar", "py", "uy", "cl", "co", "mx", "es"],
+        uiTranslations: {
+          searchPlaceholder: "Buscar país",
+          countryListAriaLabel: "Lista de países",
+          selectedCountryAriaLabel: "Alterar o país do telefone",
+          noCountrySelected: "Selecione o país",
+          searchEmptyState: "Nenhum país encontrado",
+          clearSearchAriaLabel: "Limpar busca",
+        },
+        loadUtils: dynamicImport ? () => dynamicImport(ITI_UTILS) : null,
+      });
+
+      input.addEventListener("countrychange", clearError);
+    } catch {
+      phoneIti = null;
+    }
+  }
+
+  function validatePhone(value) {
+    const raw = value.trim();
+    const digits = raw.replace(/\D/g, "");
+
+    if (!digits) return "Precisamos do seu telefone para continuar.";
+
+    if (phoneIti && window.intlTelInput?.utils) {
+      try {
+        if (phoneIti.isValidNumber()) return "";
+        const error = phoneIti.getValidationError();
+        const names = window.intlTelInput.VALIDATION_ERROR || {};
+        if (names.TOO_SHORT === error) return "Esse número está curto demais. Confira, por favor.";
+        if (names.TOO_LONG === error) return "Esse número tem dígitos demais. Confira, por favor.";
+        if (names.INVALID_COUNTRY_CODE === error) return "Selecione um país válido.";
+        if (names.NOT_A_NUMBER === error) return "Digite um telefone válido.";
+        return "Esse telefone não parece válido. Confira, por favor.";
+      } catch {
+        return digits.length < 6 ? "Digite o telefone completo." : "";
+      }
+    }
+
+    if (digits.length < 10) return "Digite o telefone com DDD.";
+    if (digits.length > 11) return "Esse telefone tem dígitos demais. Confira, por favor.";
+    if (!DDDS_VALIDOS.includes(Number(digits.slice(0, 2)))) return "Esse DDD não existe. Confira, por favor.";
+
+    const local = digits.slice(2);
+    if (local.length === 9 && local.charAt(0) !== "9") return "Celular deve começar com 9 após o DDD.";
+    if (local.length === 8 && !/^[2-5]/.test(local)) return "Esse número parece incompleto. Confira, por favor.";
+
+    return "";
   }
 
   function showError(message) {
@@ -337,9 +451,12 @@
   }
 
   function buildWhatsappUrl() {
+    const telefone = data.telefone_e164 || phoneE164() || data.telefone || "";
     const rows = [
       "Olá, Hurtz. Preenchi o diagnóstico de blefaroplastia:",
       "",
+      `Nome: ${data.nome || ""}`,
+      `Telefone: ${telefone}`,
       `Você é dono de clínica? ${data.dono_clinica || ""}`,
       `Já realiza blefaroplastia? ${data.realiza_blefaroplastia || ""}`,
       `Quantas cirurgias vende por mês? ${data.cirurgias_mes || ""}`,
@@ -352,6 +469,23 @@
     if (trackingRows.length) rows.push("", "Origem:", ...trackingRows);
 
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(rows.join("\n"))}`;
+  }
+
+  function phoneE164() {
+    if (!phoneIti) return "";
+    try {
+      if (window.intlTelInput?.utils) {
+        const number = phoneIti.getNumber();
+        if (number) return number;
+      }
+
+      const country = phoneIti.getSelectedCountryData();
+      const digits = (data.telefone || "").replace(/\D/g, "");
+      if (!country?.dialCode || !digits) return "";
+      return `+${country.dialCode}${digits}`;
+    } catch {
+      return "";
+    }
   }
 
   function maskCurrency(value) {

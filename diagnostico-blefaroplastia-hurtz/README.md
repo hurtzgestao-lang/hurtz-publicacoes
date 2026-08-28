@@ -12,20 +12,23 @@ Formulário curto de pré-qualificação para clínicas que trabalham ou querem 
 
 ## Perguntas atuais
 
-1. Você é dono de clínica?
-2. Já realiza blefaroplastia?
-3. Quantas cirurgias vende por mês?
-4. Qual o ticket médio?
-5. Possui secretária ou equipe comercial?
-6. Quanto pode investir mensalmente em anúncios?
+1. Qual o seu nome?
+2. Qual seu telefone?
+3. Você é dono de clínica?
+4. Já realiza blefaroplastia?
+5. Quantas cirurgias vende por mês?
+6. Qual o ticket médio?
+7. Possui secretária ou equipe comercial?
+8. Quanto pode investir mensalmente em anúncios?
 
 Para alterar perguntas e opções, edite o array `steps` no começo de `app.js`.
 
 ## Dinâmicas copiadas da referência
 
 - Uma pergunta por vez.
-- Progresso `Passo X de 6`.
+- Progresso `Passo X de 8`.
 - Avanço com clique ou Enter nas etapas de texto.
-- Dica `↵ ou pressione Enter` na etapa de ticket médio.
+- Dica `↵ ou pressione Enter` nas etapas de nome, telefone e ticket médio.
 - Alternativas avançam automaticamente ao clicar, exceto a última.
+- Telefone usa seletor internacional de DDI quando o CDN carrega, com máscara BR como fallback.
 - UTMs, `gclid`, `fbclid`, `msclkid` e `ref` são preservados e enviados no texto do WhatsApp.

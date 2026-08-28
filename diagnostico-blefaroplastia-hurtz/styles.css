@@ -209,6 +209,122 @@ h1 span {
   transition: border-color 120ms ease, background-color 120ms ease;
 }
 
+.iti {
+  width: 100%;
+  display: block;
+}
+
+.iti__selected-country {
+  border-radius: var(--radius) 0 0 var(--radius);
+}
+
+.iti__selected-country-primary {
+  padding: 0 4px 0 14px;
+}
+
+.iti__selected-dial-code {
+  color: var(--grafite);
+  font-size: 15px;
+  margin-left: 8px;
+}
+
+.iti__country-container::after {
+  content: "";
+  position: absolute;
+  top: 24%;
+  right: 0;
+  width: 1px;
+  height: 52%;
+  background: var(--areia);
+  pointer-events: none;
+}
+
+.iti__country-selector,
+.iti--inline-country-selector .iti__country-selector {
+  color: var(--carvao);
+  background: var(--offwhite);
+  border: 1px solid var(--areia);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.iti__search-input-wrapper {
+  border-bottom: 1px solid var(--areia);
+}
+
+.iti__search-input {
+  padding: 13px 14px;
+  color: var(--carvao);
+  background: var(--panel);
+  border: 0;
+  outline: 0;
+  font-family: inherit;
+}
+
+.iti__country-list {
+  max-height: 260px;
+  scrollbar-width: thin;
+  scrollbar-color: var(--pedra) transparent;
+}
+
+.iti__country {
+  padding-top: 11px;
+  padding-bottom: 11px;
+  color: var(--grafite);
+}
+
+.iti__country.iti__highlight {
+  color: var(--carvao);
+  background: var(--brasa-soft);
+}
+
+.iti__country-check {
+  color: var(--brasa);
+}
+
+.iti__dial-code,
+.iti__no-results {
+  color: var(--pedra);
+}
+
+.field-tel input {
+  padding-left: 6px;
+}
+
+.currency-field {
+  display: grid;
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  min-height: 58px;
+  color: var(--carvao);
+  background: var(--offwhite);
+  border: 1px solid var(--areia);
+  border-radius: var(--radius);
+  overflow: hidden;
+}
+
+.currency-field:focus-within {
+  background: var(--panel);
+  border-color: var(--carvao);
+}
+
+.currency-field span {
+  display: grid;
+  place-items: center;
+  height: 100%;
+  padding: 0 14px 0 16px;
+  color: var(--grafite);
+  border-right: 1px solid var(--areia);
+  font-weight: 700;
+}
+
+.currency-field input {
+  min-height: 56px;
+  padding-left: 14px;
+  border: 0;
+  border-radius: 0;
+}
+
 .field input::placeholder {
   color: var(--pedra);
 }
@@ -307,6 +423,34 @@ h1 span {
   background: var(--brasa-hover);
   border-color: var(--brasa-hover);
   outline: 0;
+}
+
+.btn:disabled {
+  cursor: not-allowed;
+  background: var(--brasa-hover);
+  border-color: var(--brasa-hover);
+}
+
+.btn.is-loading {
+  color: transparent;
+  position: relative;
+}
+
+.btn.is-loading::after {
+  content: "";
+  position: absolute;
+  width: 18px;
+  height: 18px;
+  border: 2px solid rgba(245, 242, 236, 0.38);
+  border-top-color: var(--offwhite);
+  border-radius: 999px;
+  animation: spin 700ms linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
 }
 
 .btn-back {
