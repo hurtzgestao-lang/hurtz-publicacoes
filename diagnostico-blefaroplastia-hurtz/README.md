@@ -7,6 +7,8 @@ Formulário curto de pré-qualificação para clínicas que trabalham ou querem 
 - `index.html` - entrada estática.
 - `styles.css` - tokens e layout seguindo Off-white, Carvão, Brasa e Inter.
 - `app.js` - perguntas, validação, navegação, tracking de origem e envio para WhatsApp.
+- `obrigado/index.html` - página de obrigado com estrutura para receber o vídeo.
+- `obrigado/styles.css` - layout responsivo da página de obrigado.
 - `assets/logo-atual-escuro.png` - logo oficial para fundo escuro.
 - `assets/logo-atual-icone-escuro.png` - ícone oficial usado como favicon.
 
@@ -32,3 +34,9 @@ Para alterar perguntas e opções, edite o array `steps` no começo de `app.js`.
 - Alternativas avançam automaticamente ao clicar, exceto a última.
 - Telefone usa seletor internacional de DDI quando o CDN carrega, com máscara BR como fallback.
 - UTMs, `gclid`, `fbclid`, `msclkid` e `ref` são preservados e enviados no texto do WhatsApp.
+- Após o envio, o WhatsApp abre e a aba atual redireciona para `/obrigado/`.
+
+## URLs
+
+- Formulário: https://pages.hurtzcompany.com.br/diagnostico-blefaroplastia-hurtz/
+- Obrigado: https://pages.hurtzcompany.com.br/diagnostico-blefaroplastia-hurtz/obrigado/

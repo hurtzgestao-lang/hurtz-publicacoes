@@ -2,6 +2,7 @@
   "use strict";
 
   const WHATSAPP_NUMBER = "5594988082290";
+  const THANK_YOU_URL = "obrigado/";
   const STORAGE_KEY = "hurtz-blefaroplastia-form-v1";
   const TRACKING_KEY = "hurtz-blefaroplastia-tracking-v1";
   const ITI_VERSION = "29.2.3";
@@ -447,6 +448,10 @@
         <a class="btn" href="${whatsappUrl}" target="_blank" rel="noopener noreferrer">Abrir WhatsApp →</a>
       </div>
     `;
+
+    window.setTimeout(() => {
+      window.location.assign(THANK_YOU_URL);
+    }, 450);
   }
 
   function buildWhatsappUrl() {
