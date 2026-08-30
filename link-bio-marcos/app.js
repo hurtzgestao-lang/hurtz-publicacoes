@@ -3,7 +3,7 @@
 
   const WHATSAPP_NUMBER = "5517997028470";
   const SUBMIT_ENDPOINT = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/link-bio-marcos-submit";
-  const STORAGE_KEY = "hurtz-link-bio-marcos-form-v1";
+  const STORAGE_KEY = "hurtz-link-bio-marcos-form-v2";
   const TRACKING_KEY = "hurtz-link-bio-marcos-tracking-v1";
   const ITI_VERSION = "29.2.3";
   const ITI_UTILS = `https://cdn.jsdelivr.net/npm/intl-tel-input@${ITI_VERSION}/dist/js/utils.js`;
@@ -76,6 +76,9 @@
       ],
     },
   ];
+  const DEFAULT_DATA = {
+    cargo: "Sócio / Empresário",
+  };
 
   const form = document.querySelector("#lead-form");
   const progressFill = document.querySelector(".progress-fill");
@@ -97,9 +100,9 @@
   function loadData() {
     try {
       const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
-      return saved && typeof saved === "object" ? saved : {};
+      return saved && typeof saved === "object" ? { ...DEFAULT_DATA, ...saved } : { ...DEFAULT_DATA };
     } catch {
-      return {};
+      return { ...DEFAULT_DATA };
     }
   }
 
