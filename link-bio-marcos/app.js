@@ -1,7 +1,8 @@
 (function () {
   "use strict";
 
-  const WHATSAPP_NUMBER = "5594988082290";
+  const WHATSAPP_NUMBER = "5517997028470";
+  const SUBMIT_ENDPOINT = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/link-bio-marcos-submit";
   const STORAGE_KEY = "hurtz-link-bio-marcos-form-v1";
   const TRACKING_KEY = "hurtz-link-bio-marcos-tracking-v1";
   const ITI_VERSION = "29.2.3";
@@ -381,7 +382,7 @@
     }
   }
 
-  function finish() {
+  async function finish() {
     const whatsappUrl = buildWhatsappUrl();
     const submitButton = form.querySelector("[data-next]");
     if (submitButton) {
@@ -399,14 +400,16 @@
 
     window.open(whatsappUrl, "_blank", "noopener,noreferrer");
 
+    const leadResult = await submitLead();
+
     progressFill.style.width = "100%";
     progressLabel.textContent = "Concluído";
-    title.textContent = "Dados enviados para análise.";
+    title.textContent = leadResult.ok ? "Dados enviados para análise." : "Contato enviado pelo WhatsApp.";
 
     form.innerHTML = `
       <div class="success">
         <span class="accent-line" aria-hidden="true"></span>
-        <p>Abra o WhatsApp para enviar os dados ao time comercial da Hurtz.</p>
+        <p>${leadResult.ok ? "Recebemos seus dados e abrimos o WhatsApp para continuar o atendimento." : "Abrimos o WhatsApp para continuar o atendimento. Se a conversa não aparecer, toque no botão abaixo."}</p>
         <ul class="summary">
           ${steps
             .map((step) => `<li><span>${escapeHtml(step.label)}</span><strong>${escapeHtml(data[step.key] || "Não informado")}</strong></li>`)
@@ -415,6 +418,44 @@
         <a class="btn" href="${whatsappUrl}" target="_blank" rel="noopener noreferrer">Abrir WhatsApp →</a>
       </div>
     `;
+  }
+
+  async function submitLead() {
+    const payload = {
+      nome: data.nome || "",
+      email: data.email || "",
+      telefone: data.telefone || "",
+      telefone_e164: data.telefone_e164 || phoneE164() || "",
+      cargo: data.cargo || "",
+      segmento: data.segmento || "",
+      faturamento: data.faturamento || "",
+      origem: "link_bio_marcos",
+      landing_url: window.location.href,
+      referrer_url: document.referrer || "",
+      tracking,
+      ...utmFields(),
+    };
+
+    try {
+      const response = await fetch(SUBMIT_ENDPOINT, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload),
+      });
+      const result = await response.json().catch(() => ({}));
+      if (!response.ok || result.success === false) throw new Error(result.error || "Falha ao salvar lead.");
+      return { ok: true, result };
+    } catch (error) {
+      console.error("[link-bio-marcos] submit failed", error);
+      return { ok: false, error };
+    }
+  }
+
+  function utmFields() {
+    return ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term"].reduce((fields, key) => {
+      if (tracking[key]) fields[key] = tracking[key];
+      return fields;
+    }, {});
   }
 
   function buildWhatsappUrl() {

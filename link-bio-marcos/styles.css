@@ -70,7 +70,7 @@ button {
 }
 
 .topbar img {
-  width: min(196px, 64vw);
+  width: min(220px, 68vw);
   height: auto;
   display: block;
   animation: logo-float 5.5s ease-in-out infinite;
