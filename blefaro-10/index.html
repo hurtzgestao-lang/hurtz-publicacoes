@@ -1,0 +1,604 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Blefaro 10 — Hurtz | Estrutura comercial para cirurgia da face</title>
+<meta name="description" content="Estrutura comercial para clínicas que querem organizar aquisição, atendimento, agenda e follow-up para blefaroplastia.">
+<meta name="theme-color" content="#181614">
+<link rel="icon" type="image/png" href="assets/logo-atual-icone-escuro.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{
+  --black:#181614;
+  --ink:#3D3A36;
+  --creme:#F5F2EC;
+  --paper:#FFFFFF;
+  --rust:#C06018;
+  --rust-deep:#974A12;
+  --muted:#8C8880;
+  --line:#E8E4DC;
+  --line-dark:rgba(245,242,236,.18);
+  --fs-display:4.4rem;
+  --fs-h2:2.55rem;
+  --fs-h3:1.25rem;
+  --fs-body:1rem;
+  --gutter:clamp(1.25rem,5vw,4rem);
+  --stack:clamp(3.5rem,7vw,6.5rem);
+}
+*{box-sizing:border-box}
+*::selection{background:var(--rust);color:#FFFFFF}
+html{scroll-behavior:smooth}
+body{
+  margin:0;background:var(--creme);color:var(--black);
+  font-family:Inter,system-ui,sans-serif;font-size:var(--fs-body);line-height:1.6;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+h1,h2,h3,.wordmark{font-family:Inter,system-ui,sans-serif;line-height:1.04;letter-spacing:0;margin:0}
+h1{font-size:var(--fs-display);font-weight:700;text-transform:uppercase}
+h2{font-size:var(--fs-h2);font-weight:700}
+h3{font-size:var(--fs-h3);font-weight:700;letter-spacing:0}
+p{margin:0 0 1rem}
+a{color:inherit}
+.wrap{max-width:1180px;margin:0 auto;padding-inline:var(--gutter)}
+.narrow{max-width:66ch}
+section{padding-block:var(--stack)}
+.dark{background:var(--black);color:var(--creme)}
+.dark h2{color:var(--creme)}
+
+/* ---------- header ---------- */
+.site-head{position:sticky;top:0;z-index:40;background:var(--creme);border-bottom:1px solid var(--line)}
+.site-head .wrap{display:flex;align-items:center;justify-content:space-between;height:68px}
+.brand{display:flex;align-items:center;gap:.6rem;text-decoration:none}
+.brand img{width:min(142px,42vw);height:auto;display:block}
+.wordmark{font-weight:700;font-size:1.05rem;letter-spacing:.34em;text-transform:uppercase}
+.head-cta{font-size:.85rem;font-weight:600;text-decoration:none;border:1.5px solid var(--black);padding:.55rem 1rem;border-radius:2px}
+.head-cta:hover{background:var(--black);color:var(--creme)}
+
+/* ---------- hero ---------- */
+.hero{background:var(--black);color:var(--creme);padding-block:4.75rem}
+.hero-grid{display:grid;grid-template-columns:minmax(0,1.12fr) minmax(320px,.88fr);gap:clamp(2rem,4vw,3.5rem);align-items:start}
+.tag{display:inline-block;font-size:.72rem;font-weight:600;letter-spacing:.14em;text-transform:uppercase;
+  color:var(--rust);border:1px solid var(--rust);border-radius:2px;padding:.4rem .7rem;margin-bottom:1.6rem}
+.hero h1{color:var(--creme);max-width:15ch}
+.hero h1 .l2{display:block;color:#CFC8BE}
+.lede{margin-top:1.6rem;max-width:52ch;color:#D6D0C7;font-size:1.02rem}
+.lede strong{color:var(--creme);font-weight:600;display:block;margin-top:.9rem}
+.proof{margin-top:1.5rem;padding-left:1rem;border-left:3px solid var(--rust);max-width:46ch;font-size:.95rem;color:#E4DFD7}
+.rail{display:flex;flex-wrap:wrap;gap:0;margin-top:2rem;border-top:1px solid var(--line-dark)}
+.rail div{flex:1 1 150px;padding:.9rem 1rem .2rem 0;border-right:1px solid var(--line-dark)}
+.rail div:last-child{border-right:0}
+.rail b{display:block;font-family:Inter,sans-serif;font-size:1.35rem;font-weight:700;color:var(--rust)}
+.rail span{font-size:.83rem;color:#B8B1A8}
+
+/* ---------- form ---------- */
+.card-form{background:var(--creme);color:var(--black);border:1px solid var(--line);border-radius:4px;padding:clamp(1.4rem,2.2vw,2rem)}
+.card-form h3{margin-bottom:.3rem}
+.card-form .sub{font-size:.87rem;color:var(--muted);margin-bottom:1.2rem}
+.field{margin-bottom:.85rem}
+.field label{display:block;font-size:.79rem;font-weight:600;margin-bottom:.3rem}
+.field input,.field select{
+  width:100%;min-height:44px;padding:.62rem .7rem;font:inherit;font-size:.92rem;
+  border:1px solid var(--line);border-radius:4px;background:var(--paper);color:var(--black);
+}
+.field input:focus,.field select:focus{outline:2px solid var(--rust);outline-offset:1px;border-color:var(--rust)}
+.two{display:grid;grid-template-columns:1fr 1fr;gap:.7rem}
+.btn{
+  display:block;width:100%;margin-top:.4rem;padding:.95rem 1rem;border:0;border-radius:2px;
+  background:var(--rust);color:#FFFFFF;font-family:Inter,sans-serif;font-weight:700;font-size:.98rem;
+  letter-spacing:.01em;cursor:pointer;text-align:center;text-decoration:none;
+}
+.btn:hover{background:var(--rust-deep)}
+.fineprint{font-size:.76rem;color:var(--muted);text-align:center;margin:.7rem 0 0}
+
+/* ---------- marquee ---------- */
+.band{background:var(--rust);color:#FFFFFF;overflow:hidden;padding:.9rem var(--gutter);border-block:1px solid var(--rust-deep)}
+.band-track{display:flex;gap:1.25rem;white-space:normal;width:min(1180px,100%);margin:0 auto;flex-wrap:wrap;justify-content:center}
+.band-track span{font-family:Inter,sans-serif;font-weight:700;font-size:.95rem;letter-spacing:.05em;text-transform:uppercase}
+@keyframes slide{from{transform:translateX(0)}to{transform:translateX(-50%)}}
+@media (prefers-reduced-motion:reduce){.band-track{animation:none;flex-wrap:wrap;white-space:normal;width:auto;justify-content:center}}
+
+/* ---------- generic blocks ---------- */
+.kicker{font-size:.75rem;font-weight:600;letter-spacing:.16em;text-transform:uppercase;color:var(--rust);margin-bottom:.9rem}
+.lead-2{font-size:1.06rem;max-width:60ch;margin-top:1.4rem}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:2rem;margin-top:2.6rem}
+.col h3{margin-bottom:.5rem}
+.col p{color:var(--muted);margin:0}
+.dark .col p{color:#B8B1A8}
+
+/* ---------- case ---------- */
+.case{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3.5rem);align-items:center;margin-top:2.4rem}
+.bignum{font-family:Inter,sans-serif;font-weight:700;font-size:8rem;line-height:.85;color:var(--rust)}
+.bignum small{display:block;font-family:Inter,sans-serif;font-size:1rem;font-weight:500;color:var(--black);letter-spacing:0;margin-top:.9rem;line-height:1.5}
+.stats{list-style:none;margin:1.6rem 0 0;padding:0}
+.stats li{display:flex;justify-content:space-between;gap:1rem;padding:.7rem 0;border-bottom:1px solid var(--line);font-size:.94rem}
+.stats b{font-family:Inter,sans-serif;font-weight:700}
+
+/* ---------- timeline ---------- */
+.tl{margin-top:2.6rem;border-top:1px solid var(--line-dark)}
+.tl-row{display:grid;grid-template-columns:130px 1fr;gap:1.2rem;padding:1.1rem 0;border-bottom:1px solid var(--line-dark)}
+.tl-row b{font-family:Inter,sans-serif;font-weight:700;color:var(--rust);font-size:1.02rem}
+.tl-row p{margin:0;color:#B8B1A8;font-size:.95rem}
+
+/* ---------- diagnostic rows ---------- */
+.diag{margin-top:2.2rem;border-top:1px solid var(--line)}
+.diag-row{display:grid;grid-template-columns:minmax(180px,.9fr) 1.4fr;gap:1rem;padding:1.05rem 0;border-bottom:1px solid var(--line)}
+.diag-row b{font-weight:600}
+.diag-row span{color:var(--muted)}
+
+/* ---------- planos ---------- */
+.plans{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:1.2rem;margin-top:2.6rem}
+.plan{border:1px solid var(--line);padding:1.6rem;border-radius:4px;background:var(--paper)}
+.plan.on{border:2px solid var(--rust);position:relative}
+.plan.on::after{content:"Esta página";position:absolute;top:-11px;left:1.4rem;background:var(--rust);color:#FFFFFF;font-size:.68rem;font-weight:600;letter-spacing:.1em;text-transform:uppercase;padding:.2rem .5rem;border-radius:2px}
+.plan h3{margin-bottom:.6rem}
+.plan p{color:var(--muted);font-size:.93rem;margin:0}
+
+/* ---------- negações ---------- */
+.nots{margin-top:2.4rem;columns:2;column-gap:2.5rem;max-width:760px}
+.nots p{margin:0 0 .5rem;color:#C7C0B7;break-inside:avoid}
+.nots-end{margin-top:1.6rem;font-family:Inter,sans-serif;font-weight:700;font-size:1.5rem;color:var(--rust)}
+
+/* ---------- conta ---------- */
+.conta{background:var(--rust);color:#FFFFFF}
+.conta h2{color:#FFFFFF}
+.conta .calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.6rem;margin-top:2.4rem;border-top:1px solid rgba(255,255,255,.3)}
+.conta .calc div{padding-top:1.2rem;border-right:1px solid rgba(255,255,255,.3);padding-right:1rem}
+.conta .calc div:last-child{border-right:0}
+.conta .calc b{display:block;font-family:Inter,sans-serif;font-size:1.8rem;font-weight:700}
+.conta .calc span{font-size:.9rem;color:rgba(255,255,255,.85)}
+.todo{background:rgba(0,0,0,.22);border:1px dashed rgba(255,255,255,.6);padding:.7rem .9rem;border-radius:2px;font-size:.85rem;margin-top:1.8rem}
+
+/* ---------- calculadora ---------- */
+.calc-grid{display:grid;grid-template-columns:1fr 1fr;gap:clamp(1.5rem,4vw,3.5rem);margin-top:2.4rem;align-items:start}
+.ctrl{margin-bottom:1.8rem}
+.ctrl label{display:block;font-size:.9rem;font-weight:600;margin-bottom:.1rem}
+.ctrl .val{font-family:Inter,sans-serif;font-weight:700;font-size:1.9rem;line-height:1.2;display:block;margin-bottom:.4rem}
+input[type=range]{width:100%;-webkit-appearance:none;appearance:none;height:3px;background:rgba(255,255,255,.4);border-radius:2px;outline:none}
+input[type=range]::-webkit-slider-thumb{-webkit-appearance:none;width:24px;height:24px;border-radius:50%;background:#FFFFFF;border:3px solid var(--rust-deep);cursor:pointer}
+input[type=range]::-moz-range-thumb{width:24px;height:24px;border-radius:50%;background:#FFFFFF;border:3px solid var(--rust-deep);cursor:pointer}
+input[type=range]:focus-visible{outline:2px solid #FFFFFF;outline-offset:4px}
+.readout{background:rgba(24,22,20,.24);border:1px solid rgba(255,255,255,.26);border-radius:4px;padding:clamp(1.3rem,2.5vw,1.9rem)}
+.readout .lbl{font-size:.83rem;text-transform:uppercase;letter-spacing:.12em;color:rgba(255,255,255,.75);margin:0 0 .3rem}
+.readout .big{font-family:Inter,sans-serif;font-weight:700;font-size:3rem;line-height:1;margin:0 0 .1rem}
+.readout .sub2{font-size:.92rem;color:rgba(255,255,255,.85);margin:.5rem 0 0}
+.readout hr{border:0;border-top:1px solid rgba(255,255,255,.28);margin:1.2rem 0}
+.readout .row{display:flex;justify-content:space-between;gap:1rem;font-size:.93rem;padding:.35rem 0}
+.readout .row b{font-family:Inter,sans-serif;font-weight:700;text-align:right}
+
+/* ---------- garantia ---------- */
+.grt{border:2px solid var(--black);padding:clamp(1.6rem,3.5vw,2.8rem);border-radius:4px;background:var(--paper);margin-top:2.4rem}
+.grt .claim{font-family:Inter,sans-serif;font-weight:700;font-size:1.5rem;line-height:1.3;margin-bottom:1.2rem}
+.grt ul{margin:1.2rem 0 0;padding-left:1.1rem}
+.grt li{margin-bottom:.45rem}
+.grt .floor{margin-top:1.4rem;padding-top:1.2rem;border-top:1px solid var(--line);font-size:.95rem;color:var(--muted)}
+
+/* ---------- faq ---------- */
+.faq{margin-top:2.4rem;border-top:1px solid var(--line);max-width:80ch}
+.faq details{border-bottom:1px solid var(--line)}
+.faq summary{cursor:pointer;padding:1.1rem 0;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:1rem;align-items:center}
+.faq summary::-webkit-details-marker{display:none}
+.faq summary::after{content:"+";font-family:Inter,sans-serif;font-size:1.3rem;color:var(--rust);flex:none}
+.faq details[open] summary::after{content:"-"}
+.faq details p{padding-bottom:1.1rem;margin:0;color:var(--muted);max-width:70ch}
+
+/* ---------- final ---------- */
+.final{background:var(--black);color:var(--creme)}
+.final-grid{display:grid;grid-template-columns:1fr .85fr;gap:clamp(2rem,4vw,3.5rem);align-items:start}
+.final p{color:#C7C0B7;max-width:48ch}
+
+/* ---------- footer ---------- */
+.foot{background:var(--ink);color:#9C948B;padding-block:2.6rem;font-size:.85rem}
+.foot .wrap{display:flex;flex-wrap:wrap;gap:1rem;justify-content:space-between;align-items:center}
+.foot img{width:128px;height:auto;opacity:.95}
+.foot a{color:#C7C0B7;text-decoration:none;margin-left:1.2rem}
+.foot a:hover{color:var(--rust)}
+
+@media (max-width:880px){
+  :root{--fs-display:2.65rem;--fs-h2:2rem;--fs-h3:1.15rem}
+  .hero{padding-block:3.5rem}
+  .hero-grid,.case,.final-grid,.calc-grid{grid-template-columns:1fr}
+  .nots{columns:1}
+  .diag-row{grid-template-columns:1fr;gap:.2rem}
+  .tl-row{grid-template-columns:1fr;gap:.2rem}
+  .head-cta{display:none}
+  .two{grid-template-columns:1fr}
+  .bignum{font-size:5.25rem}
+  .readout .big{font-size:2.35rem}
+  .rail div{border-right:0;flex-basis:100%}
+  .band-track{justify-content:flex-start}
+}
+@media (max-width:480px){
+  :root{--fs-display:2.15rem;--fs-h2:1.65rem}
+  .site-head .wrap{height:60px}
+  .card-form{padding:1.15rem}
+  .stats li,.readout .row{display:grid;grid-template-columns:1fr;gap:.15rem}
+  .foot a{margin-left:0;margin-right:1rem}
+}
+</style>
+</head>
+<body>
+
+<header class="site-head">
+  <div class="wrap">
+    <a class="brand" href="#topo">
+      <img src="assets/logo-atual-claro.png" alt="Hurtz Company" width="1774" height="400">
+      <span class="wordmark">Hurtz</span>
+    </a>
+    <a class="head-cta" href="#form">Diagnóstico comercial</a>
+  </div>
+</header>
+
+<!-- ============ DOBRA 1 — HERO ============ -->
+<section class="hero" id="topo">
+  <div class="wrap hero-grid">
+    <div>
+      <span class="tag">Exclusivo para cirurgiões que realizam blefaroplastia</span>
+      <h1>Blefaro 10.<span class="l2">Estrutura comercial para vender mais cirurgia da face.</span></h1>
+      <div class="lede">
+        <p>Nos próximos 30 dias vamos organizar uma estrutura para atrair pacientes com perfil financeiro, qualificar cada oportunidade, agendar consultas, confirmar presença e conduzir o follow-up até a decisão comercial.</p>
+        <strong>Você entra apenas para consultar e operar.</strong>
+      </div>
+      <p class="proof">A mesma estrutura que vendeu 32 blefaroplastias em um único mês no Instituto Odonto Medic.</p>
+      <div class="rail">
+        <div><b>48h</b><span>Tráfego no ar</span></div>
+        <div><b>30 dias</b><span>Estrutura completa</span></div>
+        <div><b>Mês 3</b><span>Volume pleno</span></div>
+      </div>
+    </div>
+
+    <div class="card-form" id="form">
+      <h3>Veja se sua clínica é elegível</h3>
+      <p class="sub">Uma clínica por cidade. Leva 2 minutos.</p>
+      <form id="leadForm">
+        <div class="field"><label for="n">Nome</label><input id="n" autocomplete="name" required></div>
+        <div class="two">
+          <div class="field"><label for="w">WhatsApp</label><input id="w" type="tel" autocomplete="tel" required></div>
+          <div class="field"><label for="e">E-mail</label><input id="e" type="email" autocomplete="email" required></div>
+        </div>
+        <div class="field"><label for="ig">Instagram da clínica</label><input id="ig" placeholder="@"></div>
+        <div class="field"><label for="esp">Sua especialidade</label>
+          <select id="esp" required><option value="">Selecionar</option><option>Bucomaxilofacial</option><option>Cirurgia plástica</option><option>Oftalmologia</option><option>Outra</option></select></div>
+        <div class="field"><label for="vol">Blefaroplastias que você opera por mês hoje</label>
+          <select id="vol" required><option value="">Selecionar</option><option>Nenhuma ainda</option><option>1 a 3</option><option>4 a 8</option><option>9 a 15</option><option>Mais de 15</option></select></div>
+        <div class="field"><label for="tk">Ticket médio da sua blefaroplastia</label>
+          <select id="tk" required><option value="">Selecionar</option><option>Até R$ 5 mil</option><option>R$ 5 a 8 mil</option><option>R$ 8 a 12 mil</option><option>R$ 12 a 18 mil</option><option>Acima de R$ 18 mil</option></select></div>
+        <div class="field"><label for="tf">Quanto você investe em tráfego hoje</label>
+          <select id="tf" required><option value="">Selecionar</option><option>Nada</option><option>Até R$ 1 mil/mês</option><option>R$ 1 a 3 mil/mês</option><option>R$ 3 a 5 mil/mês</option><option>Acima de R$ 5 mil/mês</option></select></div>
+        <div class="field"><label for="q">Você investiria R$ 3.000 por mês em tráfego para encher sua agenda cirúrgica?</label>
+          <select id="q" required><option value="">Selecionar</option><option>Sim</option><option>Não</option></select></div>
+        <button class="btn" type="submit">Quero saber se minha clínica é elegível</button>
+        <p class="fineprint">Retorno em até 4 horas no horário comercial.</p>
+      </form>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOBRA 2 — FAIXA ============ -->
+<div class="band" aria-label="Provas">
+  <div class="band-track">
+    <span>+67 clínicas de cirurgia da face atendidas</span><span>•</span>
+    <span>R$ 256 mil em cirurgias vendidas em um único mês</span><span>•</span>
+    <span>Equipe 100% presencial</span><span>•</span>
+    <span>+67 clínicas de cirurgia da face atendidas</span><span>•</span>
+    <span>R$ 256 mil em cirurgias vendidas em um único mês</span><span>•</span>
+    <span>Equipe 100% presencial</span><span>•</span>
+  </div>
+</div>
+
+<!-- ============ DOBRA 3 — CASE ============ -->
+<section>
+  <div class="wrap">
+    <p class="kicker">Case</p>
+    <h2>Instituto Odonto Medic, Dr. Sidney Colares</h2>
+    <div class="case">
+      <div class="bignum">32
+        <small>blefaroplastias vendidas em maio de 2026, distribuídas entre três atendentes da clínica — sem o cirurgião participar de nenhuma etapa comercial.</small>
+      </div>
+      <div>
+        <p><b>Como começou.</b> O desafio era vender 100 blefaroplastias em 30 dias. Fechamos 117.</p>
+        <p><b>Como continua.</b> A estrutura ficou instalada. O volume deixou de depender da campanha e passou a depender do sistema.</p>
+        <ul class="stats">
+          <li><span>Cirurgias vendidas no mês</span><b>32</b></li>
+          <li><span>Faturamento gerado</span><b>R$ 256.000</b></li>
+          <li><span>Atendentes envolvidas</span><b>3</b></li>
+          <li><span>Participação do cirurgião no comercial</span><b>Nenhuma</b></li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOBRA 4 — QUEM SOMOS ============ -->
+<section>
+  <div class="wrap">
+    <p class="kicker">Quem somos</p>
+    <h2 class="narrow">Especialistas em aquisição e conversão para cirurgia estética da face.</h2>
+    <p class="lead-2">A Hurtz não é uma agência de tráfego. Agência entrega lead e vai embora, e o que acontece entre o clique e a cadeira continua sendo problema seu.</p>
+    <p class="narrow">Nós construímos e instalamos a operação comercial da sua clínica: tráfego, CRM, scripts, processo de atendimento e treinamento da sua equipe. Depois disso, a máquina roda dentro da clínica, com gente sua.</p>
+    <div class="cols">
+      <div class="col"><h3>Estrutura 100% presencial</h3><p>Escritório próprio, time no mesmo ambiente, operação acompanhada de perto todos os dias. Já rodamos remoto e trocamos: performance de time distribuído não se controla, e quem paga essa conta é o cliente.</p></div>
+      <div class="col"><h3>Especialistas em uma coisa só</h3><p>Não atendemos restaurante, academia, e-commerce nem advogado. Só cirurgia estética da face. Cada criativo, cada script e cada resposta de objeção do nosso playbook foi escrito dentro desse mercado.</p></div>
+      <div class="col"><h3>Uma clínica por cidade</h3><p>Não trabalhamos com dois cirurgiões que disputam o mesmo paciente. Quando uma praça é fechada, ela sai da lista.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOBRA 5 — MÉTODO ============ -->
+<section class="dark">
+  <div class="wrap">
+    <p class="kicker">O método Hurtz</p>
+    <h2 class="narrow">Existe uma estrutura comprovada para que sua agenda cirúrgica nunca mais fique vazia.</h2>
+    <div class="cols">
+      <div class="col"><h3>Aquisição</h3><p>Funil Meta Ads em três níveis. Criativos e oferta de entrada calibrados para o ticket da blefaroplastia, não para volume de clique. Verba definida e alocada por nós.</p></div>
+      <div class="col"><h3>Conversão</h3><p>CRM implantado e configurado na clínica. Scripts de social selling, playbook de call de venda e treinamento completo da sua equipe de atendimento. Follow-up estruturado até o paciente decidir.</p></div>
+      <div class="col"><h3>Controle</h3><p>Painel de métricas por etapa: lead, resposta, consulta, cirurgia. Você enxerga exatamente onde a cirurgia está sendo perdida, em tempo real.</p></div>
+    </div>
+    <div class="tl">
+      <div class="tl-row"><b>48 horas</b><p>Onboarding, alinhamento comercial e tráfego no ar.</p></div>
+      <div class="tl-row"><b>7 dias</b><p>Primeira consulta cirúrgica agendada.</p></div>
+      <div class="tl-row"><b>30 dias</b><p>Estrutura completa construída: campanha calibrada, CRM rodando, equipe treinada, follow-up operando. Primeiras cirurgias vendidas.</p></div>
+      <div class="tl-row"><b>Mês 3</b><p>Volume pleno. É o marco aferido em contrato.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOBRA 6 — O QUE FAZEMOS ============ -->
+<section>
+  <div class="wrap">
+    <p class="kicker">O que fazemos</p>
+    <h2 class="narrow">A estrutura é montada com base na necessidade da sua clínica.</h2>
+    <p class="lead-2">Cada clínica chega num ponto diferente. Tem cirurgião que nunca anunciou. Tem quem investe todo mês e não sabe quanto volta. Tem quem recebe lead e não tem quem atenda. O diagnóstico define o que é construído primeiro.</p>
+    <div class="diag">
+      <div class="diag-row"><b>Não tem demanda</b><span>Funil de aquisição calibrado para o ticket da sua cirurgia.</span></div>
+      <div class="diag-row"><b>Tem lead e não converte</b><span>Processo de atendimento, script e follow-up.</span></div>
+      <div class="diag-row"><b>Converte mas não escala</b><span>CRM, painel de métricas e treinamento da equipe.</span></div>
+      <div class="diag-row"><b>Escala mas depende de você</b><span>Estrutura que roda sem o cirurgião no meio.</span></div>
+    </div>
+    <p class="lead-2">Nada é montado antes do diagnóstico. Instalar a peça errada é o motivo mais comum de estrutura comercial que não sai do papel.</p>
+  </div>
+</section>
+
+<!-- ============ DOBRA 7 — PLANOS ============ -->
+<section>
+  <div class="wrap">
+    <p class="kicker">Escolha a solução certa</p>
+    <h2 class="narrow">Você escolhe a estrutura certa para a fase que sua clínica vive hoje.</h2>
+    <div class="plans">
+      <div class="plan on"><h3>Blefaro 10</h3><p>Para o cirurgião que quer previsibilidade em um procedimento só. Estrutura comercial completa focada em blefaroplastia, com meta de trabalho ajustada à capacidade real da clínica.</p></div>
+      <div class="plan"><h3>Face Completa</h3><p>Para quem já tem demanda de blefaro e quer somar rinoplastia, lifting e otoplastia na mesma estrutura, sem multiplicar equipe.</p></div>
+      <div class="plan"><h3>Hurtz X</h3><p>Para clínicas de alto volume que precisam de time comercial dedicado e gestão de múltiplas unidades.</p></div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOBRA 8 — MÁQUINA INTERNA ============ -->
+<section class="dark">
+  <div class="wrap">
+    <p class="kicker">Estrutura interna, não terceirização</p>
+    <h2 class="narrow">Não vendemos no seu lugar. Fazemos a sua clínica vender sozinha.</h2>
+    <p class="lead-2" style="color:#C7C0B7">Nenhum estranho fala com o seu paciente. Quem atende continua sendo a sua equipe, só que agora com script, com CRM, com processo de follow-up e com treinamento. Ela para de improvisar.</p>
+    <div class="cols">
+      <div class="col"><h3>O paciente continua sendo seu</h3><p>Relacionamento, histórico e dado clínico ficam dentro da clínica. Nada passa por central de atendimento de terceiro.</p></div>
+      <div class="col"><h3>A estrutura fica</h3><p>Terceirizar comercial cria dependência: no dia em que o contrato acaba, o comercial acaba junto. Aqui a máquina é instalada na sua operação e continua sua.</p></div>
+      <div class="col"><h3>Ninguém vende melhor que a sua equipe</h3><p>Ela já conhece o procedimento, o pós-operatório e o seu jeito de trabalhar. O que faltava era método.</p></div>
+    </div>
+    <div class="nots">
+      <p>Você não escreve anúncio.</p><p>Você não configura campanha.</p><p>Você não escolhe verba.</p>
+      <p>Você não monta CRM.</p><p>Você não escreve script.</p><p>Você não treina secretária.</p>
+      <p>Você não faz follow-up.</p><p>Você não negocia preço no WhatsApp.</p><p>Você não analisa métrica.</p>
+    </div>
+    <p class="nots-end">Você opera.</p>
+  </div>
+</section>
+
+<!-- ============ DOBRA 9 — CALCULADORA ============ -->
+<section class="conta">
+  <div class="wrap">
+    <p class="kicker" style="color:rgba(255,255,255,.85)">A conta</p>
+    <h2 class="narrow">Quanto sua agenda está deixando na mesa todo mês?</h2>
+    <p class="lead-2" style="color:rgba(255,255,255,.9)">Três respostas que você sabe de cabeça. A conta é feita com a sua régua, não com a nossa.</p>
+
+    <div class="calc-grid">
+      <div>
+        <div class="ctrl">
+          <label for="ticket">Seu ticket médio de blefaroplastia</label>
+          <span class="val" id="ticketOut">R$ 8.000</span>
+          <input type="range" id="ticket" min="3000" max="25000" step="500" value="8000" aria-describedby="ticketOut">
+        </div>
+        <div class="ctrl">
+          <label for="capac">Quantas blefaroplastias sua sala cirúrgica comporta por mês</label>
+          <span class="val" id="capacOut">12</span>
+          <input type="range" id="capac" min="1" max="40" step="1" value="12" aria-describedby="capacOut">
+        </div>
+        <div class="ctrl">
+          <label for="atual">Quantas você vende por mês hoje</label>
+          <span class="val" id="atualOut">3</span>
+          <input type="range" id="atual" min="0" max="40" step="1" value="3" aria-describedby="atualOut">
+        </div>
+        <div class="ctrl">
+          <label for="verba">Quanto você investe em tráfego por mês</label>
+          <span class="val" id="verbaOut">R$ 4.000</span>
+          <input type="range" id="verba" min="3000" max="20000" step="500" value="4000" aria-describedby="verbaOut">
+        </div>
+        <p style="font-size:.86rem;color:rgba(255,255,255,.8);margin:0">
+          No Instituto Odonto Medic, 32 blefaroplastias em um único mês geraram R$ 256 mil.
+        </p>
+      </div>
+
+      <div class="readout" aria-live="polite">
+        <p class="lbl" id="rLabel">Sala ociosa</p>
+        <p class="big" id="rBig">R$ 72.000</p>
+        <p class="sub2" id="rSub">por mês. É o que a sua própria agenda comporta e não está sendo vendido.</p>
+        <hr>
+        <div class="row"><span id="rGapLabel">Vagas cirúrgicas ociosas por mês</span><b id="rGap">9</b></div>
+        <div class="row"><span>Diferença em 12 meses</span><b id="rYear">R$ 864.000</b></div>
+        <div class="row"><span id="rMetaLabel">Meta de trabalho para o seu caso</span><b id="rMeta">10/mês</b></div>
+        <div class="row"><span>Tráfego por cirurgia na meta</span><b id="rCpc">R$ 400</b></div>
+        <div class="row"><span>Isso representa do seu ticket</span><b id="rPct">5%</b></div>
+        <div class="row"><span>Investimento da estrutura</span><b>A definir</b></div>
+        <a class="btn" href="#form" style="margin-top:1.3rem">Quero saber se minha clínica é elegível</a>
+      </div>
+    </div>
+
+    <p class="todo">Versão de trabalho: preço e formato de cobrança entram aqui depois da validação comercial.</p>
+  </div>
+</section>
+
+<script>
+(function(){
+  var t=document.getElementById('ticket'), c=document.getElementById('capac'),
+      a=document.getElementById('atual'), v=document.getElementById('verba');
+  var $=function(id){return document.getElementById(id);};
+  var brl=function(v){return v.toLocaleString('pt-BR',{style:'currency',currency:'BRL',maximumFractionDigits:0});};
+
+  function paint(){
+    var ticket=+t.value, capac=+c.value, atual=+a.value, verba=+v.value;
+    if(atual>capac){ atual=capac; a.value=capac; }        // não vende mais do que a sala comporta
+    var ocioso=capac-atual, meta=Math.min(10,capac);
+    var porCirurgia=Math.round(verba/meta), pct=(porCirurgia/ticket*100);
+
+    $('ticketOut').textContent=brl(ticket);
+    $('capacOut').textContent=capac;
+    $('atualOut').textContent=atual;
+    $('verbaOut').textContent=brl(verba);
+    $('rCpc').textContent=brl(porCirurgia);
+    $('rPct').textContent=(pct<10?pct.toFixed(1):Math.round(pct))+'%';
+
+    if(ocioso>0){
+      $('rLabel').textContent='Sala ociosa';
+      $('rBig').textContent=brl(ocioso*ticket);
+      $('rSub').textContent='por mês. É o que a sua própria agenda comporta e não está sendo vendido.';
+      $('rGapLabel').textContent='Vagas cirúrgicas ociosas por mês';
+      $('rGap').textContent=ocioso;
+      $('rYear').textContent=brl(ocioso*ticket*12);
+    }else{
+      $('rLabel').textContent='Sua sala está cheia';
+      $('rBig').textContent=brl(atual*ticket);
+      $('rSub').textContent='por mês em blefaroplastia, com a agenda no limite. Aqui a conversa deixa de ser volume e passa a ser previsibilidade: manter esse número todo mês, sem depender de você.';
+      $('rGapLabel').textContent='Vagas cirúrgicas ociosas por mês';
+      $('rGap').textContent='0';
+      $('rYear').textContent=brl(atual*ticket*12);
+    }
+
+    if(capac<10){
+      $('rMetaLabel').textContent='Meta ajustada à sua agenda';
+      $('rMeta').textContent=meta+'/mês';
+    }else{
+      $('rMetaLabel').textContent='Meta de trabalho para o seu caso';
+      $('rMeta').textContent='10/mês';
+    }
+
+    var tk=$('tk');
+    if(tk){
+      var faixa = ticket<5000?'Até R$ 5 mil':ticket<8000?'R$ 5 a 8 mil':ticket<12000?'R$ 8 a 12 mil':ticket<18000?'R$ 12 a 18 mil':'Acima de R$ 18 mil';
+      for(var i=0;i<tk.options.length;i++){ if(tk.options[i].text===faixa){ tk.selectedIndex=i; break; } }
+    }
+    var vol=$('vol');
+    if(vol){
+      var fx = atual===0?'Nenhuma ainda':atual<=3?'1 a 3':atual<=8?'4 a 8':atual<=15?'9 a 15':'Mais de 15';
+      for(var j=0;j<vol.options.length;j++){ if(vol.options[j].text===fx){ vol.selectedIndex=j; break; } }
+    }
+  }
+  [t,c,a,v].forEach(function(el){el.addEventListener('input',paint);});
+  paint();
+
+  var leadForm=$('leadForm');
+  if(leadForm){
+    leadForm.addEventListener('submit',function(event){
+      event.preventDefault();
+      if(!leadForm.reportValidity()) return;
+      var field=function(id){
+        var el=$(id);
+        return el && el.value ? el.value.trim() : 'Não informado';
+      };
+      var message=[
+        'Olá, Hurtz. Quero saber se minha clínica é elegível para a Blefaro 10.',
+        '',
+        'Nome: '+field('n'),
+        'WhatsApp: '+field('w'),
+        'E-mail: '+field('e'),
+        'Instagram: '+field('ig'),
+        'Especialidade: '+field('esp'),
+        'Blefaroplastias/mês hoje: '+field('vol'),
+        'Ticket médio: '+field('tk'),
+        'Tráfego atual: '+field('tf'),
+        'Investiria R$ 3.000/mês em tráfego? '+field('q')
+      ].join('\n');
+      window.open('https://wa.me/5594988082290?text='+encodeURIComponent(message),'_blank','noopener');
+    });
+  }
+})();
+</script>
+
+<!-- ============ DOBRA 10 — GARANTIA ============ -->
+<section>
+  <div class="wrap">
+    <p class="kicker">Condições</p>
+    <h2 class="narrow">A meta só faz sentido quando a operação comporta o volume.</h2>
+    <div class="grt">
+      <p class="claim">A partir do terceiro mês de vigência, a estrutura trabalha com uma meta de 10 blefaroplastias vendidas por mês quando agenda, verba, atendimento e aprovação técnica sustentam esse volume.</p>
+      <p>Considera-se vendida a cirurgia com termo assinado e entrada paga.</p>
+      <p><b>A meta depende destas condições:</b></p>
+      <ul>
+        <li>Verba mínima de R$ 3.000 por mês em tráfego</li>
+        <li>Equipe de atendimento participando do treinamento</li>
+        <li>Resposta a lead em até 15 minutos no horário comercial</li>
+        <li>4 vagas cirúrgicas reservadas por mês na agenda</li>
+      </ul>
+      <p class="floor">São as mesmas condições usadas no case do Instituto Odonto Medic. A Hurtz organiza aquisição, atendimento, CRM e follow-up; diagnóstico, indicação e conduta clínica continuam sob responsabilidade técnica da clínica.</p>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOBRA 11 — FAQ ============ -->
+<section>
+  <div class="wrap">
+    <p class="kicker">Perguntas frequentes</p>
+    <h2 class="narrow">Ficou com alguma dúvida? Talvez ela esteja aqui.</h2>
+    <div class="faq">
+      <details><summary>O que exatamente a Hurtz faz?</summary><p>Construímos a estrutura comercial da sua clínica de ponta a ponta: tráfego pago, CRM, scripts de atendimento, processo de follow-up e treinamento da sua equipe. Não entregamos lead e vamos embora, deixamos instalado o processo que transforma esse lead em cirurgia.</p></details>
+      <details><summary>Vocês falam com os meus pacientes?</summary><p>Não. Nenhum profissional da Hurtz atende paciente seu. Quem conversa com o paciente é a sua equipe, com o script e o processo que nós instalamos. O relacionamento e o dado clínico nunca saem da clínica.</p></details>
+      <details><summary>Vocês são uma agência de tráfego?</summary><p>Não. Agência comum gera lead. A Hurtz organiza o caminho comercial completo: aquisição, atendimento, CRM, follow-up, agenda e leitura de funil.</p></details>
+      <details><summary>Minha agenda aguenta 10 blefaroplastias por mês?</summary><p>É a primeira pergunta do diagnóstico. Se sua agenda não comporta 10, a meta é a da sua agenda. Nunca prometemos volume que a clínica não consegue operar.</p></details>
+      <details><summary>Quanto preciso investir em tráfego?</summary><p>A partir de R$ 3.000 por mês. Abaixo disso o funil não sustenta a meta, e a garantia não se aplica.</p></details>
+      <details><summary>Em quanto tempo vejo resultado?</summary><p>O plano de implantação trabalha com tráfego no ar em 48 horas, primeira leitura de agenda na primeira semana, estrutura comercial montada em 30 dias e otimização nos meses seguintes.</p></details>
+      <details><summary>E as normas do CFM?</summary><p>Todo criativo e todo script passam por guardrail editorial. Sem promessa de resultado clínico e sem antes e depois irregular.</p></details>
+      <details><summary>Vocês atendem outro cirurgião da minha cidade?</summary><p>Não. Uma clínica por cidade, enquanto o contrato estiver ativo.</p></details>
+      <details><summary>Posso cancelar quando quiser?</summary><p>Sim. Sem multa e sem fidelidade forçada.</p></details>
+      <details><summary>Vocês cuidam do meu Instagram?</summary><p>Só na parte que vende. Não fazemos post bonito para engajamento. Conteúdo que não puxa paciente para a consulta não entra na estrutura.</p></details>
+    </div>
+  </div>
+</section>
+
+<!-- ============ DOBRA 12 — FECHAMENTO ============ -->
+<section class="final">
+  <div class="wrap final-grid">
+    <div>
+      <h2>A demanda existe. Ela só não está chegando até você.</h2>
+      <p style="margin-top:1.4rem">Todo mês, na sua cidade, dezenas de pessoas procuram blefaroplastia. Algumas já viram seu perfil. Poucas falaram com você. Menos ainda operaram.</p>
+      <p><b style="color:var(--creme)">Não é falta de paciente. É falta de estrutura.</b></p>
+    </div>
+    <div>
+      <a class="btn" href="#form">Quero saber se minha clínica é elegível</a>
+      <p class="fineprint" style="color:#8E877E">Vagas limitadas por mês. Uma clínica por cidade.</p>
+    </div>
+  </div>
+</section>
+
+<footer class="foot">
+  <div class="wrap">
+    <div style="display:flex;align-items:center;gap:.6rem">
+      <img src="assets/logo-atual-escuro.png" alt="Hurtz Company" width="1774" height="400">
+      <span>Hurtz Company · Parauapebas, PA</span>
+    </div>
+    <div><a href="#form">Diagnóstico</a><a href="https://wa.me/5594988082290?text=Quero%20saber%20se%20minha%20cl%C3%ADnica%20%C3%A9%20eleg%C3%ADvel%20para%20a%20Blefaro%2010" target="_blank" rel="noopener">WhatsApp</a></div>
+  </div>
+</footer>
+
+</body>
+</html>
