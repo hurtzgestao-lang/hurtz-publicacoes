@@ -1843,21 +1843,18 @@ dialog > a {
 .founder-role { margin-top: 12px; font-size: 18px; color: var(--grafite); }
 .founder-experience { margin: 28px 0; font-size: 20px; }
 .founder-experience strong { display: block; font-size: 52px; line-height: 1.1; }
-.authority-intro { padding: 88px 0 28px; }
-.authority-intro h2 { max-width: 760px; font-size: clamp(32px, 4vw, 56px); line-height: 1.12; }
-.founder-section { padding-top: 28px; }
+.founder-section { padding: 48px 0 72px; }
+.authority-title { max-width: none; margin-bottom: 28px; font-size: 42px; line-height: 1.12; white-space: nowrap; }
 .founder-section .button { margin-top: 24px; }
 .fit-list { list-style: none; padding-left: 0; }
 .faq-bottom-cta { text-align: center; padding-block: 32px; }
 .button-compact { min-height: 46px; padding: 12px 20px; font-size: 14px; animation: none; box-shadow: none; }
 @media (max-width: 800px) {
-  .authority-intro { padding: 64px 0 20px; }
-  .authority-intro h2 { font-size: 34px; }
-  .founder-section { padding-top: 20px; }
+  .founder-section { padding: 40px 0 56px; }
+  .authority-title { margin-bottom: 24px; font-size: 34px; white-space: normal; }
 }
 @media (max-width: 480px) {
-  .authority-intro { padding: 56px 0 16px; }
-  .authority-intro h2 { font-size: 28px; line-height: 1.18; }
-  .founder-section { padding-top: 16px; }
+  .founder-section { padding: 36px 0 48px; }
+  .authority-title { margin-bottom: 22px; font-size: 28px; line-height: 1.18; }
 }
 @media (prefers-reduced-motion: reduce) { .button-primary, .button-dark, .ticker-track { animation: none; } .ticker-track { width: 100%; } .ticker-group { flex-wrap: wrap; justify-content: center; gap: 16px; } .ticker-group + .ticker-group { display: none; } .scope-strip .ticker-group span { white-space: normal; text-align: center; } .ticker-group span::after { display: none; } }
