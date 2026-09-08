@@ -1819,3 +1819,33 @@ dialog > a {
   position: relative;
   left: -2%;
 }
+
+/* Revisão comercial solicitada: CTAs neon e faixa contínua. */
+:root { --cta-neon: #7dff00; --cta-neon-hover: #a3ff4d; }
+.button-primary, .button-dark {
+  background: var(--cta-neon); color: #102000; border-color: var(--cta-neon);
+  box-shadow: 0 4px 20px rgb(125 255 0 / 38%), 0 0 30px rgb(125 255 0 / 22%);
+  animation: neon-pulse 2.8s ease-in-out infinite;
+}
+.button-primary:hover, .button-dark:hover { background: var(--cta-neon-hover); color: #102000; transform: translateY(-2px); }
+.button-primary:focus-visible, .button-dark:focus-visible { outline: 3px solid #181614; outline-offset: 5px; }
+.dark-section .button-primary:focus-visible { outline-color: #fff; }
+@keyframes neon-pulse { 0%,100% { box-shadow: 0 4px 18px rgb(125 255 0 / 35%), 0 0 24px rgb(125 255 0 / 20%); } 50% { box-shadow: 0 5px 28px rgb(125 255 0 / 65%), 0 0 42px rgb(125 255 0 / 38%); } }
+.scope-strip { overflow: hidden; padding: 22px 0; background: #181614; color: #f5f2ec; }
+.ticker-track { display: flex; width: max-content; animation: ticker-travel 42s linear infinite; }
+.ticker-group { display: flex; align-items: center; flex-shrink: 0; gap: 0; }
+.scope-strip .ticker-group span, .scope-strip .ticker-group span:first-child, .scope-strip .ticker-group span:last-child { display: inline-flex; flex: none; align-items: center; justify-content: center; width: auto; padding: 0 32px; white-space: nowrap; font-size: 17px; font-weight: 700; color: #f5f2ec; }
+.ticker-group span::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #7dff00; margin-left: 64px; }
+.scope-strip:hover .ticker-track { animation-play-state: paused; }
+@keyframes ticker-travel { to { transform: translateX(-50%); } }
+.case-heading { text-align: center; max-width: 920px; margin: 0 auto 56px; }
+.case-heading h2 { max-width: none; font-size: clamp(30px, 3.5vw, 48px); line-height: 1.15; }
+.founder-role { margin-top: 12px; font-size: 18px; color: var(--grafite); }
+.founder-experience { margin: 28px 0; font-size: 20px; }
+.founder-experience strong { display: block; font-size: 52px; line-height: 1.1; }
+.company .body-copy + .body-copy { margin-top: 22px; }
+.founder-section .button { margin-top: 24px; }
+.fit-list { list-style: none; padding-left: 0; }
+.faq-bottom-cta { text-align: center; padding-block: 32px; }
+.button-compact { min-height: 46px; padding: 12px 20px; font-size: 14px; animation: none; box-shadow: none; }
+@media (prefers-reduced-motion: reduce) { .button-primary, .button-dark, .ticker-track { animation: none; } .ticker-track { width: 100%; } .ticker-group { flex-wrap: wrap; justify-content: center; gap: 16px; } .ticker-group + .ticker-group { display: none; } .scope-strip .ticker-group span { white-space: normal; text-align: center; } .ticker-group span::after { display: none; } }
