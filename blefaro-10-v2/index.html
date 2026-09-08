@@ -12,10 +12,12 @@
     <title>Blefaro 10 | Hurtz</title>
     <link rel="icon" href="assets/logo-atual-icone-escuro.png" />
     <link rel="stylesheet" href="styles.css" />
-    <link rel="stylesheet" href="delivery-carousel.css" />
+    <link rel="stylesheet" href="delivery-carousel.css?v=2" />
     <script src="assets/lucide.min.js" defer></script>
     <script src="app.js" defer></script>
-    <script src="delivery-carousel.js" defer></script>
+    <script src="assets/embla-carousel-8.6.0.umd.js" defer></script>
+    <script src="assets/embla-carousel-auto-scroll-8.6.0.umd.js" defer></script>
+    <script src="delivery-carousel.js?v=2" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -282,7 +284,7 @@
         id="entregas"
         aria-labelledby="scope-title"
       >
-        <div class="delivery-sticky">
+        <div class="delivery-band">
         <div class="container">
           <div class="section-heading scope-heading">
             <div>
@@ -293,7 +295,9 @@
             </div>
             <span class="scope-tag">BLEFARO 10</span>
           </div>
-          <div class="deliverables-grid" id="delivery-track" tabindex="0" role="region" aria-label="Entregas da Blefaro 10">
+          <button class="delivery-motion-toggle" type="button" aria-controls="delivery-viewport" aria-label="Pausar movimento" title="Pausar movimento" hidden><i data-lucide="pause" aria-hidden="true"></i></button>
+          <div class="delivery-viewport" id="delivery-viewport" tabindex="0" role="region" aria-roledescription="carrossel" aria-label="Entregas da Blefaro 10">
+          <div class="deliverables-grid" id="delivery-track">
             <article class="deliverable" id="entrega-campanhas">
               <div class="deliverable-copy"><h3>Campanhas</h3>
               <p>Anúncios de blefaroplastia para trazer interessados à sua clínica.</p></div>
@@ -370,13 +374,6 @@
               </figure>
             </article>
           </div>
-          <div class="delivery-navigation" hidden>
-            <div class="delivery-progress" aria-hidden="true"><span></span></div>
-            <p class="delivery-position" aria-live="off">01 / 06</p>
-            <div class="delivery-arrows">
-              <button class="delivery-arrow" type="button" data-delivery-prev aria-controls="delivery-track" aria-label="Entrega anterior" title="Entrega anterior" disabled><i data-lucide="arrow-left" aria-hidden="true"></i></button>
-              <button class="delivery-arrow" type="button" data-delivery-next aria-controls="delivery-track" aria-label="Próxima entrega" title="Próxima entrega"><i data-lucide="arrow-right" aria-hidden="true"></i></button>
-            </div>
           </div>
         </div>
         </div>
