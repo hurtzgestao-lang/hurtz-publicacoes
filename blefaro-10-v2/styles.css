@@ -1831,13 +1831,94 @@ dialog > a {
 .button-primary:focus-visible, .button-dark:focus-visible { outline: 3px solid #181614; outline-offset: 5px; }
 .dark-section .button-primary:focus-visible { outline-color: #fff; }
 @keyframes neon-pulse { 0%,100% { box-shadow: 0 4px 18px rgb(125 255 0 / 35%), 0 0 24px rgb(125 255 0 / 20%); } 50% { box-shadow: 0 5px 28px rgb(125 255 0 / 65%), 0 0 42px rgb(125 255 0 / 38%); } }
-.scope-strip { overflow: hidden; padding: 22px 0; background: #181614; color: #f5f2ec; }
-.ticker-track { display: flex; width: max-content; animation: ticker-travel 42s linear infinite; }
-.ticker-group { display: flex; align-items: center; flex-shrink: 0; gap: 0; }
-.scope-strip .ticker-group span, .scope-strip .ticker-group span:first-child, .scope-strip .ticker-group span:last-child { display: inline-flex; flex: none; align-items: center; justify-content: center; width: auto; padding: 0 32px; white-space: nowrap; font-size: 17px; font-weight: 700; color: #f5f2ec; }
-.ticker-group span::after { content: ''; width: 6px; height: 6px; border-radius: 50%; background: #7dff00; margin-left: 64px; }
+.scope-strip {
+  --ribbon-height: 60px;
+  --ribbon-dark: #000;
+  --ribbon-light: #fff;
+  --ribbon-silver: #999;
+  --ribbon-shadow: 0 7px 5.8px rgb(0 0 0 / 37%);
+  --ribbon-top: calc(12px + 6.7vw);
+  position: relative;
+  isolation: isolate;
+  height: max(calc(var(--ribbon-height) + 13.4vw + 24px), calc(var(--ribbon-height) * 1.9 + 7.7vw + 28px));
+  margin-top: -16px;
+  padding: 0;
+  overflow: hidden;
+  background: transparent;
+}
+.scope-strip::before {
+  content: '';
+  position: absolute;
+  inset: calc(var(--ribbon-top) + var(--ribbon-height) * 1.4) 0 0;
+  background: var(--surface-light);
+}
+.ticker-ribbon {
+  position: absolute;
+  left: -5%;
+  width: 110%;
+  height: var(--ribbon-height);
+  display: flex;
+  align-items: center;
+  overflow: hidden;
+  box-shadow: var(--ribbon-shadow);
+}
+.ticker-ribbon-dark {
+  top: var(--ribbon-top);
+  transform: rotate(7deg);
+  background: var(--ribbon-dark);
+  color: var(--ribbon-light);
+}
+.ticker-ribbon-light {
+  top: calc(var(--ribbon-top) + var(--ribbon-height) * 0.9);
+  transform: rotate(-1deg);
+  background: linear-gradient(90deg, var(--ribbon-light) 50%, var(--ribbon-silver) 100%);
+  color: var(--ribbon-dark);
+}
+.ticker-track {
+  display: flex;
+  flex: none;
+  width: max-content;
+  animation: ticker-travel var(--ticker-duration, 95s) linear infinite;
+}
+.ticker-ribbon-dark .ticker-track { animation-direction: reverse; }
+.ticker-group { display: flex; align-items: center; flex: none; }
+.scope-strip .ticker-group span,
+.scope-strip .ticker-group span:first-child,
+.scope-strip .ticker-group span:last-child {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  width: auto;
+  padding: 0 8px;
+  border: 0;
+  white-space: nowrap;
+  font-size: 20px;
+  line-height: 1.2;
+  font-weight: 700;
+  word-spacing: 2px;
+  text-transform: uppercase;
+  color: inherit;
+}
+.ticker-group span::after {
+  content: '';
+  flex: none;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: currentColor;
+}
 .scope-strip:hover .ticker-track { animation-play-state: paused; }
 @keyframes ticker-travel { to { transform: translateX(-50%); } }
+.hero + .case { padding-top: 40px; }
+@media (max-width: 800px) {
+  .scope-strip { --ribbon-height: 46px; }
+  .scope-strip .ticker-group span,
+  .scope-strip .ticker-group span:first-child,
+  .scope-strip .ticker-group span:last-child { font-size: 15px; gap: 14px; padding-inline: 7px; }
+  .hero + .case { padding-top: 28px; }
+}
 .case-heading { text-align: center; max-width: 920px; margin: 0 auto 56px; }
 .case-heading h2 { max-width: none; font-size: clamp(30px, 3.5vw, 48px); line-height: 1.15; }
 .founder-role { margin-top: 12px; font-size: 18px; color: var(--grafite); }
@@ -1857,4 +1938,4 @@ dialog > a {
   .founder-section { padding: 32px 0 48px; }
   .authority-title { margin-bottom: 14px; font-size: 25px; line-height: 1.18; }
 }
-@media (prefers-reduced-motion: reduce) { .button-primary, .button-dark, .ticker-track { animation: none; } .ticker-track { width: 100%; } .ticker-group { flex-wrap: wrap; justify-content: center; gap: 16px; } .ticker-group + .ticker-group { display: none; } .scope-strip .ticker-group span { white-space: normal; text-align: center; } .ticker-group span::after { display: none; } }
+@media (prefers-reduced-motion: reduce) { .button-primary, .button-dark, .ticker-track { animation: none; } }
