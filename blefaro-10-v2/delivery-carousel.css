@@ -1,0 +1,233 @@
+.deliveries-carousel {
+  --delivery-gap: 20px;
+  --delivery-card-width: 430px;
+  --delivery-visual-height: 288px;
+  padding-block: 0;
+}
+
+.delivery-sticky {
+  padding-block: 40px;
+  background: var(--surface-dark);
+}
+
+.deliveries-carousel.is-scroll-driven {
+  height: var(--delivery-section-height);
+}
+
+.is-scroll-driven .delivery-sticky {
+  position: sticky;
+  top: var(--delivery-sticky-top);
+}
+
+.deliveries-carousel .scope-heading {
+  align-items: end;
+  margin-bottom: 24px;
+  padding-top: 28px;
+  border-top: 1px solid var(--border-dark);
+}
+
+.deliveries-carousel .eyebrow {
+  margin-bottom: 12px;
+}
+
+.deliveries-carousel .scope-heading h2 {
+  max-width: 720px;
+  font-size: 32px;
+  line-height: 1.2;
+}
+
+.deliveries-carousel .deliverables-grid {
+  position: relative;
+  display: grid;
+  grid-template-columns: none;
+  grid-auto-flow: column;
+  grid-auto-columns: min(var(--delivery-card-width), calc(100% - 28px));
+  gap: var(--delivery-gap);
+  align-items: stretch;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scroll-snap-type: x mandatory;
+  overscroll-behavior-x: contain;
+  scroll-behavior: auto;
+}
+
+.deliverables-grid:focus-visible {
+  outline: 2px solid var(--cta-neon);
+  outline-offset: 5px;
+}
+
+.is-carousel .deliverables-grid {
+  scrollbar-width: none;
+}
+
+.is-carousel .deliverables-grid::-webkit-scrollbar {
+  display: none;
+}
+
+.is-scroll-driven .deliverables-grid {
+  scroll-snap-type: none;
+}
+
+.deliveries-carousel .deliverable {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr);
+  grid-template-rows: minmax(124px, auto) var(--delivery-visual-height);
+  min-width: 0;
+  min-height: 0;
+  padding: 0;
+  border-radius: var(--radius);
+  scroll-snap-align: start;
+}
+
+.deliveries-carousel .deliverable-copy {
+  padding: 22px 24px 12px;
+  gap: 10px;
+  justify-content: start;
+}
+
+.deliveries-carousel .deliverable-copy h3 {
+  font-size: 21px;
+  line-height: 1.25;
+  text-transform: none;
+  text-wrap: pretty;
+}
+
+.deliveries-carousel .deliverable-copy p {
+  max-width: none;
+  font-size: 14px;
+  line-height: 1.55;
+}
+
+.deliveries-carousel .delivery-composite {
+  min-height: 0;
+  height: var(--delivery-visual-height);
+  padding: 0 16px 14px;
+  align-items: center;
+  justify-content: center;
+}
+
+.deliveries-carousel .delivery-composite .material-art {
+  width: auto;
+  max-width: 100%;
+  height: 100%;
+  min-height: 0;
+  flex: none;
+  aspect-ratio: 1122 / 1402;
+  object-fit: contain;
+  margin: 0;
+}
+
+.deliveries-carousel #entrega-acompanhamento .material-art {
+  width: auto;
+  left: auto;
+  position: static;
+}
+
+.delivery-navigation {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+  margin-top: 20px;
+}
+
+.delivery-progress {
+  flex: 1;
+  height: 2px;
+  background: var(--border-dark);
+}
+
+.delivery-progress span {
+  display: block;
+  height: 100%;
+  background: var(--cta-neon);
+  transform: scaleX(var(--delivery-progress, 0));
+  transform-origin: left;
+}
+
+.delivery-position {
+  min-width: 92px;
+  font-size: 13px;
+  font-variant-numeric: tabular-nums;
+  text-align: right;
+  color: var(--muted-dark);
+}
+
+.delivery-arrows {
+  display: flex;
+  gap: 8px;
+}
+
+.delivery-arrow {
+  display: grid;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  border: 1px solid var(--border-dark);
+  border-radius: var(--radius);
+  background: var(--surface-dark);
+  color: var(--surface-light);
+}
+
+.delivery-arrow:hover:not(:disabled) {
+  background: var(--grafite);
+}
+
+.delivery-arrow:focus-visible {
+  outline-color: var(--cta-neon);
+}
+
+.delivery-arrow:disabled {
+  opacity: 0.35;
+  cursor: default;
+}
+
+@media (max-width: 800px) {
+  .deliveries-carousel {
+    --delivery-gap: 16px;
+    --delivery-visual-height: 264px;
+  }
+
+  .delivery-sticky {
+    padding-block: 24px 32px;
+  }
+
+  .deliveries-carousel .scope-heading {
+    padding-top: 24px;
+    margin-bottom: 20px;
+  }
+
+  .deliveries-carousel .scope-heading h2 {
+    font-size: 26px;
+  }
+
+  .delivery-navigation {
+    gap: 16px;
+    margin-top: 16px;
+  }
+}
+
+@media (max-width: 480px) {
+  .deliveries-carousel .scope-heading h2 {
+    font-size: 24px;
+  }
+
+  .deliveries-carousel .deliverable-copy {
+    padding: 20px 20px 12px;
+    gap: 8px;
+  }
+
+  .deliveries-carousel .deliverable-copy h3 {
+    font-size: 20px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .deliveries-carousel.is-scroll-driven {
+    height: auto;
+  }
+
+  .is-scroll-driven .delivery-sticky {
+    position: static;
+  }
+}

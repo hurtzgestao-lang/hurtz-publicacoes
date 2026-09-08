@@ -12,8 +12,10 @@
     <title>Blefaro 10 | Hurtz</title>
     <link rel="icon" href="assets/logo-atual-icone-escuro.png" />
     <link rel="stylesheet" href="styles.css" />
+    <link rel="stylesheet" href="delivery-carousel.css" />
     <script src="assets/lucide.min.js" defer></script>
     <script src="app.js" defer></script>
+    <script src="delivery-carousel.js" defer></script>
   </head>
   <body>
     <a class="skip-link" href="#conteudo">Ir para o conteúdo</a>
@@ -276,23 +278,25 @@
       </section>
 
       <section
-        class="deliverables section dark-section"
+        class="deliverables deliveries-carousel section dark-section"
+        id="entregas"
         aria-labelledby="scope-title"
       >
+        <div class="delivery-sticky">
         <div class="container">
           <div class="section-heading scope-heading">
             <div>
               <p class="eyebrow">O QUE SUA CLÍNICA RECEBE</p>
               <h2 id="scope-title">
-                A estrutura que conecta<br />anúncios, atendimento e vendas.
+                O que sua clínica recebe para vender mais.
               </h2>
             </div>
             <span class="scope-tag">BLEFARO 10</span>
           </div>
-          <div class="deliverables-grid">
+          <div class="deliverables-grid" id="delivery-track" tabindex="0" role="region" aria-label="Entregas da Blefaro 10">
             <article class="deliverable" id="entrega-campanhas">
               <div class="deliverable-copy"><h3>Campanhas</h3>
-              <p>Planejamento e gestão dos anúncios do procedimento.</p></div>
+              <p>Anúncios de blefaroplastia para trazer interessados à sua clínica.</p></div>
               <figure class="delivery-visual delivery-composite" data-material="03">
                 <svg class="material-art" viewBox="0 0 1122 1402" role="img" aria-labelledby="campaign-art-title" xmlns="http://www.w3.org/2000/svg">
                   <title id="campaign-art-title">Campanha de blefaroplastia em revisão, com anúncio da Dra. Sarah Arroyo e convite para avaliação.</title>
@@ -306,7 +310,7 @@
             </article>
             <article class="deliverable" id="entrega-criativos">
               <div class="deliverable-copy"><h3>Criativos</h3>
-              <p>Mensagens e peças alinhadas à oferta e ao público.</p></div>
+              <p>Peças que explicam o procedimento e convidam o interessado para uma avaliação.</p></div>
               <figure class="delivery-visual delivery-composite" data-material="04">
                 <svg class="material-art" viewBox="0 0 1122 1402" role="img" aria-labelledby="creative-art-title" xmlns="http://www.w3.org/2000/svg">
                   <title id="creative-art-title">Criativos: anúncio de blefaroplastia da Dra. Luma Reis no celular e cartaz educativo sobre o procedimento.</title>
@@ -330,7 +334,7 @@
             </article>
             <article class="deliverable" id="entrega-crm">
               <div class="deliverable-copy"><h3>CRM comercial</h3>
-              <p>Contatos organizados por etapa, responsável e próxima ação.</p></div>
+              <p>Saiba quem aguarda resposta, quem agendou e quem precisa de retorno.</p></div>
               <figure class="delivery-visual delivery-composite" data-material="05">
                 <svg class="material-art" viewBox="0 0 1122 1402" role="img" aria-labelledby="crm-art-title" xmlns="http://www.w3.org/2000/svg">
                   <title id="crm-art-title">CRM comercial: novo contato aguardando resposta e avaliação agendada com confirmação de presença pela recepção.</title>
@@ -346,26 +350,35 @@
             </article>
             <article class="deliverable" id="entrega-roteiros">
               <div class="deliverable-copy"><h3>Roteiros de atendimento</h3>
-              <p>Orientações para responder dúvidas e conduzir o agendamento.</p></div>
+              <p>Sua equipe sabe responder às dúvidas e conduzir a conversa até o agendamento.</p></div>
               <figure class="delivery-visual delivery-composite" data-material="06">
                 <img class="material-art" src="assets/06-roteiros-atendimento-v8.webp" alt="Roteiro de atendimento. Dúvida: quero saber sobre blefaroplastia. Resposta: vamos consultar os horários de avaliação? Próximo passo: apresentar horários." width="1122" height="1402" loading="lazy" />
               </figure>
             </article>
             <article class="deliverable" id="entrega-treinamento">
               <div class="deliverable-copy"><h3>Treinamento</h3>
-              <p>Prática com a equipe para aplicar o processo.</p></div>
+              <p>Prática para sua equipe ganhar segurança nas conversas e depender menos de você.</p></div>
               <figure class="delivery-visual delivery-composite" data-material="07">
                 <img class="material-art" src="assets/07-treinamento-v8.webp" alt="Treinamento de atendimento em tablet com headset. Etapas: simular uma dúvida, praticar a resposta e receber feedback." width="1122" height="1402" loading="lazy" />
               </figure>
             </article>
             <article class="deliverable" id="entrega-acompanhamento">
               <div class="deliverable-copy"><h3>Acompanhamento</h3>
-              <p>Revisão dos indicadores e ajustes no caminho comercial.</p></div>
+              <p>Contatos, consultas e vendas revisados para saber onde ajustar e melhorar.</p></div>
               <figure class="delivery-visual delivery-composite" data-material="08">
                 <img class="material-art" src="assets/08-acompanhamento-v8.webp" alt="Acompanhamento comercial. Indicador: primeira resposta. Análise: contatos sem retorno. Ação definida: revisar fila com a recepção." width="1122" height="1402" loading="lazy" />
               </figure>
             </article>
           </div>
+          <div class="delivery-navigation" hidden>
+            <div class="delivery-progress" aria-hidden="true"><span></span></div>
+            <p class="delivery-position" aria-live="off">01 / 06</p>
+            <div class="delivery-arrows">
+              <button class="delivery-arrow" type="button" data-delivery-prev aria-controls="delivery-track" aria-label="Entrega anterior" title="Entrega anterior" disabled><i data-lucide="arrow-left" aria-hidden="true"></i></button>
+              <button class="delivery-arrow" type="button" data-delivery-next aria-controls="delivery-track" aria-label="Próxima entrega" title="Próxima entrega"><i data-lucide="arrow-right" aria-hidden="true"></i></button>
+            </div>
+          </div>
+        </div>
         </div>
       </section>
 
