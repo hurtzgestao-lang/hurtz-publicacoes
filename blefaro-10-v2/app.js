@@ -11,6 +11,7 @@
   const submitLabel = submit.innerHTML;
   let busy = false;
   let attempt;
+  const trackedLeads = new Set();
   const tracking = { landing_url: location.origin + location.pathname };
   const params = new URLSearchParams(location.search);
   ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "utm_campaign_id", "utm_adset", "utm_adset_id", "utm_ad", "utm_ad_id", "campaign_id", "adset_id", "ad_id", "placement", "site_source_name", "fbclid"].forEach((key) => {
@@ -24,6 +25,22 @@
     .matches
     ? "auto"
     : "smooth";
+
+  function trackSavedLead(submissionId) {
+    const key = `blefaro-v2-lead:${submissionId}`;
+    if (typeof window.fbq !== "function" || trackedLeads.has(submissionId)) return;
+    try { if (sessionStorage.getItem(key)) return; } catch { /* Use in-memory deduplication. */ }
+    // Count only CRM-confirmed submissions; retries reuse the same event ID.
+    try {
+      window.fbq("trackSingle", "2215367202619844", "Lead", {
+        content_name: "Blefaro 10",
+        content_category: "Diagnostico comercial",
+      }, { eventID: submissionId });
+      trackedLeads.add(submissionId);
+      try { sessionStorage.setItem(key, "1"); } catch { /* The in-memory set still prevents retries. */ }
+    } catch { /* Tracking must not interrupt a successfully saved request. */ }
+  }
+
   function validateForm() {
     let firstInvalid;
     form.querySelectorAll("input, select").forEach((field) => {
@@ -98,6 +115,7 @@
       const result = await response.json();
       if (!response.ok || result.success !== true || !result.submission_id) throw new Error("not_saved");
       saved = true;
+      trackSavedLead(result.submission_id);
       status.textContent = "Recebemos sua solicitação. Continue no WhatsApp para combinar o horário da chamada.";
       resume.hidden = false;
       window.open(url, "_blank", "noopener,noreferrer");
