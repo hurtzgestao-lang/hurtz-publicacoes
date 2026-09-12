@@ -211,7 +211,7 @@ select:focus-visible {
   transform: translateY(-2px);
 }
 .hero {
-  background: var(--surface-light) url("assets/fundo-hurtz-hero.png") center
+  background: var(--surface-light) url("assets/fundo-hurtz-hero.webp") center
     bottom/cover no-repeat;
 }
 .brand {
@@ -648,7 +648,7 @@ h1 .promise-relief {
 }
 .method {
   padding-bottom: 80px;
-  background-image: url("assets/fundo-hurtz-escuro.png");
+  background-image: url("assets/fundo-hurtz-escuro.webp");
   background-position: right bottom;
   background-size: cover;
   background-repeat: no-repeat;
@@ -873,7 +873,7 @@ h1 .promise-relief {
   line-height: 1.6;
 }
 .faq {
-  background-image: url("assets/fundo-hurtz-escuro.png");
+  background-image: url("assets/fundo-hurtz-escuro.webp");
   background-position: right bottom;
   background-size: cover;
   background-repeat: no-repeat;
@@ -939,7 +939,7 @@ h1 .promise-relief {
 }
 .final-cta {
   text-align: center;
-  background: var(--surface-light) url("assets/fundo-hurtz-final.png") center
+  background: var(--surface-light) url("assets/fundo-hurtz-final.webp") center
     bottom / cover no-repeat;
 }
 .final-cta h2 {
@@ -1086,7 +1086,7 @@ dialog > a {
     width: calc(100% - 40px);
   }
   .hero {
-    background-image: url("assets/fundo-hurtz-mobile.png");
+    background-image: url("assets/fundo-hurtz-mobile.webp");
     background-size: 100% auto;
     background-position: center top;
   }
