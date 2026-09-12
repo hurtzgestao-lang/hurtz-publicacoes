@@ -183,7 +183,7 @@
       </div>
       <div class="field">
         <label for="searchInput">Busca</label>
-        <input id="searchInput" type="search" placeholder="Nome, telefone, e-mail ou Instagram">
+        <input id="searchInput" type="search" placeholder="Nome, clínica, telefone ou e-mail">
       </div>
       <div class="field">
         <label for="sourceInput">Origem</label>
@@ -198,7 +198,7 @@
     <div class="metrics">
       <div class="metric"><span>Total filtrado</span><b id="metricTotal">0</b><em>leads no período</em></div>
       <div class="metric"><span>Hoje</span><b id="metricToday">0</b><em>entradas do dia</em></div>
-      <div class="metric"><span>Faturamento declarado</span><b id="metricRevenue">R$ 0</b><em>soma das faixas informadas</em></div>
+      <div class="metric"><span>Faturamento declarado</span><b id="metricRevenue">R$ 0</b><em>valores numéricos; não soma faixas</em></div>
       <div class="metric"><span>Clínica própria</span><b id="metricClinic">0%</b><em>dos leads filtrados</em></div>
     </div>
 
@@ -226,9 +226,11 @@
 </main>
 
 <script>
-  const ENDPOINT = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/apr-submit";
+  const ENDPOINT = "https://crm.hurtzcompany.com.br/landing-leads/v1/dashboard";
+  const LEGACY_ENDPOINT = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/apr-submit";
   const STORAGE_KEY = "hurtz_leads_dashboard_token";
   const state = { rows: [], filtered: [], token: "" };
+  let loadVersion = 0;
 
   const $ = (id) => document.getElementById(id);
   const money = new Intl.NumberFormat("pt-BR", { style: "currency", currency: "BRL", maximumFractionDigits: 0 });
@@ -273,6 +275,7 @@
   }
 
   function logout() {
+    loadVersion += 1;
     localStorage.removeItem(STORAGE_KEY);
     state.token = "";
     state.rows = [];
@@ -285,6 +288,8 @@
 
   async function loadLeads() {
     if (!state.token) return;
+    const version = ++loadVersion;
+    const token = state.token;
     $("loginForm").classList.add("hidden");
     $("dashboard").classList.remove("hidden");
     setStatus("Carregando leads...");
@@ -293,18 +298,34 @@
     if ($("untilInput").value) params.set("until", $("untilInput").value);
 
     try {
-      const response = await fetch(`${ENDPOINT}?${params}`, {
-        headers: { "x-dashboard-token": state.token },
-        cache: "no-store"
-      });
-      const data = await response.json();
-      if (!response.ok || !data.success) throw new Error(data.error || "Erro ao carregar leads");
-      state.rows = (Array.isArray(data.rows) ? data.rows : []).filter(isSessionStrategicLead);
+      const results = await Promise.allSettled([ENDPOINT, LEGACY_ENDPOINT].map(async (endpoint) => {
+        const response = await fetch(`${endpoint}?${params}`, {
+          headers: { "x-dashboard-token": token }, cache: "no-store", signal: AbortSignal.timeout(8000)
+        });
+        const data = await response.json();
+        if (!response.ok || !data.success) throw new Error(data.error || "Erro ao carregar leads");
+        return data;
+      }));
+      if (version !== loadVersion) return;
+      const available = results.filter((result) => result.status === "fulfilled");
+      if (!available.length) throw new Error("Não foi possível carregar os leads. Confira o código de acesso e tente novamente.");
+      const rows = available.flatMap((result) => Array.isArray(result.value.rows) ? result.value.rows : []);
+      state.rows = Array.from(new Map(rows.map((row) => [row.id, row])).values())
+        .filter(isSessionStrategicLead).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
       hydrateSelects(buildBreakdowns(state.rows));
       applyFilters();
-      const updatedAt = data.generated_at ? dateTime.format(new Date(data.generated_at)) : "";
-      setStatus(`Atualizado em ${updatedAt}. Exibindo leads da Sessão Estratégica encontrados entre os 500 registros mais recentes.`);
+      const updatedAt = dateTime.format(new Date());
+      const notices = [];
+      if (results[0].status === "rejected") notices.push("Captação da V2 indisponível nesta consulta.");
+      if (results[1].status === "rejected") notices.push("Histórico das outras páginas indisponível no Supabase anterior.");
+      setStatus(`Atualizado em ${updatedAt}. Até 500 registros por base. ${notices.join(" ")}`, notices.length > 0);
     } catch (error) {
+      if (version !== loadVersion) return;
+      state.rows = [];
+      state.filtered = [];
+      renderRows();
+      renderMetrics();
+      $("loginForm").classList.remove("hidden");
       setStatus(error.message || "Erro ao carregar leads", true);
       if (/token/i.test(error.message || "")) logout();
     }
@@ -354,7 +375,7 @@
     const priority = $("priorityInput").value;
     state.filtered = state.rows.filter((row) => {
       const haystack = normalize([
-        row.nome, row.email, row.instagram, row.whatsapp, row.whatsapp_e164,
+        row.nome, row.clinic_name, row.email, row.instagram, row.whatsapp, row.whatsapp_e164,
         row.monthly_revenue_label, row.surgeries_sold_label, row.utm_campaign
       ].join(" "));
       return (!term || haystack.includes(term)) &&
@@ -373,7 +394,7 @@
     const clinicYes = state.filtered.filter((row) => normalize(row.clinic_owner).startsWith("sim")).length;
     $("metricTotal").textContent = total;
     $("metricToday").textContent = today;
-    $("metricRevenue").textContent = money.format(revenue);
+    $("metricRevenue").textContent = state.filtered.some((row) => row.current_revenue != null) ? money.format(revenue) : "-";
     $("metricClinic").textContent = total ? `${Math.round((clinicYes / total) * 100)}%` : "0%";
   }
 
@@ -391,23 +412,24 @@
         <td>${formatDate(row.created_at)}<span class="muted">${shortId(row.id)}</span></td>
         <td><span class="lead-name">${escapeHtml(row.nome || "-")}</span>${ig ? `<a class="muted" href="${ig}" target="_blank" rel="noopener">${escapeHtml(row.instagram)}</a>` : `<span class="muted">${escapeHtml(row.instagram || "")}</span>`}</td>
         <td>${wa ? `<a href="${wa}" target="_blank" rel="noopener">${escapeHtml(row.whatsapp || "+" + phone)}</a>` : escapeHtml(row.whatsapp || "-")}<span class="muted">${escapeHtml(row.email || "")}</span></td>
-        <td><span class="pill">${escapeHtml(row.clinic_owner || "Não informado")}</span></td>
+        <td>${escapeHtml(row.clinic_name || "")}<span class="muted">${escapeHtml(row.clinic_owner || "Não informado")}</span></td>
         <td>${escapeHtml(row.monthly_revenue_label || money.format(Number(row.current_revenue || 0)))}<span class="muted">${row.current_revenue ? money.format(Number(row.current_revenue)) : ""}</span></td>
         <td>${escapeHtml(row.surgeries_sold_label || row.current_surgeries_label || row.current_surgeries_month || "-")}</td>
         <td>${escapeHtml(row.main_source || "-")}<span class="muted">${escapeHtml(row.utm_campaign || "")}</span></td>
-        <td>${escapeHtml(row.sheet_status || "-")}<span class="muted">WhatsApp: ${escapeHtml(row.whatsapp_status || "-")}</span></td>
+        <td>${row.capture_status ? escapeHtml(row.capture_status) : `${escapeHtml(row.sheet_status || "-")}<span class="muted">WhatsApp: ${escapeHtml(row.whatsapp_status || "-")}</span>`}</td>
       `;
       tbody.appendChild(tr);
     });
   }
 
   function exportCsv() {
-    const headers = ["Recebido","Nome","E-mail","Instagram","WhatsApp","Clínica própria","Faturamento","Faturamento valor","Cirurgias/mês","Origem","Campanha","Status planilha","Status WhatsApp"];
+    const headers = ["Recebido","Nome","E-mail","Instagram","WhatsApp","Clínica","Clínica própria","Faturamento","Faturamento valor","Cirurgias/mês","Origem","Campanha","Status planilha","Status WhatsApp","Status captação","UTM Source","UTM Medium","UTM Content","UTM Term","Página"];
     const lines = [headers, ...state.filtered.map((row) => [
       row.created_at || "", row.nome || "", row.email || "", row.instagram || "", row.whatsapp || "",
-      row.clinic_owner || "", row.monthly_revenue_label || "", row.current_revenue || "",
+      row.clinic_name || "", row.clinic_owner || "", row.monthly_revenue_label || "", row.current_revenue || "",
       row.surgeries_sold_label || row.current_surgeries_label || "", row.main_source || "",
-      row.utm_campaign || "", row.sheet_status || "", row.whatsapp_status || ""
+      row.utm_campaign || "", row.sheet_status || "", row.whatsapp_status || "", row.capture_status || "",
+      row.utm_source || "", row.utm_medium || "", row.utm_content || "", row.utm_term || "", row.landing_url || ""
     ])];
     const csv = lines.map((line) => line.map(csvCell).join(",")).join("\n");
     const blob = new Blob([csv], { type: "text/csv;charset=utf-8" });
@@ -447,7 +469,9 @@
     return username ? `https://instagram.com/${encodeURIComponent(username)}` : "";
   }
   function csvCell(value) {
-    return `"${String(value ?? "").replace(/"/g, '""')}"`;
+    let text = String(value ?? "");
+    if (/^[\s]*[=+@-]/.test(text)) text = "'" + text;
+    return `"${text.replace(/"/g, '""')}"`;
   }
   function escapeHtml(value) {
     return String(value ?? "").replace(/[&<>"']/g, (char) => ({

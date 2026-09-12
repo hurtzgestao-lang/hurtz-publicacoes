@@ -6,6 +6,20 @@
   const panel = document.querySelector("#avaliacao");
   const status = document.querySelector("#form-status");
   const resume = document.querySelector("#whatsapp-resume");
+  const endpoint = "https://crm.hurtzcompany.com.br/landing-leads/v1/submit";
+  const submit = form.querySelector('[type="submit"]');
+  const submitLabel = submit.innerHTML;
+  let busy = false;
+  let attempt;
+  const tracking = { landing_url: location.origin + location.pathname };
+  const params = new URLSearchParams(location.search);
+  ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "utm_campaign_id", "utm_adset", "utm_adset_id", "utm_ad", "utm_ad_id", "campaign_id", "adset_id", "ad_id", "placement", "site_source_name", "fbclid"].forEach((key) => {
+    if (params.get(key)) tracking[key] = params.get(key).slice(0, 600);
+  });
+  if (document.referrer) {
+    const referrer = new URL(document.referrer);
+    tracking.referrer_url = referrer.origin + referrer.pathname;
+  }
   const scrollBehavior = window.matchMedia("(prefers-reduced-motion: reduce)")
     .matches
     ? "auto"
@@ -41,11 +55,13 @@
     return !firstInvalid;
   }
 
-  form.addEventListener("submit", (event) => {
+  form.addEventListener("submit", async (event) => {
     event.preventDefault();
-    if (!validateForm()) return;
+    if (busy || !validateForm()) return;
+    busy = true;
     const data = new FormData(form);
     const value = (name) => String(data.get(name)).trim();
+    const fields = Object.fromEntries(["name", "email", "phone", "clinic", "owner", "revenue"].map((key) => [key, value(key)]));
     const message = [
       "Olá! Quero agendar uma chamada gratuita sobre a Blefaro 10.",
       "",
@@ -58,15 +74,53 @@
     ].join("\n");
     const url = `https://wa.me/5594988082290?text=${encodeURIComponent(message)}`;
     resume.href = url;
-    resume.hidden = false;
-    status.textContent =
-      "Sua solicitação está pronta. Envie a mensagem no WhatsApp para combinar o horário da chamada.";
-    window.open(url, "_blank", "noopener,noreferrer");
+    resume.hidden = true;
+    submit.disabled = true;
+    submit.textContent = "Enviando...";
+    form.setAttribute("aria-busy", "true");
+    form.querySelectorAll("input, select").forEach((field) => { field.disabled = true; });
+    status.textContent = "Enviando sua solicitação...";
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), 15000);
+    let saved = false;
+    try {
+      const digest = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(JSON.stringify(fields)));
+      const fingerprint = Array.from(new Uint8Array(digest), (byte) => byte.toString(16).padStart(2, "0")).join("");
+      try { attempt ||= JSON.parse(sessionStorage.getItem("blefaro-v2-attempt")); } catch { /* Storage can be blocked. */ }
+      if (!attempt || attempt.fingerprint !== fingerprint) attempt = { fingerprint, id: crypto.randomUUID() };
+      try { sessionStorage.setItem("blefaro-v2-attempt", JSON.stringify(attempt)); } catch { /* Keep the in-memory attempt. */ }
+      const response = await fetch(endpoint, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        signal: controller.signal,
+        body: JSON.stringify({ ...fields, source: "blefaro-10-v2", submission_id: attempt.id, tracking }),
+      });
+      const result = await response.json();
+      if (!response.ok || result.success !== true || !result.submission_id) throw new Error("not_saved");
+      saved = true;
+      status.textContent = "Recebemos sua solicitação. Continue no WhatsApp para combinar o horário da chamada.";
+      resume.hidden = false;
+      window.open(url, "_blank", "noopener,noreferrer");
+    } catch {
+      status.textContent = "Não foi possível confirmar o envio. Seus dados continuam aqui: tente novamente ou fale conosco pelo WhatsApp.";
+      resume.hidden = false;
+    } finally {
+      clearTimeout(timeout);
+      busy = false;
+      form.removeAttribute("aria-busy");
+      form.querySelectorAll("input, select").forEach((field) => { field.disabled = false; });
+      submit.disabled = saved;
+      if (saved) submit.textContent = "Solicitação enviada";
+      else submit.innerHTML = submitLabel;
+    }
   });
 
   form.addEventListener("input", () => {
+    if (busy) return;
     status.textContent = "";
     resume.hidden = true;
+    submit.disabled = false;
+    submit.innerHTML = submitLabel;
   });
   document.querySelectorAll('a[href="#avaliacao"]').forEach((link) => {
     link.addEventListener("click", (event) => {
