@@ -7,6 +7,8 @@
   const status = document.querySelector("#form-status");
   const resume = document.querySelector("#whatsapp-resume");
   const endpoint = "https://crm.hurtzcompany.com.br/landing-leads/v1/submit";
+  const offerName = document.body.dataset.offerName || "Blefaro 10";
+  const whatsappIntro = document.body.dataset.whatsappIntro || "Olá! Quero agendar uma chamada gratuita sobre a Blefaro 10.";
   const submit = form.querySelector('[type="submit"]');
   const submitLabel = submit.innerHTML;
   let busy = false;
@@ -33,7 +35,7 @@
     // Count only CRM-confirmed submissions; retries reuse the same event ID.
     try {
       window.fbq("trackSingle", "2215367202619844", "Lead", {
-        content_name: "Blefaro 10",
+        content_name: offerName,
         content_category: "Diagnostico comercial",
       }, { eventID: submissionId });
       trackedLeads.add(submissionId);
@@ -80,7 +82,7 @@
     const value = (name) => String(data.get(name)).trim();
     const fields = Object.fromEntries(["name", "email", "phone", "clinic", "owner", "revenue"].map((key) => [key, value(key)]));
     const message = [
-      "Olá! Quero agendar uma chamada gratuita sobre a Blefaro 10.",
+      whatsappIntro,
       "",
       `Nome: ${value("name")}`,
       `E-mail: ${value("email")}`,
