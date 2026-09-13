@@ -29,7 +29,7 @@
     <link rel="stylesheet" href="styles.css?v=20260912-performance" />
     <link rel="stylesheet" href="delivery-carousel.css?v=2" />
     <script src="assets/lucide.min.js" defer></script>
-    <script src="app.js?v=20260912-narrativas" defer></script>
+    <script src="app.js?v=20260913-instagram" defer></script>
     <script src="ribbons.js" defer></script>
     <script src="assets/embla-carousel-8.6.0.umd.js" defer></script>
     <script src="assets/embla-carousel-auto-scroll-8.6.0.umd.js" defer></script>
@@ -128,12 +128,14 @@
                   <input
                     id="clinic"
                     name="clinic"
-                    autocomplete="organization"
+                    autocomplete="off"
+                    autocapitalize="none"
+                    spellcheck="false"
                     placeholder=" "
                     maxlength="140"
                     required
                   />
-                  <label for="clinic">Nome da clínica</label>
+                  <label for="clinic">Instagram da clínica (@)</label>
                   <p class="field-error" id="clinic-error"></p>
                 </div>
                 <div class="field select-field">

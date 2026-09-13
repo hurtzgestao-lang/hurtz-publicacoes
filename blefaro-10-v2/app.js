@@ -43,6 +43,20 @@
     } catch { /* Tracking must not interrupt a successfully saved request. */ }
   }
 
+  function instagramHandle(value) {
+    let handle = value.trim();
+    if (/^(?:https?:\/\/)?(?:(?:www|m)\.)?instagram\.com\//i.test(handle)) {
+      try {
+        const url = new URL(/^https?:\/\//i.test(handle) ? handle : `https://${handle}`);
+        const parts = url.pathname.split("/").filter(Boolean);
+        if (parts.length !== 1) return "";
+        handle = parts[0];
+      } catch { return ""; }
+    }
+    handle = handle.replace(/^@/, "");
+    return /^[a-z0-9._]{1,30}$/i.test(handle) ? `@${handle.toLowerCase()}` : "";
+  }
+
   function validateForm() {
     let firstInvalid;
     form.querySelectorAll("input, select").forEach((field) => {
@@ -52,6 +66,11 @@
         message = "Informe seu nome.";
       if (field.name === "email" && value && field.validity.typeMismatch)
         message = "Informe um e-mail válido.";
+      if (field.name === "clinic" && value) {
+        const handle = instagramHandle(value);
+        if (!handle) message = "Informe o @ ou o link do perfil da clínica no Instagram.";
+        else field.value = handle;
+      }
       if (field.name === "phone" && value) {
         let digits = value.replace(/\D/g, "");
         if (digits.startsWith("55") && digits.length > 11)
@@ -80,6 +99,7 @@
     busy = true;
     const data = new FormData(form);
     const value = (name) => String(data.get(name)).trim();
+    // Keep the clinic payload key compatible with the existing database.
     const fields = Object.fromEntries(["name", "email", "phone", "clinic", "owner", "revenue"].map((key) => [key, value(key)]));
     const message = [
       whatsappIntro,
@@ -87,7 +107,7 @@
       `Nome: ${value("name")}`,
       `E-mail: ${value("email")}`,
       `WhatsApp: ${value("phone")}`,
-      `Clínica: ${value("clinic")}`,
+      `Instagram da clínica: ${value("clinic")}`,
       `Dono de clínica: ${value("owner")}`,
       `Faturamento mensal: ${value("revenue")}`,
     ].join("\n");
