@@ -28,11 +28,17 @@
     ? "auto"
     : "smooth";
 
-  function trackSavedLead(submissionId) {
+  function trackSavedLead(submissionId, fields) {
+    const qualified = fields.owner === "Sim, sou dono ou sócio" && [
+      "Acima de R$ 30 mil a R$ 50 mil",
+      "Acima de R$ 50 mil a R$ 100 mil",
+      "Acima de R$ 100 mil",
+    ].includes(fields.revenue);
+    if (!qualified) return;
     const key = `blefaro-v2-lead:${submissionId}`;
     if (typeof window.fbq !== "function" || trackedLeads.has(submissionId)) return;
     try { if (sessionStorage.getItem(key)) return; } catch { /* Use in-memory deduplication. */ }
-    // Count only CRM-confirmed submissions; retries reuse the same event ID.
+    // Count qualified, database-confirmed submissions only; retries reuse the event ID.
     try {
       window.fbq("trackSingle", "2215367202619844", "Lead", {
         content_name: offerName,
@@ -137,7 +143,7 @@
       const result = await response.json();
       if (!response.ok || result.success !== true || !result.submission_id) throw new Error("not_saved");
       saved = true;
-      trackSavedLead(result.submission_id);
+      trackSavedLead(result.submission_id, fields);
       status.textContent = "Recebemos sua solicitação. Continue no WhatsApp para combinar o horário da chamada.";
       resume.hidden = false;
       window.open(url, "_blank", "noopener,noreferrer");
