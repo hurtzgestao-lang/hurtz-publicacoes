@@ -2,7 +2,7 @@ const FORM_CONFIG = {
   sourceUrl: "https://chronosdock.com/form/aceleracaohm",
   workspaceId: "a1b2c3d4-e5f6-7890-abcd-ef1234567890",
   formId: "64d8cebf-cb84-407e-beea-92afa3642d1f",
-  slug: "aceleracaohm",
+  slug: "aplicacao",
   pipelineId: "9489436a-ec68-4872-88ab-2c646ad60856",
   stageId: "dcbbeb35-fbd9-4a78-9706-39d7f23903d0",
   metaPixel: {
@@ -190,7 +190,7 @@ const FORM_CONFIG = {
   },
 };
 
-const STORAGE_KEY = "hurtz-chronos-aceleracaohm-copy-v1";
+const STORAGE_KEY = "hurtz-aplicacao-v1";
 const LEAD_ENDPOINT = "https://crm.hurtzcompany.com.br/landing-leads/v1/submit";
 const app = document.querySelector("#app");
 const backButton = document.querySelector(".back-button");
@@ -385,7 +385,7 @@ function leadDatabaseFields(leadId, payload) {
     clinic,
     owner: "Clínica de cirurgia estética facial",
     revenue,
-    source: "chronos-form-aceleracao-hm",
+    source: "aplicacao",
     submission_id: state.leadSaveAttemptId || leadId,
     priority: leadPriority(revenue, trafficInvestment),
     tracking: trackingData(),

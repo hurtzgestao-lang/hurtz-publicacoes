@@ -150,7 +150,7 @@ async function createBooking(body, env, accessToken) {
     end: { dateTime: localDateTimeFromDate(end, timezone), timeZone: timezone },
     extendedProperties: {
       private: {
-        source: "chronos-form-aceleracao-hm",
+        source: "aplicacao",
         booking_id: body.booking_id || "",
         capture_lead_id: body.capture_lead_id || "",
       },
