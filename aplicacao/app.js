@@ -762,7 +762,7 @@ function renderQuestion() {
 
   const input = app.querySelector("[data-input]");
   if (input) {
-    input.focus();
+    focusInputAtEnd(input);
     ["input", "change", "blur"].forEach((eventName) => {
       input.addEventListener(eventName, () => syncInputValue(step, input));
     });
@@ -854,6 +854,19 @@ function syncInputValue(step, input = app.querySelector("[data-input]")) {
   }
   state.answers[answerKey(step)] = value;
   saveState();
+}
+
+function focusInputAtEnd(input) {
+  input.focus({ preventScroll: true });
+  const length = input.value.length;
+  if (typeof input.setSelectionRange !== "function") return;
+  requestAnimationFrame(() => {
+    try {
+      input.setSelectionRange(length, length);
+    } catch {
+      // Some input types do not expose a selectable range.
+    }
+  });
 }
 
 function escapeAttr(value) {

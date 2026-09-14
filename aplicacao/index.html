@@ -11,12 +11,22 @@
       content="Aplicação para clínicas de cirurgia estética facial com agendamento integrado à Hurtz."
     />
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="assets/logo-hurtz-horizontal-crop.png" as="image" />
+    <link rel="preload" href="app.js" as="script" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
       href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap"
-      rel="stylesheet"
+      rel="preload"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
     />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
     <link rel="stylesheet" href="styles.css" />
     <script src="app.js" defer></script>
   </head>
