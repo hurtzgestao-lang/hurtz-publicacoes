@@ -144,7 +144,7 @@ async function createBooking(body, env, accessToken) {
   }
 
   const event = {
-    summary: body.event_name || "Bate papo sobre anúncios da clínica",
+    summary: bookingSummary(body),
     description: bookingDescription(body),
     start: { dateTime: localDateTime(date, time), timeZone: timezone },
     end: { dateTime: localDateTimeFromDate(end, timezone), timeZone: timezone },
@@ -158,7 +158,7 @@ async function createBooking(body, env, accessToken) {
   };
 
   if (body.client_email && isEmail(body.client_email)) {
-    event.attendees = [{ email: body.client_email, displayName: body.client_name || undefined }];
+    event.attendees = [{ email: body.client_email, displayName: cleanCalendarText(body.client_name) || undefined }];
   }
 
   const response = await fetch(
@@ -197,16 +197,22 @@ async function fetchBusy(accessToken, calendarId, timeMin, timeMax, timezone) {
 }
 
 function bookingDescription(body) {
-  const lines = [
-    `Nome: ${body.client_name || "-"}`,
-    `WhatsApp: ${body.client_phone || "-"}`,
-    `Email: ${body.client_email || "-"}`,
-    "",
-    "Respostas:",
-  ];
-  const answers = body.answers || {};
-  for (const [question, answer] of Object.entries(answers)) lines.push(`- ${stripHtml(question)}: ${answer}`);
-  return lines.join("\n");
+  return [
+    "Para aproveitar melhor a reunião, entre de preferência por um computador, em um lugar silencioso e com boa conexão.",
+    "Separe alguns minutos antes para abrir os dados básicos da clínica e possíveis dúvidas sobre os anúncios.",
+  ].join("\n\n");
+}
+
+function bookingSummary(body) {
+  const name = cleanCalendarText(body.client_name) || "Cliente";
+  return `${name} | Hurtz`;
+}
+
+function cleanCalendarText(value) {
+  return String(value || "")
+    .replace(/\s+/g, " ")
+    .trim()
+    .slice(0, 120);
 }
 
 function zonedToday(timezone) {
@@ -291,10 +297,6 @@ function overlaps(startA, endA, startB, endB) {
 
 function isEmail(value) {
   return /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value);
-}
-
-function stripHtml(value) {
-  return String(value || "").replace(/<[^>]*>/g, "").trim();
 }
 
 function json(payload, status = 200) {
