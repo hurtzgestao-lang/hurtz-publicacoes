@@ -1039,6 +1039,7 @@ button {
 
   .schedule-flow .flow-stage {
     align-items: flex-start;
+    padding-bottom: 98px;
   }
 
   .question,
@@ -1091,6 +1092,19 @@ button {
   .booking-actions,
   .booking-actions .primary-button {
     width: 100%;
+  }
+
+  .schedule .booking-actions {
+    position: fixed;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    z-index: 5;
+    width: 100%;
+    margin: 0;
+    padding: 10.5px 21px calc(env(safe-area-inset-bottom) + 10.5px);
+    background: #fff;
+    box-shadow: 0 -10px 24px rgba(15, 23, 42, 0.08);
   }
 
   .country-button {

@@ -141,7 +141,7 @@ const FORM_CONFIG = {
     "ending-1779371207224": {
       name: "👋 Antes de finalizar...",
       title: "<p>Obrigado pelo interesse!</p>",
-      description: "<p>Para começar, a clínica precisa separar pelo menos R$1.500/mês para os anúncios, além do valor do nosso serviço.</p>",
+      description: "<p>Recebemos suas informações. Caso faça sentido para o momento da sua clínica, nosso time entra em contato.</p>",
       redirectDelay: 3,
       pixelEventName: "ChronosSubmit",
       pixelEventType: "standard",
@@ -190,7 +190,7 @@ const FORM_CONFIG = {
   },
 };
 
-const STORAGE_KEY = "hurtz-aplicacao-v1";
+const STORAGE_KEY = "hurtz-aplicacao-v2";
 const LEAD_ENDPOINT = "https://crm.hurtzcompany.com.br/landing-leads/v1/submit";
 const app = document.querySelector("#app");
 const backButton = document.querySelector(".back-button");
@@ -204,6 +204,7 @@ let optionAdvanceTimer = null;
 let isAdvancingOption = false;
 const OPTION_ADVANCE_DELAY_MS = 450;
 let fieldFocusTimer = null;
+let skipClickAction = false;
 
 const IntegrationAdapter = {
   async track(eventName, payload = {}) {
@@ -842,7 +843,7 @@ function inputAttrsFor(step) {
   if (step.mapTo === "email") return `${base} id="email" name="email" autocomplete="email" inputmode="email" autocapitalize="none"`;
   if (step.mapTo === "phone") return `${base} id="phone" name="tel" autocomplete="tel" inputmode="tel"`;
   if (stripHtml(step.title).includes("Instagram")) {
-    return `${base} id="instagram" name="username" autocomplete="username" autocapitalize="none" spellcheck="false"`;
+    return `${base} id="instagram-profile" name="clinic-social-profile" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"`;
   }
   return `${base} autocomplete="on"`;
 }
@@ -869,6 +870,33 @@ function focusInputAtEnd(input) {
       // Some input types do not expose a selectable range.
     }
   });
+}
+
+function resetApplicationState() {
+  Object.assign(state, {
+    screen: "question",
+    stepIndex: 0,
+    answers: {},
+    selectedOption: null,
+    calendarDate: null,
+    calendarTime: null,
+    calendarMonthOffset: 0,
+    calendarAvailability: null,
+    calendarSource: null,
+    leadSubmitted: false,
+    leadId: null,
+    databaseLeadId: null,
+    scheduleViewed: false,
+    isBooking: false,
+    isLoadingSlots: false,
+    redirectTimerStarted: false,
+    countryOpen: false,
+    endingId: null,
+    startedAt: Date.now(),
+    sessionToken: crypto.randomUUID(),
+  });
+  firstInteractionTracked = false;
+  window.clearTimeout(optionAdvanceTimer);
 }
 
 function bindKeyboardAwareFocus(input) {
@@ -999,7 +1027,7 @@ function renderSchedule() {
   const contact = mappedContact();
   const shouldLoadRemoteSlots = !state.scheduleViewed && location.protocol !== "file:" && !state.calendarAvailability;
   if (shouldLoadRemoteSlots) state.isLoadingSlots = true;
-  const selectedDate = state.calendarDate || firstAvailableDate();
+  const selectedDate = state.calendarDate;
   state.calendarDate = selectedDate;
   const times = availableTimesFor(selectedDate);
   const monthDate = monthCursor();
@@ -1029,7 +1057,7 @@ function renderSchedule() {
       ${renderProgress()}
       ${renderFlowTop()}
       <div class="flow-stage">
-        <div class="schedule screen-enter">
+        <div class="schedule ${state.skipScheduleAnimation ? "" : "screen-enter"}">
           <h2 class="question-title">${FORM_CONFIG.steps[state.stepIndex].title}</h2>
           <p class="question-description">${FORM_CONFIG.steps[state.stepIndex].description}</p>
           <div class="schedule-card">
@@ -1059,7 +1087,7 @@ function renderSchedule() {
                 </div>
               </div>
               <div class="time-list ${times.length === 1 ? "is-single" : ""}">
-                <span class="selected-date-label">${iconCalendar()} ${formatLongDate(selectedDate, true)}</span>
+                <span class="selected-date-label">${iconCalendar()} ${selectedDate ? formatLongDate(selectedDate, true) : "Selecione uma data"}</span>
                 ${
                   state.isLoadingSlots
                     ? `<div class="slot-loading"><span class="spinner" aria-hidden="true"></span><br>Carregando...</div>`
@@ -1078,13 +1106,13 @@ function renderSchedule() {
               </div>
             </div>
             ${
-              state.calendarDate && state.calendarTime
+              selectedDate && state.calendarTime
                 ? `<div class="summary">${formatLongDate(state.calendarDate, true)} às ${state.calendarTime} • ${FORM_CONFIG.eventType.durationMinutes} minutos</div>`
                 : ""
             }
             <div class="validation" data-validation></div>
             <div class="booking-actions">
-              <button class="primary-button" type="button" data-booking ${state.isBooking ? "disabled" : ""}>
+              <button class="primary-button" type="button" data-booking ${state.isBooking || !state.calendarDate || !state.calendarTime ? "disabled" : ""}>
                 ${state.isBooking ? '<span class="spinner" aria-hidden="true"></span>Agendando...' : `${iconCheck()} Agendar horário`}
               </button>
             </div>
@@ -1093,6 +1121,8 @@ function renderSchedule() {
       </div>
     </div>
   `;
+  state.skipScheduleAnimation = false;
+  saveState();
 }
 
 function monthCursor() {
@@ -1304,6 +1334,11 @@ app.addEventListener("click", async (event) => {
   const countrySelect = event.target.closest("[data-country-select]");
   const countryArea = event.target.closest(".phone-row");
 
+  if (skipClickAction && (cont || booking)) {
+    skipClickAction = false;
+    return;
+  }
+
   if (state.countryOpen && !countryArea) {
     syncInputValue(getStep());
     state.countryOpen = false;
@@ -1317,8 +1352,7 @@ app.addEventListener("click", async (event) => {
       form_id: FORM_CONFIG.formId,
       form_slug: FORM_CONFIG.slug,
     });
-    state.screen = "question";
-    state.stepIndex = 0;
+    resetApplicationState();
     render();
   }
   if (option) {
@@ -1337,17 +1371,34 @@ app.addEventListener("click", async (event) => {
     if (date.disabled || !hasAvailableTimes(date.dataset.date)) return;
     state.calendarDate = date.dataset.date;
     state.calendarTime = null;
+    state.skipScheduleAnimation = true;
     renderSchedule();
   }
   if (time) {
     state.calendarTime = time.dataset.time;
+    state.skipScheduleAnimation = true;
     renderSchedule();
   }
   if (month) {
     state.calendarMonthOffset = (state.calendarMonthOffset || 0) + Number(month.dataset.month);
+    state.skipScheduleAnimation = true;
     renderSchedule();
   }
   if (booking) await confirmBooking();
+});
+
+app.addEventListener("pointerdown", (event) => {
+  const cont = event.target.closest("[data-continue]");
+  const booking = event.target.closest("[data-booking]");
+  if (!cont && !booking) return;
+  if (!window.matchMedia("(pointer: coarse)").matches) return;
+  event.preventDefault();
+  skipClickAction = true;
+  window.setTimeout(() => {
+    skipClickAction = false;
+  }, 500);
+  if (cont) next();
+  if (booking) confirmBooking();
 });
 
 document.addEventListener("keydown", async (event) => {
