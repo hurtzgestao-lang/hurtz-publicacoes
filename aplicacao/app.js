@@ -206,7 +206,10 @@ let firstInteractionTracked = state.firstInteractionTracked || false;
 let optionAdvanceTimer = null;
 let isAdvancingOption = false;
 const OPTION_ADVANCE_DELAY_MS = 450;
+const PARTIAL_SAVE_DEBOUNCE_MS = 700;
 let fieldFocusTimer = null;
+let partialSaveTimer = null;
+let partialSavePromise = Promise.resolve();
 let skipClickAction = false;
 
 const IntegrationAdapter = {
@@ -221,13 +224,17 @@ const IntegrationAdapter = {
     });
   },
   async upsertPartialLead(payload) {
+    const leadId = ensureLeadId();
     pushEvent({
       kind: "lead_partial",
       originalEquivalent: "POST /rest/v1/rpc/upsert_partial_lead",
-      payload,
+      payload: { ...payload, leadId },
       at: new Date().toISOString(),
     });
-    return state.leadId || crypto.randomUUID();
+    const saved = await saveLeadToDatabase(leadId, payload, { partial: true });
+    if (saved?.submission_id) state.databaseLeadId = saved.submission_id;
+    saveState();
+    return leadId;
   },
   async submitLead(payload) {
     const leadId = state.leadId || crypto.randomUUID();
@@ -250,7 +257,7 @@ const IntegrationAdapter = {
       payload: { formId: FORM_CONFIG.formId, leadId },
       at: new Date().toISOString(),
     });
-    const saved = await saveLeadToDatabase(leadId, payload);
+    const saved = await saveLeadToDatabase(leadId, payload, { partial: false });
     sendMetaPixelEvent(FORM_CONFIG.metaPixel.submitEventName, {
       ...payload,
       leadId,
@@ -350,8 +357,8 @@ const IntegrationAdapter = {
   },
 };
 
-async function saveLeadToDatabase(leadId, payload) {
-  const fields = leadDatabaseFields(leadId, payload);
+async function saveLeadToDatabase(leadId, payload, options = {}) {
+  const fields = leadDatabaseFields(leadId, payload, options);
   try {
     const response = await fetchWithTimeout(
       LEAD_ENDPOINT,
@@ -365,15 +372,15 @@ async function saveLeadToDatabase(leadId, payload) {
     const result = await response.json().catch(() => ({}));
     if (!response.ok || result.success !== true) throw new Error(result.error || `lead_database_${response.status}`);
     pushEvent({
-      kind: "lead_database_saved",
+      kind: options.partial ? "lead_database_partial_saved" : "lead_database_saved",
       originalEquivalent: LEAD_ENDPOINT,
-      payload: { submission_id: result.submission_id, source: fields.source },
+      payload: { submission_id: result.submission_id, source: fields.source, completion_status: fields.completion_status },
       at: new Date().toISOString(),
     });
     return result;
   } catch (error) {
     pushEvent({
-      kind: "lead_database_error",
+      kind: options.partial ? "lead_database_partial_error" : "lead_database_error",
       originalEquivalent: LEAD_ENDPOINT,
       payload: { message: error.message },
       at: new Date().toISOString(),
@@ -382,7 +389,7 @@ async function saveLeadToDatabase(leadId, payload) {
   }
 }
 
-function leadDatabaseFields(leadId, payload) {
+function leadDatabaseFields(leadId, payload, options = {}) {
   const answers = payload?.form_answers_cleaned || cleanAnswers();
   const contact = mappedContact();
   const revenue = answerLabelByStepId("a3d4546a-99f6-4ce1-a087-cf7029e68fa1");
@@ -398,7 +405,10 @@ function leadDatabaseFields(leadId, payload) {
     owner: "Clínica de cirurgia estética facial",
     revenue,
     source: "aplicacao",
-    submission_id: state.leadSaveAttemptId || leadId,
+    submission_id: leadId,
+    completion_status: options.partial ? "partial" : "submitted",
+    current_step: currentStepLabel(),
+    current_step_index: state.stepIndex,
     priority: leadPriority(revenue, trafficInvestment),
     tracking: trackingData(),
     lead: {
@@ -414,13 +424,69 @@ function leadDatabaseFields(leadId, payload) {
       faturamento_medio_mensal: revenue,
       investimento_trafego: trafficInvestment,
       instagram_clinica: clinic,
+      completion_status: options.partial ? "partial" : "submitted",
+      current_step: currentStepLabel(),
     },
     meta: {
       pixel_id: FORM_CONFIG.metaPixel.id,
       lead_event_id: leadId,
+      partial: Boolean(options.partial),
     },
     event_source_url: window.location.href,
   };
+}
+
+function ensureLeadId() {
+  if (!state.leadId) {
+    state.leadId = crypto.randomUUID();
+    saveState();
+  }
+  return state.leadId;
+}
+
+function currentStepLabel() {
+  if (state.screen === "welcome") return "Boas-vindas";
+  if (state.screen === "schedule") return "Agendamento";
+  if (state.screen === "ending") return "Encerramento";
+  const step = getStep();
+  return step ? stripHtml(step.title) : "";
+}
+
+function hasAnyLeadData() {
+  return Object.values(state.answers || {}).some((value) => String(value || "").trim());
+}
+
+function schedulePartialLeadSave() {
+  if (state.leadSubmitted || !hasAnyLeadData()) return;
+  window.clearTimeout(partialSaveTimer);
+  partialSaveTimer = window.setTimeout(() => {
+    partialSavePromise = partialSavePromise
+      .catch(() => {})
+      .then(() => IntegrationAdapter.upsertPartialLead(currentLeadPayload(true)))
+      .catch((error) => {
+        pushEvent({
+          kind: "lead_database_partial_error",
+          originalEquivalent: LEAD_ENDPOINT,
+          payload: { message: error.message },
+          at: new Date().toISOString(),
+        });
+      });
+  }, PARTIAL_SAVE_DEBOUNCE_MS);
+}
+
+function flushPartialLeadSave(useBeacon = false) {
+  if (state.screen === "question" && getStep()?.type !== "scheduling") syncInputValue(getStep());
+  if (state.leadSubmitted || !hasAnyLeadData()) return;
+  window.clearTimeout(partialSaveTimer);
+  const leadId = ensureLeadId();
+  const payload = currentLeadPayload(true);
+  if (useBeacon && navigator.sendBeacon) {
+    const fields = leadDatabaseFields(leadId, payload, { partial: true });
+    const body = new Blob([JSON.stringify(fields)], { type: "application/json" });
+    navigator.sendBeacon(LEAD_ENDPOINT, body);
+    return;
+  }
+  partialSavePromise = partialSavePromise.catch(() => {}).then(() => IntegrationAdapter.upsertPartialLead(payload));
 }
 
 function answerLabelByStepId(stepId) {
@@ -837,7 +903,10 @@ function renderQuestion() {
     bindKeyboardAwareFocus(input);
     focusInputAtEnd(input);
     ["input", "change", "blur"].forEach((eventName) => {
-      input.addEventListener(eventName, () => syncInputValue(step, input));
+      input.addEventListener(eventName, () => {
+        syncInputValue(step, input);
+        schedulePartialLeadSave();
+      });
     });
   }
 
@@ -966,6 +1035,7 @@ function resetApplicationState() {
     sessionToken: crypto.randomUUID(),
   });
   firstInteractionTracked = false;
+  window.clearTimeout(partialSaveTimer);
   window.clearTimeout(optionAdvanceTimer);
 }
 
@@ -1049,6 +1119,7 @@ function chooseOption(option) {
     item.disabled = true;
   });
   saveState();
+  schedulePartialLeadSave();
   optionAdvanceTimer = window.setTimeout(async () => {
     isAdvancingOption = true;
     await trackFirstInteraction();
@@ -1515,6 +1586,10 @@ updateAppHeight();
 window.addEventListener("resize", updateAppHeight, { passive: true });
 window.visualViewport?.addEventListener("resize", updateAppHeight, { passive: true });
 window.visualViewport?.addEventListener("scroll", updateAppHeight, { passive: true });
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") flushPartialLeadSave(true);
+});
+window.addEventListener("pagehide", () => flushPartialLeadSave(true));
 
 render();
 trackFormViewOnce();
