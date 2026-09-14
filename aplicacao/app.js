@@ -133,7 +133,7 @@ const FORM_CONFIG = {
       title: "<p>99%... Redirecionando para o WhatsApp ⌛</p>",
       description:
         "<p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p>",
-      redirectUrl: "https://wa.me/5537991222349?text=Ol%C3%A1%2C%20agendei%20um%20bate-papo%20sobre%20os%20an%C3%BAncios%20da%20minha%20cl%C3%ADnica.",
+      redirectUrl: "https://wa.me/5517996547043?text=Ol%C3%A1%2C%20agendei%20um%20bate-papo%20sobre%20os%20an%C3%BAncios%20da%20minha%20cl%C3%ADnica.",
       redirectDelay: 3,
       pixelEventName: "ChronosSubmit",
       pixelEventType: "custom",
@@ -156,7 +156,7 @@ const FORM_CONFIG = {
     maxVisibleSlots: 2,
     maxConcurrentBookings: 1,
     minimumNoticeHours: 0,
-    redirectUrl: "https://wa.me/553791222349?text=Ol%C3%A1%2C%20agendei%20um%20bate-papo%20sobre%20os%20an%C3%BAncios%20da%20minha%20cl%C3%ADnica.",
+    redirectUrl: "https://wa.me/5517996547043?text=Ol%C3%A1%2C%20agendei%20um%20bate-papo%20sobre%20os%20an%C3%BAncios%20da%20minha%20cl%C3%ADnica.",
     metaPixelEventName: "Chronos_Scheduled",
     calendarApiUrl: "/api/calendar",
     availability: {
