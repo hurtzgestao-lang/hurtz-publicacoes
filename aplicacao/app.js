@@ -719,7 +719,7 @@ function renderWelcome() {
   app.innerHTML = `
     <div class="welcome">
       <div class="welcome-media">
-        <img src="${FORM_CONFIG.welcome.mediaUrl}" alt="" />
+        <img src="${FORM_CONFIG.welcome.mediaUrl}" width="154" height="51" alt="" decoding="async" fetchpriority="high" />
       </div>
       <h1 class="welcome-title">${FORM_CONFIG.welcome.title}</h1>
       <div class="welcome-copy">${FORM_CONFIG.welcome.description}</div>
@@ -786,7 +786,7 @@ function renderFlowTop() {
   return `
     <div class="flow-top">
       <div class="flow-logo">
-        <img src="${FORM_CONFIG.welcome.mediaUrl}" alt="" />
+        <img src="${FORM_CONFIG.welcome.mediaUrl}" width="154" height="51" alt="" decoding="async" fetchpriority="high" />
       </div>
     </div>
   `;
