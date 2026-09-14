@@ -9,11 +9,11 @@ const FORM_CONFIG = {
     id: "2215367202619844",
     adAccountId: "act_858456199905828",
     businessId: "630967073005894",
-    submitEventName: "ChronosSubmit",
+    submitEventName: "HurtzSubmit",
     submitEventMode: "custom",
-    viewEventName: "ChronosView",
-    firstInteractionEventName: "ChronosFirstInteraction",
-    scheduleViewEventName: "Chronos_View_Scheduled",
+    viewEventName: "HurtzView",
+    firstInteractionEventName: "HurtzFirstInteraction",
+    scheduleViewEventName: "Hurtz_View_Scheduled",
   },
   welcome: {
     title: "<p><strong>Tráfego Pago para Clínicas de Cirurgia Estética Facial</strong></p>",
@@ -138,7 +138,7 @@ const FORM_CONFIG = {
         "<p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p>",
       redirectUrl: "https://wa.me/5517996547043?text=Ol%C3%A1%2C%20agendei%20um%20bate-papo%20sobre%20os%20an%C3%BAncios%20da%20minha%20cl%C3%ADnica.",
       redirectDelay: 3,
-      pixelEventName: "ChronosSubmit",
+      pixelEventName: "HurtzSubmit",
       pixelEventType: "custom",
     },
     "ending-1779371207224": {
@@ -146,7 +146,7 @@ const FORM_CONFIG = {
       title: "<p>Obrigado pelo interesse!</p>",
       description: "<p>Recebemos suas informações. Caso faça sentido para o momento da sua clínica, nosso time entra em contato.</p>",
       redirectDelay: 3,
-      pixelEventName: "ChronosSubmit",
+      pixelEventName: "HurtzSubmit",
       pixelEventType: "standard",
     },
   },
@@ -160,7 +160,7 @@ const FORM_CONFIG = {
     maxConcurrentBookings: 1,
     minimumNoticeHours: 0,
     redirectUrl: "https://wa.me/5517996547043?text=Ol%C3%A1%2C%20agendei%20um%20bate-papo%20sobre%20os%20an%C3%BAncios%20da%20minha%20cl%C3%ADnica.",
-    metaPixelEventName: "Chronos_Scheduled",
+    metaPixelEventName: "Hurtz_Scheduled",
     calendarApiUrl: "/api/calendar",
     availability: {
       1: [
@@ -272,7 +272,7 @@ const IntegrationAdapter = {
     });
     pushEvent({
       kind: "schedule_view",
-      originalEquivalent: "POST /functions/v1/track-form-pixel-event Chronos_View_Scheduled",
+      originalEquivalent: "POST /functions/v1/track-form-pixel-event Hurtz_View_Scheduled",
       payload,
       at: new Date().toISOString(),
     });
@@ -645,7 +645,7 @@ function renderEventLog() {
 }
 
 function originalEndpointFor(eventName) {
-  if (eventName === "ChronosView" || eventName === "ChronosFirstInteraction") {
+  if (eventName === "HurtzView" || eventName === "HurtzFirstInteraction") {
     return "POST /functions/v1/track-form-pixel-event + Meta Pixel";
   }
   if (eventName === "form_analytics_events") return "POST /rest/v1/form_analytics_events";
@@ -1105,7 +1105,7 @@ function renderSchedule() {
       workspace_id: FORM_CONFIG.workspaceId,
       event_type_id: FORM_CONFIG.eventType.id,
       user_data: contact,
-      event_name: "Chronos_View_Scheduled",
+      event_name: "Hurtz_View_Scheduled",
     }).catch((error) => {
       state.isLoadingSlots = false;
       pushEvent({
