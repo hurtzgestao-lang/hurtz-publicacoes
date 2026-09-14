@@ -1039,7 +1039,7 @@ button {
 
   .schedule-flow .flow-stage {
     align-items: flex-start;
-    padding-bottom: 98px;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 21px);
   }
 
   .question,
@@ -1095,16 +1095,13 @@ button {
   }
 
   .schedule .booking-actions {
-    position: fixed;
-    left: 0;
-    right: 0;
-    bottom: 0;
+    position: static;
     z-index: 5;
     width: 100%;
-    margin: 0;
-    padding: 10.5px 21px calc(env(safe-area-inset-bottom) + 10.5px);
+    margin-top: 21px;
+    padding: 0 0 calc(env(safe-area-inset-bottom) + 10.5px);
     background: #fff;
-    box-shadow: 0 -10px 24px rgba(15, 23, 42, 0.08);
+    box-shadow: none;
   }
 
   .country-button {
