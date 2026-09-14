@@ -1,0 +1,6 @@
+.hostgator.env
+.DS_Store
+checkup-credito-interno/meta-capi.config.php
+**/qa/
+**/playwright-report/
+**/test-results/
