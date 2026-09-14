@@ -10,9 +10,29 @@
       name="description"
       content="Aplicação para clínicas de cirurgia estética facial com agendamento integrado à Hurtz."
     />
+    <script>
+      !(function (f, b, e, v, n, t, s) {
+        if (f.fbq) return;
+        n = f.fbq = function () {
+          n.callMethod ? n.callMethod.apply(n, arguments) : n.queue.push(arguments);
+        };
+        if (!f._fbq) f._fbq = n;
+        n.push = n;
+        n.loaded = true;
+        n.version = "2.0";
+        n.queue = [];
+        t = b.createElement(e);
+        t.async = true;
+        t.src = v;
+        s = b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t, s);
+      })(window, document, "script", "https://connect.facebook.net/en_US/fbevents.js");
+      fbq("init", "2215367202619844");
+      fbq("track", "PageView");
+    </script>
     <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
     <link rel="preload" href="assets/logo-hurtz-horizontal-crop.png" as="image" />
-    <link rel="preload" href="app.js?v=20260914-6" as="script" />
+    <link rel="preload" href="app.js?v=20260914-7" as="script" />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
     <link
@@ -27,10 +47,19 @@
         rel="stylesheet"
       />
     </noscript>
-    <link rel="stylesheet" href="styles.css?v=20260914-6" />
-    <script src="app.js?v=20260914-6" defer></script>
+    <link rel="stylesheet" href="styles.css?v=20260914-7" />
+    <script src="app.js?v=20260914-7" defer></script>
   </head>
   <body>
+    <noscript>
+      <img
+        height="1"
+        width="1"
+        style="display:none"
+        src="https://www.facebook.com/tr?id=2215367202619844&ev=PageView&noscript=1"
+        alt=""
+      />
+    </noscript>
     <main class="form-shell" aria-live="polite">
       <input class="honeypot" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
       <button class="back-button" type="button" hidden aria-label="Voltar">
@@ -47,8 +76,8 @@
       <div class="event-panel" hidden>
         <strong>Fila local</strong>
         <p>
-          Espelha os disparos do Chronos sem enviar dados ao sistema do seu amigo. Na integração,
-          trocamos o adapter por endpoints da Hurtz/CRM.
+          Espelha os disparos do Chronos e envia os eventos principais ao Meta Pixel da Hurtz.
+          O salvamento de leads e agenda usa os endpoints da Hurtz.
         </p>
         <pre id="event-log">[]</pre>
       </div>

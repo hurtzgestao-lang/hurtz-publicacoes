@@ -6,11 +6,14 @@ const FORM_CONFIG = {
   pipelineId: "9489436a-ec68-4872-88ab-2c646ad60856",
   stageId: "dcbbeb35-fbd9-4a78-9706-39d7f23903d0",
   metaPixel: {
-    id: "2849219782065000",
+    id: "2215367202619844",
+    adAccountId: "act_858456199905828",
+    businessId: "630967073005894",
     submitEventName: "ChronosSubmit",
     submitEventMode: "custom",
     viewEventName: "ChronosView",
     firstInteractionEventName: "ChronosFirstInteraction",
+    scheduleViewEventName: "Chronos_View_Scheduled",
   },
   welcome: {
     title: "<p><strong>Tráfego Pago para Clínicas de Cirurgia Estética Facial</strong></p>",
@@ -208,6 +211,7 @@ let skipClickAction = false;
 
 const IntegrationAdapter = {
   async track(eventName, payload = {}) {
+    sendMetaPixelEvent(eventName, payload);
     pushEvent({
       kind: "pixel_or_analytics",
       eventName,
@@ -247,6 +251,11 @@ const IntegrationAdapter = {
       at: new Date().toISOString(),
     });
     const saved = await saveLeadToDatabase(leadId, payload);
+    sendMetaPixelEvent(FORM_CONFIG.metaPixel.submitEventName, {
+      ...payload,
+      leadId,
+      event_id: leadId,
+    });
     if (saved?.submission_id) state.databaseLeadId = saved.submission_id;
     saveState();
     return leadId;
@@ -267,6 +276,7 @@ const IntegrationAdapter = {
       payload,
       at: new Date().toISOString(),
     });
+    sendMetaPixelEvent(FORM_CONFIG.metaPixel.scheduleViewEventName, payload);
     pushEvent({
       kind: "availability_fetch",
       originalEquivalent: "POST /functions/v1/google-calendar-public-availability",
@@ -491,6 +501,63 @@ function getCookie(name) {
 function buildFbcFromUrl(fbclid) {
   if (!fbclid) return "";
   return `fb.1.${Date.now()}.${fbclid}`;
+}
+
+function sendMetaPixelEvent(eventName, payload = {}) {
+  if (typeof window.fbq !== "function") return;
+  const eventId = payload.event_id || `${state.sessionToken}:${eventName}`;
+  const tracking = trackingData();
+  const contact = mappedContact();
+  const parameters = {
+    form_id: FORM_CONFIG.formId,
+    form_slug: FORM_CONFIG.slug,
+    workspace_id: FORM_CONFIG.workspaceId,
+    ad_account_id: FORM_CONFIG.metaPixel.adAccountId,
+    business_id: FORM_CONFIG.metaPixel.businessId,
+    event_source_url: window.location.href,
+    landing_url: tracking.landing_url,
+    content_name: FORM_CONFIG.eventType.name,
+    content_category: "lead_form",
+    status: state.screen,
+    value: 0,
+    currency: "BRL",
+  };
+  [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "utm_term",
+    "utm_campaign_id",
+    "utm_adset",
+    "utm_adset_id",
+    "utm_ad",
+    "utm_ad_id",
+    "campaign_id",
+    "adset_id",
+    "ad_id",
+    "placement",
+    "site_source_name",
+  ].forEach((key) => {
+    if (tracking[key]) parameters[key] = tracking[key];
+  });
+  if (payload.event_type_id) parameters.event_type_id = payload.event_type_id;
+  if (payload.date) parameters.booking_date = payload.date;
+  if (payload.time) parameters.booking_time = payload.time;
+  if (contact.phone) parameters.phone_present = true;
+  if (contact.email) parameters.email_present = true;
+  window.fbq("trackCustom", eventName, parameters, { eventID: eventId });
+}
+
+function trackFormViewOnce() {
+  if (state.viewTracked) return;
+  state.viewTracked = true;
+  IntegrationAdapter.track(FORM_CONFIG.metaPixel.viewEventName, {
+    workspace_id: FORM_CONFIG.workspaceId,
+    form_id: FORM_CONFIG.formId,
+    form_slug: FORM_CONFIG.slug,
+  });
+  saveState();
 }
 
 async function requestCalendarApi(action, payload) {
@@ -1347,11 +1414,6 @@ app.addEventListener("click", async (event) => {
   }
 
   if (start) {
-    await IntegrationAdapter.track(FORM_CONFIG.metaPixel.viewEventName, {
-      workspace_id: FORM_CONFIG.workspaceId,
-      form_id: FORM_CONFIG.formId,
-      form_slug: FORM_CONFIG.slug,
-    });
     resetApplicationState();
     render();
   }
@@ -1452,3 +1514,4 @@ window.visualViewport?.addEventListener("resize", updateAppHeight, { passive: tr
 window.visualViewport?.addEventListener("scroll", updateAppHeight, { passive: true });
 
 render();
+trackFormViewOnce();
