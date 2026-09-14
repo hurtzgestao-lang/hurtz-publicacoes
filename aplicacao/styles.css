@@ -57,7 +57,7 @@ button {
 }
 
 .form-shell {
-  min-height: 100dvh;
+  min-height: var(--app-height, 100dvh);
   display: flex;
   flex-direction: column;
   overflow-x: hidden;
@@ -70,7 +70,7 @@ button {
 }
 
 .flow-page {
-  min-height: 100dvh;
+  min-height: var(--app-height, 100dvh);
   display: flex;
   flex-direction: column;
   background: #fff;
@@ -1020,6 +1020,21 @@ button {
   .flow-stage {
     align-items: center;
     padding-inline: 21px;
+  }
+
+  body.is-field-focused .flow-stage {
+    align-items: flex-start;
+    padding-top: 7px;
+    padding-bottom: calc(env(safe-area-inset-bottom) + 14px);
+  }
+
+  body.is-field-focused .flow-top {
+    height: 76px;
+    flex-basis: 76px;
+  }
+
+  body.is-field-focused .flow-logo {
+    transform: translateY(12px);
   }
 
   .schedule-flow .flow-stage {

@@ -203,6 +203,7 @@ let firstInteractionTracked = state.firstInteractionTracked || false;
 let optionAdvanceTimer = null;
 let isAdvancingOption = false;
 const OPTION_ADVANCE_DELAY_MS = 450;
+let fieldFocusTimer = null;
 
 const IntegrationAdapter = {
   async track(eventName, payload = {}) {
@@ -762,6 +763,7 @@ function renderQuestion() {
 
   const input = app.querySelector("[data-input]");
   if (input) {
+    bindKeyboardAwareFocus(input);
     focusInputAtEnd(input);
     ["input", "change", "blur"].forEach((eventName) => {
       input.addEventListener(eventName, () => syncInputValue(step, input));
@@ -867,6 +869,27 @@ function focusInputAtEnd(input) {
       // Some input types do not expose a selectable range.
     }
   });
+}
+
+function bindKeyboardAwareFocus(input) {
+  input.addEventListener("focus", () => {
+    document.body.classList.add("is-field-focused");
+    updateAppHeight();
+    window.clearTimeout(fieldFocusTimer);
+    fieldFocusTimer = window.setTimeout(() => {
+      app.querySelector("[data-question-form]")?.scrollIntoView({ block: "start", inline: "nearest" });
+    }, 180);
+  });
+  input.addEventListener("blur", () => {
+    window.clearTimeout(fieldFocusTimer);
+    document.body.classList.remove("is-field-focused");
+    updateAppHeight();
+  });
+}
+
+function updateAppHeight() {
+  const height = window.visualViewport?.height || window.innerHeight;
+  document.documentElement.style.setProperty("--app-height", `${Math.round(height)}px`);
 }
 
 function escapeAttr(value) {
@@ -1371,5 +1394,10 @@ eventToggle.addEventListener("click", () => {
   eventToggle.setAttribute("aria-expanded", String(!expanded));
   eventPanel.hidden = expanded;
 });
+
+updateAppHeight();
+window.addEventListener("resize", updateAppHeight, { passive: true });
+window.visualViewport?.addEventListener("resize", updateAppHeight, { passive: true });
+window.visualViewport?.addEventListener("scroll", updateAppHeight, { passive: true });
 
 render();
