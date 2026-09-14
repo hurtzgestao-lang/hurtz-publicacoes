@@ -547,6 +547,9 @@ function sendMetaPixelEvent(eventName, payload = {}) {
   if (contact.phone) parameters.phone_present = true;
   if (contact.email) parameters.email_present = true;
   window.fbq("trackCustom", eventName, parameters, { eventID: eventId });
+  if (eventName === FORM_CONFIG.eventType.metaPixelEventName) {
+    window.fbq("track", "Schedule", parameters, { eventID: `${eventId}:standard` });
+  }
 }
 
 function trackFormViewOnce() {
