@@ -83,7 +83,7 @@ button {
   right: 0;
   z-index: 10;
   height: 3.5px;
-  background: rgba(2, 132, 199, 0.125);
+  background: rgba(15, 23, 42, 0.06);
   overflow: hidden;
 }
 
@@ -429,7 +429,7 @@ button {
 
 .country-option:hover,
 .country-option.is-selected {
-  background: rgba(2, 132, 199, 0.08);
+  background: #f8fafc;
 }
 
 .country-option span:first-child {
@@ -484,7 +484,7 @@ button {
 .option.is-selected {
   transform: none;
   border-color: var(--primary);
-  background: rgba(2, 132, 199, 0.08);
+  background: transparent;
 }
 
 .option-key {
@@ -505,9 +505,9 @@ button {
 }
 
 .option.is-selected .option-key {
-  border-color: rgba(2, 132, 199, 0.55);
-  background: rgba(2, 132, 199, 0.14);
-  color: var(--primary);
+  border-color: var(--primary);
+  background: var(--primary);
+  color: #fff;
 }
 
 .option-label {
@@ -777,7 +777,7 @@ button {
 
 .calendar-day.is-available {
   color: var(--primary);
-  background: rgba(2, 132, 199, 0.22);
+  background: transparent;
   box-shadow: rgba(2, 132, 199, 0.45) 0 0 0 1.5px inset;
   font-weight: 700;
 }
@@ -864,7 +864,7 @@ button {
 
 .summary {
   border: 1px solid rgba(2, 132, 199, 0.35);
-  background: rgba(2, 132, 199, 0.07);
+  background: #fff;
   padding: 14px;
   font-weight: 700;
 }
