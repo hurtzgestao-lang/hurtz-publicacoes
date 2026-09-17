@@ -12,14 +12,10 @@
     button { font:inherit; }
     .topline { height:5px; background:var(--orange); }
     header { border-bottom:1px solid var(--line); }
-    .header-inner { max-width:1280px; margin:auto; padding:34px 32px 24px; display:flex; justify-content:space-between; gap:32px; align-items:flex-end; animation:rise .7s cubic-bezier(.2,.8,.2,1) both; }
+    .header-inner { max-width:1280px; margin:auto; padding:34px 32px 14px; animation:rise .7s cubic-bezier(.2,.8,.2,1) both; }
     .brand { color:var(--orange); font-family:Inter,ui-sans-serif,system-ui,sans-serif; font-size:11px; font-weight:800; letter-spacing:.13em; }
     h1 { margin:9px 0 0; font-size:clamp(30px,4vw,50px); line-height:1.02; letter-spacing:-.04em; }
-    .header-note { max-width:300px; color:var(--muted); font-size:15px; line-height:1.45; text-align:right; }
-    .progress { display:flex; align-items:center; gap:10px; justify-content:flex-end; margin-top:12px; color:var(--orange); font-size:11px; font-weight:800; text-transform:uppercase; letter-spacing:.08em; }
-    .progress i { display:block; width:76px; height:3px; background:var(--line); position:relative; overflow:hidden; }
-    .progress i::after { content:""; display:block; width:42%; height:100%; background:var(--orange); animation:load .9s .3s ease-out both; }
-    .control-bar { max-width:1280px; margin:auto; padding:0 32px 26px; display:grid; grid-template-columns:290px 1fr; gap:60px; align-items:start; animation:rise .7s .08s cubic-bezier(.2,.8,.2,1) both; }
+    .control-bar { max-width:1280px; margin:auto; padding:0 32px 20px; display:grid; grid-template-columns:290px 1fr; gap:60px; align-items:start; animation:rise .7s .08s cubic-bezier(.2,.8,.2,1) both; }
     .control-block { border-top:1px solid var(--line); padding-top:14px; }
     .control-block.right { text-align:right; }
     .control-block.right .filters { justify-content:flex-end; }
@@ -45,9 +41,9 @@
     .calendar-week { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:5px; }
     .calendar-week span { color:var(--muted); font-family:Inter,ui-sans-serif,system-ui,sans-serif; font-size:10px; font-weight:800; text-align:center; text-transform:uppercase; }
     .calendar { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-    .calendar-day { min-width:0; width:31px; height:27px; border:1px solid transparent; background:#fff; color:var(--ink); cursor:pointer; font-size:13px; position:relative; transition:background .2s,border-color .2s,color .2s,transform .2s; }
+    .calendar-day { min-width:0; width:25px; height:25px; border:1px solid transparent; border-radius:50%; background:#fff; color:var(--ink); cursor:pointer; font-size:12px; position:relative; transition:background .2s,border-color .2s,color .2s,transform .2s; }
     .calendar-day:hover:not(:disabled) { border-color:var(--orange); transform:translateY(-2px); }
-    .calendar-day.available::after { content:""; width:5px; height:5px; background:var(--orange); border-radius:50%; position:absolute; bottom:5px; left:50%; transform:translateX(-50%); }
+    .calendar-day.available::after { content:""; width:3px; height:3px; background:var(--orange); border-radius:50%; position:absolute; bottom:3px; left:50%; transform:translateX(-50%); }
     .calendar-day.selected { background:var(--orange); color:#fff; font-weight:800; }
     .calendar-day.selected::after { background:#fff; }
     .calendar-day:disabled { color:#c8c2b9; cursor:default; }
@@ -93,10 +89,9 @@
   <div class="topline"></div>
   <header><div class="header-inner">
     <div><div class="brand">HURTZ COMPANY / ALEXIA CLINIC</div><h1>Planejamento de conteúdo</h1></div>
-    <div class="header-note">18 a 30 de setembro de 2026<br>Agenda de gravação e roteiros<div class="progress"><span>13 vídeos</span><i></i></div></div>
   </div><div class="control-bar">
     <div class="control-block"><div class="calendar-head"><span class="calendar-month">Setembro 2026</span><span class="calendar-caption">Selecione um dia</span></div><div class="calendar-week"><span>seg</span><span>ter</span><span>qua</span><span>qui</span><span>sex</span><span>sáb</span><span>dom</span></div><div class="calendar" id="calendar"></div></div>
-    <div class="control-block right"><div class="aside-title"><strong>Tipos de vídeo</strong><span class="count" id="count"></span></div><div class="filters" id="filters"></div></div>
+    <div class="control-block right"><div class="aside-title"><strong>Tipos de vídeo</strong></div><div class="filters" id="filters"></div></div>
   </div></header>
   <div class="layout">
     <main class="detail" id="detail"></main>
@@ -122,10 +117,9 @@
     let active = 'Todos'; let selected = 0;
     const calendar = document.querySelector('#calendar');
     const detail = document.querySelector('#detail');
-    const count = document.querySelector('#count');
     const filterBox = document.querySelector('#filters');
     function renderFilters(){ filterBox.innerHTML = filters.map(f => `<button class="filter ${f===active?'active':''}" data-filter="${f}">${f}</button>`).join(''); filterBox.querySelectorAll('button').forEach(b => b.onclick=()=>{active=b.dataset.filter; render();}); }
-    function renderCalendar(){ const visible = videos.filter(v=>active==='Todos'||v.theme===active); count.textContent = `${visible.length} vídeos`; const firstDay = 1; const cells = []; for(let i=0;i<firstDay;i++) cells.push('<span></span>'); for(let day=1;day<=30;day++){ const index=videos.findIndex(v=>Number(v.date.slice(0,2))===day && (active==='Todos'||v.theme===active)); const enabled=index>=0; cells.push(`<button class="calendar-day ${enabled?'available':''} ${index===selected?'selected':''}" ${enabled?`data-index="${index}"`:'disabled'}>${day}</button>`); } calendar.innerHTML=cells.join(''); calendar.querySelectorAll('button').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.index); renderCalendar(); renderDetail();}); }
+    function renderCalendar(){ const firstDay = 1; const cells = []; for(let i=0;i<firstDay;i++) cells.push('<span></span>'); for(let day=1;day<=30;day++){ const index=videos.findIndex(v=>Number(v.date.slice(0,2))===day && (active==='Todos'||v.theme===active)); const enabled=index>=0; cells.push(`<button class="calendar-day ${enabled?'available':''} ${index===selected?'selected':''}" ${enabled?`data-index="${index}"`:'disabled'}>${day}</button>`); } calendar.innerHTML=cells.join(''); calendar.querySelectorAll('button').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.index); renderCalendar(); renderDetail();}); }
     function renderDetail(){ const v=videos[selected]; detail.classList.remove('swap'); detail.innerHTML=`<div class="detail-kicker">${v.date} · ${v.week} · ${v.theme}</div><h2>${v.title}</h2><p class="detail-intro">${v.focus}</p><div class="meta"><span>Formato <b>${v.format}</b></span><span>Duração <b>${v.duration}</b></span></div><div class="script-grid"><section class="section"><h3>Gancho</h3><p>${v.hook}</p></section><section class="section"><h3>Fechamento</h3><p>${v.cta}</p></section><section class="section full"><h3>Roteiro</h3><p class="script">${v.script}</p></section><section class="section full"><h3>Orientação de gravação</h3><p>${v.visual}</p></section></div>`; requestAnimationFrame(()=>detail.classList.add('swap')); }
     function render(){renderFilters();renderCalendar();renderDetail();}
     render();
