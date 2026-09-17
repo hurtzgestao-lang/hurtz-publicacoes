@@ -37,21 +37,26 @@
     .day-week { color:var(--muted); font-size:11px; margin-top:3px; }
     .day-title { font-size:14px; font-weight:750; line-height:1.25; }
     .day-format { color:var(--muted); font-size:12px; margin-top:5px; line-height:1.35; }
-    .calendar-head { display:flex; justify-content:space-between; align-items:center; margin:0 0 14px; }
-    .calendar-head-left { display:flex; align-items:center; gap:7px; }
-    .month-nav { border:0; background:transparent; color:var(--muted); cursor:pointer; font-size:19px; line-height:1; padding:2px 4px; }
-    .month-nav:hover { color:var(--orange); }
-    .calendar-month { font-size:18px; font-weight:800; letter-spacing:-.02em; }
-    .calendar-caption { color:var(--muted); font-size:12px; }
-    .calendar-week { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:5px; }
-    .calendar-week span { color:var(--muted); font-family:Inter,ui-sans-serif,system-ui,sans-serif; font-size:10px; font-weight:800; text-align:center; text-transform:uppercase; }
-    .calendar { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
-    .calendar-day { min-width:0; width:25px; height:25px; border:1px solid transparent; border-radius:50%; background:#fff; color:var(--ink); cursor:pointer; font-size:12px; position:relative; transition:background .2s,border-color .2s,color .2s,transform .2s; }
-    .calendar-day:hover:not(:disabled) { border-color:var(--orange); transform:translateY(-2px); }
-    .calendar-day.available::after { content:""; width:3px; height:3px; background:var(--orange); border-radius:50%; position:absolute; bottom:3px; left:50%; transform:translateX(-50%); }
-    .calendar-day.selected { background:var(--orange); color:#fff; font-weight:800; }
+    .calendar-head { display:flex; justify-content:space-between; align-items:center; gap:10px; margin:0 0 13px; }
+    .calendar-head-left { display:flex; align-items:center; gap:8px; }
+    .month-nav { width:25px; height:25px; border:1px solid var(--line); border-radius:50%; background:#fff; color:var(--muted); cursor:pointer; font-size:18px; line-height:1; padding:0; transition:background .16s,border-color .16s,color .16s; }
+    .month-nav:hover { background:var(--orange); border-color:var(--orange); color:#fff; }
+    .calendar-month { font-size:18px; font-weight:800; letter-spacing:-.01em; }
+    .calendar-caption { color:var(--muted); font-size:11px; white-space:nowrap; }
+    .calendar-week { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; margin-bottom:6px; }
+    .calendar-week span { color:var(--muted); font-family:Inter,ui-sans-serif,system-ui,sans-serif; font-size:9px; font-weight:800; text-align:center; text-transform:uppercase; }
+    .calendar-week span:nth-last-child(-n+2) { color:#c8c2b9; }
+    .calendar { display:grid; grid-template-columns:repeat(7,1fr); gap:5px; }
+    .calendar-day { min-width:0; width:28px; height:28px; border:1px solid transparent; border-radius:50%; background:#fff; color:var(--ink); cursor:pointer; font-family:Inter,ui-sans-serif,system-ui,sans-serif; font-size:11px; font-weight:700; position:relative; transition:background .16s,border-color .16s,color .16s,transform .16s; }
+    .calendar-day:hover:not(:disabled) { border-color:var(--orange); transform:translateY(-1px); }
+    .calendar-day.available::after { content:""; width:4px; height:4px; background:var(--orange); border-radius:50%; position:absolute; bottom:3px; left:50%; transform:translateX(-50%); }
+    .calendar-day.video { border-color:rgba(192,96,24,.35); }
+    .calendar-day.post::after { width:10px; height:2px; border-radius:2px; }
+    .calendar-day.stories::after { background:#8c8880; }
+    .calendar-day.selected { background:var(--orange); border-color:var(--orange); color:#fff; font-weight:800; }
     .calendar-day.selected::after { background:#fff; }
-    .calendar-day:disabled { color:#c8c2b9; cursor:default; }
+    .calendar-day:disabled { background:transparent; color:#cbc5bb; cursor:default; }
+    .calendar-day.weekend { color:#ddd8cf; text-decoration:line-through; text-decoration-thickness:1px; }
     main { min-width:0; animation:rise .75s .18s cubic-bezier(.2,.8,.2,1) both; }
     .detail-kicker { color:var(--orange); font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
     .detail h2 { font-size:clamp(36px,5vw,64px); line-height:.98; letter-spacing:-.04em; margin:10px 0 14px; max-width:900px; }
@@ -78,9 +83,9 @@
     @media (min-width:821px) {
       .control-bar { grid-template-columns:260px minmax(0,680px); justify-content:space-between; gap:38px; padding-bottom:12px; }
       .control-block { padding-top:9px; }
-      .calendar-week { gap:2px; margin-bottom:2px; }
-      .calendar { gap:2px; }
-      .calendar-day { width:22px; height:22px; font-size:11px; }
+      .calendar-week { gap:3px; margin-bottom:4px; }
+      .calendar { gap:3px; }
+      .calendar-day { width:24px; height:24px; font-size:10px; }
       .calendar-day.available::after { width:3px; height:3px; bottom:2px; }
       .layout { padding-top:26px; }
       .control-block.right { max-width:680px; }
@@ -109,7 +114,7 @@
     <div><div class="brand">HURTZ COMPANY / ALEXIA CLINIC</div><h1>Planejamento de conteúdo</h1></div>
   </div><div class="control-bar">
     <div class="control-block"><div class="calendar-head"><div class="calendar-head-left"><button class="month-nav" id="prev-month" aria-label="Mês anterior">‹</button><span class="calendar-month" id="calendar-month">Setembro 2026</span><button class="month-nav" id="next-month" aria-label="Próximo mês">›</button></div><span class="calendar-caption">Selecione um dia</span></div><div class="calendar-week"><span>seg</span><span>ter</span><span>qua</span><span>qui</span><span>sex</span><span>sáb</span><span>dom</span></div><div class="calendar" id="calendar"></div></div>
-    <div class="control-block right"><div class="aside-title"><strong>Tipos de vídeo</strong></div><div class="filters" id="filters"></div></div>
+    <div class="control-block right"><div class="aside-title"><strong>Tipos de conteúdo</strong></div><div class="filters" id="filters"></div></div>
   </div></header>
   <div class="layout">
     <main class="detail" id="detail"></main>
@@ -202,6 +207,48 @@
     };
     function ensureDailyMonth(month){ const profiles=dailyProfiles[month]; const daysInMonth=new Date(2026,month+1,0).getDate(); for(let day=1;day<=daysInMonth;day++){ if(videos.some(v=>v.month===month && Number(v.date.slice(0,2))===day)) continue; let index=(day-1)%profiles.length; if(month===10) index=day<=15?(day-1)%3:3+((day-16)%3); if(month===11 && day===9) index=3; const p=profiles[index]; const dateObj=new Date(2026,month,day); videos.push({date:`${String(day).padStart(2,'0')}/${String(month+1).padStart(2,'0')}`,month,week:weekdays[dateObj.getDay()],theme:p[0],title:p[1],format:p[2],focus:p[3],hook:p[4],script:p[5],visual:p[6],cta:p[7]}); } }
     ensureDailyMonth(9); ensureDailyMonth(10); ensureDailyMonth(11);
+    function storyPlan(base, dateObj){
+      const dayLabel=weekdays[dateObj.getDay()];
+      return [
+        `Story 1 · Abertura: apresentar a pergunta "${base.hook}" e convidar a pessoa a responder ou continuar assistindo.`,
+        `Story 2 · Contexto: explicar em uma frase por que ${base.title.toLowerCase()} importa para quem está acompanhando a clínica.`,
+        `Story 3 · Informação: usar um trecho simples da orientação do dia, sem transformar o conteúdo em diagnóstico ou promessa.`,
+        `Story 4 · Interação: abrir uma caixa de perguntas ou enquete sobre ${base.theme.toLowerCase()}.`,
+        `Story 5 · Bastidor: mostrar ${base.visual.toLowerCase()} mantendo pacientes, dados e imagens sob autorização.`,
+        `Story 6 · Fechamento: ${base.cta} Publicar como sequência de ${dayLabel}, com texto curto na tela.`
+      ];
+    }
+    function postPlan(base){
+      return {
+        title:`Post · ${base.title}`,
+        hook:base.hook,
+        script:`Legenda sugerida: ${base.script} ${base.cta}`,
+        visual:`Carrossel ou imagem única com título curto, três pontos de orientação e fechamento. ${base.visual}`,
+        cta:base.cta
+      };
+    }
+    function applyCadence(){
+      const source=new Map(videos.map(v=>[`${v.month}-${v.date}`,v]));
+      const scheduled=[];
+      for(let month=8;month<=11;month++){
+        const firstDay=month===8?18:1;
+        const daysInMonth=new Date(2026,month+1,0).getDate();
+        for(let day=firstDay;day<=daysInMonth;day++){
+          const dateObj=new Date(2026,month,day);
+          if(dateObj.getDay()===0||dateObj.getDay()===6) continue;
+          const date=`${String(day).padStart(2,'0')}/${String(month+1).padStart(2,'0')}`;
+          const base=source.get(`${month}-${date}`) || source.get(`${month}-${String(firstDay).padStart(2,'0')}/${String(month+1).padStart(2,'0')}`);
+          const contentType=dateObj.getDay()===2||dateObj.getDay()===5?'Vídeo':dateObj.getDay()===3?'Post':'Stories';
+          const item={...base,date,month,week:weekdays[dateObj.getDay()],contentType};
+          if(contentType==='Stories') item.storyItems=storyPlan(base,dateObj);
+          if(contentType==='Post') item.post=postPlan(base);
+          scheduled.push(item);
+        }
+      }
+      videos.length=0;
+      videos.push(...scheduled);
+    }
+    applyCadence();
     const angleData = {
       'Otomodelação': {
         hooks:['Você já imaginou como seria deixar de pensar nas suas orelhas em toda foto ou quando prende o cabelo?','Muita gente passa anos convivendo com um incômodo porque não sabe como começar a investigar as possibilidades.'],
@@ -247,8 +294,8 @@
         {title:'Opção 3 · História e contexto', hook:guide.hooks[1], script:`${guide.hooks[1]} ${guide.bodies[0]} ${video.script} ${guide.bodies[1]} ${closer}`, cta:video.cta, visual:`Começar com uma cena de contexto e entrar na fala da Dra. Alexia. ${video.visual}`}
       ];
     }
-    videos.forEach(v=>{ v.options=buildOptions(v); v.duration='45–60s'; });
-    const filters = ['Todos', ...new Set(videos.map(v => v.theme))];
+    videos.forEach(v=>{ v.options=v.contentType==='Vídeo'?buildOptions(v):[]; if(v.contentType==='Vídeo') v.duration='45–60s'; if(v.contentType==='Post') v.duration='1 publicação'; if(v.contentType==='Stories') v.duration='5–6 stories'; });
+    const filters = ['Todos','Vídeos','Posts','Stories', ...new Set(videos.map(v => v.theme))];
     const monthNames = ['Janeiro','Fevereiro','Março','Abril','Maio','Junho','Julho','Agosto','Setembro','Outubro','Novembro','Dezembro'];
     let active = 'Todos'; let currentMonth = 8; let selected = 0; let selectedOption = 0;
     const calendar = document.querySelector('#calendar');
@@ -257,11 +304,12 @@
     const filterBox = document.querySelector('#filters');
     document.querySelector('#prev-month').onclick=()=>changeMonth(-1);
     document.querySelector('#next-month').onclick=()=>changeMonth(1);
-    function renderFilters(){ filterBox.innerHTML = filters.map(f => `<button class="filter ${f===active?'active':''}" data-filter="${f}">${f}</button>`).join(''); filterBox.querySelectorAll('button').forEach(b => b.onclick=()=>{active=b.dataset.filter; const first=videos.findIndex(v=>v.month===currentMonth && (active==='Todos'||v.theme===active)); selected=first>=0?first:videos.findIndex(v=>v.month===currentMonth); selectedOption=0; render();}); }
-    function changeMonth(step){ currentMonth=Math.max(8,Math.min(11,currentMonth+step)); const first=videos.findIndex(v=>v.month===currentMonth && (active==='Todos'||v.theme===active)); selected=first>=0?first:videos.findIndex(v=>v.month===currentMonth); selectedOption=0; renderCalendar(); renderDetail(); }
-    function renderCalendar(){ const firstDate=new Date(2026,currentMonth,1); const firstDay=(firstDate.getDay()+6)%7; const daysInMonth=new Date(2026,currentMonth+1,0).getDate(); calendarMonth.textContent=`${monthNames[currentMonth]} 2026`; const cells=[]; for(let i=0;i<firstDay;i++) cells.push('<span></span>'); for(let day=1;day<=daysInMonth;day++){ const index=videos.findIndex(v=>v.month===currentMonth && Number(v.date.slice(0,2))===day && (active==='Todos'||v.theme===active)); const enabled=index>=0; cells.push(`<button class="calendar-day ${enabled?'available':''} ${index===selected?'selected':''}" ${enabled?`data-index="${index}"`:'disabled'}>${day}</button>`); } calendar.innerHTML=cells.join(''); calendar.querySelectorAll('button').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.index); selectedOption=0; renderCalendar(); renderDetail();}); }
-    function renderOption(video){ const option=video.options[selectedOption]; const readableScript=option.script.replace(/\.\s+/g,'.\n\n'); const area=document.querySelector('#option-area'); area.innerHTML=`<div class="option-switcher">${video.options.map((o,i)=>`<button class="option-button ${i===selectedOption?'active':''}" data-option="${i}">${o.title}</button>`).join('')}</div><div class="script-grid"><section class="section"><h3>1. Gancho</h3><p>${option.hook}</p></section><section class="section"><h3>2. Fala sugerida</h3><p class="script">${readableScript}</p></section><section class="section"><h3>3. Fechamento</h3><p>${option.cta}</p></section><section class="section"><h3>4. Como gravar</h3><p>${option.visual}</p></section></div>`; area.querySelectorAll('.option-button').forEach(b=>b.onclick=()=>{selectedOption=Number(b.dataset.option); renderOption(video);}); }
-    function renderDetail(){ const v=videos[selected]; detail.classList.remove('swap'); detail.innerHTML=`<div class="detail-kicker">${v.date} · ${v.week} · ${v.theme}</div><h2>${v.title}</h2><p class="detail-intro">${v.focus}</p><div class="meta"><span>Formato <b>${v.format}</b></span><span>Duração <b>${v.duration}</b></span></div><div id="option-area"></div>`; renderOption(v); requestAnimationFrame(()=>detail.classList.add('swap')); }
+    function matchesFilter(v){ return active==='Todos'||(active==='Vídeos'&&v.contentType==='Vídeo')||(active==='Posts'&&v.contentType==='Post')||(active==='Stories'&&v.contentType==='Stories')||v.theme===active; }
+    function renderFilters(){ filterBox.innerHTML = filters.map(f => `<button class="filter ${f===active?'active':''}" data-filter="${f}">${f}</button>`).join(''); filterBox.querySelectorAll('button').forEach(b => b.onclick=()=>{active=b.dataset.filter; const first=videos.findIndex(v=>v.month===currentMonth&&matchesFilter(v)); selected=first>=0?first:videos.findIndex(v=>v.month===currentMonth); selectedOption=0; render();}); }
+    function changeMonth(step){ currentMonth=Math.max(8,Math.min(11,currentMonth+step)); const first=videos.findIndex(v=>v.month===currentMonth&&matchesFilter(v)); selected=first>=0?first:videos.findIndex(v=>v.month===currentMonth); selectedOption=0; renderCalendar(); renderDetail(); }
+    function renderCalendar(){ const firstDate=new Date(2026,currentMonth,1); const firstDay=(firstDate.getDay()+6)%7; const daysInMonth=new Date(2026,currentMonth+1,0).getDate(); calendarMonth.textContent=`${monthNames[currentMonth]} 2026`; const cells=[]; for(let i=0;i<firstDay;i++) cells.push('<span></span>'); for(let day=1;day<=daysInMonth;day++){ const dateObj=new Date(2026,currentMonth,day); const weekend=dateObj.getDay()===0||dateObj.getDay()===6; const index=videos.findIndex(v=>v.month===currentMonth&&Number(v.date.slice(0,2))===day&&matchesFilter(v)); const enabled=index>=0; const typeClass=enabled?videos[index].contentType.toLowerCase().replace('í','i'):''; const label=weekend?'Sem conteúdo':enabled?videos[index].contentType:'Sem conteúdo para este filtro'; cells.push(`<button class="calendar-day ${weekend?'weekend':''} ${enabled?'available':''} ${typeClass} ${index===selected?'selected':''}" aria-label="${day} · ${label}" title="${label}" ${enabled?`data-index="${index}"`:'disabled'}>${day}</button>`); } calendar.innerHTML=cells.join(''); calendar.querySelectorAll('button').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.index); selectedOption=0; renderCalendar(); renderDetail();}); }
+    function renderOption(video){ const area=document.querySelector('#option-area'); if(video.contentType==='Stories'){ area.innerHTML=`<div class="script-grid">${video.storyItems.map((item,i)=>`<section class="section"><h3>${item.split('·')[0]}</h3><p>${item.split('·').slice(1).join('·').trim()}</p></section>`).join('')}</div>`; return; } if(video.contentType==='Post'){ const post=video.post; area.innerHTML=`<div class="script-grid"><section class="section"><h3>1. Tema do post</h3><p>${post.title}</p></section><section class="section"><h3>2. Legenda sugerida</h3><p class="script">${post.script.replace(/\.\s+/g,'.\n\n')}</p></section><section class="section"><h3>3. Como produzir</h3><p>${post.visual}</p></section><section class="section"><h3>4. Fechamento</h3><p>${post.cta}</p></section></div>`; return; } const option=video.options[selectedOption]; const readableScript=option.script.replace(/\.\s+/g,'.\n\n'); area.innerHTML=`<div class="option-switcher">${video.options.map((o,i)=>`<button class="option-button ${i===selectedOption?'active':''}" data-option="${i}">${o.title}</button>`).join('')}</div><div class="script-grid"><section class="section"><h3>1. Gancho</h3><p>${option.hook}</p></section><section class="section"><h3>2. Fala sugerida</h3><p class="script">${readableScript}</p></section><section class="section"><h3>3. Fechamento</h3><p>${option.cta}</p></section><section class="section"><h3>4. Como gravar</h3><p>${option.visual}</p></section></div>`; area.querySelectorAll('.option-button').forEach(b=>b.onclick=()=>{selectedOption=Number(b.dataset.option); renderOption(video);}); }
+    function renderDetail(){ const v=videos[selected]; const formatLabel=v.contentType==='Vídeo'?v.format:v.contentType; detail.classList.remove('swap'); detail.innerHTML=`<div class="detail-kicker">${v.date} · ${v.week} · ${v.contentType} · ${v.theme}</div><h2>${v.contentType==='Post'?v.post.title:v.title}</h2><p class="detail-intro">${v.contentType==='Stories'?'Sequência diária com 5 a 6 Stories':v.focus}</p><div class="meta"><span>Formato <b>${formatLabel}</b></span><span>Duração <b>${v.duration}</b></span></div><div id="option-area"></div>`; renderOption(v); requestAnimationFrame(()=>detail.classList.add('swap')); }
     function render(){renderFilters();renderCalendar();renderDetail();}
     render();
   </script>
