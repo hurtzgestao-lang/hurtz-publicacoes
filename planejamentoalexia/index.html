@@ -54,6 +54,10 @@
     .meta { display:flex; flex-wrap:wrap; gap:10px 24px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:14px 0; margin-bottom:28px; }
     .meta span { font-size:15px; color:var(--muted); }
     .meta b { color:var(--ink); margin-left:4px; }
+    .option-switcher { display:flex; flex-wrap:wrap; gap:8px; margin:0 0 22px; }
+    .option-button { border:1px solid var(--line); border-radius:999px; background:#fff; color:var(--muted); padding:8px 14px; cursor:pointer; font-family:Inter,ui-sans-serif,system-ui,sans-serif; font-size:12px; transition:background .2s,color .2s,border-color .2s,transform .2s; }
+    .option-button:hover { border-color:var(--orange); color:var(--ink); transform:translateY(-1px); }
+    .option-button.active { background:var(--orange); border-color:var(--orange); color:#fff; }
     .script-grid { display:block; max-width:900px; }
     .section { border-top:2px solid var(--ink); padding-top:12px; margin-top:26px; }
     .section h3 { margin:0 0 9px; font-family:Inter,ui-sans-serif,system-ui,sans-serif; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--orange); }
@@ -122,14 +126,50 @@
       {date:'29/09',week:'terça',theme:'Mentoria',title:'Bastidores da formação',format:'Reels · convite',duration:'30–40s',focus:'Mostrar a experiência da mentoria.',hook:'Aprender um novo procedimento também é aprender a conduzir uma experiência.',script:'Na mentoria, o profissional entende método, indicação, prática, atendimento e posicionamento. O objetivo é sair com mais clareza para oferecer a otomodelação com responsabilidade.',visual:'Aula, materiais, orientação e frase curta de uma aluna autorizada.',cta:'Envie uma mensagem para saber como participar.'},
       {date:'30/09',week:'quarta',theme:'Famílias',title:'Outubro começa com planejamento',format:'Vídeo de encerramento',duration:'30–40s',focus:'Fechar o mês e apresentar o próximo passo.',hook:'Outubro pode ser um mês especial para famílias que querem planejar a avaliação com calma.',script:'Se a sua família convive com uma insegurança relacionada às orelhas, este pode ser o momento de buscar informação e organizar uma conversa. Cada caso precisa de avaliação, critério e cuidado.',visual:'Plano fixo, ambiente claro e pausas entre cada frase.',cta:'Fale com a equipe para entender o próximo passo.'}
     ];
+    const angleData = {
+      'Otomodelação': {
+        hooks:['Você já imaginou como seria deixar de pensar nas suas orelhas em toda foto ou quando prende o cabelo?','Muita gente passa anos convivendo com um incômodo porque não sabe como começar a investigar as possibilidades.'],
+        bodies:['A conversa começa entendendo a sua história, o que incomoda e o que você espera. Depois, a avaliação ajuda a explicar o que pode ou não fazer sentido para o seu caso. Não existe uma resposta igual para todo mundo, e por isso a orientação individual é tão importante.','O objetivo não é criar uma aparência artificial ou mudar quem você é. É entender proporções, possibilidades e limites com cuidado. Quando a pessoa tem informação, consegue tomar uma decisão mais tranquila, sem pressão e sem promessa pronta.']
+      },
+      'Prova social': {
+        hooks:['Toda paciente chega com um motivo diferente para procurar ajuda.','Uma história real não começa no resultado. Começa no momento em que a pessoa decide conversar sobre algo que a incomoda.'],
+        bodies:['Algumas pessoas falam sobre fotos, cabelo preso ou uma insegurança antiga. Outras só querem entender se existe uma alternativa para o que sentem. O papel da clínica é escutar, avaliar e explicar o caminho com honestidade.','Para contar uma história com responsabilidade, não precisamos exagerar nem prometer a mesma experiência para todo mundo. O mais importante é mostrar a transformação de confiança e o cuidado presente em cada etapa do processo.']
+      },
+      'Avaliação facial': {
+        hooks:['Antes de escolher um tratamento para o rosto, existe uma etapa que muita gente pula.','Se algo no contorno do rosto começou a incomodar, não é preciso escolher um procedimento no impulso.'],
+        bodies:['Pele, volume, flacidez, gordura localizada e expectativa podem participar dessa avaliação. Olhar para tudo junto ajuda a construir uma orientação mais coerente e evita tratar apenas um detalhe sem entender o conjunto.','Cada rosto tem uma necessidade e uma história. Por isso, uma avaliação presencial permite conversar, observar com calma e explicar quais caminhos podem ser considerados, sempre sem diagnóstico pelo vídeo e sem promessa milagrosa.']
+      },
+      'Mentoria': {
+        hooks:['Profissional da estética: você quer ampliar seu repertório com mais segurança e método?','Aprender um procedimento é apenas uma parte do trabalho de quem atende na estética.'],
+        bodies:['Na mentoria, o profissional precisa entender indicação, condução, experiência do paciente, prática e posicionamento. O objetivo é sair da aula com mais clareza sobre o processo inteiro, e não apenas com uma técnica isolada.','Uma formação responsável também fala sobre limites, seleção de casos e atendimento. É isso que ajuda o profissional a oferecer um novo serviço com mais consciência, organização e segurança para quem será atendido.']
+      },
+      'Famílias': {
+        hooks:['Quando uma criança ou adolescente se incomoda com as orelhas, a família também precisa de acolhimento e informação.','Nem sempre a família sabe qual é o primeiro passo quando percebe que as orelhas estão afetando a confiança da criança.'],
+        bodies:['A conversa precisa envolver o responsável, considerar a idade, ouvir a criança ou adolescente e entender os critérios de avaliação. Não é uma decisão para ser tomada por pressão ou por comparação com outra pessoa.','O melhor caminho é organizar as dúvidas, entender as possibilidades e planejar com calma. Cada caso precisa ser avaliado individualmente, com autorização e orientação adequada para a família.']
+      },
+      'Bastidores': {
+        hooks:['O cuidado de uma clínica aparece também nos detalhes que acontecem antes do procedimento.','Antes de qualquer atendimento, existe uma sequência de cuidados que ajuda a pessoa a se sentir segura.'],
+        bodies:['Preparar o ambiente, conferir os materiais, receber com atenção e explicar cada etapa fazem parte da experiência. São ações simples, mas mostram que o atendimento não começa apenas quando a câmera ou o procedimento começa.','Bastidores bons não precisam expor pacientes nem inventar cenas. Eles podem mostrar a equipe, as mãos, o ambiente e a organização que sustentam um atendimento mais cuidadoso e humano.']
+      }
+    };
+    function buildOptions(video){
+      const guide = angleData[video.theme] || angleData['Otomodelação'];
+      return [
+        {title:'Opção 1 · Direta', hook:video.hook, script:`${video.script} ${guide.bodies[0]} O próximo passo é conversar com calma e entender se essa avaliação faz sentido para você.`, cta:video.cta, visual:video.visual},
+        {title:'Opção 2 · Pergunta real', hook:guide.hooks[0], script:`${guide.hooks[0]} ${video.script} ${guide.bodies[1]} A avaliação existe para transformar uma dúvida em informação e ajudar você a decidir com mais segurança.`, cta:video.cta, visual:`Abrir com a pergunta olhando para a lente; depois, alternar plano médio e cenas de apoio. ${video.visual}`},
+        {title:'Opção 3 · História e contexto', hook:guide.hooks[1], script:`${guide.hooks[1]} ${guide.bodies[0]} ${video.script} ${guide.bodies[1]} No final, reforçar que cada pessoa precisa ser orientada de forma individual e respeitosa.`, cta:video.cta, visual:`Começar com uma cena de contexto e entrar na fala da Dra. Alexia. ${video.visual}`}
+      ];
+    }
+    videos.forEach(v=>{ v.options=buildOptions(v); v.duration='45–60s'; });
     const filters = ['Todos', ...new Set(videos.map(v => v.theme))];
-    let active = 'Todos'; let selected = 0;
+    let active = 'Todos'; let selected = 0; let selectedOption = 0;
     const calendar = document.querySelector('#calendar');
     const detail = document.querySelector('#detail');
     const filterBox = document.querySelector('#filters');
     function renderFilters(){ filterBox.innerHTML = filters.map(f => `<button class="filter ${f===active?'active':''}" data-filter="${f}">${f}</button>`).join(''); filterBox.querySelectorAll('button').forEach(b => b.onclick=()=>{active=b.dataset.filter; render();}); }
-    function renderCalendar(){ const firstDay = 1; const cells = []; for(let i=0;i<firstDay;i++) cells.push('<span></span>'); for(let day=1;day<=30;day++){ const index=videos.findIndex(v=>Number(v.date.slice(0,2))===day && (active==='Todos'||v.theme===active)); const enabled=index>=0; cells.push(`<button class="calendar-day ${enabled?'available':''} ${index===selected?'selected':''}" ${enabled?`data-index="${index}"`:'disabled'}>${day}</button>`); } calendar.innerHTML=cells.join(''); calendar.querySelectorAll('button').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.index); renderCalendar(); renderDetail();}); }
-    function renderDetail(){ const v=videos[selected]; const readableScript=v.script.replace(/\.\s+/g,'.\n\n'); detail.classList.remove('swap'); detail.innerHTML=`<div class="detail-kicker">${v.date} · ${v.week} · ${v.theme}</div><h2>${v.title}</h2><p class="detail-intro">${v.focus}</p><div class="meta"><span>Formato <b>${v.format}</b></span><span>Duração <b>${v.duration}</b></span></div><div class="script-grid"><section class="section"><h3>1. Gancho</h3><p>${v.hook}</p></section><section class="section"><h3>2. Fala sugerida</h3><p class="script">${readableScript}</p></section><section class="section"><h3>3. Fechamento</h3><p>${v.cta}</p></section><section class="section"><h3>4. Como gravar</h3><p>${v.visual}</p></section></div>`; requestAnimationFrame(()=>detail.classList.add('swap')); }
+    function renderCalendar(){ const firstDay = 1; const cells = []; for(let i=0;i<firstDay;i++) cells.push('<span></span>'); for(let day=1;day<=30;day++){ const index=videos.findIndex(v=>Number(v.date.slice(0,2))===day && (active==='Todos'||v.theme===active)); const enabled=index>=0; cells.push(`<button class="calendar-day ${enabled?'available':''} ${index===selected?'selected':''}" ${enabled?`data-index="${index}"`:'disabled'}>${day}</button>`); } calendar.innerHTML=cells.join(''); calendar.querySelectorAll('button').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.index); selectedOption=0; renderCalendar(); renderDetail();}); }
+    function renderOption(video){ const option=video.options[selectedOption]; const readableScript=option.script.replace(/\.\s+/g,'.\n\n'); const area=document.querySelector('#option-area'); area.innerHTML=`<div class="option-switcher">${video.options.map((o,i)=>`<button class="option-button ${i===selectedOption?'active':''}" data-option="${i}">${o.title}</button>`).join('')}</div><div class="script-grid"><section class="section"><h3>1. Gancho</h3><p>${option.hook}</p></section><section class="section"><h3>2. Fala sugerida</h3><p class="script">${readableScript}</p></section><section class="section"><h3>3. Fechamento</h3><p>${option.cta}</p></section><section class="section"><h3>4. Como gravar</h3><p>${option.visual}</p></section></div>`; area.querySelectorAll('.option-button').forEach(b=>b.onclick=()=>{selectedOption=Number(b.dataset.option); renderOption(video);}); }
+    function renderDetail(){ const v=videos[selected]; detail.classList.remove('swap'); detail.innerHTML=`<div class="detail-kicker">${v.date} · ${v.week} · ${v.theme}</div><h2>${v.title}</h2><p class="detail-intro">${v.focus}</p><div class="meta"><span>Formato <b>${v.format}</b></span><span>Duração <b>${v.duration}</b></span></div><div id="option-area"></div>`; renderOption(v); requestAnimationFrame(()=>detail.classList.add('swap')); }
     function render(){renderFilters();renderCalendar();renderDetail();}
     render();
   </script>
