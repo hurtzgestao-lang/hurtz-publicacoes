@@ -35,6 +35,18 @@
     .day-week { color:var(--muted); font-size:11px; margin-top:3px; }
     .day-title { font-size:14px; font-weight:750; line-height:1.25; }
     .day-format { color:var(--muted); font-size:12px; margin-top:5px; line-height:1.35; }
+    .calendar-head { display:flex; justify-content:space-between; align-items:center; margin:0 0 14px; }
+    .calendar-month { font-size:18px; font-weight:800; letter-spacing:-.02em; }
+    .calendar-caption { color:var(--muted); font-size:11px; }
+    .calendar-week { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; margin-bottom:5px; }
+    .calendar-week span { color:var(--muted); font-size:10px; font-weight:800; text-align:center; text-transform:uppercase; }
+    .calendar { display:grid; grid-template-columns:repeat(7,1fr); gap:4px; }
+    .calendar-day { min-width:0; aspect-ratio:1; border:1px solid transparent; background:#fff; color:var(--ink); cursor:pointer; font-size:12px; position:relative; transition:background .2s,border-color .2s,color .2s,transform .2s; }
+    .calendar-day:hover:not(:disabled) { border-color:var(--orange); transform:translateY(-2px); }
+    .calendar-day.available::after { content:""; width:4px; height:4px; background:var(--orange); border-radius:50%; position:absolute; bottom:5px; left:50%; transform:translateX(-50%); }
+    .calendar-day.selected { background:var(--orange); color:#fff; font-weight:800; }
+    .calendar-day.selected::after { background:#fff; }
+    .calendar-day:disabled { color:#c8c2b9; cursor:default; }
     main { min-width:0; animation:rise .75s .18s cubic-bezier(.2,.8,.2,1) both; }
     .detail-kicker { color:var(--orange); font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
     .detail h2 { font-size:clamp(30px,4vw,52px); line-height:1.02; letter-spacing:-.04em; margin:10px 0 12px; max-width:800px; }
@@ -79,8 +91,9 @@
   <div class="layout">
     <aside>
       <div class="aside-title"><strong>Agenda</strong><span class="count" id="count"></span></div>
-      <div class="filters" id="filters"></div>
-      <div class="day-list" id="day-list"></div>
+      <div class="calendar-head"><span class="calendar-month">Setembro 2026</span><span class="calendar-caption">13 dias</span></div>
+      <div class="calendar-week"><span>seg</span><span>ter</span><span>qua</span><span>qui</span><span>sex</span><span>sáb</span><span>dom</span></div>
+      <div class="calendar" id="calendar"></div>
     </aside>
     <main class="detail" id="detail"></main>
   </div>
@@ -103,14 +116,12 @@
     ];
     const filters = ['Todos', ...new Set(videos.map(v => v.theme))];
     let active = 'Todos'; let selected = 0;
-    const list = document.querySelector('#day-list');
+    const calendar = document.querySelector('#calendar');
     const detail = document.querySelector('#detail');
     const count = document.querySelector('#count');
-    const filterBox = document.querySelector('#filters');
-    function renderFilters(){ filterBox.innerHTML = filters.map(f => `<button class="filter ${f===active?'active':''}" data-filter="${f}">${f}</button>`).join(''); filterBox.querySelectorAll('button').forEach(b => b.onclick=()=>{active=b.dataset.filter; render();}); }
-    function renderList(){ const shown = videos.map((v,i)=>({...v,i})).filter(v=>active==='Todos'||v.theme===active); count.textContent = `${shown.length} vídeos`; list.innerHTML = shown.map(v=>`<button class="day ${v.i===selected?'selected':''}" data-index="${v.i}"><span><div class="day-date">${v.date}</div><div class="day-week">${v.week}</div></span><span><div class="day-title">${v.title}</div><div class="day-format">${v.theme} · ${v.format}</div></span></button>`).join(''); list.querySelectorAll('.day').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.index); renderList(); renderDetail();}); }
+    function renderCalendar(){ count.textContent = `${videos.length} vídeos`; const firstDay = 1; const cells = []; for(let i=0;i<firstDay;i++) cells.push('<span></span>'); for(let day=1;day<=30;day++){ const index=videos.findIndex(v=>Number(v.date.slice(0,2))===day); const enabled=index>=0; cells.push(`<button class="calendar-day ${enabled?'available':''} ${index===selected?'selected':''}" ${enabled?`data-index="${index}"`:'disabled'}>${day}</button>`); } calendar.innerHTML=cells.join(''); calendar.querySelectorAll('button').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.index); renderCalendar(); renderDetail();}); }
     function renderDetail(){ const v=videos[selected]; detail.classList.remove('swap'); detail.innerHTML=`<div class="detail-kicker">${v.date} · ${v.week} · ${v.theme}</div><h2>${v.title}</h2><p class="detail-intro">${v.focus}</p><div class="meta"><span>Formato <b>${v.format}</b></span><span>Duração <b>${v.duration}</b></span></div><div class="script-grid"><section class="section"><h3>Gancho</h3><p>${v.hook}</p></section><section class="section"><h3>Fechamento</h3><p>${v.cta}</p></section><section class="section full"><h3>Roteiro</h3><p class="script">${v.script}</p></section><section class="section full"><h3>Orientação de gravação</h3><p>${v.visual}</p></section></div>`; requestAnimationFrame(()=>detail.classList.add('swap')); }
-    function render(){renderFilters();renderList();renderDetail();}
+    function render(){renderCalendar();renderDetail();}
     render();
   </script>
 </body>
