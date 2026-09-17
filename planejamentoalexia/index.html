@@ -66,6 +66,16 @@
     @keyframes detailIn { from { opacity:0; transform:translateY(10px); } to { opacity:1; transform:translateY(0); } }
     @keyframes load { from { transform:translateX(-100%); } to { transform:translateX(0); } }
     @media (prefers-reduced-motion:reduce) { *,*::before,*::after { animation-duration:.01ms !important; transition-duration:.01ms !important; } }
+    @media (min-width:821px) {
+      .control-bar { grid-template-columns:260px minmax(0,680px); justify-content:space-between; gap:38px; padding-bottom:12px; }
+      .control-block { padding-top:9px; }
+      .calendar-week { gap:2px; margin-bottom:2px; }
+      .calendar { gap:2px; }
+      .calendar-day { width:22px; height:22px; font-size:11px; }
+      .calendar-day.available::after { width:3px; height:3px; bottom:2px; }
+      .layout { padding-top:26px; }
+      .control-block.right { max-width:680px; }
+    }
     @media (max-width:820px) {
       .header-inner { padding:22px 20px; display:block; }
       .header-note { text-align:left; margin-top:12px; }
