@@ -1,0 +1,108 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="theme-color" content="#ffffff">
+  <title>Alexia Clinic | Planejamento de conteúdo</title>
+  <style>
+    :root { --orange:#c06018; --ink:#181614; --muted:#6b665f; --line:#e8e4dc; --soft:#f7f5f1; }
+    * { box-sizing:border-box; }
+    body { margin:0; color:var(--ink); background:#fff; font-family:Inter,ui-sans-serif,system-ui,-apple-system,"Segoe UI",sans-serif; }
+    button { font:inherit; }
+    .topline { height:4px; background:var(--orange); }
+    header { border-bottom:1px solid var(--line); }
+    .header-inner { max-width:1280px; margin:auto; padding:28px 32px 24px; display:flex; justify-content:space-between; gap:32px; align-items:flex-end; }
+    .brand { color:var(--orange); font-size:11px; font-weight:800; letter-spacing:.13em; }
+    h1 { margin:9px 0 0; font-size:clamp(28px,4vw,46px); line-height:1.02; letter-spacing:-.03em; }
+    .header-note { max-width:270px; color:var(--muted); font-size:13px; line-height:1.5; text-align:right; }
+    .layout { max-width:1280px; margin:auto; padding:28px 32px 64px; display:grid; grid-template-columns:330px 1fr; gap:46px; }
+    aside { border-right:1px solid var(--line); padding-right:28px; }
+    .aside-title { display:flex; justify-content:space-between; align-items:center; margin-bottom:16px; }
+    .aside-title strong { font-size:13px; letter-spacing:.04em; text-transform:uppercase; }
+    .count { color:var(--orange); font-size:12px; font-weight:700; }
+    .filters { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:18px; }
+    .filter { border:1px solid var(--line); background:#fff; color:var(--muted); padding:7px 10px; cursor:pointer; font-size:12px; }
+    .filter.active, .filter:hover { color:var(--ink); border-color:var(--orange); }
+    .day-list { display:grid; }
+    .day { display:grid; grid-template-columns:70px 1fr; gap:13px; padding:15px 0; border-top:1px solid var(--line); background:#fff; border-left:3px solid transparent; text-align:left; cursor:pointer; }
+    .day:hover { border-left-color:var(--orange); padding-left:9px; }
+    .day.selected { border-left-color:var(--orange); padding-left:9px; background:var(--soft); }
+    .day-date { color:var(--orange); font-weight:800; font-size:12px; }
+    .day-week { color:var(--muted); font-size:11px; margin-top:3px; }
+    .day-title { font-size:14px; font-weight:750; line-height:1.25; }
+    .day-format { color:var(--muted); font-size:12px; margin-top:5px; line-height:1.35; }
+    main { min-width:0; }
+    .detail-kicker { color:var(--orange); font-size:11px; font-weight:800; letter-spacing:.08em; text-transform:uppercase; }
+    .detail h2 { font-size:clamp(28px,4vw,44px); line-height:1.05; letter-spacing:-.03em; margin:10px 0 12px; max-width:800px; }
+    .detail-intro { color:var(--muted); max-width:760px; font-size:15px; line-height:1.6; margin:0 0 28px; }
+    .meta { display:flex; flex-wrap:wrap; gap:10px 24px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:14px 0; margin-bottom:28px; }
+    .meta span { font-size:12px; color:var(--muted); }
+    .meta b { color:var(--ink); margin-left:4px; }
+    .script-grid { display:grid; grid-template-columns:1fr 1fr; gap:26px 40px; }
+    .section { border-top:2px solid var(--ink); padding-top:12px; }
+    .section h3 { margin:0 0 9px; font-size:12px; letter-spacing:.08em; text-transform:uppercase; color:var(--orange); }
+    .section p { margin:0; font-size:16px; line-height:1.55; }
+    .section.full { grid-column:1 / -1; }
+    .script { white-space:pre-line; }
+    .empty { color:var(--muted); padding:30px 0; }
+    footer { max-width:1280px; margin:auto; padding:0 32px 26px; color:var(--muted); font-size:11px; }
+    @media (max-width:820px) {
+      .header-inner { padding:22px 20px; display:block; }
+      .header-note { text-align:left; margin-top:12px; }
+      .layout { display:block; padding:20px; }
+      aside { border-right:0; border-bottom:1px solid var(--line); padding:0 0 18px; margin-bottom:28px; }
+      .day-list { grid-template-columns:1fr 1fr; gap:0 16px; }
+      .day:nth-child(-n+2) { border-top:0; }
+      .script-grid { grid-template-columns:1fr; gap:22px; }
+      .section.full { grid-column:auto; }
+      footer { padding:0 20px 22px; }
+    }
+    @media (max-width:480px) { .day-list { grid-template-columns:1fr; } .day:nth-child(2) { border-top:1px solid var(--line); } }
+  </style>
+</head>
+<body>
+  <div class="topline"></div>
+  <header><div class="header-inner">
+    <div><div class="brand">HURTZ COMPANY / ALEXIA CLINIC</div><h1>Planejamento de conteúdo</h1></div>
+    <div class="header-note">18 a 30 de setembro de 2026<br>Agenda de gravação e roteiros</div>
+  </div></header>
+  <div class="layout">
+    <aside>
+      <div class="aside-title"><strong>Agenda</strong><span class="count" id="count"></span></div>
+      <div class="filters" id="filters"></div>
+      <div class="day-list" id="day-list"></div>
+    </aside>
+    <main class="detail" id="detail"></main>
+  </div>
+  <footer>HURTZ COMPANY · Alexia Clinic · Conteúdo atualizado em 17/09/2026</footer>
+  <script>
+    const videos = [
+      {date:'18/09',week:'sexta',theme:'Otomodelação',title:'A avaliação é o primeiro passo',format:'Reels · fala para a câmera',duration:'30–40s',focus:'Apresentar a avaliação como primeiro passo.',hook:'Se você se incomoda com as orelhas abertas, talvez já tenha pensado que a única opção seria conviver com isso.',script:'Aqui na Alexia Clinic, a avaliação serve para entender o seu caso com calma. A gente conversa sobre possibilidades, naturalidade e o que realmente faz sentido para você. O objetivo é orientar o próximo passo com segurança, respeitando a sua história e os seus limites.',visual:'Dra. Alexia no consultório, plano médio, com cortes do ambiente e dos materiais organizados.',cta:'Se isso faz sentido para você, fale com a nossa equipe e agende sua avaliação.'},
+      {date:'19/09',week:'sábado',theme:'Prova social',title:'Uma história de confiança',format:'Depoimento ou narração',duration:'25–35s',focus:'Contar uma história real sem prometer resultado.',hook:'Ela chegou com um incômodo antigo e saiu dando um passo importante para a própria confiança.',script:'Cada paciente chega com uma história. Algumas querem prender o cabelo sem insegurança. Outras querem se sentir melhor nas fotos ou simplesmente parar de pensar nisso todos os dias. Aqui, a gente conduz esse processo com avaliação, cuidado e naturalidade.',visual:'Paciente autorizada falando uma frase curta, intercalada com bastidores e Dra. Alexia acompanhando.',cta:'Agende sua avaliação e converse com a nossa equipe.'},
+      {date:'20/09',week:'domingo',theme:'Otomodelação',title:'Quando procurar avaliação?',format:'Vídeo educativo · Stories',duration:'Até 40s',focus:'Responder uma dúvida comum sobre orelhas abertas.',hook:'Orelhas abertas: quando vale procurar avaliação?',script:'Se esse incômodo aparece nas fotos, ao prender o cabelo ou na rotina, já vale conversar com um especialista. A avaliação ajuda a entender o seu caso e as possibilidades com mais clareza, sem decisão precipitada.',visual:'Dra. Alexia olhando para a câmera, com uma versão mais espontânea para Stories.',cta:'Se ficou com dúvida, fale com a nossa equipe.'},
+      {date:'21/09',week:'segunda',theme:'Otomodelação',title:'Para quem já pensa em corrigir',format:'Reels de identificação',duration:'30–40s',focus:'Falar com quem adia a decisão.',hook:'Se você já pensou em corrigir as orelhas abertas, talvez esteja esperando o momento certo.',script:'Não precisa decidir tudo hoje. O primeiro passo pode ser apenas entender como funciona, conversar sobre o seu caso e descobrir se a otomodelação faz sentido para você. Informação e avaliação ajudam a escolher com calma.',visual:'Plano médio, olhar direto para a lente e pausa entre o gancho e a explicação.',cta:'Comece pela avaliação.'},
+      {date:'22/09',week:'terça',theme:'Avaliação facial',title:'Papada e contorno facial',format:'Reels educativo',duration:'30s',focus:'Explicar por que avaliar antes de escolher.',hook:'Papada e perda de contorno facial não devem ser tratadas no chute.',script:'Antes de escolher qualquer procedimento, é importante entender pele, volume, flacidez e expectativa. Na avaliação, a gente olha para o seu caso e orienta o caminho mais adequado, sem exagero e sem promessa milagrosa.',visual:'Dra. Alexia em plano médio; imagens de apoio da avaliação sem identificar paciente.',cta:'Fale com a equipe e veja os horários disponíveis.'},
+      {date:'23/09',week:'quarta',theme:'Mentoria',title:'O convite para profissionais',format:'Reels · convite',duration:'40–50s',focus:'Apresentar a mentoria Ear Line Avançado.',hook:'Você, profissional da estética avançada, já pensou em levar a otomodelação para a sua clínica?',script:'A Mentoria Alexia Clinic foi criada para profissionais que querem aprender método, indicação, experiência do paciente e posicionamento. A ideia é entender como oferecer otomodelação com condução técnica e responsabilidade.',visual:'Dra. Alexia em plano médio, detalhes de aula, materiais e orientação de aluna.',cta:'Envie uma mensagem para entender como participar.'},
+      {date:'24/09',week:'quinta',theme:'Otomodelação',title:'Medo, recuperação e naturalidade',format:'Vídeo de objeção',duration:'30–40s',focus:'Responder uma pergunta por vez.',hook:'A otomodelação precisa ficar natural? Sim, e é por isso que a avaliação importa.',script:'Cada caso precisa ser avaliado individualmente. A conversa ajuda a alinhar expectativa, entender possibilidades e explicar os cuidados envolvidos. Naturalidade não é uma promessa pronta: é algo que precisa ser planejado para cada pessoa.',visual:'Pergunta na tela e resposta direta da Dra. Alexia. Um take para cada dúvida.',cta:'Salve esta dúvida e converse com a equipe na sua avaliação.'},
+      {date:'25/09',week:'sexta',theme:'Prova social',title:'A paciente e o próprio processo',format:'Depoimento autorizado',duration:'25–35s',focus:'Mostrar emoção e fala natural.',hook:'Uma mudança pode começar quando a pessoa decide olhar para um incômodo com cuidado.',script:'Deixar a paciente contar, com as próprias palavras, o que a trouxe até a clínica e como foi ser acolhida durante o processo. A Dra. Alexia pode fechar falando sobre escuta, avaliação e cuidado.',visual:'Paciente autorizada, sem pedir frases decoradas ou comparações exageradas.',cta:'Cada história é única. Agende uma avaliação.'},
+      {date:'26/09',week:'sábado',theme:'Famílias',title:'Uma conversa para responsáveis',format:'Reels para mães e responsáveis',duration:'35–45s',focus:'Acolher famílias que pensam em outubro.',hook:'Tem criança ou adolescente que sofre por causa das orelhas abertas e a família nem sempre sabe qual é o próximo passo.',script:'O primeiro passo é conversar, avaliar e entender os critérios com responsabilidade. Cada caso precisa ser analisado com o responsável, com autorização e com orientação adequada. A família pode se organizar com calma para um período mais tranquilo.',visual:'Dra. Alexia falando; ambiente e equipe. Não expor crianças sem autorização.',cta:'Se você quer entender melhor, fale com a nossa equipe.'},
+      {date:'27/09',week:'domingo',theme:'Bastidores',title:'O cuidado antes do procedimento',format:'Bastidor · Stories ou Reels',duration:'15–25s',focus:'Mostrar a experiência da clínica.',hook:'O cuidado começa antes do procedimento: começa na escuta e na avaliação.',script:'Sem precisar de uma fala longa, mostrar os pequenos gestos que fazem parte do atendimento: preparar a sala, organizar materiais, receber a paciente e conversar com atenção.',visual:'Recepção, mãos, consultório, equipe e detalhes de preparação.',cta:'Cuidado também é prestar atenção em cada etapa.'},
+      {date:'28/09',week:'segunda',theme:'Otomodelação',title:'Ainda dá tempo de avaliar',format:'Reels curto',duration:'20–30s',focus:'Falar com quem está adiando.',hook:'Ainda dá tempo de passar por uma avaliação antes de outubro.',script:'Se você está adiando porque não sabe por onde começar, comece por uma conversa. A avaliação organiza as dúvidas, mostra o que faz sentido e ajuda você a decidir sem pressa.',visual:'Duas versões: uma direta e outra mais acolhedora.',cta:'Fale com a equipe e veja os horários.'},
+      {date:'29/09',week:'terça',theme:'Mentoria',title:'Bastidores da formação',format:'Reels · convite',duration:'30–40s',focus:'Mostrar a experiência da mentoria.',hook:'Aprender um novo procedimento também é aprender a conduzir uma experiência.',script:'Na mentoria, o profissional entende método, indicação, prática, atendimento e posicionamento. O objetivo é sair com mais clareza para oferecer a otomodelação com responsabilidade.',visual:'Aula, materiais, orientação e frase curta de uma aluna autorizada.',cta:'Envie uma mensagem para saber como participar.'},
+      {date:'30/09',week:'quarta',theme:'Famílias',title:'Outubro começa com planejamento',format:'Vídeo de encerramento',duration:'30–40s',focus:'Fechar o mês e apresentar o próximo passo.',hook:'Outubro pode ser um mês especial para famílias que querem planejar a avaliação com calma.',script:'Se a sua família convive com uma insegurança relacionada às orelhas, este pode ser o momento de buscar informação e organizar uma conversa. Cada caso precisa de avaliação, critério e cuidado.',visual:'Plano fixo, ambiente claro e pausas entre cada frase.',cta:'Fale com a equipe para entender o próximo passo.'}
+    ];
+    const filters = ['Todos', ...new Set(videos.map(v => v.theme))];
+    let active = 'Todos'; let selected = 0;
+    const list = document.querySelector('#day-list');
+    const detail = document.querySelector('#detail');
+    const count = document.querySelector('#count');
+    const filterBox = document.querySelector('#filters');
+    function renderFilters(){ filterBox.innerHTML = filters.map(f => `<button class="filter ${f===active?'active':''}" data-filter="${f}">${f}</button>`).join(''); filterBox.querySelectorAll('button').forEach(b => b.onclick=()=>{active=b.dataset.filter; render();}); }
+    function renderList(){ const shown = videos.map((v,i)=>({...v,i})).filter(v=>active==='Todos'||v.theme===active); count.textContent = `${shown.length} vídeos`; list.innerHTML = shown.map(v=>`<button class="day ${v.i===selected?'selected':''}" data-index="${v.i}"><span><div class="day-date">${v.date}</div><div class="day-week">${v.week}</div></span><span><div class="day-title">${v.title}</div><div class="day-format">${v.theme} · ${v.format}</div></span></button>`).join(''); list.querySelectorAll('.day').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.index); renderList(); renderDetail();}); }
+    function renderDetail(){ const v=videos[selected]; detail.innerHTML=`<div class="detail-kicker">${v.date} · ${v.week} · ${v.theme}</div><h2>${v.title}</h2><p class="detail-intro">${v.focus}</p><div class="meta"><span>Formato <b>${v.format}</b></span><span>Duração <b>${v.duration}</b></span></div><div class="script-grid"><section class="section"><h3>Gancho</h3><p>${v.hook}</p></section><section class="section"><h3>Fechamento</h3><p>${v.cta}</p></section><section class="section full"><h3>Roteiro</h3><p class="script">${v.script}</p></section><section class="section full"><h3>Orientação de gravação</h3><p>${v.visual}</p></section></div>`; }
+    function render(){renderFilters();renderList();renderDetail();}
+    render();
+  </script>
+</body>
+</html>
