@@ -54,11 +54,10 @@
     .meta { display:flex; flex-wrap:wrap; gap:10px 24px; border-top:1px solid var(--line); border-bottom:1px solid var(--line); padding:14px 0; margin-bottom:28px; }
     .meta span { font-size:15px; color:var(--muted); }
     .meta b { color:var(--ink); margin-left:4px; }
-    .script-grid { display:grid; grid-template-columns:1fr 1fr; gap:30px 46px; }
-    .section { border-top:2px solid var(--ink); padding-top:12px; }
+    .script-grid { display:block; max-width:900px; }
+    .section { border-top:2px solid var(--ink); padding-top:12px; margin-top:26px; }
     .section h3 { margin:0 0 9px; font-family:Inter,ui-sans-serif,system-ui,sans-serif; font-size:11px; letter-spacing:.1em; text-transform:uppercase; color:var(--orange); }
-    .section p { margin:0; font-size:22px; line-height:1.48; }
-    .section.full { grid-column:1 / -1; }
+    .section p { margin:0; font-size:19px; line-height:1.58; }
     .script { white-space:pre-line; }
     .empty { color:var(--muted); padding:30px 0; }
     footer { max-width:1280px; margin:auto; padding:0 32px 26px; color:var(--muted); font-size:11px; }
@@ -120,7 +119,7 @@
     const filterBox = document.querySelector('#filters');
     function renderFilters(){ filterBox.innerHTML = filters.map(f => `<button class="filter ${f===active?'active':''}" data-filter="${f}">${f}</button>`).join(''); filterBox.querySelectorAll('button').forEach(b => b.onclick=()=>{active=b.dataset.filter; render();}); }
     function renderCalendar(){ const firstDay = 1; const cells = []; for(let i=0;i<firstDay;i++) cells.push('<span></span>'); for(let day=1;day<=30;day++){ const index=videos.findIndex(v=>Number(v.date.slice(0,2))===day && (active==='Todos'||v.theme===active)); const enabled=index>=0; cells.push(`<button class="calendar-day ${enabled?'available':''} ${index===selected?'selected':''}" ${enabled?`data-index="${index}"`:'disabled'}>${day}</button>`); } calendar.innerHTML=cells.join(''); calendar.querySelectorAll('button').forEach(b=>b.onclick=()=>{selected=Number(b.dataset.index); renderCalendar(); renderDetail();}); }
-    function renderDetail(){ const v=videos[selected]; detail.classList.remove('swap'); detail.innerHTML=`<div class="detail-kicker">${v.date} · ${v.week} · ${v.theme}</div><h2>${v.title}</h2><p class="detail-intro">${v.focus}</p><div class="meta"><span>Formato <b>${v.format}</b></span><span>Duração <b>${v.duration}</b></span></div><div class="script-grid"><section class="section"><h3>Gancho</h3><p>${v.hook}</p></section><section class="section"><h3>Fechamento</h3><p>${v.cta}</p></section><section class="section full"><h3>Roteiro</h3><p class="script">${v.script}</p></section><section class="section full"><h3>Orientação de gravação</h3><p>${v.visual}</p></section></div>`; requestAnimationFrame(()=>detail.classList.add('swap')); }
+    function renderDetail(){ const v=videos[selected]; const readableScript=v.script.replace(/\.\s+/g,'.\n\n'); detail.classList.remove('swap'); detail.innerHTML=`<div class="detail-kicker">${v.date} · ${v.week} · ${v.theme}</div><h2>${v.title}</h2><p class="detail-intro">${v.focus}</p><div class="meta"><span>Formato <b>${v.format}</b></span><span>Duração <b>${v.duration}</b></span></div><div class="script-grid"><section class="section"><h3>1. Gancho</h3><p>${v.hook}</p></section><section class="section"><h3>2. Fala sugerida</h3><p class="script">${readableScript}</p></section><section class="section"><h3>3. Fechamento</h3><p>${v.cta}</p></section><section class="section"><h3>4. Como gravar</h3><p>${v.visual}</p></section></div>`; requestAnimationFrame(()=>detail.classList.add('swap')); }
     function render(){renderFilters();renderCalendar();renderDetail();}
     render();
   </script>
