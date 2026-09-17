@@ -2,7 +2,7 @@
   "use strict";
 
   const WHATSAPP_NUMBER = "5517997028470";
-  const SUBMIT_ENDPOINT = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/link-bio-marcos-submit";
+  const SUBMIT_ENDPOINT = "https://api.kairozcrm.com.br/functions/v1/link-bio-marcos-submit";
   const STORAGE_KEY = "hurtz-link-bio-marcos-form-v2";
   const TRACKING_KEY = "hurtz-link-bio-marcos-tracking-v1";
   const ITI_VERSION = "29.2.3";
