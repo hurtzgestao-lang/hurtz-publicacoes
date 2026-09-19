@@ -1,0 +1,590 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Plano de Ação Meta Ads - Contas Ativas</title>
+  <style>
+    :root { color-scheme: light; --ink:#17211b; --muted:#5f6b63; --line:#d9dfd9; --paper:#fbfcf8; --accent:#dc4f2f; --soft:#f4f1e8; --green:#246b4b; }
+    * { box-sizing: border-box; }
+    body { margin:0; font-family: Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif; background:var(--paper); color:var(--ink); line-height:1.55; }
+    header { padding:48px 24px 30px; background:#17211b; color:#fff; }
+    .wrap { max-width:1120px; margin:0 auto; }
+    .eyebrow { margin:0 0 10px; color:#f2b49f; font-size:13px; text-transform:uppercase; letter-spacing:.08em; font-weight:700; }
+    h1 { margin:0 0 14px; font-size:clamp(30px, 5vw, 58px); line-height:1.02; letter-spacing:0; }
+    .subtitle { max-width:760px; margin:0; color:#dfe7de; font-size:18px; }
+    main { padding:30px 24px 72px; }
+    nav { position:sticky; top:0; z-index:2; background:rgba(251,252,248,.95); backdrop-filter: blur(10px); border-bottom:1px solid var(--line); }
+    nav .wrap { display:flex; gap:10px; overflow:auto; padding:10px 24px; }
+    nav a { white-space:nowrap; color:var(--ink); text-decoration:none; border:1px solid var(--line); padding:7px 10px; border-radius:6px; font-size:13px; background:#fff; }
+    article { background:#fff; border:1px solid var(--line); border-radius:8px; padding:28px; box-shadow:0 8px 24px rgba(23,33,27,.06); }
+    article h1 { font-size:34px; color:var(--ink); }
+    h2 { margin:34px 0 12px; padding-top:22px; border-top:1px solid var(--line); font-size:25px; line-height:1.2; letter-spacing:0; }
+    h3 { margin:24px 0 10px; font-size:19px; color:var(--green); }
+    p { margin:8px 0 12px; }
+    ul, ol { margin:10px 0 18px; padding-left:22px; }
+    li { margin:7px 0; }
+    .checklist { list-style:none; padding-left:0; }
+    .checklist li { display:flex; gap:10px; align-items:flex-start; padding:8px 10px; background:var(--soft); border-radius:6px; }
+    .box { flex:0 0 16px; width:16px; height:16px; margin-top:4px; border:2px solid var(--accent); border-radius:4px; background:#fff; }
+    code { background:#eef2ed; border:1px solid #dce3dc; border-radius:4px; padding:1px 5px; font-size:.92em; }
+    hr { border:0; border-top:1px solid var(--line); margin:30px 0; }
+    @media (max-width: 720px) { article { padding:18px; } header { padding-top:34px; } main { padding-inline:14px; } nav .wrap { padding-inline:14px; } }
+    @media print { nav { display:none; } body { background:#fff; } article { border:0; box-shadow:none; padding:0; } }
+  </style>
+</head>
+<body>
+<header><div class="wrap"><p class="eyebrow">Hurtz Company · Meta Ads</p><h1>Plano de Ação das Contas Ativas</h1><p class="subtitle">Checklist operacional por conta, com prioridades, cortes, ajustes de criativo, funil e escala para execução da equipe.</p></div></header>
+<nav><div class="wrap"><a href="#prioridades-executivas">Prioridades</a><a href="#dr-rafael-diasharmonizacao-facialcorporal-act_120848417724385">Rafael</a><a href="#ca-dr-alan-andrade-act_553256137798179">Alan</a><a href="#ca-lr-representa-act_562080109855003">LR</a><a href="#contas-sem-campanhas-ativas">Sem ativas</a><a href="#checklist-de-execucao-final">Execução</a></div></nav>
+<main><div class="wrap"><article><h1>Plano de Acao Meta Ads - Contas Ativas</h1>
+<p>Data do plano: 2026-09-19</p>
+<p>Periodo analisado: 2026-09-11 a 2026-09-18</p>
+<p>Fonte: <code>tmp/meta-ads-active-campaigns-7d-2026-09-18.json</code></p>
+<p>Criterio: campanhas com <code>effective_status=ACTIVE</code> nas contas acessiveis pelo token atual.</p>
+<h2>Regras gerais antes de mexer</h2>
+<ul class="checklist">
+<li><span class="box"></span><span>Validar no Ads Manager se a campanha ainda esta ativa no momento da execucao.</span></li>
+<li><span class="box"></span><span>Confirmar se o objetivo e WhatsApp, formulario nativo, trafego ou reconhecimento.</span></li>
+<li><span class="box"></span><span>Usar CPL corrigido: formulario <code>lead</code> + WhatsApp <code>messaging_user_depth_2_message_send</code>; se nao existir depth 2, usar <code>total_messaging_connection</code>.</span></li>
+<li><span class="box"></span><span>Nao somar depth 2 com total messaging na mesma analise.</span></li>
+<li><span class="box"></span><span>Antes de pausar campanha, conferir se ela teve pelo menos R$ 20 a R$ 30 de gasto ou volume estatistico suficiente.</span></li>
+<li><span class="box"></span><span>Quando realocar verba, mover para campanhas com baixo CPL e volume real, nao apenas para campanha com pouco gasto.</span></li>
+<li><span class="box"></span><span>Registrar toda alteracao no historico/aprendizado do cliente quando a conta tiver pasta em <code>clientes/</code>.</span></li>
+</ul>
+<h2>Prioridades executivas</h2>
+<ol>
+<li>Corrigir contas com CPL alto e gasto relevante: <code>03 - CA - Marcos Hurtz</code>, <code>CA - Dr Alan Andrade</code>, <code>CA - OBM</code>, <code>CA - Nexor</code>, <code>CA - DRA LUMA REIS</code>.</li>
+<li>Reduzir fragmentacao em contas com muitas campanhas ativas: <code>CA - Nexor</code>, <code>CA - R2 Group</code>, <code>Dra Adriana Colares</code>, <code>CA - LR REPRESENTA</code>, <code>CA - MB</code>, <code>CONTA FALCON</code>, <code>CA - Dr Alan Andrade</code>.</li>
+<li>Escalar com cuidado as contas saudaveis: <code>CONTA FALCON</code>, <code>CA - R2 Group</code>, <code>Prago Empreendimentos</code>, <code>CA - Ideal Cred Financeira</code>, <code>CA - LR REPRESENTA</code>.</li>
+<li>Revisar entrega das contas ativas sem gasto: <code>CA - Marcos Hurtz</code> e <code>[Excala] [CA] [01] [Douglas]</code>.</li>
+<li>Criar novos hooks para contas com baixa atencao inicial: <code>CA - ODONTO MEDIC CURIONOPOLIS</code>, <code>CA - Dr Rodrigo Froes</code>, <code>CA - OBM</code>, <code>CA - DRA LUMA REIS</code>, <code>Felipe Imports Parauapebas</code>, <code>CA - LR REPRESENTA</code>.</li>
+</ol>
+<hr>
+<h2>Dr. Rafael Dias/Harmonizacao Facial/Corporal - <code>act_120848417724385</code></h2>
+<p>Metricas: 14 campanhas ativas, R$ 1.829,87, 114 leads corrigidos, CPL R$ 16,05, CTR 1,61%, hook 19,07%.</p>
+<p>Diagnostico: funil pos-clique esta saudavel. O gargalo principal e volume de atencao/criativo, nao formulario ou WhatsApp.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter campanha <code>[WA] Rafael Dias | Publico Quente | Oferta Procedimento | Peba+Canaa | 2026-07-24</code>.</span></li>
+</ul>
+<p>  - [ ] Ela teve R$ 270,88, 35 leads, CPL R$ 7,74.</p>
+<p>  - [ ] Subir verba em 15% a 20%, se o orcamento total permitir.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>Antes e Depois | Parauapebas</code> e <code>[01 new] - Sculp RD</code>.</span></li>
+</ul>
+<p>  - [ ] Usar como base de criativo vencedor.</p>
+<p>  - [ ] Criar 2 variacoes de hook para cada uma.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar <code>NEW - Rafael Dias | Sculp RD | Parauapebas | 02/09</code>.</span></li>
+</ul>
+<p>  - [ ] Tem CPM alto com CTR baixo.</p>
+<p>  - [ ] Trocar primeira cena ou promessa antes de aumentar verba.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar <code>[RD SCULPT] Publico Quente</code>.</span></li>
+</ul>
+<p>  - [ ] CTR baixo e hook fraco.</p>
+<p>  - [ ] Pausar se continuar acima de R$ 20 de CPL apos 48h.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Checklist criativo:</span></li>
+</ul>
+<p>  - [ ] Abrir com resultado visual/prova, nao com introducao.</p>
+<p>  - [ ] Usar antes/depois ou transformacao percebida nos 2 primeiros segundos.</p>
+<p>  - [ ] CTA direto para avaliacao/agendamento.</p>
+<h2>Felipe Imports Parauapebas - <code>act_1422421716056797</code></h2>
+<p>Metricas: 1 campanha ativa, R$ 977,49, 78 leads, CPL R$ 12,53, CTR 1,86%, hook 17,26%, CPM R$ 27,22.</p>
+<p>Diagnostico: a campanha converte bem depois do clique, mas o anuncio nao prende atencao suficiente e o leilao esta caro.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter campanha atual por enquanto.</span></li>
+<li><span class="box"></span><span>Criar 4 novos criativos para a mesma oferta.</span></li>
+</ul>
+<p>  - [ ] Hook 1: preco/condicao nos 2 primeiros segundos.</p>
+<p>  - [ ] Hook 2: produto na mao, mostrando estado real do aparelho.</p>
+<p>  - [ ] Hook 3: comparativo "novo x seminovo/importado".</p>
+<p>  - [ ] Hook 4: objecao de confianca/garantia.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Nao mexer no destino/WhatsApp antes de testar criativos.</span></li>
+<li><span class="box"></span><span>Se novo criativo reduzir CPM ou aumentar hook acima de 25%, realocar 20% do gasto para ele.</span></li>
+</ul>
+<h2>Dra Adriana Colares - <code>act_1471334496984496</code></h2>
+<p>Metricas: 40 campanhas ativas, R$ 758,62, 63 leads, CPL R$ 12,04, CTR 1,85%, hook 17,81%.</p>
+<p>Diagnostico: performance geral boa, mas a conta esta fragmentada. Mini Lipo funciona; Ninfoplastia esta mais fraca.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Consolidar campanhas.</span></li>
+</ul>
+<p>  - [ ] Manter as 3 melhores de Mini Lipo.</p>
+<p>  - [ ] Pausar campanhas com baixo gasto, duplicadas ou sem lead nos ultimos 7 dias.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>01 - MINI LIPO - WHATSAPP - MANU - 26/08</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 104,98, 13 leads, CPL R$ 8,08.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>03 - MINI LIPO - WHATSAPP - LAISA - 25/08</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 104,86, 11 leads, CPL R$ 9,53.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar <code>03 - MINI LIPO - WHATSAPP - MANU - 25/08</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 34,21.</p>
+<p>  - [ ] Reduzir verba ou pausar se nao houver motivo estrategico.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Pausar ou recriar <code>03 - NINFOPLASTIA - WHATSAPP - MANU - 03/09</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 80,58, 1 lead, CPL R$ 80,58.</p>
+<p>  - [ ] Criativo/oferta fracos, CPM alto e CTR baixo.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Criar nova bateria de Ninfoplastia com prova, objecao e promessa mais especifica.</span></li>
+</ul>
+<h2>03 - CA - Marcos Hurtz - <code>act_858456199905828</code></h2>
+<p>Metricas: 8 campanhas ativas, R$ 628,10, 16 leads, CPL R$ 39,26, CTR 1,26%, CPM R$ 55,04.</p>
+<p>Diagnostico: conta com problema grave de leilao e criativo/oferta. CPM muito alto e CPL alto. Nao escalar.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Congelar aumento de verba ate corrigir criativo/oferta.</span></li>
+<li><span class="box"></span><span>Revisar todas as campanhas de teste BRA com formulario nativo.</span></li>
+<li><span class="box"></span><span>Manter temporariamente somente campanhas com CPL abaixo de R$ 25.</span></li>
+</ul>
+<p>  - [ ] <code>07 - TESTE BRA...</code>: CPL R$ 24,47.</p>
+<p>  - [ ] <code>06 - TESTE BRA...</code>: CPL R$ 23,38, mas observar CPM alto.</p>
+<p>  - [ ] <code>01 - [LEADS]...</code>: CPL R$ 22,36, mas CTR baixo.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Pausar ou recriar campanhas com CPL acima de R$ 40.</span></li>
+</ul>
+<p>  - [ ] <code>08 - TESTE BRA...</code>: CPL R$ 46,73.</p>
+<p>  - [ ] <code>04 - [LEADS]...</code>: CPL R$ 46,39.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar formulario nativo.</span></li>
+</ul>
+<p>  - [ ] Checar numero de perguntas.</p>
+<p>  - [ ] Remover pergunta que nao seja essencial para qualificar.</p>
+<p>  - [ ] Conferir se a promessa do anuncio bate com a primeira tela do formulario.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Criar novos criativos com promessa mais clara e visual mais forte.</span></li>
+<li><span class="box"></span><span>Rodar novo teste por 48h com budget controlado antes de escalar.</span></li>
+</ul>
+<h2>CA - DRA LUMA REIS - <code>act_2292726388166442</code></h2>
+<p>Metricas: 8 campanhas ativas, R$ 598,03, 36 leads, CPL R$ 16,61, hook 5,21%, hold50 15,82%.</p>
+<p>Diagnostico: problema principal e criativo. Hook muito fraco; pouca gente para no video.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>01 - BLEFARO - WHATSAPP - Copia</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 177,41, 18 leads, CPL R$ 9,86.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar <code>01 - BLEFARO - WHATSAPP - 07/09</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 26,81.</p>
+<p>  - [ ] Reduzir verba se nao houver melhora em 48h.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Pausar ou recriar <code>00 - BLEFARO - RECONHECIMENTO</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 49,52 e queda forte no funil.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Criar 3 novas aberturas de video.</span></li>
+</ul>
+<p>  - [ ] Antes/depois ou close do resultado logo no primeiro segundo.</p>
+<p>  - [ ] Dor explicita: excesso de pele, olhar cansado, rejuvenescimento.</p>
+<p>  - [ ] Prova/autoridade antes da explicacao.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Validar atendimento no WhatsApp.</span></li>
+</ul>
+<p>  - [ ] Se ha muita conversa iniciada e pouca profundidade, ajustar mensagem inicial.</p>
+<h2>CA- Dr Alexia Lima - <code>act_231032979805764</code></h2>
+<p>Metricas: 8 campanhas ativas, R$ 555,09, 58 leads, CPL R$ 9,57, CTR 2,50%, hook 27,62%.</p>
+<p>Diagnostico: conta boa, mas duas campanhas de Trafego IG estao queimando verba com CPL acima de R$ 76.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Pausar ou reduzir drasticamente <code>Trafego IG - Parauepabas - Otomodelacao</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 155,80, 2 leads, CPL R$ 77,90.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Pausar ou reduzir drasticamente <code>Trafego IG - Ceara - Otomodelacao</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 152,95, 2 leads, CPL R$ 76,48.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Realocar verba para <code>00 - OTOMODELACAO - TESTE 01 - 09/09</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 125,01, 34 leads, CPL R$ 3,68.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Verificar se as campanhas de trafego estao otimizando para objetivo errado.</span></li>
+</ul>
+<p>  - [ ] Se objetivo for engajamento/visita ao perfil, nao comparar com lead direto.</p>
+<p>  - [ ] Se a meta for lead, trocar para WhatsApp/formulario.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Criar variacoes dos criativos vencedores de Otomodelacao.</span></li>
+</ul>
+<h2>CONTA FALCON - <code>act_4046043642298912</code></h2>
+<p>Metricas: 23 campanhas ativas, R$ 545,23, 193 leads, CPL R$ 2,83, CTR 5,60%, hook 35,18%.</p>
+<p>Diagnostico: conta muito saudavel em volume e CPL. Risco principal e qualidade do lead e excesso de campanhas.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Nao fazer corte agressivo.</span></li>
+<li><span class="box"></span><span>Consolidar campanhas duplicadas e zumbis.</span></li>
+<li><span class="box"></span><span>Manter <code>04 - IMOVEL - NOVO - 13/04 - Copia</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 87,80, 38 leads, CPL R$ 2,31.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>01 - IMOVEL - FILTRO - 21/08</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 2,74.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>01 - IMOVEL - ENTRADA - 21/08</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 3,33.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Melhorar formulario/qualificacao, nao necessariamente baixar mais o CPL.</span></li>
+</ul>
+<p>  - [ ] Conferir se leads tem telefone correto.</p>
+<p>  - [ ] Adicionar filtro essencial sem matar volume.</p>
+<p>  - [ ] Validar qualidade com atendimento.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Testar 2 criativos novos com foco em qualidade: entrada, renda, cidade e urgencia.</span></li>
+</ul>
+<h2>CA - Dr Alan Andrade - <code>act_553256137798179</code></h2>
+<p>Metricas: 22 campanhas ativas, R$ 526,29, 26 leads, CPL R$ 20,24, CTR 1,41%, hook 21,54%.</p>
+<p>Diagnostico: remarketing esta caro e com sinais fracos. Conta precisa de renovacao criativa.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar <code>REMARKETING - WHATSAPP - 24/08</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 211,97, 10 leads, CPL R$ 21,20.</p>
+<p>  - [ ] CTR baixo e hook fraco.</p>
+<p>  - [ ] Reduzir verba ou trocar criativo.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter testes de Ninfoplastia apenas se CPL ficar abaixo de R$ 20.</span></li>
+<li><span class="box"></span><span>Revisar campanha de Reposicao Hormonal.</span></li>
+</ul>
+<p>  - [ ] Criar criativo com dor mais especifica e CTA menos generico.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Consolidar campanhas com pouco gasto.</span></li>
+<li><span class="box"></span><span>Criar 3 criativos novos:</span></li>
+</ul>
+<p>  - [ ] Prova/depoimento.</p>
+<p>  - [ ] Dor direta.</p>
+<p>  - [ ] Bastidor medico com autoridade.</p>
+<h2>CA - LR REPRESENTA - <code>act_562080109855003</code></h2>
+<p>Metricas: 29 campanhas ativas, R$ 506,41, 98 leads, CPL R$ 5,17, CTR 3,01%, hook 19,21%, hold50 16,99%.</p>
+<p>Diagnostico: conta muito saudavel. Gargalo e escala organizada e criativos que seguram mais atencao.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter campanhas vencedoras de formulario e mensagem.</span></li>
+</ul>
+<p>  - [ ] <code>FORM CONDICIONAL - teste</code>: CPL R$ 3,55.</p>
+<p>  - [ ] <code>FORM CONDICIONAL - 09/09 | ESCALA +20%</code>: CPL R$ 3,50.</p>
+<p>  - [ ] <code>ANEXA - 27/07 - Copia</code>: CPL R$ 3,52.</p>
+<p>  - [ ] <code>MENSAGEM - 09/09 - Copia</code>: CPL R$ 2,85 a R$ 3,31.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Reduzir fragmentacao.</span></li>
+</ul>
+<p>  - [ ] Agrupar aprendizados por imovel/formulario/mensagem.</p>
+<p>  - [ ] Pausar campanhas sem gasto ou sem lead.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Criar novas variacoes de hook para as vencedoras.</span></li>
+</ul>
+<p>  - [ ] Mostrar imovel/beneficio antes de explicar condicao.</p>
+<p>  - [ ] Usar chamada de entrada/condicao logo no inicio.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Confirmar se todos os anuncios ativos de formulario usam o formulario final correto.</span></li>
+</ul>
+<h2>CA - Dr Rodrigo Froes - <code>act_1242063830209303</code></h2>
+<p>Metricas: 18 campanhas ativas, R$ 477,46, 31 leads, CPL R$ 15,40, CTR 0,99%, hook 8,03%.</p>
+<p>Diagnostico: baixo poder de parada. Funil nao e o maior gargalo; criativo/oferta precisam chamar mais atencao.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>02 - ORTODONTIA - WHATSAPP - 03/09</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 111,55, 9 leads, CPL R$ 12,39.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter melhor campanha de Facetas se CPL ficar abaixo de R$ 10.</span></li>
+</ul>
+<p>  - [ ] <code>FACETAS EM RESINA - Copia</code>: R$ 64,09, 8 leads, CPL R$ 8,01.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar criativos de Facetas/Lentes com CTR baixo.</span></li>
+<li><span class="box"></span><span>Criar novos criativos:</span></li>
+</ul>
+<p>  - [ ] Antes/depois de sorriso nos primeiros 2 segundos.</p>
+<p>  - [ ] Dor/objecao: sorriso amarelado, dentes tortos, medo de lente artificial.</p>
+<p>  - [ ] Prova local/agenda limitada.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Cortar campanhas que passem de R$ 25 de CPL sem tendencia de melhora.</span></li>
+</ul>
+<h2>CA - DRA ANA PAULA - <code>act_737580135519163</code></h2>
+<p>Metricas: 9 campanhas ativas, R$ 449,79, 32 leads, CPL R$ 14,06, CTR 1,61%, hook 23,99%.</p>
+<p>Diagnostico: quem clica tende a converter bem, mas algumas ofertas nao atraem clique suficiente.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>01 - CONSULTORIO - MENSAGEM</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 88,47, 10 leads, CPL R$ 8,85.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar <code>01 - TDAH - MENSAGEM</code>.</span></li>
+</ul>
+<p>  - [ ] CTR baixo.</p>
+<p>  - [ ] Criar hook mais especifico para sintomas e publico.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar <code>01 - INSONIA - MENSAGEM</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 19,74.</p>
+<p>  - [ ] Trocar promessa caso fique acima de R$ 20.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Criar novos criativos com situacoes reais:</span></li>
+</ul>
+<p>  - [ ] insonia recorrente;</p>
+<p>  - [ ] falta de foco;</p>
+<p>  - [ ] ansiedade/sobrecarga;</p>
+<p>  - [ ] reposicao hormonal com sinais concretos.</p>
+<h2>CA - OBM - <code>act_1032693439744820</code></h2>
+<p>Metricas: 7 campanhas ativas, R$ 279,70, 16 leads, CPL R$ 17,48, CTR 0,92%, hook 6,35%.</p>
+<p>Diagnostico: problema forte de criativo. CTR e hook baixos.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Pausar ou recriar <code>01 - RECONHECIMENTO - 25/08</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 44,97.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Pausar ou recriar <code>03 - MENSAGEM - 29/07</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 44,74.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter temporariamente <code>03 - MENSAGEM - 25/08</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 8,55.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>02 - MENSAGEM - 29/07</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 9,19, mas trocar criativo porque CTR/hook estao ruins.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Criar pelo menos 4 criativos novos antes de aumentar verba.</span></li>
+</ul>
+<p>  - [ ] Dor direta.</p>
+<p>  - [ ] Resultado visual.</p>
+<p>  - [ ] Depoimento/prova.</p>
+<p>  - [ ] Oferta objetiva com CTA para WhatsApp.</p>
+<h2>CA - CC Lions - <code>act_4031758096959757</code></h2>
+<p>Metricas: 14 campanhas ativas, R$ 212,48, 25 leads, CPL R$ 8,50, CTR 5,72%, CPM R$ 32,21.</p>
+<p>Diagnostico: resposta forte, mas CPM alto. A conta funciona, porem nao deve escalar sem controle.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>00 - VAGA - MENSAGEM</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 84,43, 7 leads, CPL R$ 12,06.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter campanhas de imoveis com CPL baixo.</span></li>
+</ul>
+<p>  - [ ] <code>05 - IMOVEIS - WHATSAPP - 16/09</code>: CPL R$ 4,44.</p>
+<p>  - [ ] <code>01 - IMOVEIS - WHATSAPP - 14/09</code>: CPL R$ 4,30.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Pausar campanhas duplicadas sem lead apos gastar R$ 15 a R$ 20.</span></li>
+<li><span class="box"></span><span>Testar novos criativos para baixar CPM.</span></li>
+</ul>
+<p>  - [ ] Oferta mais especifica.</p>
+<p>  - [ ] Criativo mais nativo/menos anuncio.</p>
+<h2>Prago Empreendimentos - <code>act_3067654003439695</code></h2>
+<p>Metricas: 15 campanhas ativas, R$ 203,06, 74 leads, CPL R$ 2,74, CTR 6,32%, hook 34,53%.</p>
+<p>Diagnostico: conta muito saudavel. Principal ajuste e organizacao/escala.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter campanhas de Caminhao com lead barato.</span></li>
+</ul>
+<p>  - [ ] <code>02 - CAMINHAO - TL - 07/09</code>: CPL R$ 3,21.</p>
+<p>  - [ ] <code>03 - CAMINHAO - TL - 07/09</code>: CPL R$ 3,93.</p>
+<p>  - [ ] <code>01 - CAMINHAO - TL - 07/09</code>: CPL R$ 7,67.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar campanhas de Maquinario sem lead.</span></li>
+</ul>
+<p>  - [ ] <code>01 - MAQUINARIO - TL - 07/09</code>: R$ 15,40, 0 lead.</p>
+<p>  - [ ] <code>02 - MAQUINARIO - TL - 07/09</code>: R$ 14,22, 0 lead.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Concentrar verba em Caminhao ate Maquinario ter criativo/proposta melhor.</span></li>
+<li><span class="box"></span><span>Criar 2 novas chamadas para Maquinario com preco, condicao ou aplicacao mais concreta.</span></li>
+</ul>
+<h2>CA - Nexor - <code>act_644789127746103</code></h2>
+<p>Metricas: 54 campanhas ativas, R$ 197,69, 7 leads corrigidos, CPL R$ 28,24, CTR 5,22%, hook 36,78%, hold50 12,40%.</p>
+<p>Diagnostico: conta extremamente fragmentada. Ha sinais de muito clique/engajamento, mas pouca profundidade real no WhatsApp pelo criterio corrigido.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Auditoria obrigatoria de estrutura.</span></li>
+</ul>
+<p>  - [ ] Listar todas as 54 campanhas ativas.</p>
+<p>  - [ ] Pausar campanhas sem gasto, sem lead ou duplicadas.</p>
+<p>  - [ ] Deixar no maximo 5 a 8 campanhas ativas inicialmente.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter campanhas com CPL real baixo.</span></li>
+</ul>
+<p>  - [ ] <code>05 - IMOVEIS - WHATSAPP - 08/09</code>: CPL R$ 2,13.</p>
+<p>  - [ ] <code>01 - IMOVEIS - WHATSAPP - 08/09 - Copia</code>: CPL R$ 3,65.</p>
+<p>  - [ ] <code>05 - IMOVEIS - WHATSAPP - 08/09 - Copia</code>: CPL R$ 7,05.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Verificar divergencia entre conexoes superficiais e leads corrigidos.</span></li>
+</ul>
+<p>  - [ ] Checar mensagens recebidas no WhatsApp.</p>
+<p>  - [ ] Conferir se automacao/atendimento responde rapido.</p>
+<p>  - [ ] Avaliar se o anuncio chama curioso demais.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Melhorar retencao dos videos.</span></li>
+</ul>
+<p>  - [ ] Colocar imovel/beneficio logo na primeira cena.</p>
+<p>  - [ ] Evitar abertura lenta ou explicativa.</p>
+<h2>CA - ODONTO MEDIC CURIONOPOLIS - <code>act_892029782979632</code></h2>
+<p>Metricas: 4 campanhas ativas, R$ 167,24, 14 leads, CPL R$ 11,95, CTR 0,69%, hook 0,09%.</p>
+<p>Diagnostico: criativos nao param o publico. O funil converte quando chega clique, mas quase ninguem interage.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter temporariamente <code>01 - APARELHO - WHATSAPP - 04/09</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 9,84.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar todos os testes de aparelho.</span></li>
+</ul>
+<p>  - [ ] <code>01-AVALIACAO-PLANEJAMENTO</code>: CPL R$ 26,43.</p>
+<p>  - [ ] <code>03-PRIMEIRO-PASSO-AVALIACAO</code>: CPL R$ 25,66.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Criar 5 novos criativos de aparelho.</span></li>
+</ul>
+<p>  - [ ] Preco/condicao.</p>
+<p>  - [ ] Avaliacao inicial.</p>
+<p>  - [ ] Crianca/adolescente.</p>
+<p>  - [ ] Adulto que quer alinhar dentes.</p>
+<p>  - [ ] Antes/depois ou simulacao visual.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Se CTR continuar abaixo de 1% apos novo teste, revisar oferta e publico.</span></li>
+</ul>
+<h2>CA - Ideal Cred Financeira - <code>act_1182623223512533</code></h2>
+<p>Metricas: 14 campanhas ativas, R$ 151,51, 49 leads, CPL R$ 3,09, CTR 3,65%, hook 29,20%.</p>
+<p>Diagnostico: conta saudavel. Nao mexer demais; escalar vencedoras e melhorar retencao.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>01 - IMOVEIS - 14/09 - Copia</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 38,83, 23 leads, CPL R$ 1,69.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>03 - IMOVEIS - 02/09</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 47,40, 12 leads, CPL R$ 3,95.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Aumentar verba em 15% a 20% nas vencedoras, se lead continuar qualificado.</span></li>
+<li><span class="box"></span><span>Criar variacoes dos videos com melhor hook.</span></li>
+<li><span class="box"></span><span>Melhorar retencao ate 50%.</span></li>
+</ul>
+<p>  - [ ] Entregar condicao principal nos 2 primeiros segundos.</p>
+<p>  - [ ] Tirar introducoes longas.</p>
+<h2>CA - MB - <code>act_1755572525217591</code></h2>
+<p>Metricas: 27 campanhas ativas, R$ 125,79, 11 leads, CPL R$ 11,44, CTR 2,96%, hook 30,82%.</p>
+<p>Diagnostico: baixa verba espalhada em muitas campanhas. O principal erro e fragmentacao.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Reduzir estrutura para poucas campanhas ativas.</span></li>
+</ul>
+<p>  - [ ] Manter as melhores de Veiculos.</p>
+<p>  - [ ] Manter apenas campanhas de Imoveis que geraram lead com CPL aceitavel.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Revisar <code>01 - VEICULOS - MENSAGEM</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 27,29.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>02 - VEICULOS - MENSAGEM</code>.</span></li>
+</ul>
+<p>  - [ ] CPL R$ 9,53.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Criar novo teste separado para Imoveis com 3 criativos e orcamento minimo viavel.</span></li>
+<li><span class="box"></span><span>Evitar subir novas campanhas antes de pausar duplicadas.</span></li>
+</ul>
+<h2>CA - R2 Group - <code>act_1243178133608657</code></h2>
+<p>Metricas: 44 campanhas ativas, R$ 125,17, 84 leads, CPL R$ 1,49, CTR 7,47%.</p>
+<p>Diagnostico: resultado excelente, mas estrutura confusa. Quase todo o resultado vem de uma campanha.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>05 - IMOVEL - WHATSAPP - 30/04 teste - Copia</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 125,16, 84 leads, CPL R$ 1,49.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Pausar campanhas zumbis sem gasto/sem entrega.</span></li>
+<li><span class="box"></span><span>Deixar estrutura enxuta com a campanha vencedora e poucos testes.</span></li>
+<li><span class="box"></span><span>Confirmar qualidade dos leads.</span></li>
+</ul>
+<p>  - [ ] Se lead for ruim, adicionar qualificacao no criativo ou atendimento.</p>
+<p>  - [ ] Se lead for bom, subir verba aos poucos.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Criar 2 variacoes da campanha vencedora antes de depender de uma unica peca.</span></li>
+</ul>
+<h2>Gustavo Wendel - <code>act_1421563406427701</code></h2>
+<p>Metricas: 3 campanhas ativas, R$ 50,22, 5 leads, CPL R$ 10,04.</p>
+<p>Diagnostico: pouco volume. Ainda nao tomar decisao pesada.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>GW | Engajamento WhatsApp | 04 | Faixas imobiliarias</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 30,00, 3 leads, CPL R$ 10,00.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Manter <code>GW | Engajamento WhatsApp | 05 | Imovel com planejamento</code>.</span></li>
+</ul>
+<p>  - [ ] R$ 20,08, 2 leads, CPL R$ 10,04.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Aguardar mais volume antes de pausar.</span></li>
+<li><span class="box"></span><span>Conferir campanha <code>Grupo Investidores Campinas</code>.</span></li>
+</ul>
+<p>  - [ ] Esta praticamente sem gasto: R$ 0,14.</p>
+<p>  - [ ] Validar se acabou de subir ou se tem problema de entrega.</p>
+<h2>CA - Marcos Hurtz - <code>act_3383444605236202</code></h2>
+<p>Metricas: 1 campanha ativa, R$ 0,00 de gasto.</p>
+<p>Diagnostico: campanha ativa sem entrega.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Abrir conta e conferir status da campanha, conjunto e anuncio.</span></li>
+<li><span class="box"></span><span>Conferir orcamento.</span></li>
+<li><span class="box"></span><span>Conferir se ha erro de pagamento, limite de conta ou revisao pendente.</span></li>
+<li><span class="box"></span><span>Conferir se publico esta pequeno demais.</span></li>
+<li><span class="box"></span><span>Se nao houver motivo para manter, pausar campanha ativa sem entrega.</span></li>
+</ul>
+<h2>[Excala] [CA] [01] [Douglas] - <code>act_1077435579913442</code></h2>
+<p>Metricas: 4 campanhas ativas, R$ 0,00 de gasto.</p>
+<p>Diagnostico: campanhas ativas sem entrega.</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Conferir status de conta e pagamento.</span></li>
+<li><span class="box"></span><span>Conferir aprovacoes/rejeicoes.</span></li>
+<li><span class="box"></span><span>Conferir se campanhas tem orcamento real.</span></li>
+<li><span class="box"></span><span>Conferir se os conjuntos tem publico e posicionamento validos.</span></li>
+<li><span class="box"></span><span>Pausar campanhas ativas que nao devem mais rodar.</span></li>
+</ul>
+<h2>Contas sem campanhas ativas</h2>
+<h3>CA - Marcos Hurtz Clinicas - <code>act_383485621772016</code></h3>
+<ul class="checklist">
+<li><span class="box"></span><span>Nenhuma campanha ativa encontrada.</span></li>
+<li><span class="box"></span><span>Confirmar se a conta deveria estar parada.</span></li>
+<li><span class="box"></span><span>Se deveria estar rodando, criar diagnostico de estrutura antes de subir campanha.</span></li>
+</ul>
+<h3>CA - CAPT CONSORCIO - <code>act_4363508080554046</code></h3>
+<ul class="checklist">
+<li><span class="box"></span><span>Nenhuma campanha ativa encontrada.</span></li>
+<li><span class="box"></span><span>Confirmar se a conta foi pausada estrategicamente.</span></li>
+<li><span class="box"></span><span>Se for reativar, usar campanha nova com objetivo e oferta revisados.</span></li>
+</ul>
+<h3>CA - Marcos consorcio 03 - <code>act_388431821842226</code></h3>
+<ul class="checklist">
+<li><span class="box"></span><span>Nenhuma campanha ativa encontrada.</span></li>
+<li><span class="box"></span><span>Confirmar se ha demanda comercial para reativacao.</span></li>
+</ul>
+<h3>CA - Marcos consorcio 02 - <code>act_361542263543586</code></h3>
+<ul class="checklist">
+<li><span class="box"></span><span>Nenhuma campanha ativa encontrada.</span></li>
+<li><span class="box"></span><span>Confirmar se ha campanhas pausadas que devem voltar.</span></li>
+</ul>
+<h3>05 - CA - Hurtz Clinica - <code>act_1881740175768162</code></h3>
+<ul class="checklist">
+<li><span class="box"></span><span>Nenhuma campanha ativa encontrada.</span></li>
+<li><span class="box"></span><span>Confirmar se a conta esta sendo substituida por outra conta de clinica.</span></li>
+</ul>
+<h3>CA - Capital Prime - <code>act_2147613365803819</code></h3>
+<ul class="checklist">
+<li><span class="box"></span><span>Nenhuma campanha ativa encontrada.</span></li>
+<li><span class="box"></span><span>Confirmar com operacao se cliente/conta ainda esta ativa.</span></li>
+</ul>
+<h2>Contas sem acesso pelo token atual</h2>
+<p>As contas abaixo foram citadas nos playbooks antigos, mas nao aparecem no <code>/me/adaccounts</code> do token atual ou retornaram erro de permissao na consulta direta:</p>
+<ul class="checklist">
+<li><span class="box"></span><span><code>CA - HURTZ CONSORCIOS 01</code> - <code>act_1187686609470801</code></span></li>
+<li><span class="box"></span><span><code>CA - HURTZ CONSORCIOS 02</code> - <code>act_1280285297039435</code></span></li>
+</ul>
+<p>Passo a passo:</p>
+<ul class="checklist">
+<li><span class="box"></span><span>Gerar/atualizar token com <code>ads_read</code> e <code>ads_management</code>.</span></li>
+<li><span class="box"></span><span>Confirmar se o usuario do token tem permissao na conta de anuncios.</span></li>
+<li><span class="box"></span><span>Reexecutar auditoria dos ultimos 7 dias.</span></li>
+<li><span class="box"></span><span>Adicionar as contas ao proximo plano de acao.</span></li>
+</ul>
+<h2>Checklist de execucao final</h2>
+<ul class="checklist">
+<li><span class="box"></span><span>Fazer cortes primeiro nas contas com CPL alto e campanhas claramente ruins.</span></li>
+<li><span class="box"></span><span>Reduzir fragmentacao antes de criar novas campanhas nas contas com 20+ campanhas ativas.</span></li>
+<li><span class="box"></span><span>Subir novos criativos nas contas em que o gargalo e hook/CTR.</span></li>
+<li><span class="box"></span><span>Realocar verba das campanhas caras para vencedoras somente depois de pausar desperdicio.</span></li>
+<li><span class="box"></span><span>Validar qualidade dos leads baratos com atendimento antes de escalar.</span></li>
+<li><span class="box"></span><span>Reconsultar desempenho 48h apos as mudancas.</span></li>
+<li><span class="box"></span><span>Registrar mudancas e resultados esperados nos arquivos de historico/aprendizado dos clientes relevantes.</span></li>
+</ul>
+</article></div></main>
+<script>
+  document.querySelectorAll('h2,h3').forEach((el)=>{ if(!el.id){ el.id = el.textContent.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'').replace(/[^a-z0-9]+/g,'-').replace(/^-|-$/g,''); }});
+</script>
+</body>
+</html>
