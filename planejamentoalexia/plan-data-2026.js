@@ -178,9 +178,28 @@
     if (dow === 3) return 'Post';
     return 'Stories';
   }
+  function videoGoalFor(dateObj) {
+    if (dateObj.getDay() === 2) {
+      return {
+        label: 'Criativo de captação',
+        format: 'Reels criativo para captação',
+        intent: 'captar pessoas interessadas e levar para conversa com a equipe/agendamento de avaliação',
+        cta: 'Fale com a equipe e agende uma avaliação.',
+        closingRule: 'Fechar chamando para conversar com a equipe e agendar uma avaliação, sem prometer resultado ou protocolo fechado.',
+      };
+    }
+    return {
+      label: 'Educativo',
+      format: 'Reels educativo',
+      intent: 'educar o público, aumentar confiança e reforçar autoridade sem pressão comercial',
+      cta: 'Siga o perfil para acompanhar mais orientações da Dra. Alexia.',
+      closingRule: 'Fechar convidando a pessoa a seguir o perfil para receber mais orientações, sem puxar para venda direta.',
+    };
+  }
   function makeDay(day, month) {
     const dateObj = new Date(2026, month, day);
     const contentType = contentTypeFor(dateObj);
+    const videoGoal = contentType === 'Vídeo' ? videoGoalFor(dateObj) : null;
     const theme = pickTopic(month, day, contentType);
     const base = topics[theme];
     const titlePrefix = contentType === 'Stories' ? 'Stories' : contentType === 'Post' ? 'Post' : 'Roteiro';
@@ -190,14 +209,16 @@
       week: weekdays[dateObj.getDay()],
       contentType,
       theme,
-      title: `${titlePrefix} - ${base.title}`,
-      format: contentType === 'Vídeo' ? base.format : contentType === 'Post' ? '1 publicação semanal' : 'Sequência de 5 a 6 stories',
+      videoGoal: videoGoal ? videoGoal.label : null,
+      title: contentType === 'Vídeo' ? `${titlePrefix} ${videoGoal.label} - ${base.title}` : `${titlePrefix} - ${base.title}`,
+      format: contentType === 'Vídeo' ? videoGoal.format : contentType === 'Post' ? '1 publicação semanal' : 'Sequência de 5 a 6 stories',
       duration: contentType === 'Vídeo' ? '45-60s' : contentType === 'Post' ? '1 publicação' : '5-6 stories',
-      focus: base.focus,
+      focus: contentType === 'Vídeo' ? `${base.focus} Função do vídeo: ${videoGoal.intent}.` : base.focus,
       hook: base.hook,
       script: base.script,
       visual: base.visual,
-      cta: base.cta,
+      cta: contentType === 'Vídeo' ? videoGoal.cta : base.cta,
+      closingRule: videoGoal ? videoGoal.closingRule : '',
       pending: base.pending,
     };
     if (contentType === 'Vídeo') item.options = buildOptions(item, base);
@@ -220,25 +241,32 @@
   }
   function buildOptions(item, base) {
     const closer = monthDirection[item.month].closer;
+    const isCapture = item.videoGoal === 'Criativo de captação';
+    const roleLine = isCapture
+      ? `Este vídeo é o criativo de captação da semana. A fala precisa deixar claro para quem é, qual dúvida resolve e por que a avaliação com a equipe é o próximo passo. ${item.closingRule}`
+      : `Este vídeo é o educativo da semana. A fala precisa ensinar uma ideia útil, fortalecer confiança e terminar convidando a pessoa a seguir o perfil. ${item.closingRule}`;
+    const conversionBridge = isCapture
+      ? 'Depois de explicar o ponto principal, conduza para avaliação: a pessoa não precisa decidir o procedimento agora, precisa conversar com a equipe para entender se faz sentido.'
+      : 'Depois de explicar o ponto principal, evite vender diretamente: entregue clareza, tire uma dúvida comum e convide a pessoa a acompanhar os próximos conteúdos.';
     return [
       {
         title: 'Opção 1 - Direta',
         hook: item.hook,
-        script: `${item.hook} ${item.script} ${closer} O fechamento precisa ser simples: avaliação, conversa com a equipe e validação do que realmente faz sentido para o caso.`,
+        script: `${item.hook} ${item.script} ${closer} ${conversionBridge} ${roleLine}`,
         visual: item.visual,
         cta: item.cta,
       },
       {
         title: 'Opção 2 - Pergunta real',
         hook: questionHook(item.theme),
-        script: `${questionHook(item.theme)} Essa é uma dúvida comum e a resposta responsável começa pela avaliação. ${item.script} ${base.pending} Por isso, a doutora Alexia deve conduzir a fala com calma, sem promessa pronta, levando a pessoa para uma conversa individual.`,
+        script: `${questionHook(item.theme)} Essa é uma dúvida comum e a resposta responsável precisa respeitar o contexto do procedimento. ${item.script} ${base.pending} ${conversionBridge} ${roleLine}`,
         visual: `Abrir com pergunta na tela, responder olhando para a lente e alternar com cenas de apoio. ${item.visual}`,
         cta: item.cta,
       },
       {
         title: 'Opção 3 - História e contexto',
         hook: storyHook(item.theme),
-        script: `${storyHook(item.theme)} ${item.script} ${closer} O roteiro deve terminar reforçando que cada história é individual e que o primeiro passo é sempre orientação com a equipe.`,
+        script: `${storyHook(item.theme)} ${item.script} ${closer} O roteiro deve reforçar que cada história é individual. ${conversionBridge} ${roleLine}`,
         visual: `Começar com uma cena de contexto e entrar na fala da doutora Alexia. ${item.visual}`,
         cta: item.cta,
       },
@@ -381,7 +409,7 @@
   }
   function renderDetail() {
     const v = videos[selected];
-    const formatLabel = v.contentType === 'Vídeo' ? v.format : v.contentType;
+    const formatLabel = v.contentType === 'Vídeo' ? `${v.format} · ${v.videoGoal}` : v.contentType;
     detail.classList.remove('swap');
     detail.innerHTML = `<div class="detail-kicker">${v.date} · ${v.week} · ${v.contentType} · ${v.theme}</div><h2>${v.title}</h2><p class="detail-intro">${v.focus}</p><div class="meta"><span>Formato <b>${formatLabel}</b></span><span>Duração <b>${v.duration}</b></span></div><div id="option-area"></div>`;
     renderOption(v);
