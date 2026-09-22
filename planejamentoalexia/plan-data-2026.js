@@ -1,323 +1,2168 @@
-(() => {
-  const weekdays = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
-  const monthNames = ['Janeiro', 'Fevereiro', 'Março', 'Abril', 'Maio', 'Junho', 'Julho', 'Agosto', 'Setembro', 'Outubro', 'Novembro', 'Dezembro'];
-
-  const monthDirection = {
-    8: {
-      closer: 'Em setembro, a direção vem do planejamento: UltraMed é a prioridade de caixa e validação, com reativação segmentada e captação da mentoria em paralelo.',
-      stories: ['UltraMed', 'Reativação'],
-      post: ['UltraMed', 'Avaliação presencial'],
-      videos: ['UltraMed', 'Mentoria'],
-    },
-    9: {
-      closer: 'Em outubro, pacientes e profissionais ficam em funis separados: Mês das Crianças para famílias e Mentoria Ear Line Avançado para profissionais elegíveis.',
-      stories: ['Mês das Crianças', 'Mentoria'],
-      post: ['Mês das Crianças', 'Otomodelação infantil'],
-      videos: ['Mês das Crianças', 'Mentoria'],
-    },
-    10: {
-      closer: 'Em novembro, o conteúdo prepara a base aquecida para uma decisão consciente: informação, avaliação e só depois qualquer condição aprovada.',
-      stories: ['Reativação', 'Black Friday'],
-      post: ['Black Friday', 'Novembro Azul'],
-      videos: ['Black Friday', 'Novembro Azul'],
-    },
-    11: {
-      closer: 'Em dezembro, a comunicação preserva valor: autocuidado, festas, fotos, reservas do Mês das Crianças e Projeto Aurora sem depender de desconto.',
-      stories: ['Autocuidado', 'Reservas de férias'],
-      post: ['Nova versão', 'Projeto Aurora'],
-      videos: ['Nova versão', 'UltraMed', 'Projeto Aurora', 'Reservas de férias'],
-    },
-  };
-
-  const topics = {
-    'UltraMed': {
-      title: 'UltraMed: avaliação antes do protocolo',
-      format: 'Reels educativo',
-      focus: 'Levar mulheres 35+ de Fortaleza para avaliação presencial, sem prometer protocolo fechado.',
-      hook: 'Antes de falar em UltraMed, papada, radiofrequência ou enzimas, a gente precisa entender o rosto como um todo.',
-      script: 'UltraMed aparece no planejamento como prioridade de setembro, mas ele não deve ser tratado como promessa pronta. Na gravação, a Dra Alexia deve explicar que avalia pele, flacidez, contorno, volume, expectativa e histórico antes de indicar qualquer caminho. Só depois disso faz sentido conversar sobre lift facial sem corte, papada, radiofrequência, enzimas ou outro caminho aprovado tecnicamente. O objetivo do conteúdo é orientar, não fechar diagnóstico pelo vídeo.',
-      visual: 'Dra Alexia em plano médio, ambiente claro, cortes de avaliação facial sem identificar paciente e texto curto na tela: avaliação primeiro.',
-      cta: 'Fale com a equipe e veja os horários de avaliação presencial.',
-      pending: 'Termos clínicos, oferta de entrada, custo, elegibilidade e capacidade precisam de validação da Dra Alexia.',
-    },
-    'Reativação': {
-      title: 'Reativação: organizar a dúvida antes da decisão',
-      format: 'Stories de orientação',
-      focus: 'Acolher leads antigos e engajados sem parecer disparo frio.',
-      hook: 'Se você já falou com a Alexia Clinic e deixou a decisão para depois, talvez agora seja a hora de organizar suas dúvidas.',
-      script: 'A reativação precisa chamar a pessoa pelo interesse real: UltraMed, otomodelação, avaliação facial, mentoria ou Mês das Crianças. A mensagem não deve empurrar procedimento. A Dra Alexia pode gravar orientando a pessoa a retomar a dúvida com calma, enquanto a equipe entra apenas para horários, avaliação e próximos passos.',
-      visual: 'Sequência simples em stories: pergunta, orientação, bastidor da clínica, caixinha de dúvidas e CTA para WhatsApp.',
-      cta: 'Responda a caixinha ou fale com a equipe para retomar sua avaliação.',
-      pending: 'Usar API oficial, excluir compradores e separar base por procedimento/interesse.',
-    },
-    'Mentoria': {
-      title: 'Mentoria Ear Line Avançado',
-      format: 'Reels para profissionais',
-      focus: 'Captar profissionais elegíveis para turmas de Belém e Fortaleza.',
-      hook: 'Profissional da estética: aprender otomodelação é mais do que aprender uma técnica.',
-      script: 'A Mentoria Ear Line Avançado deve ser apresentada como formação para profissionais elegíveis, com foco em indicação, prática, experiência do paciente, condução técnica e posicionamento. A fala não pode prometer faturamento nem vender para qualquer pessoa. O próximo passo é uma conversa de seleção para entender perfil, atuação, cidade, turma e disponibilidade.',
-      visual: 'Bastidores de aula, materiais, orientação individual, alunas autorizadas e a Dra Alexia conduzindo a prática.',
-      cta: 'Envie uma mensagem para entender o perfil e as próximas turmas.',
-      pending: 'Datas, cidades, capacidade final, responsável pela call e verba de mídia.',
-    },
-    'Mês das Crianças': {
-      title: 'Mês das Crianças: acolhimento para famílias',
-      format: 'Reels para mães e responsáveis',
-      focus: 'Abrir conversa com famílias de crianças e adolescentes de 7 a 16 anos.',
-      hook: 'Quando uma criança ou adolescente se incomoda com as orelhas, a família precisa de acolhimento e critério, não de pressa.',
-      script: 'O Mês das Crianças é a frente principal de outubro para pacientes. A comunicação deve falar com responsáveis, explicar que existe uma condição reservada em outubro e que o procedimento pode ser planejado para dezembro ou janeiro, mas sempre depois de avaliação, autorização e critério técnico. O conteúdo precisa acolher inseguranças sem explorar bullying de forma pesada.',
-      visual: 'Dra Alexia falando em tom calmo; bastidores da clínica; não expor crianças sem autorização.',
-      cta: 'Fale com a equipe e entenda como funciona a avaliação para famílias.',
-      pending: 'Preço, condição, regiões, forma de reserva, validade, limite, autorização de imagem e local do outdoor.',
-    },
-    'Otomodelação infantil': {
-      title: 'Otomodelação infantil: rotina, escola e família',
-      format: 'Reels de objeção',
-      focus: 'Responder dúvidas sobre escola, medo, recuperação e planejamento familiar.',
-      hook: 'A escola costuma ser uma das maiores preocupações quando a família pensa em otomodelação.',
-      script: 'O conteúdo deve orientar a família a ouvir a criança ou adolescente, entender se existe incômodo real e levar dúvidas para avaliação. Férias podem ajudar na organização da rotina, mas não substituem critério técnico. Não usar pressão emocional, comparação com outros casos nem promessa de que o procedimento resolve autoestima ou convivência social.',
-      visual: 'Plano médio, texto na tela com uma objeção por vez e fechamento com avaliação responsável.',
-      cta: 'Converse com a equipe antes de tomar qualquer decisão.',
-      pending: 'Consentimento, autorização, elegibilidade por idade e orientação clínica.',
-    },
-    'Black Friday': {
-      title: 'Black Friday: base aquecida sem pressão',
-      format: 'Reels de orientação',
-      focus: 'Preparar leads antigos e engajados para condição aprovada, sem depender de público frio.',
-      hook: 'Uma condição especial não substitui uma avaliação bem feita.',
-      script: 'Novembro monetiza a base aquecida. O conteúdo precisa explicar que qualquer condição depende de avaliação, indicação, capacidade e orientação da equipe. A Black Friday deve falar com quem já acompanha, já pediu informação ou já demonstrou interesse, sem prometer resultado e sem criar urgência falsa.',
-      visual: 'Dra Alexia em fala direta, apoio visual discreto de agenda, WhatsApp e equipe.',
-      cta: 'Fale com a equipe para entender se existe uma condição disponível para o seu caso.',
-      pending: 'Oferta, janela, limite, grupo ou disparo direto, base elegível e capacidade de resposta.',
-    },
-    'Novembro Azul': {
-      title: 'Novembro Azul: conscientização leve',
-      format: 'Reels educativo',
-      focus: 'Criar presença institucional com baixo orçamento e cuidado de linguagem.',
-      hook: 'Novembro Azul é um convite para falar de saúde com responsabilidade.',
-      script: 'A frente de Novembro Azul deve ser paralela, leve e sem competir com a Black Friday. O conteúdo pode usar depoimentos masculinos autorizados e conscientização para lembrar homens e famílias de não adiarem cuidado e orientação profissional. Não transformar o vídeo em diagnóstico nem usar medo como motor criativo.',
-      visual: 'Fala informativa, depoimento masculino autorizado ou bastidor institucional simples.',
-      cta: 'Procure orientação profissional e cuide da sua saúde com responsabilidade.',
-      pending: 'Depoimentos, orçamento baixo e validação de abordagem pela clínica.',
-    },
-    'Nova versão': {
-      title: 'Nova versão: autocuidado sem desconto',
-      format: 'Reels de posicionamento',
-      focus: 'Abrir dezembro com preço normal, valor preservado e contexto de festas/fotos.',
-      hook: 'Dezembro não precisa ser sobre desconto. Pode ser sobre planejamento.',
-      script: 'A nova versão usa o fim do ano como contexto de autocuidado, festas, fotos e reencontros. A fala deve preservar valor: sem promoção como argumento central, sem promessa de resultado rápido e respeitando tempo clínico, agenda e acompanhamento. A avaliação continua sendo o primeiro passo.',
-      visual: 'Dra Alexia em cenário claro, cortes de avaliação e detalhes elegantes da clínica.',
-      cta: 'Fale com a equipe para entender o que pode ser planejado para você.',
-      pending: 'Agenda de dezembro, capacidade e mensagens por procedimento.',
-    },
-    'Autocuidado': {
-      title: 'Autocuidado para festas e fotos',
-      format: 'Stories de orientação',
-      focus: 'Conectar fim de ano com avaliação facial sem pressão estética.',
-      hook: 'Se você quer se sentir melhor nas fotos, comece pela avaliação, não pela promessa.',
-      script: 'Autocuidado não precisa ser pressa nem exagero. A avaliação entende pele, flacidez, contorno, expectativa e tempo disponível. O roteiro deve mostrar que a pessoa pode se preparar para festas e reencontros, mas sem vender resultado imediato ou protocolo igual para todos.',
-      visual: 'Stories com pergunta, bastidor da avaliação, orientação rápida e CTA.',
-      cta: 'Agende uma conversa com a equipe.',
-      pending: 'Tempo clínico de cada procedimento e capacidade da agenda.',
-    },
-    'Reservas de férias': {
-      title: 'Reservas de férias: continuidade do Mês das Crianças',
-      format: 'Reels para responsáveis',
-      focus: 'Orientar famílias que reservaram ou querem entender execução em dezembro/janeiro.',
-      hook: 'As férias podem ajudar no planejamento, mas não substituem avaliação.',
-      script: 'As reservas feitas em outubro podem ser executadas em dezembro ou janeiro apenas quando houver avaliação, elegibilidade, autorização e rotina organizada. O conteúdo deve reduzir ansiedade e reforçar que calendário não é promessa. O primeiro passo continua sendo orientação individual com responsável.',
-      visual: 'Dra Alexia falando para responsáveis, sem mostrar crianças sem autorização.',
-      cta: 'Tire suas dúvidas com a equipe sobre avaliação e planejamento.',
-      pending: 'Reservas, autorizações, agenda de férias e acompanhamento.',
-    },
-    'Projeto Aurora': {
-      title: 'Projeto Aurora: impacto com responsabilidade',
-      format: 'Reels institucional',
-      focus: 'Explicar a frente social sem expor crianças nem tratar como campanha comum.',
-      hook: 'Impacto social também precisa de critério, cuidado e responsabilidade.',
-      script: 'O Projeto Aurora conecta empresários a crianças elegíveis, com avaliação, consentimentos, autorização, apoio e organização. O conteúdo deve mostrar dignidade, proteção de imagem e processo responsável. Não é campanha comum de procedimento nem peça para explorar vulnerabilidade.',
-      visual: 'Equipe, ambiente, materiais e bastidores autorizados; evitar identificação sensível.',
-      cta: 'Fale com a equipe para conhecer a iniciativa e os critérios.',
-      pending: 'Critério de seleção, banco elegível, patrocinadores, estados e cronograma de férias.',
-    },
-    'Avaliação presencial': {
-      title: 'Avaliação presencial: a regra de todos os meses',
-      format: 'Post educativo',
-      focus: 'Reforçar que nenhum procedimento nasce por direct ou por roteiro.',
-      hook: 'O protocolo não nasce no direct. Ele nasce na avaliação presencial.',
-      script: 'Na avaliação, a Dra Alexia entende queixa, histórico, expectativa, características do rosto ou das orelhas e possibilidades reais. Essa etapa protege a paciente de escolhas impulsivas e evita promessas genéricas. Seja UltraMed, otomodelação, avaliação facial ou planejamento familiar, o caminho responsável começa pela avaliação.',
-      visual: 'Carrossel com 4 telas: dúvida, avaliação, orientação e próximo passo.',
-      cta: 'Fale com a equipe e veja os horários disponíveis.',
-      pending: 'Sempre validar termos clínicos e oferta antes de publicar.',
-    },
-  };
-
-  function pad(n) { return String(n).padStart(2, '0'); }
-  function dateLabel(day, month) { return `${pad(day)}/${pad(month + 1)}`; }
-  function weekOfMonth(day) { return Math.floor((day - 1) / 7); }
-  function pickTopic(month, day, contentType) {
-    const direction = monthDirection[month];
-    const list = contentType === 'Vídeo' ? direction.videos : contentType === 'Post' ? direction.post : direction.stories;
-    if (month === 8 && contentType === 'Vídeo') return day === 25 ? 'Mentoria' : 'UltraMed';
-    if (month === 9 && contentType === 'Vídeo') return [6, 17, 23].includes(day) ? 'Mentoria' : 'Mês das Crianças';
-    if (month === 10 && contentType === 'Vídeo') {
-      if ([3, 13].includes(day)) return 'Novembro Azul';
-      return 'Black Friday';
-    }
-    if (month === 11 && contentType === 'Vídeo') {
-      if ([4].includes(day)) return 'UltraMed';
-      if ([15].includes(day)) return 'Projeto Aurora';
-      if ([18, 29].includes(day)) return 'Reservas de férias';
-      return 'Nova versão';
-    }
-    return list[weekOfMonth(day) % list.length];
-  }
-  function contentTypeFor(dateObj) {
-    const dow = dateObj.getDay();
-    if (dow === 2 || dow === 5) return 'Vídeo';
-    if (dow === 3) return 'Post';
-    return 'Stories';
-  }
-  function videoGoalFor(dateObj) {
-    if (dateObj.getDay() === 2) {
-      return {
-        label: 'Criativo de captação',
-        format: 'Reels criativo gravado pela Dra Alexia',
-        intent: 'captar pessoas interessadas usando a autoridade da Dra Alexia e levar para conversa com a equipe/agendamento de avaliação',
-        cta: 'Fale com a equipe e agende uma avaliação.',
-        closingRule: 'A Dra Alexia deve fechar chamando para conversar com a equipe e agendar uma avaliação, sem prometer resultado ou protocolo fechado.',
-      };
-    }
-    return {
-      label: 'Educativo',
-      format: 'Reels educativo gravado pela Dra Alexia',
-      intent: 'educar o público pela fala da Dra Alexia, aumentar confiança e reforçar autoridade sem pressão comercial',
-      cta: 'Siga o perfil para acompanhar mais orientações da Dra Alexia.',
-      closingRule: 'A Dra Alexia deve fechar convidando a pessoa a seguir o perfil para receber mais orientações, sem puxar para venda direta.',
-    };
-  }
-  function makeDay(day, month) {
-    const dateObj = new Date(2026, month, day);
-    const contentType = contentTypeFor(dateObj);
-    const videoGoal = contentType === 'Vídeo' ? videoGoalFor(dateObj) : null;
-    const theme = pickTopic(month, day, contentType);
-    const base = topics[theme];
-    const titlePrefix = contentType === 'Stories' ? 'Stories' : contentType === 'Post' ? 'Post' : 'Roteiro';
-    const item = {
-      date: dateLabel(day, month),
-      month,
-      week: weekdays[dateObj.getDay()],
-      contentType,
-      theme,
-      videoGoal: videoGoal ? videoGoal.label : null,
-      title: contentType === 'Vídeo' ? `${titlePrefix} ${videoGoal.label} da Dra Alexia - ${base.title}` : `${titlePrefix} - ${base.title}`,
-      format: contentType === 'Vídeo' ? videoGoal.format : contentType === 'Post' ? '1 publicação semanal' : 'Sequência de 5 a 6 stories',
-      duration: contentType === 'Vídeo' ? '45-60s' : contentType === 'Post' ? '1 publicação' : '5-6 stories',
-      focus: contentType === 'Vídeo' ? `${base.focus} Função do vídeo: ${videoGoal.intent}.` : base.focus,
-      hook: base.hook,
-      script: base.script,
-      visual: base.visual,
-      cta: contentType === 'Vídeo' ? videoGoal.cta : base.cta,
-      closingRule: videoGoal ? videoGoal.closingRule : '',
-      pending: base.pending,
-    };
-    if (contentType === 'Vídeo') item.options = buildOptions(item, base);
-    if (contentType === 'Stories') item.storyItems = buildStories(item, base);
-    if (contentType === 'Post') item.post = buildPost(item, base);
-    return item;
-  }
-  function buildSchedule() {
-    const out = [];
-    for (let month = 8; month <= 11; month += 1) {
-      const firstDay = month === 8 ? 18 : 1;
-      const daysInMonth = new Date(2026, month + 1, 0).getDate();
-      for (let day = firstDay; day <= daysInMonth; day += 1) {
-        const dateObj = new Date(2026, month, day);
-        if (dateObj.getDay() === 0 || dateObj.getDay() === 6) continue;
-        out.push(makeDay(day, month));
+(function clientApp() {
+  const weekdays = ["domingo","segunda","terça","quarta","quinta","sexta","sábado"];
+  const monthNames = ["Janeiro","Fevereiro","Março","Abril","Maio","Junho","Julho","Agosto","Setembro","Outubro","Novembro","Dezembro"];
+  const videos = [
+  {
+    "date": "18/09",
+    "month": 8,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "avaliação de orelhas abertas",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - avaliação de orelhas abertas",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "ensinar por que formato, cartilagem e naturalidade precisam ser avaliados juntos.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Orelhas abertas: avalie antes de decidir. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre prender o cabelo, aparecer em fotos e se olhar sem tanta autocobrança, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Orelhas abertas: avalie antes de decidir",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
       }
+    ]
+  },
+  {
+    "date": "21/09",
+    "month": 8,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "reativação de interessadas",
+    "videoGoal": null,
+    "title": "Stories - reativação de interessadas",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre reativação de interessadas.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Já pensou em avaliar suas orelhas?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: triagem do interesse anterior, dúvida atual e agenda de avaliação.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "22/09",
+    "month": 8,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "avaliação de orelhas abertas",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - avaliação de orelhas abertas",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "mostrar que a avaliação organiza a decisão antes de qualquer procedimento.",
+    "funnel": "Captação para avaliação.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Orelhas abertas: avalie antes de decidir",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "23/09",
+    "month": 8,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "mentoria Ear Line",
+    "videoGoal": null,
+    "title": "Post - mentoria Ear Line",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar mentoria Ear Line.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "confirmar datas, cidades, vagas e perfil profissional elegível.",
+    "post": {
+      "title": "Mentoria Ear Line: técnica com critério",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
     }
-    return out;
-  }
-  function buildOptions(item, base) {
-    const closer = monthDirection[item.month].closer;
-    const isCapture = item.videoGoal === 'Criativo de captação';
-    const roleLine = isCapture
-      ? `Este vídeo é o criativo de captação da semana e deve ser gravado pela Dra Alexia, olhando para a câmera. A fala precisa deixar claro para quem é, qual dúvida resolve e por que a avaliação com a equipe é o próximo passo. ${item.closingRule}`
-      : `Este vídeo é o educativo da semana e deve ser gravado pela Dra Alexia, olhando para a câmera. A fala precisa ensinar uma ideia útil, fortalecer confiança e terminar convidando a pessoa a seguir o perfil. ${item.closingRule}`;
-    const conversionBridge = isCapture
-      ? 'Depois de explicar o ponto principal, a Dra Alexia conduz para avaliação: a pessoa não precisa decidir o procedimento agora, precisa conversar com a equipe para entender se faz sentido.'
-      : 'Depois de explicar o ponto principal, a Dra Alexia evita vender diretamente: entrega clareza, tira uma dúvida comum e convida a pessoa a acompanhar os próximos conteúdos.';
-    return [
+  },
+  {
+    "date": "24/09",
+    "month": 8,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "preparação do Mês das Crianças",
+    "videoGoal": null,
+    "title": "Stories - preparação do Mês das Crianças",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre preparação do Mês das Crianças.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Orelhas abertas na infância: avaliação com responsável?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação com responsável, escuta da criança/adolescente e critério técnico.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "25/09",
+    "month": 8,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "preparação do Mês das Crianças",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - preparação do Mês das Crianças",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "orientar responsáveis sobre sinais, conversa em casa e autorização.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "options": [
       {
-        title: 'Opção 1 - Direta',
-        hook: item.hook,
-        script: `Fala da Dra Alexia: ${item.hook} ${item.script} ${closer} ${conversionBridge} ${roleLine}`,
-        visual: `${item.visual} Gravar em formato vertical 9:16 com a Dra Alexia como rosto principal; usar b-roll apenas como apoio.`,
-        cta: item.cta,
+        "title": "Opção 1 - Educação direta",
+        "hook": "Orelhas abertas na infância: avaliação com responsável. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre entender se existe indicação sem tomar decisão por impulso, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Orelhas abertas na infância: avaliação com responsável",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
       },
       {
-        title: 'Opção 2 - Pergunta real',
-        hook: questionHook(item.theme),
-        script: `Fala da Dra Alexia: ${questionHook(item.theme)} Essa é uma dúvida comum e a resposta responsável precisa respeitar o contexto do procedimento. ${item.script} ${base.pending} ${conversionBridge} ${roleLine}`,
-        visual: `Abrir com pergunta na tela, Dra Alexia respondendo olhando para a lente e alternar com cenas de apoio. ${item.visual}`,
-        cta: item.cta,
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
       },
       {
-        title: 'Opção 3 - História e contexto',
-        hook: storyHook(item.theme),
-        script: `Fala da Dra Alexia: ${storyHook(item.theme)} ${item.script} ${closer} O roteiro deve reforçar que cada história é individual. ${conversionBridge} ${roleLine}`,
-        visual: `Começar com uma cena de contexto e entrar na fala da Dra Alexia. ${item.visual}`,
-        cta: item.cta,
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "28/09",
+    "month": 8,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "preparação do Mês das Crianças",
+    "videoGoal": null,
+    "title": "Stories - preparação do Mês das Crianças",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre preparação do Mês das Crianças.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Orelhas abertas na infância: avaliação com responsável?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação com responsável, escuta da criança/adolescente e critério técnico.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "29/09",
+    "month": 8,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "mentoria Ear Line",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - mentoria Ear Line",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "convidar profissionais para seleção da turma.",
+    "funnel": "Captação para avaliação.",
+    "pending": "confirmar datas, cidades, vagas e perfil profissional elegível.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Mentoria Ear Line: técnica com critério",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
       },
-    ];
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "30/09",
+    "month": 8,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "preparação do Mês das Crianças",
+    "videoGoal": null,
+    "title": "Post - preparação do Mês das Crianças",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar preparação do Mês das Crianças.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "post": {
+      "title": "Orelhas abertas na infância: avaliação com responsável",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "01/10",
+    "month": 9,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "famílias e responsáveis",
+    "videoGoal": null,
+    "title": "Stories - famílias e responsáveis",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre famílias e responsáveis.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Família, avaliação e cuidado?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: conversa familiar, avaliação técnica e autorização.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "02/10",
+    "month": 9,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "Mês das Crianças",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - Mês das Crianças",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "explicar que criança e adolescente precisam de escuta, não pressão.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Mês das Crianças: avaliação responsável. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre planejar uma avaliação em período estratégico para a rotina escolar, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Mês das Crianças: avaliação responsável",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "05/10",
+    "month": 9,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "famílias e responsáveis",
+    "videoGoal": null,
+    "title": "Stories - famílias e responsáveis",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre famílias e responsáveis.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Família, avaliação e cuidado?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: conversa familiar, avaliação técnica e autorização.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "06/10",
+    "month": 9,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "Mês das Crianças",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - Mês das Crianças",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "levar responsáveis para a lista de avaliação do mês.",
+    "funnel": "Captação para avaliação.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Mês das Crianças: avaliação responsável",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "07/10",
+    "month": 9,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "Mês das Crianças",
+    "videoGoal": null,
+    "title": "Post - Mês das Crianças",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar Mês das Crianças.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "post": {
+      "title": "Mês das Crianças: avaliação responsável",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "08/10",
+    "month": 9,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "famílias e responsáveis",
+    "videoGoal": null,
+    "title": "Stories - famílias e responsáveis",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre famílias e responsáveis.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Família, avaliação e cuidado?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: conversa familiar, avaliação técnica e autorização.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "09/10",
+    "month": 9,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "Mês das Crianças",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - Mês das Crianças",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "explicar que criança e adolescente precisam de escuta, não pressão.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Mês das Crianças: avaliação responsável. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre planejar uma avaliação em período estratégico para a rotina escolar, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Mês das Crianças: avaliação responsável",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "12/10",
+    "month": 9,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "famílias e responsáveis",
+    "videoGoal": null,
+    "title": "Stories - famílias e responsáveis",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre famílias e responsáveis.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Família, avaliação e cuidado?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: conversa familiar, avaliação técnica e autorização.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "13/10",
+    "month": 9,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "mentoria Ear Line",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - mentoria Ear Line",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "convidar profissionais para seleção da turma.",
+    "funnel": "Captação para avaliação.",
+    "pending": "confirmar datas, cidades, vagas e perfil profissional elegível.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Mentoria Ear Line: técnica com critério",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "14/10",
+    "month": 9,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "famílias e responsáveis",
+    "videoGoal": null,
+    "title": "Post - famílias e responsáveis",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar famílias e responsáveis.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "post": {
+      "title": "Família, avaliação e cuidado",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "15/10",
+    "month": 9,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "famílias e responsáveis",
+    "videoGoal": null,
+    "title": "Stories - famílias e responsáveis",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre famílias e responsáveis.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Família, avaliação e cuidado?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: conversa familiar, avaliação técnica e autorização.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "16/10",
+    "month": 9,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "mentoria Ear Line",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - mentoria Ear Line",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "ensinar que técnica, indicação e atendimento caminham juntos.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "confirmar datas, cidades, vagas e perfil profissional elegível.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Mentoria Ear Line: técnica com critério. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre aprender a conduzir otomodelação com técnica e posicionamento, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Mentoria Ear Line: técnica com critério",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "19/10",
+    "month": 9,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "adolescentes e autoestima",
+    "videoGoal": null,
+    "title": "Stories - adolescentes e autoestima",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre adolescentes e autoestima.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Adolescente incomodado com as orelhas?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação da queixa, maturidade, expectativa e autorização.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "20/10",
+    "month": 9,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "Mês das Crianças",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - Mês das Crianças",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "levar responsáveis para a lista de avaliação do mês.",
+    "funnel": "Captação para avaliação.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Mês das Crianças: avaliação responsável",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "21/10",
+    "month": 9,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "adolescentes e autoestima",
+    "videoGoal": null,
+    "title": "Post - adolescentes e autoestima",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar adolescentes e autoestima.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "post": {
+      "title": "Adolescente incomodado com as orelhas?",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "22/10",
+    "month": 9,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "férias como planejamento",
+    "videoGoal": null,
+    "title": "Stories - férias como planejamento",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre férias como planejamento.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Férias ajudam no planejamento?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação antecipada, reserva de horário e orientação de rotina.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "23/10",
+    "month": 9,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "Mês das Crianças",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - Mês das Crianças",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "explicar que criança e adolescente precisam de escuta, não pressão.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Mês das Crianças: avaliação responsável. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre planejar uma avaliação em período estratégico para a rotina escolar, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Mês das Crianças: avaliação responsável",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "26/10",
+    "month": 9,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "férias como planejamento",
+    "videoGoal": null,
+    "title": "Stories - férias como planejamento",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre férias como planejamento.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Férias ajudam no planejamento?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação antecipada, reserva de horário e orientação de rotina.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "27/10",
+    "month": 9,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "mentoria Ear Line",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - mentoria Ear Line",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "convidar profissionais para seleção da turma.",
+    "funnel": "Captação para avaliação.",
+    "pending": "confirmar datas, cidades, vagas e perfil profissional elegível.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Mentoria Ear Line: técnica com critério",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "28/10",
+    "month": 9,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "férias como planejamento",
+    "videoGoal": null,
+    "title": "Post - férias como planejamento",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar férias como planejamento.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "post": {
+      "title": "Férias ajudam no planejamento",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "29/10",
+    "month": 9,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "mentoria Ear Line",
+    "videoGoal": null,
+    "title": "Stories - mentoria Ear Line",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre mentoria Ear Line.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar datas, cidades, vagas e perfil profissional elegível.",
+    "storyItems": [
+      "Pergunta de abertura — Mentoria Ear Line: técnica com critério?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: mentoria presencial do método Ear Line com indicação, prática e experiência do paciente.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "30/10",
+    "month": 9,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "mentoria Ear Line",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - mentoria Ear Line",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "ensinar que técnica, indicação e atendimento caminham juntos.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "confirmar datas, cidades, vagas e perfil profissional elegível.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Mentoria Ear Line: técnica com critério. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre aprender a conduzir otomodelação com técnica e posicionamento, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Mentoria Ear Line: técnica com critério",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "02/11",
+    "month": 10,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "base aquecida",
+    "videoGoal": null,
+    "title": "Stories - base aquecida",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre base aquecida.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Condição não substitui avaliação?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: retomada de conversa, avaliação e agenda disponível.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "03/11",
+    "month": 10,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "objeções de adultos",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - objeções de adultos",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "transformar dúvida em conversa com equipe.",
+    "funnel": "Captação para avaliação.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Dúvidas comuns sobre otomodelação",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "04/11",
+    "month": 10,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "base aquecida",
+    "videoGoal": null,
+    "title": "Post - base aquecida",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar base aquecida.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "post": {
+      "title": "Condição não substitui avaliação",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "05/11",
+    "month": 10,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "base aquecida",
+    "videoGoal": null,
+    "title": "Stories - base aquecida",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre base aquecida.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Condição não substitui avaliação?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: retomada de conversa, avaliação e agenda disponível.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "06/11",
+    "month": 10,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "objeções de adultos",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - objeções de adultos",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "responder uma objeção por vídeo de forma simples.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Dúvidas comuns sobre otomodelação. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre tirar dúvidas antes de se comprometer, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Dúvidas comuns sobre otomodelação",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "09/11",
+    "month": 10,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "avaliação antes da condição",
+    "videoGoal": null,
+    "title": "Stories - avaliação antes da condição",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre avaliação antes da condição.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Antes da condição, vem a avaliação?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação, indicação, disponibilidade e orientação da equipe.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "10/11",
+    "month": 10,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "objeções de adultos",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - objeções de adultos",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "transformar dúvida em conversa com equipe.",
+    "funnel": "Captação para avaliação.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Dúvidas comuns sobre otomodelação",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "11/11",
+    "month": 10,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "avaliação antes da condição",
+    "videoGoal": null,
+    "title": "Post - avaliação antes da condição",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar avaliação antes da condição.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "post": {
+      "title": "Antes da condição, vem a avaliação",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "12/11",
+    "month": 10,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "avaliação antes da condição",
+    "videoGoal": null,
+    "title": "Stories - avaliação antes da condição",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre avaliação antes da condição.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Antes da condição, vem a avaliação?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação, indicação, disponibilidade e orientação da equipe.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "13/11",
+    "month": 10,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "objeções de adultos",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - objeções de adultos",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "responder uma objeção por vídeo de forma simples.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Dúvidas comuns sobre otomodelação. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre tirar dúvidas antes de se comprometer, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Dúvidas comuns sobre otomodelação",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "16/11",
+    "month": 10,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "base aquecida",
+    "videoGoal": null,
+    "title": "Stories - base aquecida",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre base aquecida.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Condição não substitui avaliação?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: retomada de conversa, avaliação e agenda disponível.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "17/11",
+    "month": 10,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "base aquecida",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - base aquecida",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "acionar a base para avaliação de otoplastia/otomodelação.",
+    "funnel": "Captação para avaliação.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Condição não substitui avaliação",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "18/11",
+    "month": 10,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "base aquecida",
+    "videoGoal": null,
+    "title": "Post - base aquecida",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar base aquecida.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "post": {
+      "title": "Condição não substitui avaliação",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "19/11",
+    "month": 10,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "base aquecida",
+    "videoGoal": null,
+    "title": "Stories - base aquecida",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre base aquecida.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Condição não substitui avaliação?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: retomada de conversa, avaliação e agenda disponível.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "20/11",
+    "month": 10,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "base aquecida",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - base aquecida",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "explicar que condição comercial só ajuda quando existe indicação.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Condição não substitui avaliação. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre aproveitar uma condição sem reduzir a decisão a desconto, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Condição não substitui avaliação",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "23/11",
+    "month": 10,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "base aquecida",
+    "videoGoal": null,
+    "title": "Stories - base aquecida",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre base aquecida.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Condição não substitui avaliação?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: retomada de conversa, avaliação e agenda disponível.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "24/11",
+    "month": 10,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "base aquecida",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - base aquecida",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "acionar a base para avaliação de otoplastia/otomodelação.",
+    "funnel": "Captação para avaliação.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Condição não substitui avaliação",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "25/11",
+    "month": 10,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "base aquecida",
+    "videoGoal": null,
+    "title": "Post - base aquecida",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar base aquecida.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "post": {
+      "title": "Condição não substitui avaliação",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "26/11",
+    "month": 10,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "base aquecida",
+    "videoGoal": null,
+    "title": "Stories - base aquecida",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre base aquecida.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Condição não substitui avaliação?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: retomada de conversa, avaliação e agenda disponível.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "27/11",
+    "month": 10,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "base aquecida",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - base aquecida",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "explicar que condição comercial só ajuda quando existe indicação.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Condição não substitui avaliação. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre aproveitar uma condição sem reduzir a decisão a desconto, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Condição não substitui avaliação",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "30/11",
+    "month": 10,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "agenda de fim de ano",
+    "videoGoal": null,
+    "title": "Stories - agenda de fim de ano",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre agenda de fim de ano.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Fim de ano pede planejamento?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: planejamento de agenda, avaliação e orientação de gravação/retorno.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "01/12",
+    "month": 11,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "fotos e cabelo preso",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - fotos e cabelo preso",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "levar para avaliação antes dos eventos de fim de ano.",
+    "funnel": "Captação para avaliação.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Fotos, cabelo preso e orelhas abertas",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "02/12",
+    "month": 11,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "férias como planejamento",
+    "videoGoal": null,
+    "title": "Post - férias como planejamento",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar férias como planejamento.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "post": {
+      "title": "Férias ajudam no planejamento",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "03/12",
+    "month": 11,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "férias como planejamento",
+    "videoGoal": null,
+    "title": "Stories - férias como planejamento",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre férias como planejamento.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Férias ajudam no planejamento?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação antecipada, reserva de horário e orientação de rotina.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "04/12",
+    "month": 11,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "fotos e cabelo preso",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - fotos e cabelo preso",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "ensinar que o incômodo aparece em situações simples e merece escuta.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Fotos, cabelo preso e orelhas abertas. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre sentir mais liberdade em momentos sociais, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Fotos, cabelo preso e orelhas abertas",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "07/12",
+    "month": 11,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "férias como planejamento",
+    "videoGoal": null,
+    "title": "Stories - férias como planejamento",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre férias como planejamento.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Férias ajudam no planejamento?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação antecipada, reserva de horário e orientação de rotina.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "08/12",
+    "month": 11,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "fotos e cabelo preso",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - fotos e cabelo preso",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "levar para avaliação antes dos eventos de fim de ano.",
+    "funnel": "Captação para avaliação.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Fotos, cabelo preso e orelhas abertas",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "09/12",
+    "month": 11,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "fotos e cabelo preso",
+    "videoGoal": null,
+    "title": "Post - fotos e cabelo preso",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar fotos e cabelo preso.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "post": {
+      "title": "Fotos, cabelo preso e orelhas abertas",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "10/12",
+    "month": 11,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "fotos e cabelo preso",
+    "videoGoal": null,
+    "title": "Stories - fotos e cabelo preso",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre fotos e cabelo preso.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Fotos, cabelo preso e orelhas abertas?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação do formato das orelhas e possibilidade de otomodelação.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "11/12",
+    "month": 11,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "fotos e cabelo preso",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - fotos e cabelo preso",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "ensinar que o incômodo aparece em situações simples e merece escuta.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Fotos, cabelo preso e orelhas abertas. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre sentir mais liberdade em momentos sociais, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Fotos, cabelo preso e orelhas abertas",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "14/12",
+    "month": 11,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "reservas do Mês das Crianças",
+    "videoGoal": null,
+    "title": "Stories - reservas do Mês das Crianças",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre reservas do Mês das Crianças.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Reservas de férias: avalie com responsabilidade?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: retorno da equipe, avaliação, autorização e agenda de férias.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "15/12",
+    "month": 11,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "Projeto Aurora como cuidado social",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - Projeto Aurora como cuidado social",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "convidar parceiros/responsáveis a entender critérios.",
+    "funnel": "Captação para avaliação.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Impacto social com cuidado",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "16/12",
+    "month": 11,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "reservas do Mês das Crianças",
+    "videoGoal": null,
+    "title": "Post - reservas do Mês das Crianças",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar reservas do Mês das Crianças.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "post": {
+      "title": "Reservas de férias: avalie com responsabilidade",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "17/12",
+    "month": 11,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "reservas do Mês das Crianças",
+    "videoGoal": null,
+    "title": "Stories - reservas do Mês das Crianças",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre reservas do Mês das Crianças.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Reservas de férias: avalie com responsabilidade?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: retorno da equipe, avaliação, autorização e agenda de férias.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "18/12",
+    "month": 11,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "reservas do Mês das Crianças",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - reservas do Mês das Crianças",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "explicar como a reserva se transforma em avaliação e orientação.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Reservas de férias: avalie com responsabilidade. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre organizar dezembro/janeiro com segurança, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Reservas de férias: avalie com responsabilidade",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "21/12",
+    "month": 11,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "reservas do Mês das Crianças",
+    "videoGoal": null,
+    "title": "Stories - reservas do Mês das Crianças",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre reservas do Mês das Crianças.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Reservas de férias: avalie com responsabilidade?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: retorno da equipe, avaliação, autorização e agenda de férias.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "22/12",
+    "month": 11,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "Projeto Aurora como cuidado social",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - Projeto Aurora como cuidado social",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "convidar parceiros/responsáveis a entender critérios.",
+    "funnel": "Captação para avaliação.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Impacto social com cuidado",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "23/12",
+    "month": 11,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "autocuidado sem exagero",
+    "videoGoal": null,
+    "title": "Post - autocuidado sem exagero",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar autocuidado sem exagero.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "post": {
+      "title": "Autocuidado sem exagero",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "24/12",
+    "month": 11,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "autocuidado sem exagero",
+    "videoGoal": null,
+    "title": "Stories - autocuidado sem exagero",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre autocuidado sem exagero.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Autocuidado sem exagero?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação de orelhas abertas e orientação individual.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "25/12",
+    "month": 11,
+    "week": "sexta",
+    "contentType": "Vídeo",
+    "theme": "autocuidado sem exagero",
+    "videoGoal": "Educativo",
+    "title": "Roteiro Educativo da Dra Alexia - autocuidado sem exagero",
+    "format": "Reels educativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "mostrar que autocuidado pode ser discreto, planejado e técnico.",
+    "funnel": "Autoridade e crescimento de perfil.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Educação direta",
+        "hook": "Autocuidado sem exagero. Esse tema aparece mais do que muita gente imagina.",
+        "script": "Fala da Dra Alexia: Quando alguém fala sobre entrar nas festas com mais segurança e naturalidade, eu gosto de olhar além da estética. Existe expectativa, rotina, formato da orelha e indicação. A otoplastia/otomodelação pelo método Ear Line não deve ser tratada como fórmula igual para todos. Ela precisa de avaliação, desenho e execução responsável. Se você quer entender melhor esse tipo de cuidado, acompanhe os próximos conteúdos aqui no perfil.",
+        "screenText": "Autocuidado sem exagero",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, otomodelação é só estética?”",
+        "script": "Fala da Dra Alexia: Não. Para muita gente, as orelhas abertas mexem com foto, cabelo preso, adolescência, comentários antigos e até postura. Mas isso não significa que toda insegurança vira procedimento. O papel da avaliação é separar desejo, indicação e limite técnico. Eu olho para o formato da orelha e para a história da pessoa antes de orientar. Se você quer aprender mais sobre otoplastia/otomodelação com responsabilidade, siga o perfil.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Às vezes o incômodo com as orelhas aparece em detalhes pequenos da rotina.",
+        "script": "Fala da Dra Alexia: O incômodo com o formato das orelhas raramente aparece do nada. Muitas pessoas carregam isso desde a infância ou adolescência. Por isso eu evito tratar o tema como vaidade simples. Existe técnica, existe cuidado emocional e existe responsabilidade na indicação. A melhor comunicação sobre otoplastia/otomodelação é aquela que informa sem pressionar. Se esse assunto conversa com você, siga o perfil para ver mais orientações.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Siga o perfil para acompanhar mais orientações da Dra Alexia."
+      }
+    ]
+  },
+  {
+    "date": "28/12",
+    "month": 11,
+    "week": "segunda",
+    "contentType": "Stories",
+    "theme": "autocuidado sem exagero",
+    "videoGoal": null,
+    "title": "Stories - autocuidado sem exagero",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre autocuidado sem exagero.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Autocuidado sem exagero?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação de orelhas abertas e orientação individual.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
+  },
+  {
+    "date": "29/12",
+    "month": 11,
+    "week": "terça",
+    "contentType": "Vídeo",
+    "theme": "reservas do Mês das Crianças",
+    "videoGoal": "Criativo de captação",
+    "title": "Roteiro Criativo de captação da Dra Alexia - reservas do Mês das Crianças",
+    "format": "Reels criativo gravado pela Dra Alexia",
+    "duration": "45-60s",
+    "focus": "reativar responsáveis que pediram informação.",
+    "funnel": "Captação para avaliação.",
+    "pending": "confirmar autorização, responsável, faixa etária, agenda e política de imagem antes de publicar.",
+    "options": [
+      {
+        "title": "Opção 1 - Direta para avaliação",
+        "hook": "Se esse tema aparece na sua rotina, a decisão não precisa nascer no improviso.",
+        "script": "Fala da Dra Alexia: Quando uma paciente chega com esse incômodo, eu não começo falando de procedimento. Eu observo a queixa, a expectativa, a rotina e os limites técnicos. Essa análise mostra se a otoplastia/otomodelação pelo método Ear Line pode ajudar e quais limites precisam ser respeitados. Aqui na clínica, minha função é conduzir a decisão com técnica, sem pressa comercial e sem comparação com outra pessoa. Se esse incômodo já acompanha você há algum tempo, converse com a equipe e marque uma avaliação.",
+        "screenText": "Reservas de férias: avalie com responsabilidade",
+        "visual": "Dra Alexia em plano médio, olhando para a câmera. B-roll curto de consultório, materiais organizados e atendimento sem expor paciente sem autorização.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 2 - Dúvida real",
+        "hook": "“Dra, como eu sei se minha orelha tem indicação?”",
+        "script": "Fala da Dra Alexia: Essa pergunta aparece muito no atendimento. A indicação não vem de uma foto isolada nem de um incômodo contado em uma frase. Eu preciso avaliar formato, cartilagem, expectativa e histórico. Também preciso entender o que a pessoa espera ao prender o cabelo, tirar fotos ou se olhar de lado. Quando existe indicação, eu explico o caminho possível. Quando não existe, a orientação também precisa ser honesta. Se você quer tirar essa dúvida sobre o seu caso, fale com a equipe e agende uma avaliação.",
+        "screenText": "Dúvida comum: tenho indicação?",
+        "visual": "Abrir com a pergunta em texto na tela. Dra Alexia responde em fala contínua, com cortes leves para manter ritmo.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      },
+      {
+        "title": "Opção 3 - História e contexto",
+        "hook": "Tem paciente que passa anos evitando cabelo preso por causa das orelhas.",
+        "script": "Fala da Dra Alexia: Eu vejo muitas histórias parecidas: a pessoa muda o penteado, escolhe o ângulo da foto, evita vento, evita coque, evita comentário. Quando ela chega na avaliação, meu trabalho é transformar esse incômodo em uma conversa técnica e segura. A otoplastia/otomodelação pelo método Ear Line pode ser uma possibilidade quando existe indicação, mas a decisão precisa respeitar anatomia, expectativa e naturalidade. Se você se identificou com essa história, fale com a equipe e veja os horários de avaliação.",
+        "screenText": "Orelhas abertas também têm história",
+        "visual": "Começar com uma cena de contexto: Dra Alexia entrando no consultório ou ajustando materiais. Depois, fala olhando para a lente.",
+        "cta": "Fale com a equipe e agende uma avaliação."
+      }
+    ]
+  },
+  {
+    "date": "30/12",
+    "month": 11,
+    "week": "quarta",
+    "contentType": "Post",
+    "theme": "Projeto Aurora como cuidado social",
+    "videoGoal": null,
+    "title": "Post - Projeto Aurora como cuidado social",
+    "format": "1 publicação semanal",
+    "duration": "1 publicação",
+    "focus": "educar e reforçar Projeto Aurora como cuidado social.",
+    "funnel": "Autoridade e nutrição.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "post": {
+      "title": "Impacto social com cuidado",
+      "script": "O incômodo com as orelhas abertas pode aparecer em momentos simples: foto, cabelo preso, eventos, escola ou trabalho.\n\nAntes de decidir por qualquer procedimento, a Dra Alexia avalia formato, cartilagem, expectativa e indicação. A otomodelação pelo método Ear Line exige técnica e planejamento para preservar naturalidade.\n\nSe você acompanha a clínica por esse tema, use este conteúdo para organizar suas dúvidas e conversar com a equipe sobre avaliação.",
+      "visual": "Carrossel limpo com 5 telas: dor específica, explicação curta, critério técnico, segurança e CTA.",
+      "cta": "Fale com a equipe e veja os horários de avaliação."
+    }
+  },
+  {
+    "date": "31/12",
+    "month": 11,
+    "week": "quinta",
+    "contentType": "Stories",
+    "theme": "Projeto Aurora como cuidado social",
+    "videoGoal": null,
+    "title": "Stories - Projeto Aurora como cuidado social",
+    "format": "Sequência de 5 a 6 stories",
+    "duration": "5-6 stories",
+    "focus": "manter presença diária sobre Projeto Aurora como cuidado social.",
+    "funnel": "Relacionamento e dúvidas.",
+    "pending": "Validar termos, agenda e autorizações antes de publicar.",
+    "storyItems": [
+      "Pergunta de abertura — Impacto social com cuidado?",
+      "Contexto — Esse incômodo aparece na rotina e merece escuta, não julgamento.",
+      "Autoridade — Dra Alexia explica em vídeo curto o que observa: avaliação, consentimentos e proteção de imagem.",
+      "Educativo — O método Ear Line exige indicação e naturalidade; não é uma resposta automática para toda orelha aberta.",
+      "Interação — Caixa de perguntas: “qual sua maior dúvida sobre otoplastia/otomodelação?”",
+      "CTA — Fale com a equipe para entender horários de avaliação."
+    ]
   }
-  function questionHook(theme) {
-    const hooks = {
-      'UltraMed': 'Papada, flacidez ou perda de contorno: como saber qual caminho faz sentido?',
-      'Mentoria': 'Quem pode participar da Mentoria Ear Line Avançado?',
-      'Mês das Crianças': 'Como saber se seu filho ou filha deve passar por uma avaliação?',
-      'Black Friday': 'Como aproveitar uma condição sem decidir no impulso?',
-      'Novembro Azul': 'Por que tantos homens adiam conversas importantes sobre saúde?',
-      'Nova versão': 'Como se planejar para o fim do ano sem correr atrás de promessa rápida?',
-      'Projeto Aurora': 'Como fazer impacto social sem expor quem precisa de cuidado?',
-      'Reservas de férias': 'Por que as férias podem ajudar no planejamento da família?',
-    };
-    return hooks[theme] || 'Qual é o primeiro passo responsável para esse caso?';
-  }
-  function storyHook(theme) {
-    const hooks = {
-      'UltraMed': 'Muita gente chega pedindo um protocolo, mas o que a Dra. precisa entender primeiro é o rosto.',
-      'Mentoria': 'Por trás de uma boa formação existe técnica, seleção de casos e condução do paciente.',
-      'Mês das Crianças': 'Quando uma família procura ajuda, quase sempre existe uma história sensível por trás.',
-      'Black Friday': 'Datas comerciais podem ajudar, mas não podem substituir critério.',
-      'Novembro Azul': 'Conscientização funciona melhor quando fala de cuidado, não de medo.',
-      'Nova versão': 'Fim de ano desperta vontade de mudança, mas o plano precisa respeitar tempo clínico.',
-      'Projeto Aurora': 'Um projeto social só é forte quando protege a dignidade de cada criança.',
-      'Reservas de férias': 'Organizar as férias também pode ser uma forma de cuidar com calma.',
-    };
-    return hooks[theme] || 'Toda decisão começa melhor quando existe informação e avaliação.';
-  }
-  function buildStories(item, base) {
-    return [
-      `Story 1 - Abertura: ${item.hook}`,
-      `Story 2 - Direção do dia: ${item.focus}`,
-      `Story 3 - Explicação curta: ${item.script}`,
-      `Story 4 - Interação: enquete ou caixa de perguntas sobre ${item.theme.toLowerCase()}.`,
-      `Story 5 - Bastidor: ${item.visual}`,
-      `Story 6 - Fechamento: ${item.cta} Observação interna: ${base.pending}`,
-    ];
-  }
-  function buildPost(item, base) {
-    return {
-      title: item.title,
-      script: `${item.hook}\n\n${item.script}\n\n${monthDirection[item.month].closer}\n\nPendência interna antes de publicar: ${base.pending}`,
-      visual: `Carrossel limpo com título, 3 pontos de orientação, uma tela de segurança e CTA. ${item.visual}`,
-      cta: item.cta,
-    };
-  }
-
-  const videos = buildSchedule();
+];
   const filters = ['Todos', 'Vídeos', 'Posts', 'Stories', ...new Set(videos.map((v) => v.theme))];
   const calendar = document.querySelector('#calendar');
   const calendarMonth = document.querySelector('#calendar-month');
@@ -331,8 +2176,14 @@
 
   document.querySelector('#prev-month').onclick = () => changeMonth(-1);
   document.querySelector('#next-month').onclick = () => changeMonth(1);
-  if (footer) footer.textContent = 'HURTZ COMPANY · Alexia Clinic · Conteúdo alinhado ao planejamento Set-Dez em 21/09/2026';
+  if (footer) footer.textContent = 'HURTZ COMPANY · Alexia Clinic · Conteúdo revisado em Markdown · Set-Dez 2026';
 
+  function escapeHtml(value) {
+    return String(value || '').replace(/[&<>"']/g, (char) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' }[char]));
+  }
+  function paragraphs(value) {
+    return escapeHtml(value).split(/\n\s*\n/).filter(Boolean).join('\n\n');
+  }
   function matchesFilter(v) {
     return active === 'Todos' ||
       (active === 'Vídeos' && v.contentType === 'Vídeo') ||
@@ -345,7 +2196,7 @@
     return first >= 0 ? first : videos.findIndex((v) => v.month === month);
   }
   function renderFilters() {
-    filterBox.innerHTML = filters.map((f) => `<button class="filter ${f === active ? 'active' : ''}" data-filter="${f}">${f}</button>`).join('');
+    filterBox.innerHTML = filters.map((f) => `<button class="filter ${f === active ? 'active' : ''}" data-filter="${escapeHtml(f)}">${escapeHtml(f)}</button>`).join('');
     filterBox.querySelectorAll('button').forEach((button) => {
       button.onclick = () => {
         active = button.dataset.filter;
@@ -391,15 +2242,15 @@
   function renderOption(video) {
     const area = document.querySelector('#option-area');
     if (video.contentType === 'Stories') {
-      area.innerHTML = `<div class="script-grid">${video.storyItems.map((item, index) => `<section class="section"><h3>${index + 1}. ${item.split(':')[0]}</h3><p>${item.split(':').slice(1).join(':').trim()}</p></section>`).join('')}</div>`;
+      area.innerHTML = `<div class="script-grid">${video.storyItems.map((item, index) => `<section class="section"><h3>${index + 1}. Story</h3><p>${escapeHtml(item)}</p></section>`).join('')}<section class="section"><h3>Orientação</h3><p>Dra Alexia aparece nos stories 2 ou 3. Fechar com caixa de perguntas ou WhatsApp.</p></section></div>`;
       return;
     }
     if (video.contentType === 'Post') {
-      area.innerHTML = `<div class="script-grid"><section class="section"><h3>1. Tema do post</h3><p>${video.post.title}</p></section><section class="section"><h3>2. Legenda sugerida</h3><p class="script">${video.post.script}</p></section><section class="section"><h3>3. Como produzir</h3><p>${video.post.visual}</p></section><section class="section"><h3>4. Fechamento</h3><p>${video.post.cta}</p></section></div>`;
+      area.innerHTML = `<div class="script-grid"><section class="section"><h3>1. Tema do post</h3><p>${escapeHtml(video.post.title)}</p></section><section class="section"><h3>2. Legenda sugerida</h3><p class="script">${paragraphs(video.post.script)}</p></section><section class="section"><h3>3. Como produzir</h3><p>${escapeHtml(video.post.visual)}</p></section><section class="section"><h3>4. Fechamento</h3><p>${escapeHtml(video.post.cta)}</p></section></div>`;
       return;
     }
     const option = video.options[selectedOption];
-    area.innerHTML = `<div class="option-switcher">${video.options.map((o, i) => `<button class="option-button ${i === selectedOption ? 'active' : ''}" data-option="${i}">${o.title}</button>`).join('')}</div><div class="script-grid"><section class="section"><h3>1. Gancho</h3><p>${option.hook}</p></section><section class="section"><h3>2. Fala sugerida</h3><p class="script">${option.script.replace(/\.\s+/g, '.\n\n')}</p></section><section class="section"><h3>3. Fechamento</h3><p>${option.cta}</p></section><section class="section"><h3>4. Como gravar</h3><p>${option.visual}</p></section><section class="section"><h3>5. Pendência de validação</h3><p>${video.pending}</p></section></div>`;
+    area.innerHTML = `<div class="option-switcher">${video.options.map((o, i) => `<button class="option-button ${i === selectedOption ? 'active' : ''}" data-option="${i}">${escapeHtml(o.title)}</button>`).join('')}</div><div class="script-grid"><section class="section"><h3>1. Gancho</h3><p>${escapeHtml(option.hook)}</p></section><section class="section"><h3>2. Fala sugerida</h3><p class="script">${paragraphs(option.script)}</p></section><section class="section"><h3>3. Fechamento</h3><p>${escapeHtml(option.cta)}</p></section><section class="section"><h3>4. Texto na tela</h3><p>${escapeHtml(option.screenText)}</p></section><section class="section"><h3>5. Como gravar</h3><p>${escapeHtml(option.visual)}</p></section><section class="section"><h3>6. Pendência de validação</h3><p>${escapeHtml(video.pending)}</p></section></div>`;
     area.querySelectorAll('.option-button').forEach((button) => {
       button.onclick = () => {
         selectedOption = Number(button.dataset.option);
@@ -409,9 +2260,9 @@
   }
   function renderDetail() {
     const v = videos[selected];
-    const formatLabel = v.contentType === 'Vídeo' ? `${v.format} · ${v.videoGoal}` : v.contentType;
+    const formatLabel = v.contentType === 'Vídeo' ? `${v.format} · ${v.videoGoal}` : v.format;
     detail.classList.remove('swap');
-    detail.innerHTML = `<div class="detail-kicker">${v.date} · ${v.week} · ${v.contentType} · ${v.theme}</div><h2>${v.title}</h2><p class="detail-intro">${v.focus}</p><div class="meta"><span>Formato <b>${formatLabel}</b></span><span>Duração <b>${v.duration}</b></span></div><div id="option-area"></div>`;
+    detail.innerHTML = `<div class="detail-kicker">${escapeHtml(v.date)} · ${escapeHtml(v.week)} · ${escapeHtml(v.contentType)} · ${escapeHtml(v.theme)}</div><h2>${escapeHtml(v.title)}</h2><p class="detail-intro">${escapeHtml(v.focus)}</p><div class="meta"><span>Formato <b>${escapeHtml(formatLabel)}</b></span><span>Duração <b>${escapeHtml(v.duration)}</b></span><span>Funil <b>${escapeHtml(v.funnel)}</b></span></div><div id="option-area"></div>`;
     renderOption(v);
     requestAnimationFrame(() => detail.classList.add('swap'));
   }
@@ -422,5 +2273,3 @@
   }
   render();
 })();
-
-
