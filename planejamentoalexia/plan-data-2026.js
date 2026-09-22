@@ -35,17 +35,17 @@
       format: 'Reels educativo',
       focus: 'Levar mulheres 35+ de Fortaleza para avaliação presencial, sem prometer protocolo fechado.',
       hook: 'Antes de falar em UltraMed, papada, radiofrequência ou enzimas, a gente precisa entender o rosto como um todo.',
-      script: 'UltraMed aparece no planejamento como prioridade de setembro, mas ele não deve ser tratado como promessa pronta. A avaliação observa pele, flacidez, contorno, volume, expectativa e histórico. Só depois disso faz sentido conversar sobre lift facial sem corte, papada, radiofrequência, enzimas ou outro caminho aprovado pela doutora Alexia. O objetivo do conteúdo é orientar, não fechar diagnóstico pelo vídeo.',
-      visual: 'Doutora Alexia em plano médio, ambiente claro, cortes de avaliação facial sem identificar paciente e texto curto na tela: avaliação primeiro.',
+      script: 'UltraMed aparece no planejamento como prioridade de setembro, mas ele não deve ser tratado como promessa pronta. Na gravação, a Dra Alexia deve explicar que avalia pele, flacidez, contorno, volume, expectativa e histórico antes de indicar qualquer caminho. Só depois disso faz sentido conversar sobre lift facial sem corte, papada, radiofrequência, enzimas ou outro caminho aprovado tecnicamente. O objetivo do conteúdo é orientar, não fechar diagnóstico pelo vídeo.',
+      visual: 'Dra Alexia em plano médio, ambiente claro, cortes de avaliação facial sem identificar paciente e texto curto na tela: avaliação primeiro.',
       cta: 'Fale com a equipe e veja os horários de avaliação presencial.',
-      pending: 'Termos clínicos, oferta de entrada, custo, elegibilidade e capacidade precisam de validação da doutora Alexia.',
+      pending: 'Termos clínicos, oferta de entrada, custo, elegibilidade e capacidade precisam de validação da Dra Alexia.',
     },
     'Reativação': {
       title: 'Reativação: organizar a dúvida antes da decisão',
       format: 'Stories de orientação',
       focus: 'Acolher leads antigos e engajados sem parecer disparo frio.',
       hook: 'Se você já falou com a Alexia Clinic e deixou a decisão para depois, talvez agora seja a hora de organizar suas dúvidas.',
-      script: 'A reativação precisa chamar a pessoa pelo interesse real: UltraMed, otomodelação, avaliação facial, mentoria ou Mês das Crianças. A mensagem não deve empurrar procedimento. Ela deve retomar a conversa, perguntar se a dúvida ainda existe e convidar para entender horários, avaliação e próximos passos com a equipe.',
+      script: 'A reativação precisa chamar a pessoa pelo interesse real: UltraMed, otomodelação, avaliação facial, mentoria ou Mês das Crianças. A mensagem não deve empurrar procedimento. A Dra Alexia pode gravar orientando a pessoa a retomar a dúvida com calma, enquanto a equipe entra apenas para horários, avaliação e próximos passos.',
       visual: 'Sequência simples em stories: pergunta, orientação, bastidor da clínica, caixinha de dúvidas e CTA para WhatsApp.',
       cta: 'Responda a caixinha ou fale com a equipe para retomar sua avaliação.',
       pending: 'Usar API oficial, excluir compradores e separar base por procedimento/interesse.',
@@ -56,7 +56,7 @@
       focus: 'Captar profissionais elegíveis para turmas de Belém e Fortaleza.',
       hook: 'Profissional da estética: aprender otomodelação é mais do que aprender uma técnica.',
       script: 'A Mentoria Ear Line Avançado deve ser apresentada como formação para profissionais elegíveis, com foco em indicação, prática, experiência do paciente, condução técnica e posicionamento. A fala não pode prometer faturamento nem vender para qualquer pessoa. O próximo passo é uma conversa de seleção para entender perfil, atuação, cidade, turma e disponibilidade.',
-      visual: 'Bastidores de aula, materiais, orientação individual, alunas autorizadas e a doutora Alexia conduzindo a prática.',
+      visual: 'Bastidores de aula, materiais, orientação individual, alunas autorizadas e a Dra Alexia conduzindo a prática.',
       cta: 'Envie uma mensagem para entender o perfil e as próximas turmas.',
       pending: 'Datas, cidades, capacidade final, responsável pela call e verba de mídia.',
     },
@@ -66,7 +66,7 @@
       focus: 'Abrir conversa com famílias de crianças e adolescentes de 7 a 16 anos.',
       hook: 'Quando uma criança ou adolescente se incomoda com as orelhas, a família precisa de acolhimento e critério, não de pressa.',
       script: 'O Mês das Crianças é a frente principal de outubro para pacientes. A comunicação deve falar com responsáveis, explicar que existe uma condição reservada em outubro e que o procedimento pode ser planejado para dezembro ou janeiro, mas sempre depois de avaliação, autorização e critério técnico. O conteúdo precisa acolher inseguranças sem explorar bullying de forma pesada.',
-      visual: 'Doutora Alexia falando em tom calmo; bastidores da clínica; não expor crianças sem autorização.',
+      visual: 'Dra Alexia falando em tom calmo; bastidores da clínica; não expor crianças sem autorização.',
       cta: 'Fale com a equipe e entenda como funciona a avaliação para famílias.',
       pending: 'Preço, condição, regiões, forma de reserva, validade, limite, autorização de imagem e local do outdoor.',
     },
@@ -86,7 +86,7 @@
       focus: 'Preparar leads antigos e engajados para condição aprovada, sem depender de público frio.',
       hook: 'Uma condição especial não substitui uma avaliação bem feita.',
       script: 'Novembro monetiza a base aquecida. O conteúdo precisa explicar que qualquer condição depende de avaliação, indicação, capacidade e orientação da equipe. A Black Friday deve falar com quem já acompanha, já pediu informação ou já demonstrou interesse, sem prometer resultado e sem criar urgência falsa.',
-      visual: 'Doutora Alexia em fala direta, apoio visual discreto de agenda, WhatsApp e equipe.',
+      visual: 'Dra Alexia em fala direta, apoio visual discreto de agenda, WhatsApp e equipe.',
       cta: 'Fale com a equipe para entender se existe uma condição disponível para o seu caso.',
       pending: 'Oferta, janela, limite, grupo ou disparo direto, base elegível e capacidade de resposta.',
     },
@@ -106,7 +106,7 @@
       focus: 'Abrir dezembro com preço normal, valor preservado e contexto de festas/fotos.',
       hook: 'Dezembro não precisa ser sobre desconto. Pode ser sobre planejamento.',
       script: 'A nova versão usa o fim do ano como contexto de autocuidado, festas, fotos e reencontros. A fala deve preservar valor: sem promoção como argumento central, sem promessa de resultado rápido e respeitando tempo clínico, agenda e acompanhamento. A avaliação continua sendo o primeiro passo.',
-      visual: 'Doutora Alexia em cenário claro, cortes de avaliação e detalhes elegantes da clínica.',
+      visual: 'Dra Alexia em cenário claro, cortes de avaliação e detalhes elegantes da clínica.',
       cta: 'Fale com a equipe para entender o que pode ser planejado para você.',
       pending: 'Agenda de dezembro, capacidade e mensagens por procedimento.',
     },
@@ -126,7 +126,7 @@
       focus: 'Orientar famílias que reservaram ou querem entender execução em dezembro/janeiro.',
       hook: 'As férias podem ajudar no planejamento, mas não substituem avaliação.',
       script: 'As reservas feitas em outubro podem ser executadas em dezembro ou janeiro apenas quando houver avaliação, elegibilidade, autorização e rotina organizada. O conteúdo deve reduzir ansiedade e reforçar que calendário não é promessa. O primeiro passo continua sendo orientação individual com responsável.',
-      visual: 'Doutora Alexia falando para responsáveis, sem mostrar crianças sem autorização.',
+      visual: 'Dra Alexia falando para responsáveis, sem mostrar crianças sem autorização.',
       cta: 'Tire suas dúvidas com a equipe sobre avaliação e planejamento.',
       pending: 'Reservas, autorizações, agenda de férias e acompanhamento.',
     },
@@ -145,7 +145,7 @@
       format: 'Post educativo',
       focus: 'Reforçar que nenhum procedimento nasce por direct ou por roteiro.',
       hook: 'O protocolo não nasce no direct. Ele nasce na avaliação presencial.',
-      script: 'Na avaliação, a equipe entende queixa, histórico, expectativa, características do rosto ou das orelhas e possibilidades reais. Essa etapa protege a paciente de escolhas impulsivas e evita promessas genéricas. Seja UltraMed, otomodelação, avaliação facial ou planejamento familiar, o caminho responsável começa pela avaliação.',
+      script: 'Na avaliação, a Dra Alexia entende queixa, histórico, expectativa, características do rosto ou das orelhas e possibilidades reais. Essa etapa protege a paciente de escolhas impulsivas e evita promessas genéricas. Seja UltraMed, otomodelação, avaliação facial ou planejamento familiar, o caminho responsável começa pela avaliação.',
       visual: 'Carrossel com 4 telas: dúvida, avaliação, orientação e próximo passo.',
       cta: 'Fale com a equipe e veja os horários disponíveis.',
       pending: 'Sempre validar termos clínicos e oferta antes de publicar.',
@@ -182,18 +182,18 @@
     if (dateObj.getDay() === 2) {
       return {
         label: 'Criativo de captação',
-        format: 'Reels criativo para captação',
-        intent: 'captar pessoas interessadas e levar para conversa com a equipe/agendamento de avaliação',
+        format: 'Reels criativo gravado pela Dra Alexia',
+        intent: 'captar pessoas interessadas usando a autoridade da Dra Alexia e levar para conversa com a equipe/agendamento de avaliação',
         cta: 'Fale com a equipe e agende uma avaliação.',
-        closingRule: 'Fechar chamando para conversar com a equipe e agendar uma avaliação, sem prometer resultado ou protocolo fechado.',
+        closingRule: 'A Dra Alexia deve fechar chamando para conversar com a equipe e agendar uma avaliação, sem prometer resultado ou protocolo fechado.',
       };
     }
     return {
       label: 'Educativo',
-      format: 'Reels educativo',
-      intent: 'educar o público, aumentar confiança e reforçar autoridade sem pressão comercial',
-      cta: 'Siga o perfil para acompanhar mais orientações da Dra. Alexia.',
-      closingRule: 'Fechar convidando a pessoa a seguir o perfil para receber mais orientações, sem puxar para venda direta.',
+      format: 'Reels educativo gravado pela Dra Alexia',
+      intent: 'educar o público pela fala da Dra Alexia, aumentar confiança e reforçar autoridade sem pressão comercial',
+      cta: 'Siga o perfil para acompanhar mais orientações da Dra Alexia.',
+      closingRule: 'A Dra Alexia deve fechar convidando a pessoa a seguir o perfil para receber mais orientações, sem puxar para venda direta.',
     };
   }
   function makeDay(day, month) {
@@ -210,7 +210,7 @@
       contentType,
       theme,
       videoGoal: videoGoal ? videoGoal.label : null,
-      title: contentType === 'Vídeo' ? `${titlePrefix} ${videoGoal.label} - ${base.title}` : `${titlePrefix} - ${base.title}`,
+      title: contentType === 'Vídeo' ? `${titlePrefix} ${videoGoal.label} da Dra Alexia - ${base.title}` : `${titlePrefix} - ${base.title}`,
       format: contentType === 'Vídeo' ? videoGoal.format : contentType === 'Post' ? '1 publicação semanal' : 'Sequência de 5 a 6 stories',
       duration: contentType === 'Vídeo' ? '45-60s' : contentType === 'Post' ? '1 publicação' : '5-6 stories',
       focus: contentType === 'Vídeo' ? `${base.focus} Função do vídeo: ${videoGoal.intent}.` : base.focus,
@@ -243,31 +243,31 @@
     const closer = monthDirection[item.month].closer;
     const isCapture = item.videoGoal === 'Criativo de captação';
     const roleLine = isCapture
-      ? `Este vídeo é o criativo de captação da semana. A fala precisa deixar claro para quem é, qual dúvida resolve e por que a avaliação com a equipe é o próximo passo. ${item.closingRule}`
-      : `Este vídeo é o educativo da semana. A fala precisa ensinar uma ideia útil, fortalecer confiança e terminar convidando a pessoa a seguir o perfil. ${item.closingRule}`;
+      ? `Este vídeo é o criativo de captação da semana e deve ser gravado pela Dra Alexia, olhando para a câmera. A fala precisa deixar claro para quem é, qual dúvida resolve e por que a avaliação com a equipe é o próximo passo. ${item.closingRule}`
+      : `Este vídeo é o educativo da semana e deve ser gravado pela Dra Alexia, olhando para a câmera. A fala precisa ensinar uma ideia útil, fortalecer confiança e terminar convidando a pessoa a seguir o perfil. ${item.closingRule}`;
     const conversionBridge = isCapture
-      ? 'Depois de explicar o ponto principal, conduza para avaliação: a pessoa não precisa decidir o procedimento agora, precisa conversar com a equipe para entender se faz sentido.'
-      : 'Depois de explicar o ponto principal, evite vender diretamente: entregue clareza, tire uma dúvida comum e convide a pessoa a acompanhar os próximos conteúdos.';
+      ? 'Depois de explicar o ponto principal, a Dra Alexia conduz para avaliação: a pessoa não precisa decidir o procedimento agora, precisa conversar com a equipe para entender se faz sentido.'
+      : 'Depois de explicar o ponto principal, a Dra Alexia evita vender diretamente: entrega clareza, tira uma dúvida comum e convida a pessoa a acompanhar os próximos conteúdos.';
     return [
       {
         title: 'Opção 1 - Direta',
         hook: item.hook,
-        script: `${item.hook} ${item.script} ${closer} ${conversionBridge} ${roleLine}`,
-        visual: item.visual,
+        script: `Fala da Dra Alexia: ${item.hook} ${item.script} ${closer} ${conversionBridge} ${roleLine}`,
+        visual: `${item.visual} Gravar em formato vertical 9:16 com a Dra Alexia como rosto principal; usar b-roll apenas como apoio.`,
         cta: item.cta,
       },
       {
         title: 'Opção 2 - Pergunta real',
         hook: questionHook(item.theme),
-        script: `${questionHook(item.theme)} Essa é uma dúvida comum e a resposta responsável precisa respeitar o contexto do procedimento. ${item.script} ${base.pending} ${conversionBridge} ${roleLine}`,
-        visual: `Abrir com pergunta na tela, responder olhando para a lente e alternar com cenas de apoio. ${item.visual}`,
+        script: `Fala da Dra Alexia: ${questionHook(item.theme)} Essa é uma dúvida comum e a resposta responsável precisa respeitar o contexto do procedimento. ${item.script} ${base.pending} ${conversionBridge} ${roleLine}`,
+        visual: `Abrir com pergunta na tela, Dra Alexia respondendo olhando para a lente e alternar com cenas de apoio. ${item.visual}`,
         cta: item.cta,
       },
       {
         title: 'Opção 3 - História e contexto',
         hook: storyHook(item.theme),
-        script: `${storyHook(item.theme)} ${item.script} ${closer} O roteiro deve reforçar que cada história é individual. ${conversionBridge} ${roleLine}`,
-        visual: `Começar com uma cena de contexto e entrar na fala da doutora Alexia. ${item.visual}`,
+        script: `Fala da Dra Alexia: ${storyHook(item.theme)} ${item.script} ${closer} O roteiro deve reforçar que cada história é individual. ${conversionBridge} ${roleLine}`,
+        visual: `Começar com uma cena de contexto e entrar na fala da Dra Alexia. ${item.visual}`,
         cta: item.cta,
       },
     ];
