@@ -1250,28 +1250,7 @@
 
     async function finish() {
       state.done = true;
-      renderFinal();
-      window.setTimeout(() => window.location.assign(aulaUrl), 700);
-    }
-
-    function renderFinal() {
-      renderProgress();
-      document.getElementById("app").innerHTML = `
-        <header class="topbar">
-          <div class="progress">
-            <div class="progress-track">${steps.map(() => '<span class="progress-seg is-done"></span>').join("")}</div>
-            <div class="progress-count"><strong>${steps.length}</strong><span>de</span><span>${steps.length}</span></div>
-          </div>
-        </header>
-        <section class="final">
-          <div class="final-inner">
-            <p class="kicker">Aula liberada${firstName(state.answers.nome) ? " · " + escapeHtml(firstName(state.answers.nome)) : ""}</p>
-            <h1>Seu acesso está liberado</h1>
-            <p class="final-lede">Abrindo a aula da Dra. Emanuele...</p>
-            <a class="wa-cta" href="${aulaUrl}">Acessar aula agora</a>
-          </div>
-        </section>
-      `;
+      window.location.assign(aulaUrl);
     }
 
     function render() {
