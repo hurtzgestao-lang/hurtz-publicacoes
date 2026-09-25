@@ -5,16 +5,20 @@
       "start": "2026-01-01",
       "end": "2026-09-25"
     },
-    "updated_at": "2026-09-25T13:45:27.884Z"
+    "updated_at": "2026-09-25T14:20:01.731Z"
   },
   "totals": {
-    "spend": 5187.11,
+    "spend": 5187.53,
     "results": 429,
     "cpl": 6.85,
-    "lead_spend": 2937.02,
+    "lead_spend": 2937.44,
+    "recognition_spend": 0,
+    "traffic_spend": 2212.24,
+    "engagement_spend": 37.85,
+    "other_spend": 0,
     "reach": 205038,
-    "impressions": 727967,
-    "clicks": 14889,
+    "impressions": 727984,
+    "clicks": 14890,
     "cpc": 0.35
   },
   "monthly": [
@@ -23,6 +27,10 @@
       "spend": 947.33,
       "results": 58,
       "lead_spend": 475.72,
+      "recognition_spend": 0,
+      "traffic_spend": 433.76,
+      "engagement_spend": 37.85,
+      "other_spend": 0,
       "cpl": 8.2,
       "impressions": 141921,
       "clicks": 2680
@@ -32,6 +40,10 @@
       "spend": 714.95,
       "results": 64,
       "lead_spend": 449.56,
+      "recognition_spend": 0,
+      "traffic_spend": 265.39,
+      "engagement_spend": 0,
+      "other_spend": 0,
       "cpl": 7.02,
       "impressions": 97583,
       "clicks": 2018
@@ -41,6 +53,10 @@
       "spend": 481.46,
       "results": 39,
       "lead_spend": 289.84,
+      "recognition_spend": 0,
+      "traffic_spend": 191.62,
+      "engagement_spend": 0,
+      "other_spend": 0,
       "cpl": 7.43,
       "impressions": 67181,
       "clicks": 1385
@@ -50,6 +66,10 @@
       "spend": 689.01,
       "results": 100,
       "lead_spend": 548.16,
+      "recognition_spend": 0,
+      "traffic_spend": 140.85,
+      "engagement_spend": 0,
+      "other_spend": 0,
       "cpl": 5.48,
       "impressions": 80428,
       "clicks": 1791
@@ -59,6 +79,10 @@
       "spend": 970.34,
       "results": 86,
       "lead_spend": 607.58,
+      "recognition_spend": 0,
+      "traffic_spend": 362.76,
+      "engagement_spend": 0,
+      "other_spend": 0,
       "cpl": 7.06,
       "impressions": 112633,
       "clicks": 2270
@@ -68,6 +92,10 @@
       "spend": 607.14,
       "results": 39,
       "lead_spend": 258.62,
+      "recognition_spend": 0,
+      "traffic_spend": 348.52,
+      "engagement_spend": 0,
+      "other_spend": 0,
       "cpl": 6.63,
       "impressions": 88181,
       "clicks": 1543
@@ -77,6 +105,10 @@
       "spend": 296.92,
       "results": 11,
       "lead_spend": 79.68,
+      "recognition_spend": 0,
+      "traffic_spend": 217.24,
+      "engagement_spend": 0,
+      "other_spend": 0,
       "cpl": 7.24,
       "impressions": 61867,
       "clicks": 1276
@@ -86,18 +118,26 @@
       "spend": 294.59,
       "results": 9,
       "lead_spend": 85.69,
+      "recognition_spend": 0,
+      "traffic_spend": 208.9,
+      "engagement_spend": 0,
+      "other_spend": 0,
       "cpl": 9.52,
       "impressions": 60076,
       "clicks": 1533
     },
     {
       "month": "2026-09",
-      "spend": 185.37,
+      "spend": 185.79,
       "results": 25,
-      "lead_spend": 142.17,
-      "cpl": 5.69,
-      "impressions": 18097,
-      "clicks": 393
+      "lead_spend": 142.59,
+      "recognition_spend": 0,
+      "traffic_spend": 43.2,
+      "engagement_spend": 0,
+      "other_spend": 0,
+      "cpl": 5.7,
+      "impressions": 18114,
+      "clicks": 394
     }
   ],
   "highlights": {
@@ -106,6 +146,10 @@
       "spend": 970.34,
       "results": 86,
       "lead_spend": 607.58,
+      "recognition_spend": 0,
+      "traffic_spend": 362.76,
+      "engagement_spend": 0,
+      "other_spend": 0,
       "cpl": 7.06,
       "impressions": 112633,
       "clicks": 2270
@@ -115,6 +159,10 @@
       "spend": 689.01,
       "results": 100,
       "lead_spend": 548.16,
+      "recognition_spend": 0,
+      "traffic_spend": 140.85,
+      "engagement_spend": 0,
+      "other_spend": 0,
       "cpl": 5.48,
       "impressions": 80428,
       "clicks": 1791
@@ -124,6 +172,10 @@
       "spend": 689.01,
       "results": 100,
       "lead_spend": 548.16,
+      "recognition_spend": 0,
+      "traffic_spend": 140.85,
+      "engagement_spend": 0,
+      "other_spend": 0,
       "cpl": 5.48,
       "impressions": 80428,
       "clicks": 1791
