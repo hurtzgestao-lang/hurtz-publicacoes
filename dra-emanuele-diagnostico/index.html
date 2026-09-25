@@ -1060,10 +1060,22 @@
       });
     }
 
-    function botSay(lines) {
+    async function botSay(lines) {
+      state.botBusy = true;
+      for (const line of lines) {
+        setTyping(true);
+        await wait(190 + Math.min(line.length * 2, 280));
+        state.typing = false;
+        state.messages.push({ role: "bot", text: line });
+        render();
+        await wait(90);
+      }
       state.botBusy = false;
-      state.typing = false;
-      state.messages.push(...lines.map(line => ({ role: "bot", text: line })));
+      render();
+    }
+
+    function wait(ms) {
+      return new Promise(resolve => window.setTimeout(resolve, ms));
     }
 
     function renderProgress() {
@@ -1279,10 +1291,9 @@
       }
 
       const nextStep = currentStep();
-      botSay(nextStep.ask(state.answers));
       state.focusInputOnRender = nextStep.input !== "select";
       state.openPickerAfterRender = nextStep.input === "select";
-      render();
+      await botSay(nextStep.ask(state.answers));
     }
 
     function openPicker() {
@@ -1361,10 +1372,10 @@
       });
     }
 
-    function init() {
-      botSay(currentStep().ask(state.answers));
-      state.focusInputOnRender = true;
+    async function init() {
       render();
+      state.focusInputOnRender = true;
+      await botSay(currentStep().ask(state.answers));
     }
 
     init();
