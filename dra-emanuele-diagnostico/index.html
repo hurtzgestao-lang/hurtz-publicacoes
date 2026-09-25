@@ -1291,9 +1291,10 @@
       }
 
       const nextStep = currentStep();
+      await botSay(nextStep.ask(state.answers));
       state.focusInputOnRender = nextStep.input !== "select";
       state.openPickerAfterRender = nextStep.input === "select";
-      await botSay(nextStep.ask(state.answers));
+      render();
     }
 
     function openPicker() {
@@ -1374,8 +1375,9 @@
 
     async function init() {
       render();
-      state.focusInputOnRender = true;
       await botSay(currentStep().ask(state.answers));
+      state.focusInputOnRender = true;
+      render();
     }
 
     init();
