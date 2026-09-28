@@ -1,0 +1,60 @@
+<!doctype html>
+<html lang="pt-BR" translate="no">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="google" content="notranslate" />
+    <title>Agendamento | Diagnóstico Dra. Emanuele</title>
+    <meta
+      name="description"
+      content="Agendamento do diagnóstico de escala para clínicas com a equipe da Dra. Emanuele."
+    />
+    <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="assets/dra-manu-perfil.jpg" as="image" />
+    <link rel="preload" href="app.js?v=20260928-1" as="script" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap"
+      rel="preload"
+      as="style"
+      onload="this.onload=null;this.rel='stylesheet'"
+    />
+    <noscript>
+      <link
+        href="https://fonts.googleapis.com/css2?family=Lato:wght@400;700;900&display=swap"
+        rel="stylesheet"
+      />
+    </noscript>
+    <link rel="stylesheet" href="styles.css?v=20260928-1" />
+    <script src="app.js?v=20260928-1" defer></script>
+  </head>
+  <body>
+    <main class="form-shell" aria-live="polite">
+      <input class="honeypot" type="text" tabindex="-1" autocomplete="off" aria-hidden="true" />
+      <button class="back-button" type="button" hidden aria-label="Voltar">
+        <svg viewBox="0 0 24 24" aria-hidden="true">
+          <path d="M15 18 9 12l6-6" />
+        </svg>
+      </button>
+
+      <section class="form-card" id="app"></section>
+    </main>
+
+    <aside class="event-drawer" aria-label="Eventos capturados">
+      <button class="event-toggle" type="button" aria-expanded="false">Eventos</button>
+      <div class="event-panel" hidden>
+        <strong>Fila local</strong>
+        <p>
+          Espelha os disparos do formulário. O calendário usa o endpoint preparado para a operação da Dra. Manu.
+        </p>
+        <pre id="event-log">[]</pre>
+      </div>
+    </aside>
+
+    <noscript>
+      <p class="noscript">Este formulário precisa de JavaScript para funcionar.</p>
+    </noscript>
+  </body>
+</html>

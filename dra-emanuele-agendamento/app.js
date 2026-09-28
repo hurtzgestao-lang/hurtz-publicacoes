@@ -1,0 +1,1550 @@
+const FORM_CONFIG = {
+  sourceUrl: "https://pages.hurtzcompany.com.br/dra-emanuele-agendamento/",
+  workspaceId: "dra-manu-coproducao",
+  formId: "dra-manu-agendamento-v1",
+  slug: "dra-emanuele-agendamento",
+  pipelineId: "",
+  leadCaptureStageId: "",
+  leadSubmittedStageId: "",
+  stageId: "",
+  metaPixel: {
+    id: "",
+    adAccountId: "",
+    businessId: "",
+    submitEventName: "DraManuSubmit",
+    submitEventMode: "custom",
+    viewEventName: "DraManuView",
+    firstInteractionEventName: "DraManuFirstInteraction",
+    scheduleViewEventName: "DraManuViewScheduled",
+  },
+  welcome: {
+    title: "<p><strong>Agende seu diagnóstico de escala</strong></p>",
+    description:
+      "<p><br>🎯 Para clínicas que já faturam acima de R$ 20 mil por mês<br>📋 Identifique os gargalos que travam a escala<br>🤝 Escolha um horário para falar com um especialista</p>",
+    buttonText: "AGENDAR DIAGNÓSTICO",
+    mediaUrl: "assets/dra-manu-perfil.jpg",
+  },
+  steps: [
+    {
+      id: "manu-nome",
+      title: "<p>Qual seu nome e sobrenome?</p>",
+      fieldType: "text",
+      required: true,
+      buttonText: "Continuar",
+      mapTo: "name",
+    },
+    {
+      id: "manu-whatsapp",
+      title: "<p>Qual seu número do WhatsApp?</p>",
+      fieldType: "phone",
+      required: true,
+      buttonText: "Continuar",
+      mapTo: "phone",
+    },
+    {
+      id: "manu-email",
+      title: "<p>Qual é o seu melhor e-mail?</p>",
+      fieldType: "email",
+      required: true,
+      buttonText: "Continuar",
+      mapTo: "email",
+    },
+    {
+      id: "manu-instagram",
+      title: "<p>Qual o Instagram da sua clínica?</p>",
+      description: "<p>Digite só o nome do perfil, <strong>sem @ e sem espaços</strong>.</p>",
+      fieldType: "text",
+      required: true,
+      buttonText: "Continuar",
+    },
+    {
+      id: "manu-faturamento",
+      title: "<p>Qual o <strong>faturamento médio mensal</strong> da sua clínica?</p>",
+      fieldType: "select",
+      required: true,
+      buttonText: "Continuar",
+      options: [
+        ["opt-1", "Até R$ 20 mil/mês", "ate_r20_mil"],
+        ["opt-2", "Entre R$ 20 mil e R$ 50 mil/mês", "r20_a_r50_mil"],
+        ["opt-3", "Entre R$ 50 mil e R$ 100 mil/mês", "r50_a_r100_mil"],
+        ["opt-4", "Acima de R$ 100 mil/mês", "acima_de_r100_mil"],
+      ],
+    },
+    {
+      id: "manu-situacao",
+      title: "<p>Qual frase descreve melhor o momento da clínica?</p>",
+      fieldType: "select",
+      required: true,
+      buttonText: "Continuar",
+      options: [
+        ["opt-1", "Tenho demanda, mas falta previsibilidade para crescer", "demanda_sem_previsibilidade"],
+        ["opt-2", "Agenda cheia, mas lucro abaixo do esperado", "agenda_cheia_lucro_baixo"],
+        ["opt-3", "Quero atrair pacientes de maior valor", "pacientes_maior_valor"],
+        ["opt-4", "Quero organizar vendas, operação e escala", "organizar_vendas_operacao_escala"],
+      ],
+    },
+    {
+      id: "manu-objetivo",
+      title: "<p>Qual é seu principal objetivo para os próximos meses?</p>",
+      fieldType: "select",
+      required: true,
+      buttonText: "Continuar",
+      options: [
+        ["opt-1", "Aumentar faturamento com mais estratégia", "aumentar_faturamento"],
+        ["opt-2", "Melhorar conversão e condução comercial", "melhorar_conversao"],
+        ["opt-3", "Fortalecer posicionamento e cobrar melhor", "fortalecer_posicionamento"],
+        ["opt-4", "Criar uma operação mais previsível", "operacao_previsivel"],
+      ],
+    },
+    {
+      id: "manu-scheduling",
+      type: "scheduling",
+      title: "98% concluído...",
+      description: "Agora escolha o melhor horário para o diagnóstico de escala da sua clínica ↓",
+      buttonText: "Confirmar Agendamento",
+      eventTypeId: "diagnostico-comercial-clinicas",
+      pixelEventName: "Schedule",
+    },
+  ],
+  logicRules: [],
+  endings: {
+    "ending-1771040341026": {
+      name: "Redirect zap",
+      title: "<p>99%... Redirecionando para o WhatsApp ⌛</p>",
+      description:
+        "<p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p><p>❌ <strong>NÃO FECHE ESSA TELA</strong></p>",
+      redirectUrl: "https://wa.me/5521968779225?text=Ol%C3%A1%2C%20agendei%20um%20diagn%C3%B3stico%20com%20a%20equipe%20da%20Dra.%20Emanuele%20para%20avaliar%20a%20escala%20da%20minha%20cl%C3%ADnica.",
+      redirectDelay: 3,
+      pixelEventName: "DraManuSubmit",
+      pixelEventType: "custom",
+    },
+    "ending-1779371207224": {
+      name: "👋 Antes de finalizar...",
+      title: "<p>Obrigado pelo interesse!</p>",
+      description: "<p>Recebemos suas informações. Caso faça sentido para o momento da sua clínica, nosso time entra em contato.</p>",
+      redirectDelay: 3,
+      pixelEventName: "DraManuSubmit",
+      pixelEventType: "standard",
+    },
+  },
+  eventType: {
+    id: "diagnostico-comercial-clinicas",
+    slug: "diagnostico-comercial-clinicas",
+    name: "Diagnóstico de Escala | Dra. Manu",
+    durationMinutes: 60,
+    timezone: "America/Belem",
+    bookingWindowDays: 7,
+    maxVisibleSlots: 2,
+    maxConcurrentBookings: 1,
+    minimumNoticeHours: 2,
+    redirectUrl: "https://wa.me/5521968779225?text=Ol%C3%A1%2C%20agendei%20um%20diagn%C3%B3stico%20com%20a%20equipe%20da%20Dra.%20Emanuele%20para%20avaliar%20a%20escala%20da%20minha%20cl%C3%ADnica.",
+    metaPixelEventName: "DraManuScheduled",
+    calendarApiUrl: "/api/dra-manu-calendar",
+    availability: {
+      1: [
+        { start: "09:00", end: "12:00" },
+        { start: "13:00", end: "18:00" },
+      ],
+      2: [
+        { start: "09:00", end: "12:00" },
+        { start: "13:00", end: "18:00" },
+      ],
+      3: [
+        { start: "09:00", end: "12:00" },
+        { start: "13:00", end: "18:00" },
+      ],
+      4: [
+        { start: "09:00", end: "12:00" },
+        { start: "13:00", end: "18:00" },
+      ],
+      5: [
+        { start: "09:00", end: "12:00" },
+        { start: "13:00", end: "18:00" },
+      ],
+    },
+    capturedAvailability: {},
+  },
+};
+
+const STORAGE_KEY = "dra-manu-agendamento-v1";
+const LEAD_ENDPOINT = "/api/dra-manu-calendar";
+const app = document.querySelector("#app");
+const backButton = document.querySelector(".back-button");
+const eventLog = document.querySelector("#event-log");
+const eventToggle = document.querySelector(".event-toggle");
+const eventPanel = document.querySelector(".event-panel");
+
+const state = loadState();
+let firstInteractionTracked = state.firstInteractionTracked || false;
+let optionAdvanceTimer = null;
+let isAdvancingOption = false;
+const OPTION_ADVANCE_DELAY_MS = 450;
+const PARTIAL_SAVE_DEBOUNCE_MS = 700;
+let fieldFocusTimer = null;
+let partialSaveTimer = null;
+let partialSavePromise = Promise.resolve();
+let skipClickAction = false;
+
+const IntegrationAdapter = {
+  async track(eventName, payload = {}) {
+    sendMetaPixelEvent(eventName, payload);
+    pushEvent({
+      kind: "pixel_or_analytics",
+      eventName,
+      payload,
+      originalEquivalent: originalEndpointFor(eventName),
+      at: new Date().toISOString(),
+    });
+  },
+  async upsertPartialLead(payload) {
+    const leadId = ensureLeadId();
+    pushEvent({
+      kind: "lead_partial",
+      originalEquivalent: "POST /rest/v1/rpc/upsert_partial_lead",
+      payload: { ...payload, leadId },
+      at: new Date().toISOString(),
+    });
+    const saved = await saveLeadToDatabase(leadId, payload, { partial: true });
+    if (saved?.submission_id) state.databaseLeadId = saved.submission_id;
+    saveState();
+    return leadId;
+  },
+  async submitLead(payload) {
+    const leadId = state.leadId || crypto.randomUUID();
+    state.leadId = leadId;
+    pushEvent({
+      kind: "lead_submit",
+      originalEquivalent: "POST /rest/v1/rpc/submit_public_lead",
+      payload: { ...payload, leadId },
+      at: new Date().toISOString(),
+    });
+    pushEvent({
+      kind: "lead_finalize",
+      originalEquivalent: "POST /functions/v1/classify-and-finalize-lead",
+      payload: { leadId, classification: "pending" },
+      at: new Date().toISOString(),
+    });
+    pushEvent({
+      kind: "lead_webhook",
+      originalEquivalent: "POST /functions/v1/form-webhook-notify",
+      payload: { formId: FORM_CONFIG.formId, leadId },
+      at: new Date().toISOString(),
+    });
+    const saved = await saveLeadToDatabase(leadId, payload, { partial: false });
+    sendMetaPixelEvent(FORM_CONFIG.metaPixel.submitEventName, {
+      ...payload,
+      leadId,
+      event_id: leadId,
+    });
+    if (saved?.submission_id) state.databaseLeadId = saved.submission_id;
+    saveState();
+    return leadId;
+  },
+  async viewSchedule(payload) {
+    pushEvent({
+      kind: "event_type_fetch",
+      originalEquivalent: "POST /functions/v1/get_public_event_type_by_id",
+      payload: {
+        workspace_id: payload.workspace_id,
+        event_type_id: payload.event_type_id,
+      },
+      at: new Date().toISOString(),
+    });
+    pushEvent({
+      kind: "schedule_view",
+      originalEquivalent: "POST /functions/v1/track-form-pixel-event DraManuViewScheduled",
+      payload,
+      at: new Date().toISOString(),
+    });
+    sendMetaPixelEvent(FORM_CONFIG.metaPixel.scheduleViewEventName, payload);
+    pushEvent({
+      kind: "availability_fetch",
+      originalEquivalent: "POST /functions/v1/google-calendar-public-availability",
+      payload: {
+        workspace_id: payload.workspace_id,
+        event_type_id: payload.event_type_id,
+        timezone: FORM_CONFIG.eventType.timezone,
+        booking_window_days: FORM_CONFIG.eventType.bookingWindowDays,
+      },
+      at: new Date().toISOString(),
+    });
+    pushEvent({
+      kind: "conflict_range_check",
+      originalEquivalent: "POST /rest/v1/rpc/get_bookings_for_conflict_check_range",
+      payload: {
+        workspace_id: payload.workspace_id,
+        event_type_id: payload.event_type_id,
+        max_concurrent_bookings: FORM_CONFIG.eventType.maxConcurrentBookings,
+      },
+      at: new Date().toISOString(),
+    });
+    const availability = await requestCalendarApi("availability", {
+      event_type_id: FORM_CONFIG.eventType.id,
+      event_type_slug: FORM_CONFIG.eventType.slug,
+      timezone: FORM_CONFIG.eventType.timezone,
+      booking_window_days: FORM_CONFIG.eventType.bookingWindowDays,
+      duration_minutes: FORM_CONFIG.eventType.durationMinutes,
+      minimum_notice_hours: FORM_CONFIG.eventType.minimumNoticeHours,
+      max_visible_slots: FORM_CONFIG.eventType.maxVisibleSlots,
+      availability: FORM_CONFIG.eventType.availability,
+    });
+    if (availability?.availability) {
+      state.calendarAvailability = availability.availability;
+      state.calendarSource = "deskcomm";
+      state.calendarDate = firstAvailableDate() || state.calendarDate;
+      state.isLoadingSlots = false;
+      saveState();
+      renderSchedule();
+    }
+  },
+  async checkBookingConflict(payload) {
+    pushEvent({
+      kind: "conflict_check",
+      originalEquivalent: "POST /rest/v1/rpc/get_bookings_for_conflict_check",
+      payload,
+      at: new Date().toISOString(),
+    });
+    return false;
+  },
+  async createBooking(payload) {
+    const bookingId = crypto.randomUUID();
+    pushEvent({
+      kind: "booking_create",
+      originalEquivalent: "POST /rest/v1/rpc/create_public_booking",
+      payload: { ...payload, bookingId },
+      at: new Date().toISOString(),
+    });
+    pushEvent({
+      kind: "calendar_sync",
+      originalEquivalent: "POST /functions/v1/google-calendar-sync",
+      payload: { bookingId, action: "create" },
+      at: new Date().toISOString(),
+    });
+    const result = await requestCalendarApi("book", {
+      ...payload,
+      booking_id: bookingId,
+      duration_minutes: FORM_CONFIG.eventType.durationMinutes,
+      event_name: FORM_CONFIG.eventType.name,
+      timezone: FORM_CONFIG.eventType.timezone,
+    });
+    return result || { bookingId };
+  },
+};
+
+async function saveLeadToDatabase(leadId, payload, options = {}) {
+  const fields = leadDatabaseFields(leadId, payload, options);
+  try {
+    const result = await requestCalendarApi("lead", fields);
+    if (result?.skipped) return result;
+    pushEvent({
+      kind: options.partial ? "lead_database_partial_saved" : "lead_database_saved",
+      originalEquivalent: LEAD_ENDPOINT,
+      payload: {
+        submission_id: result.submission_id,
+        deskcomm_lead_id: result.leadId,
+        deskcomm_contact_id: result.contactId,
+        source: fields.source,
+        completion_status: fields.completion_status,
+      },
+      at: new Date().toISOString(),
+    });
+    return result;
+  } catch (error) {
+    pushEvent({
+      kind: options.partial ? "lead_database_partial_error" : "lead_database_error",
+      originalEquivalent: LEAD_ENDPOINT,
+      payload: { message: error.message },
+      at: new Date().toISOString(),
+    });
+    return null;
+  }
+}
+
+function leadDatabaseFields(leadId, payload, options = {}) {
+  const answers = payload?.form_answers_cleaned || cleanAnswers();
+  const formAnswers = normalizedCommercialAnswers(options);
+  const contact = mappedContact();
+  const revenue = answerLabelByStepId("manu-faturamento");
+  const instagram = answerLabelByStepId("manu-instagram");
+  const clinic = instagram ? instagramHandle(instagram) : "";
+  return {
+    name: contact.name,
+    email: contact.email,
+    phone: contact.phone,
+    clinic,
+    owner: "Profissional da saúde ou dono de clínica",
+    revenue,
+    source: "agendamento-dra-manu",
+    submission_id: leadId,
+    completion_status: options.partial ? "partial" : "submitted",
+    current_step: currentStepLabel(),
+    current_step_index: state.stepIndex,
+    priority: leadPriority(revenue),
+    tracking: trackingData(),
+    lead: {
+      name: contact.name,
+      nome: contact.name,
+      email: contact.email,
+      whatsapp: contact.phone,
+      instagram: clinic,
+    },
+    form_answers: {
+      ...answers,
+      ...formAnswers,
+    },
+    meta: {
+      pixel_id: FORM_CONFIG.metaPixel.id,
+      lead_event_id: leadId,
+      partial: Boolean(options.partial),
+    },
+    event_source_url: window.location.href,
+  };
+}
+
+function ensureLeadId() {
+  if (!state.leadId) {
+    state.leadId = crypto.randomUUID();
+    saveState();
+  }
+  return state.leadId;
+}
+
+function currentStepLabel() {
+  if (state.screen === "welcome") return "Boas-vindas";
+  if (state.screen === "schedule") return "Agendamento";
+  if (state.screen === "ending") return "Encerramento";
+  const step = getStep();
+  return step ? stripHtml(step.title) : "";
+}
+
+function hasAnyLeadData() {
+  return Object.values(state.answers || {}).some((value) => String(value || "").trim());
+}
+
+function schedulePartialLeadSave() {
+  if (state.leadSubmitted || !hasAnyLeadData()) return;
+  window.clearTimeout(partialSaveTimer);
+  partialSaveTimer = window.setTimeout(() => {
+    partialSavePromise = partialSavePromise
+      .catch(() => {})
+      .then(() => IntegrationAdapter.upsertPartialLead(currentLeadPayload(true)))
+      .catch((error) => {
+        pushEvent({
+          kind: "lead_database_partial_error",
+          originalEquivalent: LEAD_ENDPOINT,
+          payload: { message: error.message },
+          at: new Date().toISOString(),
+        });
+      });
+  }, PARTIAL_SAVE_DEBOUNCE_MS);
+}
+
+function flushPartialLeadSave(useBeacon = false) {
+  if (state.screen === "question" && getStep()?.type !== "scheduling") syncInputValue(getStep());
+  if (state.leadSubmitted || !hasAnyLeadData()) return;
+  window.clearTimeout(partialSaveTimer);
+  const leadId = ensureLeadId();
+  const payload = currentLeadPayload(true);
+  if (useBeacon && navigator.sendBeacon) {
+    const fields = leadDatabaseFields(leadId, payload, { partial: true });
+    const body = new Blob([JSON.stringify({ action: "lead", ...fields })], { type: "application/json" });
+    navigator.sendBeacon(new URL(LEAD_ENDPOINT, location.href).toString(), body);
+    return;
+  }
+  partialSavePromise = partialSavePromise.catch(() => {}).then(() => IntegrationAdapter.upsertPartialLead(payload));
+}
+
+function answerLabelByStepId(stepId) {
+  const step = FORM_CONFIG.steps.find((item) => item.id === stepId);
+  if (!step) return "";
+  const value = state.answers[answerKey(step)];
+  if (!value) return "";
+  const option = step.options?.find((item) => item[2] === value);
+  return option ? option[1] : value;
+}
+
+function leadPriority() {
+  return "Diagnostico Dra Manu solicitado";
+}
+
+function instagramHandle(value) {
+  let handle = String(value || "").trim();
+  if (/^(?:https?:\/\/)?(?:(?:www|m)\.)?instagram\.com\//i.test(handle)) {
+    try {
+      const url = new URL(/^https?:\/\//i.test(handle) ? handle : `https://${handle}`);
+      handle = url.pathname.split("/").filter(Boolean)[0] || "";
+    } catch {
+      return "";
+    }
+  }
+  handle = handle.replace(/^@/, "");
+  return handle ? `@${handle.toLowerCase()}` : "";
+}
+
+function trackingData() {
+  const params = new URLSearchParams(window.location.search);
+  const keys = [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "utm_term",
+    "utm_campaign_id",
+    "utm_adset",
+    "utm_adset_id",
+    "utm_ad",
+    "utm_ad_id",
+    "campaign_id",
+    "adset_id",
+    "ad_id",
+    "placement",
+    "site_source_name",
+    "fbclid",
+  ];
+  const tracking = {
+    landing_url: window.location.href,
+    event_source_url: window.location.href,
+  };
+  if (document.referrer) tracking.referrer_url = document.referrer;
+  keys.forEach((key) => {
+    const value = params.get(key);
+    if (value) tracking[key] = value.slice(0, 600);
+  });
+  const fbp = getCookie("_fbp");
+  const fbc = getCookie("_fbc") || buildFbcFromUrl(params.get("fbclid"));
+  if (fbp) tracking.fbp = fbp;
+  if (fbc) tracking.fbc = fbc;
+  return tracking;
+}
+
+function getCookie(name) {
+  return document.cookie
+    .split(";")
+    .map((part) => part.trim())
+    .find((part) => part.startsWith(`${name}=`))
+    ?.split("=")
+    .slice(1)
+    .join("=") || "";
+}
+
+function buildFbcFromUrl(fbclid) {
+  if (!fbclid) return "";
+  return `fb.1.${Date.now()}.${fbclid}`;
+}
+
+function sendMetaPixelEvent(eventName, payload = {}) {
+  if (typeof window.fbq !== "function") return;
+  const eventId = payload.event_id || `${state.sessionToken}:${eventName}`;
+  const tracking = trackingData();
+  const contact = mappedContact();
+  const parameters = {
+    form_id: FORM_CONFIG.formId,
+    form_slug: FORM_CONFIG.slug,
+    workspace_id: FORM_CONFIG.workspaceId,
+    ad_account_id: FORM_CONFIG.metaPixel.adAccountId,
+    business_id: FORM_CONFIG.metaPixel.businessId,
+    event_source_url: window.location.href,
+    landing_url: tracking.landing_url,
+    content_name: FORM_CONFIG.eventType.name,
+    content_category: "lead_form",
+    status: state.screen,
+    value: 0,
+    currency: "BRL",
+  };
+  [
+    "utm_source",
+    "utm_medium",
+    "utm_campaign",
+    "utm_content",
+    "utm_term",
+    "utm_campaign_id",
+    "utm_adset",
+    "utm_adset_id",
+    "utm_ad",
+    "utm_ad_id",
+    "campaign_id",
+    "adset_id",
+    "ad_id",
+    "placement",
+    "site_source_name",
+  ].forEach((key) => {
+    if (tracking[key]) parameters[key] = tracking[key];
+  });
+  if (payload.event_type_id) parameters.event_type_id = payload.event_type_id;
+  if (payload.date) parameters.booking_date = payload.date;
+  if (payload.time) parameters.booking_time = payload.time;
+  if (contact.phone) parameters.phone_present = true;
+  if (contact.email) parameters.email_present = true;
+  window.fbq("trackCustom", eventName, parameters, { eventID: eventId });
+  if (eventName === FORM_CONFIG.eventType.metaPixelEventName) {
+    window.fbq("track", "Schedule", parameters, { eventID: `${eventId}:standard` });
+  }
+}
+
+function trackFormViewOnce() {
+  if (state.viewTracked) return;
+  state.viewTracked = true;
+  IntegrationAdapter.track(FORM_CONFIG.metaPixel.viewEventName, {
+    workspace_id: FORM_CONFIG.workspaceId,
+    form_id: FORM_CONFIG.formId,
+    form_slug: FORM_CONFIG.slug,
+  });
+  saveState();
+}
+
+async function requestCalendarApi(action, payload) {
+  if (location.protocol === "file:") return null;
+  const url = new URL(FORM_CONFIG.eventType.calendarApiUrl, location.href);
+  const response = await fetchWithTimeout(url.toString(), {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ action, ...payload }),
+  });
+  if (!response.ok) {
+    const detail = await response.text().catch(() => "");
+    throw new Error(`calendar_api_${response.status}${detail ? `: ${detail}` : ""}`);
+  }
+  return response.json();
+}
+
+async function fetchWithTimeout(url, options = {}, timeoutMs = 9000) {
+  const controller = new AbortController();
+  const timer = window.setTimeout(() => controller.abort(), timeoutMs);
+  try {
+    return await fetch(url, { ...options, signal: controller.signal });
+  } finally {
+    window.clearTimeout(timer);
+  }
+}
+
+function loadState() {
+  try {
+    const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
+    return {
+      screen: "welcome",
+      stepIndex: -1,
+      answers: {},
+      selectedOption: null,
+      events: [],
+      sessionToken: crypto.randomUUID(),
+      startedAt: Date.now(),
+      calendarDate: null,
+      calendarTime: null,
+      calendarMonthOffset: 0,
+      leadSubmitted: false,
+      scheduleViewed: false,
+      isBooking: false,
+      isLoadingSlots: false,
+      redirectTimerStarted: false,
+      countryOpen: false,
+      ...saved,
+      answers: { ...(saved?.answers || {}) },
+      events: saved?.events || [],
+      calendarAvailability: saved?.calendarAvailability || null,
+    };
+  } catch {
+    return {
+      screen: "welcome",
+      stepIndex: -1,
+      answers: {},
+      events: [],
+      sessionToken: crypto.randomUUID(),
+      startedAt: Date.now(),
+      calendarDate: null,
+      calendarTime: null,
+      calendarMonthOffset: 0,
+      leadSubmitted: false,
+      scheduleViewed: false,
+      isBooking: false,
+      isLoadingSlots: false,
+      redirectTimerStarted: false,
+      countryOpen: false,
+      calendarAvailability: null,
+    };
+  }
+}
+
+function saveState() {
+  sessionStorage.setItem(STORAGE_KEY, JSON.stringify(state));
+}
+
+function pushEvent(event) {
+  state.events = [...state.events.slice(-24), event];
+  saveState();
+  renderEventLog();
+}
+
+function renderEventLog() {
+  eventLog.textContent = JSON.stringify(state.events, null, 2);
+}
+
+function originalEndpointFor(eventName) {
+  if (eventName === FORM_CONFIG.metaPixel.viewEventName || eventName === FORM_CONFIG.metaPixel.firstInteractionEventName) {
+    return "POST /functions/v1/track-form-pixel-event + Meta Pixel";
+  }
+  if (eventName === "form_analytics_events") return "POST /rest/v1/form_analytics_events";
+  return "local-adapter";
+}
+
+function stripHtml(html) {
+  const template = document.createElement("template");
+  template.innerHTML = html;
+  return template.content.textContent.trim();
+}
+
+function iconArrow() {
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 12h14M13 6l6 6-6 6"/></svg>';
+}
+
+function iconCalendar() {
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M7 3v4M17 3v4M4.5 9.5h15M6.5 5h11A2.5 2.5 0 0 1 20 7.5v10A2.5 2.5 0 0 1 17.5 20h-11A2.5 2.5 0 0 1 4 17.5v-10A2.5 2.5 0 0 1 6.5 5Z"/></svg>';
+}
+
+function iconClock() {
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 6v6l4 2M21 12a9 9 0 1 1-18 0 9 9 0 0 1 18 0Z"/></svg>';
+}
+
+function iconGlobe() {
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 21a9 9 0 1 0 0-18 9 9 0 0 0 0 18ZM3.6 9h16.8M3.6 15h16.8M12 3c2.2 2.4 3.4 5.4 3.4 9S14.2 18.6 12 21M12 3C9.8 5.4 8.6 8.4 8.6 12S9.8 18.6 12 21"/></svg>';
+}
+
+function iconCheck() {
+  return '<svg viewBox="0 0 24 24" aria-hidden="true"><path d="M20 6 9 17l-5-5"/></svg>';
+}
+
+function getStep() {
+  return FORM_CONFIG.steps[state.stepIndex];
+}
+
+function answerKey(step) {
+  return step.title;
+}
+
+function mappedAnswers() {
+  const data = {};
+  for (const step of FORM_CONFIG.steps) {
+    if (step.type === "scheduling") continue;
+    const key = answerKey(step);
+    if (state.answers[key] !== undefined) data[key] = state.answers[key];
+  }
+  data._form_labels = buildLabels();
+  return data;
+}
+
+function cleanAnswers() {
+  const cleaned = {};
+  for (const step of FORM_CONFIG.steps) {
+    if (step.type === "scheduling") continue;
+    const key = answerKey(step);
+    const value = state.answers[key];
+    if (value === undefined) continue;
+    const option = step.options?.find((item) => item[2] === value);
+    cleaned[key] = option ? option[1] : value;
+  }
+  return cleaned;
+}
+
+function normalizedCommercialAnswers(options = {}) {
+  const instagram = answerLabelByStepId("manu-instagram");
+  return {
+    faturamento_medio_mensal: answerLabelByStepId("manu-faturamento"),
+    situacao_atual: answerLabelByStepId("manu-situacao"),
+    objetivo_escala: answerLabelByStepId("manu-objetivo"),
+    instagram_clinica: instagram ? instagramHandle(instagram) : "",
+    completion_status: options.partial ? "partial" : "submitted",
+    current_step: currentStepLabel(),
+  };
+}
+
+function buildLabels() {
+  return FORM_CONFIG.steps.reduce((acc, step) => {
+    if (!step.options) return acc;
+    acc[step.title] = Object.fromEntries(step.options.map((option) => [option[2], option[1]]));
+    return acc;
+  }, {});
+}
+
+function mappedContact() {
+  const result = { name: null, email: null, phone: null, instagram: null };
+  for (const step of FORM_CONFIG.steps) {
+    const value = state.answers[answerKey(step)];
+    if (!value) continue;
+    if (step.mapTo === "name") result.name = value;
+    if (step.mapTo === "email") result.email = value;
+    if (step.mapTo === "phone") result.phone = normalizePhone(value);
+    if (stripHtml(step.title).includes("Instagram")) result.instagram = value;
+  }
+  return result;
+}
+
+function normalizePhone(value) {
+  const digits = String(value || "").replace(/\D/g, "");
+  if (!digits) return "";
+  return digits.startsWith("55") ? digits : `55${digits}`;
+}
+
+function maskPhone(value) {
+  const digits = String(value || "").replace(/\D/g, "").slice(0, 11);
+  if (digits.length <= 2) return digits;
+  if (digits.length <= 7) return `(${digits.slice(0, 2)}) ${digits.slice(2)}`;
+  return `(${digits.slice(0, 2)}) ${digits.slice(2, 7)}-${digits.slice(7)}`;
+}
+
+function validateCurrentStep() {
+  const step = getStep();
+  const value = state.answers[answerKey(step)];
+  if (step.required && !String(value || "").trim()) return "Este campo é obrigatório";
+  if (step.fieldType === "email" && !/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(value || "")) {
+    return "Digite um email válido";
+  }
+  if (step.fieldType === "phone" && normalizePhone(value).length < 12) {
+    return "Digite um WhatsApp válido";
+  }
+  return "";
+}
+
+function currentLeadPayload(partial = false) {
+  const contact = mappedContact();
+  return {
+    p_workspace_id: FORM_CONFIG.workspaceId,
+    p_form_id: FORM_CONFIG.formId,
+    p_session_token: state.sessionToken,
+    p_name: contact.name,
+    p_email: partial ? contact.email || null : contact.email,
+    p_phone: partial ? contact.phone || null : contact.phone,
+    p_form_data: mappedAnswers(),
+    p_pipeline_id: FORM_CONFIG.pipelineId,
+    p_stage_id: partial ? FORM_CONFIG.leadCaptureStageId : FORM_CONFIG.leadSubmittedStageId,
+    p_lead_score_classification: "pending",
+    fill_time_seconds: Math.floor((Date.now() - state.startedAt) / 1000),
+  };
+}
+
+function render() {
+  backButton.hidden = state.screen === "welcome";
+  if (state.screen === "welcome") renderWelcome();
+  if (state.screen === "question") renderQuestion();
+  if (state.screen === "schedule") renderSchedule();
+  if (state.screen === "ending") renderEnding(state.endingId);
+  renderEventLog();
+  saveState();
+}
+
+function renderWelcome() {
+  app.innerHTML = `
+    <div class="welcome">
+      <div class="welcome-media">
+        <img src="${FORM_CONFIG.welcome.mediaUrl}" width="154" height="51" alt="" decoding="async" fetchpriority="high" />
+      </div>
+      <h1 class="welcome-title">${FORM_CONFIG.welcome.title}</h1>
+      <div class="welcome-copy">${FORM_CONFIG.welcome.description}</div>
+      <button class="primary-button" type="button" data-start>
+        ${FORM_CONFIG.welcome.buttonText} ${iconArrow()}
+      </button>
+    </div>
+  `;
+}
+
+function renderQuestion() {
+  const step = getStep();
+  const selected = state.answers[answerKey(step)] || "";
+  const description = step.description ? `<div class="question-description">${step.description}</div>` : "";
+  const control =
+    step.fieldType === "select"
+      ? renderOptions(step, selected)
+      : step.fieldType === "phone"
+        ? renderPhone(step, selected)
+        : `<input class="input" data-input ${inputAttrsFor(step)} value="${escapeAttr(selected)}" />`;
+
+  app.innerHTML = `
+    <div class="flow-page">
+      ${renderProgress()}
+      ${renderFlowTop()}
+      <div class="flow-stage">
+        <form class="question screen-enter" autocomplete="on" data-question-form>
+          <h2 class="question-title">${step.title}<span class="required">*</span></h2>
+          ${description}
+          ${control}
+          <div class="validation" data-validation></div>
+          <div class="step-actions">
+            <button class="primary-button" type="button" data-continue>${step.buttonText || "Continuar"}</button>
+            <span class="enter-hint">pressione <strong>Enter ↵</strong></span>
+          </div>
+        </form>
+      </div>
+    </div>
+  `;
+
+  const input = app.querySelector("[data-input]");
+  if (input) {
+    bindKeyboardAwareFocus(input);
+    focusInputAtEnd(input);
+    ["input", "change", "blur"].forEach((eventName) => {
+      input.addEventListener(eventName, () => {
+        syncInputValue(step, input);
+        schedulePartialLeadSave();
+      });
+    });
+  }
+
+  const form = app.querySelector("[data-question-form]");
+  form?.addEventListener("submit", (event) => {
+    event.preventDefault();
+    next();
+  });
+}
+
+function renderProgress() {
+  const questionSteps = FORM_CONFIG.steps.filter((step) => step.type !== "scheduling");
+  const currentQuestionIndex = Math.max(0, Math.min(state.stepIndex, questionSteps.length - 1));
+  const progress = ((currentQuestionIndex + 1) / (questionSteps.length + 1)) * 100;
+  return `<div class="flow-progress" aria-hidden="true"><span style="width:${progress}%"></span></div>`;
+}
+
+function renderFlowTop() {
+  return `
+    <div class="flow-top">
+      <div class="flow-logo">
+        <img src="${FORM_CONFIG.welcome.mediaUrl}" width="154" height="51" alt="" decoding="async" fetchpriority="high" />
+      </div>
+    </div>
+  `;
+}
+
+function renderPhone(step, value) {
+  return `
+    <div class="phone-row">
+      <button class="country-button" type="button" aria-haspopup="dialog" aria-expanded="${state.countryOpen ? "true" : "false"}" data-country-toggle>
+        <span class="flag-br" aria-hidden="true"></span>
+        <span>+55</span>
+        <span class="country-caret" aria-hidden="true">⌄</span>
+      </button>
+      ${
+        state.countryOpen
+          ? `<div class="country-popover" role="dialog" aria-label="Selecionar país">
+              <input class="country-search" type="search" placeholder="Buscar país" autocomplete="off" data-country-search />
+              <div class="country-list">
+                <button class="country-option is-selected" type="button" data-country-select="+55"><span><i class="flag-br"></i>Brasil</span><strong>+55</strong></button>
+                <button class="country-option" type="button" data-country-select="+1"><span>🇺🇸 Estados Unidos</span><strong>+1</strong></button>
+                <button class="country-option" type="button" data-country-select="+351"><span>🇵🇹 Portugal</span><strong>+351</strong></button>
+              </div>
+            </div>`
+          : ""
+      }
+      <input class="input" data-input ${inputAttrsFor(step)} value="${escapeAttr(maskPhone(value))}" placeholder="(00) 00000-0000" />
+    </div>
+  `;
+}
+
+function renderOptions(step, selected) {
+  return `
+    <div class="options" role="radiogroup" tabindex="0">
+      ${step.options
+        .map(
+          ([id, label, value], index) => `
+            <button class="option ${selected === value ? "is-selected" : ""}" type="button" data-option="${escapeAttr(value)}" data-option-id="${id}">
+              <span class="option-key">${String.fromCharCode(65 + index)}</span>
+              <span class="option-label">${label}</span>
+            </button>
+          `,
+        )
+        .join("")}
+    </div>
+  `;
+}
+
+function inputAttrsFor(step) {
+  const base = `type="${step.fieldType === "phone" ? "tel" : step.fieldType}"`;
+  if (step.mapTo === "name") return `${base} id="full-name" name="name" autocomplete="name" autocapitalize="words"`;
+  if (step.mapTo === "email") return `${base} id="email" name="email" autocomplete="email" inputmode="email" autocapitalize="none"`;
+  if (step.mapTo === "phone") return `${base} id="phone" name="tel" autocomplete="tel" inputmode="tel"`;
+  if (stripHtml(step.title).includes("Instagram")) {
+    return `${base} id="instagram-profile" name="clinic-social-profile" autocomplete="off" autocorrect="off" autocapitalize="none" spellcheck="false"`;
+  }
+  return `${base} autocomplete="on"`;
+}
+
+function syncInputValue(step, input = app.querySelector("[data-input]")) {
+  if (!input) return;
+  let value = input.value;
+  if (step.fieldType === "phone") {
+    value = maskPhone(value);
+    input.value = value;
+  }
+  state.answers[answerKey(step)] = value;
+  saveState();
+}
+
+function focusInputAtEnd(input) {
+  input.focus({ preventScroll: true });
+  const length = input.value.length;
+  if (typeof input.setSelectionRange !== "function") return;
+  requestAnimationFrame(() => {
+    try {
+      input.setSelectionRange(length, length);
+    } catch {
+      // Some input types do not expose a selectable range.
+    }
+  });
+}
+
+function resetApplicationState() {
+  Object.assign(state, {
+    screen: "question",
+    stepIndex: 0,
+    answers: {},
+    selectedOption: null,
+    calendarDate: null,
+    calendarTime: null,
+    calendarMonthOffset: 0,
+    calendarAvailability: null,
+    calendarSource: null,
+    leadSubmitted: false,
+    leadId: null,
+    databaseLeadId: null,
+    scheduleTrackedFor: null,
+    scheduleViewed: false,
+    isBooking: false,
+    isLoadingSlots: false,
+    redirectTimerStarted: false,
+    countryOpen: false,
+    endingId: null,
+    startedAt: Date.now(),
+    sessionToken: crypto.randomUUID(),
+  });
+  firstInteractionTracked = false;
+  window.clearTimeout(partialSaveTimer);
+  window.clearTimeout(optionAdvanceTimer);
+}
+
+function bindKeyboardAwareFocus(input) {
+  input.addEventListener("focus", () => {
+    document.body.classList.add("is-field-focused");
+    updateAppHeight();
+    window.clearTimeout(fieldFocusTimer);
+    fieldFocusTimer = window.setTimeout(() => {
+      app.querySelector("[data-question-form]")?.scrollIntoView({ block: "start", inline: "nearest" });
+    }, 180);
+  });
+  input.addEventListener("blur", () => {
+    window.clearTimeout(fieldFocusTimer);
+    document.body.classList.remove("is-field-focused");
+    updateAppHeight();
+  });
+}
+
+function updateAppHeight() {
+  const height = window.visualViewport?.height || window.innerHeight;
+  document.documentElement.style.setProperty("--app-height", `${Math.round(height)}px`);
+}
+
+function escapeAttr(value) {
+  return String(value || "")
+    .replace(/&/g, "&amp;")
+    .replace(/"/g, "&quot;")
+    .replace(/</g, "&lt;");
+}
+
+async function next() {
+  const step = getStep();
+  if (step && step.type !== "scheduling") syncInputValue(step);
+  await trackFirstInteraction();
+  const validation = validateCurrentStep();
+  const validationBox = app.querySelector("[data-validation]");
+  if (validation) {
+    if (validationBox) validationBox.textContent = validation;
+    return;
+  }
+
+  await IntegrationAdapter.upsertPartialLead(currentLeadPayload(true));
+  const rule = FORM_CONFIG.logicRules.find(
+    (item) => item.conditionStepId === step.id && item.conditionValue === state.answers[answerKey(step)],
+  );
+
+  if (rule?.actionType === "go_to_ending") {
+    await submitLeadOnce();
+    state.screen = "ending";
+    state.endingId = rule.actionEndingId;
+    state.redirectTimerStarted = false;
+    render();
+    return;
+  }
+
+  if (rule?.actionType === "jump_to") {
+    await submitLeadOnce();
+    state.stepIndex = FORM_CONFIG.steps.findIndex((item) => item.id === rule.actionTargetId);
+    state.screen = "schedule";
+    render();
+    return;
+  }
+
+  state.stepIndex += 1;
+  const nextStep = getStep();
+  if (nextStep?.type === "scheduling") {
+    await submitLeadOnce();
+    state.screen = "schedule";
+  }
+  render();
+}
+
+function chooseOption(option) {
+  if (isAdvancingOption) return;
+  if (optionAdvanceTimer) window.clearTimeout(optionAdvanceTimer);
+  const step = getStep();
+  state.answers[answerKey(step)] = option.dataset.option;
+  app.querySelectorAll("[data-option]").forEach((item) => {
+    item.classList.toggle("is-selected", item === option);
+    item.disabled = true;
+  });
+  saveState();
+  schedulePartialLeadSave();
+  optionAdvanceTimer = window.setTimeout(async () => {
+    isAdvancingOption = true;
+    await trackFirstInteraction();
+    await next();
+    isAdvancingOption = false;
+  }, OPTION_ADVANCE_DELAY_MS);
+}
+
+async function submitLeadOnce() {
+  if (state.leadSubmitted) return state.leadId;
+  const leadId = await IntegrationAdapter.submitLead({
+    ...currentLeadPayload(false),
+    p_form_data: {
+      ...mappedAnswers(),
+      _pixel_meta: {
+        event_id: crypto.randomUUID(),
+        event_name: FORM_CONFIG.metaPixel.submitEventName,
+        event_mode: FORM_CONFIG.metaPixel.submitEventMode,
+        pixel_allowed: true,
+      },
+      _scoring_meta: {
+        fill_time_seconds: Math.floor((Date.now() - state.startedAt) / 1000),
+        honeypot_triggered: false,
+      },
+    },
+    form_answers_cleaned: cleanAnswers(),
+  });
+  state.leadSubmitted = true;
+  state.leadId = leadId;
+  saveState();
+  return leadId;
+}
+
+async function trackFirstInteraction() {
+  if (firstInteractionTracked) return;
+  firstInteractionTracked = true;
+  state.firstInteractionTracked = true;
+  await IntegrationAdapter.track(FORM_CONFIG.metaPixel.firstInteractionEventName, {
+    workspace_id: FORM_CONFIG.workspaceId,
+    form_id: FORM_CONFIG.formId,
+    form_slug: FORM_CONFIG.slug,
+  });
+}
+
+function renderSchedule() {
+  const contact = mappedContact();
+  const shouldLoadRemoteSlots = !state.scheduleViewed && location.protocol !== "file:" && !state.calendarAvailability;
+  if (shouldLoadRemoteSlots) state.isLoadingSlots = true;
+  const selectedDate = state.calendarDate;
+  state.calendarDate = selectedDate;
+  const times = availableTimesFor(selectedDate);
+  const monthDate = monthCursor();
+
+  if (!state.scheduleViewed) {
+    state.scheduleViewed = true;
+    IntegrationAdapter.viewSchedule({
+      workspace_id: FORM_CONFIG.workspaceId,
+      event_type_id: FORM_CONFIG.eventType.id,
+      user_data: contact,
+      event_name: FORM_CONFIG.metaPixel.scheduleViewEventName,
+    }).catch((error) => {
+      state.isLoadingSlots = false;
+      state.calendarAvailability = {};
+      pushEvent({
+        kind: "calendar_api_error",
+        originalEquivalent: FORM_CONFIG.eventType.calendarApiUrl,
+        payload: { message: error.message },
+        at: new Date().toISOString(),
+      });
+      saveState();
+      renderSchedule();
+    });
+  }
+
+  app.innerHTML = `
+    <div class="flow-page schedule-flow">
+      ${renderProgress()}
+      ${renderFlowTop()}
+      <div class="flow-stage">
+        <div class="schedule ${state.skipScheduleAnimation ? "" : "screen-enter"}">
+          <h2 class="question-title">${FORM_CONFIG.steps[state.stepIndex].title}</h2>
+          <p class="question-description">${FORM_CONFIG.steps[state.stepIndex].description}</p>
+          <div class="schedule-card">
+            <div class="event-heading">
+              <div class="event-icon">${iconCalendar()}</div>
+              <div>
+                <h3>${FORM_CONFIG.eventType.name}</h3>
+                <p class="event-meta">${iconClock()} ${FORM_CONFIG.eventType.durationMinutes} minutos</p>
+              </div>
+            </div>
+            <div class="calendar-layout">
+              <div class="calendar-column">
+                <span class="calendar-label">Selecione uma data</span>
+                <div class="calendar-box">
+                  <div class="calendar-header">
+                    <strong>${formatCalendarMonth(monthDate)}</strong>
+                    <div class="calendar-nav">
+                      <button class="icon-button" type="button" data-month="-1" aria-label="Go to previous month">‹</button>
+                      <button class="icon-button" type="button" data-month="1" aria-label="Go to next month">›</button>
+                    </div>
+                  </div>
+                  <div class="calendar-weekdays">
+                    <span>DOM</span><span>SEG</span><span>TER</span><span>QUA</span><span>QUI</span><span>SEX</span><span>SAB</span>
+                  </div>
+                  <div class="calendar-grid">${renderCalendarDays(monthDate, selectedDate)}</div>
+                  <button class="timezone-button" type="button">${iconGlobe()} Horário de Belém (${currentBelemTime()})</button>
+                </div>
+              </div>
+              <div class="time-list ${times.length === 1 ? "is-single" : ""}">
+                <span class="selected-date-label">${iconCalendar()} ${selectedDate ? formatLongDate(selectedDate, true) : "Selecione uma data"}</span>
+                ${
+                  state.isLoadingSlots
+                    ? `<div class="slot-loading"><span class="spinner" aria-hidden="true"></span><br>Carregando...</div>`
+                    : times.length
+                    ? times
+                        .map(
+                          (time) => `
+                            <button class="time-button ${state.calendarTime === time ? "is-selected" : ""}" type="button" data-time="${time}">
+                              ${time}
+                            </button>
+                          `,
+                        )
+                        .join("")
+                    : `<div class="slot-empty">Nenhum horário<br><small>Selecione outra data</small></div>`
+                }
+              </div>
+            </div>
+            ${
+              selectedDate && state.calendarTime
+                ? `<div class="summary">${formatLongDate(state.calendarDate, true)} às ${state.calendarTime} • ${FORM_CONFIG.eventType.durationMinutes} minutos</div>`
+                : ""
+            }
+            <div class="validation" data-validation></div>
+            <div class="booking-actions">
+              <button class="primary-button" type="button" data-booking ${state.isBooking || !state.calendarDate || !state.calendarTime ? "disabled" : ""}>
+                ${state.isBooking ? '<span class="spinner" aria-hidden="true"></span>Agendando...' : `${iconCheck()} Agendar horário`}
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+  state.skipScheduleAnimation = false;
+  saveState();
+}
+
+function monthCursor() {
+  const today = new Date();
+  return new Date(today.getFullYear(), today.getMonth() + (state.calendarMonthOffset || 0), 1);
+}
+
+function renderCalendarDays(monthDate, selectedDate) {
+  const first = new Date(monthDate.getFullYear(), monthDate.getMonth(), 1);
+  const start = new Date(first);
+  start.setDate(first.getDate() - first.getDay());
+  const days = [];
+  for (let i = 0; i < 35; i += 1) {
+    const date = new Date(start);
+    date.setDate(start.getDate() + i);
+    const iso = toISODate(date);
+    const highlighted = hasAvailableTimes(iso);
+    const disabled = !highlighted || date.getMonth() !== monthDate.getMonth();
+    const today = toISODate(new Date());
+    days.push(`
+      <button class="calendar-day ${iso === today ? "is-today" : ""} ${highlighted ? "is-available" : ""} ${!disabled && selectedDate === iso ? "is-selected" : ""}" type="button" data-date="${iso}" ${disabled ? "disabled" : ""}>
+        ${date.getDate()}
+      </button>
+    `);
+  }
+  return days.join("");
+}
+
+function firstAvailableDate() {
+  if (state.calendarAvailability) {
+    const available = Object.entries(state.calendarAvailability).find(([, times]) => times?.length);
+    return available ? available[0] : toISODate(new Date());
+  }
+  return toISODate(new Date());
+}
+
+function isDateAvailable(iso) {
+  if (state.calendarAvailability) return Boolean(state.calendarAvailability[iso]?.length);
+  return false;
+}
+
+function hasAvailableTimes(iso) {
+  return availableTimesFor(iso).length > 0;
+}
+
+function availableTimesFor(iso) {
+  if (state.calendarAvailability) return state.calendarAvailability[iso] || [];
+  return [];
+}
+
+function toISODate(date) {
+  return `${date.getFullYear()}-${String(date.getMonth() + 1).padStart(2, "0")}-${String(date.getDate()).padStart(2, "0")}`;
+}
+
+function formatCalendarMonth(date) {
+  const value = date.toLocaleDateString("pt-BR", { month: "long", year: "numeric" });
+  return titleCase(value.replace(" de ", " "));
+}
+
+function formatLongDate(iso, title = false) {
+  const date = new Date(`${iso}T12:00:00`);
+  const value = date.toLocaleDateString("pt-BR", { weekday: "long", day: "numeric", month: "long" });
+  return title ? titleCase(value) : capitalize(value);
+}
+
+function currentBelemTime() {
+  return new Intl.DateTimeFormat("pt-BR", {
+    timeZone: "America/Belem",
+    hour: "2-digit",
+    minute: "2-digit",
+  }).format(new Date());
+}
+
+function capitalize(value) {
+  return value.charAt(0).toUpperCase() + value.slice(1);
+}
+
+function titleCase(value) {
+  return value.replace(/\p{L}+/gu, (word) => word.charAt(0).toUpperCase() + word.slice(1));
+}
+
+async function confirmBooking() {
+  const validation = app.querySelector("[data-validation]");
+  if (!state.calendarDate || !state.calendarTime) {
+    validation.textContent = "Preencha todos os campos obrigatórios";
+    return;
+  }
+  state.isBooking = true;
+  renderSchedule();
+  const contact = mappedContact();
+  try {
+    await new Promise((resolve) => setTimeout(resolve, 450));
+    const hasConflict = await IntegrationAdapter.checkBookingConflict({
+      event_type_id: FORM_CONFIG.eventType.id,
+      workspace_id: FORM_CONFIG.workspaceId,
+      booking_date: state.calendarDate,
+      booking_time: state.calendarTime,
+      duration_minutes: FORM_CONFIG.eventType.durationMinutes,
+    });
+    if (hasConflict) throw new Error("booking_conflict");
+    const bookingResult = await IntegrationAdapter.createBooking({
+      event_type_id: FORM_CONFIG.eventType.id,
+      event_type_slug: FORM_CONFIG.eventType.slug,
+      workspace_id: FORM_CONFIG.workspaceId,
+      pipeline_id: FORM_CONFIG.pipelineId,
+      stage_id: FORM_CONFIG.stageId,
+      client_name: contact.name,
+      client_email: contact.email,
+      client_phone: contact.phone,
+      booking_date: state.calendarDate,
+      booking_time: state.calendarTime,
+      workspace_timezone: FORM_CONFIG.eventType.timezone,
+      visitor_timezone: Intl.DateTimeFormat().resolvedOptions().timeZone,
+      answers: normalizedCommercialAnswers(),
+      answers_normalized: normalizedCommercialAnswers(),
+      form_answers_cleaned: cleanAnswers(),
+      capture_lead_id: state.leadId,
+    });
+    const bookingId = bookingResult?.deskcommAppointmentId || bookingResult?.bookingId;
+    state.bookingId = bookingId;
+    if (state.scheduleTrackedFor !== bookingId) {
+      await IntegrationAdapter.track(FORM_CONFIG.eventType.metaPixelEventName, {
+        event_id: `schedule:${bookingId}`,
+        event_type_id: FORM_CONFIG.eventType.id,
+        date: state.calendarDate,
+        time: state.calendarTime,
+        user_data: contact,
+      });
+      state.scheduleTrackedFor = bookingId;
+    }
+    state.screen = "ending";
+    state.endingId = "ending-1771040341026";
+    state.isBooking = false;
+    state.redirectTimerStarted = false;
+    render();
+  } catch {
+    state.isBooking = false;
+    renderSchedule();
+    const box = app.querySelector("[data-validation]");
+    if (box) box.textContent = "Esse horário não está mais disponível. Escolha outro horário.";
+  }
+}
+
+function renderEnding(id) {
+  const ending = FORM_CONFIG.endings[id] || FORM_CONFIG.endings["ending-1779371207224"];
+  const isWhatsappRedirect = Boolean(ending.redirectUrl);
+  app.innerHTML = `
+    <div class="flow-page">
+      ${renderProgress()}
+      ${renderFlowTop()}
+      <div class="flow-stage">
+        <div class="ending ${isWhatsappRedirect ? "ending-whatsapp" : ""} screen-enter">
+          <h2 class="ending-title">${ending.title}</h2>
+          <div class="ending-description">${ending.description}</div>
+          ${
+            ending.redirectUrl && !isWhatsappRedirect
+              ? `<a class="primary-button" href="${ending.redirectUrl}" target="_blank" rel="noopener">Abrir WhatsApp ${iconArrow()}</a><p class="redirect-note">Redirecionando automaticamente em ${ending.redirectDelay || 3}s.</p>`
+              : ""
+          }
+        </div>
+      </div>
+    </div>
+  `;
+  startRedirectTimer(ending);
+}
+
+function startRedirectTimer(ending) {
+  if (!ending.redirectUrl || state.redirectTimerStarted) return;
+  state.redirectTimerStarted = true;
+  saveState();
+  window.setTimeout(() => {
+    window.location.href = ending.redirectUrl;
+  }, (ending.redirectDelay || 3) * 1000);
+}
+
+app.addEventListener("click", async (event) => {
+  const start = event.target.closest("[data-start]");
+  const option = event.target.closest("[data-option]");
+  const cont = event.target.closest("[data-continue]");
+  const date = event.target.closest("[data-date]");
+  const time = event.target.closest("[data-time]");
+  const month = event.target.closest("[data-month]");
+  const booking = event.target.closest("[data-booking]");
+  const countryToggle = event.target.closest("[data-country-toggle]");
+  const countrySelect = event.target.closest("[data-country-select]");
+  const countryArea = event.target.closest(".phone-row");
+
+  if (skipClickAction && (cont || booking)) {
+    skipClickAction = false;
+    return;
+  }
+
+  if (state.countryOpen && !countryArea) {
+    syncInputValue(getStep());
+    state.countryOpen = false;
+    renderQuestion();
+    return;
+  }
+
+  if (start) {
+    resetApplicationState();
+    render();
+  }
+  if (option) {
+    chooseOption(option);
+  }
+  if (cont) await next();
+  if (countryToggle) {
+    state.countryOpen = !state.countryOpen;
+    renderQuestion();
+  }
+  if (countrySelect) {
+    state.countryOpen = false;
+    renderQuestion();
+  }
+  if (date) {
+    if (date.disabled || !hasAvailableTimes(date.dataset.date)) return;
+    state.calendarDate = date.dataset.date;
+    state.calendarTime = null;
+    state.skipScheduleAnimation = true;
+    renderSchedule();
+  }
+  if (time) {
+    state.calendarTime = time.dataset.time;
+    state.skipScheduleAnimation = true;
+    renderSchedule();
+  }
+  if (month) {
+    state.calendarMonthOffset = (state.calendarMonthOffset || 0) + Number(month.dataset.month);
+    state.skipScheduleAnimation = true;
+    renderSchedule();
+  }
+  if (booking) await confirmBooking();
+});
+
+app.addEventListener("pointerdown", (event) => {
+  const cont = event.target.closest("[data-continue]");
+  const booking = event.target.closest("[data-booking]");
+  if (!cont && !booking) return;
+  if (!window.matchMedia("(pointer: coarse)").matches) return;
+  event.preventDefault();
+  skipClickAction = true;
+  window.setTimeout(() => {
+    skipClickAction = false;
+  }, 500);
+  if (cont) next();
+  if (booking) confirmBooking();
+});
+
+document.addEventListener("keydown", async (event) => {
+  if (state.countryOpen && event.key === "Escape") {
+    event.preventDefault();
+    syncInputValue(getStep());
+    state.countryOpen = false;
+    renderQuestion();
+    return;
+  }
+
+  if (state.screen === "question" && event.key === "Enter") {
+    event.preventDefault();
+    await next();
+  }
+  if (state.screen === "question" && /^[a-z]$/i.test(event.key)) {
+    const step = getStep();
+    if (!step.options) return;
+    const index = event.key.toUpperCase().charCodeAt(0) - 65;
+    const option = step.options[index];
+    if (option) {
+      state.answers[answerKey(step)] = option[2];
+      const optionButton = app.querySelector(`[data-option="${CSS.escape(option[2])}"]`);
+      if (optionButton) chooseOption(optionButton);
+    }
+  }
+});
+
+backButton.addEventListener("click", () => {
+  if (state.screen === "schedule") {
+    state.screen = "question";
+    state.stepIndex = FORM_CONFIG.steps.findIndex((step) => step.id === "manu-objetivo");
+  } else if (state.screen === "question" && state.stepIndex > 0) {
+    state.stepIndex -= 1;
+  } else {
+    state.screen = "welcome";
+    state.stepIndex = -1;
+  }
+  render();
+});
+
+eventToggle.addEventListener("click", () => {
+  const expanded = eventToggle.getAttribute("aria-expanded") === "true";
+  eventToggle.setAttribute("aria-expanded", String(!expanded));
+  eventPanel.hidden = expanded;
+});
+
+updateAppHeight();
+window.addEventListener("resize", updateAppHeight, { passive: true });
+window.visualViewport?.addEventListener("resize", updateAppHeight, { passive: true });
+window.visualViewport?.addEventListener("scroll", updateAppHeight, { passive: true });
+document.addEventListener("visibilitychange", () => {
+  if (document.visibilityState === "hidden") flushPartialLeadSave(true);
+});
+window.addEventListener("pagehide", () => flushPartialLeadSave(true));
+
+render();
+trackFormViewOnce();
