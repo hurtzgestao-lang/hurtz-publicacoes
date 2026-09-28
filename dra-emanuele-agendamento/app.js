@@ -167,6 +167,7 @@ const FORM_CONFIG = {
 };
 
 const STORAGE_KEY = "dra-manu-agendamento-v1";
+const SHARED_CONTEXT_KEY = "dra-manu-lead-context-v1";
 const LEAD_ENDPOINT = "/api/dra-manu-calendar";
 const app = document.querySelector("#app");
 const backButton = document.querySelector(".back-button");
@@ -618,16 +619,13 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 9000) {
 }
 
 function loadState() {
+  const base = initialScheduleState();
   try {
     const saved = JSON.parse(sessionStorage.getItem(STORAGE_KEY));
     return {
-      screen: "welcome",
-      stepIndex: -1,
-      answers: {},
+      ...base,
       selectedOption: null,
       events: [],
-      sessionToken: crypto.randomUUID(),
-      startedAt: Date.now(),
       calendarDate: null,
       calendarTime: null,
       calendarMonthOffset: 0,
@@ -638,30 +636,86 @@ function loadState() {
       redirectTimerStarted: false,
       countryOpen: false,
       ...saved,
-      answers: { ...(saved?.answers || {}) },
+      screen: "schedule",
+      stepIndex: scheduleStepIndex(),
+      answers: { ...base.answers, ...(saved?.answers || {}) },
       events: saved?.events || [],
       calendarAvailability: saved?.calendarAvailability || null,
     };
   } catch {
-    return {
-      screen: "welcome",
-      stepIndex: -1,
-      answers: {},
-      events: [],
-      sessionToken: crypto.randomUUID(),
-      startedAt: Date.now(),
-      calendarDate: null,
-      calendarTime: null,
-      calendarMonthOffset: 0,
-      leadSubmitted: false,
-      scheduleViewed: false,
-      isBooking: false,
-      isLoadingSlots: false,
-      redirectTimerStarted: false,
-      countryOpen: false,
-      calendarAvailability: null,
-    };
+    return base;
   }
+}
+
+function initialScheduleState() {
+  return {
+    screen: "schedule",
+    stepIndex: scheduleStepIndex(),
+    answers: sharedAnswersForSchedule(),
+    events: [],
+    sessionToken: crypto.randomUUID(),
+    startedAt: Date.now(),
+    calendarDate: null,
+    calendarTime: null,
+    calendarMonthOffset: 0,
+    leadSubmitted: false,
+    scheduleViewed: false,
+    isBooking: false,
+    isLoadingSlots: false,
+    redirectTimerStarted: false,
+    countryOpen: false,
+    calendarAvailability: null,
+  };
+}
+
+function scheduleStepIndex() {
+  return FORM_CONFIG.steps.findIndex((step) => step.type === "scheduling");
+}
+
+function sharedAnswersForSchedule() {
+  const context = readSharedLeadContext();
+  const answers = context?.answers || {};
+  const byStepId = {
+    "manu-nome": answers.nome,
+    "manu-whatsapp": answers.telefone,
+    "manu-email": answers.email,
+    "manu-instagram": answers.instagram,
+    "manu-faturamento": normalizeRevenueAnswer(answers.faturamento),
+    "manu-situacao": normalizeSituationAnswer(answers.situacao),
+  };
+  const mapped = {};
+  for (const step of FORM_CONFIG.steps) {
+    if (step.type === "scheduling") continue;
+    const value = byStepId[step.id];
+    if (value) mapped[answerKey(step)] = value;
+  }
+  return mapped;
+}
+
+function readSharedLeadContext() {
+  try {
+    return JSON.parse(sessionStorage.getItem(SHARED_CONTEXT_KEY));
+  } catch {
+    return null;
+  }
+}
+
+function normalizeRevenueAnswer(value) {
+  const text = String(value || "");
+  if (!text) return "";
+  if (/acima/i.test(text) && /100/.test(text)) return "acima_de_r100_mil";
+  if (/75/.test(text) || /50/.test(text)) return "r50_a_r100_mil";
+  if (/20/.test(text) || /30/.test(text) || /50/.test(text)) return "r20_a_r50_mil";
+  return "ate_r20_mil";
+}
+
+function normalizeSituationAnswer(value) {
+  const text = String(value || "").toLowerCase();
+  if (!text) return "";
+  if (text.includes("agenda")) return "agenda_cheia_lucro_baixo";
+  if (text.includes("maior valor") || text.includes("pacientes de maior")) return "pacientes_maior_valor";
+  if (text.includes("lucro") || text.includes("escala") || text.includes("liberdade")) return "organizar_vendas_operacao_escala";
+  return "demanda_sem_previsibilidade";
 }
 
 function saveState() {
@@ -821,7 +875,7 @@ function currentLeadPayload(partial = false) {
 }
 
 function render() {
-  backButton.hidden = state.screen === "welcome";
+  backButton.hidden = true;
   if (state.screen === "welcome") renderWelcome();
   if (state.screen === "question") renderQuestion();
   if (state.screen === "schedule") renderSchedule();
@@ -1330,9 +1384,13 @@ async function confirmBooking() {
     validation.textContent = "Preencha todos os campos obrigatórios";
     return;
   }
+  const contact = mappedContact();
+  if (!contact.phone) {
+    validation.textContent = "Para confirmar o agendamento, acesse esta página pelo botão da aula após concluir o diagnóstico.";
+    return;
+  }
   state.isBooking = true;
   renderSchedule();
-  const contact = mappedContact();
   try {
     await new Promise((resolve) => setTimeout(resolve, 450));
     const hasConflict = await IntegrationAdapter.checkBookingConflict({
