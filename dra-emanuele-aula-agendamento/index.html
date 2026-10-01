@@ -5,8 +5,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="robots" content="noindex, nofollow">
   <meta name="theme-color" content="#512538">
-  <title>Diagnóstico exclusivo | Dra. Emanuele</title>
-  <meta name="description" content="Diagnóstico exclusivo para donos de clínicas que faturam acima de R$ 20 mil e desejam escalar para mais de R$ 100 mil por mês.">
+  <title>Agenda Blindada | Dra. Emanuele</title>
+  <meta name="description" content="Para donos de clínicas que faturam acima de R$ 20 mil: converta mais pacientes pelo WhatsApp sem depender de mais anúncios.">
   <style>
     :root {
       --plum: #512538;
@@ -115,8 +115,22 @@
     }
 
     .next-step {
+      display: none;
       width: min(100%, 420px);
       margin: 0 auto;
+      opacity: 0;
+      pointer-events: none;
+      transform: translateY(10px);
+      visibility: hidden;
+      transition: opacity .35s ease, transform .35s ease, visibility .35s ease;
+    }
+
+    .next-step.is-visible {
+      display: block;
+      opacity: 1;
+      pointer-events: auto;
+      transform: translateY(0);
+      visibility: visible;
     }
 
     .cta {
@@ -187,22 +201,23 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+      .next-step,
       .cta { transition: none; }
     }
   </style>
 </head>
 <body>
   <header class="intro">
-    <h1><strong>Diagnóstico exclusivo</strong> para donos de clínicas que faturam acima de R$ 20 mil e desejam <strong>escalar para mais de R$ 100 mil por mês.</strong></h1>
+    <h1><strong>Para donos de clínicas que faturam acima de R$ 20 mil:</strong> converta mais pacientes pelo WhatsApp <strong>sem depender de mais anúncios.</strong></h1>
   </header>
 
   <main class="hero">
     <div class="content">
       <div class="video-shell">
-        <iframe src="https://www.youtube-nocookie.com/embed/ijU9gvvB_mg?rel=0" title="VSL da Dra. Emanuele: Agenda Blindada para clínicas" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe src="https://www.youtube-nocookie.com/embed/ijU9gvvB_mg?rel=0&playsinline=1&enablejsapi=1" title="VSL da Dra. Emanuele: Agenda Blindada para clínicas" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
       </div>
 
-      <section class="next-step" aria-label="Próximo passo">
+      <section class="next-step" aria-label="Próximo passo" aria-hidden="true">
         <a class="cta" href="https://pay.kiwify.com.br/A1cSJrH" aria-label="Abrir checkout do Agenda Blindada">
           Quero acessar agora
           <svg viewBox="0 0 24 24" fill="none" aria-hidden="true"><path d="M4 12h15m-6-6 6 6-6 6" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg>
@@ -210,5 +225,60 @@
       </section>
     </div>
   </main>
+  <script>
+    // O preço da VSL começa por volta de 3min40s no roteiro enviado.
+    const PURCHASE_BUTTON_REVEAL_SECONDS = 220;
+    const purchaseStep = document.querySelector(".next-step");
+    const videoFrame = document.querySelector(".video-shell iframe");
+    let purchaseButtonVisible = false;
+    let playerCheckTimer = null;
+
+    function revealPurchaseButton() {
+      if (purchaseButtonVisible || !purchaseStep) return;
+      purchaseButtonVisible = true;
+      purchaseStep.classList.add("is-visible");
+      purchaseStep.removeAttribute("aria-hidden");
+      if (playerCheckTimer) window.clearInterval(playerCheckTimer);
+    }
+
+    function startPlayerTimeCheck(player) {
+      const checkTime = () => {
+        try {
+          const currentTime = player.getCurrentTime();
+          if (currentTime >= PURCHASE_BUTTON_REVEAL_SECONDS) {
+            revealPurchaseButton();
+          }
+        } catch (error) {
+          window.clearInterval(playerCheckTimer);
+        }
+      };
+
+      playerCheckTimer = window.setInterval(checkTime, 500);
+      checkTime();
+    }
+
+    window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReady() {
+      if (!videoFrame || !window.YT?.Player) return;
+
+      new YT.Player(videoFrame, {
+        events: {
+          onReady(event) {
+            startPlayerTimeCheck(event.target);
+          },
+          onStateChange(event) {
+            if (event.data === YT.PlayerState.ENDED) {
+              revealPurchaseButton();
+            }
+          }
+        }
+      });
+    };
+
+    if (videoFrame) {
+      const apiScript = document.createElement("script");
+      apiScript.src = "https://www.youtube.com/iframe_api";
+      document.head.appendChild(apiScript);
+    }
+  </script>
 </body>
 </html>
