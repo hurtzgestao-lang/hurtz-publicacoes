@@ -114,6 +114,170 @@
       border: 0;
     }
 
+    .video-click-layer {
+      position: absolute;
+      z-index: 2;
+      inset: 0;
+      padding: 0;
+      border: 0;
+      background: transparent;
+      cursor: pointer;
+    }
+
+    .center-play {
+      position: absolute;
+      z-index: 4;
+      top: 50%;
+      left: 50%;
+      display: grid;
+      width: 76px;
+      height: 76px;
+      border: 0;
+      border-radius: 999px;
+      place-items: center;
+      background: rgba(240, 190, 169, .94);
+      box-shadow: 0 18px 46px rgba(0, 0, 0, .36);
+      color: var(--plum-deep);
+      cursor: pointer;
+      transform: translate(-50%, -50%);
+      transition: opacity .2s ease, transform .2s ease;
+    }
+
+    .center-play::before {
+      content: "";
+      width: 0;
+      height: 0;
+      margin-left: 5px;
+      border-top: 15px solid transparent;
+      border-bottom: 15px solid transparent;
+      border-left: 23px solid currentColor;
+    }
+
+    .video-shell.is-playing .center-play {
+      opacity: 0;
+      pointer-events: none;
+      transform: translate(-50%, -50%) scale(.92);
+    }
+
+    .pause-card {
+      position: absolute;
+      z-index: 5;
+      top: 50%;
+      left: 50%;
+      width: min(82%, 270px);
+      padding: 18px 16px;
+      border: 1px solid rgba(255, 255, 255, .2);
+      border-radius: 18px;
+      background: rgba(38, 21, 31, .92);
+      box-shadow: 0 20px 55px rgba(0, 0, 0, .42);
+      color: var(--cream);
+      text-align: center;
+      transform: translate(-50%, -50%);
+    }
+
+    .pause-card[hidden] {
+      display: none;
+    }
+
+    .pause-card strong {
+      display: block;
+      font-size: 18px;
+      line-height: 1.12;
+    }
+
+    .pause-card span {
+      display: block;
+      margin-top: 6px;
+      color: rgba(255, 248, 240, .78);
+      font-size: 13px;
+      line-height: 1.3;
+    }
+
+    .resume-button {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      min-height: 42px;
+      margin-top: 14px;
+      padding: 10px 16px;
+      border: 0;
+      border-radius: 999px;
+      background: var(--peach);
+      color: var(--plum-deep);
+      font-size: 14px;
+      font-weight: 800;
+      cursor: pointer;
+    }
+
+    .player-controls {
+      position: absolute;
+      z-index: 6;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      padding: 0 16px 17px;
+      background: linear-gradient(180deg, rgba(0, 0, 0, 0), rgba(0, 0, 0, .58));
+      pointer-events: none;
+    }
+
+    .control-button {
+      display: inline-grid;
+      width: 32px;
+      height: 32px;
+      padding: 0;
+      border: 0;
+      place-items: center;
+      background: transparent;
+      color: #fff;
+      cursor: pointer;
+      pointer-events: auto;
+    }
+
+    .control-button svg {
+      width: 26px;
+      height: 26px;
+      fill: currentColor;
+    }
+
+    .control-spacer {
+      flex: 1;
+    }
+
+    .pause-icon,
+    .video-shell.is-playing .play-icon,
+    .video-shell.is-muted .volume-on-icon,
+    .volume-off-icon {
+      display: none;
+    }
+
+    .video-shell.is-playing .pause-icon,
+    .video-shell.is-muted .volume-off-icon {
+      display: block;
+    }
+
+    .fake-progress {
+      position: absolute;
+      z-index: 7;
+      right: 0;
+      bottom: 0;
+      left: 0;
+      height: 8px;
+      background: rgba(255, 255, 255, .16);
+    }
+
+    .fake-progress span {
+      display: block;
+      width: 0%;
+      height: 100%;
+      background: #d18308;
+      box-shadow: 0 0 18px rgba(209, 131, 8, .45);
+      transition: width .25s linear;
+    }
+
     .next-step {
       display: none;
       width: min(100%, 420px);
@@ -178,6 +342,10 @@
       .intro { padding: 14px 16px; }
       .hero { padding: 13px 16px; }
       .video-shell { border-radius: 10px; }
+      .center-play {
+        width: 68px;
+        height: 68px;
+      }
     }
 
     @media (max-height: 700px) {
@@ -201,6 +369,7 @@
     }
 
     @media (prefers-reduced-motion: reduce) {
+      .center-play,
       .next-step,
       .cta { transition: none; }
     }
@@ -214,7 +383,29 @@
   <main class="hero">
     <div class="content">
       <div class="video-shell">
-        <iframe src="https://www.youtube-nocookie.com/embed/ijU9gvvB_mg?rel=0&playsinline=1&enablejsapi=1" title="VSL da Dra. Emanuele: Agenda Blindada para clínicas" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <iframe src="https://www.youtube-nocookie.com/embed/ijU9gvvB_mg?rel=0&playsinline=1&enablejsapi=1&controls=0&modestbranding=1&disablekb=1" title="VSL da Dra. Emanuele: Agenda Blindada para clínicas" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <button class="video-click-layer" type="button" aria-label="Reproduzir ou pausar vídeo"></button>
+        <button class="center-play" type="button" aria-label="Reproduzir vídeo"></button>
+        <div class="pause-card" hidden>
+          <strong>Continue assistindo</strong>
+          <span>Você já começou esse vídeo. Toque para continuar de onde parou.</span>
+          <button class="resume-button" type="button">Continuar assistindo</button>
+        </div>
+        <div class="player-controls" aria-label="Controles do vídeo">
+          <button class="control-button play-toggle" type="button" aria-label="Reproduzir ou pausar vídeo">
+            <svg class="play-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M8 5v14l11-7z"/></svg>
+            <svg class="pause-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M6 5h4v14H6zm8 0h4v14h-4z"/></svg>
+          </button>
+          <button class="control-button mute-toggle" type="button" aria-label="Ativar ou desativar som">
+            <svg class="volume-on-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm13.5 3A4.5 4.5 0 0 0 14 8v8a4.5 4.5 0 0 0 2.5-4zm0-7.6v2.1A8 8 0 0 1 20 12a8 8 0 0 1-3.5 5.5v2.1A10 10 0 0 0 22 12a10 10 0 0 0-5.5-7.6z"/></svg>
+            <svg class="volume-off-icon" viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3zm14.6 3 2.7-2.7-1.4-1.4-2.7 2.7-2.7-2.7-1.4 1.4 2.7 2.7-2.7 2.7 1.4 1.4 2.7-2.7 2.7 2.7 1.4-1.4z"/></svg>
+          </button>
+          <span class="control-spacer"></span>
+          <button class="control-button fullscreen-toggle" type="button" aria-label="Tela cheia">
+            <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M5 5h6v2H7v4H5V5zm8 0h6v6h-2V7h-4V5zM5 13h2v4h4v2H5v-6zm12 4v-4h2v6h-6v-2h4z"/></svg>
+          </button>
+        </div>
+        <div class="fake-progress" aria-hidden="true"><span></span></div>
       </div>
 
       <section class="next-step" aria-label="Próximo passo" aria-hidden="true">
@@ -228,10 +419,23 @@
   <script>
     // O preço da VSL começa por volta de 3min40s no roteiro enviado.
     const PURCHASE_BUTTON_REVEAL_SECONDS = 220;
+    const FAKE_PROGRESS_MAX = 98;
     const purchaseStep = document.querySelector(".next-step");
+    const videoShell = document.querySelector(".video-shell");
     const videoFrame = document.querySelector(".video-shell iframe");
+    const playButtons = document.querySelectorAll(".play-toggle, .center-play, .video-click-layer, .resume-button");
+    const muteButton = document.querySelector(".mute-toggle");
+    const fullscreenButton = document.querySelector(".fullscreen-toggle");
+    const pauseCard = document.querySelector(".pause-card");
+    const progressFill = document.querySelector(".fake-progress span");
     let purchaseButtonVisible = false;
     let playerCheckTimer = null;
+    let player = null;
+    let playerReady = false;
+    let hasStarted = false;
+    let fakeProgress = 0;
+    let progressRaf = null;
+    let lastProgressTick = null;
 
     function revealPurchaseButton() {
       if (purchaseButtonVisible || !purchaseStep) return;
@@ -257,16 +461,98 @@
       checkTime();
     }
 
+    function updatePlayerState(isPlaying) {
+      videoShell?.classList.toggle("is-playing", isPlaying);
+      if (isPlaying) {
+        hasStarted = true;
+        pauseCard.hidden = true;
+        startFakeProgress();
+      } else {
+        stopFakeProgress();
+      }
+    }
+
+    function startFakeProgress() {
+      if (progressRaf) return;
+      lastProgressTick = performance.now();
+
+      const step = (now) => {
+        const elapsedSeconds = Math.max(0, (now - lastProgressTick) / 1000);
+        lastProgressTick = now;
+
+        let rate = .0116;
+        if (fakeProgress >= 70) rate = .003;
+        if (fakeProgress >= 90) rate = .00055;
+
+        fakeProgress = Math.min(FAKE_PROGRESS_MAX, fakeProgress + elapsedSeconds * rate * 100);
+        if (progressFill) progressFill.style.width = `${fakeProgress}%`;
+        progressRaf = window.requestAnimationFrame(step);
+      };
+
+      progressRaf = window.requestAnimationFrame(step);
+    }
+
+    function stopFakeProgress() {
+      if (!progressRaf) return;
+      window.cancelAnimationFrame(progressRaf);
+      progressRaf = null;
+      lastProgressTick = null;
+    }
+
+    function togglePlayback() {
+      if (!playerReady || !player) return;
+      const state = player.getPlayerState();
+      if (state === YT.PlayerState.PLAYING) {
+        player.pauseVideo();
+        return;
+      }
+      pauseCard.hidden = true;
+      player.playVideo();
+    }
+
+    function toggleMute() {
+      if (!playerReady || !player) return;
+      if (player.isMuted()) {
+        player.unMute();
+        videoShell?.classList.remove("is-muted");
+        return;
+      }
+      player.mute();
+      videoShell?.classList.add("is-muted");
+    }
+
+    function toggleFullscreen() {
+      if (!videoShell) return;
+      if (document.fullscreenElement) {
+        document.exitFullscreen?.();
+        return;
+      }
+      videoShell.requestFullscreen?.();
+    }
+
     window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReady() {
       if (!videoFrame || !window.YT?.Player) return;
 
-      new YT.Player(videoFrame, {
+      player = new YT.Player(videoFrame, {
         events: {
           onReady(event) {
+            playerReady = true;
+            videoShell?.classList.toggle("is-muted", event.target.isMuted());
             startPlayerTimeCheck(event.target);
           },
           onStateChange(event) {
+            if (event.data === YT.PlayerState.PLAYING) {
+              updatePlayerState(true);
+            }
+
+            if (event.data === YT.PlayerState.PAUSED) {
+              updatePlayerState(false);
+              if (hasStarted && pauseCard) pauseCard.hidden = false;
+            }
+
             if (event.data === YT.PlayerState.ENDED) {
+              updatePlayerState(false);
+              if (progressFill) progressFill.style.width = "100%";
               revealPurchaseButton();
             }
           }
@@ -279,6 +565,13 @@
       apiScript.src = "https://www.youtube.com/iframe_api";
       document.head.appendChild(apiScript);
     }
+
+    playButtons.forEach((button) => {
+      button.addEventListener("click", togglePlayback);
+    });
+
+    muteButton?.addEventListener("click", toggleMute);
+    fullscreenButton?.addEventListener("click", toggleFullscreen);
   </script>
 </body>
 </html>
