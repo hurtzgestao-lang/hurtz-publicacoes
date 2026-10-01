@@ -104,7 +104,7 @@
       box-shadow: 0 28px 72px rgba(10, 7, 11, .5);
     }
 
-    .video-shell iframe {
+    .video-shell video {
       display: block;
       position: absolute;
       top: 0;
@@ -159,29 +159,6 @@
       transform: translate(-50%, -50%) scale(.92);
     }
 
-    .youtube-top-cover,
-    .youtube-bottom-cover {
-      position: absolute;
-      right: 0;
-      left: 0;
-      z-index: 3;
-      pointer-events: none;
-    }
-
-    .youtube-top-cover {
-      top: 0;
-      height: 112px;
-      border-radius: 18px 18px 0 0;
-      background: linear-gradient(180deg, #050505, #050505 58%, rgba(0, 0, 0, .82) 82%, rgba(0, 0, 0, 0));
-    }
-
-    .youtube-bottom-cover {
-      bottom: 0;
-      height: 92px;
-      border-radius: 0 0 18px 18px;
-      background: linear-gradient(0deg, rgba(0, 0, 0, .88), rgba(0, 0, 0, .58) 48%, rgba(0, 0, 0, 0));
-    }
-
     .pause-card {
       position: absolute;
       z-index: 8;
@@ -190,8 +167,8 @@
       flex-direction: column;
       align-items: center;
       justify-content: center;
-      gap: 14px;
-      padding: 28px 22px;
+      gap: 10px;
+      padding: 24px 20px;
       border-radius: 18px;
       background: #050505;
       color: #fff;
@@ -221,15 +198,15 @@
 
     .pause-sign {
       display: grid;
-      width: 74px;
-      height: 74px;
-      border: 5px solid #fff;
-      border-radius: 18px;
+      width: 58px;
+      height: 58px;
+      border: 4px solid #fff;
+      border-radius: 14px;
       place-items: center;
       background: #ff2f2f;
       box-shadow: 0 0 0 4px rgba(255, 47, 47, .35), 0 12px 30px rgba(255, 47, 47, .2);
       color: #fff;
-      font-size: 38px;
+      font-size: 29px;
       line-height: 1;
       transform: rotate(45deg);
       animation: signPulse .9s ease-in-out infinite;
@@ -246,18 +223,18 @@
 
     .pause-card strong {
       display: block;
-      width: min(100%, 360px);
-      margin-top: 4px;
-      font-size: clamp(20px, 4.8vw, 27px);
-      line-height: 1.22;
+      width: min(100%, 300px);
+      margin-top: 2px;
+      font-size: clamp(16px, 4vw, 21px);
+      line-height: 1.2;
       text-shadow: 0 2px 18px rgba(0, 0, 0, .45);
     }
 
     .pause-card span {
       display: block;
-      width: min(100%, 330px);
-      color: rgba(255, 255, 255, .9);
-      font-size: clamp(16px, 3.9vw, 21px);
+      width: min(100%, 285px);
+      color: rgba(255, 255, 255, .88);
+      font-size: clamp(13px, 3.3vw, 17px);
       font-weight: 800;
       line-height: 1.25;
     }
@@ -268,16 +245,16 @@
       align-items: center;
       justify-content: center;
       gap: 7px;
-      width: min(100%, 330px);
-      min-height: 54px;
-      margin-top: 6px;
-      padding: 12px 18px;
+      width: min(100%, 285px);
+      min-height: 46px;
+      margin-top: 5px;
+      padding: 10px 16px;
       border: 0;
       border-radius: 999px;
       background: #ff3935;
       box-shadow: 0 13px 30px rgba(255, 57, 53, .25);
       color: #fff;
-      font-size: clamp(17px, 4.4vw, 24px);
+      font-size: clamp(14px, 3.8vw, 18px);
       font-weight: 900;
       letter-spacing: .02em;
       cursor: pointer;
@@ -287,7 +264,7 @@
     .resume-button .click-hand {
       width: auto;
       color: inherit;
-      font-size: 24px;
+      font-size: 18px;
       line-height: 1;
       transform: translateY(2px);
     }
@@ -484,11 +461,9 @@
   <main class="hero">
     <div class="content">
       <div class="video-shell">
-        <iframe src="https://www.youtube-nocookie.com/embed/ijU9gvvB_mg?rel=0&playsinline=1&enablejsapi=1&controls=0&modestbranding=1&disablekb=1" title="VSL da Dra. Emanuele: Agenda Blindada para clínicas" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" allowfullscreen referrerpolicy="strict-origin-when-cross-origin"></iframe>
+        <video src="assets/video/agenda-blindada-vsl-360p.mp4" poster="assets/video/agenda-blindada-poster.jpg" preload="metadata" playsinline aria-label="VSL da Dra. Emanuele: Agenda Blindada para clínicas"></video>
         <button class="video-click-layer" type="button" aria-label="Reproduzir ou pausar vídeo"></button>
         <button class="center-play" type="button" aria-label="Reproduzir vídeo"></button>
-        <div class="youtube-top-cover" aria-hidden="true"></div>
-        <div class="youtube-bottom-cover" aria-hidden="true"></div>
         <div class="pause-card" hidden>
           <div class="pause-sign" aria-hidden="true"><span>✋</span></div>
           <strong>Este vídeo ficará fora do ar em breve.</strong>
@@ -526,16 +501,13 @@
     const FAKE_PROGRESS_MAX = 98;
     const purchaseStep = document.querySelector(".next-step");
     const videoShell = document.querySelector(".video-shell");
-    const videoFrame = document.querySelector(".video-shell iframe");
+    const videoEl = document.querySelector(".video-shell video");
     const playButtons = document.querySelectorAll(".play-toggle, .center-play, .video-click-layer, .resume-button");
     const muteButton = document.querySelector(".mute-toggle");
     const fullscreenButton = document.querySelector(".fullscreen-toggle");
     const pauseCard = document.querySelector(".pause-card");
     const progressFill = document.querySelector(".fake-progress span");
     let purchaseButtonVisible = false;
-    let playerCheckTimer = null;
-    let player = null;
-    let playerReady = false;
     let hasStarted = false;
     let fakeProgress = 0;
     let progressRaf = null;
@@ -546,23 +518,11 @@
       purchaseButtonVisible = true;
       purchaseStep.classList.add("is-visible");
       purchaseStep.removeAttribute("aria-hidden");
-      if (playerCheckTimer) window.clearInterval(playerCheckTimer);
     }
 
-    function startPlayerTimeCheck(player) {
-      const checkTime = () => {
-        try {
-          const currentTime = player.getCurrentTime();
-          if (currentTime >= PURCHASE_BUTTON_REVEAL_SECONDS) {
-            revealPurchaseButton();
-          }
-        } catch (error) {
-          window.clearInterval(playerCheckTimer);
-        }
-      };
-
-      playerCheckTimer = window.setInterval(checkTime, 500);
-      checkTime();
+    function checkPurchaseTime() {
+      if (!videoEl) return;
+      if (videoEl.currentTime >= PURCHASE_BUTTON_REVEAL_SECONDS) revealPurchaseButton();
     }
 
     function updatePlayerState(isPlaying) {
@@ -603,27 +563,34 @@
       lastProgressTick = null;
     }
 
-    function togglePlayback() {
-      if (!playerReady || !player) return;
-      const state = player.getPlayerState();
-      if (state === YT.PlayerState.PLAYING) {
-        player.pauseVideo();
+    async function togglePlayback() {
+      if (!videoEl) return;
+
+      if (!videoEl.paused && !videoEl.ended) {
+        videoEl.pause();
         return;
       }
+
+      if (videoEl.ended) {
+        videoEl.currentTime = 0;
+        fakeProgress = 0;
+        if (progressFill) progressFill.style.width = "0%";
+      }
+
       pauseCard.hidden = true;
       updatePlayerState(true);
-      player.playVideo();
+
+      try {
+        await videoEl.play();
+      } catch (error) {
+        updatePlayerState(false);
+      }
     }
 
     function toggleMute() {
-      if (!playerReady || !player) return;
-      if (player.isMuted()) {
-        player.unMute();
-        videoShell?.classList.remove("is-muted");
-        return;
-      }
-      player.mute();
-      videoShell?.classList.add("is-muted");
+      if (!videoEl) return;
+      videoEl.muted = !videoEl.muted;
+      videoShell?.classList.toggle("is-muted", videoEl.muted);
     }
 
     function toggleFullscreen() {
@@ -635,48 +602,30 @@
       videoShell.requestFullscreen?.();
     }
 
-    window.onYouTubeIframeAPIReady = function onYouTubeIframeAPIReady() {
-      if (!videoFrame || !window.YT?.Player) return;
-
-      player = new YT.Player(videoFrame, {
-        events: {
-          onReady(event) {
-            playerReady = true;
-            videoShell?.classList.toggle("is-muted", event.target.isMuted());
-            startPlayerTimeCheck(event.target);
-          },
-          onStateChange(event) {
-            if (event.data === YT.PlayerState.PLAYING) {
-              updatePlayerState(true);
-            }
-
-            if (event.data === YT.PlayerState.PAUSED) {
-              updatePlayerState(false);
-              if (hasStarted && pauseCard) pauseCard.hidden = false;
-            }
-
-            if (event.data === YT.PlayerState.ENDED) {
-              updatePlayerState(false);
-              if (progressFill) progressFill.style.width = "100%";
-              revealPurchaseButton();
-            }
-          }
-        }
-      });
-    };
-
-    if (videoFrame) {
-      const apiScript = document.createElement("script");
-      apiScript.src = "https://www.youtube.com/iframe_api";
-      document.head.appendChild(apiScript);
-    }
-
     playButtons.forEach((button) => {
       button.addEventListener("click", togglePlayback);
     });
 
     muteButton?.addEventListener("click", toggleMute);
     fullscreenButton?.addEventListener("click", toggleFullscreen);
+
+    if (videoEl) {
+      videoShell?.classList.toggle("is-muted", videoEl.muted);
+      videoEl.addEventListener("play", () => updatePlayerState(true));
+      videoEl.addEventListener("pause", () => {
+        updatePlayerState(false);
+        if (hasStarted && !videoEl.ended && pauseCard) pauseCard.hidden = false;
+      });
+      videoEl.addEventListener("ended", () => {
+        updatePlayerState(false);
+        if (progressFill) progressFill.style.width = "100%";
+        revealPurchaseButton();
+      });
+      videoEl.addEventListener("timeupdate", checkPurchaseTime);
+      videoEl.addEventListener("seeking", checkPurchaseTime);
+      videoEl.addEventListener("seeked", checkPurchaseTime);
+      videoEl.addEventListener("loadedmetadata", checkPurchaseTime);
+    }
   </script>
 </body>
 </html>
