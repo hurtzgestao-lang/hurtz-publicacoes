@@ -1,86 +1,57 @@
 {
   "account": "act_231032979805764",
-  "since": "2026-07-08",
-  "until": "2026-10-05",
   "campaigns": [
     {
-      "id": "120252045258480202",
-      "name": "Formulário - Otomodelação - São Luís"
-    },
-    {
-      "id": "120252044645930202",
-      "name": "Formulário - Oto de férias - Fortaleza"
-    },
-    {
       "id": "120250158450070202",
-      "name": "Formulário - Otomodelação - Belém do Pará"
+      "name": "Formulário - Otomodelação - Belém do Pará",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-06-05T17:53:41-0300"
     },
     {
       "id": "120248712371300202",
-      "name": "Fortaleza - Formulário - Otomodelação - Aspecto"
+      "name": "Fortaleza - Formulário - Otomodelação - Aspecto",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-05-14T15:02:59-0300"
+    },
+    {
+      "id": "120249472200290202",
+      "name": "Fortaleza - Formulário - Perfiloplastia - Aspecto",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-05-27T13:07:30-0300"
+    },
+    {
+      "id": "120252045258480202",
+      "name": "Formulário - Otomodelação - São Luís",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-07-08T10:19:56-0300"
+    },
+    {
+      "id": "120252373118860202",
+      "name": "Fortaleza - Formulário - Preenchimento Labial",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-07-20T17:19:59-0300"
+    },
+    {
+      "id": "120252044645930202",
+      "name": "Formulário - Oto de férias - Fortaleza",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-07-08T10:14:08-0300"
+    },
+    {
+      "id": "120252373342280202",
+      "name": "Marabá - Formulário - Otomodelação",
+      "status": "PAUSED",
+      "effective_status": "PAUSED",
+      "created_time": "2026-07-20T17:23:11-0300"
     }
   ],
   "creatives": [
-    {
-      "campaign_id": "120252045258480202",
-      "campaign_name": "Formulário - Otomodelação - São Luís",
-      "creative_id": "4459790480899971",
-      "creative_name": "Fale conosco 2026-07-08-e7868e95d671c29e0dc454099692ea65",
-      "object_type": "SHARE",
-      "instagram_permalink_url": "https://www.instagram.com/p/DaiIm10gA15/",
-      "story_id": "108346528406771_1020091100566656",
-      "ad_ids": [
-        "120252045258500202"
-      ],
-      "ad_names": [
-        "Ads - Oto de férias"
-      ],
-      "impressions": 104896,
-      "spend": 437.01000000000005,
-      "first_delivery": "2026-07-08",
-      "last_delivery": "2026-08-18",
-      "local_image": "assets/01-4459790480899971.jpg"
-    },
-    {
-      "campaign_id": "120252045258480202",
-      "campaign_name": "Formulário - Otomodelação - São Luís",
-      "creative_id": "1047124864376922",
-      "creative_name": "Fale conosco 2026-07-29-58dc769bc4c587740c8a0a7023e4d3d4",
-      "object_type": "SHARE",
-      "instagram_permalink_url": "https://www.instagram.com/p/DbYiWYTgFHa/",
-      "story_id": "108346528406771_1036941598881606",
-      "ad_ids": [
-        "120252373011310202"
-      ],
-      "ad_names": [
-        "Ads - Oto especial"
-      ],
-      "impressions": 64800,
-      "spend": 616.4399999999999,
-      "first_delivery": "2026-07-20",
-      "last_delivery": "2026-09-09",
-      "local_image": "assets/02-1047124864376922.jpg"
-    },
-    {
-      "campaign_id": "120252044645930202",
-      "campaign_name": "Formulário - Oto de férias - Fortaleza",
-      "creative_id": "2883155855373044",
-      "creative_name": "Fale conosco 2026-07-29-4f616e9e35966893a1a9105d8b2d7d6a",
-      "object_type": "SHARE",
-      "instagram_permalink_url": "https://www.instagram.com/p/DbYiWoVAHqw/",
-      "story_id": "108346528406771_1036941685548264",
-      "ad_ids": [
-        "120252044645940202"
-      ],
-      "ad_names": [
-        "Ads - Oto - Fortaleza"
-      ],
-      "impressions": 86933,
-      "spend": 423.67,
-      "first_delivery": "2026-07-08",
-      "last_delivery": "2026-07-31",
-      "local_image": "assets/03-2883155855373044.jpg"
-    },
     {
       "campaign_id": "120250158450070202",
       "campaign_name": "Formulário - Otomodelação - Belém do Pará",
@@ -95,11 +66,9 @@
       "ad_names": [
         "Ads - Belém"
       ],
-      "impressions": 173237,
-      "spend": 1829.0800000000008,
-      "first_delivery": "2026-07-08",
-      "last_delivery": "2026-09-14",
-      "local_image": "assets/04-2555826358184694.jpg"
+      "impressions": 228471,
+      "spend": 2368.55,
+      "local_image": "01-2555826358184694.jpg"
     },
     {
       "campaign_id": "120250158450070202",
@@ -117,9 +86,7 @@
       ],
       "impressions": 71818,
       "spend": 491.72,
-      "first_delivery": "2026-08-14",
-      "last_delivery": "2026-09-14",
-      "local_image": "assets/05-2105967743671218.jpg"
+      "local_image": "02-2105967743671218.jpg"
     },
     {
       "campaign_id": "120250158450070202",
@@ -136,10 +103,44 @@
         "Ads - Oto especial"
       ],
       "impressions": 35704,
-      "spend": 337.4100000000001,
-      "first_delivery": "2026-07-20",
-      "last_delivery": "2026-08-03",
-      "local_image": "assets/06-975651798856845.jpg"
+      "spend": 337.41,
+      "local_image": "03-975651798856845.jpg"
+    },
+    {
+      "campaign_id": "120250158450070202",
+      "campaign_name": "Formulário - Otomodelação - Belém do Pará",
+      "creative_id": "988674760804086",
+      "creative_name": "Fale conosco 2026-06-08-a4fb175cbffcf58a168722dfbf19a183",
+      "object_type": "SHARE",
+      "instagram_permalink_url": "https://www.instagram.com/p/DZUusmtAHAS/",
+      "story_id": "108346528406771_994775329764900",
+      "ad_ids": [
+        "120250342104210202"
+      ],
+      "ad_names": [
+        "Ads - Belém"
+      ],
+      "impressions": 19269,
+      "spend": 181.07,
+      "local_image": "04-988674760804086.jpg"
+    },
+    {
+      "campaign_id": "120250158450070202",
+      "campaign_name": "Formulário - Otomodelação - Belém do Pará",
+      "creative_id": "1276158187627987",
+      "creative_name": "Fale conosco 2026-06-05-ac3f14f7451a25b193137d30bf827d31",
+      "object_type": "SHARE",
+      "instagram_permalink_url": "https://www.instagram.com/p/DZN-TYJgOu3/",
+      "story_id": "108346528406771_992550526654047",
+      "ad_ids": [
+        "120250158450060202"
+      ],
+      "ad_names": [
+        "Ads - famosos"
+      ],
+      "impressions": 6059,
+      "spend": 58.56,
+      "local_image": "05-1276158187627987.jpg"
     },
     {
       "campaign_id": "120248712371300202",
@@ -155,11 +156,9 @@
       "ad_names": [
         "Ads 01 - vermelho (modelo)"
       ],
-      "impressions": 149217,
-      "spend": 938.1300000000005,
-      "first_delivery": "2026-07-08",
-      "last_delivery": "2026-08-31",
-      "local_image": "assets/07-1045859798309234.jpg"
+      "impressions": 317288,
+      "spend": 1990.16,
+      "local_image": "06-1045859798309234.jpg"
     },
     {
       "campaign_id": "120248712371300202",
@@ -176,10 +175,8 @@
         "Ads 01 - oto especial"
       ],
       "impressions": 36908,
-      "spend": 337.09999999999997,
-      "first_delivery": "2026-07-20",
-      "last_delivery": "2026-08-07",
-      "local_image": "assets/08-2074317016772250.jpg"
+      "spend": 337.1,
+      "local_image": "07-2074317016772250.jpg"
     },
     {
       "campaign_id": "120248712371300202",
@@ -197,9 +194,133 @@
       ],
       "impressions": 13785,
       "spend": 150.42,
-      "first_delivery": "2026-08-14",
-      "last_delivery": "2026-08-21",
-      "local_image": "assets/09-1101512916149544.jpg"
+      "local_image": "08-1101512916149544.jpg"
+    },
+    {
+      "campaign_id": "120249472200290202",
+      "campaign_name": "Fortaleza - Formulário - Perfiloplastia - Aspecto",
+      "creative_id": "1020446150812765",
+      "creative_name": "Fale conosco 2026-07-29-1b7b778d6878401bd63524f7204e00db",
+      "object_type": "SHARE",
+      "instagram_permalink_url": "https://www.instagram.com/p/DbYiWlFgJ0v/",
+      "story_id": "108346528406771_1036941678881598",
+      "ad_ids": [
+        "120250885326460202"
+      ],
+      "ad_names": [
+        "Ads 01 - harmonização"
+      ],
+      "impressions": 67994,
+      "spend": 854.41,
+      "local_image": "09-1020446150812765.jpg"
+    },
+    {
+      "campaign_id": "120249472200290202",
+      "campaign_name": "Fortaleza - Formulário - Perfiloplastia - Aspecto",
+      "creative_id": "1298119312093747",
+      "creative_name": "Fale conosco 2026-07-01-3f42893deb3947c616c14045506b5d16",
+      "object_type": "SHARE",
+      "instagram_permalink_url": "https://www.instagram.com/p/DaQJwe3gCM8/",
+      "story_id": "108346528406771_1014059621169804",
+      "ad_ids": [
+        "120249472200300202"
+      ],
+      "ad_names": [
+        "Ads 01 - vermelho (modelo)"
+      ],
+      "impressions": 31965,
+      "spend": 367.64,
+      "local_image": "10-1298119312093747.jpg"
+    },
+    {
+      "campaign_id": "120252045258480202",
+      "campaign_name": "Formulário - Otomodelação - São Luís",
+      "creative_id": "4459790480899971",
+      "creative_name": "Fale conosco 2026-07-08-e7868e95d671c29e0dc454099692ea65",
+      "object_type": "SHARE",
+      "instagram_permalink_url": "https://www.instagram.com/p/DaiIm10gA15/",
+      "story_id": "108346528406771_1020091100566656",
+      "ad_ids": [
+        "120252045258500202"
+      ],
+      "ad_names": [
+        "Ads - Oto de férias"
+      ],
+      "impressions": 104896,
+      "spend": 437.01,
+      "local_image": "11-4459790480899971.jpg"
+    },
+    {
+      "campaign_id": "120252045258480202",
+      "campaign_name": "Formulário - Otomodelação - São Luís",
+      "creative_id": "1047124864376922",
+      "creative_name": "Fale conosco 2026-07-29-58dc769bc4c587740c8a0a7023e4d3d4",
+      "object_type": "SHARE",
+      "instagram_permalink_url": "https://www.instagram.com/p/DbYiWYTgFHa/",
+      "story_id": "108346528406771_1036941598881606",
+      "ad_ids": [
+        "120252373011310202"
+      ],
+      "ad_names": [
+        "Ads - Oto especial"
+      ],
+      "impressions": 64800,
+      "spend": 616.44,
+      "local_image": "12-1047124864376922.jpg"
+    },
+    {
+      "campaign_id": "120252373118860202",
+      "campaign_name": "Fortaleza - Formulário - Preenchimento Labial",
+      "creative_id": "1367651572010201",
+      "creative_name": "Fale conosco 2026-07-29-eb1e8163ccc7fe5d87057c033aacbd4d",
+      "object_type": "SHARE",
+      "instagram_permalink_url": "https://www.instagram.com/p/DbYiWqrgeDE/",
+      "story_id": "108346528406771_1036941712214928",
+      "ad_ids": [
+        "120252373118870202"
+      ],
+      "ad_names": [
+        "Ads 01 - boca"
+      ],
+      "impressions": 39437,
+      "spend": 433.02,
+      "local_image": "13-1367651572010201.jpg"
+    },
+    {
+      "campaign_id": "120252044645930202",
+      "campaign_name": "Formulário - Oto de férias - Fortaleza",
+      "creative_id": "2883155855373044",
+      "creative_name": "Fale conosco 2026-07-29-4f616e9e35966893a1a9105d8b2d7d6a",
+      "object_type": "SHARE",
+      "instagram_permalink_url": "https://www.instagram.com/p/DbYiWoVAHqw/",
+      "story_id": "108346528406771_1036941685548264",
+      "ad_ids": [
+        "120252044645940202"
+      ],
+      "ad_names": [
+        "Ads - Oto - Fortaleza"
+      ],
+      "impressions": 86933,
+      "spend": 423.67,
+      "local_image": "14-2883155855373044.jpg"
+    },
+    {
+      "campaign_id": "120252373342280202",
+      "campaign_name": "Marabá - Formulário - Otomodelação",
+      "creative_id": "1584989649808423",
+      "creative_name": "Fale conosco 2026-08-05-46f526c647b75a977d82e05487129cba",
+      "object_type": "SHARE",
+      "instagram_permalink_url": "https://www.instagram.com/p/DbqFuFwglM8/",
+      "story_id": "108346528406771_1042708744971558",
+      "ad_ids": [
+        "120252373342310202"
+      ],
+      "ad_names": [
+        "Ads 01 - oto especial"
+      ],
+      "impressions": 52539,
+      "spend": 316,
+      "local_image": "15-1584989649808423.jpg"
     }
   ]
 }
