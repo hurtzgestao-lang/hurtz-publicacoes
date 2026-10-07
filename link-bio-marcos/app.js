@@ -474,9 +474,6 @@
       `Faturamento: ${data.faturamento || ""}`,
     ];
 
-    const trackingRows = Object.entries(tracking).map(([key, value]) => `${key}: ${value}`);
-    if (trackingRows.length) rows.push("", "Origem:", ...trackingRows);
-
     return `https://wa.me/${WHATSAPP_NUMBER}?text=${encodeURIComponent(rows.join("\n"))}`;
   }
 
