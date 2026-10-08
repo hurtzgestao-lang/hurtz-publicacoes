@@ -518,6 +518,21 @@
     const fullscreenButton = document.querySelector(".fullscreen-toggle");
     const pauseCard = document.querySelector(".pause-card");
     const progressFill = document.querySelector(".fake-progress span");
+    const checkoutLinks = document.querySelectorAll('a[href*="pay.kiwify.com.br"]');
+
+    function trackInitiateCheckout() {
+      if (typeof window.fbq !== "function") return;
+      window.fbq("track", "InitiateCheckout", {
+        content_name: "Agenda Blindada",
+        content_category: "checkout_kiwify",
+        source: "vsl_dra_manu"
+      });
+    }
+
+    checkoutLinks.forEach((link) => {
+      link.addEventListener("click", trackInitiateCheckout);
+    });
+
     let purchaseButtonVisible = false;
     let hasStarted = false;
     let fakeProgress = 0;
