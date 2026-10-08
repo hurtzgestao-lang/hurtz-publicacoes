@@ -864,6 +864,17 @@
       }
     }
   </style>
+  <!-- Meta Pixel · Pixel de Emanuele -->
+  <script>
+    !function(f,b,e,v,n,t,s){if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+    n.callMethod.apply(n,arguments):n.queue.push(arguments)};if(!f._fbq)f._fbq=n;
+    n.push=n;n.loaded=!0;n.version='2.0';n.queue=[];t=b.createElement(e);t.async=!0;
+    t.src=v;s=b.getElementsByTagName(e)[0];s.parentNode.insertBefore(t,s)}(window,
+    document,'script','https://connect.facebook.net/en_US/fbevents.js');
+    fbq('init', '3227592124095348');
+    fbq('track', 'PageView');
+  </script>
+  <noscript><img height="1" width="1" style="display:none" src="https://www.facebook.com/tr?id=3227592124095348&ev=PageView&noscript=1" alt=""></noscript>
 </head>
 <body>
   <main class="app" id="app">
@@ -1360,6 +1371,7 @@
     async function finish() {
       state.done = true;
       saveLeadContextForVsl();
+      trackMetaLead();
       await sendLeadToKommo();
       window.location.assign(vslCheckoutUrl);
     }
@@ -1381,6 +1393,16 @@
       } catch {
         // Se o navegador bloquear sessionStorage, a VSL com checkout ainda abre normalmente.
       }
+    }
+
+
+    function trackMetaLead() {
+      if (typeof window.fbq !== "function") return;
+      window.fbq("track", "Lead", {
+        content_name: "Diagnóstico Dra. Manu",
+        content_category: "formulario_diagnostico",
+        source: "diagnostico_dra_manu"
+      });
     }
 
     async function sendLeadToKommo() {
