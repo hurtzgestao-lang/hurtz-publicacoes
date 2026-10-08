@@ -882,6 +882,7 @@
   <script>
     const manuAvatar = "assets/dra-manu-perfil.jpg";
     const vslCheckoutUrl = "https://pages.hurtzcompany.com.br/dra-emanuele-aula-agendamento/";
+    const kommoLeadEndpoint = "/api/dra-manu-kommo-lead";
     const sharedLeadContextKey = "dra-manu-lead-context-v1";
     const countries = [
       { code: "BR", dial: "+55" },
@@ -1359,6 +1360,7 @@
     async function finish() {
       state.done = true;
       saveLeadContextForVsl();
+      await sendLeadToKommo();
       window.location.assign(vslCheckoutUrl);
     }
 
@@ -1379,6 +1381,49 @@
       } catch {
         // Se o navegador bloquear sessionStorage, a VSL com checkout ainda abre normalmente.
       }
+    }
+
+    async function sendLeadToKommo() {
+      if (location.protocol === "file:") return;
+      const controller = new AbortController();
+      const timeout = window.setTimeout(() => controller.abort(), 4500);
+      try {
+        const response = await fetch(kommoLeadEndpoint, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          signal: controller.signal,
+          body: JSON.stringify({
+            source: "diagnostico-dra-manu",
+            page_url: location.href,
+            referrer: document.referrer || "",
+            user_agent: navigator.userAgent || "",
+            submitted_at: new Date().toISOString(),
+            utm: currentUtmParams(),
+            answers: {
+              nome: state.answers.nome || "",
+              email: state.answers.email || "",
+              telefone: state.answers.telefone || "",
+              instagram: state.answers.instagram || "",
+              situacao: state.answers.situacao || "",
+              faturamento: state.answers.faturamento || ""
+            }
+          })
+        });
+        if (!response.ok) console.warn("kommo_lead_failed", response.status, await response.text().catch(() => ""));
+      } catch (error) {
+        console.warn("kommo_lead_failed", error?.message || error);
+      } finally {
+        window.clearTimeout(timeout);
+      }
+    }
+
+    function currentUtmParams() {
+      const params = new URLSearchParams(location.search);
+      const keys = ["utm_source", "utm_medium", "utm_campaign", "utm_content", "utm_term", "fbclid", "gclid"];
+      return keys.reduce((acc, key) => {
+        if (params.has(key)) acc[key] = params.get(key);
+        return acc;
+      }, {});
     }
 
     function render() {
