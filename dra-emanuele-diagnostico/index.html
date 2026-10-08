@@ -1185,10 +1185,15 @@
     function hydrateInput() {
       const input = document.getElementById("answerInput");
       if (!input) return;
+      const hydratedStep = currentStep();
+      const hydratedField = hydratedStep?.field;
       const button = document.querySelector(".send");
       const field = input.closest(".field");
       const syncInput = () => {
-        if (currentStep().input === "phone") input.value = formatPhone(input.value);
+        // Eventos atrasados do input anterior podem disparar depois que a próxima pergunta já entrou na tela.
+        // Esse guard impede que o texto de uma pergunta preencha o campo da seguinte.
+        if (currentStep()?.field !== hydratedField) return;
+        if (hydratedStep.input === "phone") input.value = formatPhone(input.value);
         state.draft = input.value;
         state.error = "";
         const error = document.querySelector(".error");
