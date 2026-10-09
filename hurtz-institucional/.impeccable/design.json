@@ -1,63 +1,21 @@
 {
   "schemaVersion": 2,
-  "generatedAt": "2026-10-09T00:54:51.004867Z",
+  "generatedAt": "2026-10-09T01:21:03.059824+00:00",
   "title": "Design System: Hurtz institucional",
   "extensions": {
     "colorMeta": {
-      "brasa": {
-        "role": "primary",
-        "displayName": "Brasa 400",
+      "paper": {
+        "role": "neutral",
+        "displayName": "Papel",
         "tonalRamp": [
-          "oklch(15.00% 0.1452 51.02)",
-          "oklch(26.43% 0.1452 51.02)",
-          "oklch(37.86% 0.1452 51.02)",
-          "oklch(49.29% 0.1452 51.02)",
-          "oklch(60.71% 0.1452 51.02)",
-          "oklch(72.14% 0.1452 51.02)",
-          "oklch(83.57% 0.1452 51.02)",
-          "oklch(95.00% 0.1452 51.02)"
-        ]
-      },
-      "brasa-hover": {
-        "role": "primary",
-        "displayName": "Brasa 600",
-        "tonalRamp": [
-          "oklch(15.00% 0.1212 50.61)",
-          "oklch(26.43% 0.1212 50.61)",
-          "oklch(37.86% 0.1212 50.61)",
-          "oklch(49.29% 0.1212 50.61)",
-          "oklch(60.71% 0.1212 50.61)",
-          "oklch(72.14% 0.1212 50.61)",
-          "oklch(83.57% 0.1212 50.61)",
-          "oklch(95.00% 0.1212 50.61)"
-        ]
-      },
-      "action-hover": {
-        "role": "primary",
-        "displayName": "Brasa profunda de interação",
-        "tonalRamp": [
-          "oklch(15.00% 0.0981 51.13)",
-          "oklch(26.43% 0.0981 51.13)",
-          "oklch(37.86% 0.0981 51.13)",
-          "oklch(49.29% 0.0981 51.13)",
-          "oklch(60.71% 0.0981 51.13)",
-          "oklch(72.14% 0.0981 51.13)",
-          "oklch(83.57% 0.0981 51.13)",
-          "oklch(95.00% 0.0981 51.13)"
-        ]
-      },
-      "brasa-light": {
-        "role": "primary",
-        "displayName": "Brasa clara",
-        "tonalRamp": [
-          "oklch(15.00% 0.0917 59.29)",
-          "oklch(26.43% 0.0917 59.29)",
-          "oklch(37.86% 0.0917 59.29)",
-          "oklch(49.29% 0.0917 59.29)",
-          "oklch(60.71% 0.0917 59.29)",
-          "oklch(72.14% 0.0917 59.29)",
-          "oklch(83.57% 0.0917 59.29)",
-          "oklch(95.00% 0.0917 59.29)"
+          "oklch(15.00% 0.0086 84.57)",
+          "oklch(26.43% 0.0086 84.57)",
+          "oklch(37.86% 0.0086 84.57)",
+          "oklch(49.29% 0.0086 84.57)",
+          "oklch(60.71% 0.0086 84.57)",
+          "oklch(72.14% 0.0086 84.57)",
+          "oklch(83.57% 0.0086 84.57)",
+          "oklch(95.00% 0.0086 84.57)"
         ]
       },
       "ink": {
@@ -74,32 +32,18 @@
           "oklch(95.00% 0.0051 67.54)"
         ]
       },
-      "graphite": {
+      "surface": {
         "role": "neutral",
-        "displayName": "Grafite",
+        "displayName": "Superfície escura",
         "tonalRamp": [
-          "oklch(15.00% 0.0080 75.30)",
-          "oklch(26.43% 0.0080 75.30)",
-          "oklch(37.86% 0.0080 75.30)",
-          "oklch(49.29% 0.0080 75.30)",
-          "oklch(60.71% 0.0080 75.30)",
-          "oklch(72.14% 0.0080 75.30)",
-          "oklch(83.57% 0.0080 75.30)",
-          "oklch(95.00% 0.0080 75.30)"
-        ]
-      },
-      "paper": {
-        "role": "neutral",
-        "displayName": "Papel",
-        "tonalRamp": [
-          "oklch(15.00% 0.0086 84.57)",
-          "oklch(26.43% 0.0086 84.57)",
-          "oklch(37.86% 0.0086 84.57)",
-          "oklch(49.29% 0.0086 84.57)",
-          "oklch(60.71% 0.0086 84.57)",
-          "oklch(72.14% 0.0086 84.57)",
-          "oklch(83.57% 0.0086 84.57)",
-          "oklch(95.00% 0.0086 84.57)"
+          "oklch(15.00% 0.0072 67.48)",
+          "oklch(26.43% 0.0072 67.48)",
+          "oklch(37.86% 0.0072 67.48)",
+          "oklch(49.29% 0.0072 67.48)",
+          "oklch(60.71% 0.0072 67.48)",
+          "oklch(72.14% 0.0072 67.48)",
+          "oklch(83.57% 0.0072 67.48)",
+          "oklch(95.00% 0.0072 67.48)"
         ]
       },
       "sand": {
@@ -116,7 +60,67 @@
           "oklch(95.00% 0.0116 84.58)"
         ]
       },
-      "secondary": {
+      "brasa": {
+        "role": "primary",
+        "displayName": "Brasa",
+        "tonalRamp": [
+          "oklch(15.00% 0.1452 51.02)",
+          "oklch(26.43% 0.1452 51.02)",
+          "oklch(37.86% 0.1452 51.02)",
+          "oklch(49.29% 0.1452 51.02)",
+          "oklch(60.71% 0.1452 51.02)",
+          "oklch(72.14% 0.1452 51.02)",
+          "oklch(83.57% 0.1452 51.02)",
+          "oklch(95.00% 0.1452 51.02)"
+        ]
+      },
+      "strong": {
+        "role": "primary",
+        "displayName": "Brasa forte",
+        "tonalRamp": [
+          "oklch(15.00% 0.1212 50.61)",
+          "oklch(26.43% 0.1212 50.61)",
+          "oklch(37.86% 0.1212 50.61)",
+          "oklch(49.29% 0.1212 50.61)",
+          "oklch(60.71% 0.1212 50.61)",
+          "oklch(72.14% 0.1212 50.61)",
+          "oklch(83.57% 0.1212 50.61)",
+          "oklch(95.00% 0.1212 50.61)"
+        ]
+      },
+      "deeper": {
+        "role": "primary",
+        "displayName": "Brasa profunda",
+        "tonalRamp": [
+          "oklch(15.00% 0.0981 51.13)",
+          "oklch(26.43% 0.0981 51.13)",
+          "oklch(37.86% 0.0981 51.13)",
+          "oklch(49.29% 0.0981 51.13)",
+          "oklch(60.71% 0.0981 51.13)",
+          "oklch(72.14% 0.0981 51.13)",
+          "oklch(83.57% 0.0981 51.13)",
+          "oklch(95.00% 0.0981 51.13)"
+        ]
+      },
+      "accent": {
+        "role": "primary",
+        "displayName": "Brasa clara",
+        "tonalRamp": [
+          "oklch(15.00% 0.0917 59.29)",
+          "oklch(26.43% 0.0917 59.29)",
+          "oklch(37.86% 0.0917 59.29)",
+          "oklch(49.29% 0.0917 59.29)",
+          "oklch(60.71% 0.0917 59.29)",
+          "oklch(72.14% 0.0917 59.29)",
+          "oklch(83.57% 0.0917 59.29)",
+          "oklch(95.00% 0.0917 59.29)"
+        ]
+      },
+      "tint": {
+        "role": "primary",
+        "displayName": "Brasa suave"
+      },
+      "text-muted": {
         "role": "neutral",
         "displayName": "Texto secundário",
         "tonalRamp": [
@@ -130,9 +134,9 @@
           "oklch(95.00% 0.0160 78.17)"
         ]
       },
-      "muted-light": {
+      "text-dark-muted": {
         "role": "neutral",
-        "displayName": "Texto claro contido",
+        "displayName": "Texto secundário sobre escuro",
         "tonalRamp": [
           "oklch(15.00% 0.0177 76.09)",
           "oklch(26.43% 0.0177 76.09)",
@@ -144,37 +148,9 @@
           "oklch(95.00% 0.0177 76.09)"
         ]
       },
-      "surface-dark": {
+      "line": {
         "role": "neutral",
-        "displayName": "Superfície carvão elevada",
-        "tonalRamp": [
-          "oklch(15.00% 0.0072 67.48)",
-          "oklch(26.43% 0.0072 67.48)",
-          "oklch(37.86% 0.0072 67.48)",
-          "oklch(49.29% 0.0072 67.48)",
-          "oklch(60.71% 0.0072 67.48)",
-          "oklch(72.14% 0.0072 67.48)",
-          "oklch(83.57% 0.0072 67.48)",
-          "oklch(95.00% 0.0072 67.48)"
-        ]
-      },
-      "line-dark": {
-        "role": "neutral",
-        "displayName": "Linha sobre carvão",
-        "tonalRamp": [
-          "oklch(15.00% 0.0086 84.57 / 0.18)",
-          "oklch(26.43% 0.0086 84.57 / 0.18)",
-          "oklch(37.86% 0.0086 84.57 / 0.18)",
-          "oklch(49.29% 0.0086 84.57 / 0.18)",
-          "oklch(60.71% 0.0086 84.57 / 0.18)",
-          "oklch(72.14% 0.0086 84.57 / 0.18)",
-          "oklch(83.57% 0.0086 84.57 / 0.18)",
-          "oklch(95.00% 0.0086 84.57 / 0.18)"
-        ]
-      },
-      "line-light": {
-        "role": "neutral",
-        "displayName": "Linha sobre papel",
+        "displayName": "Linha sobre claro",
         "tonalRamp": [
           "oklch(15.00% 0.0051 67.54 / 0.17)",
           "oklch(26.43% 0.0051 67.54 / 0.17)",
@@ -185,216 +161,200 @@
           "oklch(83.57% 0.0051 67.54 / 0.17)",
           "oklch(95.00% 0.0051 67.54 / 0.17)"
         ]
+      },
+      "line-dark": {
+        "role": "neutral",
+        "displayName": "Linha sobre escuro"
+      },
+      "shadow": {
+        "role": "neutral",
+        "displayName": "Sombra"
       }
     },
     "typographyMeta": {
       "display": {
-        "displayName": "Título de entrada",
-        "purpose": "Hero e entrada da apresentação."
+        "displayName": "Pergunta inicial",
+        "purpose": "Primeira pergunta com peso400 e destaque na palavra final."
       },
       "headline": {
         "displayName": "Título de capítulo",
-        "purpose": "Marcar os capítulos da leitura."
+        "purpose": "Grandes títulos das superfícies do deck."
       },
       "title": {
         "displayName": "Título de painel",
-        "purpose": "Detalhe do método e conteúdo dos painéis."
+        "purpose": "Título interno dos métodos e detalhes."
       },
       "body": {
         "displayName": "Texto de leitura",
-        "purpose": "Explicações, conteúdo e apoio."
+        "purpose": "Explicações e contexto em Montserrat."
       },
       "label": {
-        "displayName": "Rótulo de ação",
-        "purpose": "Botões e ações de navegação."
+        "displayName": "Rótulo e navegação",
+        "purpose": "Capítulos e controles em maiúsculas com tracking."
       }
     },
-    "shadows": [],
+    "shadows": [
+      {
+        "name": "objective-shadow",
+        "value": "0 24px 70px var(--shadow)",
+        "purpose": "Sombra difusa dos cartões na primeira dobra."
+      },
+      {
+        "name": "method-shadow",
+        "value": "0 20px 60px var(--shadow)",
+        "purpose": "Profundidade do bloco de autoridade do método."
+      },
+      {
+        "name": "journey-shadow",
+        "value": "0 16px 40px rgba(24,22,20,.06)",
+        "purpose": "Profundidade dos patamares clicáveis de maturidade."
+      }
+    ],
     "motion": [
       {
         "name": "ease",
         "value": "cubic-bezier(.16,1,.3,1)",
-        "purpose": "Desaceleração de entradas e estados."
-      },
-      {
-        "name": "button-transition",
-        "value": ".25s",
-        "purpose": "Fundo, cor e elevação de 2px das ações."
-      },
-      {
-        "name": "cover-enter",
-        "value": ".9s; translateY(18px) → translateY(0); opacity .65 → 1",
-        "purpose": "Entrada do conteúdo do hero, apenas com movimento permitido."
-      },
-      {
-        "name": "photo-enter",
-        "value": "1.4s; clip-path: inset(0 0 0 12%) → inset(0)",
-        "purpose": "Revelação da fotografia do hero."
+        "purpose": "Curva das transições e painéis."
       },
       {
         "name": "panel-enter",
-        "value": ".4s; translateY(8px) → translateY(0); opacity .7 → 1",
-        "purpose": "Entrada do painel de método selecionado."
+        "value": ".35s; translateY(8px) → translateY(0); opacity .8 → 1",
+        "purpose": "Entrada do painel selecionado."
       },
       {
-        "name": "founder-saturation",
-        "value": ".6s; saturate(.5) → saturate(1)",
-        "purpose": "Estado hover de retratos reais."
+        "name": "button-transition",
+        "value": ".2s",
+        "purpose": "Mudança de fundo das ações."
+      },
+      {
+        "name": "header-transition",
+        "value": ".25s",
+        "purpose": "Mudança de contraste do header conforme capítulo."
       },
       {
         "name": "reduced-motion",
-        "value": "animation: none; transition: none; scroll-behavior: auto",
-        "purpose": "Desliga movimento CSS; JavaScript também usa scroll imediato."
+        "value": "animation:none;transition:none;scroll-behavior:auto",
+        "purpose": "Respeitar preferência de movimento reduzido."
       }
     ],
     "breakpoints": [
       {
-        "name": "wide-min",
-        "value": "1600px"
-      },
-      {
         "name": "compact-max",
-        "value": "1180px"
+        "value": "1100px"
       },
       {
-        "name": "tablet-max",
+        "name": "flow-stack-max",
         "value": "900px"
       },
       {
+        "name": "tablet-max",
+        "value": "800px"
+      },
+      {
         "name": "mobile-max",
-        "value": "600px"
+        "value": "620px"
       }
     ]
   },
   "components": [
     {
-      "name": "Botão primário",
+      "name": "Botão principal",
       "kind": "button",
       "refersTo": "button-primary",
-      "description": "Ação principal, com ícone de direção e estados de hover, foco e desabilitação.",
-      "html": "<button type=\"button\" class=\"ds-button-primary\">Conhecer a Hurtz <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></button>",
-      "css": ".ds-button-primary{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;min-height:54px;padding:15px 22px;border-radius:var(--radius-control);font-family:var(--font-body);font-size:13px;line-height:1.4;font-weight:700;border:1px solid transparent;cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease),transform .25s var(--ease);background:var(--brasa-hover);color:var(--paper)}.ds-button-primary:hover{background:var(--action-hover);transform:translateY(-2px)}.ds-button-primary:focus-visible{outline:3px solid var(--brasa-light);outline-offset:5px;}.ds-button-primary:disabled{opacity:.35;cursor:default}.ds-button-primary svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}@media(prefers-reduced-motion:reduce){.ds-button-primary{transition:none}}"
+      "description": "Ação comercial com Brasa forte e foco visível.",
+      "html": "<button class=\"ds-button\" type=\"button\">Abrir os entregáveis <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></button>",
+      "css": ".ds-button{display:inline-flex;justify-content:center;align-items:center;gap:14px;min-height:50px;padding:14px 22px;border:0;border-radius:10px;background:var(--strong);color:var(--paper);font-family:var(--font);font-size:12px;font-weight:700;cursor:pointer;transition:background .2s}.ds-button:hover{background:var(--deeper)}.ds-button:focus-visible{outline:3px solid var(--strong);outline-offset:5px}.ds-button:disabled{opacity:.35;cursor:default}.ds-button svg{width:17px;height:17px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}@media(prefers-reduced-motion:reduce){.ds-button{transition:none}}"
     },
     {
-      "name": "Botão escuro",
-      "kind": "button",
-      "refersTo": "button-dark",
-      "description": "Ação principal, com ícone de direção e estados de hover, foco e desabilitação.",
-      "html": "<button type=\"button\" class=\"ds-button-dark\">Conhecer a Hurtz <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></button>",
-      "css": ".ds-button-dark{display:inline-flex;align-items:center;justify-content:space-between;gap:28px;min-height:54px;padding:15px 22px;border-radius:var(--radius-control);font-family:var(--font-body);font-size:13px;line-height:1.4;font-weight:700;border:1px solid transparent;cursor:pointer;transition:background .25s var(--ease),color .25s var(--ease),transform .25s var(--ease);background:var(--ink);color:var(--paper)}.ds-button-dark:hover{background:var(--graphite);transform:translateY(-2px)}.ds-button-dark:focus-visible{outline:3px solid var(--brasa-light);outline-offset:5px;}.ds-button-dark:disabled{opacity:.35;cursor:default}.ds-button-dark svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;}@media(prefers-reduced-motion:reduce){.ds-button-dark{transition:none}}"
+      "name": "Objetivos da conversa",
+      "kind": "custom",
+      "refersTo": "objective-card",
+      "description": "Pergunta e dois cartões, com número lateral, como a primeira dobra da referência.",
+      "html": "<div class=\"ds-objective\"><h1>Qual o nosso <mark>objetivo?</mark></h1><div class=\"ds-objectives\"><article><span>1.</span><h3>Gerar valor a ponto de me recomendar no final</h3></article><article><span>2.</span><h3>Fecharmos negócio</h3></article></div></div>",
+      "css": ".ds-objective{padding:32px;background:var(--paper);color:var(--ink);font-family:var(--font);text-align:center}.ds-objective h1{margin:0;font-size:clamp(36px,7vw,64px);font-weight:400;line-height:.98;letter-spacing:-.04em}.ds-objective mark{background:var(--accent);color:var(--ink);padding:0 .12em .05em;border-radius:.08em}.ds-objectives{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:48px;text-align:left}.ds-objectives article{display:grid;grid-template-columns:70px 1fr;min-height:180px;align-items:center;border:1px solid var(--line-dark);border-radius:24px;background:var(--ink);color:var(--paper);overflow:hidden;box-shadow:0 24px 70px var(--shadow)}.ds-objectives article>span{display:grid;align-self:stretch;place-items:center;border-right:1px solid var(--line-dark);font-size:34px;color:var(--accent)}.ds-objectives h3{margin:0;padding:24px;font-size:18px;line-height:1.45;font-weight:400}@media(max-width:800px){.ds-objectives{grid-template-columns:1fr}}"
     },
     {
-      "name": "Ação textual",
-      "kind": "button",
-      "description": "Ação auxiliar de apresentação ou retorno, sem caixa preenchida.",
-      "html": "<button type=\"button\" class=\"ds-text-button\">Rever minhas respostas <svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14M13 6l6 6-6 6\"/></svg></button>",
-      "css": ".ds-text-button{display:flex;align-items:center;gap:10px;font-family:var(--font-body);font-size:13px;padding:10px 0;color:var(--paper);background:transparent;border:0;cursor:pointer}.ds-text-button:hover{color:var(--brasa-light)}.ds-text-button:focus-visible{outline:3px solid var(--brasa-light);outline-offset:5px;}.ds-text-button svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;width:17px;height:17px}"
-    },
-    {
-      "name": "Seletor de mercado",
+      "name": "Abas de mercado",
       "kind": "chip",
-      "refersTo": "tab-segment",
-      "description": "Escolhas de mercado em uma cápsula areia; seleção em carvão e papel.",
-      "html": "<div class=\"ds-segment\" role=\"tablist\" aria-label=\"Cases por mercado\"><button type=\"button\" role=\"tab\" aria-selected=\"true\">Clínicas</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\">Consórcio</button></div>",
-      "css": ".ds-segment{display:inline-flex;background:var(--sand);border-radius:var(--pill);padding:5px;gap:4px}.ds-segment button{border:0;background:transparent;border-radius:var(--pill);padding:12px 28px;min-height:44px;font-family:var(--font-body);font-size:13px;font-weight:600;color:var(--secondary);cursor:pointer;transition:background .25s,color .25s}.ds-segment button[aria-selected=true]{background:var(--ink);color:var(--paper)}.ds-segment button:focus-visible{outline:3px solid var(--brasa-hover);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-segment button{transition:none}}"
+      "refersTo": "tab-segment-selected",
+      "description": "Separa as provas de clínicas e consórcio.",
+      "html": "<div class=\"ds-tabs\" role=\"tablist\" aria-label=\"Resultados por mercado\"><button type=\"button\" role=\"tab\" aria-selected=\"true\">Clínicas</button><button type=\"button\" role=\"tab\" aria-selected=\"false\">Consórcio</button></div>",
+      "css": ".ds-tabs{display:inline-flex;gap:5px;padding:5px;border:1px solid var(--line-dark);border-radius:100px;background:var(--ink);color:var(--paper);font-family:var(--font)}.ds-tabs button{padding:12px 26px;border:0;border-radius:100px;background:transparent;color:inherit;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-height:44px;cursor:pointer}.ds-tabs button[aria-selected=true]{background:var(--strong)}.ds-tabs button:hover{background:var(--deeper)}.ds-tabs button:focus-visible{outline:3px solid var(--accent);outline-offset:5px}"
     },
     {
-      "name": "Opção do diagnóstico",
+      "name": "Pergunta do diagnóstico",
       "kind": "input",
-      "refersTo": "radio-option",
-      "description": "Radio nativo com opção visível contornada; seleção em Brasa 600.",
-      "html": "<div class=\"ds-radio-options\"><label class=\"ds-radio\"><input type=\"radio\" name=\"ds-market\" value=\"clinicas\" checked><span>Clínica</span></label><label class=\"ds-radio\"><input type=\"radio\" name=\"ds-market\" value=\"consorcio\"><span>Consórcio</span></label></div>",
-      "css": ".ds-radio-options{display:flex;flex-wrap:wrap;gap:10px;padding:16px;background:var(--ink)}.ds-radio{position:relative;display:flex;align-items:center;cursor:pointer}.ds-radio input{position:absolute;opacity:0;width:1px;height:1px}.ds-radio span{display:block;padding:11px 14px;min-height:44px;border:1px solid var(--line-dark);border-radius:var(--radius-control);font-family:var(--font-body);font-size:11px;color:var(--muted-light);transition:background .2s,border-color .2s,color .2s}.ds-radio input:checked+span{background:var(--brasa-hover);border-color:var(--brasa-hover);color:var(--paper)}.ds-radio:hover span{border-color:var(--brasa-light);color:var(--paper)}.ds-radio input:focus-visible+span{outline:3px solid var(--brasa-light);outline-offset:4px}@media(prefers-reduced-motion:reduce){.ds-radio span{transition:none}}"
+      "description": "Pergunta numerada com anotação local de resposta.",
+      "html": "<label class=\"ds-question\"><span>1.</span><div><strong>Você já investe em anúncios ou pretende começar?</strong><select aria-label=\"Investimento em anúncios\"><option>Anotar resposta</option><option>Já invisto</option><option>Vou começar</option><option>Já investi e parei</option></select></div></label>",
+      "css": ".ds-question{display:grid;grid-template-columns:60px 1fr;gap:22px;padding:28px 24px;background:var(--ink);color:var(--paper);font-family:var(--font);border-top:1px solid var(--line-dark)}.ds-question>span{font-size:42px;font-weight:400;line-height:1;color:var(--accent)}.ds-question strong{font-size:16px;line-height:1.55;font-weight:400;display:block;max-width:420px}.ds-question select{width:100%;border:0;border-bottom:1px solid var(--line-dark);background:transparent;color:var(--text-dark-muted);font-family:var(--font);font-size:11px;padding:12px 24px 12px 0;line-height:1.6;margin-top:16px;color-scheme:dark}.ds-question select:hover{border-color:var(--accent)}.ds-question select:focus-visible{outline:3px solid var(--accent);outline-offset:5px}"
     },
     {
-      "name": "Navegação institucional",
-      "kind": "nav",
-      "description": "Navegação sobre carvão, com ênfase clara e marca Brasa na seção ativa.",
-      "html": "<nav class=\"ds-nav\" aria-label=\"Navegação principal\"><a href=\"#empresa\">A Hurtz</a><a href=\"#resultados\" aria-current=\"location\">Resultados</a><a href=\"#metodo\">Como funciona</a></nav>",
-      "css": ".ds-nav{display:flex;align-items:center;gap:28px;padding:20px;background:rgba(24,22,20,.97);border-bottom:1px solid var(--line-dark)}.ds-nav a{position:relative;font-family:var(--font-body);font-size:13px;color:var(--muted-light);text-decoration:none;transition:color .2s}.ds-nav a:hover,.ds-nav a[aria-current]{color:var(--paper)}.ds-nav a[aria-current]:after{content:\"\";position:absolute;bottom:-11px;height:2px;left:0;right:0;background:var(--brasa)}.ds-nav a:focus-visible{outline:3px solid var(--brasa-light);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-nav a{transition:none}}"
-    },
-    {
-      "name": "Case em destaque",
+      "name": "Cliente com contexto",
       "kind": "card",
-      "description": "Prova principal em carvão, com tipografia de resultado e divisão estrutural.",
-      "html": "<article class=\"ds-case\"><div class=\"ds-case-person\"><span>Instituto Odonto Medic</span><h3>Dr. Sidney<br>Colares</h3><p>Aquisição, atendimento e processo comercial.</p></div><div class=\"ds-case-number\"><strong>117</strong><p>blefaroplastias vendidas<br>em um mês</p><span>Case registrado pela Hurtz</span></div><span class=\"ds-case-arrow\"><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M6 18 18 6M6 6h12v12\"/></svg></span></article>",
-      "css": ".ds-case{display:grid;grid-template-columns:1fr 1fr;gap:40px;background:var(--ink);color:var(--paper);border-radius:var(--radius);padding:56px;position:relative;overflow:hidden}.ds-case-person>span{color:var(--brasa-light);font-family:var(--font-body);font-size:13px}.ds-case h3{font-family:var(--font-display);font-size:38px;font-weight:700;line-height:1.15;letter-spacing:-.025em;margin:18px 0 0}.ds-case-person p{font-family:var(--font-body);font-size:14px;line-height:1.6;color:var(--muted-light);max-width:270px;margin:24px 0 0}.ds-case-number{border-left:1px solid var(--line-dark);padding-left:70px}.ds-case-number strong{display:block;font-family:var(--font-display);font-size:100px;line-height:1.1;color:var(--brasa-light);font-weight:600;letter-spacing:-.04em;font-variant-numeric:tabular-nums}.ds-case-number p{font-family:var(--font-body);font-size:18px;line-height:1.45;margin:16px 0 0}.ds-case-number>span{display:block;color:var(--muted-light);font-family:var(--font-body);font-size:11px;margin-top:24px}.ds-case-arrow{position:absolute;right:30px;top:30px;color:var(--brasa-light)}.ds-case-arrow svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;width:30px;height:30px}@media(max-width:600px){.ds-case{grid-template-columns:1fr;padding:30px;gap:30px}.ds-case h3{font-size:30px}.ds-case-number{border-left:0;border-top:1px solid var(--line-dark);padding:24px 0 0}.ds-case-number strong{font-size:84px}}"
+      "description": "Nome real e contexto no verso, com altura fixa de152px.",
+      "html": "<details class=\"ds-client\"><summary><strong>Luma<br>Reis</strong><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><div><span>Clínicas</span><p>6 blefaroplastias vendidas no primeiro mês com a Hurtz.</p><button type=\"button\" class=\"ds-back\" onclick=\"this.closest('details').removeAttribute('open')\">Voltar</button></div></details>",
+      "css": ".ds-client{border:1px solid var(--line);border-radius:16px;background:var(--paper);color:var(--ink);font-family:var(--font);overflow:hidden;max-width:280px}.ds-client summary{position:relative;list-style:none;cursor:pointer;min-height:152px;display:grid;place-items:center;text-align:center;padding:28px 18px}.ds-client summary::-webkit-details-marker{display:none}.ds-client summary strong{font-size:19px;line-height:1.18;letter-spacing:-.03em;font-weight:600}.ds-client summary svg{position:absolute;bottom:12px;right:14px;width:13px;height:13px;color:var(--strong);fill:none;stroke:currentColor;stroke-width:1.7}.ds-client[open] summary svg{transform:rotate(45deg)}.ds-client summary:hover{background:var(--sand)}.ds-client summary:focus-visible{outline:3px solid var(--strong);outline-offset:-5px}.ds-client>div{padding:18px;border-top:1px solid var(--line);min-height:130px;background:var(--sand)}.ds-client>div>span{display:block;font-size:9px;text-transform:uppercase;letter-spacing:.08em;color:var(--strong);font-weight:700}.ds-client p{font-size:11px;margin:12px 0 0;line-height:1.65} .ds-client{position:relative;height:152px}.ds-client summary{height:100%;min-height:0}.ds-client[open] summary{opacity:0}.ds-client>div{position:absolute;inset:0;display:flex;flex-direction:column;justify-content:center;min-height:0;padding-bottom:38px;overflow:auto;border:0}.ds-back{position:absolute;right:18px;bottom:12px;min-height:24px;font-family:var(--font);font-size:9px;text-decoration:underline;border:0;background:transparent;color:var(--ink);cursor:pointer}.ds-back:focus-visible{outline:3px solid var(--strong);outline-offset:3px}"
     },
     {
-      "name": "Etapas do método",
+      "name": "Etapa de maturidade",
       "kind": "custom",
-      "description": "Etapas numeradas abertas, com seleção por sublinhado e destaque Brasa clara.",
-      "html": "<div class=\"ds-method-tabs\" role=\"tablist\" aria-label=\"Etapas da operação Hurtz\"><button type=\"button\" role=\"tab\" aria-selected=\"true\"><span>01</span>Estratégia</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\"><span>02</span>Aquisição</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\"><span>03</span>Captação</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\"><span>04</span>Atendimento</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\"><span>05</span>Conversão</button><button type=\"button\" role=\"tab\" aria-selected=\"false\" tabindex=\"-1\"><span>06</span>Performance</button></div>",
-      "css": ".ds-method-tabs{display:grid;grid-template-columns:repeat(6,1fr);border-bottom:1px solid var(--line-dark);background:var(--ink);padding:24px}.ds-method-tabs button{text-align:left;display:flex;flex-direction:column;gap:18px;padding:0 10px 24px 0;font-family:var(--font-body);font-size:13px;color:var(--muted-light);border:0;background:transparent;border-bottom:3px solid transparent;position:relative;bottom:-1px;cursor:pointer}.ds-method-tabs button>span{font-family:var(--font-display);font-size:26px;line-height:1.4;font-variant-numeric:tabular-nums;font-weight:500;color:var(--muted-light)}.ds-method-tabs button[aria-selected=true]{border-bottom-color:var(--brasa);color:var(--paper)}.ds-method-tabs button[aria-selected=true]>span{color:var(--brasa-light)}.ds-method-tabs button:focus-visible{outline:3px solid var(--brasa-light);outline-offset:5px}@media(max-width:900px){.ds-method-tabs{grid-template-columns:repeat(3,1fr);row-gap:24px;border:0}.ds-method-tabs button{border-bottom:1px solid var(--line-dark)}.ds-method-tabs button[aria-selected=true]{border-bottom:3px solid var(--brasa)}}"
+      "description": "Patamar clicável que leva à descrição do trabalho.",
+      "html": "<a class=\"ds-stage\" href=\"#planejamento\"><span>01</span><div><small>Entender antes de investir</small><h3>Saber</h3><p>Preciso entender por onde começar.</p></div><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></a>",
+      "css": ".ds-stage{display:flex;align-items:center;gap:28px;border:1px solid var(--line);border-radius:16px;min-height:125px;padding:24px 32px;background:var(--paper);color:var(--ink);font-family:var(--font);text-decoration:none;transition:background .2s,border-color .2s}.ds-stage:hover{background:var(--sand);border-color:var(--strong)}.ds-stage:focus-visible{outline:3px solid var(--strong);outline-offset:5px}.ds-stage>span{font-size:35px;line-height:1;color:var(--strong);font-weight:400;letter-spacing:-.025em;min-width:55px}.ds-stage small{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--strong);font-weight:700}.ds-stage h3{font-size:30px;font-weight:400;margin:8px 0 0;line-height:1.1}.ds-stage p{font-size:11px;color:var(--text-muted);margin:10px 0 0}.ds-stage svg{margin-left:auto;width:20px;height:20px;color:var(--strong);fill:none;stroke:currentColor;stroke-width:1.7}@media(prefers-reduced-motion:reduce){.ds-stage{transition:none}} .ds-stage{box-shadow:0 16px 40px rgba(24,22,20,.06);min-height:144px;padding:24px 26px;gap:22px}.ds-stage>span{display:grid;place-items:center;min-width:46px;width:46px;height:46px;border:1px solid currentColor;border-radius:50%;font-size:10px;letter-spacing:.12em;font-weight:800}.ds-stage h3{font-size:clamp(27px,3vw,38px);font-weight:650;line-height:1}"
     },
     {
-      "name": "FAQ",
-      "kind": "custom",
-      "description": "Perguntas nativas em superfície papel, com divisórias e indicador de abertura.",
-      "html": "<div class=\"ds-faq\"><details><summary>Já tenho um CRM. Preciso trocar?<svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M12 5v14M5 12h14\"/></svg></summary><p>A gente avalia o que sua operação já usa. O diagnóstico define se faz sentido organizar a estrutura existente, integrar ferramentas ou implantar outro fluxo.</p></details></div>",
-      "css": ".ds-faq{background:var(--paper);color:var(--ink);padding:24px}.ds-faq details{border-block:1px solid var(--line-light)}.ds-faq summary{display:flex;justify-content:space-between;gap:24px;list-style:none;padding:23px 0;cursor:pointer;font-family:var(--font-body);font-size:13px;font-weight:700;align-items:center}.ds-faq summary::-webkit-details-marker{display:none}.ds-faq summary svg{width:19px;height:19px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round;flex-shrink:0;width:18px;height:18px;transition:transform .3s}.ds-faq details[open] svg{transform:rotate(45deg)}.ds-faq p{font-family:var(--font-body);font-size:13px;color:var(--secondary);padding:0 40px 25px 0;line-height:1.8;margin:0}.ds-faq summary:focus-visible{outline:3px solid var(--brasa-hover);outline-offset:5px}@media(prefers-reduced-motion:reduce){.ds-faq summary svg{transition:none}}"
+      "name": "Navegação por grupos",
+      "kind": "nav",
+      "description": "Três grupos com destaque na seção ativa e foco visível.",
+      "html": "<nav class=\"ds-nav\" aria-label=\"Capítulos da apresentação\"><a href=\"#objetivo\" aria-current=\"location\">Diagnóstico</a><a href=\"#empresa\">Autoridade &amp; método</a><a href=\"#jornada\">Soluções</a></nav>",
+      "css": ".ds-nav{display:flex;gap:30px;align-items:center;padding:18px 24px;background:var(--paper);font-family:var(--font)}.ds-nav>a{font-size:10px;letter-spacing:.14em;font-weight:700;text-transform:uppercase;padding-block:10px;white-space:nowrap;border-bottom:1px solid transparent;color:var(--text-muted);text-decoration:none}.ds-nav>a[aria-current]{color:var(--strong);border-color:var(--strong)}.ds-nav>a:hover{color:var(--strong)}.ds-nav>a:focus-visible{outline:3px solid var(--strong);outline-offset:5px}"
     }
   ],
   "narrative": {
-    "northStar": "Do clique à venda",
-    "overview": "Uma apresentação comercial editorial, direta e humana. A composição dá escala aos títulos, presença aos fundadores e espaço às provas. Carvão e papel alternam o ritmo; a Brasa marca decisões, conexões e o próximo passo. A densidade fica concentrada nos painéis que o visitante escolhe abrir, com respiro entre capítulos.\n\nAs referências V4 e Sócio Estratégico, fixadas pelo usuário, orientam a nova composição, a tipografia, os componentes e o ritmo. Logo e paleta oficiais Hurtz permanecem como compromissos. Este sistema substitui o restante da identidade visual anterior. Fotografias reais, títulos em Montserrat e texto em Manrope são a expressão implementada dessa direção.",
+    "northStar": "Fidelidade estrutural às referências",
+    "overview": "A Sócio Estratégico define abertura, escala e cadência inicial. A V4 define missão, diagnóstico e maturidade. Logo, cores, fotos, métodos e fatos são Hurtz. O pedido atual exige preservar a estrutura escolhida pelo usuário.\n\nA primeira dobra contém pergunta central e dois objetivos numerados; fotografias ficam no capítulo institucional. A composição usa grandes superfícies, cartões, retratos, diagramas e navegação de deck.",
     "keyCharacteristics": [
-      "Títulos amplos e compactos, com ênfase em uma parte da frase.",
-      "Fotografia real com tratamento de saturação contido.",
-      "Capítulos em superfícies carvão e papel, com uma seção Brasa.",
-      "Painéis de conteúdo escolhidos por etapas e mercado.",
-      "Profundidade por tom, borda e sobreposição, sem sombras de caixa.",
-      "Leitura independente e apresentação guiada na mesma página."
+      "Pergunta inicial e dois objetivos com medidas da referência.",
+      "Montserrat em todo o runtime revisado.",
+      "Container1180px e respiro96–136px.",
+      "Primeiros capítulos na ordem da Sócio e diagnóstico/maturidade na cadência V4.",
+      "Sombras difusas e bordas conforme as referências.",
+      "Métodos, prova e próximos passos separados por vertical.",
+      "Títulos no eixo esquerdo, versos fixos e navegação mobile visível, conforme Sócio."
     ],
     "rules": [
       {
-        "name": "The Contrast Rule",
-        "body": "Preserve Brasa 600 nos fundos com texto pequeno em papel e na ênfase textual pequena sobre papel. Brasa 400 continua nos títulos grandes e nos sinais gráficos.",
-        "section": "colors"
-      },
-      {
-        "name": "The Type Pair Rule",
-        "body": "Use Montserrat para a hierarquia e os números que conduzem a apresentação; Manrope para ler, navegar e agir. Destaque trechos por cor e peso, sem introduzir outra família.",
-        "section": "typography"
-      },
-      {
-        "name": "The Chapter Rule",
-        "body": "Mantenha o mesmo eixo, a alternância de superfícies e a distância entre título e conteúdo. No celular, reordene pela leitura e empilhe; não comprima a composição de desktop inteira.",
+        "name": "Fidelidade da abertura",
+        "body": "Preservar pergunta central, destaque na palavra final, cartões numerados e geometria da referência.",
         "section": "layout"
       },
       {
-        "name": "The Tonal Depth Rule",
-        "body": "Diferencie conteúdo por tom e contorno antes de adicionar efeitos. Reserve sobreposição para a fotografia e para os controles persistentes da apresentação.",
-        "section": "elevation"
+        "name": "Estrutura antes de interpretação",
+        "body": "Manter a função e a posição dos capítulos; alterar fatos para a realidade Hurtz sem criar narrativa visual livre.",
+        "section": "layout"
       },
       {
-        "name": "The Shape Rule",
-        "body": "Use cantos suaves em superfícies de conteúdo, cantos menores nas ações e cápsulas apenas nos controles que agrupam escolhas ou navegação persistente.",
-        "section": "shapes"
+        "name": "Marca Hurtz",
+        "body": "Usar somente logo e paleta Hurtz, com tipografia e composição derivadas das referências escolhidas.",
+        "section": "colors"
       },
       {
-        "name": "The State Rule",
-        "body": "Preserve seleção, hover, foco, desabilitação e preferência de movimento junto do componente. A aparência de repouso sozinha não documenta a interação.",
+        "name": "Estados funcionais",
+        "body": "Preservar teclado, foco, seleção, painéis e movimento reduzido.",
         "section": "components"
       }
     ],
     "dos": [
-      "**Do** preservar logo e paleta oficiais Hurtz, aplicando a composição nova orientada por V4 e Sócio Estratégico.",
-      "**Do** usar Montserrat local para títulos e Manrope local para corpo e ações.",
-      "**Do** distinguir Brasa 400 para títulos grandes e sinais de Brasa 600 para ações e texto pequeno sobre papel.",
-      "**Do** manter fotos reais, enquadramento de rosto e saturação contida.",
-      "**Do** construir profundidade com carvão, papel, areia e linhas finas.",
-      "**Do** manter o eixo central, os capítulos espaçados e o empilhamento progressivo no celular.",
-      "**Do** conservar semântica de tabs, foco visível, teclado, estados de formulário e movimento reduzido."
+      "Do preservar abertura e sequência corrigidas.",
+      "Do usar fatos, fotos, logo e cores Hurtz.",
+      "Do manter os métodos e provas das verticais separados.",
+      "Do conferir desktop e celular contra as referências."
     ],
     "donts": [
-      "**Don't** recuperar as fontes, os componentes ou o ritmo da identidade anterior descartada pelo usuário.",
-      "**Don't** trocar os fundadores por fotos genéricas, ilustrações ou pessoas geradas.",
-      "**Don't** colocar texto pequeno em papel sobre Brasa 400 ou ampliar a cor clara de ênfase para texto sobre papel.",
-      "**Don't** adicionar sombra em cada painel, gradientes decorativos recorrentes ou outra família tipográfica.",
-      "**Don't** transformar todas as provas e listas em uma repetição de cards preenchidos.",
-      "**Don't** reduzir o desktop inteiro para caber no celular nem esconder etapas para economizar altura.",
-      "**Don't** retirar o foco visível, substituir controles nativos por caixas clicáveis sem semântica ou ignorar movimento reduzido."
+      "Don’t recuperar a antiga capa fotográfica ou o slogan de entrada.",
+      "Don’t criar nova narrativa livre para substituir os capítulos escolhidos.",
+      "Don’t fabricar fatos para preencher blocos de autoridade.",
+      "Don’t documentar a revisão com os tokens da implementação anterior."
     ]
   }
 }

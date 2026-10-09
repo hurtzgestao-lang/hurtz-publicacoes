@@ -6,25 +6,25 @@
 web
 
 ## Stack
-HTML, CSS e JavaScript estáticos. Estrutura existente do repositório de publicações Hurtz; sem build ou dependências externas no navegador.
+HTML, CSS e JavaScript estáticos. Repositório de publicações Hurtz, sem build e sem bibliotecas externas no navegador.
 
 ## Users
 Donos de clínicas particulares e representantes de consórcio em uma conversa comercial com a Hurtz. A página também permite leitura independente.
 
 ## Product Purpose
-Apresentar a empresa, mostrar provas reais, explicar aquisição e conversão e levar o visitante a conversar sobre um escopo adequado ao negócio.
+Conduzir o sales deck desde o objetivo da conversa até a recomendação: contexto, prova, empresa, liderança, missão, métodos, diagnóstico, maturidade e entregáveis.
 
 ## Positioning
-A Hurtz conecta campanha, criativo, captação, CRM/WhatsApp, atendimento, agenda e mensuração em uma operação comercial rastreável.
+A Hurtz conecta campanhas, criativos, captação, CRM/WhatsApp, atendimento e mensuração para organizar o caminho comercial do contato à decisão.
 
 ## Capabilities and Constraints
-Navegação por capítulos, modo apresentação, método interativo, trilhas separadas por vertical e diagnóstico breve com resumo para WhatsApp. Não apresentar preços ou garantias sem proposta. As provas clínicas e de consórcio não são intercambiáveis. Nenhum dado de paciente ou lead real será exibido.
+Navegação por capítulos, progresso, apresentação, carrosséis, versos de cartões de clientes e lideranças, métodos separados por vertical, seis perguntas de diagnóstico e categorias Saber, Ter, Executar e Potencializar e seleção de entregáveis com resumo para WhatsApp. Escopo e condições dependem da proposta. Cases mantêm seu contexto; critérios, promessas e provas de clínicas e consórcio não são intercambiáveis. Nenhum dado real de paciente ou lead é exposto.
 
 ## Brand Commitments
-Usar logo e cores oficiais Hurtz. O pedido explícito substitui a identidade visual rígida existente: composição, fontes, componentes e ritmo seguem as referências V4 e Sócio Estratégico. Voz em português direto, sem jargão corporativo.
+Logo e cores oficiais Hurtz. O usuário pediu proximidade máxima da estrutura e da composição das páginas Sócio Estratégico e V4, inclusive primeira dobra e primeira pergunta. Esta orientação substitui a capa fotográfica e a narrativa livre da versão anterior. Montserrat, grandes superfícies, hierarquia, cartões, diagramas e ritmo seguem as referências. Voz pública direta, em português.
 
 ## Evidence on Hand
-Contexto canônico em base-conhecimento/empresa. Casos de clínicas no registro comercial de 08/09/2026; casos de consórcio na oferta canônica. Fotos reais selecionadas e respectivas fontes em vendas/pitch/hurtz-institucional/assets.md.
+HTML, CSS e JavaScript das duas referências auditados em 08/10/2026; especificação em `vendas/pitch/hurtz-institucional/revisao-estrutura.md`. Contexto e métodos em `base-conhecimento/empresa/`. Cases, biografias, períodos e assets rastreados nos arquivos `fontes.md`, `assets.md` e `assets-fontes.json` do domínio comercial. Capturas de referência e revisão no diretório local `.impeccable/review/`.
 
 ## Product Principles
-Conteúdo factual; diagnóstico antes da recomendação; mostrar o caminho da demanda à venda; separar prova e promessa; funcionar em desktop e celular.
+Preservar a estrutura escolhida pelo usuário; abrir com objetivo e dois cartões; diagnosticar antes de recomendar; usar fatos Hurtz; separar as verticais; tornar cada controle funcional; manter leitura e apresentação em desktop e celular.
