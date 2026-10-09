@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#F5F2EC">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preload" href="assets/inter-regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="styles.css">
-  <script src="app.js" defer></script>
+  <link rel="stylesheet" href="styles.css?v=2">
+  <script src="app.js?v=2" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Ir para a apresentação</a>
@@ -29,11 +29,17 @@
   <main id="conteudo">
     <section class="slide objective" id="objetivo" data-title="Nosso objetivo" data-group="diagnostico" aria-labelledby="objective-title">
       <div class="shell objective-shell">
-        <p class="chapter-label"><span>01</span> Diagnóstico</p>
-        <h1 id="objective-title">Qual o nosso<br> <mark>objetivo?</mark></h1>
-        <div class="objective-list">
-          <article><span class="objective-number">1.</span><h2>Gerar valor a ponto de me recomendar no final</h2></article>
-          <article><span class="objective-number">2.</span><h2>Fecharmos negócio</h2></article>
+        <div class="hero-copy">
+          <p class="chapter-label"><span>01</span> Diagnóstico</p>
+          <h1 id="objective-title">Qual o nosso<br> <mark>objetivo?</mark></h1>
+          <div class="objective-list">
+            <article><span class="objective-number">1.</span><h2>Gerar valor a ponto de me recomendar no final</h2></article>
+            <article><span class="objective-number">2.</span><h2>Fecharmos negócio</h2></article>
+          </div>
+        </div>
+        <div class="hero-people" aria-label="Sócios da Hurtz Company">
+          <a class="hero-person hero-person-klebson" href="https://www.instagram.com/oklebsoncosta/" target="_blank" rel="noopener"><img src="assets/klebson.webp" alt="Klebson Costa, sócio da Hurtz" width="1080" height="1080" fetchpriority="high"><span><strong>Klebson Costa</strong><small>Estratégia e comercial</small></span></a>
+          <a class="hero-person hero-person-marcos" href="https://www.instagram.com/marcoshurtz/" target="_blank" rel="noopener"><img src="assets/marcos.webp" alt="Marcos, CEO e sócio da Hurtz" width="1080" height="1080" fetchpriority="high"><span><strong>Marcos</strong><small>CEO e sócio</small></span></a>
         </div>
       </div>
     </section>
@@ -68,7 +74,7 @@
       <div class="shell">
         <div class="about-layout">
           <div><p class="chapter-label"><span>02</span> Autoridade &amp; método</p><h2 id="about-title">Uma assessoria para conectar <em>aquisição, atendimento e conversão.</em></h2><p class="lead">A Hurtz entra para organizar o caminho entre a campanha e a agenda. Estratégia, execução e acompanhamento próximos de quem cuida da clínica.</p></div>
-          <figure class="clinic-photo"><img src="assets/clinica.webp" alt="Ambiente de atendimento em uma clínica" width="1000" height="1250" loading="lazy"><figcaption>Imagem ilustrativa de ambiente clínico.</figcaption></figure>
+          <figure class="clinic-photo"><img src="assets/reuniao.webp" alt="Marcos em uma reunião de trabalho, com notebook" width="1080" height="1440" loading="lazy"><figcaption>Marcos, da estratégia à operação.</figcaption></figure>
         </div>
         <div class="operation-strip" aria-label="Como organizamos o trabalho"><article><strong>1</strong><span>prioridade definida<br>para começar</span></article><article><strong>5</strong><span>etapas conectadas<br>pelo método HURTZ</span></article><article><strong>1</strong><span>responsável por cada<br>próxima ação</span></article><article><strong>Todo o funil</strong><span>da origem do contato<br>ao fechamento registrado</span></article></div>
       </div>
@@ -78,6 +84,11 @@
       <div class="shell">
         <h2 id="clinics-title">Para clínicas em que<br><em>a decisão exige confiança.</em></h2>
         <p class="lead">Procedimentos particulares, uma equipe que recebe os contatos e capacidade para atender. A especialidade muda; o caminho precisa continuar organizado.</p>
+        <div class="clinical-gallery" aria-label="Profissionais e contextos de clínica">
+          <a class="clinical-person" href="https://www.instagram.com/drsidneycolares/" target="_blank" rel="noopener"><img src="assets/sidney.webp" alt="Dr. Sidney Colares" width="1242" height="1552" loading="lazy"><div><h3>Dr. Sidney Colares</h3><p>Cirurgia bucomaxilofacial</p></div></a>
+          <a class="clinical-person" href="https://www.instagram.com/merielle_m/" target="_blank" rel="noopener"><img src="assets/merielle.webp" alt="Dra. Merielle Lobo na clínica" width="640" height="1136" loading="lazy"><div><h3>Dra. Merielle Lobo</h3><p>Ginecologia</p></div></a>
+          <a class="clinical-person" href="https://www.instagram.com/dra.marinymachado/" target="_blank" rel="noopener"><img src="assets/mariny.webp" alt="Dra. Mariny Machado" width="1080" height="1080" loading="lazy"><div><h3>Dra. Mariny Machado</h3><p>Cirurgia bucomaxilofacial e HOF</p></div></a>
+        </div>
         <div class="specialties"><span>Cirurgia plástica</span><span>Cirurgia e estética facial</span><span>Dermatologia estética</span><span>Odontologia estética</span><span>Harmonização facial</span><span>Clínicas de procedimentos particulares</span></div>
         <div class="fit-note"><strong>O ponto de partida é a sua operação.</strong><p>O procedimento prioritário, a capacidade da agenda e o responsável pelo atendimento definem o plano.</p></div>
       </div>
@@ -87,12 +98,11 @@
       <div class="shell">
         <h2 id="team-title">Estratégia perto de quem decide.<br><em>Execução perto de quem faz.</em></h2>
         <p class="lead">Direção comercial, gestão da operação e tráfego trabalhando com a equipe da clínica.</p>
-        <div class="team-list">
-          <article><h3>Klebson Costa</h3><span>Direção estratégica e comercial</span><p>Entende o cenário, define a rota e conecta o plano ao que a clínica precisa resolver.</p></article>
-          <article><h3>Marcos</h3><span>CEO e sócio</span><p>Direção da empresa e alinhamento entre estratégia, entrega e crescimento.</p></article>
-          <article><h3>Gestão de operações</h3><span>Organização e acompanhamento</span><p>Responsáveis, prioridades e rotina para tirar o plano do papel.</p></article>
-          <article><h3>Time de tráfego</h3><span>Campanhas e análise</span><p>Testes de público, mensagem e criativo conectados aos indicadores do funil.</p></article>
+        <div class="founders-grid">
+          <article class="founder"><a class="founder-photo" href="https://www.instagram.com/oklebsoncosta/" target="_blank" rel="noopener" aria-label="Instagram de Klebson Costa"><img src="assets/klebson.webp" alt="Retrato real de Klebson Costa" width="1080" height="1080" loading="lazy"></a><div><h3>Klebson Costa</h3><span>Direção estratégica e comercial</span><p>Entende o cenário, define a rota e conecta o plano ao que a clínica precisa resolver.</p></div></article>
+          <article class="founder"><a class="founder-photo" href="https://www.instagram.com/marcoshurtz/" target="_blank" rel="noopener" aria-label="Instagram de Marcos"><img src="assets/marcos.webp" alt="Retrato real de Marcos no escritório" width="1080" height="1080" loading="lazy"></a><div><h3>Marcos</h3><span>CEO e sócio</span><p>Direção da empresa e alinhamento entre estratégia, entrega e crescimento.</p></div></article>
         </div>
+        <div class="team-support"><article><h3>Gestão de operações</h3><p>Responsáveis, prioridades e rotina para tirar o plano do papel.</p></article><article><h3>Time de tráfego</h3><p>Testes de público, mensagem e criativo conectados aos indicadores do funil.</p></article></div>
       </div>
     </section>
 
@@ -131,7 +141,7 @@
 
     <section class="slide" id="diagnostico" data-title="Entender a clínica" data-group="solucoes" aria-labelledby="diagnosis-title">
       <div class="shell diagnosis-layout">
-        <figure class="diagnosis-photo"><img src="assets/consulta.webp" alt="Conversa entre profissional de saúde e paciente em um consultório" width="1200" height="1300" loading="lazy"><figcaption>Imagem ilustrativa.</figcaption></figure>
+        <figure class="diagnosis-photo"><img src="assets/merielle.webp" alt="Dra. Merielle Lobo, em ambiente de clínica" width="640" height="1136" loading="lazy"><figcaption>Dra. Merielle Lobo · ginecologia.</figcaption></figure>
         <div><h2 id="diagnosis-title">Antes de propor,<br><em>entender.</em></h2><p class="lead">O que a clínica quer crescer? E o que hoje está impedindo esse avanço?</p><ol class="question-list"><li>Qual procedimento tem prioridade?</li><li>Existe capacidade para receber mais pacientes?</li><li>Quem atende e acompanha os contatos?</li><li>Em qual etapa as oportunidades se perdem?</li></ol><p class="closing-line">A resposta define a rota. O plano começa no cenário real da clínica.</p></div>
       </div>
     </section>

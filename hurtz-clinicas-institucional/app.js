@@ -18,12 +18,6 @@
       if (section.getBoundingClientRect().top <= probe) activeSection = index;
     });
     const section = sections[activeSection];
-    const darkHeader = section.classList.contains('dark');
-    const header = document.querySelector('.deck-header');
-    header.classList.toggle('is-dark', darkHeader);
-    const logo = header.querySelector('.brand img');
-    const logoSource = darkHeader ? 'assets/logo-atual-escuro.png' : 'assets/logo-atual-claro.png';
-    if (logo.getAttribute('src') !== logoSource) logo.setAttribute('src', logoSource);
     document.getElementById('current-section').textContent = String(activeSection + 1).padStart(2, '0');
     count.setAttribute('aria-label', `Seção ${activeSection + 1} de ${sections.length}`);
     document.getElementById('section-name').textContent = section.dataset.title;

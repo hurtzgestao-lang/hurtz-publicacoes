@@ -2,7 +2,7 @@
 
 Criado do zero a partir da estrutura de apresentação de https://propostas.socioestrategico.com/institucional, sem consultar páginas Hurtz anteriores.
 
-Entrada: `index.html`. Sem build ou dependências. Fonte e imagens locais.
+Entrada: `index.html`. Sem build ou dependências. Fonte e imagens reais locais.
 
 ## Estrutura
 
@@ -26,7 +26,7 @@ Entrada: `index.html`. Sem build ou dependências. Fonte e imagens locais.
 ## Apresentação
 
 - Setas ← e → ou Page Up / Page Down mudam de seção.
-- Controles inferiores e navegação por capítulos permitem conduzir a reunião.
+- Controles inferiores no desktop e navegação por capítulos permitem conduzir a reunião. No celular, os controles inferiores saem da tela para preservar a leitura.
 - Tela cheia usa a API nativa quando disponível.
 - As abas HURTZ suportam teclado, Home e End.
 - A seleção de prioridade altera o resumo e o link de conversa com Klebson. Nenhuma mensagem é enviada automaticamente.
@@ -35,4 +35,8 @@ Entrada: `index.html`. Sem build ou dependências. Fonte e imagens locais.
 
 Oferta e ICP canônicos de clínicas, contexto da operação clínica e contexto da empresa no workspace. Não há preços ou prazos fixos, cases inventados, depoimentos simulados ou métricas de resultado de terceiros.
 
-Fotos ilustrativas; créditos e origem em `assets/CREDITOS.md`. Documentos de projeto e capturas de revisão não são necessários para servir a página.
+Fotos reais dos sócios, reunião de trabalho e profissionais, com créditos e fontes em `assets/CREDITOS.md`. Perfis dos sócios confirmados pelo usuário: @oklebsoncosta e @marcoshurtz. Documentos de projeto e capturas de revisão não são necessários para servir a página.
+
+## Reformulação visual de 08/10/2026
+
+Visual editorial com fotografias naturais, navegação em pílula, cantos de 24–36px e profundidade discreta. Referências externas: Sócio Estratégico, Sagi e Focus Lab. A estrutura comercial e o método HURTZ foram preservados.

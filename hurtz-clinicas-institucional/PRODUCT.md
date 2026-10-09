@@ -33,8 +33,8 @@ Aquisição, atendimento e conversão conectados pelo método HURTZ: Hipótese, 
 
 ## Brand Commitments
 
-Hurtz Company, identidade oficial e linguagem direta. Hierarquia e sequência de apresentação da referência fornecida pelo usuário.
+Hurtz Company, logo oficial e linguagem direta. Hierarquia e sequência da apresentação comercial preservadas. Em 08/10/2026 o usuário rejeitou a rigidez visual da primeira versão e pediu uma reformulação moderna, com formas suaves e fotografias reais. Essa direção específica prevalece sobre as regras anteriores de raio mínimo, ausência de sombras e fotografia monocromática.
 
 ## Evidence on Hand
 
-Contexto da empresa, oferta e qualificação canônicas para clínicas; logos oficiais. Fotos de clínica são ilustrativas. Provas quantitativas e depoimentos clínicos não foram fornecidos.
+Contexto da empresa, oferta e qualificação canônicas para clínicas; logos oficiais. Fotografias públicas reais de @oklebsoncosta e @marcoshurtz, confirmados pelo usuário, além de profissionais clínicos e material original do acervo. As imagens identificam pessoas e contextos; não são apresentadas como depoimentos ou resultados. Não presumir que todo profissional retratado é cliente ativo. Provas quantitativas e depoimentos clínicos não foram fornecidos.
