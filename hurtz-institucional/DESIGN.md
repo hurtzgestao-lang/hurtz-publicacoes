@@ -4,6 +4,7 @@ description: "Uma apresentação editorial de aquisição e conversão, com pess
 colors:
   brasa: "#C06018"
   brasa-hover: "#974A12"
+  action-hover: "#73380D"
   brasa-light: "#E2A87A"
   ink: "#181614"
   graphite: "#3D3A36"
@@ -64,6 +65,8 @@ components:
     typography: "{typography.label}"
     rounded: "{rounded.radius-control}"
     padding: "15px 22px"
+  button-primary-hover:
+    backgroundColor: "{colors.action-hover}"
   button-dark:
     backgroundColor: "{colors.ink}"
     textColor: "{colors.paper}"
@@ -129,6 +132,7 @@ A paleta é quente e mineral: carvão profundo, papel amaciado, areia e Brasa; o
 
 - **Brasa 400 — `brasa`:** ênfase em títulos grandes sobre papel, barras de seleção e progresso, pequenos pontos e detalhes de conexão.
 - **Brasa 600 — `brasa-hover`:** tom oficial mais profundo para fundos de ação com texto claro, opções selecionadas do diagnóstico, hover da ação do cabeçalho e seção de execução. Também sustenta texto pequeno de seleção e categoria sobre papel. O nome do token veio do CSS; sua função já ultrapassa o hover.
+- **Brasa profunda de interação — `action-hover`:** fundo dos botões primários no hover, aumentando a distinção do estado de ação.
 - **Brasa clara — `brasa-light`:** ênfase em títulos, números, rótulos e foco sobre carvão. Ajuda a localizar a informação dentro de superfícies escuras.
 
 ### Neutral
@@ -201,9 +205,9 @@ As linhas são finas (1px); seleção de etapas usa sublinhado mais firme (2–3
 
 ### Buttons
 
-Firmes e legíveis, com verbo e direção. Primários usam Brasa 600 sobre carvão; botões escuros usam carvão sobre papel. A base tem altura mínima de (54px), padding (15px 22px), intervalo de ícone (28px), Manrope (13px/700) e cantos (8px). No hover, sobem (2px); cor, fundo e transformação mudam em (.25s) com a curva de desaceleração do sistema. Botões escuros chegam a grafite no hover.
+Firmes e legíveis, com verbo e direção. Primários usam Brasa 600 sobre carvão; botões escuros usam carvão sobre papel. A base tem altura mínima de (54px), padding (15px 22px), intervalo de ícone (28px), Manrope (13px/700) e cantos (8px). No hover, sobem (2px); cor, fundo e transformação mudam em (.25s) com a curva de desaceleração do sistema. Primários chegam à Brasa profunda de interação no hover; botões escuros chegam a grafite.
 
-A ação do cabeçalho é compacta, contornada, com padding (12px 18px), e assume Brasa 600 no hover. A ação textual usa ícone pequeno e padding vertical, sem caixa preenchida. Controles desabilitados têm opacidade (.35) e deixam de mostrar cursor de ação. O foco de links, botões e `summary` usa linha Brasa clara de (3px), deslocada (5px).
+A ação do cabeçalho é compacta, contornada, com padding (12px 18px), e assume Brasa 600 no hover. A ação textual usa ícone pequeno e padding vertical, sem caixa preenchida. Controles desabilitados têm opacidade (.35) e deixam de mostrar cursor de ação. O foco de links, botões e `summary` usa linha de (3px), deslocada (5px): Brasa clara sobre escuro e Brasa 600 nos capítulos claros e no link de pular para conteúdo.
 
 ### Tabs and selectors
 
@@ -227,7 +231,7 @@ O cabeçalho fixo é carvão quase opaco, com borda inferior e progresso de leit
 
 No menu móvel, as opções aparecem verticalmente abaixo do cabeçalho. O botão de duas linhas vira um X; o estado é anunciado por `aria-expanded` e pelo rótulo atualizado. Selecionar um capítulo ou pressionar Escape fecha o menu. O link de pular para conteúdo fica visível ao receber foco.
 
-O indicador de leitura informa capítulo e nome sem interceptar eventos. No modo apresentação, o controle central flutuante fornece anterior, seguinte, contagem, tela cheia quando disponível e saída. Os extremos desabilitam os controles correspondentes. Setas direita/baixo e PageDown avançam; setas esquerda/cima e PageUp voltam. Inputs, tabs e edição de conteúdo mantêm seus próprios comandos. Escape sai da apresentação. Rolagem e início do diagnóstico usam movimento suave apenas quando permitido pela preferência do usuário.
+O indicador de leitura informa capítulo e nome sem interceptar eventos. No modo apresentação, o controle central flutuante fornece anterior, seguinte, contagem, tela cheia quando disponível e saída. O hover dos controles circulares usa Brasa 600. Os extremos desabilitam os controles correspondentes. Setas direita/baixo e PageDown avançam; setas esquerda/cima e PageUp voltam. Inputs, tabs e edição de conteúdo mantêm seus próprios comandos. Escape sai da apresentação. Rolagem e início do diagnóstico usam movimento suave apenas quando permitido pela preferência do usuário.
 
 ### FAQ and status
 
