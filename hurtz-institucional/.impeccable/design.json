@@ -1,7 +1,7 @@
 {
   "schemaVersion": 2,
   "generatedAt": "2026-10-09T01:21:03.059824+00:00",
-  "title": "Design System: Hurtz institucional",
+  "title": "Design System: Hurtz para Clínicas",
   "extensions": {
     "colorMeta": {
       "paper": {
@@ -254,7 +254,27 @@
         "name": "mobile-max",
         "value": "620px"
       }
-    ]
+    ],
+    "clinicDeck": {
+      "revision": 3,
+      "date": "2026-10-08",
+      "audience": "Donos e gestores de clínicas particulares em operação",
+      "sections": 17,
+      "methodCarousel": [
+        "Funcionamento do Sistema 5P",
+        "Aplicação na clínica"
+      ],
+      "recommendationColumns": [
+        "Assessoria Hurtz para Clínicas",
+        "Momento da clínica",
+        "Recomendação da conversa"
+      ],
+      "clientColumns": {
+        "desktop": 4,
+        "mobile": 2
+      },
+      "structure": "Preservada das referências, com adaptação apenas de conteúdo e das opções específicas do nicho."
+    }
   },
   "components": [
     {
@@ -274,18 +294,10 @@
       "css": ".ds-objective{padding:32px;background:var(--paper);color:var(--ink);font-family:var(--font);text-align:center}.ds-objective h1{margin:0;font-size:clamp(36px,7vw,64px);font-weight:400;line-height:.98;letter-spacing:-.04em}.ds-objective mark{background:var(--accent);color:var(--ink);padding:0 .12em .05em;border-radius:.08em}.ds-objectives{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:48px;text-align:left}.ds-objectives article{display:grid;grid-template-columns:70px 1fr;min-height:180px;align-items:center;border:1px solid var(--line-dark);border-radius:24px;background:var(--ink);color:var(--paper);overflow:hidden;box-shadow:0 24px 70px var(--shadow)}.ds-objectives article>span{display:grid;align-self:stretch;place-items:center;border-right:1px solid var(--line-dark);font-size:34px;color:var(--accent)}.ds-objectives h3{margin:0;padding:24px;font-size:18px;line-height:1.45;font-weight:400}@media(max-width:800px){.ds-objectives{grid-template-columns:1fr}}"
     },
     {
-      "name": "Abas de mercado",
-      "kind": "chip",
-      "refersTo": "tab-segment-selected",
-      "description": "Separa as provas de clínicas e consórcio.",
-      "html": "<div class=\"ds-tabs\" role=\"tablist\" aria-label=\"Resultados por mercado\"><button type=\"button\" role=\"tab\" aria-selected=\"true\">Clínicas</button><button type=\"button\" role=\"tab\" aria-selected=\"false\">Consórcio</button></div>",
-      "css": ".ds-tabs{display:inline-flex;gap:5px;padding:5px;border:1px solid var(--line-dark);border-radius:100px;background:var(--ink);color:var(--paper);font-family:var(--font)}.ds-tabs button{padding:12px 26px;border:0;border-radius:100px;background:transparent;color:inherit;font-size:11px;font-weight:700;letter-spacing:.06em;text-transform:uppercase;min-height:44px;cursor:pointer}.ds-tabs button[aria-selected=true]{background:var(--strong)}.ds-tabs button:hover{background:var(--deeper)}.ds-tabs button:focus-visible{outline:3px solid var(--accent);outline-offset:5px}"
-    },
-    {
       "name": "Pergunta do diagnóstico",
       "kind": "input",
       "description": "Pergunta numerada com anotação local de resposta.",
-      "html": "<label class=\"ds-question\"><span>1.</span><div><strong>Você já investe em anúncios ou pretende começar?</strong><select aria-label=\"Investimento em anúncios\"><option>Anotar resposta</option><option>Já invisto</option><option>Vou começar</option><option>Já investi e parei</option></select></div></label>",
+      "html": "<label class=\"ds-question\"><span>1.</span><div><strong>Sua clínica já investe em anúncios ou pretende começar?</strong><select aria-label=\"Investimento em anúncios\"><option>Anotar resposta</option><option>Já invisto</option><option>Vou começar</option><option>Já investi e parei</option></select></div></label>",
       "css": ".ds-question{display:grid;grid-template-columns:60px 1fr;gap:22px;padding:28px 24px;background:var(--ink);color:var(--paper);font-family:var(--font);border-top:1px solid var(--line-dark)}.ds-question>span{font-size:42px;font-weight:400;line-height:1;color:var(--accent)}.ds-question strong{font-size:16px;line-height:1.55;font-weight:400;display:block;max-width:420px}.ds-question select{width:100%;border:0;border-bottom:1px solid var(--line-dark);background:transparent;color:var(--text-dark-muted);font-family:var(--font);font-size:11px;padding:12px 24px 12px 0;line-height:1.6;margin-top:16px;color-scheme:dark}.ds-question select:hover{border-color:var(--accent)}.ds-question select:focus-visible{outline:3px solid var(--accent);outline-offset:5px}"
     },
     {
@@ -299,7 +311,7 @@
       "name": "Etapa de maturidade",
       "kind": "custom",
       "description": "Patamar clicável que leva à descrição do trabalho.",
-      "html": "<a class=\"ds-stage\" href=\"#planejamento\"><span>01</span><div><small>Entender antes de investir</small><h3>Saber</h3><p>Preciso entender por onde começar.</p></div><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></a>",
+      "html": "<a class=\"ds-stage\" href=\"#planejamento\"><span>01</span><div><small>Entender antes de investir</small><h3>Saber</h3><p>Preciso entender onde minha clínica perde oportunidades.</p></div><svg viewBox=\"0 0 24 24\" aria-hidden=\"true\"><path d=\"M5 12h14m-6-6 6 6-6 6\"/></svg></a>",
       "css": ".ds-stage{display:flex;align-items:center;gap:28px;border:1px solid var(--line);border-radius:16px;min-height:125px;padding:24px 32px;background:var(--paper);color:var(--ink);font-family:var(--font);text-decoration:none;transition:background .2s,border-color .2s}.ds-stage:hover{background:var(--sand);border-color:var(--strong)}.ds-stage:focus-visible{outline:3px solid var(--strong);outline-offset:5px}.ds-stage>span{font-size:35px;line-height:1;color:var(--strong);font-weight:400;letter-spacing:-.025em;min-width:55px}.ds-stage small{font-size:9px;letter-spacing:.13em;text-transform:uppercase;color:var(--strong);font-weight:700}.ds-stage h3{font-size:30px;font-weight:400;margin:8px 0 0;line-height:1.1}.ds-stage p{font-size:11px;color:var(--text-muted);margin:10px 0 0}.ds-stage svg{margin-left:auto;width:20px;height:20px;color:var(--strong);fill:none;stroke:currentColor;stroke-width:1.7}@media(prefers-reduced-motion:reduce){.ds-stage{transition:none}} .ds-stage{box-shadow:0 16px 40px rgba(24,22,20,.06);min-height:144px;padding:24px 26px;gap:22px}.ds-stage>span{display:grid;place-items:center;min-width:46px;width:46px;height:46px;border:1px solid currentColor;border-radius:50%;font-size:10px;letter-spacing:.12em;font-weight:800}.ds-stage h3{font-size:clamp(27px,3vw,38px);font-weight:650;line-height:1}"
     },
     {
@@ -312,14 +324,14 @@
   ],
   "narrative": {
     "northStar": "Fidelidade estrutural às referências",
-    "overview": "A Sócio Estratégico define abertura, escala e cadência inicial. A V4 define missão, diagnóstico e maturidade. Logo, cores, fotos, métodos e fatos são Hurtz. O pedido atual exige preservar a estrutura escolhida pelo usuário.\n\nA primeira dobra contém pergunta central e dois objetivos numerados; fotografias ficam no capítulo institucional. A composição usa grandes superfícies, cartões, retratos, diagramas e navegação de deck.",
+    "overview": "A Sócio Estratégico define abertura, escala e cadência inicial. A V4 define missão, diagnóstico e maturidade. Logo, cores, fotos, métodos e fatos são Hurtz. O pedido atual exige preservar a estrutura escolhida pelo usuário.\n\nA primeira dobra contém pergunta central e dois objetivos numerados; fotografias ficam no capítulo institucional. A composição usa grandes superfícies, cartões, retratos, diagramas e navegação de deck.\n\nRevisão 3: conteúdo exclusivo para donos e gestores de clínicas. Sistema 5P com Funcionamento/Aplicação, provas clínicas e recomendação sem seletor de mercado.",
     "keyCharacteristics": [
       "Pergunta inicial e dois objetivos com medidas da referência.",
       "Montserrat em todo o runtime revisado.",
       "Container1180px e respiro96–136px.",
       "Primeiros capítulos na ordem da Sócio e diagnóstico/maturidade na cadência V4.",
       "Sombras difusas e bordas conforme as referências.",
-      "Métodos, prova e próximos passos separados por vertical.",
+      "Sistema 5P, provas e próximos passos exclusivos para clínicas.",
       "Títulos no eixo esquerdo, versos fixos e navegação mobile visível, conforme Sócio."
     ],
     "rules": [
@@ -347,8 +359,8 @@
     "dos": [
       "Do preservar abertura e sequência corrigidas.",
       "Do usar fatos, fotos, logo e cores Hurtz.",
-      "Do manter os métodos e provas das verticais separados.",
-      "Do conferir desktop e celular contra as referências."
+      "Do usar exclusivamente método e provas clínicas.",
+      "Do conferir leitura e interações em desktop e celular."
     ],
     "donts": [
       "Don’t recuperar a antiga capa fotográfica ou o slogan de entrada.",

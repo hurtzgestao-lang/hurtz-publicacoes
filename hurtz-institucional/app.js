@@ -23,7 +23,7 @@
   }
 
   document.querySelectorAll('[data-whatsapp]').forEach((link) => {
-    link.href = whatsappUrl(link.dataset.message || 'Olá, quero conversar com a Hurtz sobre o meu negócio.');
+    link.href = whatsappUrl(link.dataset.message || 'Olá, quero conversar com a Hurtz sobre a aquisição e a conversão da minha clínica.');
   });
 
   document.querySelectorAll('[data-tabs]').forEach((group) => {
@@ -280,11 +280,11 @@
   const notesFeedback = document.getElementById('notes-feedback');
   const noteLabels = {
     midia: 'Investimento em mídia',
-    origem: 'Origem dos clientes',
-    posicionamento: 'Presença digital',
-    mensuracao: 'Mensuração dos resultados',
-    atendimento: 'Atendimento e acompanhamento',
-    motivo: 'Motivo da conversa',
+    origem: 'Origem dos pacientes',
+    posicionamento: 'Presença digital da clínica',
+    mensuracao: 'Caminho até o procedimento',
+    atendimento: 'Rotina da recepção',
+    motivo: 'Prioridade da clínica',
   };
   const scopeForm = document.getElementById('scope-form');
   const recommendationTitle = document.getElementById('recommendation-title');
@@ -297,41 +297,30 @@
   const recommendationWhatsapp = document.getElementById('recommendation-whatsapp');
   const initialTitle = recommendationTitle?.textContent || '';
   const initialCopy = recommendationCopy?.textContent || '';
-  const marketLabels = { clinicas: 'Clínicas', consorcio: 'Consórcio' };
   const stages = {
-    planejar: { title: 'Saber', copy: 'Entender a operação e definir o plano de aquisição e conversão antes de investir.' },
-    estruturar: { title: 'Ter', copy: 'Implementar os ativos de captação, CRM e atendimento necessários para a operação funcionar.' },
-    operar: { title: 'Executar', copy: 'Executar campanhas, acompanhar o atendimento e ler os resultados junto com a sua equipe.' },
-    melhorar: { title: 'Potencializar', copy: 'Analisar uma operação ativa, localizar perdas e testar melhorias para o próximo estágio.' },
+    planejar: { title: 'Saber', copy: 'Entender onde sua clínica perde oportunidades e definir o procedimento prioritário, a capacidade de agenda e o plano de aquisição e conversão.' },
+    estruturar: { title: 'Ter', copy: 'Organizar a captação, o CRM comercial e a rotina da recepção para acompanhar cada contato até o agendamento e a decisão.' },
+    operar: { title: 'Executar', copy: 'Conectar campanhas, atendimento da recepção e leitura da agenda para acompanhar agendamentos, comparecimentos e vendas registradas.' },
+    melhorar: { title: 'Potencializar', copy: 'Localizar as perdas da operação atual e priorizar ajustes de aquisição, atendimento e confirmação com base nos dados da sua clínica.' },
   };
   const scopes = {
-    clinicas: {
-      planejar: ['Diagnóstico da aquisição, do atendimento e do caminho até a agenda.', 'Definição do procedimento prioritário e da capacidade de atendimento.', 'Plano de campanhas, criativos e ativos de captação.', 'Indicadores de resposta, agendamento, comparecimento e venda registrada.'],
-      estruturar: ['Configuração dos ativos de captação previstos no escopo.', 'Organização do CRM comercial, etapas e responsáveis.', 'Roteiros e cadências de atendimento, acompanhamento e confirmação.', 'Rastreamento e indicadores do funil comercial.'],
-      operar: ['Gestão das campanhas e dos testes de criativos contratados.', 'Acompanhamento da demanda, da resposta e dos agendamentos.', 'Orientação do atendimento e leitura dos motivos de perda.', 'Leitura do comparecimento e das vendas registradas.'],
-      melhorar: ['Diagnóstico das fugas entre demanda, atendimento, agenda e venda.', 'Revisão de campanhas, criativos e ativos de captação.', 'Ajustes de roteiro, acompanhamento e confirmação.', 'Priorização das melhorias com base nos indicadores da clínica.'],
-    },
-    consorcio: {
-      planejar: ['Diagnóstico da carteira, da captação e da qualificação das oportunidades.', 'Definição do público e dos tipos de bem e crédito prioritários.', 'Plano de campanhas, criativos e qualificação.', 'Indicadores de investimento, contatos, propostas e vendas de cotas.'],
-      estruturar: ['Implementação do qualificador previsto no escopo.', 'Configuração do Lead Card e das integrações previstas.', 'Organização do CRM, pipeline e classificação dos contatos.', 'Configuração dos indicadores de aquisição e conversão.'],
-      operar: ['Gestão das campanhas Meta Ads e dos testes de criativos.', 'Acompanhamento da aquisição e da qualificação dos contatos.', 'Leitura do pipeline e das oportunidades em negociação.', 'Ajustes de campanha e acompanhamento dos indicadores de ROI.'],
-      melhorar: ['Diagnóstico das fugas entre captação, qualificação, proposta e venda.', 'Revisão dos criativos, públicos e orçamento de mídia.', 'Ajustes na qualificação e na condução das oportunidades.', 'Priorização das melhorias a partir do pipeline e dos resultados registrados.'],
-    },
+    planejar: ['Diagnóstico da origem da procura e do caminho entre atendimento, agenda e procedimento.', 'Definição do procedimento prioritário, da capacidade de agenda e dos responsáveis na clínica.', 'Plano de campanhas, criativos e ativos de captação conforme a necessidade identificada.', 'Indicadores de resposta, agendamento, comparecimento e venda registrada.'],
+    estruturar: ['Configuração dos ativos de captação previstos na proposta.', 'Organização do CRM comercial, das etapas e dos responsáveis por cada contato.', 'Roteiros e cadências de atendimento, acompanhamento e confirmação para a recepção.', 'Rastreamento da origem da procura até o agendamento, comparecimento e venda registrada.'],
+    operar: ['Gestão das campanhas e dos testes de criativos previstos na proposta.', 'Acompanhamento da procura, do tempo de resposta e dos agendamentos com a clínica.', 'Orientação da recepção e leitura dos motivos de perda e das próximas atividades.', 'Leitura dos comparecimentos e das vendas registradas para orientar os próximos ajustes.'],
+    melhorar: ['Diagnóstico das perdas entre procura, atendimento, agenda, comparecimento e venda.', 'Revisão das campanhas, dos criativos e dos ativos de captação em operação.', 'Ajustes de roteiro, acompanhamento e confirmação com a recepção.', 'Priorização das melhorias com base nos indicadores e na capacidade da clínica.'],
   };
 
   function scopeSelection() {
     if (!scopeForm) return {};
-    const data = new FormData(scopeForm);
-    const market = data.get('market');
-    const stage = data.get('stage');
-    return { market, stage, complete: Boolean(marketLabels[market] && stages[stage]) };
+    const stage = new FormData(scopeForm).get('stage');
+    return { stage, complete: Object.hasOwn(stages, stage) };
   }
 
   function updateWhatsapp() {
     if (!recommendationWhatsapp) return;
-    const { market, stage, complete } = scopeSelection();
+    const { stage, complete } = scopeSelection();
     const summary = [];
-    if (complete) summary.push(`Negócio: ${marketLabels[market]}`, `Momento: ${stages[stage].title}`);
+    if (complete) summary.push('Assessoria: Hurtz para Clínicas', `Momento da clínica: ${stages[stage].title}`);
     if (callNotes) {
       const notes = new FormData(callNotes);
       Object.entries(noteLabels).forEach(([name, label]) => {
@@ -339,14 +328,14 @@
         if (value) summary.push(`${label}: ${value}`);
       });
     }
-    recommendationWhatsapp.href = whatsappUrl(`Olá, quero conversar com a Hurtz sobre o escopo para o meu negócio.${summary.length ? `\n\n${summary.join('\n')}` : ''}`);
+    recommendationWhatsapp.href = whatsappUrl(`Olá, quero conversar com a Hurtz sobre o escopo de assessoria para a minha clínica.${summary.length ? `\n\n${summary.join('\n')}` : ''}`);
   }
 
   function renderScope() {
-    const { market, stage, complete } = scopeSelection();
+    const { stage, complete } = scopeSelection();
     if (!complete || !scopeList) return;
-    if (scopeDetailTitle) scopeDetailTitle.textContent = `${stages[stage].title} · ${marketLabels[market]}`;
-    scopeList.replaceChildren(...scopes[market][stage].map((description) => {
+    if (scopeDetailTitle) scopeDetailTitle.textContent = `${stages[stage].title} · sua clínica`;
+    scopeList.replaceChildren(...scopes[stage].map((description) => {
       const item = document.createElement('li');
       item.textContent = description;
       return item;
@@ -354,15 +343,13 @@
   }
 
   function updateScope() {
-    const { market, stage, complete } = scopeSelection();
+    const { stage, complete } = scopeSelection();
     if (scopeOpen) scopeOpen.disabled = !complete;
-    if (recommendationTitle) recommendationTitle.textContent = complete ? `${stages[stage].title} · ${marketLabels[market]}` : initialTitle;
+    if (recommendationTitle) recommendationTitle.textContent = complete ? `${stages[stage].title} · sua clínica` : initialTitle;
     if (recommendationCopy) recommendationCopy.textContent = complete ? stages[stage].copy : initialCopy;
     if (selectedSummary) selectedSummary.textContent = complete
-      ? `${marketLabels[market]} · ${stages[stage].title}`
-      : marketLabels[market] ? `${marketLabels[market]} · selecione o momento do negócio`
-        : stages[stage] ? `${stages[stage].title} · selecione o tipo de negócio`
-          : 'Selecione o tipo e o momento do seu negócio.';
+      ? `Assessoria para Clínicas · ${stages[stage].title}`
+      : 'Selecione o momento da sua clínica.';
     if (scopeDetails && !scopeDetails.hidden) {
       if (complete) renderScope();
       else scopeDetails.hidden = true;

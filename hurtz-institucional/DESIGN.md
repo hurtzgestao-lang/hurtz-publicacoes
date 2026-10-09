@@ -1,6 +1,6 @@
 ---
 name: "Hurtz institucional"
-description: "Sales deck Hurtz com estrutura e composição das referências Sócio Estratégico e V4."
+description: "Sales deck Hurtz para clínicas, com estrutura e composição das referências Sócio Estratégico e V4."
 colors:
   paper: "#F5F2EC"
   ink: "#181614"
@@ -91,7 +91,7 @@ components:
 
 ## Overview
 
-**Direção: fidelidade estrutural às referências.** A Sócio Estratégico define a abertura, a escala e a cadência inicial. A V4 define missão, diagnóstico e categorias de maturidade. Logo, cores, fotos, métodos e fatos pertencem à Hurtz. A instrução do usuário é aproximar a estrutura, não criar uma narrativa visual nova.
+**Direção: fidelidade estrutural às referências.** A Sócio Estratégico define a abertura, a escala e a cadência inicial. A V4 define missão, diagnóstico e categorias de maturidade. Logo, cores, fotos, Sistema 5P e fatos pertencem à Hurtz. A revisão vigente fala exclusivamente ao dono ou gestor de clínica particular. A instrução do usuário é aproximar a estrutura, não criar uma narrativa visual nova.
 
 A primeira dobra contém “Qual o nosso objetivo?”, destaque na palavra final e dois objetivos numerados. A fotografia aparece no capítulo institucional. Grandes superfícies claras e escuras, títulos amplos, cartões horizontais, retratos, diagramas e controles de apresentação sustentam a leitura.
 
@@ -119,9 +119,9 @@ A abertura usa grid centralizado e `min-height:min(860px,100svh)`. Os dois cart�
 
 Sequência: objetivo, problema, prova, empresa/fundadores, clientes, liderança, missão, método, seis perguntas, maturidade, quatro formas de atuação, frentes conectadas, experiência, recomendação e contato. A estrutura não é encurtada para voltar aos nove capítulos da versão rejeitada.
 
-Títulos de problema, clientes, liderança, métodos, diagnóstico e jornada acompanham o eixo esquerdo da referência. A pergunta inicial e a missão permanecem centralizadas. Problema e prova usam quatro colunas. A prova está numa faixa integrada com divisórias. Clientes usam cinco colunas de cartões. Liderança usa duas colunas, container de 1040px e retratos 4:3. Empresa/fundadores usam duas colunas; os métodos são apresentados em painel com controles. Diagnóstico usa duas colunas, três linhas e fluxo por coluna. Maturidade usa quatro patamares alinhados à direita, com largura decrescente de 100% a 100% menos 180px, seguindo o mapa editorial da Sócio. As categorias se chamam Saber, Ter, Executar e Potencializar. A recomendação dispõe filtros e resumo antes dos entregáveis.
+Títulos de problema, clientes, liderança, métodos, diagnóstico e jornada acompanham o eixo esquerdo da referência. A pergunta inicial e a missão permanecem centralizadas. Problema e prova usam quatro colunas. A prova está numa faixa integrada com divisórias. Clientes clínicos usam quatro colunas de cartões em desktop e duas até 800px. Liderança usa duas colunas, container de 1040px e retratos 4:3. Empresa/fundadores usam duas colunas; os métodos são apresentados em painel com controles. Diagnóstico usa duas colunas, três linhas e fluxo por coluna. Maturidade usa quatro patamares alinhados à direita, com largura decrescente de 100% a 100% menos 180px, seguindo o mapa editorial da Sócio. As categorias se chamam Saber, Ter, Executar e Potencializar. A recomendação dispõe filtros e resumo antes dos entregáveis.
 
-Até 1100px o header compacta a marca e oculta o nome do capítulo. Até 900px o fluxo do problema se empilha, com setas verticais. Até 800px a abertura empilha cartões, a prova passa a duas colunas, empresa passa a uma e clientes ficam em três colunas. O header tem 106px, com marca/contador na primeira linha e os três grupos de navegação visíveis na segunda. Até 620px capítulos mantêm 88px de respiro, prova/liderança/diagnóstico/métodos/detalhes se empilham, patamares usam largura integral e clientes ficam em duas colunas. A preferência de movimento reduzido desliga animações e rolagem suave.
+Até 1100px o header compacta a marca e oculta o nome do capítulo. Até 900px o fluxo do problema se empilha, com setas verticais. Até 800px a abertura empilha cartões, a prova passa a duas colunas, empresa passa a uma e clientes ficam em duas colunas. O header tem 106px, com marca/contador na primeira linha e os três grupos de navegação visíveis na segunda. Até 620px capítulos mantêm 88px de respiro, prova/liderança/diagnóstico/métodos/detalhes se empilham, patamares usam largura integral e clientes ficam em duas colunas. A preferência de movimento reduzido desliga animações e rolagem suave.
 
 ## Elevation & Depth
 
@@ -151,11 +151,11 @@ Cartões de clientes e liderança usam `details`/`summary` nativos com verso de 
 
 ### Empresa e método
 
-Empresa/fundadores e métodos usam painéis alternados com setas e pontos. Abas têm relação com o painel, foco de teclado e estados selecionados. As fotos estão no capítulo institucional. Métodos de clínicas e consórcio permanecem separados. Cada painel apresenta funcionamento e uma faixa de aplicação em oferta, captação, atendimento e mensuração. As três frentes do ecossistema usam conexões horizontais em desktop e verticais no celular.
+Empresa/fundadores e métodos usam painéis alternados com setas e pontos. Abas têm relação com o painel, foco de teclado e estados selecionados. As fotos estão no capítulo institucional. O carrossel do Sistema 5P tem dois painéis: Funcionamento e Aplicação na clínica. O primeiro apresenta as cinco etapas; o segundo detalha procedimento/captação, recepção, agenda e indicadores. As três frentes do ecossistema usam conexões horizontais em desktop e verticais no celular.
 
 ### Diagnóstico e recomendação
 
-Seis perguntas numeradas permitem anotar respostas em selects e textarea. O conteúdo é processado no navegador. Maturidade conduz às descrições. Mercado e momento da operação produzem a recomendação e habilitam entregáveis; o resumo entra no WhatsApp apenas se o visitante escolher abrir, revisar e enviar.
+Seis perguntas numeradas permitem anotar respostas em selects e textarea. O conteúdo é processado no navegador. Maturidade conduz às descrições. O projeto é a Assessoria Hurtz para Clínicas. Selecionar o momento da clínica produz a recomendação e habilita entregáveis; o resumo entra no WhatsApp apenas se o visitante escolher abrir, revisar e enviar.
 
 ### Navegação e apresentação
 
@@ -175,3 +175,9 @@ Header fixo acompanha superfície, seção e progresso. Três grupos: Diagnósti
 ## Finish review da revisão
 
 PASS de fidelidade central na revisão independente de08/10/2026. Primeira dobra comparada diretamente em1470×643; desktop e mobile próprios inspecionados; abas, carrosséis, versos, anotações, categorias, recomendação e apresentação verificados no navegador. Capturas de primeira dobra/header finais substituem a hero rejeitada e a imagem de compartilhamento. A revisão altera apenas o conteúdo necessário para a Hurtz, dentro da estrutura das referências.
+
+## Revisão clínica vigente — 08/10/2026
+
+A estrutura de 17 capítulos, a abertura e as categorias foram preservadas. O conteúdo fala ao dono ou gestor de clínica, com procedimento prioritário, recepção, agenda, comparecimento e procedimentos vendidos. Provas e clientes são exclusivamente clínicos; o Sistema 5P ocupa Funcionamento/Aplicação. A recomendação mantém três colunas, com contexto fixo da assessoria, momento da clínica e resumo. Somente a seleção do momento habilita os entregáveis. Não há seletor de mercado ou dados de outra vertical na experiência pública.
+
+PASS na revisão independente da copy, fatos e contrato HTML/JS. Conferência no navegador: abertura, diagnóstico, carrossel do método, recomendação, resumo WhatsApp e disposição mobile. Esta revisão substitui o escopo multissetorial da versão anterior.
