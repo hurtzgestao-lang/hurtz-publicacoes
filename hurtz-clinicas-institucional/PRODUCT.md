@@ -24,7 +24,7 @@ Aquisição, atendimento e conversão conectados pelo método HURTZ: Hipótese, 
 
 ## Capabilities and Constraints
 
-- Preservar a abertura e o objetivo dos blocos da referência Sócio Estratégico.
+- Preservar a abertura e o objetivo dos blocos da referência Sócio Estratégico. A revisão de 10/10/2026 determina título centralizado e dois objetivos numerados, sem fotos na primeira dobra.
 - Criar do zero. Nenhuma página anterior da Hurtz é referência.
 - Assessoria atual depende de diagnóstico e proposta; não criar preços, prazos ou pacotes comerciais.
 - Não inventar cases, depoimentos, números de resultados ou credenciais.
@@ -37,4 +37,4 @@ Hurtz Company, logo oficial e linguagem direta. Hierarquia e sequência da apres
 
 ## Evidence on Hand
 
-Contexto da empresa, oferta e qualificação canônicas para clínicas; logos oficiais. Fotografias públicas reais de @oklebsoncosta e @marcoshurtz, confirmados pelo usuário, além de profissionais clínicos e material original do acervo. As imagens identificam pessoas e contextos; não são apresentadas como depoimentos ou resultados. Não presumir que todo profissional retratado é cliente ativo. Provas quantitativas e depoimentos clínicos não foram fornecidos.
+Contexto da empresa, oferta e qualificação canônicas para clínicas; logos oficiais. Fotografias públicas reais de @oklebsoncosta e @marcoshurtz, confirmados pelo usuário, além de profissionais clínicos e material original do acervo. As imagens identificam pessoas e contextos; não são apresentadas como depoimentos ou resultados. Não presumir que todo profissional retratado é cliente ativo. Provas quantitativas e depoimentos clínicos não foram fornecidos. Na revisão de 10/10/2026, o usuário definiu os profissionais desta página: Sidney Colares, Adriana Colares, Sarah Arroyo, Juliane Villela e Luma Reis, com os perfis e especialidades fornecidos na conversa.

@@ -29,7 +29,7 @@
       ],
       "bodyDesktop": "18px",
       "bodyMobile": "16–17px",
-      "hero": "clamp(52px,5.35vw,78px)",
+      "hero": "clamp(58px,6.3vw,88px)",
       "headings": "clamp(38px,4.35vw,64px)",
       "sizes": [
         8,
@@ -82,10 +82,6 @@
       {
         "name": "state-change",
         "value": "240ms cubic-bezier(.22,1,.36,1)"
-      },
-      {
-        "name": "photo-hover",
-        "value": "550ms small zoom; reduced-motion disables"
       }
     ],
     "breakpoints": [
@@ -139,9 +135,9 @@
   ],
   "narrative": {
     "northStar": "Conversa comercial com pessoas reais",
-    "overview": "Sequência de 16 seções e método HURTZ preservados, com fotografia real e composição editorial de formas suaves.",
+    "overview": "Sequência de 16 seções e método HURTZ preservados. Abertura centralizada, sem fotos, com dois objetivos numerados. Fotografias reais na apresentação da equipe e dos cinco profissionais indicados pelo usuário.",
     "keyCharacteristics": [
-      "retratos e reunião reais em cor",
+      "retratos e reunião reais em cor, fora da primeira dobra",
       "objetivos originais e hierarquia comercial",
       "cantos de24–36px e navegação em pílula",
       "painéis de contraste e listas abertas"

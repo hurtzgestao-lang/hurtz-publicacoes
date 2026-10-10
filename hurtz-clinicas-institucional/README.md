@@ -40,3 +40,7 @@ Fotos reais dos sócios, reunião de trabalho e profissionais, com créditos e f
 ## Reformulação visual de 08/10/2026
 
 Visual editorial com fotografias naturais, navegação em pílula, cantos de 24–36px e profundidade discreta. Referências externas: Sócio Estratégico, Sagi e Focus Lab. A estrutura comercial e o método HURTZ foram preservados.
+
+## Ajuste de 10/10/2026
+
+Abertura sem fotos, com o título centralizado e dois objetivos numerados como na estrutura inicial. Profissionais indicados pelo usuário: Dr. Sidney Colares, Dra. Adriana Colares, Dra. Sarah Arroyo, Dra. Juliane Villela e Dra. Luma Reis. Especialidades e links aos perfis acompanham cada retrato.

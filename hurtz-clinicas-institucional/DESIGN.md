@@ -18,7 +18,7 @@ colors:
 typography:
   display:
     fontFamily: "Inter, Arial, sans-serif"
-    fontSize: "clamp(52px, 5.35vw, 78px)"
+    fontSize: "clamp(58px, 6.3vw, 88px)"
     fontWeight: 400
     lineHeight: 1.06
     letterSpacing: "-0.035em"
@@ -49,7 +49,7 @@ spacing:
 
 Apresentação comercial em scroll, com fotografia real em cor natural, hierarquia editorial e formas suaves. Modo Persuade, construção em código. Esta direção substitui o visual rígido rejeitado pelo usuário; é específica desta página.
 
-As 16 seções e a copy principal são preservadas. A abertura coloca os dois objetivos à esquerda e os sócios à direita. Fotos têm nomes e função no argumento, sem alegação de resultado ou cliente ativo.
+As 16 seções e a copy principal são preservadas. A abertura retorna à estrutura da referência na revisão de 10/10/2026: título centralizado e dois objetivos numerados lado a lado, sem fotos. Fotos têm nomes e função no argumento, sem alegação de resultado ou cliente ativo.
 
 Referências externas: [Sócio Estratégico](https://propostas.socioestrategico.com/institucional), [Sagi](https://www.sagiagency.com/) e [Focus Lab](https://www.focuslab.agency/about). Nenhuma página anterior da Hurtz é referência.
 
@@ -69,15 +69,15 @@ Legendas de fotos, fontes e orientação são menores; conteúdo principal não 
 
 Container de 1184px, expandindo a 1280px em telas grandes. Cabeçalho flutuante de 74px dentro de uma área de 110px, com navegação em pílula. Painéis escuros têm margens externas e cantos amplos, em vez de faixas rígidas de ponta a ponta.
 
-A abertura usa duas colunas, com retratos desencontrados em altura. Quem somos usa foto real de reunião. Clínicas usa três retratos com nome e especialidade. Equipe usa retratos e biografias próximas. Os demais trechos alternam listas abertas, painéis e grupos de leitura.
+A abertura coloca dois painéis escuros abaixo do título centralizado. Quem somos usa foto real de reunião. Clínicas usa cinco retratos com nome e especialidade: Sidney Colares, Adriana Colares, Sarah Arroyo, Juliane Villela e Luma Reis. A galeria usa cinco colunas no desktop, três mais duas centralizadas no tablet e uma lista vertical no celular. Equipe usa retratos e biografias próximas. Os demais trechos alternam listas abertas, painéis e grupos de leitura.
 
 Até 1100px, reduzir gaps e escalas. Até 760px, usar fluxo vertical, cabeçalho em duas linhas e remover os controles inferiores para preservar a leitura. Até 360px, passos e comparações usam uma coluna. As abas do método podem rolar horizontalmente dentro de seu próprio trilho.
 
 ## Elevation & Depth
 
-Sombras discretas com offset e blur dão profundidade à navegação, aos dois objetivos e ao painel do método. Não há glow, ilustração inventada, órbitas, textura simulada nem animações de entrada repetidas.
+Sombras discretas com offset e blur dão profundidade à navegação e ao painel do método. Os dois objetivos usam apenas o contraste dos painéis escuros. Não há glow, ilustração inventada, órbitas, textura simulada nem animações de entrada repetidas.
 
-Fotos da abertura têm um zoom pequeno no hover, sem transformar a posição dos elementos. Scroll e trocas de estado respeitam movimento reduzido.
+Scroll e trocas de estado respeitam movimento reduzido.
 
 ## Shapes
 
@@ -87,7 +87,7 @@ Os logos usam a arte original em uma moldura de recorte, sem redesenho. As fotos
 
 ## Components
 
-- Abertura: título original, dois objetivos e retratos reais dos sócios com links aos perfis confirmados.
+- Abertura: título original centralizado e dois objetivos numerados. Sem retratos dos sócios na primeira dobra.
 - Navegação: três capítulos, contador e progresso. Sempre clara, para manter logo e orientação estáveis.
 - Pessoas: fotos em cor, legendas factuais, nomes e função/especialidade. Não viram depoimentos.
 - Método: cinco botões em pílula, seleção explícita e painel amplo de explicação/aplicação. Teclado com setas, Home e End.
@@ -101,4 +101,4 @@ Usar fotografias originais, pessoas identificadas e conteúdo que já existe. Ma
 
 Não voltar aos cantos de 4px, bordas em todas as subdivisões ou fotografia monocromática. Não transferir esta exceção de direção para toda a marca. Não usar pacientes, antes/depois, números ou depoimentos não fornecidos.
 
-Fontes e créditos: assets/CREDITOS.md. Originais: dados/apify/2026-10-08-hurtz-clinicas-redesign/.
+Fontes e créditos: assets/CREDITOS.md. Originais: dados/apify/2026-10-08-hurtz-clinicas-redesign/ e dados/apify/2026-10-10-hurtz-clinicas-face/.
