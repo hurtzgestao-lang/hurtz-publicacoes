@@ -40,7 +40,12 @@
     }
   }
   function navigateSection(direction) {
+    if (sections[activeSection].id === 'quem-somos') {
+      if (direction > 0 && activeAbout === 0) {selectAbout(1);return;}
+      if (direction < 0 && activeAbout === 1) {selectAbout(0);return;}
+    }
     const index = Math.max(0, Math.min(sections.length - 1, activeSection + direction));
+    if (sections[index].id === 'quem-somos') selectAbout(direction > 0 ? 0 : 1);
     sections[index].scrollIntoView({behavior: reducedMotion.matches ? 'auto' : 'smooth', block: 'start'});
     window.history.replaceState(null, '', `#${sections[index].id}`);
   }
@@ -74,6 +79,33 @@
     fullscreen.textContent = enabled ? 'Sair da tela cheia' : 'Tela cheia';
     fullscreen.setAttribute('aria-label', fullscreen.textContent);
   });
+
+  const aboutTabs = [...document.querySelectorAll('[data-about]')];
+  const aboutPanels = aboutTabs.map(tab => document.getElementById(tab.getAttribute('aria-controls')));
+  let activeAbout = 0;
+  function selectAbout(index, focus = false) {
+    activeAbout = index;
+    aboutTabs.forEach((tab, i) => {
+      tab.setAttribute('aria-selected', String(i === index));
+      tab.tabIndex = i === index ? 0 : -1;
+      aboutPanels[i].hidden = i !== index;
+      aboutPanels[i].inert = i !== index;
+    });
+    if (focus) aboutTabs[index].focus({preventScroll:true});
+    queuePosition();
+  }
+  aboutTabs.forEach((tab, index) => {
+    tab.addEventListener('click', () => selectAbout(index));
+    tab.addEventListener('keydown', event => {
+      let selected;
+      if (event.key === 'ArrowRight' || event.key === 'End') selected = 1;
+      else if (event.key === 'ArrowLeft' || event.key === 'Home') selected = 0;
+      else return;
+      event.preventDefault();
+      selectAbout(selected, true);
+    });
+  });
+  selectAbout(window.location.hash === '#about-partners' ? 1 : 0);
 
   const methods = {
     h: {number:'01', title:'Diagnóstico antes do investimento.', description:'Definimos o procedimento prioritário, o público e a capacidade da agenda. Mapeamos o funil e escolhemos a primeira hipótese a testar.', actions:['Escolher procedimento, público e região.', 'Mapear contato, atendimento, agenda e fechamento.', 'Definir mensagem, canal e primeiro teste.'], metric:'Diagnóstico do funil, ponto de partida dos indicadores e plano de testes.'},

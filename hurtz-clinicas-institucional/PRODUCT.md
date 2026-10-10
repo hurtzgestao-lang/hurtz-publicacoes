@@ -33,7 +33,7 @@ Aquisição, atendimento e conversão conectados pelo método HURTZ: Hipótese, 
 
 ## Brand Commitments
 
-Hurtz Company, logo oficial e linguagem direta. Hierarquia e sequência da apresentação comercial preservadas. Em 08/10/2026 o usuário rejeitou a rigidez visual da primeira versão e pediu uma reformulação moderna, com formas suaves e fotografias reais. Essa direção específica prevalece sobre as regras anteriores de raio mínimo, ausência de sombras e fotografia monocromática.
+Hurtz Company, logo oficial e linguagem direta. Hierarquia e sequência da apresentação comercial preservadas. Em 08/10/2026 o usuário rejeitou a rigidez visual da primeira versão e pediu uma reformulação moderna, com formas suaves e fotografias reais. Essa direção específica prevalece sobre as regras anteriores de raio mínimo, ausência de sombras e fotografia monocromática. A correção posterior de 10/10/2026 limita a retirada de fotos à primeira dobra: preservar a apresentação humana da empresa e da equipe. A referência foi reaberta e a autoridade dos sócios voltou a ocupar um painel de destaque dentro de Quem somos, antes dos profissionais.
 
 ## Evidence on Hand
 

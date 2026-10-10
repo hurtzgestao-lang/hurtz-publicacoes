@@ -8,8 +8,8 @@
   <meta name="theme-color" content="#F5F2EC">
   <link rel="icon" type="image/png" href="assets/favicon.png">
   <link rel="preload" href="assets/inter-regular.ttf" as="font" type="font/ttf" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=3">
-  <script src="app.js?v=3" defer></script>
+  <link rel="stylesheet" href="styles.css?v=4">
+  <script src="app.js?v=4" defer></script>
 </head>
 <body>
   <a class="skip-link" href="#conteudo">Ir para a apresentação</a>
@@ -65,12 +65,37 @@
     </section>
 
     <section class="slide dark about" id="quem-somos" data-title="Quem é a Hurtz" data-group="metodo" aria-labelledby="about-title">
-      <div class="shell">
-        <div class="about-layout">
-          <div><p class="chapter-label"><span>02</span> Autoridade &amp; método</p><h2 id="about-title">Uma assessoria para conectar <em>aquisição, atendimento e conversão.</em></h2><p class="lead">A Hurtz entra para organizar o caminho entre a campanha e a agenda. Estratégia, execução e acompanhamento próximos de quem cuida da clínica.</p></div>
-          <figure class="clinic-photo"><img src="assets/reuniao.webp" alt="Marcos em uma reunião de trabalho, com notebook" width="1080" height="1440" loading="lazy"><figcaption>Marcos, da estratégia à operação.</figcaption></figure>
+      <div class="shell about-shell">
+        <div class="about-panels">
+          <div class="about-panel" id="about-company" role="tabpanel" aria-labelledby="about-tab-company" tabindex="0">
+            <div class="about-layout">
+              <div><p class="chapter-label"><span>02</span> Autoridade &amp; método</p><h2 id="about-title">Uma assessoria para conectar <em>aquisição, atendimento e conversão.</em></h2><p class="lead">A Hurtz entra para organizar o caminho entre a campanha e a agenda. Estratégia, execução e acompanhamento próximos de quem cuida da clínica.</p></div>
+              <figure class="clinic-photo"><img src="assets/reuniao.webp" alt="Marcos em uma reunião de trabalho, com notebook" width="1080" height="1440" loading="lazy"><figcaption>Marcos, da estratégia à operação.</figcaption></figure>
+            </div>
+            <div class="operation-strip" aria-label="Como organizamos o trabalho"><article><strong>1</strong><span>prioridade definida<br>para começar</span></article><article><strong>5</strong><span>etapas conectadas<br>pelo método HURTZ</span></article><article><strong>1</strong><span>responsável por cada<br>próxima ação</span></article><article><strong>Todo o funil</strong><span>da origem do contato<br>ao fechamento registrado</span></article></div>
+          </div>
+          <div class="about-panel" id="about-partners" role="tabpanel" aria-labelledby="about-tab-partners" tabindex="0" hidden>
+            <div class="partners-layout">
+              <div class="partners-copy">
+                <h2 id="partners-title">Quem está à frente<br>da <em>Hurtz?</em></h2>
+                <p class="lead">Klebson Costa e Marcos conduzem a estratégia e a operação da Hurtz Company.</p>
+                <div class="partners-roles">
+                  <p><strong>Klebson Costa</strong> entende o cenário, define a rota e conecta o plano ao que a clínica precisa resolver.</p>
+                  <p><strong>Marcos</strong>, CEO e sócio, conduz o alinhamento entre estratégia, entrega e crescimento.</p>
+                </div>
+              </div>
+              <div class="partner-portraits" aria-label="Sócios da Hurtz Company">
+                <figure class="partner-profile"><a href="https://www.instagram.com/oklebsoncosta/" target="_blank" rel="noopener" aria-label="Instagram de Klebson Costa"><img src="assets/klebson.webp" alt="Klebson Costa, sócio da Hurtz Company" width="1080" height="1080" loading="lazy"></a><figcaption><strong>Klebson Costa</strong><span>Direção estratégica e comercial</span></figcaption></figure>
+                <figure class="partner-profile"><a href="https://www.instagram.com/marcoshurtz/" target="_blank" rel="noopener" aria-label="Instagram de Marcos"><img src="assets/marcos.webp" alt="Marcos, CEO e sócio da Hurtz Company" width="1080" height="1080" loading="lazy"></a><figcaption><strong>Marcos</strong><span>CEO e sócio</span></figcaption></figure>
+              </div>
+            </div>
+          </div>
         </div>
-        <div class="operation-strip" aria-label="Como organizamos o trabalho"><article><strong>1</strong><span>prioridade definida<br>para começar</span></article><article><strong>5</strong><span>etapas conectadas<br>pelo método HURTZ</span></article><article><strong>1</strong><span>responsável por cada<br>próxima ação</span></article><article><strong>Todo o funil</strong><span>da origem do contato<br>ao fechamento registrado</span></article></div>
+        <div class="about-switch" role="tablist" aria-label="Apresentação da empresa e dos sócios">
+          <button type="button" id="about-tab-company" role="tab" aria-selected="true" aria-controls="about-company" tabindex="0" data-about="company">A Hurtz</button>
+          <button type="button" id="about-tab-partners" role="tab" aria-selected="false" aria-controls="about-partners" tabindex="-1" data-about="partners">Os sócios</button>
+        </div>
+        <noscript><style>#about-partners[hidden]{display:block;margin-top:64px}.about-switch{display:none}</style></noscript>
       </div>
     </section>
 

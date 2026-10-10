@@ -69,7 +69,7 @@ Legendas de fotos, fontes e orientação são menores; conteúdo principal não 
 
 Container de 1184px, expandindo a 1280px em telas grandes. Cabeçalho flutuante de 74px dentro de uma área de 110px, com navegação em pílula. Painéis escuros têm margens externas e cantos amplos, em vez de faixas rígidas de ponta a ponta.
 
-A abertura coloca dois painéis escuros abaixo do título centralizado. Quem somos usa foto real de reunião. Clínicas usa cinco retratos com nome e especialidade: Sidney Colares, Adriana Colares, Sarah Arroyo, Juliane Villela e Luma Reis. A galeria usa cinco colunas no desktop, três mais duas centralizadas no tablet e uma lista vertical no celular. Equipe usa retratos e biografias próximas. Os demais trechos alternam listas abertas, painéis e grupos de leitura.
+A abertura coloca dois painéis escuros abaixo do título centralizado. Quem somos segue a referência com dois painéis, A Hurtz e Os sócios: contexto institucional com foto de reunião e apresentação de Klebson/Marcos com retratos grandes. A navegação da apresentação percorre esses dois painéis antes de avançar aos profissionais. As fotos da equipe permanecem. Clínicas usa cinco retratos com nome e especialidade: Sidney Colares, Adriana Colares, Sarah Arroyo, Juliane Villela e Luma Reis. A galeria usa cinco colunas no desktop, três mais duas centralizadas no tablet e uma lista vertical no celular. Equipe usa retratos e biografias próximas. Os demais trechos alternam listas abertas, painéis e grupos de leitura.
 
 Até 1100px, reduzir gaps e escalas. Até 760px, usar fluxo vertical, cabeçalho em duas linhas e remover os controles inferiores para preservar a leitura. Até 360px, passos e comparações usam uma coluna. As abas do método podem rolar horizontalmente dentro de seu próprio trilho.
 
@@ -89,6 +89,7 @@ Os logos usam a arte original em uma moldura de recorte, sem redesenho. As fotos
 
 - Abertura: título original centralizado e dois objetivos numerados. Sem retratos dos sócios na primeira dobra.
 - Navegação: três capítulos, contador e progresso. Sempre clara, para manter logo e orientação estáveis.
+- Quem somos: dois painéis de apresentação, empresa e sócios, como na referência. Fotos grandes dos dois sócios no painel de autoridade, antes dos profissionais. Abas com setas, Home/End e avanço dos controles de apresentação.
 - Pessoas: fotos em cor, legendas factuais, nomes e função/especialidade. Não viram depoimentos.
 - Método: cinco botões em pílula, seleção explícita e painel amplo de explicação/aplicação. Teclado com setas, Home e End.
 - Soluções: três níveis com recuo e cantos suaves; links levam aos detalhes.

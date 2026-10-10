@@ -44,3 +44,7 @@ Visual editorial com fotografias naturais, navegação em pílula, cantos de 24�
 ## Ajuste de 10/10/2026
 
 Abertura sem fotos, com o título centralizado e dois objetivos numerados como na estrutura inicial. Profissionais indicados pelo usuário: Dr. Sidney Colares, Dra. Adriana Colares, Dra. Sarah Arroyo, Dra. Juliane Villela e Dra. Luma Reis. Especialidades e links aos perfis acompanham cada retrato.
+
+## Correção da apresentação dos sócios — 10/10/2026
+
+A retirada de fotografias se restringe à primeira dobra. Quem somos volta à organização da referência, com painéis A Hurtz e Os sócios, retratos grandes de Klebson e Marcos antes dos profissionais. As fotos já presentes no bloco de equipe continuam. Os controles de apresentação passam pela empresa e pelos sócios antes de avançar à próxima seção.
