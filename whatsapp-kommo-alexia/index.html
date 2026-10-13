@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#181614">
+  <meta name="description" content="Plano de migração do WhatsApp Lite para WhatsApp Business no Kommo — Alexia Clinic.">
+  <title>WhatsApp + Kommo | Plano de migração — Alexia Clinic</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    :root{--off:#F5F2EC;--coal:#181614;--graph:#3D3A36;--stone:#8C8880;--sand:#E8E4DC;--ember:#C06018;--ember-light:#F9EDE3;--green:#1A7A4A}
+    *{box-sizing:border-box}html,body{margin:0;width:100%;height:100%;overflow:hidden;background:var(--coal);font-family:Inter,Arial,sans-serif;color:var(--coal);-webkit-font-smoothing:antialiased}
+    #deck{position:relative;width:100%;height:100%;display:grid;place-items:center}.slide{position:absolute;width:min(100vw,177.7778vh);height:min(56.25vw,100vh);aspect-ratio:16/9;background:var(--off);padding:5.1% 6.2% 6.8%;display:flex;flex-direction:column;overflow:hidden;opacity:0;visibility:hidden;transform:translateX(1.5%);transition:opacity .22s ease,transform .22s ease,visibility .22s}.slide.active{opacity:1;visibility:visible;transform:none}.slide.dark{background:var(--coal);color:var(--off)}
+    .top{display:flex;justify-content:space-between;align-items:center;gap:30px}.logo{width:220px;height:auto;display:block}.eyebrow{font-size:clamp(10px,.8vw,15px);font-weight:700;letter-spacing:.17em;text-transform:uppercase;color:var(--ember)}.dark .eyebrow{color:#E2A87A}.date{font-size:clamp(9px,.72vw,13px);letter-spacing:.12em;color:var(--stone);text-transform:uppercase}.dark .date{color:#A9A49C}
+    h1,h2,p{margin:0}h1{font-size:clamp(48px,6vw,112px);letter-spacing:-.055em;line-height:.98;font-weight:700;max-width:1150px}h2{font-size:clamp(31px,3.55vw,66px);letter-spacing:-.045em;line-height:1.02;font-weight:700;max-width:1300px}.sub{font-size:clamp(15px,1.38vw,26px);line-height:1.48;color:var(--graph);max-width:980px}.dark .sub{color:#C7C1B8}.rule{width:54px;height:3px;background:var(--ember);margin:28px 0}.body{flex:1;min-height:0;display:flex;flex-direction:column;justify-content:center;padding-bottom:24px}.footer{position:absolute;bottom:4.1%;left:6.2%;right:6.2%;display:flex;align-items:center;justify-content:space-between;font-size:clamp(9px,.7vw,13px);letter-spacing:.12em;color:var(--stone);text-transform:uppercase}.dark .footer{color:#A9A49C}.footer .mark{width:26px;height:26px;object-fit:contain}.footer-left{display:flex;align-items:center;gap:14px}
+    .cover .body{justify-content:flex-end;padding-bottom:5.8%}.cover h1{max-width:1340px}.cover .sub{margin-top:26px}.cover .rule{margin:25px 0 32px}.cover{background:var(--coal)}
+    .metric-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px 5%;margin-top:36px}.metric{border-top:1px solid var(--sand);padding-top:17px}.metric strong{display:block;font-size:clamp(38px,5.1vw,92px);letter-spacing:-.055em;line-height:1;font-weight:700}.metric span{display:block;font-size:clamp(12px,1vw,19px);line-height:1.45;color:var(--graph);margin-top:8px;max-width:520px}.metric.feature strong{color:var(--ember)}
+    .callout{border-left:3px solid var(--ember);padding:14px 20px;background:var(--ember-light);font-size:clamp(12px,1vw,18px);line-height:1.5;color:var(--graph);margin-top:22px;max-width:1100px}.callout strong{color:var(--coal)}
+    .twocol{display:grid;grid-template-columns:1fr 1fr;gap:24px;margin-top:35px}.panel{border:1px solid var(--sand);padding:23px 25px;min-width:0}.panel h3{font-size:clamp(17px,1.5vw,27px);letter-spacing:-.025em;margin:0 0 13px}.panel p,.panel li{font-size:clamp(12px,1vw,18px);line-height:1.45;color:var(--graph)}.panel ul{margin:0;padding-left:20px}.panel li+li{margin-top:8px}.label{font-size:clamp(9px,.72vw,13px);font-weight:700;letter-spacing:.15em;text-transform:uppercase;color:var(--stone);margin-bottom:9px;display:block}
+    .steps{display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:40px}.step{border-top:2px solid var(--ember);padding:16px 13px 0 0}.step b{font-size:clamp(12px,1.1vw,20px);display:block;margin-bottom:10px}.step p{font-size:clamp(10px,.82vw,15px);line-height:1.45;color:var(--graph)}.step .num{color:var(--ember);font-size:clamp(11px,.8vw,15px);font-weight:700;letter-spacing:.1em;margin-bottom:14px;display:block}
+    .timeline{display:flex;align-items:stretch;gap:0;margin:35px 0 25px}.phase{flex:1;border-top:2px solid var(--sand);padding:14px 14px 0 0}.phase:first-child{border-color:var(--ember)}.phase b{font-size:clamp(14px,1.3vw,23px);display:block}.phase span{font-size:clamp(10px,.8vw,14px);line-height:1.4;color:var(--graph);display:block;margin-top:7px}
+    .formula{font-size:clamp(17px,1.7vw,30px);line-height:1.35;font-weight:700;letter-spacing:-.02em;padding:22px 25px;border:1px solid var(--sand);margin-top:25px;max-width:1220px}.formula em{font-style:normal;color:var(--ember)}.note{font-size:clamp(10px,.8vw,14px);line-height:1.45;color:var(--stone);margin-top:14px;max-width:1180px}
+    .risk{display:grid;grid-template-columns:40px 1fr;gap:13px;padding:13px 0;border-bottom:1px solid var(--sand)}.risk:last-child{border-bottom:0}.risk .index{font-weight:700;color:var(--ember);font-size:18px}.risk p{font-size:clamp(12px,1vw,18px);line-height:1.43;color:var(--graph)}.risk strong{color:var(--coal)}
+    .closing .body{justify-content:center}.closing h2{font-size:clamp(44px,5.1vw,92px);max-width:1260px}.closing .sub{margin-top:24px}.closing .source{font-size:clamp(10px,.75vw,14px);line-height:1.5;color:#B4AEA5;margin-top:34px;max-width:1200px}.closing .source a{color:#E2A87A;text-decoration:underline;text-underline-offset:3px}
+    .nav{position:fixed;z-index:20;left:50%;bottom:17px;transform:translateX(-50%);display:flex;align-items:center;gap:12px;padding:8px 11px;background:#181614;color:#F5F2EC;border:1px solid #3D3A36}.nav button{font:700 15px Inter,Arial,sans-serif;color:inherit;background:none;border:0;padding:6px 10px;cursor:pointer}.nav button:hover,.nav button:focus-visible{color:#E2A87A;outline:1px solid #C06018}.counter{font-size:11px;letter-spacing:.1em;min-width:56px;text-align:center;color:#C7C1B8}.progress{position:fixed;z-index:19;left:0;bottom:0;height:3px;background:var(--ember);width:0;transition:width .2s ease}.help{position:fixed;right:18px;bottom:21px;z-index:20;color:#A9A49C;font-size:11px;letter-spacing:.04em}
+    @media(max-width:760px){.slide{width:100vw;height:100dvh;aspect-ratio:auto;padding:9vh 7vw 10vh}.top{align-items:flex-start}.logo{width:155px}.date{max-width:112px;text-align:right;line-height:1.45}.body{padding:8px 0 35px}.rule{margin:19px 0}.metric-grid{gap:17px 20px;margin-top:25px}.twocol{grid-template-columns:1fr;gap:12px;margin-top:23px}.panel{padding:14px 16px}.panel ul{padding-left:16px}.steps{grid-template-columns:1fr 1fr;gap:18px 20px;margin-top:26px}.step{padding-top:10px}.timeline{flex-direction:column;margin-top:24px}.phase{border-top:0;border-left:2px solid var(--sand);padding:0 0 12px 15px}.phase:first-child{border-color:var(--ember)}.callout{padding:12px 15px;margin-top:15px}.footer{left:7vw;right:7vw;bottom:25px}.nav{bottom:9px}.help{display:none}.formula{padding:15px 17px;margin-top:17px}.risk{padding:9px 0}}
+    @media print{html,body{height:auto;overflow:visible;background:white}.slide{position:relative!important;opacity:1!important;visibility:visible!important;transform:none!important;width:13.333in;height:7.5in;page-break-after:always;break-after:page;-webkit-print-color-adjust:exact;print-color-adjust:exact}.nav,.progress,.help{display:none!important}}
+  </style>
+</head>
+<body>
+<main id="deck" aria-label="Apresentação do plano de migração do WhatsApp para o Kommo">
+  <section class="slide dark cover active" data-title="Migração segura">
+    <div class="top"><img class="logo" src="assets/logo-hurtz-horizontal-transparente.png" alt="Hurtz Company"><span class="date">Plano de migração<br>13 out. 2026</span></div>
+    <div class="body"><span class="eyebrow">Alexia Clinic · WhatsApp + Kommo</span><div class="rule"></div><h1>Seu WhatsApp.<br>Mais estável no Kommo.</h1><p class="sub">Plano para sair do WhatsApp Lite e conectar o número à plataforma oficial, mantendo o app no celular se a Meta habilitar a coexistência.</p></div>
+    <div class="footer"><span>HURTZ COMPANY · OPERAÇÃO CLÍNICAS</span><span>01 / 08</span></div>
+  </section>
+  <section class="slide" data-title="O que medimos">
+    <div class="top"><span class="eyebrow">01 · Volume no CRM</span><span class="date">14 set. — 13 out. 2026</span></div>
+    <div class="body"><h2>Volume alto. Canal de envio ainda precisa ser separado.</h2><div class="metric-grid">
+      <div class="metric feature"><strong>13.226</strong><span>atividades “Mensagem enviada” registradas no Kommo</span></div>
+      <div class="metric"><strong>≈441</strong><span>atividades enviadas por dia, na média do período</span></div>
+      <div class="metric"><strong>7.270</strong><span>mensagens recebidas via WhatsApp Lite</span></div>
+      <div class="metric"><strong>378</strong><span>mensagens recebidas via Instagram</span></div>
+    </div><div class="callout"><strong>Como ler:</strong> as 13.226 enviadas incluem registros de canais diferentes. Não são um total confirmado de mensagens WhatsApp nem uma previsão direta de cobrança.</div></div>
+    <div class="footer"><span>BASE: PAINEL E ATIVIDADES DO KOMMO</span><span>02 / 08</span></div>
+  </section>
+  <section class="slide" data-title="Limites da estimativa">
+    <div class="top"><span class="eyebrow">02 · O que os dados não dizem</span><span class="date">Precisão antes do orçamento</span></div>
+    <div class="body"><h2>Não vamos transformar atividade do CRM em custo Meta.</h2><div class="twocol">
+      <div class="panel"><span class="label">O levantamento confirma</span><ul><li>13.226 atividades enviadas no CRM no período consultado.</li><li>7.270 recebidas pelo WhatsApp Lite e 378 pelo Instagram no painel.</li><li>O painel de WhatsApp Business passa a medir mensagens enviadas/entregues e custos por modelo.</li></ul></div>
+      <div class="panel"><span class="label">Ainda precisa ser medido</span><ul><li>Quantas das atividades enviadas saíram pelo WhatsApp.</li><li>Quantos contatos únicos foram alcançados em cada dia.</li><li>Quantas mensagens foram entregues e quantas são serviço, utilidade ou marketing.</li></ul></div>
+    </div><div class="callout">A lista detalhada do CRM contém dados e conteúdo de pacientes. Por isso, não foi usada para estimar contatos únicos.</div></div>
+    <div class="footer"><span>RELATÓRIO AGREGADO · SEM CONTEÚDO DE CONVERSAS</span><span>03 / 08</span></div>
+  </section>
+  <section class="slide" data-title="A conexão recomendada">
+    <div class="top"><span class="eyebrow">03 · Arquitetura desejada</span><span class="date">Mesmo número · dois pontos de uso</span></div>
+    <div class="body"><h2>O número fica no celular e na caixa de entrada do Kommo.</h2><p class="sub" style="margin-top:18px">A conexão de coexistência vincula o WhatsApp Business app à integração oficial. A elegibilidade é decidida pela Meta com base na conta e na qualidade de uso.</p><div class="twocol">
+      <div class="panel"><span class="label">No celular</span><h3>WhatsApp Business app</h3><p>A equipe mantém o uso do aplicativo, com versão 2.24.17 ou superior.</p></div>
+      <div class="panel"><span class="label">Na operação</span><h3>WhatsApp Business no Kommo</h3><p>Atendimento compartilhado, organização no CRM e acesso a métricas próprias do canal.</p></div>
+    </div><div class="callout"><strong>Condição:</strong> confirmar elegibilidade do número antes de iniciar. Se a Meta não oferecer coexistência, a migração pausa para alinhar o uso do número só pela plataforma.</div></div>
+    <div class="footer"><span>PRÉ-CHECAGEM COM A META</span><span>04 / 08</span></div>
+  </section>
+  <section class="slide" data-title="Etapas da migração">
+    <div class="top"><span class="eyebrow">04 · Plano de execução</span><span class="date">Janela de baixo volume</span></div>
+    <div class="body"><h2>Preparar, conectar e validar com a equipe.</h2><div class="steps">
+      <div class="step"><span class="num">01</span><b>Confirmar</b><p>Propriedade do número, Business Portfolio, acesso administrativo e elegibilidade.</p></div>
+      <div class="step"><span class="num">02</span><b>Preparar</b><p>Plano e licenças Kommo, faturamento Meta, modelos e automações dependentes.</p></div>
+      <div class="step"><span class="num">03</span><b>Migrar</b><p>Kommo → WhatsApp Business → instalar → selecionar número Lite → migrar e parear pelo QR.</p></div>
+      <div class="step"><span class="num">04</span><b>Conferir histórico</b><p>Chats ativos nos últimos 30 dias; mensagens importadas com até 30 dias.</p></div>
+      <div class="step"><span class="num">05</span><b>Testar</b><p>Envio, recebimento, app, CRM, modelos, notificações, automações e qualidade.</p></div>
+    </div><div class="callout"><strong>Na migração do Lite:</strong> a fusão da origem pode evitar chats duplicados e assumir prioridade sobre a importação do histórico do app. Conferir o estado esperado antes da janela.</div></div>
+    <div class="footer"><span>FLUXO BASEADO NO GUIA OFICIAL DA KOMMO</span><span>05 / 08</span></div>
+  </section>
+  <section class="slide" data-title="Custos de mensagens">
+    <div class="top"><span class="eyebrow">05 · Como a Meta cobra</span><span class="date">Regras vigentes em out. 2026</span></div>
+    <div class="body"><h2>O custo acompanha mensagens entregues e a categoria.</h2><div class="timeline">
+      <div class="phase"><b>Serviço</b><span>R$ 0,035 por mensagem entregue após 1.000 grátis/número/mês.</span></div>
+      <div class="phase"><b>Utilidade</b><span>R$ 0,035 por template entregue, inclusive na janela de 24h.</span></div>
+      <div class="phase"><b>Marketing</b><span>R$ 0,3217 por template entregue. Usar com consentimento.</span></div>
+      <div class="phase"><b>Recebidas</b><span>Mensagens do paciente não são cobradas pela Meta.</span></div>
+    </div><div class="formula">Custo mensal = <em>Kommo atual</em> + serviço acima da franquia + utilidade entregue + marketing entregue</div><div class="callout"><strong>Exemplo:</strong> 2.000 mensagens de serviço entregues no mês = 1.000 grátis + 1.000 × R$ 0,035 = <strong>R$ 35,00</strong>. Mais 100 templates de marketing entregues = <strong>R$ 32,17</strong>.</div><p class="note">Tarifas de referência do Brasil a partir de 01/10/2026. Cobrança depende de categoria e entrega. O volume de 13.226 no CRM mistura canais e não pode ser usado como base de fatura.</p></div>
+    <div class="footer"><span>FATURAMENTO META · POR MENSAGEM ELEGÍVEL</span><span>06 / 08</span></div>
+  </section>
+  <section class="slide" data-title="Custo da Kommo e controle">
+    <div class="top"><span class="eyebrow">06 · Custos e controle</span><span class="date">Sem preço de assinatura presumido</span></div>
+    <div class="body"><h2>Licença em BRL. Tarifa Meta por mensagem entregue.</h2><div class="metric-grid"><div class="metric"><strong>R$ 86</strong><span>Básico · por licença/mês no plano anual</span></div><div class="metric"><strong>R$ 129</strong><span>Avançado · por licença/mês no plano anual</span></div><div class="metric"><strong>R$ 193</strong><span>Pro · por licença/mês no plano anual</span></div><div class="metric"><strong>R$ 0,035</strong><span>Serviço acima da franquia e utilidade entregue</span></div></div><div class="twocol">
+      <div class="panel"><span class="label">Kommo · anual de referência</span><h3>Valor varia por plano e usuários</h3><p>Básico: R$ 86 · Avançado: R$ 129 · Pro: R$ 193 por licença/mês. A integração oficial não indica taxa obrigatória de instalação. Confirmar o plano e a condição atual da Alexia antes de fechar.</p></div>
+      <div class="panel"><span class="label">Meta · tarifa de referência BRL</span><h3>Mensagens entregues</h3><p>Serviço: R$ 0,035 após 1.000 grátis por número/mês. Utilidade: R$ 0,035. Marketing: R$ 0,3217. Confirmar tabela e faturamento do número no Meta.</p></div>
+    </div><div class="callout"><strong>Fechamento do orçamento:</strong> licenças Kommo atuais + volume Meta entregue por categoria. Exemplo de 2 licenças Avançado: R$ 258/mês de referência, antes do custo Meta.</div></div>
+    <div class="footer"><span>FONTES: KOMMO · META BUSINESS</span><span>07 / 08</span></div>
+  </section>
+  <section class="slide dark closing" data-title="Critérios de sucesso">
+    <div class="top"><span class="eyebrow">07 · Resultado da implantação</span><span class="date">Alexia Clinic</span></div>
+    <div class="body"><h2>O canal conectado.<br>A equipe operando.<br>O custo mensurado.</h2><div class="rule"></div><p class="sub">Acompanhar qualidade e restrições. Priorizar contatos com consentimento, respeitar pedidos de parada e manter dados clínicos fora das mensagens de campanha.</p><p class="source">Fontes: <a href="https://support.kommo.com/docs/whatsapp-business-app-connect" target="_blank" rel="noreferrer">conexão e migração Lite</a> · <a href="https://support.kommo.com/docs/updated-pricing-rules-for-whatsapp-business" target="_blank" rel="noreferrer">regras de cobrança</a> · <a href="https://support.kommo.com/docs/track-your-whatsapp-results-with-analytics" target="_blank" rel="noreferrer">analytics</a> · <a href="https://www.calculadorakommo.com.br/" target="_blank" rel="noreferrer">calculadora de parceiro Kommo · planos anuais BRL</a> · <a href="https://wizebot.com.br/blog/custo-mensagens-whatsapp-brasil-outubro-2026" target="_blank" rel="noreferrer">referência de tarifas Meta BRL out/26</a></p></div>
+    <div class="footer"><span>HURTZ COMPANY · OPERAÇÃO CLÍNICAS</span><span>08 / 08</span></div>
+  </section>
+</main>
+<div class="progress" id="progress"></div><div class="help" id="help">← → navegar · F tela cheia · P imprimir</div>
+<nav class="nav" aria-label="Navegação da apresentação"><button id="prev" aria-label="Slide anterior">←</button><span class="counter" id="counter">01 / 08</span><button id="next" aria-label="Próximo slide">→</button></nav>
+<script src="slide-guardrail.js"></script>
+<script>
+(()=>{const slides=[...document.querySelectorAll('.slide')],counter=document.getElementById('counter'),progress=document.getElementById('progress');let i=0;function show(n){i=Math.max(0,Math.min(slides.length-1,n));slides.forEach((s,k)=>s.classList.toggle('active',k===i));counter.textContent=String(i+1).padStart(2,'0')+' / '+String(slides.length).padStart(2,'0');progress.style.width=((i+1)/slides.length*100)+'%';history.replaceState(null,'','#slide-'+(i+1))}document.getElementById('prev').addEventListener('click',()=>show(i-1));document.getElementById('next').addEventListener('click',()=>show(i+1));window.addEventListener('keydown',e=>{if(['ArrowRight','PageDown',' '].includes(e.key)){e.preventDefault();show(i+1)}else if(['ArrowLeft','PageUp'].includes(e.key)){e.preventDefault();show(i-1)}else if(e.key==='Home')show(0);else if(e.key==='End')show(slides.length-1);else if(e.key.toLowerCase()==='f'){if(!document.fullscreenElement)document.documentElement.requestFullscreen?.();else document.exitFullscreen?.()}else if(e.key.toLowerCase()==='p'){window.print()}});let x=null;document.addEventListener('touchstart',e=>x=e.changedTouches[0].clientX,{passive:true});document.addEventListener('touchend',e=>{if(x===null)return;const dx=e.changedTouches[0].clientX-x;if(Math.abs(dx)>55)show(i+(dx<0?1:-1));x=null},{passive:true});const m=location.hash.match(/slide-(\d+)/);if(m)show(Number(m[1])-1);else show(0);})();
+</script>
+</body>
+</html>
