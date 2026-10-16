@@ -88,11 +88,11 @@ button { font: inherit; }
 .scroll-cue { position: absolute; z-index: 3; right: 28px; bottom: 28px; display: flex; align-items: center; gap: 10px; font-size: 11px; font-weight: 700; text-transform: uppercase; }
 .scroll-cue svg { width: 16px; }
 
-.section { position: relative; padding: 120px 0; }
+.section { position: relative; padding: 32px 0; }
 .section--paper { background: var(--paper); color: var(--ink); }
 .section--warm { background: var(--paper); color: var(--ink); }
 .section--ink { background: var(--ink); color: var(--paper); }
-.section-heading { max-width: 880px; margin-bottom: 64px; }
+.section-heading { max-width: 880px; margin-bottom: 48px; }
 .section-heading h2, .statement h2 { margin: 0; font-size: clamp(40px, 5vw, 68px); line-height: 1; letter-spacing: 0; }
 .section-heading > p:last-child { max-width: 680px; margin: 26px 0 0; font-size: 18px; }
 .statement { display: grid; grid-template-columns: 1.55fr 1fr; gap: 80px; align-items: end; }
@@ -297,8 +297,8 @@ dd { margin: 5px 0 0; font-size: 13px; }
   .hero__lead { font-size: 16px; }
   .hero__meta { gap: 14px; flex-direction: column; margin-top: 34px; }
   .scroll-cue { display: none; }
-  .section { padding: 82px 0; }
-  .section-heading { margin-bottom: 42px; }
+  .section { padding: 24px 0; }
+  .section-heading { margin-bottom: 32px; }
   .section-heading h2, .statement h2 { font-size: 39px; }
   .statement p { font-size: 19px; }
   .positioning-band { grid-template-columns: 1fr; margin-top: 54px; }
