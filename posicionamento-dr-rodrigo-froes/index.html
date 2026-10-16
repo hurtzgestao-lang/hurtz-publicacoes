@@ -3,195 +3,808 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Planejamento de reposicionamento do Instagram do Dr. Rodrigo Fróes.">
-  <title>Dr. Rodrigo Fróes | Plano de Posicionamento</title>
+  <meta name="description" content="Playbook de posicionamento e plano de execução para o Instagram do Dr. Rodrigo Fróes, em Parauapebas.">
+  <title>Dr. Rodrigo Fróes | Playbook de Posicionamento</title>
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-  <aside class="sidebar">
-    <img src="logo-hurtz.png" alt="Hurtz Company">
-    <p>Plano de posicionamento</p>
-    <strong>Dr. Rodrigo Fróes</strong>
-    <nav aria-label="Seções">
-      <a href="#resumo">Resumo</a>
-      <a href="#diagnostico">Diagnóstico</a>
-      <a href="#direcao">Direção</a>
-      <a href="#perfil">Perfil</a>
-      <a href="#conteudo">Conteúdo</a>
-      <a href="#execucao">Execução</a>
+  <a class="skip-link" href="#como-usar">Pular para o conteúdo</a>
+  <div class="progress" aria-hidden="true"><span id="progressBar"></span></div>
+
+  <header class="topbar" id="topbar">
+    <a class="topbar__brand brand-lockup" href="#inicio" aria-label="Voltar ao início">
+      <img src="assets-real/logo-hurtz-horizontal-fundo-preto-branca.png" alt="Hurtz Company">
+    </a>
+    <nav class="topbar__nav" aria-label="Seções da apresentação">
+      <a href="#como-usar">Comece aqui</a>
+      <a href="#comparativo">Diagnóstico</a>
+      <a href="#grade">Plano editorial</a>
+      <a href="#calendario">Calendário</a>
+      <a href="#gravacao">Guia de gravação</a>
+      <a href="#roadmap">Sprint 30 dias</a>
     </nav>
-    <button id="printButton" type="button">Salvar PDF</button>
-  </aside>
+    <details class="mobile-sections">
+      <summary>Seções</summary>
+      <nav class="mobile-sections__list" aria-label="Navegação do playbook">
+        <a href="#como-usar">Comece aqui</a>
+        <a href="#comparativo">Diagnóstico</a>
+        <a href="#referencias">Princípios</a>
+        <a href="#visual">Direção visual</a>
+        <a href="#prova">Uso de casos</a>
+        <a href="#grade">Plano editorial</a>
+        <a href="#calendario">Calendário 12 semanas</a>
+        <a href="#gravacao">Guia de gravação</a>
+        <a href="#jornada">Da atenção à consulta</a>
+        <a href="#roadmap">Plano de execução</a>
+        <a href="#compliance">Publicidade</a>
+      </nav>
+    </details>
+    <button class="icon-button icon-button--text" id="printButton" type="button" aria-label="Imprimir ou salvar em PDF">PDF</button>
+  </header>
 
   <main>
-    <section class="section section--intro" id="resumo">
-      <div class="kicker">Instagram · Parauapebas · Setembro de 2026</div>
-      <h1>Reposicionar o Dr. Rodrigo como referência local em sorriso planejado.</h1>
-      <p class="lead">A página não deve vender uma estética bonita. Deve organizar a decisão: o perfil precisa deixar claro por que o Dr. Rodrigo é a escolha para quem quer melhorar o sorriso com naturalidade, critério, mordida e função.</p>
-
-      <div class="summary-grid">
-        <article>
-          <span>Posicionamento</span>
-          <strong>Sorriso planejado com naturalidade, critério e função em Parauapebas.</strong>
-        </article>
-        <article>
-          <span>Categoria desejada</span>
-          <strong>O dentista para quem quer melhorar o sorriso sem exagero e sem decidir por foto de internet.</strong>
-        </article>
-        <article>
-          <span>Próximo passo</span>
-          <strong>Transformar bio, destaques, fixados, grade e prova clínica na mesma narrativa.</strong>
-        </article>
+    <section class="hero print-page" id="inicio">
+      <div class="hero__portrait hero__portrait--placeholder" aria-hidden="true">
+        <div class="hero-placeholder">
+          <img class="hero-example-image hero-example-image--real" src="assets-real/rodrigo-2026-07-10.jpg" alt="">
+        </div>
       </div>
+      <div class="hero__content shell reveal">
+        <p class="eyebrow eyebrow--light">Plano de posicionamento · Outubro de 2026</p>
+        <h1><span>Dr. Rodrigo</span><span>Fróes</span></h1>
+        <p class="hero__focus">Lentes de porcelana</p>
+        <p class="hero__secondary">Implantes como segunda frente</p>
+        <p class="hero__lead">Plano para priorizar lentes de porcelana na comunicação em Parauapebas, manter implantes como segunda frente e conduzir o visitante até uma avaliação.</p>
+        <div class="hero__meta">
+          <span>Parauapebas · PA</span>
+          <span>Outubro de 2026</span>
+        </div>
+      </div>
+      <a class="scroll-cue" href="#tese">
+        <span>Ver diagnóstico</span>
+        <b aria-hidden="true">↓</b>
+      </a>
     </section>
 
-    <section class="section" id="diagnostico">
-      <div class="section-title">
-        <span>01</span>
-        <h2>Diagnóstico do perfil atual</h2>
-      </div>
+    <section class="section section--paper print-page" id="como-usar">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Como usar este playbook</p>
+          <h2>Arrume o perfil hoje. Amanhã, publique.</h2>
+          <p>Organize o perfil hoje, grave o primeiro lote amanhã e acompanhe quantas conversas chegam a uma avaliação.</p>
+        </div>
 
-      <div class="two-col">
-        <article class="panel">
-          <h3>Snapshot auditado</h3>
-          <dl class="facts">
-            <div><dt>Perfil</dt><dd>@dr_rodrigofroes</dd></div>
-            <div><dt>Nome</dt><dd>Dr. Rodrigo Fróes | Lentes em Porcelana e Implantes</dd></div>
-            <div><dt>Base</dt><dd>41 posts · 1.271 seguidores</dd></div>
-            <div><dt>Bio</dt><dd>CRO-PA7798 · Parauapebas · Implantes Dentários · Lentes em Porcelana · Agende sua avaliação</dd></div>
-          </dl>
-        </article>
-
-        <article class="panel panel--dark">
-          <h3>Problema</h3>
-          <p>O perfil comunica serviços, mas ainda não instala uma assinatura. A pessoa entende que ele faz lentes e implantes, mas não entende em poucos segundos qual erro ele evita, qual critério ele defende e por que a avaliação com ele é diferente.</p>
-        </article>
-      </div>
-
-      <div class="note">
-        <strong>Diagnóstico central:</strong>
-        <p>Hoje existe conteúdo sobre sorriso. O próximo passo é transformar o perfil em autoridade local sobre sorriso planejado.</p>
-      </div>
-    </section>
-
-    <section class="section" id="direcao">
-      <div class="section-title">
-        <span>02</span>
-        <h2>Direção estratégica</h2>
-      </div>
-
-      <div class="comparison">
-        <article>
-          <span>Antes</span>
-          <strong>Dentista que faz lentes, implantes e outros tratamentos.</strong>
-          <p>Correto, mas genérico. Parece uma lista de procedimentos.</p>
-        </article>
-        <article>
-          <span>Depois</span>
-          <strong>Referência em sorriso planejado para quem quer naturalidade sem erro de indicação.</strong>
-          <p>Mais proprietário, mais consultivo e mais fácil de repetir em conteúdo, anúncios e atendimento.</p>
-        </article>
-      </div>
-
-      <div class="focus-table">
-        <div><strong>45%</strong><span>Lentes e facetas</span><p>Desejo estético, naturalidade, proporção, cor, formato e objeções.</p></div>
-        <div><strong>30%</strong><span>Implantes e reabilitação</span><p>Função, mastigação, reconstrução, segurança e autoridade técnica.</p></div>
-        <div><strong>15%</strong><span>Ortodontia</span><p>Porta de entrada para adultos que adiam a decisão.</p></div>
-        <div><strong>10%</strong><span>Confiança</span><p>Bastidor, método, equipe, experiência e prova responsável.</p></div>
-      </div>
-    </section>
-
-    <section class="section" id="perfil">
-      <div class="section-title">
-        <span>03</span>
-        <h2>Entrada do perfil</h2>
-      </div>
-
-      <div class="profile-layout">
-        <article class="phone">
-          <div class="phone-bar">dr_rodrigofroes</div>
-          <div class="phone-head">
-            <div class="avatar">RF</div>
-            <div class="stats"><b>41</b><span>posts</span></div>
-            <div class="stats"><b>1.271</b><span>seguidores</span></div>
-            <div class="stats"><b>—</b><span>seguindo</span></div>
-          </div>
-          <div class="bio">
-            <strong>Dr. Rodrigo Fróes | Sorriso planejado</strong>
-            <p>CRO-PA 7798<br>Lentes, facetas e implantes<br>Naturalidade, mordida e função<br>Parauapebas | Avaliações ↓</p>
-          </div>
-          <div class="highlights">
-            <span>Comece</span><span>Lentes</span><span>Implantes</span><span>Resultados</span><span>Processo</span>
-          </div>
-        </article>
-
-        <div class="panel-list">
+        <div class="playbook-map reveal">
           <article>
-            <span>Campo nome recomendado</span>
-            <strong>Dr. Rodrigo Fróes | Sorriso planejado</strong>
+            <span>01</span>
+            <strong>Arrumar a entrada do perfil</strong>
+            <p>Na bio e nos destaques, coloque lentes em primeiro plano e explique como iniciar uma avaliação.</p>
+            <small>Começar por: bio + 3 fixados.</small>
           </article>
           <article>
-            <span>CTA</span>
-            <strong>Avaliação ou conversa com equipe. Nunca diagnóstico pelo Instagram.</strong>
+            <span>02</span>
+            <strong>Captação semanal no primeiro mês</strong>
+            <p>A primeira sessão acontece amanhã: 60–90 minutos para gravar sete vídeos curtos e abastecer a semana.</p>
+            <small>Depois do primeiro mês, testar captação quinzenal somente se cada sessão render material aprovado para as seis publicações seguintes.</small>
           </article>
           <article>
-            <span>Destaques</span>
-            <strong>Comece · Lentes · Implantes · Ortodontia · Resultados · Processo · Dúvidas · Avaliação</strong>
+            <span>03</span>
+            <strong>Publicar em sequência</strong>
+            <p>Publique os nove conteúdos iniciais nos primeiros 12 dias. Comece amanhã, mesmo que o restante da grade ainda esteja em produção.</p>
+            <small>Regra: uma ideia e um CTA por peça.</small>
+          </article>
+          <article>
+            <span>04</span>
+            <strong>Medir e repetir o que funciona</strong>
+            <p>Revise visitas ao perfil, conversas no WhatsApp, avaliações marcadas e comparecimentos. Compare os temas que trouxeram contatos qualificados.</p>
+            <small>Revisão de desempenho: a cada 7 dias.</small>
+          </article>
+        </div>
+
+        <div class="first-week reveal">
+          <span>Dia 1 · amanhã, 17/10</span>
+          <strong>Ajustar bio e CTA aprovados → gravar o primeiro lote → publicar o primeiro Reel no mesmo dia. Fixar as três peças principais até o Dia 3.</strong>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--paper print-page" id="tese">
+      <div class="shell reveal">
+        <p class="eyebrow">Objetivo do posicionamento</p>
+        <div class="statement">
+          <h2>Quem visita o perfil deve entender que lentes são o foco, como Rodrigo avalia e como marcar uma consulta.</h2>
+            <p>O material organizado inclui retratos profissionais e roteiros. Ainda falta inventariar os vídeos originais e confirmar se há casos clínicos elegíveis. Até lá, grave Rodrigo explicando critérios, etapas e dúvidas frequentes; não use imagens de pacientes sem validar autoria e autorização.</p>
+        </div>
+
+        <div class="positioning-band">
+          <div>
+            <span class="metric">60%</span>
+            <strong>Lentes de porcelana</strong>
+            <p>Naturalidade, proporção, critérios de indicação, planejamento e limites.</p>
+          </div>
+          <div>
+            <span class="metric">25%</span>
+            <strong>Implantes + reabilitação</strong>
+            <p>Função, mastigação, alternativas, etapas e acompanhamento.</p>
+          </div>
+          <div>
+            <span class="metric">15%</span>
+            <strong>Confiança no profissional</strong>
+            <p>Quem é Rodrigo, como avalia e por que conversa antes de indicar.</p>
+          </div>
+        </div>
+        <p class="proposal-note">Distribuição editorial proposta para o ciclo de 12 semanas: 29 pautas de lentes, 12 de implantes e 7 de confiança/conversão — aproximadamente 60/25/15. No primeiro mês, a meta é 25 publicações: 15 de lentes, 6 de implantes e 4 de confiança/conversão. A distribuição é uma hipótese e deve acompanhar demanda, agenda e capacidade clínica.</p>
+
+        <div class="positioning-note">
+          <strong>Hipóteses estratégicas para validar — ainda não são diferenciais comprovados</strong>
+          <p><b>Público inicial (hipótese):</b> pessoas de Parauapebas e região que consideram fazer lentes e têm dúvidas sobre indicação, desgaste ou resultado. Para implantes, falar com quem busca repor um dente ou planejar uma reabilitação. Confirmar essas hipóteses com conversas e avaliações dos últimos 90 dias; idade e gênero não foram presumidos.</p>
+          <p><b>Tese a testar:</b> mostrar o que Rodrigo avalia antes de indicar lentes, quais alternativas considera e quando outro caminho pode ser mais adequado. Lentes ficam no centro do perfil; implantes ganham uma trilha própria.</p>
+          <small>No <a href="https://drpablowinckler.com.br/" target="_blank" rel="noopener noreferrer">site público do Dr. Pablo Winckler</a>, naturalidade, proporção e identidade aparecem junto de um processo em três etapas, casos e dúvidas frequentes. Vale explicar como Rodrigo conduz a avaliação, depois de confirmar que esse processo corresponde ao atendimento real. Esta leitura cobre apenas o site, com snapshot do Instagram datado de 30/09; não inclui anúncios ou resultados da clínica.</small>
+        </div>
+
+        <blockquote>
+          <span>Mensagem de trabalho — confirmar com Rodrigo</span>
+          “Antes de escolher uma mudança no sorriso, entenda o que faz sentido para o seu caso.”
+        </blockquote>
+      </div>
+    </section>
+
+    <section class="section section--ink print-page" id="comparativo">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow eyebrow--light">Diagnóstico atual × direção proposta</p>
+          <h2>O perfil já mostra as duas frentes. Falta deixar claro qual vem primeiro.</h2>
+          <p>À esquerda, o snapshot recebido em 30/09. À direita, uma sugestão de bio, destaques e grade. Não é uma nova auditoria do Instagram.</p>
+        </div>
+
+        <div class="phone-comparison">
+          <article class="profile-stage profile-stage--before reveal">
+            <div class="stage-label"><span>Hoje</span> Snapshot recebido · 30/09/2026</div>
+            <div class="profile-snapshot">
+              <div class="profile-snapshot__head">
+                <img src="assets-real/rodrigo-profile.jpg" alt="Foto de perfil do Dr. Rodrigo Fróes">
+                <div><strong>@dr_rodrigofroes</strong><small>Captura enviada em 30/09/2026</small></div>
+              </div>
+              <div class="profile-snapshot__stats">
+                <div><strong>41</strong><span>publicações</span></div>
+                <div><strong>1.275</strong><span>seguidores</span></div>
+                <div><strong>1.289</strong><span>seguindo</span></div>
+              </div>
+              <div class="profile-snapshot__bio">
+                <strong>Nome observado</strong>
+                <p>Dr. Rodrigo Fróes | Lentes em Porcelana e Implantes</p>
+                <strong>Leitura da bio</strong>
+                <p>CRO-PA 7798 · Parauapebas · lentes e implantes · convite para avaliação</p>
+                <strong>Temas observados no feed</strong>
+                <p>Resultados clínicos · rotina · conteúdo pessoal · materiais da clínica</p>
+              </div>
+              <p class="profile-snapshot__note">Leitura baseada na captura fornecida; não é uma nova coleta do perfil em 16/10.</p>
+            </div>
+            <ul class="diagnosis-list">
+              <li>Na captura, a bio comunica lentes e implantes, mas não destaca lentes como prioridade.</li>
+              <li>Os temas observados misturam resultados, rotina clínica, conteúdo pessoal e materiais da clínica.</li>
+              <li>Rodrigo aparece no feed, mas faltam séries e fixados que organizem sua autoridade.</li>
+              <li>Falta uma sequência clara que leve o visitante de interesse para confiança e, depois, para a consulta.</li>
+            </ul>
+          </article>
+
+          <div class="comparison-arrow reveal" aria-hidden="true"><span class="arrow-symbol">→</span></div>
+
+          <article class="profile-stage profile-stage--after reveal">
+            <div class="stage-label"><span>Direção</span> Perfil organizado</div>
+            <div class="phone">
+              <div class="phone__bar"><span>dr_rodrigofroes</span><b>•••</b></div>
+              <div class="profile-head">
+                <img class="avatar avatar--photo avatar--accent" src="assets-real/rodrigo-2026-07-10.jpg" alt="Retrato do Dr. Rodrigo Fróes">
+                <div class="profile-stats">
+                  <span><strong>—</strong>posts</span>
+                  <span><strong>≈1,3 mil</strong>seguidores</span>
+                  <span><strong>—</strong>seguindo</span>
+                </div>
+              </div>
+              <div class="profile-copy">
+                <strong>Dr. Rodrigo Fróes | Lentes e Implantes</strong>
+                <p>Cirurgião-dentista · CRO-PA 7798<br>Parauapebas<br>Foco em lentes de porcelana<br>Implantes · segunda frente<br>Agende sua avaliação ↓</p>
+              </div>
+              <div class="profile-actions"><span>Seguir</span><span>Mensagem</span><span>+</span></div>
+              <div class="story-row story-row--after story-row--seven">
+                <span>Comece</span><span>Lentes</span><span>Critérios</span><span>Implantes</span><span>Consulta</span><span>Dúvidas</span><span>Sobre mim</span>
+              </div>
+              <div class="feed-grid feed-grid--ideal">
+                <div class="tile tile--portrait tile--placeholder"><span class="tile-photo tile-photo--real"><img src="assets-real/rodrigo-2026-07-10.jpg" alt=""></span><span class="pin" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13"><path fill="currentColor" d="M16 9V4h1V2H7v2h1v5l-2 2v2h5.5v9h1v-9H18v-2z"/></svg></span><small>01 · RODRIGO</small><b>COMECE<br>AQUI</b></div>
+                <div class="tile tile--light"><span class="tile-photo tile-photo--real"><img src="assets-real/rodrigo-2026-08-27.jpg" alt=""></span><span class="pin" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13"><path fill="currentColor" d="M16 9V4h1V2H7v2h1v5l-2 2v2h5.5v9h1v-9H18v-2z"/></svg></span><small>02 · LENTES</small><b>ANTES DAS LENTES:<br>O QUE AVALIAR?</b></div>
+                <div class="tile"><span class="tile-photo tile-photo--real"><img src="assets-real/rodrigo-2026-08-04.jpg" alt=""></span><span class="pin" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13"><path fill="currentColor" d="M16 9V4h1V2H7v2h1v5l-2 2v2h5.5v9h1v-9H18v-2z"/></svg></span><small>03 · IMPLANTES</small><b>POR ONDE<br>COMEÇAR?</b></div>
+                <div class="tile tile--light"><small>04 · LENTES</small><b>HÁ OUTRO<br>CAMINHO?</b></div>
+                <div class="tile"><small>05 · LENTES</small><b>O QUE AVALIO<br>ANTES?</b></div>
+                <div class="tile tile--light"><small>06 · LENTES</small><b>O QUE ESTE CASO<br>ENSINA?*</b></div>
+                <div class="tile"><small>07 · LENTES</small><b>O QUE MUDA A<br>INDICAÇÃO?</b></div>
+                <div class="tile tile--light"><small>08 · IMPLANTES</small><b>DÚVIDAS SOBRE<br>IMPLANTES</b></div>
+                <div class="tile tile--cta"><span class="tile-photo tile-photo--real"><img src="assets-real/rodrigo-2026-07-27.jpg" alt=""></span><small>09 · CONVITE</small><b>AVALIAÇÃO EM<br>PARAUAPEBAS</b></div>
+              </div>
+            </div>
+            <ul class="diagnosis-list diagnosis-list--positive">
+              <li>A sugestão deixa a cidade e a prioridade de lentes visíveis na bio.</li>
+              <li>Fixados sugeridos: apresentação, lentes como foco principal e implantes como segunda frente.</li>
+              <li>Destaques sugeridos: dúvidas, consulta e trajetória; casos só entram com material elegível.</li>
+              <li>A grade proposta conduz de educação e processo ao agendamento; prova clínica é condicional.</li>
+            </ul>
           </article>
         </div>
       </div>
     </section>
 
-    <section class="section" id="conteudo">
-      <div class="section-title">
-        <span>04</span>
-        <h2>Sistema de conteúdo</h2>
-      </div>
+    <section class="section section--paper print-page" id="referencias">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Princípios de comunicação</p>
+          <h2>Explique o que você avalia<br>antes de indicar um tratamento.</h2>
+        </div>
+        <div class="benchmark-grid">
+          <article class="benchmark reveal">
+            <span>01</span>
+            <h3>Critério antes do procedimento</h3>
+            <p>Mostrar o que Rodrigo observa antes de indicar um tratamento: necessidade, função, estética, limites e alternativas.</p>
+          </article>
+          <article class="benchmark reveal">
+            <span>02</span>
+            <h3>Implantes têm uma pauta própria</h3>
+            <p>Lentes abrem a conversa. Implantes entram em conteúdos específicos sobre avaliação, opções, etapas e acompanhamento.</p>
+          </article>
+          <article class="benchmark reveal">
+            <span>03</span>
+            <h3>O próprio Rodrigo explica</h3>
+            <p>Gravar em primeira pessoa, no consultório, com palavras simples e exemplos do atendimento.</p>
+          </article>
+        </div>
 
-      <div class="principles">
-        <article><span>01</span><strong>Faceta não começa pela cor.</strong><p>Começa por rosto, mordida, gengiva, linha do sorriso e estrutura dentária.</p></article>
-        <article><span>02</span><strong>Lente boa não deveria parecer lente.</strong><p>Naturalidade vira assinatura editorial e não apenas frase de venda.</p></article>
-        <article><span>03</span><strong>Implante não é só estética.</strong><p>É função, mastigação, segurança, planejamento e acompanhamento.</p></article>
-        <article><span>04</span><strong>Avaliação não obriga tratamento.</strong><p>É o primeiro passo para decidir com clareza, sem chute e sem foto de internet.</p></article>
-      </div>
-
-      <h3 class="subhead">Primeira grade recomendada</h3>
-      <div class="feed-grid">
-        <article><small>Fixado 01</small><strong>COMECE AQUI</strong><p>Quem é, foco, cidade e tese do sorriso planejado.</p></article>
-        <article><small>Fixado 02</small><strong>LENTE NÃO É SÓ COR</strong><p>Rosto, mordida, gengiva, proporção e indicação.</p></article>
-        <article><small>Fixado 03</small><strong>IMPLANTE COM PLANEJAMENTO</strong><p>Função, mastigação, segurança e reabilitação.</p></article>
-        <article><small>Objeção</small><strong>MEDO DE FICAR ARTIFICIAL?</strong><p>Naturalidade como consequência do planejamento.</p></article>
-        <article><small>Prova</small><strong>CASO REAL AUTORIZADO</strong><p>Antes/depois com contexto e aviso de variação individual.</p></article>
-        <article><small>Segurança</small><strong>FACETA PODE DESGASTAR?</strong><p>Indicação, estrutura dentária e limite do caso.</p></article>
-        <article><small>Captação</small><strong>DENTES TORTOS NA VIDA ADULTA</strong><p>Ortodontia sem chute de tempo e sem promessa pronta.</p></article>
-        <article><small>Conversão</small><strong>COMO FUNCIONA A AVALIAÇÃO</strong><p>Passo a passo da decisão segura.</p></article>
-        <article><small>Autoridade</small><strong>PARE DE ESCOLHER POR PREÇO</strong><p>Preço sem plano pode virar retrabalho.</p></article>
+        <div class="journey-cards reveal">
+          <article><span>Lentes · foco principal</span><strong>“Meu caso precisa de lentes? Pode ficar natural?”</strong><p>Mostrar que cor, forma, proporção, mordida, saúde dos dentes e expectativa entram no planejamento.</p><small>CTA: entenda as possibilidades na avaliação.</small></article>
+          <article><span>Implantes · segunda frente</span><strong>“Como volto a mastigar, falar e sorrir com segurança?”</strong><p>Explicar que o plano começa na avaliação da boca, função e alternativas possíveis.</p><small>CTA: peça uma avaliação com o Dr. Rodrigo.</small></article>
+          <article><span>Escolha do profissional</span><strong>“Quem fará o tratamento e como será o acompanhamento?”</strong><p>Rodrigo explica alternativas, etapas, limites e próximos passos antes da decisão.</p><small>CTA: conheça o processo de avaliação.</small></article>
+        </div>
       </div>
     </section>
 
-    <section class="section" id="execucao">
-      <div class="section-title">
-        <span>05</span>
-        <h2>Ordem de implantação</h2>
+    <section class="section section--warm print-page" id="visual">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Direção visual</p>
+          <h2>Mostre Rodrigo explicando<br>como conduz cada avaliação.</h2>
+          <p>Use os retratos para apresentar Rodrigo e grave vídeos no consultório para explicar critérios, etapas e dúvidas. Até validar um caso próprio, o conteúdo se apoia nas explicações e no processo real.</p>
+        </div>
+
+        <div class="photo-kit">
+          <article class="photo-spec reveal"><div class="photo-spec__image photo-example photo-example--real"><img src="assets-real/rodrigo-2026-07-10.jpg" alt="Retrato real do Dr. Rodrigo Fróes de terno"></div><div class="photo-spec__copy"><span>Autoridade</span><h3>Retrato profissional</h3><p>Olhar direto, roupa formal e fundo limpo.</p><small>Usar em apresentação, avatar e conteúdos institucionais.</small></div></article>
+          <article class="photo-spec reveal"><div class="photo-spec__image photo-example photo-example--real"><img src="assets-real/rodrigo-2026-08-27.jpg" alt="Dr. Rodrigo Fróes em retrato no consultório"></div><div class="photo-spec__copy"><span>Contexto clínico</span><h3>Explicação no consultório</h3><p>Meio corpo, ambiente real e leitura profissional.</p><small>Priorizar lentes, naturalidade, planejamento e critérios de indicação.</small></div></article>
+          <article class="photo-spec reveal"><div class="photo-spec__image photo-example photo-example--real"><img src="assets-real/rodrigo-2026-08-27.jpg" alt="Retrato do Dr. Rodrigo Fróes no consultório"></div><div class="photo-spec__copy"><span>Processo</span><h3>Como mostrar a avaliação</h3><p>As imagens atuais são retratos do profissional. Para mostrar a rotina, gravar Rodrigo apresentando as etapas no consultório vazio.</p><small>Não filmar pacientes, procedimentos em andamento ou itens clínicos identificáveis.</small></div></article>
+          <article class="photo-spec reveal"><div class="photo-spec__image photo-example photo-example--real"><img src="assets-real/rodrigo-2026-08-27.jpg" alt="Retrato próximo real do Dr. Rodrigo Fróes"></div><div class="photo-spec__copy"><span>Proximidade</span><h3>Presença pessoal</h3><p>Retrato próximo e natural para equilibrar autoridade com conexão.</p><small>Usar em conteúdos de bastidor, opinião e apresentação pessoal.</small></div></article>
+          <article class="photo-spec photo-spec--patient reveal"><div class="photo-placeholder photo-placeholder--mixed photo-placeholder--evidence"><figure><img src="assets-real/rodrigo-2026-08-27.jpg" alt="Dr. Rodrigo Fróes em retrato no consultório"><figcaption>VOZ DO RODRIGO</figcaption></figure><figure><img src="assets-real/rodrigo-2026-07-10.jpg" alt="Retrato profissional do Dr. Rodrigo Fróes"><figcaption>CASOS A VALIDAR</figcaption></figure></div><div class="photo-spec__copy"><span>Vídeos e casos clínicos</span><h3>Explicação + contexto</h3><p>Gravar Rodrigo explicando critérios e etapas em primeira pessoa. Casos clínicos só entram depois da confirmação de autoria, autorização e identificação profissional.</p><small>Materiais da clínica servem para localizar possíveis ativos; não autorizam republicação.</small></div></article>
+        </div>
+
+        <div class="highlight-flow reveal" aria-label="Destaques propostos">
+          <div class="highlight highlight--accent"><b>01</b><strong>Comece aqui</strong><small>Quem é + áreas de atuação</small></div>
+          <div class="highlight"><b>02</b><strong>Lentes</strong><small>Indicação + planejamento</small></div>
+          <div class="highlight"><b>03</b><strong>Critérios</strong><small>Como avalio cada caso</small></div>
+          <div class="highlight"><b>04</b><strong>Implantes</strong><small>Opções + etapas</small></div>
+          <div class="highlight"><b>05</b><strong>Consulta</strong><small>Como funciona</small></div>
+          <div class="highlight"><b>06</b><strong>Dúvidas</strong><small>Perguntas reais</small></div>
+          <div class="highlight"><b>07</b><strong>Sobre mim</strong><small>Trajetória + valores</small></div>
+        </div>
+
+        <figure class="visual-board reveal">
+          <div class="visual-board-real">
+            <article><img src="assets-real/rodrigo-2026-07-10.jpg" alt="Retrato real do Dr. Rodrigo Fróes"><span>Autoridade</span></article>
+            <article><img src="assets-real/rodrigo-2026-08-27.jpg" alt="Dr. Rodrigo Fróes em retrato no consultório"><span>Explicação</span></article>
+            <article><img src="assets-real/rodrigo-2026-08-27.jpg" alt="Dr. Rodrigo Fróes em retrato no consultório"><span>Consulta</span></article>
+            <article><img src="assets-real/rodrigo-2026-08-27.jpg" alt="Retrato próximo do Dr. Rodrigo Fróes"><span>Proximidade</span></article>
+          </div>
+          <figcaption>Quatro funções visuais para manter consistência: autoridade, explicação, consulta e proximidade.</figcaption>
+        </figure>
+
+        <div class="archive-audit reveal">
+          <div class="archive-audit__copy">
+            <span>Como usar o acervo da clínica</span>
+            <h3>Confirme a origem e a autorização antes de usar imagens da clínica.</h3>
+            <p>O acervo serve para localizar possíveis conteúdos. Ele não confirma que Rodrigo executou o tratamento nem autoriza a publicação no perfil pessoal dele.</p>
+            <ul>
+              <li>Separar conteúdos da clínica dos materiais destinados ao perfil do Rodrigo.</li>
+              <li>Confirmar com Rodrigo a autoria de cada caso antes de selecionar imagens.</li>
+              <li>Para diagnóstico e resultado, exigir TCLE e identificação do profissional responsável.</li>
+            </ul>
+          </div>
+          <figure class="archive-audit__shot">
+            <img src="assets-real/rodrigo-2026-08-27.jpg" alt="Dr. Rodrigo Fróes em retrato no consultório">
+            <figcaption>Imagem do profissional · material clínico ainda depende de validação</figcaption>
+          </figure>
+        </div>
       </div>
+    </section>
 
-      <ol class="timeline">
-        <li><span>01</span><div><strong>Arrumar a entrada</strong><p>Campo nome, bio, avatar, link e CTA único.</p></div></li>
-        <li><span>02</span><div><strong>Publicar os três fixados</strong><p>Comece aqui, Lente não é só cor e Implante com planejamento.</p></div></li>
-        <li><span>03</span><div><strong>Reorganizar destaques</strong><p>Criar uma jornada para quem acabou de conhecer o perfil.</p></div></li>
-        <li><span>04</span><div><strong>Separar banco de casos</strong><p>Autorizações, queixa, indicação, etapa, imagem e limitações.</p></div></li>
-        <li><span>05</span><div><strong>Rodar a grade inicial</strong><p>9 peças com categoria, educação, prova, objeção e conversão.</p></div></li>
-      </ol>
+    <section class="section section--ink print-page" id="prova">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow eyebrow--light">Casos clínicos</p>
+          <h2>Publique um caso só após confirmar<br>autoria e consentimento.</h2>
+          <p>Explique o que foi avaliado, qual plano foi escolhido e o que aconteceu, sem prometer o mesmo resultado para outra pessoa.</p>
+        </div>
 
-      <div class="assets">
-        <span>Ativos necessários</span>
-        <p>Retratos do Dr. Rodrigo · Bastidores técnicos · Casos autorizados · Depoimentos aprovados · Link final de WhatsApp · Política de avaliação</p>
+        <div class="case-story reveal">
+          <div class="case-story__context">
+            <span>Estrutura recomendada</span>
+            <h3>Como apresentar um caso do Rodrigo</h3>
+            <dl>
+              <div><dt>Autoria</dt><dd>Tratamento executado pelo Dr. Rodrigo Fróes.</dd></div>
+              <div><dt>Contexto</dt><dd>Queixa geral + objetivo, sem expor dados privados.</dd></div>
+              <div><dt>Avaliação</dt><dd>Alternativas consideradas e critérios revisados pelo profissional.</dd></div>
+              <div><dt>Plano</dt><dd>Conduta escolhida, etapas e cuidados descritos com fidelidade.</dd></div>
+              <div><dt>Publicação</dt><dd>TCLE, nome + CRO e publicação pelo profissional que executou o tratamento.</dd></div>
+            </dl>
+          </div>
+          <div class="before-after before-after--large evidence-media">
+            <figure class="evidence-media__source"><img src="assets-real/rodrigo-2026-07-10.jpg" alt="Retrato profissional do Dr. Rodrigo Fróes"><figcaption>Imagem do profissional · nenhum caso de paciente incluído</figcaption></figure>
+            <figure class="evidence-media__pending"><div>CASO PRÓPRIO APROVADO<br><small>AUTORIA + AUTORIZAÇÃO CONFIRMADAS</small></div><figcaption>Substituir por caso validado do Rodrigo</figcaption></figure>
+          </div>
+        </div>
+
+        <div class="evidence-chain reveal">
+          <span>Autoria confirmada</span><b>→</b><span>TCLE específico</span><b>→</b><span>Original preservado</span><b>→</b><span>Revisão clínica</span><b>→</b><span>Publicação com identificação</span>
+        </div>
+        <p class="results-rule"><strong>Regra:</strong> publicar imagens de diagnóstico e conclusão apenas de tratamentos executados pelo Rodrigo, com TCLE e identificação profissional. Sem caso validado, manter conteúdos de educação, processo e dúvidas.</p>
+      </div>
+    </section>
+
+    <section class="section section--paper print-page" id="grade">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Plano editorial inicial</p>
+          <h2>As três primeiras peças apresentam<br>Rodrigo, lentes e implantes.</h2>
+          <p>A grade inicial tem cinco conteúdos sobre lentes, dois sobre implantes e dois de apresentação ou agendamento. Fixe os três primeiros. O conteúdo de caso depende de validação clínica; ortodontia fica fora deste ciclo até a confirmação de escopo e prioridade.</p>
+        </div>
+
+        <p class="conditional-case-note">* A peça de prova depende de autoria, autorização e identificação validadas. Sem caso próprio elegível, usar um conteúdo educativo no lugar.</p>
+        <div class="feed-plan reveal">
+          <div class="feed-plan__grid interactive-grid" id="feedGrid">
+            <button class="tile tile--placeholder" data-post="0" type="button"><span class="tile-photo tile-photo--real"><img src="assets-real/rodrigo-2026-07-10.jpg" alt=""></span><span class="pin" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13"><path fill="currentColor" d="M16 9V4h1V2H7v2h1v5l-2 2v2h5.5v9h1v-9H18v-2z"/></svg></span><small>01 · RODRIGO</small><b>COMECE<br>AQUI</b></button>
+            <button class="tile tile--light" data-post="1" type="button"><span class="tile-photo tile-photo--real"><img src="assets-real/rodrigo-2026-08-27.jpg" alt=""></span><span class="pin" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13"><path fill="currentColor" d="M16 9V4h1V2H7v2h1v5l-2 2v2h5.5v9h1v-9H18v-2z"/></svg></span><small>02 · LENTES</small><b>ANTES DAS LENTES:<br>O QUE AVALIAR?</b></button>
+            <button class="tile" data-post="2" type="button"><span class="tile-photo tile-photo--real"><img src="assets-real/rodrigo-2026-08-04.jpg" alt=""></span><span class="pin" aria-hidden="true"><svg viewBox="0 0 24 24" width="13" height="13"><path fill="currentColor" d="M16 9V4h1V2H7v2h1v5l-2 2v2h5.5v9h1v-9H18v-2z"/></svg></span><small>03 · IMPLANTES</small><b>POR ONDE<br>COMEÇAR?</b></button>
+            <button class="tile tile--light" data-post="3" type="button"><small>04 · LENTES</small><b>HÁ OUTRO<br>CAMINHO?</b></button>
+            <button class="tile" data-post="4" type="button"><small>05 · LENTES</small><b>O QUE AVALIO<br>ANTES?</b></button>
+            <button class="tile tile--light" data-post="5" type="button"><small>06 · LENTES</small><b>O QUE ESTE CASO<br>ENSINA?*</b></button>
+            <button class="tile" data-post="6" type="button"><small>07 · LENTES</small><b>O QUE MUDA A<br>INDICAÇÃO?</b></button>
+            <button class="tile tile--light" data-post="7" type="button"><small>08 · IMPLANTES</small><b>DÚVIDAS SOBRE<br>IMPLANTES</b></button>
+            <button class="tile tile--cta" data-post="8" type="button"><span class="tile-photo tile-photo--real"><img src="assets-real/rodrigo-2026-07-27.jpg" alt=""></span><small>09 · CONVITE</small><b>AVALIAÇÃO EM<br>PARAUAPEBAS</b></button>
+          </div>
+
+          <aside class="post-detail" id="postDetail" aria-live="polite">
+            <span id="postNumber">01 · FIXADO</span>
+            <h3 id="postTitle">COMECE AQUI</h3>
+            <p id="postIdea">Apresentação curta do Rodrigo, com lentes de porcelana como foco principal, implantes como segunda frente e sua forma de conduzir uma avaliação.</p>
+            <dl>
+              <div><dt>Papel</dt><dd id="postRole">Apresentação</dd></div>
+              <div><dt>CTA</dt><dd id="postCta">Conheça Lentes nos destaques.</dd></div>
+            </dl>
+          </aside>
+        </div>
+
+        <div class="editorial-grid reveal">
+            <article><span>Critério clínico</span><strong>Explicar antes de indicar.</strong><p>Mostrar o que Rodrigo avalia para lentes e, depois, para implantes.</p></article>
+            <article><span>Dúvidas que chegam à equipe</span><strong>Responder sem diagnosticar.</strong><p>Gravar respostas curtas para perguntas que as pessoas realmente fazem.</p></article>
+            <article><span>Consulta</span><strong>Explicar o que acontece.</strong><p>Apresentar conversa, avaliação, alternativas e próximos passos.</p></article>
+            <article><span>Parauapebas</span><strong>Falar com quem está por perto.</strong><p>Responder às dúvidas locais com a voz do próprio Rodrigo.</p></article>
+        </div>
+
+        <details class="scripts reveal" open>
+          <summary>7 aberturas para os primeiros vídeos</summary>
+          <ol>
+            <li><strong>Apresentação:</strong> “Eu sou o Dr. Rodrigo Fróes e atendo em Parauapebas. Aqui, explico como avalio cada caso antes de indicar um tratamento.”</li>
+            <li><strong>Lentes:</strong> “Lente de porcelana não começa pela cor. Antes, eu observo forma, proporção e função.”</li>
+            <li><strong>Implantes:</strong> “Para conversar sobre implantes, primeiro preciso avaliar a região e entender as opções para aquele caso.”</li>
+            <li><strong>Alternativas:</strong> “Será que todo incômodo com o sorriso se resolve com lentes? A resposta depende da avaliação e das alternativas.”</li>
+            <li><strong>Critérios:</strong> “Antes de indicar lentes, eu observo mais do que a cor e o formato dos dentes.”</li>
+            <li><strong>Caso clínico:</strong> “Neste caso, vou explicar o que foi avaliado, por que esse plano foi escolhido e quais eram os limites.”</li>
+            <li><strong>Indicação:</strong> “O mesmo tratamento não serve para todos os sorrisos. A indicação depende do que a avaliação mostra.”</li>
+          </ol>
+        </details>
+        <p class="calendar-intro-note">A pauta de prova é condicional. Sem caso elegível, publicar a alternativa educativa prevista no calendário. Cada peça clínica exige revisão do responsável técnico.</p>
+      </div>
+    </section>
+
+    <section class="section section--warm print-page" id="calendario">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Calendário editorial · 12 semanas</p>
+          <h2>25 publicações até o Dia 30.<br>Depois, três por semana.</h2>
+          <p>Comece amanhã com o material disponível e produza o restante em paralelo. Rodrigo revisa cada explicação técnica antes da gravação.</p>
+        </div>
+
+        <div class="calendar-summary reveal">
+          <div><strong>7</strong><span>publicações nos Dias 1–7</span></div>
+          <div><strong>17</strong><span>publicações nos Dias 8–28</span></div>
+          <div><strong>25</strong><span>meta até o Dia 30; a 25ª pauta entra no Dia 29</span></div>
+          <div><strong>3/semana</strong><span>cadência proposta a partir da Semana 6</span></div>
+        </div>
+        <p class="calendar-note">Mix das 48 pautas: 29 lentes, 12 implantes e 7 confiança/conversão (aprox. 60/25/15). As primeiras 24 peças saem até o Dia 28; a 25ª entra no Dia 29. Restam duas peças na semana de transição após o Dia 30; a cadência completa de três por semana começa na Semana 6. Se gravação, edição ou aprovação não sustentarem o volume, reduzir peças antes de reduzir a revisão clínica.</p>
+
+        <div class="calendar-grid">
+          <article class="calendar-week">
+            <header><span>Semana 01 · Dias 1–7 · 7 peças</span><h3>Apresentar Rodrigo e priorizar lentes</h3></header>
+            <ol>
+              <li><span>Confiança</span><p>Quem é Rodrigo e como começa o atendimento? Confirmar dados e processo.</p></li>
+              <li><span>Lentes</span><p>Lente de porcelana não começa pela cor.</p></li>
+              <li><span>Implantes</span><p>Por onde começa a avaliação para implantes?</p></li>
+              <li><span>Lentes</span><p>Todo incômodo com o sorriso pede lentes?</p></li>
+              <li><span>Lentes</span><p>O que Rodrigo avalia antes de conversar sobre lentes?</p></li>
+              <li><span>Lentes</span><p>Se houver caso próprio elegível: explicar contexto, critérios e limites. Sem validação, fazer um conteúdo educativo.</p></li>
+              <li><span>Lentes</span><p>Que fatores podem mudar a indicação?</p></li>
+            </ol>
+          </article>
+          <article class="calendar-week">
+            <header><span>Semana 02 · Dias 8–14 · 6 peças</span><h3>Responder dúvidas e explicar a consulta</h3></header>
+            <ol>
+              <li><span>Implantes</span><p>Quais dúvidas levar para uma avaliação de implantes?</p></li>
+              <li><span>Confiança</span><p>O que acontece na primeira avaliação? Confirmar duração, etapas e custo.</p></li>
+              <li><span>Lentes</span><p>O que uma foto de referência não consegue confirmar?</p></li>
+              <li><span>Lentes</span><p>Por que cor e formato precisam ser avaliados em conjunto?</p></li>
+              <li><span>Implantes</span><p>Perda de um dente: o que precisa ser avaliado antes da reabilitação?</p></li>
+              <li><span>Lentes</span><p>Como a expectativa de cada pessoa entra no planejamento?</p></li>
+            </ol>
+          </article>
+          <article class="calendar-week">
+            <header><span>Semana 03 · Dias 15–21 · 6 peças</span><h3>Explicar critérios</h3></header>
+            <ol>
+              <li><span>Lentes</span><p>Lente, faceta e clareamento: que perguntas ajudam a comparar caminhos?</p></li>
+              <li><span>Lentes</span><p>Como alinhar expectativa e limites antes de decidir?</p></li>
+              <li><span>Lentes</span><p>O que a vista frontal do sorriso não mostra?</p></li>
+              <li><span>Lentes</span><p>Como conversar sobre cor e textura sem buscar um padrão único?</p></li>
+              <li><span>Implantes</span><p>Implante e prótese têm papéis diferentes no plano? Explicar com validação clínica.</p></li>
+              <li><span>Confiança</span><p>Responder às três dúvidas reais mais recebidas pela equipe.</p></li>
+            </ol>
+          </article>
+          <article class="calendar-week">
+            <header><span>Semana 04 · Dias 22–28 · 5 peças</span><h3>Mostrar o processo</h3></header>
+            <ol>
+              <li><span>Lentes</span><p>Quando faz sentido comparar alternativas antes de escolher lentes?</p></li>
+              <li><span>Lentes</span><p>Como o objetivo do paciente entra na conversa sobre preservação dentária?</p></li>
+              <li><span>Implantes</span><p>Quais etapas podem compor uma reabilitação? O plano varia por caso.</p></li>
+              <li><span>Implantes</span><p>O que o acompanhamento após o tratamento precisa esclarecer?</p></li>
+              <li><span>Confiança</span><p>Como iniciar o contato e pedir uma avaliação? Confirmar o fluxo real.</p></li>
+            </ol>
+          </article>
+          <article class="calendar-week">
+            <header><span>Semana 05 · Dias 29–35 · 3 peças</span><h3>Fechar o primeiro ciclo</h3></header>
+            <ol>
+              <li><span>Lentes · Dia 29</span><p>O que explicar antes de pedir uma avaliação para lentes?</p></li>
+              <li><span>Lentes</span><p>Quais perguntas ajudam a alinhar expectativas sobre o sorriso?</p></li>
+              <li><span>Implantes</span><p>O que avaliação e exames podem esclarecer antes do plano?</p></li>
+            </ol>
+          </article>
+          <article class="calendar-week">
+            <header><span>Semana 06 · Dias 36–42 · 3 peças</span><h3>Testar clareza</h3></header>
+            <ol>
+              <li><span>Lentes</span><p>Naturalidade não segue um único padrão: como explicar isso?</p></li>
+              <li><span>Lentes</span><p>O que muda quando a pessoa traz uma foto de referência?</p></li>
+              <li><span>Implantes</span><p>Que fatores podem alterar as etapas e o prazo de um plano?</p></li>
+            </ol>
+          </article>
+          <article class="calendar-week">
+            <header><span>Semana 07 · Dias 43–49 · 3 peças</span><h3>Reforçar indicação</h3></header>
+            <ol>
+              <li><span>Lentes</span><p>Quando não indicar lentes também faz parte da avaliação.</p></li>
+              <li><span>Lentes</span><p>Como comparar caminhos sem decidir só pela imagem final?</p></li>
+              <li><span>Implantes</span><p>Quais alternativas podem ser avaliadas quando falta um dente?</p></li>
+            </ol>
+          </article>
+          <article class="calendar-week">
+            <header><span>Semana 08 · Dias 50–56 · 3 peças</span><h3>Explicar além da estética</h3></header>
+            <ol>
+              <li><span>Lentes</span><p>O que é avaliado além dos dentes da frente?</p></li>
+              <li><span>Lentes</span><p>Como conversar sobre limites antes de qualquer decisão?</p></li>
+              <li><span>Implantes</span><p>Que dúvidas levar sobre acompanhamento e manutenção?</p></li>
+            </ol>
+          </article>
+          <article class="calendar-week">
+            <header><span>Semana 09 · Dias 57–63 · 3 peças</span><h3>Usar prova com responsabilidade</h3></header>
+            <ol>
+              <li><span>Lentes</span><p>Se houver caso próprio elegível: explicar indicação, contexto e limites. Sem autorização, publicar conteúdo educativo.</p></li>
+              <li><span>Lentes</span><p>O que não é possível concluir olhando apenas uma foto?</p></li>
+              <li><span>Implantes</span><p>Responder dúvidas reais sobre conforto e recuperação, sem generalizar resultados.</p></li>
+            </ol>
+          </article>
+          <article class="calendar-week">
+            <header><span>Semana 10 · Dias 64–70 · 3 peças</span><h3>Ajudar a escolher os próximos passos</h3></header>
+            <ol>
+              <li><span>Lentes</span><p>Quais expectativas precisam ser conversadas antes do planejamento?</p></li>
+              <li><span>Lentes</span><p>Três perguntas para fazer antes de decidir sobre lentes.</p></li>
+              <li><span>Implantes</span><p>O que muda entre repor um dente e planejar uma reabilitação mais ampla?</p></li>
+            </ol>
+          </article>
+          <article class="calendar-week">
+            <header><span>Semana 11 · Dias 71–77 · 3 peças</span><h3>Responder às dúvidas mais frequentes</h3></header>
+            <ol>
+              <li><span>Lentes</span><p>Por que a cor ideal depende do caso e da expectativa?</p></li>
+              <li><span>Lentes</span><p>Como usar referências visuais sem copiar outro sorriso?</p></li>
+              <li><span>Confiança</span><p>Apresentar as etapas e os próximos passos da avaliação, após validação.</p></li>
+            </ol>
+          </article>
+          <article class="calendar-week">
+            <header><span>Semana 12 · Dias 78–84 · 3 peças</span><h3>Fechar e planejar o próximo ciclo</h3></header>
+            <ol>
+              <li><span>Lentes</span><p>Revisar as dúvidas sobre lentes que mais apareceram no período.</p></li>
+              <li><span>Confiança</span><p>Responder uma pergunta recorrente recebida nas últimas semanas.</p></li>
+              <li><span>Confiança</span><p>Reforçar como marcar uma avaliação e o que esperar do contato.</p></li>
+            </ol>
+          </article>
+        </div>
+        <p class="calendar-footer-note">Stories apoiam cada pauta com bastidor seguro, enquete ou resposta a dúvida real. Eles não entram na contagem de publicações do feed. Todo resultado clínico, caso, prazo ou afirmação técnica depende de validação do Rodrigo.</p>
+      </div>
+    </section>
+
+    <section class="section section--ink print-page" id="gravacao">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow eyebrow--light">Guia de gravação</p>
+          <h2>Pergunta, explicação e próximo passo.<br>Esse é o roteiro de cada Reel.</h2>
+          <p>Escolha uma dúvida real, desenvolva uma ideia e termine com um convite simples. Rodrigo pode usar os tópicos como guia e falar do próprio jeito.</p>
+        </div>
+
+        <div class="recording-principles reveal">
+          <article>
+            <span>01 · Tom de voz</span>
+            <strong>Seguro e tranquilo.</strong>
+            <p>Explicar sem pressa, como faria durante a consulta. Evitar promessas absolutas.</p>
+          </article>
+          <article>
+            <span>02 · Linguagem</span>
+            <strong>Simples e didática.</strong>
+            <p>Trocar termos técnicos por exemplos que qualquer paciente entende. Uma ideia por vídeo. Frases curtas. Sem “odontologuês”.</p>
+          </article>
+          <article>
+            <span>03 · Presença</span>
+            <strong>Olho na lente.</strong>
+            <p>Falar para uma pessoa, não para uma audiência. Ombros relaxados, mãos naturais e pequenas pausas entre as frases.</p>
+          </article>
+          <article>
+            <span>04 · Naturalidade</span>
+            <strong>Dominar a ideia, não decorar o texto.</strong>
+            <p>Usar tópicos como guia. Se errar, retomar só a frase. O vídeo deve soar como uma conversa, não como leitura.</p>
+          </article>
+        </div>
+
+        <div class="recording-setup reveal">
+          <div class="recording-setup__copy">
+            <span>Setup padrão</span>
+            <h3>Como posicionar o celular antes de cada gravação.</h3>
+            <dl>
+              <div><dt>Formato</dt><dd>Vertical 9:16. Gravar em 4K/30 fps quando o celular permitir; 1080p/30 fps já é suficiente.</dd></div>
+              <div><dt>Lente</dt><dd>Usar 1×. Evitar grande angular. Limpar a lente antes de começar.</dd></div>
+              <div><dt>Enquadramento</dt><dd>Plano médio, do peito para cima. Câmera na altura dos olhos. Deixar um pequeno respiro acima da cabeça.</dd></div>
+              <div><dt>Distância</dt><dd>Aproximadamente 1 a 1,5 metro do celular, mantendo o rosto como ponto principal do quadro.</dd></div>
+              <div><dt>Luz</dt><dd>Rosto voltado para janela ou luz suave a 45°. Evitar ficar de costas para janela e evitar somente luz de teto.</dd></div>
+              <div><dt>Áudio</dt><dd>Ambiente silencioso + microfone de lapela sempre que disponível. Fazer um teste de 10 segundos antes da sequência.</dd></div>
+              <div><dt>Cenário</dt><dd>Consultório real, limpo e com poucos elementos. Nada disputando atenção com o rosto do Rodrigo.</dd></div>
+            </dl>
+          </div>
+          <div class="recording-frame" aria-label="Exemplo de enquadramento para gravação">
+            <div class="recording-frame__screen">
+              <img src="assets-real/rodrigo-2026-07-27.jpg" alt="Dr. Rodrigo Fróes no consultório como referência de enquadramento">
+              <span class="frame-line frame-line--top"></span>
+              <span class="frame-line frame-line--eye"></span>
+              <span class="frame-line frame-line--bottom"></span>
+              <b class="frame-note frame-note--eye">OLHOS NA LENTE</b>
+              <b class="frame-note frame-note--body">PEITO PARA CIMA</b>
+            </div>
+            <p><strong>Referência:</strong> rosto central, olhos próximos ao terço superior e fundo clínico discreto.</p>
+          </div>
+        </div>
+
+        <div class="video-formula reveal">
+          <div class="video-formula__intro">
+            <span>Estrutura de roteiro</span>
+            <h3>Um Reel de 35–50 segundos em quatro blocos.</h3>
+            <p>Se o assunto pedir menos tempo, comprimir o bloco de explicação. O começo e o fechamento continuam iguais.</p>
+          </div>
+          <ol>
+            <li><b>0–3s</b><strong>Gancho</strong><p>Abrir com uma dúvida, erro comum ou afirmação direta. Nada de “Oi, pessoal”.</p></li>
+            <li><b>3–10s</b><strong>Contexto</strong><p>Explicar por que aquela dúvida importa para quem pensa em fazer lentes.</p></li>
+            <li><b>10–38s</b><strong>Explicação</strong><p>Entregar 1 raciocínio clínico em linguagem simples, com no máximo 3 pontos.</p></li>
+            <li><b>38–50s</b><strong>Fechamento + CTA</strong><p>Concluir a ideia e indicar um único próximo passo: ver destaque, mandar dúvida ou agendar avaliação.</p></li>
+          </ol>
+        </div>
+
+        <div class="ready-script reveal">
+          <div class="ready-script__intro">
+            <span>Exemplo completo</span>
+            <h3>Vídeo 01 — “Lente não começa pela cor”</h3>
+            <p>Use os blocos como guia. Rodrigo fala com as próprias palavras.</p>
+          </div>
+          <ol>
+            <li><b>0–3s</b><strong>“Lente de porcelana não começa pela cor.”</strong></li>
+            <li><b>3–10s</b><strong>“Antes de pensar em branco, eu avalio o formato do sorriso, a proporção dos dentes e o que combina com o rosto.”</strong></li>
+            <li><b>10–38s</b><strong>“Também observo função, saúde dos dentes e expectativa. É isso que define se lentes fazem sentido e qual caminho pode ficar mais natural para aquele caso.”</strong></li>
+            <li><b>38–50s</b><strong>“Se você pensa em lentes, o primeiro passo é entender o seu caso em uma avaliação. A partir daí, a decisão fica muito mais clara.”</strong></li>
+          </ol>
+        </div>
+
+        <div class="recording-formats reveal">
+          <article>
+            <span>Formato 01</span>
+            <strong>Rodrigo falando para a câmera</strong>
+            <p>Base principal. Ótimo para dúvidas, critérios, naturalidade e opinião profissional.</p>
+            <small>Plano médio · 25–50s · consultório</small>
+          </article>
+          <article>
+            <span>Formato 02</span>
+            <strong>Pergunta na tela + resposta</strong>
+            <p>A pergunta aparece primeiro e Rodrigo responde como responderia durante uma consulta.</p>
+            <small>Close ou plano médio · 20–40s</small>
+          </article>
+          <article>
+            <span>Formato 03</span>
+            <strong>Análise de caso</strong>
+            <p>Usar somente se houver caso próprio elegível; explicar contexto e critérios antes do resultado. Sem caso validado, substituir por conteúdo educativo.</p>
+            <small>Voz do Rodrigo + apoio gráfico</small>
+          </article>
+          <article>
+            <span>Formato 04</span>
+            <strong>Consultório + voz em off</strong>
+              <p>Usar o consultório vazio e imagens do próprio Rodrigo enquanto ele explica um conceito. Não mostrar pacientes, procedimentos em andamento, instrumentais ou materiais identificáveis.</p>
+            <small>5–8 cenas do ambiente · narração limpa</small>
+          </article>
+          <article>
+            <span>Formato 05</span>
+            <strong>“3 coisas que eu observo”</strong>
+            <p>Lista curta para explicar critérios sem transformar o conteúdo em aula longa.</p>
+            <small>3 pontos · 30–45s</small>
+          </article>
+          <article>
+            <span>Formato 06</span>
+            <strong>Implantes como segunda frente</strong>
+            <p>Mesma linguagem e método, com menor frequência para preservar o foco principal em lentes.</p>
+            <small>Dúvidas + processo + função</small>
+          </article>
+        </div>
+
+        <div class="voice-guide reveal">
+          <div>
+            <span>Falar assim</span>
+            <strong>“Quando penso em lentes, eu não começo escolhendo a cor. Primeiro avalio forma, proporção, função e o que combina com o rosto daquela pessoa.”</strong>
+            <p>Primeira pessoa, raciocínio claro e linguagem humana.</p>
+          </div>
+          <div>
+            <span>Evitar</span>
+            <strong>“O caro mesmo é continuar incomodado.”</strong>
+            <p>Não pressionar pelo medo, pelo preço ou por uma promessa de resultado. Explicar critérios, alternativas e limites. Roteiros de setembro sobre preço e durabilidade precisam de revisão antes de serem reutilizados.</p>
+          </div>
+        </div>
+
+        <div class="capture-session reveal">
+          <div class="capture-session__heading">
+            <span>Rotina de captação</span>
+            <h3>Amanhã começa a captação. Depois, 1 sessão semanal de 60–90 minutos no primeiro mês.</h3>
+            <p>Gravar sete vídeos curtos na primeira sessão. Publicar sete peças na primeira semana, seis nas semanas 2 e 3 e cinco na semana 4. Após o primeiro mês, testar captação quinzenal apenas se houver seis peças aprovadas por sessão.</p>
+          </div>
+          <ol>
+            <li><b>10 min</b><div><strong>Preparar</strong><p>Luz, áudio, enquadramento, água, roteiro em tópicos e teste rápido.</p></div></li>
+            <li><b>35 min</b><div><strong>Gravar lentes</strong><p>5 vídeos: cor e proporção, alternativas, critérios, caso educativo ou validado e fatores de indicação.</p></div></li>
+            <li><b>15 min</b><div><strong>Gravar apresentação + implantes</strong><p>1 vídeo de apresentação e 1 resposta sobre o início da avaliação para implantes.</p></div></li>
+            <li><b>15 min</b><div><strong>Captar apoio</strong><p>Consultório vazio, planos do ambiente, falas curtas e fotos verticais do próprio Rodrigo.</p></div></li>
+            <li><b>10 min</b><div><strong>Refazer ganchos</strong><p>Gravar 2 ou 3 versões dos melhores começos para facilitar a edição e os testes.</p></div></li>
+          </ol>
+        </div>
+
+        <div class="recording-checklist reveal">
+          <span>Checklist antes de enviar para edição</span>
+          <div>
+            <p>✓ Uma ideia principal</p>
+            <p>✓ Gancho nos primeiros 3 segundos</p>
+            <p>✓ Olho na lente e áudio limpo</p>
+            <p>✓ Sem promessa de resultado</p>
+            <p>✓ CTA único no final</p>
+            <p>✓ Caso clínico somente com autorização</p>
+            <p>✓ Sem paciente ou procedimento em andamento</p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--warm print-page" id="jornada">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Da atenção à consulta</p>
+          <h2>Leve o público local<br>da dúvida à avaliação.</h2>
+          <p>Acompanhe visitas ao perfil, conversas qualificadas, avaliações marcadas e comparecimentos. Relacione cada contato ao tema que iniciou a conversa.</p>
+        </div>
+
+        <div class="journey-flow reveal">
+          <div><span>01</span><strong>Conteúdo educativo</strong><small>Tema + retenção</small></div><b>→</b>
+          <div><span>02</span><strong>Perfil + destaques</strong><small>Visitas, salvamentos, perguntas</small></div><b>→</b>
+          <div><span>03</span><strong>Contato no WhatsApp</strong><small>Origem registrada</small></div><b>→</b>
+          <div><span>04</span><strong>Avaliação com Rodrigo</strong><small>Agendamento + comparecimento</small></div><b>→</b>
+          <div><span>05</span><strong>Plano proposto</strong><small>Aceite quando registrado</small></div>
+        </div>
+
+        <div class="metrics-grid reveal">
+          <article><span>Descoberta</span><strong>Alcance e visitas</strong><p>Pessoas da região alcançadas e visitas ao perfil.</p></article>
+          <article><span>Contato</span><strong>Conversas qualificadas</strong><p>Contatos únicos com interesse real, acompanhando separadamente lentes e implantes.</p></article>
+          <article><span>Agenda</span><strong>Consultas realizadas</strong><p>Agendamento, comparecimento e custo por consulta.</p></article>
+          <article><span>Resultado</span><strong>Planos aceitos</strong><p>Quando houver registro real no CRM.</p></article>
+        </div>
+        <p class="calendar-intro-note">Manter uma rota principal para agendamento no perfil. Cada conteúdo pode convidar a uma dúvida ou a um destaque, mas o contato precisa registrar procedimento de interesse e origem. Definir quem responde no WhatsApp, o prazo de resposta e o que a avaliação inclui antes de publicar esses detalhes.</p>
+      </div>
+    </section>
+
+    <section class="section section--paper print-page" id="roadmap">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow">Sprint de lançamento e escala</p>
+          <h2>Começamos amanhã.<br>30 dias para medir a procura local.</h2>
+          <p>Meta de desempenho para o Dia 30: um Reel com 3× a mediana de pelo menos cinco Reels orgânicos comparáveis dos 90 dias anteriores. É uma meta de teste, sem promessa de viralização, pacientes ou faturamento. Se houver menos peças comparáveis, usar os Dias 1–7 como linha de base provisória e revisar a meta no Dia 30. Acompanhar também alcance na região, visitas ao perfil, conversas qualificadas e avaliações realizadas.</p>
+        </div>
+
+        <ol class="timeline reveal">
+          <li><span>01</span><div><strong>Dia 1 · amanhã, 17/10 · Entrar no ar</strong><p>Depois de definir escopo, CTA e responsável pelo atendimento: atualizar a bio, publicar um Reel educativo de edição simples e gravar o restante do lote em paralelo.</p></div></li>
+          <li><span>02</span><div><strong>Dias 2–7 · Ritmo diário</strong><p>Publicar um Reel por dia, completar os três fixados até o Dia 3 e usar Stories leves em quatro ou cinco dias da semana. Responder contatos e registrar a linha de base.</p></div></li>
+          <li><span>03</span><div><strong>Dias 8–14 · Rever os primeiros resultados</strong><p>Publicar seis peças na semana. No Dia 7, escolher os melhores ganchos por retenção, compartilhamentos, alcance local e visitas ao perfil; completar os nove conteúdos iniciais até o Dia 12.</p></div></li>
+          <li><span>04</span><div><strong>Dias 15–28 · Manter um ritmo possível</strong><p>Publicar seis peças na terceira semana e cinco na quarta. Se um Reel superar a mediana comparável, testar até três aberturas para o mesmo tema na captação seguinte, trocando pautas menos prioritárias sem aumentar o volume. Rever a qualidade dos contatos antes de repetir o tema.</p></div></li>
+          <li><span>05</span><div><strong>Dias 29–30 · Fechar o primeiro ciclo</strong><p>Publicar a 25ª peça no Dia 29. No Dia 30, revisar alcance, conversas, avaliações e comparecimentos; confirmar a capacidade de produção antes de manter ou alterar a cadência.</p></div></li>
+          <li><span>06</span><div><strong>Dias 31–60 · Ajustar pauta e atendimento</strong><p>Publicar as duas peças restantes da Semana 5 e, a partir da Semana 6, usar três publicações semanais como base. Reforçar temas que geram conversas qualificadas, corrigir pontos de abandono e comparar contatos, avaliações e comparecimentos com a linha de base.</p></div></li>
+          <li><span>07</span><div><strong>Dias 61–84 · Decidir se vale aumentar o ritmo</strong><p>Manter três publicações semanais e concentrar a produção nos formatos que trouxeram alcance local e conversas qualificadas. Aumentar a cadência apenas se os dados e a equipe comportarem.</p></div></li>
+        </ol>
+
+        <div class="deliverables reveal">
+          <span>Entregáveis do primeiro ciclo</span>
+          <strong>Primeiro Reel no Dia 1 · 3 fixados até o Dia 3 · 9 conteúdos iniciais até o Dia 12 · até 25 publicações no Dia 30 · 48 pautas em 12 semanas · revisão semanal</strong>
+        </div>
+
+        <div class="decision-heading">
+          <h3>Fechamentos para iniciar a execução</h3>
+          <p>Validar estes pontos na reunião e registrar os dados que ainda não foram fornecidos.</p>
+        </div>
+        <div class="pending-grid reveal">
+          <article><span>Diretriz proposta</span><strong>Lentes no centro do primeiro ciclo</strong><p>Confirmar lentes como prioridade, implantes como segunda frente e se ortodontia fica fora deste calendário.</p></article>
+          <article><span>Validar 02</span><strong>Escopo e credenciais</strong><p>Confirmar procedimentos, formação, registro e títulos que podem ser comunicados.</p></article>
+          <article><span>Validar 03</span><strong>Linha de base</strong><p>Separar orgânico e mídia paga: alcance, conversas, avaliações, comparecimentos e planos dos últimos 90 dias.</p></article>
+          <article><span>Validar 04</span><strong>Casos autorizados</strong><p>Separar arquivos originais, autoria, consentimento e responsável pela aprovação de cada caso.</p></article>
+          <article><span>Validar 05</span><strong>Banco visual real</strong><p>Inventariar vídeos e fotos originais; os retratos desta apresentação não substituem prova clínica.</p></article>
+          <article><span>Validar 06</span><strong>Rastreamento do contato</strong><p>Definir link e mensagem inicial; registrar origem, procedimento de interesse, agendamento, comparecimento e plano aceito em uma planilha ou CRM.</p></article>
+          <article><span>Validar 07</span><strong>Avaliação e chamada para ação</strong><p>Confirmar etapas, duração, condição comercial e o que a avaliação inclui antes de publicar esses detalhes.</p></article>
+          <article><span>Validar 08</span><strong>Atendimento e aprovação</strong><p>Definir quem responde o WhatsApp, prazo de resposta e prazo para revisão clínica/editorial.</p></article>
+          <article><span>Validar 09</span><strong>Capacidade de produção</strong><p>Confirmar quem grava, edita e publica sete peças na primeira semana e cinco a seis nas semanas seguintes.</p></article>
+        </div>
+      </div>
+    </section>
+
+    <section class="section section--ink print-page" id="compliance">
+      <div class="shell">
+        <div class="section-heading reveal">
+          <p class="eyebrow eyebrow--light">Critérios para publicidade</p>
+          <h2>Quatro validações antes de publicar um caso clínico.</h2>
+        </div>
+        <div class="compliance-grid reveal">
+          <article><b>01</b><strong>Autoria</strong><p>Casos do perfil devem ser de tratamentos executados pelo próprio Rodrigo.</p></article>
+          <article><b>02</b><strong>Autorização</strong><p>TCLE específico antes de usar imagem, vídeo ou identificação do paciente.</p></article>
+          <article><b>03</b><strong>Identificação</strong><p>Nome completo e CRO na peça clínica, conforme revisão responsável.</p></article>
+          <article><b>04</b><strong>Sem promessa</strong><p>Resultado é individual. Evitar garantia, superioridade absoluta e diagnóstico por DM.</p></article>
+        </div>
+        <p class="legal-note">A Resolução CFO 196/2019 prevê TCLE e identificação profissional para imagens de diagnóstico e conclusão, permite a divulgação pelo cirurgião-dentista que executou o tratamento e veda imagens do procedimento em andamento. O CFO também veda a publicação de casos de terceiros e por clínicas ou consultórios como pessoas jurídicas. Este checklist é preventivo; o cirurgião-dentista responsável deve validar cada peça e consultar o CRO-PA em caso de dúvida.</p>
+        <p class="legal-sources">Fontes oficiais: <a href="https://website.cfo.org.br/resolucao-cfo-196-2019/" target="_blank" rel="noopener noreferrer">Resolução CFO-196/2019</a> · <a href="https://website.cfo.org.br/redes-sociais-na-odontologia-fique-atento-as-normas-eticas-e-acerte-na-publicacao-dos-conteudos/" target="_blank" rel="noopener noreferrer">orientação do CFO sobre redes sociais (2025)</a>.</p>
+
+        <div class="final-statement reveal">
+          <span>Objetivo de percepção a validar</span>
+          <strong>Quando alguém em Parauapebas considerar lentes, queremos que associe Rodrigo a explicações claras sobre avaliação, opções e limites de cada caso.</strong>
+        </div>
       </div>
     </section>
   </main>
+
+  <footer class="footer">
+    <span class="brand-lockup footer__brand"><img src="assets-real/logo-hurtz-horizontal-fundo-preto-branca.png" alt="Hurtz Company"></span>
+    <span>Playbook estratégico · Dr. Rodrigo Fróes</span>
+  </footer>
 
   <script src="script.js"></script>
 </body>
