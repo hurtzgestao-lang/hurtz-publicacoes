@@ -1,0 +1,1135 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Kit de Follow-up Hurtz</title>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* Layout: capa preta de marca, barra de navegação fixa, coluna de leitura com cada toque em grade dia | mensagem */
+:root{
+  --bg:#0A0908; --surface:#13110F; --surface-2:#1C1915; --line:#2A2521; --line-strong:#4A423B;
+  --fg:#F4F1EC; --muted:#BBB3A8; --accent:#BF5A17; --accent-text:#E3803F; --accent-soft:#2C1A10; --on-accent:#F8F5F0;
+  --bubble:#191512; --bubble-line:#352A20; --fill-soft:#33200F;
+  --cover-bg:#0A0908; --cover-fg:#F4F1EC; --cover-muted:#9F978B; --cover-line:#2E2823; --cover-accent:#E3803F;
+  --display:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --body:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --mono:"Plus Jakarta Sans",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;
+  --logo:url("data:image/png;base64,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");
+  --mark:url("data:image/png;base64,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");
+  color-scheme:dark;
+}
+@media (prefers-color-scheme: light){
+  :root:not([data-theme="dark"]){
+    --bg:#F4F1EC; --surface:#FBFAF7; --surface-2:#ECE6DD; --line:#DDD4C8; --line-strong:#B5AA9C;
+    --fg:#0A0908; --muted:#574F46; --accent:#BF5A17; --accent-text:#A3480E; --accent-soft:#F3E1D2; --on-accent:#FFFFFF;
+    --bubble:#FFFFFF; --bubble-line:#E2D8CB; --fill-soft:#F6E3D2;
+    color-scheme:light;
+  }
+}
+:root[data-theme="light"]{
+  --bg:#F4F1EC; --surface:#FBFAF7; --surface-2:#ECE6DD; --line:#DDD4C8; --line-strong:#B5AA9C;
+  --fg:#0A0908; --muted:#574F46; --accent:#BF5A17; --accent-text:#A3480E; --accent-soft:#F3E1D2; --on-accent:#FFFFFF;
+  --bubble:#FFFFFF; --bubble-line:#E2D8CB; --fill-soft:#F6E3D2;
+  color-scheme:light;
+}
+
+*,*::before,*::after{box-sizing:border-box}
+html{scroll-behavior:smooth}
+@media (prefers-reduced-motion: reduce){html{scroll-behavior:auto}*{transition:none!important}}
+body{background:var(--bg);color:var(--fg);font-family:var(--body);font-size:16px;line-height:1.65;font-variant-numeric:tabular-nums;-webkit-font-smoothing:antialiased}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:30;background:var(--bg)}
+h1,h2,h3,h4{font-family:var(--display);font-weight:700;margin:0;text-wrap:balance;line-height:1.15;letter-spacing:-.02em}
+p{margin:0}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--accent-text);outline-offset:3px;border-radius:4px}
+
+.wrap{max-width:1080px;margin:0 auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:720px){.wrap{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}}
+
+.logo{display:block;aspect-ratio:737/200;background:currentColor;-webkit-mask:var(--logo) center/contain no-repeat;mask:var(--logo) center/contain no-repeat}
+.eyebrow{font-family:var(--body);font-weight:700;font-size:12px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-text)}
+
+/* Capa */
+.cover{background:var(--cover-bg);color:var(--cover-fg);position:relative;overflow:hidden;border-bottom:1px solid var(--cover-line)}
+.cover::after{content:"";position:absolute;right:-70px;top:40px;width:340px;aspect-ratio:125/196;background:var(--cover-fg);opacity:.05;-webkit-mask:var(--mark) center/contain no-repeat;mask:var(--mark) center/contain no-repeat;pointer-events:none}
+.cover .wrap{position:relative;z-index:1;padding-block:40px 56px;display:grid;gap:56px}
+.cover-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.cover-top .logo{height:30px}
+.cover-top span{font-family:var(--body);font-size:11.5px;font-weight:600;text-transform:uppercase;color:var(--cover-muted);letter-spacing:.1em}
+.cover-main{display:grid;gap:20px;max-width:760px}
+.cover .eyebrow{color:var(--cover-accent)}
+.cover h1{font-size:clamp(46px,9vw,96px);font-weight:800;letter-spacing:-.04em;line-height:1}
+.cover h1 em{font-style:normal;color:var(--cover-accent)}
+.cover-sub{font-size:clamp(17px,2.2vw,20px);color:var(--cover-muted);max-width:34em;line-height:1.5}
+.cover-stats{display:flex;flex-wrap:wrap;gap:20px 0}
+.stat{display:grid;gap:2px;padding-right:28px;margin-right:28px;border-right:1px solid var(--cover-line)}
+.stat:last-child{border-right:0;margin-right:0;padding-right:0}
+@media (max-width:520px){.stat{border-right:0;margin-right:0;padding-right:32px}}
+.stat b{font-family:var(--display);font-weight:800;font-size:30px;line-height:1.1;letter-spacing:-.03em}
+.stat span{font-size:13px;color:var(--cover-muted)}
+
+/* Navegação */
+.topbar{position:sticky;top:env(safe-area-inset-top,0px);z-index:20;background:var(--bg);border-bottom:1px solid var(--line)}
+.topbar .wrap{display:flex;align-items:center;gap:20px;height:56px}
+.topbar .logo{height:16px;flex:none;color:var(--fg)}
+.nav{display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;min-width:0;flex:1;justify-content:flex-end}
+.nav::-webkit-scrollbar{display:none}
+.nav a{flex:none;text-decoration:none;font-family:var(--body);font-weight:600;font-size:13.5px;letter-spacing:0;color:var(--muted);padding:7px 11px;border-radius:999px;transition:color .15s,background .15s}
+.nav a:hover{color:var(--fg)}
+.nav a.on{color:var(--fg);background:var(--surface-2)}
+@media (max-width:560px){.topbar .logo{display:none}.nav{justify-content:flex-start}}
+
+/* Seções */
+section{scroll-margin-top:72px}
+.sec{padding-block:72px;border-bottom:1px solid var(--line)}
+.sec-head{display:grid;gap:14px;max-width:720px;margin-bottom:40px}
+.sec-head h2{font-size:clamp(28px,4.2vw,42px);font-weight:800;letter-spacing:-.03em}
+.lead{font-size:18px;color:var(--muted);max-width:40em}
+.sub-h{font-family:var(--display);font-weight:700;font-size:21px;margin:52px 0 20px;letter-spacing:-.02em}
+.note{font-size:15px;color:var(--muted)}
+
+/* Etapas no mapa */
+.stages{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:16px}
+@media (max-width:920px){.stages{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.stages{grid-template-columns:1fr}}
+.stage-card{display:grid;grid-template-rows:auto auto 1fr auto;gap:8px;padding:22px 20px 20px;background:var(--surface);border:1px solid var(--line);border-radius:14px;text-decoration:none;transition:border-color .15s,transform .15s}
+.stage-card:hover{border-color:var(--accent)}
+.stage-card .num{font-family:var(--display);font-weight:800;font-size:42px;line-height:1;letter-spacing:-.04em;color:var(--accent-text)}
+.stage-card h3{font-size:18.5px;font-weight:700}
+.stage-card p{font-size:14px;color:var(--muted)}
+.stage-card .goal{font-size:13px;padding-top:12px;border-top:1px solid var(--line);color:var(--fg)}
+.stage-card .goal b{font-weight:600;color:var(--accent-text)}
+
+.flow{margin-top:40px;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:24px 20px 16px;overflow-x:auto}
+.flow svg{display:block;width:100%;min-width:660px;height:auto}
+.flow .bx{fill:none;stroke:var(--line-strong);stroke-width:1.25}
+.flow .bx-on{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+.flow .cn{fill:none;stroke:var(--line-strong);stroke-width:1.25}
+.flow .ar{fill:var(--line-strong)}
+.flow text{font-family:var(--body);font-size:13px;fill:var(--fg)}
+.flow .nm{font-weight:700}
+.flow .sm{font-size:11.5px;fill:var(--muted)}
+.flow-cap{font-size:14px;color:var(--muted);margin-top:12px}
+
+/* Ajuste da clínica */
+.setup{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1.4fr);gap:32px;padding:32px;background:var(--surface);border:1px solid var(--line);border-radius:16px}
+@media (max-width:820px){.setup{grid-template-columns:1fr;padding:24px 20px}}
+.setup h2{font-size:26px;font-weight:800;margin-top:12px}
+.setup .lead{font-size:16px;margin-top:12px}
+.fields{display:grid;grid-template-columns:minmax(0,1fr);gap:16px}
+@media (max-width:520px){.fields{grid-template-columns:1fr}}
+.field{display:grid;gap:6px;min-width:0}
+.field label{font-size:11.5px;font-family:var(--body);font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.field input,.field select,.field textarea{width:100%;font:inherit;font-size:15px;color:var(--fg);background:var(--bg);border:1px solid var(--line-strong);border-radius:10px;padding:11px 12px;min-width:0}
+.field input::placeholder,.field textarea::placeholder{color:var(--muted);opacity:.8}
+.field textarea{resize:vertical;line-height:1.5;min-height:64px}
+.field input:focus,.field select:focus,.field textarea:focus{outline:none;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.doc-row{display:grid;grid-template-columns:96px minmax(0,1fr);gap:8px}
+.setup-foot{grid-column:1/-1;display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted)}
+.btn-ghost{font:inherit;font-size:13px;font-weight:500;color:var(--fg);background:transparent;border:1px solid var(--line-strong);border-radius:999px;padding:7px 14px;cursor:pointer}
+.btn-ghost:hover{border-color:var(--fg)}
+
+/* Regras */
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden;counter-reset:r}
+@media (max-width:860px){.rules{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media (max-width:520px){.rules{grid-template-columns:1fr}}
+.rule{background:var(--surface);padding:22px 20px;display:grid;gap:10px;align-content:start}
+.rule .rn{font-family:var(--body);font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text)}
+.rule p{font-size:15px}
+.rule p b{font-weight:700;color:var(--fg)}
+
+.formats{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:16px}
+@media (max-width:720px){.formats{grid-template-columns:1fr}}
+.format{padding:20px;border:1px solid var(--line);border-radius:14px;display:grid;gap:8px;align-content:start}
+.format .ic-lg{width:28px;height:28px;color:var(--accent-text)}
+.format h4{font-size:17px;font-weight:700}
+.format p{font-size:14px;color:var(--muted)}
+
+.hours{margin-top:16px;padding:22px 20px 18px;border:1px solid var(--line);border-radius:14px}
+.hours-bar{position:relative;height:36px;margin:8px 0 26px;background:var(--surface-2);border-radius:8px}
+.win{position:absolute;top:0;bottom:0;background:var(--accent);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--on-accent);font-family:var(--body);font-weight:700;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;white-space:nowrap;overflow:hidden}
+.hr{position:absolute;top:100%;margin-top:6px;transform:translateX(-50%);font-family:var(--body);font-size:12px;color:var(--muted)}
+.hr.s{transform:none}.hr.e{transform:translateX(-100%)}
+.hours p{font-size:14px;color:var(--muted)}
+
+/* Tabelas */
+.tbl-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{width:100%;border-collapse:collapse;font-size:15px}
+th{font-family:var(--body);font-weight:700;font-size:11.5px;letter-spacing:.08em;text-transform:uppercase;color:var(--muted);text-align:left;padding:14px 18px;background:var(--surface);border-bottom:1px solid var(--line)}
+td{padding:14px 18px;border-bottom:1px solid var(--line);vertical-align:top}
+tr:last-child td{border-bottom:0}
+td:first-child{font-weight:600}
+td code,.code{font-family:var(--body);font-weight:500;font-size:13.5px;color:var(--accent-text);background:var(--accent-soft);padding:2px 6px;border-radius:5px;white-space:nowrap}
+.ord{font-family:var(--display);font-weight:700;font-size:14px;color:var(--accent-text)}
+
+/* Cabeçalho de etapa */
+.stage-head{display:grid;grid-template-columns:auto minmax(0,1fr);gap:28px;align-items:start;margin-bottom:36px}
+.stage-num{font-family:var(--display);font-weight:800;font-size:clamp(80px,12vw,136px);line-height:.82;color:var(--accent);letter-spacing:-.06em}
+.stage-head .sec-head{margin-bottom:0}
+.goal-tag{display:inline-flex;align-items:center;gap:8px;font-size:13px;font-weight:500;padding:6px 12px;border-radius:999px;background:var(--accent-soft);color:var(--fg);width:max-content;max-width:100%}
+.goal-tag b{font-family:var(--body);font-weight:800;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--accent-text)}
+@media (max-width:640px){.stage-head{grid-template-columns:1fr;gap:12px}}
+
+/* Régua de dias */
+.ruler-box{padding:22px 20px 14px;background:var(--surface);border:1px solid var(--line);border-radius:14px;margin-bottom:40px}
+.ruler-cap{display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;font-size:13px;color:var(--muted);margin-bottom:6px}
+.ruler-cap b{font-family:var(--body);font-weight:700;color:var(--fg);letter-spacing:.08em;text-transform:uppercase;font-size:11.5px}
+.ruler{position:relative;height:100px;margin:0 18px}
+.ruler-scroll{overflow-x:auto;margin-inline:-4px;padding-inline:4px}
+.ruler.r-wide{min-width:540px}
+.tbl-wrap table.wide{min-width:620px}
+.ruler .track{position:absolute;left:0;right:0;bottom:25px;height:2px;background:var(--line-strong);border-radius:2px}
+.ruler .ticks{position:absolute;left:0;right:0;bottom:22px;height:8px;background-image:linear-gradient(to right,var(--line-strong) 1px,transparent 1px);background-size:calc(100% / var(--n)) 100%;border-right:1px solid var(--line-strong);opacity:.6}
+.mark{position:absolute;bottom:0;left:calc(var(--x) * 100%);transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:4px}
+.pills{display:flex;flex-direction:column;gap:4px;margin-bottom:2px}
+.pill{width:24px;height:24px;border-radius:999px;display:grid;place-items:center;font-family:var(--body);font-weight:500;font-size:12px;background:var(--bg);border:1.5px solid var(--line-strong);color:var(--fg)}
+.pill.brk{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.mark .dot{width:8px;height:8px;border-radius:50%;background:var(--fg);margin-top:2px}
+.mark .day{font-family:var(--body);font-size:12px;line-height:16px;color:var(--muted);white-space:nowrap}
+.legend{display:flex;gap:16px;flex-wrap:wrap;font-size:12px;color:var(--muted);margin-top:8px}
+.legend span{display:inline-flex;align-items:center;gap:6px}
+.legend i{width:10px;height:10px;border-radius:50%;border:1.5px solid var(--line-strong);display:inline-block}
+.legend i.brk{background:var(--accent);border-color:var(--accent)}
+
+/* Toques */
+.touches{display:grid}
+.touch{display:grid;grid-template-columns:200px minmax(0,1fr);gap:28px;padding-block:28px;border-top:1px solid var(--line);scroll-margin-top:72px}
+.touch:first-child{border-top:0;padding-top:0}
+@media (max-width:720px){.touch{grid-template-columns:1fr;gap:14px}}
+.t-meta{display:grid;gap:6px;align-content:start}
+.t-day{font-family:var(--display);font-weight:800;font-size:34px;line-height:1;letter-spacing:-.04em}
+.t-n{font-family:var(--body);font-weight:700;font-size:11.5px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.t-when{font-size:14px;color:var(--muted);line-height:1.45}
+.chan{display:inline-flex;align-items:center;gap:6px;width:max-content;font-size:12.5px;font-weight:500;padding:4px 10px 4px 8px;border-radius:999px;border:1px solid var(--line-strong);color:var(--fg);margin-top:4px}
+.chan.brk{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.ic{width:15px;height:15px;flex:none}
+@media (max-width:720px){.t-meta{grid-template-columns:auto 1fr;column-gap:14px;align-items:center}.t-day{grid-row:span 3}.chan{margin-top:0}}
+.t-body{display:grid;gap:14px;min-width:0;max-width:640px}
+.t-body > p{font-size:15.5px}
+.exit{margin-top:8px;padding:16px 18px;border-left:3px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;font-size:15px}
+.exit b{font-weight:600}
+
+/* Mensagens */
+.msg-block{display:grid;gap:6px;min-width:0}
+.msg-label{font-family:var(--body);font-weight:700;font-size:11px;letter-spacing:.1em;text-transform:uppercase;color:var(--muted)}
+.msg{position:relative;background:var(--bubble);border:1px solid var(--bubble-line);border-radius:16px 16px 16px 4px;padding:14px 16px 14px 16px;display:grid;grid-template-columns:minmax(0,1fr) auto;gap:12px;align-items:start}
+.msg.script{border-style:dashed}
+.msg-text{font-size:16.5px;line-height:1.6;overflow-wrap:anywhere}
+.ph{font-family:var(--body);font-weight:600;font-size:.84em;color:var(--accent-text);background:var(--accent-soft);padding:1px 6px;border-radius:5px;white-space:nowrap}
+.ph::before{content:"{"}.ph::after{content:"}"}
+mark.fill{background:var(--fill-soft);color:var(--fg);padding:0 3px;border-radius:4px}
+.copy{display:inline-flex;align-items:center;gap:6px;font:inherit;font-size:12.5px;font-weight:500;color:var(--muted);background:transparent;border:1px solid var(--line);border-radius:999px;padding:5px 10px 5px 8px;cursor:pointer;white-space:nowrap;transition:color .15s,border-color .15s}
+.copy:hover{color:var(--fg);border-color:var(--line-strong)}
+.copy.ok{color:var(--accent-text);border-color:var(--accent)}
+@media (max-width:520px){.msg{grid-template-columns:1fr}.copy{justify-self:start}}
+
+.audio{display:flex;align-items:center;gap:12px;width:min(320px,100%);background:var(--bubble);border:1px solid var(--bubble-line);border-radius:16px 16px 16px 4px;padding:12px 14px}
+.audio .play{width:32px;height:32px;border-radius:50%;display:grid;place-items:center;background:var(--accent);color:var(--on-accent);flex:none}
+.audio .play svg{width:14px;height:14px;margin-left:2px}
+.wave{flex:1;height:22px;display:flex;align-items:center;gap:3px;min-width:0;overflow:hidden}
+.wave i{width:3px;height:3px;border-radius:2px;background:var(--line-strong);flex:none}
+.audio time{font-family:var(--body);font-size:12.5px;color:var(--muted)}
+.deleted{display:inline-flex;align-items:center;gap:8px;width:max-content;max-width:100%;background:var(--bubble);border:1px solid var(--bubble-line);border-radius:16px 16px 16px 4px;padding:11px 14px;font-style:italic;color:var(--muted);font-size:15px}
+.poll{display:grid;gap:8px;width:min(380px,100%);background:var(--bubble);border:1px solid var(--bubble-line);border-radius:4px 16px 16px 16px;padding:14px 16px}
+.poll .opt{display:flex;align-items:center;gap:10px;font-size:15px;padding:8px 0;border-top:1px solid var(--line)}
+.poll .opt:first-of-type{border-top:0}
+.poll .opt i{width:18px;height:18px;border-radius:50%;border:1.5px solid var(--line-strong);flex:none}
+
+.steps{display:grid;gap:10px;margin:0;padding:0;list-style:none;counter-reset:s}
+.steps li{counter-increment:s;display:grid;grid-template-columns:28px minmax(0,1fr);gap:12px;font-size:15.5px}
+.steps li::before{content:counter(s);width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:var(--body);font-weight:700;font-size:12px;border:1.5px solid var(--line-strong);margin-top:1px}
+
+/* Bancos e tabelas com mensagem */
+.bank{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px}
+@media (max-width:760px){.bank{grid-template-columns:1fr}}
+.tactic{display:grid;gap:12px;align-content:start;padding:22px 20px;border:1px solid var(--line);border-radius:14px;background:var(--surface);min-width:0}
+.tactic h4{font-size:17.5px;font-weight:700;display:flex;align-items:center;gap:12px}
+.tactic h4 svg{width:20px;height:20px;color:var(--accent-text)}
+.tactic > p{font-size:15px;color:var(--muted)}
+.tactic .msg{background:var(--bg)}
+.warn{display:grid;grid-template-columns:auto minmax(0,1fr);gap:14px;margin-top:20px;padding:18px 20px;border:1px solid var(--accent);border-radius:14px;background:var(--accent-soft);font-size:15px}
+.warn svg{width:22px;height:22px;color:var(--accent-text);margin-top:1px}
+.warn b{font-weight:600}
+
+.pairs{display:grid;border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.pair{display:grid;grid-template-columns:220px minmax(0,1fr);gap:20px;padding:18px 20px;border-top:1px solid var(--line);align-items:start}
+.pair:first-child{border-top:0}
+.pair > h4{font-family:var(--body);font-weight:600;font-size:15px;line-height:1.4;padding-top:13px}
+.pair > p{font-size:15px;padding-top:13px;color:var(--muted)}
+@media (max-width:720px){.pair{grid-template-columns:1fr;gap:8px}.pair > h4{padding-top:0}}
+
+.lists{display:grid;gap:18px}
+.list-msg{display:grid;grid-template-columns:44px minmax(0,1fr);gap:14px;align-items:start}
+.badge{width:40px;height:40px;border-radius:10px;display:grid;place-items:center;font-family:var(--display);font-weight:800;font-size:18px;background:var(--surface-2);border:1px solid var(--line-strong)}
+.list-msg .msg-label{margin-bottom:6px;display:block}
+
+.bul{margin:0;padding:0;list-style:none;display:grid;gap:10px}
+.bul li{display:grid;grid-template-columns:14px minmax(0,1fr);gap:12px;font-size:15.5px}
+.bul li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:10px}
+.stamp{margin-top:18px;display:inline-block;font-family:var(--display);font-weight:700;font-size:16px;padding:10px 16px;border:1.5px solid var(--fg);border-radius:10px}
+
+/* Painel */
+.status-row{display:flex;flex-wrap:wrap;gap:8px}
+.st{display:inline-flex;align-items:center;gap:8px;font-size:14px;font-weight:500;padding:7px 13px;border-radius:999px;border:1px solid var(--line-strong)}
+.st i{width:7px;height:7px;border-radius:50%;background:var(--muted)}
+.st.stage i{background:var(--accent)}
+.st.won{background:var(--accent);border-color:var(--accent);color:var(--on-accent)}
+.st.won i{background:var(--on-accent)}
+.st.off{color:var(--muted);border-style:dashed}
+
+.two{display:grid;grid-template-columns:minmax(0,1fr) minmax(0,1fr);gap:40px}
+@media (max-width:820px){.two{grid-template-columns:1fr;gap:8px}}
+
+.check{display:grid;gap:2px;border:1px solid var(--line);border-radius:14px;padding:8px}
+.check-head{display:flex;justify-content:space-between;align-items:center;gap:12px;padding:10px 12px 12px;font-size:13px;color:var(--muted)}
+.progress{flex:1;max-width:160px;height:6px;border-radius:6px;background:var(--surface-2);overflow:hidden}
+.progress i{display:block;height:100%;width:0;background:var(--accent);transition:width .25s}
+.ck{display:grid;grid-template-columns:22px minmax(0,1fr);gap:12px;align-items:start;padding:10px 12px;border-radius:10px;cursor:pointer;font-size:15px}
+.ck:hover{background:var(--surface)}
+.ck input{appearance:none;-webkit-appearance:none;margin:2px 0 0;width:20px;height:20px;border-radius:6px;border:1.5px solid var(--line-strong);background:var(--bg);display:grid;place-items:center;cursor:pointer}
+.ck input:checked{background:var(--accent);border-color:var(--accent)}
+.ck input:checked::after{content:"";width:10px;height:5px;border-left:2px solid var(--on-accent);border-bottom:2px solid var(--on-accent);transform:rotate(-45deg) translate(1px,-1px)}
+.ck input:checked + span{color:var(--muted);text-decoration:line-through;text-decoration-color:var(--line-strong)}
+
+/* Rodapé */
+.foot{background:var(--cover-bg);color:var(--cover-fg)}
+.foot .wrap{padding-block:48px;display:flex;justify-content:space-between;align-items:center;gap:20px;flex-wrap:wrap}
+.foot .logo{height:24px}
+.foot p{font-size:13px;color:var(--cover-muted)}
+
+.vtag{display:inline-block;font-family:var(--body);font-size:10.5px;font-weight:700;letter-spacing:.08em;text-transform:uppercase;line-height:1.5;padding:1px 8px;border-radius:999px;border:1px solid var(--accent);color:var(--accent-text);margin-left:8px;vertical-align:middle;white-space:nowrap}
+.vtag.livre{border-color:var(--line-strong);color:var(--muted)}
+.model > .vtag{margin-left:0;justify-self:start}
+body[data-sinal="nao"] .v-sinal,body[data-sinal="sim"] .v-livre{display:none!important}
+.models{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:16px;align-items:start}
+.model{display:grid;gap:14px;align-content:start;padding:22px 20px;border:1px solid var(--line);border-radius:14px;background:var(--surface)}
+.model h4{font-size:18px}
+.model .bul li{font-size:15px}
+.stack{display:grid;gap:14px;min-width:0}
+.sinal-box{margin-top:56px;padding:28px 24px 8px;border:1px solid var(--accent);border-radius:16px}
+.sinal-box .sub-h{margin-top:0}
+@media (max-width:520px){.sinal-box{padding:22px 16px 4px}}
+@media print{.topbar,.copy,.setup-foot .btn-ghost{display:none}.sec{break-inside:auto}.touch,.tactic,.pair{break-inside:avoid}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+  <symbol id="i-msg" viewBox="0 0 24 24"><path d="M4 5.5h16v10.5H9.5L4 20z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-mic" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-mute" viewBox="0 0 24 24"><rect x="9" y="3" width="6" height="11" rx="3" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M5.5 11a6.5 6.5 0 0 0 13 0M12 17.5V21M4 4l16 16" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M6.5 3.5h3l1.5 4.5-2 1.3a10.5 10.5 0 0 0 5.7 5.7l1.3-2 4.5 1.5v3a2 2 0 0 1-2.2 2A16.5 16.5 0 0 1 4.5 5.7a2 2 0 0 1 2-2.2z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-poll" viewBox="0 0 24 24"><path d="M5 7h9M5 12h14M5 17h6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+  <symbol id="i-ban" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M6.5 17.5l11-11" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="8.5" y="8.5" width="11" height="11" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 8.5V6a1.5 1.5 0 0 0-1.5-1.5H6A1.5 1.5 0 0 0 4.5 6v8A1.5 1.5 0 0 0 6 15.5h2.5" fill="none" stroke="currentColor" stroke-width="1.6"/></symbol>
+  <symbol id="i-play" viewBox="0 0 24 24"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"/></symbol>
+  <symbol id="i-image" viewBox="0 0 24 24"><rect x="3.5" y="4.5" width="17" height="15" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M3.5 16l5-5 4 4 3-3 5 5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-video" viewBox="0 0 24 24"><rect x="3" y="6" width="12.5" height="12" rx="2" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M15.5 10.5l5-3v9l-5-3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/></symbol>
+  <symbol id="i-swap" viewBox="0 0 24 24"><path d="M4 8h13l-3-3M20 16H7l3 3" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></symbol>
+  <symbol id="i-q" viewBox="0 0 24 24"><circle cx="12" cy="12" r="8.5" fill="none" stroke="currentColor" stroke-width="1.6"/><path d="M9.6 9.6a2.5 2.5 0 1 1 3.4 2.3c-.7.3-1 .8-1 1.5v.6M12 16.8v.2" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4l9 15.5H3z" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linejoin="round"/><path d="M12 10v4.5M12 17v.2" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/></symbol>
+</svg>
+
+<header class="cover">
+  <div class="wrap">
+    <div class="cover-top">
+      <span class="logo" role="img" aria-label="Hurtz"></span>
+      <span>Uso interno da clínica</span>
+    </div>
+    <div class="cover-main">
+      <h1>Kit de <em>Follow&#8209;up</em></h1>
+      <p class="cover-sub">O playbook da secretária. Uma cadência pronta para cada ponto onde a clínica perde paciente no WhatsApp.</p>
+    </div>
+    <div class="cover-stats">
+      <div class="stat"><b>4</b><span>etapas de follow-up</span></div>
+      <div class="stat"><b>21</b><span>toques com dia e canal</span></div>
+      <div class="stat"><b>49</b><span>mensagens prontas para copiar</span></div>
+    </div>
+  </div>
+</header>
+
+<nav class="topbar" aria-label="Seções do kit">
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="Hurtz"></span>
+    <div class="nav">
+      <a href="#mapa">Mapa</a>
+      <a href="#regras">Regras</a>
+      <a href="#etapa-1">Etapa 1</a>
+      <a href="#etapa-2">Etapa 2</a>
+      <a href="#etapa-3">Etapa 3</a>
+      <a href="#etapa-4">Etapa 4</a>
+      <a href="#painel">Painel</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+
+<section class="sec" id="mapa">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Mapa do kit</p>
+      <h2>Quatro pontos onde a clínica perde paciente</h2>
+      <p class="lead">O lead que chamou pelo anúncio e nunca respondeu. O lead que começou a conversa e sumiu. O paciente que avaliou e não fechou. A base parada no WhatsApp. Cada um tem a sua etapa.</p>
+    </div>
+    <div class="stages">
+      <a class="stage-card" href="#etapa-1"><span class="num">1</span><h3>Nunca respondeu</h3><p>7 toques em 7 dias</p><p class="goal"><b>Meta</b> &nbsp;uma resposta</p></a>
+      <a class="stage-card" href="#etapa-2"><span class="num">2</span><h3>Iniciou e sumiu</h3><p>6 toques em 10 dias</p><p class="goal"><b>Meta</b> &nbsp;avaliação agendada</p></a>
+      <a class="stage-card" href="#etapa-3"><span class="num">3</span><h3>Avaliou e não fechou</h3><p>5 toques em 21 dias</p><p class="goal"><b>Meta</b> &nbsp;procedimento fechado</p></a>
+      <a class="stage-card" href="#etapa-4"><span class="num">4</span><h3>Reativação de base</h3><p>3 mensagens em 7 dias, todo mês</p><p class="goal"><b>Meta</b> &nbsp;lead de volta à conversa</p></a>
+    </div>
+
+    <figure class="flow" style="margin-inline:0;margin-bottom:0">
+      <svg viewBox="0 56 760 316" role="img" aria-label="Caminho do lead pelas quatro etapas de follow-up">
+        <defs><marker id="fl-ar" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path class="ar" d="M0 0L10 5L0 10z"/></marker></defs>
+        <g class="cn">
+          <path d="M148 90H171" marker-end="url(#fl-ar)"/>
+          <path d="M295 90H318" marker-end="url(#fl-ar)"/>
+          <path d="M442 90H465" marker-end="url(#fl-ar)"/>
+          <path d="M589 90H612" marker-end="url(#fl-ar)"/>
+          <path d="M120 112V172" marker-end="url(#fl-ar)"/>
+          <path d="M200 172V112" marker-end="url(#fl-ar)"/>
+          <path d="M280 112V172" marker-end="url(#fl-ar)"/>
+          <path d="M350 172V112" marker-end="url(#fl-ar)"/>
+          <path d="M420 112V284" marker-end="url(#fl-ar)"/>
+          <path d="M555 112V172" marker-end="url(#fl-ar)"/>
+          <path d="M640 172V112" marker-end="url(#fl-ar)"/>
+          <path d="M160 228V320H280" marker-end="url(#fl-ar)"/>
+          <path d="M320 228V284" marker-end="url(#fl-ar)"/>
+          <path d="M600 228V320H480" marker-end="url(#fl-ar)"/>
+        </g>
+        <rect class="bx" x="24" y="68" width="124" height="44" rx="8"/><text class="nm" x="86" y="94" text-anchor="middle">Novo lead</text>
+        <rect class="bx" x="171" y="68" width="124" height="44" rx="8"/><text class="nm" x="233" y="94" text-anchor="middle">Em conversa</text>
+        <rect class="bx" x="318" y="68" width="124" height="44" rx="8"/><text class="nm" x="380" y="94" text-anchor="middle">Agendado</text>
+        <rect class="bx" x="465" y="68" width="124" height="44" rx="8"/><text class="nm" x="527" y="94" text-anchor="middle">Avaliado</text>
+        <rect class="bx-on" x="612" y="68" width="124" height="44" rx="8"/><text class="nm" x="674" y="94" text-anchor="middle">Fechado</text>
+        <rect class="bx" x="98" y="172" width="124" height="56" rx="8"/><text class="nm" x="160" y="196" text-anchor="middle">Etapa 1</text><text class="sm" x="160" y="212" text-anchor="middle">nunca respondeu</text>
+        <rect class="bx" x="245" y="172" width="124" height="56" rx="8"/><text class="nm" x="307" y="196" text-anchor="middle">Etapa 2</text><text class="sm" x="307" y="212" text-anchor="middle">iniciou e sumiu</text>
+        <rect class="bx" x="538" y="172" width="124" height="56" rx="8"/><text class="nm" x="600" y="196" text-anchor="middle">Etapa 3</text><text class="sm" x="600" y="212" text-anchor="middle">não fechou</text>
+        <rect class="bx" x="280" y="284" width="200" height="72" rx="8"/><text class="nm" x="380" y="308" text-anchor="middle">Frio · Etapa 4</text><text class="sm" x="380" y="324" text-anchor="middle">reativação todo mês</text><text class="sm" x="380" y="340" text-anchor="middle">respondeu, volta à conversa</text>
+        <text class="sm" x="208" y="146">respondeu</text>
+        <text class="sm" x="358" y="146">agendou</text>
+        <text class="sm" x="428" y="146">faltou</text>
+        <text class="sm" x="648" y="146">fechou</text>
+      </svg>
+      <figcaption class="flow-cap">Todo lead fica em um status do CRM com a data do próximo toque. Pediu para parar em qualquer ponto, vira Não contatar e sai de todas as cadências.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="sec" id="ajuste">
+  <div class="wrap">
+    <div class="setup">
+      <div>
+        <p class="eyebrow">Ajuste da clínica</p>
+        <h2>Preencha uma vez. As mensagens saem com o nome da clínica.</h2>
+        <p class="lead">Os campos que sobram entre chaves, como nome do lead e dia, a secretária troca na hora do envio. O botão Copiar já leva o texto ajustado.</p>
+      </div>
+      <div class="fields">
+        <div class="field" style="grid-column:1/-1">
+          <label for="f-doc">Profissional</label>
+          <div class="doc-row">
+            <select id="f-trat" aria-label="Tratamento"><option value="Dr.">Dr.</option><option value="Dra.">Dra.</option></select>
+            <input id="f-doc" type="text" placeholder="Sobrenome, ex. Silva" autocomplete="off">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-sec">Secretária</label>
+          <input id="f-sec" type="text" placeholder="Ex. Ana" autocomplete="off">
+        </div>
+        <div class="field">
+          <label for="f-proc">Procedimento ou protocolo</label>
+          <div class="doc-row">
+            <select id="f-art" aria-label="Artigo usado antes do procedimento"><option value="a">a / da</option><option value="o">o / do</option></select>
+            <input id="f-proc" type="text" placeholder="Ex. rinoplastia, harmonização, protocolo" autocomplete="off">
+          </div>
+        </div>
+        <div class="field">
+          <label for="f-frase">Frase de prova</label>
+          <textarea id="f-frase" rows="2" placeholder="Ex. Ela também tinha medo de ficar artificial. Na avaliação tirou essa dúvida direto com o doutor."></textarea>
+        </div>
+        <div class="field">
+          <label for="f-sinal">Sinal para reservar</label>
+          <select id="f-sinal">
+            <option value="ambos">Mostrar os dois modelos</option>
+            <option value="sim">A clínica cobra sinal</option>
+            <option value="nao">A clínica não cobra sinal</option>
+          </select>
+        </div>
+        <div class="field v-sinal">
+          <label for="f-valor">Valor do sinal</label>
+          <input id="f-valor" type="text" placeholder="Ex. R$ 200" autocomplete="off">
+        </div>
+      </div>
+      <div class="setup-foot">
+        <span>Os dados ficam salvos só neste navegador.</span>
+        <button class="btn-ghost" type="button" id="f-clear">Limpar ajuste</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="sec" id="regras">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Como usar</p>
+      <h2>Nove regras valem para todas as etapas</h2>
+      <p class="lead">Cada etapa tem cadência com dia, canal e mensagem pronta. A secretária copia, troca os campos entre chaves e envia.</p>
+    </div>
+    <div class="rules">
+      <div class="rule"><span class="rn">Regra 1</span><p><b>Cada toque traz um motivo novo.</b> Nunca mande só “oi, tudo bem?” ou “conseguiu ver?”.</p></div>
+      <div class="rule"><span class="rn">Regra 2</span><p><b>Texto com no máximo 3 linhas.</b> Explicação longa vai em áudio de até 40 segundos.</p></div>
+      <div class="rule"><span class="rn">Regra 3</span><p><b>Toda mensagem termina com uma pergunta fácil.</b> Sim ou não, um dia, um horário.</p></div>
+      <div class="rule"><span class="rn">Regra 4</span><p><b>Tom de cuidado.</b> Sem cobrança, sem pressa inventada, sem desconto relâmpago.</p></div>
+      <div class="rule"><span class="rn">Regra 5</span><p><b>Escassez só quando for verdade.</b> Se a agenda não está fechando, a mensagem não diz que está.</p></div>
+      <div class="rule"><span class="rn">Regra 6</span><p><b>A secretária não fala de técnica, risco ou resultado.</b> Dúvida clínica vai para o doutor ou fica para a consulta.</p></div>
+      <div class="rule"><span class="rn">Regra 7</span><p><b>Fotos, vídeos e depoimentos</b> só os que a clínica aprovou para envio.</p></div>
+      <div class="rule"><span class="rn">Regra 8</span><p><b>Pediu para parar, parou.</b> Status Não contatar no CRM.</p></div>
+      <div class="rule"><span class="rn">Regra 9</span><p><b>Todo lead termina o dia</b> com status, toque atual e data do próximo toque no CRM.</p></div>
+    </div>
+
+    <h3 class="sub-h">Com sinal ou sem sinal</h3>
+    <p class="note" style="margin:-8px 0 20px">O kit serve para os dois modelos de clínica. Escolha o da sua no ajuste e o kit mostra só o que vale para ela.</p>
+    <div class="models">
+      <div class="model v-livre"><span class="vtag livre">Sem sinal</span><h4>O horário fica reservado com a confirmação</h4><ul class="bul"><li><span>O paciente confirma o horário por mensagem e ele fica reservado.</span></li><li><span>A secretária confirma de novo na véspera.</span></li><li><span>Faltou, o lead entra na lista C da reativação.</span></li></ul></div>
+      <div class="model v-sinal"><span class="vtag">Com sinal</span><h4>O horário fica garantido com o pagamento</h4><ul class="bul"><li><span>O horário fica separado até o prazo e só fica garantido com o sinal.</span></li><li><span>Valor, chave Pix e prazo vão na mesma mensagem do horário.</span></li><li><span>A chave está sempre no nome da clínica e sai só do WhatsApp oficial.</span></li><li><span>Sinal pendente tem cadência própria na Etapa 2.</span></li></ul></div>
+    </div>
+
+    <h3 class="sub-h">Quando o lead aceitar o horário</h3>
+    <div class="models">
+      <div class="stack v-livre"><div class="msg-block"><span class="msg-label">Reserva <span class="vtag livre">Sem sinal</span></span><div class="msg"><p class="msg-text">Perfeito, {nome}. Seu horário ficou reservado para {dia} às {horario} com o {doutor}. Eu te confirmo na véspera. Posso contar com você?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div></div>
+      <div class="stack v-sinal"><div class="msg-block"><span class="msg-label">Dados do sinal <span class="vtag">Com sinal</span></span><div class="msg"><p class="msg-text">Perfeito, {nome}. Separei {dia} às {horario} com o {doutor}. Pra garantir, o sinal é de {sinal} pela chave Pix {chave pix}, no nome da clínica. O horário fica separado até {prazo}.</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        <div class="msg-block"><span class="msg-label">Quando o comprovante chegar <span class="vtag">Com sinal</span></span><div class="msg"><p class="msg-text">Recebi, {nome}. Seu horário de {dia} às {horario} está garantido. Eu te confirmo na véspera.</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div></div>
+    </div>
+
+    <h3 class="sub-h">Formatos</h3>
+    <div class="formats">
+      <div class="format"><svg class="ic-lg"><use href="#i-msg"/></svg><h4>Texto</h4><p>Retomada, lembrete, pergunta rápida.</p></div>
+      <div class="format"><svg class="ic-lg"><use href="#i-mic"/></svg><h4>Áudio de 30 a 40 s</h4><p>Acolhimento, objeção, explicação que ficaria longa no texto.</p></div>
+      <div class="format"><svg class="ic-lg"><use href="#i-phone"/></svg><h4>Ligação</h4><p>Lead que visualiza e não responde, conversa de decisão.</p></div>
+    </div>
+
+    <div class="hours">
+      <div class="msg-label">Janelas de envio</div>
+      <div class="hours-bar" role="img" aria-label="Envie entre 9h e 12h ou entre 18h e 20h">
+        <span class="win" style="left:14.29%;width:21.43%">Manhã</span>
+        <span class="win" style="left:78.57%;width:14.28%">Noite</span>
+        <span class="hr s" style="left:0">7h</span>
+        <span class="hr" style="left:14.29%">9h</span>
+        <span class="hr" style="left:35.71%">12h</span>
+        <span class="hr" style="left:78.57%">18h</span>
+        <span class="hr e" style="left:100%">21h</span>
+      </div>
+      <p>Envie entre 9h e 12h ou entre 18h e 20h. Evite domingo e feriado.</p>
+    </div>
+
+    <h3 class="sub-h">Campos das mensagens</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Campo</th><th>O que entra</th></tr></thead>
+        <tbody>
+          <tr><td><code>{nome}</code></td><td>Primeiro nome do paciente</td></tr>
+          <tr><td><code>{secretaria}</code></td><td>Nome da secretária</td></tr>
+          <tr><td><code>{doutor}</code></td><td>Como a clínica chama o profissional, ex. Dr. Silva</td></tr>
+          <tr><td><code>{procedimento}</code></td><td>O procedimento ou protocolo que o lead procurou</td></tr>
+          <tr><td><code>{frase de prova}</code></td><td>Frase curta sobre outra paciente que tinha a mesma dúvida</td></tr>
+          <tr class="v-sinal"><td><code>{sinal}</code></td><td>Valor do sinal da clínica <span class="vtag">Com sinal</span></td></tr>
+          <tr class="v-sinal"><td><code>{chave pix}</code></td><td>Chave Pix no nome da clínica <span class="vtag">Com sinal</span></td></tr>
+          <tr class="v-sinal"><td><code>{prazo}</code></td><td>Dia e hora limite para pagar o sinal <span class="vtag">Com sinal</span></td></tr>
+          <tr><td><code>{mes}</code> <code>{dia}</code> <code>{horario}</code></td><td>Sempre da agenda real do doutor</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ETAPA 1 -->
+<section class="sec" id="etapa-1">
+  <div class="wrap">
+    <div class="stage-head">
+      <div class="stage-num" aria-hidden="true">1</div>
+      <div class="sec-head">
+        <p class="eyebrow">Etapa 1 · 7 toques em 7 dias</p>
+        <h2>Nunca respondeu</h2>
+        <p class="lead">Para o lead que chamou pelo anúncio e nunca respondeu a secretária. O agendamento vem depois, no atendimento normal. Cada toque quebra o padrão do anterior. Áudio mudo, mensagem apagada e mensagem de engano entram uma vez por lead.</p>
+        <span class="goal-tag"><b>Meta</b> uma resposta</span>
+      </div>
+    </div>
+
+    <div class="ruler-box">
+      <div class="ruler-cap"><b>Cadência em dias</b><span>D0 é o dia do clique no anúncio</span></div>
+      <div class="ruler" style="--n:7" role="img" aria-label="Toques 1 e 2 no D0, 3 e 4 no D1, 5 no D2, 6 no D4 e 7 no D7">
+        <div class="ticks"></div><div class="track"></div>
+        <div class="mark" style="--x:0"><div class="pills"><span class="pill">1</span><span class="pill brk">2</span></div><span class="dot"></span><span class="day">D0</span></div>
+        <div class="mark" style="--x:.1429"><div class="pills"><span class="pill brk">3</span><span class="pill brk">4</span></div><span class="dot"></span><span class="day">D1</span></div>
+        <div class="mark" style="--x:.2857"><div class="pills"><span class="pill brk">5</span></div><span class="dot"></span><span class="day">D2</span></div>
+        <div class="mark" style="--x:.5714"><div class="pills"><span class="pill">6</span></div><span class="dot"></span><span class="day">D4</span></div>
+        <div class="mark" style="--x:1"><div class="pills"><span class="pill">7</span></div><span class="dot"></span><span class="day">D7</span></div>
+      </div>
+      <div class="legend"><span><i></i>Toque padrão</span><span><i class="brk"></i>Quebra de padrão</span></div>
+    </div>
+
+    <div class="touches">
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D0</span><span class="t-n">Toque 1</span><span class="t-when">Até 5 minutos depois do clique</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">Oi {nome}, aqui é a {secretaria}, da clínica do {doutor}. Vi que você chamou pelo anúncio de {procedimento}. É pra você ou pra outra pessoa?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D0</span><span class="t-n">Toque 2</span><span class="t-when">2 horas depois</span><span class="chan brk"><svg class="ic"><use href="#i-mute"/></svg>Áudio mudo</span></div>
+        <div class="t-body">
+          <p>Grave um áudio de 3 a 5 segundos sem falar nada. O lead abre para ouvir e costuma responder com “?” ou “não ouvi”.</p>
+          <div class="audio" aria-label="Áudio mudo de 4 segundos"><span class="play"><svg><use href="#i-play"/></svg></span><span class="wave"><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i><i></i></span><time>0:04</time></div>
+          <div class="msg-block"><span class="msg-label">Quando o lead responder</span><div class="msg"><p class="msg-text">Desculpa, {nome}, o áudio saiu sem som. Eu queria te perguntar se a {procedimento} é pra você.</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D1</span><span class="t-n">Toque 3</span><span class="t-when">De manhã</span><span class="chan brk"><svg class="ic"><use href="#i-msg"/></svg>Só o nome</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D1</span><span class="t-n">Toque 4</span><span class="t-when">À tarde</span><span class="chan brk"><svg class="ic"><use href="#i-ban"/></svg>Mensagem apagada</span></div>
+        <div class="t-body">
+          <p>Mande qualquer frase e apague para todos em poucos segundos. Na conversa do lead fica o aviso de mensagem apagada.</p>
+          <div class="msg-block"><span class="msg-label">O que o lead vê</span><div class="deleted"><svg class="ic"><use href="#i-ban"/></svg>Esta mensagem foi apagada</div></div>
+          <div class="msg-block"><span class="msg-label">Quando ele perguntar o que era</span><div class="msg"><p class="msg-text">Mandei antes de terminar, desculpa. Era pra te perguntar se você ainda quer saber da {procedimento}.</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D2</span><span class="t-n">Toque 5</span><span class="t-when">Lead responde com um toque</span><span class="chan brk"><svg class="ic"><use href="#i-poll"/></svg>Enquete</span></div>
+        <div class="t-body">
+          <p>Crie uma enquete no WhatsApp com a pergunta e as três opções abaixo.</p>
+          <div class="msg-block"><span class="msg-label">Pergunta da enquete</span><div class="msg"><p class="msg-text">{nome}, me ajuda com uma resposta rápida?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+          <div class="msg-block"><span class="msg-label">Opções</span><div class="poll"><div class="opt"><i></i>Quero agendar avaliação</div><div class="opt"><i></i>Quero saber valores</div><div class="opt"><i></i>Agora não</div></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D4</span><span class="t-n">Toque 6</span><span class="t-when">Uma tentativa</span><span class="chan"><svg class="ic"><use href="#i-phone"/></svg>Ligação</span></div>
+        <div class="t-body">
+          <p>Ligue uma vez. Não atendeu, mande o texto abaixo.</p>
+          <div class="msg-block"><span class="msg-label">Se não atender</span><div class="msg"><p class="msg-text">{nome}, te liguei agora. Prefere que eu te passe as informações por aqui?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D7</span><span class="t-n">Toque 7</span><span class="t-when">Encerramento</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}, como não tive retorno, vou encerrar seu atendimento por aqui. Se ainda quiser saber da {procedimento}, me responde só com um sim.</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+          <p class="exit"><b>Sem resposta no toque 7,</b> o lead vira Frio e entra na lista D da Etapa 4 depois de 30 dias.</p>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="sub-h" id="banco">Banco de quebras de padrão</h3>
+    <p class="note" style="margin:-8px 0 20px">Use no lugar de um toque que já falhou com aquele lead, ou na reativação.</p>
+    <div class="bank">
+      <div class="tactic">
+        <h4><svg><use href="#i-swap"/></svg>Mensagem de engano</h4>
+        <p>Nome que não é o do lead e assunto pessoal, sem nada da clínica.</p>
+        <div class="msg-block"><span class="msg-label">Envie</span><div class="msg"><p class="msg-text">Oi Juliana, chegou bem em casa?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        <div class="msg-block"><span class="msg-label">Quando o lead responder</span><div class="msg"><p class="msg-text">Desculpa, {nome}, mandei no contato errado. Aproveitando, você tinha chamado a gente sobre a {procedimento}. Ainda tem interesse?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      </div>
+      <div class="tactic">
+        <h4><svg><use href="#i-image"/></svg>Print do anúncio</h4>
+        <p>Mande o print do anúncio que o lead clicou, com a frase abaixo. Quando ele responder, siga a pergunta do toque 1.</p>
+        <div class="msg-block"><span class="msg-label">Junto com o print</span><div class="msg"><p class="msg-text">{nome}, você chamou por esse aqui</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      </div>
+      <div class="tactic">
+        <h4><svg><use href="#i-video"/></svg>Vídeo da secretária</h4>
+        <p>Vídeo de até 15 segundos na recepção, falando o nome do lead e perguntando se ele ainda tem interesse. Quando ele responder, siga o atendimento normal.</p>
+      </div>
+      <div class="tactic">
+        <h4><svg><use href="#i-q"/></svg>Pergunta de sim ou não</h4>
+        <p>Sim, siga o atendimento. Não, status Não contatar.</p>
+        <div class="msg-block"><span class="msg-label">Envie</span><div class="msg"><p class="msg-text">{nome}, ainda faz sentido eu te mandar informações da {procedimento}?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      </div>
+    </div>
+    <div class="warn"><svg><use href="#i-alert"/></svg><p><b>Mensagem de engano nunca fala de pagamento, cobrança ou dado de outro paciente.</b> Cobrança que o lead não reconhece parece golpe, gera denúncia e pode bloquear o número da clínica.</p></div>
+  </div>
+</section>
+
+<!-- ETAPA 2 -->
+<section class="sec" id="etapa-2">
+  <div class="wrap">
+    <div class="stage-head">
+      <div class="stage-num" aria-hidden="true">2</div>
+      <div class="sec-head">
+        <p class="eyebrow">Etapa 2 · 6 toques em 10 dias</p>
+        <h2>Iniciou e sumiu</h2>
+        <p class="lead">Para o lead que conversou e parou de responder antes de agendar. O primeiro toque retoma o ponto exato onde a conversa parou. Respondeu em qualquer toque, a secretária volta ao atendimento e conduz para o horário.</p>
+        <span class="goal-tag"><b>Meta</b> avaliação agendada</span>
+      </div>
+    </div>
+
+    <div class="ruler-box">
+      <div class="ruler-cap"><b>Cadência em dias</b><span>D0 é o dia em que a conversa parou</span></div>
+      <div class="ruler" style="--n:10" role="img" aria-label="Toques no D0, D1, D3, D5, D7 e D10">
+        <div class="ticks"></div><div class="track"></div>
+        <div class="mark" style="--x:0"><div class="pills"><span class="pill">1</span></div><span class="dot"></span><span class="day">D0</span></div>
+        <div class="mark" style="--x:.1"><div class="pills"><span class="pill">2</span></div><span class="dot"></span><span class="day">D1</span></div>
+        <div class="mark" style="--x:.3"><div class="pills"><span class="pill">3</span></div><span class="dot"></span><span class="day">D3</span></div>
+        <div class="mark" style="--x:.5"><div class="pills"><span class="pill">4</span></div><span class="dot"></span><span class="day">D5</span></div>
+        <div class="mark" style="--x:.7"><div class="pills"><span class="pill">5</span></div><span class="dot"></span><span class="day">D7</span></div>
+        <div class="mark" style="--x:1"><div class="pills"><span class="pill">6</span></div><span class="dot"></span><span class="day">D10</span></div>
+      </div>
+    </div>
+
+    <h3 class="sub-h" id="parada" style="margin-top:0">Onde a conversa parou</h3>
+    <p class="note" style="margin:-8px 0 20px">Antes do toque 1, a secretária relê a conversa e marca o ponto de parada no CRM.</p>
+    <div class="pairs">
+      <div class="pair"><h4>Perguntou o valor</h4><div class="msg"><p class="msg-text">{nome}, sobre o valor que você perguntou. Ele depende do seu caso e o {doutor} define na avaliação. Quer que eu te mostre as formas de pagamento enquanto isso?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair"><h4>Recebeu os horários</h4><div class="msg"><p class="msg-text">{nome}, ainda tenho o horário de {dia} às {horario}. Seguro pra você?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair"><h4>Contou o caso dele</h4><div class="msg"><p class="msg-text">{nome}, o que você me contou sobre {assunto} é o que o {doutor} avalia na consulta. Quer que eu veja um horário essa semana?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair"><h4>Fez dúvida sobre o procedimento ou a recuperação</h4><div class="msg"><p class="msg-text">{nome}, sua dúvida sobre {assunto} é das mais comuns. O doutor responde na avaliação, olhando o seu caso. Posso ver um horário?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair"><h4>Disse que ia pensar ou falar com alguém</h4><div class="msg"><p class="msg-text">{nome}, conseguiu conversar com {pessoa}? Quer que eu mande um resumo pra vocês olharem juntos?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair"><h4>Parou no meio do cadastro</h4><div class="msg"><p class="msg-text">{nome}, só faltou {dado} pra eu fechar seu horário. Me manda aqui?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair v-sinal"><h4>Recebeu os dados do sinal e não pagou <span class="vtag">Com sinal</span></h4><div class="msg"><p class="msg-text">{nome}, seu horário de {dia} às {horario} continua separado. Ele fica garantido quando o sinal é confirmado. Quer que eu te mande a chave Pix de novo?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair v-sinal"><h4>Disse que paga o sinal depois <span class="vtag">Com sinal</span></h4><div class="msg"><p class="msg-text">{nome}, consigo segurar seu horário até {prazo}. Depois disso ele volta pra agenda. Quer garantir agora?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair"><h4>Sem ponto claro</h4><div class="msg"><p class="msg-text">{nome}, nossa conversa ficou no meio. Quer que eu reserve um horário de avaliação com o {doutor} essa semana?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+    </div>
+
+    <div class="touches" style="margin-top:48px">
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D0</span><span class="t-n">Toque 1</span><span class="t-when">2 a 3 horas depois do silêncio</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body"><p>Mande a mensagem de retomada do <a href="#parada">ponto de parada</a> marcado no CRM.</p></div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D1</span><span class="t-n">Toque 2</span><span class="t-when">Com a fala do lead</span><span class="chan"><svg class="ic"><use href="#i-mic"/></svg>Áudio</span></div>
+        <div class="t-body">
+          <p>Use as palavras que o lead escreveu na conversa.</p>
+          <div class="msg-block"><span class="msg-label">Roteiro do áudio</span><div class="msg script"><p class="msg-text">Oi {nome}, aqui é a {secretaria}. Fiquei pensando no que você me falou, que {fala do lead}. Muita gente chega com isso. A avaliação existe pra você entender o seu caso com o doutor e decidir com calma. Posso ver um horário pra você?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D3</span><span class="t-n">Toque 3</span><span class="t-when">Com caso ou depoimento</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto com prova</span></div>
+        <div class="t-body">
+          <p>Envie junto um caso ou depoimento aprovado pela clínica. A frase de prova entra sozinha quando está escrita no ajuste da clínica. Veja exemplos na tabela abaixo.</p>
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}, separei aqui o relato de uma paciente que tinha a mesma dúvida que você. {frase de prova} Quer que eu te encaixe na agenda dessa semana?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D5</span><span class="t-n">Toque 4</span><span class="t-when">Uma tentativa</span><span class="chan"><svg class="ic"><use href="#i-phone"/></svg>Ligação</span></div>
+        <div class="t-body">
+          <p>Ligue uma vez. Não atendeu, mande o texto abaixo. Lead travado até aqui, troque este toque por uma tática do <a href="#banco">banco de quebras de padrão</a>.</p>
+          <div class="msg-block"><span class="msg-label">Se não atender</span><div class="msg"><p class="msg-text">{nome}, tentei te ligar agora. Fica melhor falar por aqui ou por ligação?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D7</span><span class="t-n">Toque 5</span><span class="t-when">Com agenda real</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}, o {doutor} abriu horários de avaliação para {dia}. Quer que eu segure um pra você?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D10</span><span class="t-n">Toque 6</span><span class="t-when">Encerramento</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}, como não tive retorno, vou encerrar seu atendimento por aqui. Quando quiser retomar, me responde só com um sim.</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+          <p class="exit"><b>Sem resposta no toque 6,</b> o lead vira Frio e entra na lista A da Etapa 4 depois de 30 dias.</p>
+        </div>
+      </article>
+    </div>
+
+    <div class="v-sinal sinal-box">
+      <h3 class="sub-h">Sinal pendente <span class="vtag">Com sinal</span></h3>
+      <p class="note" style="margin:-8px 0 28px">Três toques para o lead que recebeu os dados do sinal e não pagou. A cadência corre até o prazo combinado.</p>
+      <div class="touches">
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">+2h</span><span class="t-n">Toque 1</span><span class="t-when">Depois de enviar os dados do sinal</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}, conseguiu fazer o sinal? Seu horário de {dia} às {horario} está separado aqui.</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">Véspera</span><span class="t-n">Toque 2</span><span class="t-when">Um dia antes do prazo</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}, seu horário fica separado até {prazo}. Depois disso ele volta pra agenda. Te mando a chave Pix de novo?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">Prazo</span><span class="t-n">Toque 3</span><span class="t-when">Prazo vencido</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}, o horário de {dia} voltou pra agenda. Se ainda quiser, vejo outro horário pra você. Posso ver?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+          <p class="exit"><b>Sem resposta no toque 3,</b> o lead vira Frio e entra na lista A da Etapa 4 depois de 30 dias.</p>
+        </div>
+      </article>
+      </div>
+    </div>
+
+    <h3 class="sub-h">Exemplos de frase de prova</h3>
+    <p class="note" style="margin:-8px 0 20px">Monte a frase com a dúvida que mais trava o paciente do seu procedimento. Escreva a sua no ajuste da clínica e ela entra sozinha no toque 3.</p>
+    <div class="tbl-wrap">
+      <table class="wide">
+        <thead><tr><th>Procedimento ou protocolo</th><th>Dúvida que trava</th><th>Frase de prova</th></tr></thead>
+        <tbody>
+          <tr><td>Rinoplastia</td><td>Medo de ficar artificial</td><td>Ela também tinha medo de ficar com nariz artificial. Na avaliação tirou essa dúvida direto com o doutor.</td></tr>
+          <tr><td>Blefaroplastia</td><td>Medo da recuperação</td><td>Ela adiou anos por medo do pós. Na avaliação o doutor explicou como seria no caso dela.</td></tr>
+          <tr><td>Harmonização facial</td><td>Medo de perder a naturalidade</td><td>Ela também tinha medo de ficar diferente do que é. Na avaliação viu o que fazia sentido pro rosto dela.</td></tr>
+          <tr><td>Protocolo de emagrecimento</td><td>Já tentou de tudo</td><td>Ela também já tinha tentado de tudo. Na avaliação entendeu como seria o acompanhamento no caso dela.</td></tr>
+          <tr><td>Implante dentário</td><td>Medo de dor</td><td>Ela também tinha medo de sentir dor. Na avaliação o doutor explicou como seria no caso dela.</td></tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</section>
+
+<!-- ETAPA 3 -->
+<section class="sec" id="etapa-3">
+  <div class="wrap">
+    <div class="stage-head">
+      <div class="stage-num" aria-hidden="true">3</div>
+      <div class="sec-head">
+        <p class="eyebrow">Etapa 3 · 5 toques em 21 dias</p>
+        <h2>Avaliou e não fechou</h2>
+        <p class="lead">Guiada pela objeção registrada na consulta. Quem avaliou já conheceu o doutor e recebeu orçamento. É o lead mais perto de fechar em toda a base.</p>
+        <span class="goal-tag"><b>Meta</b> procedimento fechado</span>
+      </div>
+    </div>
+
+    <div class="ruler-box">
+      <div class="ruler-cap"><b>Cadência em dias</b><span>D0 é o dia da avaliação</span></div>
+      <div class="ruler-scroll"><div class="ruler r-wide" style="--n:21" role="img" aria-label="Toques entre D0 e D1, no D2, D5, D10 e D21">
+        <div class="ticks"></div><div class="track"></div>
+        <div class="mark" style="--x:.024"><div class="pills"><span class="pill">1</span></div><span class="dot"></span><span class="day">D0/1</span></div>
+        <div class="mark" style="--x:.0952"><div class="pills"><span class="pill">2</span></div><span class="dot"></span><span class="day">D2</span></div>
+        <div class="mark" style="--x:.2381"><div class="pills"><span class="pill">3</span></div><span class="dot"></span><span class="day">D5</span></div>
+        <div class="mark" style="--x:.4762"><div class="pills"><span class="pill">4</span></div><span class="dot"></span><span class="day">D10</span></div>
+        <div class="mark" style="--x:1"><div class="pills"><span class="pill">5</span></div><span class="dot"></span><span class="day">D21</span></div>
+      </div></div>
+    </div>
+
+    <h3 class="sub-h" style="margin-top:0">Antes de o paciente sair da clínica</h3>
+    <div class="t-body" style="max-width:720px">
+      <ol class="steps">
+        <li><span>O doutor passa para a secretária a objeção principal que ouviu na consulta.</span></li>
+        <li><span>A secretária registra no CRM. Preço, medo, família, momento ou comparação.</span></li>
+        <li><span>A secretária combina o próximo contato antes de o paciente ir embora.</span></li>
+      </ol>
+      <div class="msg-block"><span class="msg-label">Na recepção</span><div class="msg"><p class="msg-text">{nome}, posso te chamar na {dia} pra saber como ficou sua decisão?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+    </div>
+
+    <div class="touches" style="margin-top:48px">
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D0/1</span><span class="t-n">Toque 1</span><span class="t-when">D0 à noite ou D1 de manhã</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}, obrigada por ter vindo. Ficou alguma dúvida depois da consulta com o {doutor}?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D2</span><span class="t-n">Toque 2</span><span class="t-when">Sobre a objeção</span><span class="chan"><svg class="ic"><use href="#i-mic"/></svg>Áudio</span></div>
+        <div class="t-body"><p>Grave a resposta da objeção registrada, usando a <a href="#objecoes">tabela de objeções</a>. Fale com calma e termine com uma pergunta.</p></div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D5</span><span class="t-n">Toque 3</span><span class="t-when">Com data na agenda</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}, o {doutor} tem datas de {procedimento} em {mes}. Quer que eu veja a mais próxima pra você?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D10</span><span class="t-n">Toque 4</span><span class="t-when">Conversa de decisão</span><span class="chan"><svg class="ic"><use href="#i-phone"/></svg>Ligação</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Abertura da ligação</span><div class="msg script"><p class="msg-text">Oi {nome}, aqui é a {secretaria}. Te liguei pra saber como ficou sua decisão sobre a {procedimento}.</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+          <ol class="steps">
+            <li><span>Abra com a frase acima.</span></li>
+            <li><span>Escute. Pergunte o que ainda falta para decidir.</span></li>
+            <li><span>Responda com a tabela de objeções. Dúvida clínica vira retorno rápido com o doutor.</span></li>
+            <li><span>Termine com um passo marcado. Data do procedimento, retorno ou nova data de contato.</span></li>
+          </ol>
+          <p class="note v-sinal">Na clínica com sinal, a data só fica garantida com o pagamento. Use a mensagem de dados do sinal na mesma ligação.</p>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D21</span><span class="t-n">Toque 5</span><span class="t-when">Porta aberta</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}, sei que é uma decisão importante e respeito o seu tempo. Guardei seu orçamento aqui. Posso te chamar de novo em {mes}?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+          <p class="exit"><b>Sem resposta no toque 5,</b> o paciente vira Frio e entra na lista B da Etapa 4 depois de 30 dias.</p>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="sub-h" id="objecoes">Respostas por objeção</h3>
+    <div class="pairs">
+      <div class="pair"><h4>Preço</h4><div class="msg"><p class="msg-text">Entendo. Muita paciente organiza o valor em parcelas. Quer que eu te mostre as formas de pagamento da clínica?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair"><h4>Medo do procedimento ou da recuperação</h4><div class="msg"><p class="msg-text">É normal sentir isso. Quer que eu marque um retorno rápido pra você conversar sobre isso com o {doutor}?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair"><h4>Falar com marido ou família</h4><div class="msg"><p class="msg-text">Faz sentido decidir junto. Quer que eu mande o resumo do orçamento pra vocês olharem? Ele também pode vir numa conversa com o doutor.</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair"><h4>Não é o momento</h4><div class="msg"><p class="msg-text">Entendo. Qual mês fica melhor pra você? Anoto aqui e te chamo antes.</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair"><h4>Comparando profissionais</h4><div class="msg"><p class="msg-text">Faz sentido pesquisar com calma. Qualquer dúvida na comparação, me chama. Posso te procurar na semana que vem?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair v-sinal"><h4>Não quer pagar sinal antes <span class="vtag">Com sinal</span></h4><div class="msg"><p class="msg-text">Entendo. O sinal garante que esse horário fica separado só pra você. Quer que eu te explique como ele funciona aqui na clínica?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair v-sinal"><h4>Medo de golpe no Pix <span class="vtag">Com sinal</span></h4><div class="msg"><p class="msg-text">Faz sentido ter cuidado. A chave está no nome da clínica e você pode conferir pelo Instagram oficial antes de pagar. Quer que eu te mande o link?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+      <div class="pair"><h4>Sumiu sem motivo</h4><p>Pule para o toque 4 e ligue.</p></div>
+    </div>
+    <p class="note" style="margin-top:16px">Desconto fica fora do follow-up. Condição de pagamento só a oficial da clínica.</p>
+  </div>
+</section>
+
+<!-- ETAPA 4 -->
+<section class="sec" id="etapa-4">
+  <div class="wrap">
+    <div class="stage-head">
+      <div class="stage-num" aria-hidden="true">4</div>
+      <div class="sec-head">
+        <p class="eyebrow">Etapa 4 · Uma campanha por mês</p>
+        <h2>Reativação de base</h2>
+        <p class="lead">Três mensagens em 7 dias, sempre com um motivo real para chamar. A base parada já foi paga em tráfego. Reativar custa só o tempo da secretária.</p>
+        <span class="goal-tag"><b>Meta</b> lead de volta à conversa</span>
+      </div>
+    </div>
+
+    <div class="ruler-box">
+      <div class="ruler-cap"><b>Cadência em dias</b><span>D0 é o dia do disparo da campanha</span></div>
+      <div class="ruler" style="--n:7" role="img" aria-label="Mensagens no D0, D2 e D7">
+        <div class="ticks"></div><div class="track"></div>
+        <div class="mark" style="--x:0"><div class="pills"><span class="pill">1</span></div><span class="dot"></span><span class="day">D0</span></div>
+        <div class="mark" style="--x:.2857"><div class="pills"><span class="pill">2</span></div><span class="dot"></span><span class="day">D2</span></div>
+        <div class="mark" style="--x:1"><div class="pills"><span class="pill">3</span></div><span class="dot"></span><span class="day">D7</span></div>
+      </div>
+    </div>
+
+    <div class="two">
+      <div>
+        <h3 class="sub-h" style="margin-top:0">Listas</h3>
+        <div class="tbl-wrap">
+          <table>
+            <thead><tr><th>Lista</th><th>Quem entra</th><th>Disparo</th></tr></thead>
+            <tbody>
+              <tr><td>B</td><td>Avaliou e não fechou, sem resposta há 30 dias ou mais</td><td><span class="ord">1º</span></td></tr>
+              <tr><td>C</td><td>Agendou avaliação e faltou</td><td><span class="ord">2º</span></td></tr>
+              <tr><td>A</td><td>Conversou e nunca agendou, sem resposta há 30 dias ou mais</td><td><span class="ord">3º</span></td></tr>
+              <tr><td>D</td><td>Chamou pelo anúncio e nunca respondeu, há 30 dias ou mais</td><td><span class="ord">4º</span></td></tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+      <div>
+        <h3 class="sub-h" style="margin-top:0">Motivos reais para chamar</h3>
+        <ul class="bul">
+          <li><span>Agenda nova de avaliação ou de procedimento aberta pelo doutor</span></li>
+          <li><span>Semana com mais horários de avaliação que o normal</span></li>
+          <li><span>Nova condição de pagamento oficial da clínica</span></li>
+          <li><span>Época boa para recuperação, como férias de julho e de fim de ano</span></li>
+        </ul>
+        <p class="stamp">Sem motivo real, a campanha não sai.</p>
+      </div>
+    </div>
+
+    <div class="touches" style="margin-top:56px">
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D0</span><span class="t-n">Mensagem 1</span><span class="t-when">Abertura por lista, na ordem de disparo</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <div class="lists">
+            <div class="list-msg"><span class="badge">B</span><div><span class="msg-label">Avaliou e não fechou</span><div class="msg"><p class="msg-text">{nome}, aqui é a {secretaria}, da clínica do {doutor}. Você esteve aqui em {mes} pra avaliar a {procedimento}. O doutor abriu novas datas para {mes}. Ainda faz sentido pra você?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div></div>
+            <div class="list-msg"><span class="badge">C</span><div><span class="msg-label">Agendou e faltou</span><div class="msg"><p class="msg-text">{nome}, aqui é a {secretaria}, da clínica do {doutor}. Você tinha marcado avaliação e não conseguiu vir. Acontece. Quer que eu veja um novo horário pra você em {mes}?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div></div>
+            <div class="list-msg"><span class="badge">A</span><div><span class="msg-label">Conversou e nunca agendou</span><div class="msg"><p class="msg-text">{nome}, aqui é a {secretaria}, da clínica do {doutor}. Há um tempo você conversou com a gente sobre {procedimento}. O doutor abriu horários de avaliação para {mes}. Quer que eu reserve um pra você?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div></div>
+            <div class="list-msg"><span class="badge">D</span><div><span class="msg-label">Nunca respondeu</span><div class="msg"><p class="msg-text">{nome}, aqui é a {secretaria}, da clínica do {doutor}. Você chamou a gente pelo anúncio de {procedimento} e a conversa acabou não acontecendo. O doutor abriu horários de avaliação para {mes}. Ainda tem interesse?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div></div>
+          </div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D2</span><span class="t-n">Mensagem 2</span><span class="t-when">Para quem não respondeu</span><span class="chan"><svg class="ic"><use href="#i-mic"/></svg>Áudio</span></div>
+        <div class="t-body">
+          <div class="msg-block"><span class="msg-label">Roteiro do áudio</span><div class="msg script"><p class="msg-text">Oi {nome}, aqui é a {secretaria}. Te mandei uma mensagem esses dias. Se você ainda pensa na {procedimento}, me fala que eu vejo a agenda do {doutor} pra você. Posso ver?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+
+      <article class="touch">
+        <div class="t-meta"><span class="t-day">D7</span><span class="t-n">Mensagem 3</span><span class="t-when">Última chamada</span><span class="chan"><svg class="ic"><use href="#i-msg"/></svg>Texto</span></div>
+        <div class="t-body">
+          <p>Use só quando a data de fechamento for verdadeira.</p>
+          <div class="msg-block"><span class="msg-label">Mensagem</span><div class="msg"><p class="msg-text">{nome}, os horários de {mes} fecham na {dia}. Quer que eu guarde um pra você até lá?</p><button class="copy" type="button"><svg class="ic"><use href="#i-copy"/></svg><span>Copiar</span></button></div></div>
+        </div>
+      </article>
+    </div>
+
+    <h3 class="sub-h">Regras de disparo</h3>
+    <ul class="bul">
+      <li><span>A mesma pessoa recebe no máximo uma campanha a cada 30 dias.</span></li>
+      <li><span>Dispare em lotes de até 50 contatos por dia para proteger o número da clínica.</span></li>
+      <li><span>Respondeu, a secretária conduz para o agendamento. Sumiu de novo, volta para a Etapa 2 (listas A, C e D) ou para a Etapa 3 (lista B).</span></li>
+      <li><span>Pediu para não receber mais, status Não contatar.</span></li>
+      <li><span>Três campanhas sem resposta, o lead sai da base ativa.</span></li>
+    </ul>
+  </div>
+</section>
+
+<!-- PAINEL -->
+<section class="sec" id="painel" style="border-bottom:0">
+  <div class="wrap">
+    <div class="sec-head">
+      <p class="eyebrow">Painel e instalação</p>
+      <h2>O kit roda dentro do CRM da clínica</h2>
+      <p class="lead">Todo lead fica em um status com data do próximo toque. A segunda-feira começa com os números da semana na mesa do doutor.</p>
+    </div>
+
+    <h3 class="sub-h" style="margin-top:0">Status no CRM</h3>
+    <div class="status-row">
+      <span class="st"><i></i>Novo lead</span>
+      <span class="st stage"><i></i>Etapa 1</span>
+      <span class="st"><i></i>Em conversa</span>
+      <span class="st stage"><i></i>Etapa 2</span>
+      <span class="st v-sinal"><i></i>Aguardando sinal</span>
+      <span class="st"><i></i>Agendado</span>
+      <span class="st"><i></i>Avaliado</span>
+      <span class="st stage"><i></i>Etapa 3</span>
+      <span class="st won"><i></i>Fechado</span>
+      <span class="st off"><i></i>Frio</span>
+      <span class="st off"><i></i>Não contatar</span>
+    </div>
+
+    <div class="two" style="margin-top:8px">
+      <div>
+        <h3 class="sub-h">Campos de cada card de lead</h3>
+        <ul class="bul">
+          <li><span>Procedimento de interesse</span></li>
+          <li><span>Toque atual da cadência</span></li>
+          <li><span>Data do próximo toque</span></li>
+          <li><span>Tática que gerou a resposta, na Etapa 1</span></li>
+          <li><span>Ponto de parada da conversa, na Etapa 2</span></li>
+          <li><span>Objeção principal, preenchida depois da avaliação</span></li>
+          <li><span>Data da avaliação</span></li>
+          <li class="v-sinal"><span>Prazo do sinal</span></li>
+        </ul>
+      </div>
+      <div>
+        <h3 class="sub-h">Checklist de instalação</h3>
+        <div class="check" id="checklist">
+          <div class="check-head"><span id="ck-count">0 de 8 prontos</span><span class="progress"><i id="ck-bar"></i></span></div>
+          <label class="ck"><input type="checkbox" id="ck1"><span>Preencher o ajuste da clínica com profissional, secretária, procedimento e frase de prova</span></label>
+          <label class="ck"><input type="checkbox" id="ck2"><span>Gravar o áudio mudo e os áudios modelo com a voz da secretária</span></label>
+          <label class="ck"><input type="checkbox" id="ck3"><span>Testar enquete e mensagem apagada no WhatsApp da clínica</span></label>
+          <label class="ck"><input type="checkbox" id="ck4"><span>Aprovar com o doutor os casos e depoimentos do toque 3 da Etapa 2</span></label>
+          <label class="ck"><input type="checkbox" id="ck5"><span>Confirmar as formas de pagamento oficiais para a resposta de preço</span></label>
+          <label class="ck"><input type="checkbox" id="ck6"><span>Criar os status e campos no CRM</span></label>
+          <label class="ck"><input type="checkbox" id="ck7"><span>Separar as listas A, B, C e D da base atual</span></label>
+          <label class="ck"><input type="checkbox" id="ck8"><span>Definir o motivo real da primeira campanha de reativação</span></label>
+          <label class="ck v-sinal"><input type="checkbox" id="ck9"><span>Definir valor do sinal, prazo de pagamento e chave Pix no nome da clínica</span></label>
+        </div>
+      </div>
+    </div>
+
+    <h3 class="sub-h">Números da semana</h3>
+    <div class="tbl-wrap">
+      <table>
+        <thead><tr><th>Número</th><th>Como calcular</th></tr></thead>
+        <tbody>
+          <tr><td>Resposta da Etapa 1</td><td>Leads que responderam ÷ leads que entraram na Etapa 1</td></tr>
+          <tr><td>Resposta por tática</td><td>Respostas de cada quebra de padrão ÷ vezes que ela foi usada</td></tr>
+          <tr><td>Resgate da Etapa 2</td><td>Agendados vindos da Etapa 2 ÷ leads que entraram na Etapa 2</td></tr>
+          <tr><td>Fechamento da Etapa 3</td><td>Fechamentos na Etapa 3 ÷ avaliados que saíram sem fechar</td></tr>
+          <tr><td>Resposta da reativação</td><td>Respostas ÷ contatos disparados, por lista</td></tr>
+          <tr class="v-sinal"><td>Sinais pagos</td><td>Sinais pagos ÷ horários separados com sinal</td></tr>
+          <tr><td>Fechamentos do follow-up</td><td>Procedimentos fechados a partir de qualquer etapa do kit</td></tr>
+          <tr><td>Leads sem próximo toque</td><td>Precisa ser zero no fim de todo dia</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="note" style="margin-top:16px">Revise os números toda segunda com o doutor.</p>
+  </div>
+</section>
+
+</main>
+
+<footer class="foot">
+  <div class="wrap">
+    <span class="logo" role="img" aria-label="Hurtz"></span>
+    <p>Hurtz Company · Material de uso interno da clínica</p>
+  </div>
+</footer>
+
+<script>
+(function(){
+  var KEY='hurtz-kit-follow-up', CKEY='hurtz-kit-checklist';
+  var st={trat:'Dr.',doc:'',sec:'',proc:'',art:'a',frase:'',sinal:'ambos',valor:''};
+  try{var s=JSON.parse(localStorage.getItem(KEY)||'null'); if(s&&typeof s==='object'){for(var k in st){if(typeof s[k]==='string')st[k]=s[k];}}}catch(e){}
+  function esc(s){return s.replace(/[&<>"]/g,function(c){return {'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+  function vals(){
+    var v={};
+    if(st.doc.trim()) v.doutor=st.trat+' '+st.doc.trim();
+    if(st.sec.trim()) v.secretaria=st.sec.trim();
+    if(st.proc.trim()) v.procedimento=st.proc.trim();
+    if(st.valor.trim()) v.sinal=st.valor.trim();
+    return v;
+  }
+  function prep(t){
+    if(st.frase.trim()) t=t.replace('{frase de prova}',st.frase.trim());
+    if(st.art==='o'){
+      t=t.replace(/\ba \{procedimento\}/g,'o {procedimento}').replace(/\bda \{procedimento\}/g,'do {procedimento}').replace(/\bna \{procedimento\}/g,'no {procedimento}');
+    }
+    if(st.trat==='Dra.'){
+      t=t.replace(/\bdo \{doutor\}/g,'da {doutor}').replace(/\bo \{doutor\}/g,'a {doutor}').replace(/\bO \{doutor\}/g,'A {doutor}')
+         .replace(/\bo doutor\b/g,'a doutora').replace(/\bO doutor\b/g,'A doutora');
+    }
+    return t;
+  }
+  var nodes=[].slice.call(document.querySelectorAll('.msg-text'));
+  nodes.forEach(function(n){n.dataset.tpl=n.textContent.trim();});
+  function plain(n){var v=vals();return prep(n.dataset.tpl).replace(/\{([^}]+)\}/g,function(m,k){return v[k]!==undefined?v[k]:m;});}
+  function render(){
+    var v=vals();
+    nodes.forEach(function(n){
+      n.innerHTML=esc(prep(n.dataset.tpl)).replace(/\{([^}]+)\}/g,function(m,k){
+        return v[k]!==undefined?'<mark class="fill">'+esc(v[k])+'</mark>':'<span class="ph">'+esc(k)+'</span>';
+      });
+    });
+  }
+  var fT=document.getElementById('f-trat'),fD=document.getElementById('f-doc'),fS=document.getElementById('f-sec'),fP=document.getElementById('f-proc'),fA=document.getElementById('f-art'),fF=document.getElementById('f-frase');
+  fT.value=st.trat; fD.value=st.doc; fS.value=st.sec; fP.value=st.proc; fA.value=(st.art==='o'?'o':'a'); fF.value=st.frase;
+  var fSi=document.getElementById('f-sinal'),fV=document.getElementById('f-valor');
+  fSi.value=(st.sinal==='sim'||st.sinal==='nao')?st.sinal:'ambos'; fV.value=st.valor;
+  function applySinal(){document.body.dataset.sinal=fSi.value;prog();}
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(st));}catch(e){}}
+  function upd(){st.trat=fT.value;st.doc=fD.value;st.sec=fS.value;st.proc=fP.value;st.art=fA.value;st.frase=fF.value;st.sinal=fSi.value;st.valor=fV.value;save();render();applySinal();}
+  [fT,fD,fS,fP,fA,fF,fSi,fV].forEach(function(el){el.addEventListener('input',upd);el.addEventListener('change',upd);});
+  document.getElementById('f-clear').addEventListener('click',function(){fT.value='Dr.';fD.value='';fS.value='';fP.value='';fA.value='a';fF.value='';fSi.value='ambos';fV.value='';upd();});
+  render();
+
+  function selectText(n){try{var r=document.createRange();r.selectNodeContents(n);var s=window.getSelection();s.removeAllRanges();s.addRange(r);}catch(e){}}
+  document.addEventListener('click',function(e){
+    var b=e.target.closest&&e.target.closest('.copy'); if(!b) return;
+    var n=b.parentNode.querySelector('.msg-text'); if(!n) return;
+    var label=b.querySelector('span'), text=plain(n);
+    function done(msg){label.textContent=msg;b.classList.add('ok');clearTimeout(b._t);b._t=setTimeout(function(){label.textContent='Copiar';b.classList.remove('ok');},1800);}
+    try{
+      if(navigator.clipboard&&navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){done('Copiado');},function(){selectText(n);done('Selecionado');});
+      }else{selectText(n);done('Selecionado');}
+    }catch(err){selectText(n);done('Selecionado');}
+  });
+
+  var cks=[].slice.call(document.querySelectorAll('#checklist input'));
+  var saved={}; try{saved=JSON.parse(localStorage.getItem(CKEY)||'{}')||{};}catch(e){}
+  function prog(){if(!cks)return;var vis=cks.filter(function(x){return x.closest('.ck').offsetParent!==null;});var c=vis.filter(function(x){return x.checked;}).length;document.getElementById('ck-count').textContent=c+' de '+vis.length+' prontos';document.getElementById('ck-bar').style.width=(vis.length?c/vis.length*100:0)+'%';}
+  cks.forEach(function(x){x.checked=!!saved[x.id];x.addEventListener('change',function(){saved[x.id]=x.checked;try{localStorage.setItem(CKEY,JSON.stringify(saved));}catch(e){}prog();});});
+  applySinal();
+
+  var links=[].slice.call(document.querySelectorAll('.nav a'));
+  if('IntersectionObserver' in window){
+    var map={}; links.forEach(function(a){map[a.getAttribute('href').slice(1)]=a;});
+    var io=new IntersectionObserver(function(es){es.forEach(function(en){if(en.isIntersecting){links.forEach(function(a){a.classList.remove('on');});var a=map[en.target.id];if(a){a.classList.add('on');try{var nv=a.parentNode;nv.scrollLeft=Math.max(0,a.offsetLeft-nv.offsetLeft-16);}catch(e){}}}});},{rootMargin:'-45% 0px -50% 0px'});
+    ['mapa','regras','etapa-1','etapa-2','etapa-3','etapa-4','painel'].forEach(function(id){var el=document.getElementById(id);if(el)io.observe(el);});
+  }
+})();
+</script>
+
+</body></html>
