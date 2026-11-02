@@ -43,8 +43,8 @@
       text-rendering: optimizeLegibility;
     }
 
-    h1, h2, h3, p, ol { margin: 0; padding: 0; }
-    ol { list-style: none; }
+    h1, h2, h3, p, ul, ol { margin: 0; padding: 0; }
+    ul, ol { list-style: none; }
     img { display: block; }
     p, li { text-wrap: pretty; }
     a:focus-visible { outline: 2px solid var(--brasa); outline-offset: 3px; }
@@ -111,11 +111,23 @@
     }
     .price-row { padding: 16px 0; border-top: 1px solid var(--areia); }
     .price-row h3 { font-size: 16px; font-weight: 700; line-height: 1.4; }
-    .price-row p {
-      grid-column: 1 / -1;
-      margin-top: 2px;
+    .price-row ul { grid-column: 1 / -1; margin-top: 8px; }
+    .price-row li {
+      position: relative;
+      padding-left: 16px;
       font-size: 15px;
+      line-height: 1.5;
       color: var(--grafite);
+    }
+    .price-row li + li { margin-top: 5px; }
+    .price-row li::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 10px;
+      width: 8px;
+      height: 2px;
+      background: var(--brasa);
     }
     .amount { font-weight: 700; font-variant-numeric: tabular-nums; white-space: nowrap; }
     .price-total {
@@ -244,30 +256,60 @@
   <main class="wrap">
 
     <section class="block">
-      <h2>Serviços e valores</h2>
+      <h2>O que vamos entregar</h2>
       <div>
         <div class="price">
           <div class="price-rows">
             <div class="price-head"><span>Serviço</span><span>Separado, por mês</span></div>
             <div class="price-row">
               <h3>Estratégia digital</h3><span class="amount">R$&nbsp;2.500</span>
-              <p>Definimos a mensagem do empreendimento, o público dos anúncios e o que vai ao ar em cada etapa.</p>
+              <ul>
+                <li>Análise dos concorrentes e dos anúncios de imóveis em Parauapebas</li>
+                <li>Perfis de comprador do Rotterdam: quem vai morar e quem vai investir</li>
+                <li>Mensagem do Rotterdam e variações para cada perfil</li>
+                <li>Plano de divulgação para cada etapa do lançamento</li>
+                <li>Calendário do que vai ao ar e quando</li>
+              </ul>
             </div>
             <div class="price-row">
               <h3>Roteirização dos criativos</h3><span class="amount">R$&nbsp;1.500</span>
-              <p>Roteiros dos vídeos e plano de gravação. Depois, novos roteiros a partir dos anúncios que derem mais resultado.</p>
+              <ul>
+                <li>Roteiros de vídeo para cada etapa do lançamento</li>
+                <li>Ganchos diferentes para testar em cada roteiro</li>
+                <li>Textos dos anúncios e chamadas para contato</li>
+                <li>Plano de gravação com cenas e falas</li>
+                <li>Novos roteiros a partir dos anúncios que derem mais resultado</li>
+              </ul>
             </div>
             <div class="price-row">
               <h3>Gestão de tráfego</h3><span class="amount">R$&nbsp;2.000</span>
-              <p>Campanhas no Instagram e no Facebook, acompanhadas todo dia.</p>
+              <ul>
+                <li>Configuração da conta de anúncios e do rastreamento</li>
+                <li>Campanhas no Instagram e no Facebook para cada etapa</li>
+                <li>Públicos separados por perfil de comprador e região</li>
+                <li>Anúncios para quem já viu ou interagiu com o Rotterdam</li>
+                <li>Testes de criativos, textos e públicos</li>
+                <li>Ajustes diários nas campanhas e na distribuição da verba</li>
+              </ul>
             </div>
             <div class="price-row">
               <h3>Captação de leads</h3><span class="amount">R$&nbsp;1.000</span>
-              <p>Formulário ou WhatsApp com perguntas sobre interesse e momento de compra. Os contatos vão para o comercial de vocês.</p>
+              <ul>
+                <li>Formulário de captação ou entrada direta pelo WhatsApp</li>
+                <li>Perguntas sobre interesse, objetivo e momento de compra</li>
+                <li>Lista de interessados pronta para a abertura das vendas</li>
+                <li>Contatos organizados para o time comercial de vocês</li>
+                <li>Ajustes nas perguntas e nos públicos conforme a qualidade dos contatos</li>
+              </ul>
             </div>
             <div class="price-row">
               <h3>Relatório semanal</h3><span class="amount">R$&nbsp;500</span>
-              <p>Valor investido, número de leads, custo por lead e o que vamos ajustar.</p>
+              <ul>
+                <li>Valor investido, número de leads e custo por lead</li>
+                <li>Resultado de cada anúncio e de cada público</li>
+                <li>O que vamos ajustar na semana seguinte</li>
+                <li>Grupo no WhatsApp com o time da Hurtz</li>
+              </ul>
             </div>
             <div class="price-total"><span>Total separado</span><span class="amount">R$&nbsp;7.500</span></div>
           </div>
