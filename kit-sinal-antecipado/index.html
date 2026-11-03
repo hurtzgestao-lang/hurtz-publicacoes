@@ -1,0 +1,927 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<title>Kit Sinal Antecipado</title>
+<style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+<style>
+/* Padrão Visual Hurtz Black: capa preta, miolo em seções com fio, um único destaque em ferrugem. */
+:root{
+  --bg:#0A0908;--surface:#13110F;--surface-2:#1C1915;--line:#2A2521;--line-strong:#4A423B;--fg:#F4F1EC;--muted:#BBB3A8;--accent:#BF5A17;--accent-text:#E3803F;--accent-soft:#2C1A10;--on-accent:#F8F5F0;--bubble:#191512;--bubble-line:#352A20;--fill-soft:#33200F;
+  --cover-bg:#0A0908;--cover-fg:#F4F1EC;--cover-muted:#9F978B;--cover-line:#2E2823;--cover-accent:#E3803F;
+  color-scheme:dark;
+}
+@media (prefers-color-scheme:light){:root:not([data-theme="dark"]){--bg:#F4F1EC;--surface:#FBFAF7;--surface-2:#ECE6DD;--line:#DDD4C8;--line-strong:#B5AA9C;--fg:#0A0908;--muted:#574F46;--accent:#BF5A17;--accent-text:#A3480E;--accent-soft:#F3E1D2;--on-accent:#FFFFFF;--bubble:#FFFFFF;--bubble-line:#E2D8CB;--fill-soft:#F6E3D2;color-scheme:light}}
+:root[data-theme="light"]{--bg:#F4F1EC;--surface:#FBFAF7;--surface-2:#ECE6DD;--line:#DDD4C8;--line-strong:#B5AA9C;--fg:#0A0908;--muted:#574F46;--accent:#BF5A17;--accent-text:#A3480E;--accent-soft:#F3E1D2;--on-accent:#FFFFFF;--bubble:#FFFFFF;--bubble-line:#E2D8CB;--fill-soft:#F6E3D2;color-scheme:light}
+
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:72px}
+body{background:var(--bg);color:var(--fg);font:400 16px/1.65 "Plus Jakarta Sans",system-ui,sans-serif;font-variant-numeric:tabular-nums}
+body::before{content:"";position:fixed;inset:0 0 auto;height:env(safe-area-inset-top,0px);z-index:10;background:var(--bg)}
+h1,h2,h3,p,ul,ol{margin:0}
+a{color:inherit;text-underline-offset:3px}
+:focus-visible{outline:2px solid var(--accent-text);outline-offset:2px}
+.wrap{max-width:1080px;margin-inline:auto;padding-left:max(16px,env(safe-area-inset-left,0px));padding-right:max(16px,env(safe-area-inset-right,0px))}
+@media (min-width:720px){.wrap{padding-left:max(32px,env(safe-area-inset-left,0px));padding-right:max(32px,env(safe-area-inset-right,0px))}}
+
+.logo{display:block;aspect-ratio:744/202;background:currentColor;-webkit-mask:var(--logo) left center/contain no-repeat;mask:var(--logo) left center/contain no-repeat}
+.cover{background:var(--cover-bg);color:var(--cover-fg);position:relative;overflow:hidden}
+.watermark{position:absolute;right:-96px;top:50%;translate:0 -50%;width:340px;aspect-ratio:134/202;background:currentColor;opacity:.05;-webkit-mask:var(--mark) center/contain no-repeat;mask:var(--mark) center/contain no-repeat}
+.cover .wrap{position:relative;display:grid;gap:64px;padding-block:32px 72px}
+.cover-top{display:flex;justify-content:space-between;align-items:center;gap:16px;flex-wrap:wrap}
+.cover-top .logo{height:30px}
+.cover-info{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cover-muted)}
+.cover-text{display:grid;gap:24px}
+h1{font-size:clamp(46px,9vw,96px);font-weight:800;letter-spacing:-.04em;line-height:1;text-wrap:balance}
+h1 em{font-style:normal;color:var(--cover-accent)}
+.cover-sub{font-size:clamp(17px,2vw,20px);color:var(--cover-muted);max-width:36em;line-height:1.5}
+.nums{display:flex;flex-wrap:wrap;gap:16px 0}
+.nums div{display:grid;gap:2px;padding-inline:24px;border-left:1px solid var(--cover-line)}
+.nums div:first-child{padding-left:0;border-left:0}
+.nums b{font-size:30px;font-weight:800;line-height:1.1}
+.nums span{font-size:13px;color:var(--cover-muted)}
+
+nav{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:var(--bg);border-bottom:1px solid var(--line)}
+nav .wrap{height:56px;display:flex;align-items:center;gap:14px}
+nav .logo{height:16px;flex:none}
+.links{display:flex;gap:2px;overflow-x:auto;scrollbar-width:none;margin-left:auto;min-width:0}
+.links a{font-size:13.5px;font-weight:600;color:var(--muted);text-decoration:none;white-space:nowrap;padding:6px 10px;border-radius:999px;transition:color .15s}
+.links a:hover{color:var(--fg)}
+.links a.on{background:var(--surface-2);color:var(--fg)}
+.viewbar{border-bottom:1px solid var(--line);background:var(--surface)}
+.viewbar .wrap{display:flex;align-items:center;justify-content:space-between;gap:12px;flex-wrap:wrap;padding-block:12px}
+.switch{display:flex;gap:4px;border:1px solid var(--line-strong);border-radius:999px;padding:3px}
+.switch button{font:600 13.5px "Plus Jakarta Sans",system-ui,sans-serif;color:var(--muted);background:transparent;border:0;border-radius:999px;padding:7px 16px;min-height:36px;cursor:pointer;transition:color .15s}
+.switch button[aria-pressed=true]{background:var(--accent);color:var(--on-accent)}
+.viewbar p{font-size:14px;color:var(--muted)}
+body[data-view=sec] .v-ges,body[data-view=ges] .v-sec{display:none!important}
+
+section{padding-block:72px;border-bottom:1px solid var(--line)}
+section .wrap{display:grid;gap:32px}
+section .wrap>*{min-width:0}
+.head{display:grid;gap:12px;max-width:720px}
+.kicker{font-size:12px;font-weight:700;text-transform:uppercase;letter-spacing:.14em;color:var(--accent-text)}
+h2{font-size:clamp(28px,4.2vw,42px);font-weight:800;letter-spacing:-.03em;line-height:1.12;text-wrap:balance}
+.support{font-size:18px;color:var(--muted);max-width:40em;line-height:1.5}
+.sub{font-size:21px;font-weight:700;letter-spacing:-.02em;line-height:1.3}
+.block{display:grid;gap:16px}
+.tiny{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.hint{color:var(--muted);font-size:14px}
+
+.card{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px 20px}
+.card h3{font-size:17.5px;font-weight:700;line-height:1.35}
+.out{border-left:3px solid var(--accent);background:var(--surface);border-radius:0 10px 10px 0;padding:14px 18px}
+.alert{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;border:1px solid var(--accent);background:var(--accent-soft);border-radius:14px;padding:16px 18px}
+.alert>svg{color:var(--accent-text)}
+.alert a{color:var(--accent-text);font-weight:600}
+.ico{width:18px;height:18px;fill:none;stroke:currentColor;stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;flex:none}
+.alert .ico{width:24px;height:24px}
+
+.form{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,220px),1fr));gap:16px}
+.form label{display:grid;gap:6px;align-content:start;font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.form input,.form select{width:100%;font:400 16px "Plus Jakarta Sans",system-ui,sans-serif;letter-spacing:0;color:var(--fg);background:var(--bg);border:1px solid var(--line-strong);border-radius:10px;padding:11px 12px;min-height:46px}
+.form input:focus,.form select:focus,.search:focus{outline:0;border-color:var(--accent);box-shadow:0 0 0 3px var(--accent-soft)}
+.actions{display:flex;gap:10px;flex-wrap:wrap;align-items:center}
+.btn{font:600 14px "Plus Jakarta Sans",system-ui,sans-serif;border-radius:999px;padding:10px 18px;min-height:44px;cursor:pointer;background:var(--accent);color:var(--on-accent);border:1px solid var(--accent)}
+.btn.ghost{background:transparent;color:var(--fg);border-color:var(--line-strong);transition:border-color .15s}
+.btn.ghost:hover{border-color:var(--accent)}
+
+.flowsteps{display:grid;gap:0}
+.fs{display:grid;grid-template-columns:24px minmax(0,1fr);gap:16px;padding-block:28px;border-top:1px solid var(--line)}
+.fs:first-child{border-top:0;padding-top:0}
+.fs-body{display:grid;gap:16px;min-width:0}
+.fs-body>h3{font-size:21px;font-weight:700;letter-spacing:-.02em;line-height:1.3}
+.fs-body>p{color:var(--muted)}
+.dot{width:24px;height:24px;border:1px solid var(--line-strong);border-radius:50%;display:grid;place-items:center;font-size:12px;font-weight:700;color:var(--accent-text)}
+
+.tbl{overflow-x:auto;border:1px solid var(--line);border-radius:14px}
+table{border-collapse:collapse;width:100%;min-width:640px;font-size:15px;line-height:1.5}
+th{background:var(--surface);font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted);text-align:left;padding:12px 16px}
+td{padding:13px 16px;border-top:1px solid var(--line);vertical-align:top}
+td:first-child{font-weight:600}
+td a{color:var(--accent-text)}
+code{font:600 14px ui-monospace,Menlo,monospace;color:var(--accent-text)}
+
+.flow{overflow-x:auto}
+.flow svg{display:block;min-width:640px;width:100%;height:auto}
+.flow .b{fill:none;stroke:var(--line-strong);stroke-width:1.25}
+.flow .d{fill:var(--accent-soft);stroke:var(--accent);stroke-width:2}
+.flow .l{fill:none;stroke:var(--line-strong);stroke-width:1.25}
+.flow text{fill:var(--fg);font:400 13px "Plus Jakarta Sans",system-ui,sans-serif}
+.flow text.s{fill:var(--muted);font-size:12px}
+.flow text.n{font-weight:700}
+
+.msgs{display:grid;gap:24px}
+.m{display:grid;gap:8px;max-width:760px}
+.m-top{display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+.chan{display:inline-flex;align-items:center;gap:6px;font-size:12.5px;border:1px solid var(--line-strong);border-radius:999px;padding:2px 10px}
+.chan .ico{width:15px;height:15px}
+.bubble{background:var(--bubble);border:1px solid var(--bubble-line);border-radius:16px 16px 16px 4px;padding:14px 16px;display:grid;gap:10px}
+.bubble.audio{border-style:dashed}
+.bubble .text{white-space:pre-wrap;overflow-wrap:anywhere;font-size:16.5px;line-height:1.55}
+.copy{justify-self:end;display:inline-flex;align-items:center;gap:6px;font:500 12.5px "Plus Jakarta Sans",system-ui,sans-serif;color:var(--fg);background:transparent;border:1px solid var(--line);border-radius:999px;padding:6px 12px;min-height:36px;cursor:pointer;transition:border-color .15s}
+.copy:hover{border-color:var(--accent)}
+.copy.done,.copy.warn{color:var(--accent-text)}
+.copy.warn{border-color:var(--accent)}
+.copy .ico{width:14px;height:14px}
+.var{background:var(--accent-soft);color:var(--accent-text);font-weight:600;border-radius:5px;padding:0 2px}
+.val{background:var(--fill-soft);border-radius:4px;padding:0 2px}
+.tag{justify-self:start;font-size:10.5px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;border:1px solid var(--accent);color:var(--accent-text);border-radius:999px;padding:2px 9px}
+
+.search{width:100%;max-width:520px;font:400 16px "Plus Jakarta Sans",system-ui,sans-serif;color:var(--fg);background:var(--bg);border:1px solid var(--line-strong);border-radius:10px;padding:11px 12px;min-height:46px}
+.objs{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,420px),1fr));gap:12px}
+.obj{display:grid;gap:10px;align-content:start}
+.obj .text{white-space:pre-wrap;overflow-wrap:anywhere;color:var(--muted)}
+
+.rules{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:1px;background:var(--line);border:1px solid var(--line);border-radius:14px;overflow:hidden}
+.rules>div{background:var(--surface);padding:22px 20px;display:grid;gap:8px;align-content:start}
+.rules .n{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--accent-text)}
+.rules h3{font-size:17.5px;font-weight:700;line-height:1.3}
+.rules p{color:var(--muted);font-size:15px;line-height:1.5}
+@media (max-width:820px){.rules{grid-template-columns:minmax(0,1fr)}}
+
+body[data-track=med] .t-outras,body[data-track=outras] .t-med{display:none!important}
+
+.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:12px}
+.big{font-size:clamp(36px,6vw,56px);font-weight:800;letter-spacing:-.04em;line-height:1.05;color:var(--accent-text);overflow-wrap:anywhere}
+.result{display:grid;gap:10px;align-content:center}
+.result p{color:var(--muted)}
+
+.tl{display:grid;border-top:1px solid var(--line)}
+.tl>div{display:grid;grid-template-columns:200px minmax(0,640px);gap:24px;padding-block:20px;border-bottom:1px solid var(--line)}
+.tl b{font-size:34px;font-weight:800;line-height:1.1;letter-spacing:-.03em;display:block}
+.tl small{font-size:11.5px;font-weight:700;text-transform:uppercase;letter-spacing:.09em;color:var(--muted)}
+.tl p+p{color:var(--muted);margin-top:4px}
+@media (max-width:720px){.tl>div{grid-template-columns:minmax(0,1fr);gap:8px}}
+.bul{list-style:none;padding:0;display:grid;gap:8px}
+.bul li{display:grid;grid-template-columns:24px minmax(0,1fr);gap:12px;align-items:start}
+.pts{list-style:none;padding:0;display:grid;gap:8px}
+.pts li{display:grid;grid-template-columns:6px minmax(0,1fr);gap:12px}
+.pts li::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--accent);margin-top:10px}
+.cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,280px),1fr));gap:12px}
+.cols .card{display:grid;gap:12px;align-content:start}
+
+details{border-top:1px solid var(--line);padding-top:10px}
+summary{cursor:pointer;font-weight:600;color:var(--accent-text);min-height:32px}
+details p{margin-top:6px;color:var(--muted)}
+
+.prog{height:6px;background:var(--surface-2);border-radius:3px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--accent);transition:width .15s}
+.chk{display:grid;grid-template-columns:20px minmax(0,1fr);gap:10px;align-items:start;line-height:1.45;cursor:pointer;padding-block:2px}
+.chk input{appearance:none;-webkit-appearance:none;width:20px;height:20px;margin:1px 0 0;border:1px solid var(--line-strong);border-radius:6px;background:var(--bg);display:grid;place-items:center;cursor:pointer}
+.chk input:checked{background:var(--accent);border-color:var(--accent)}
+.chk input:checked::after{content:"";width:5px;height:10px;border:solid #fff;border-width:0 2px 2px 0;rotate:45deg;margin-top:-2px}
+.chk input:checked+span{text-decoration:line-through;color:var(--muted)}
+
+footer{background:var(--cover-bg);color:var(--cover-fg)}
+footer .wrap{display:grid;gap:24px;padding-block:48px}
+footer .logo{height:24px}
+footer h2{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--cover-muted)}
+footer ul{list-style:none;padding:0;display:grid;gap:6px;font-size:14px;color:var(--cover-muted)}
+@media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <symbol id="i-copy" viewBox="0 0 24 24"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15H4a1 1 0 0 1-1-1V4a1 1 0 0 1 1-1h10a1 1 0 0 1 1 1v1"/></symbol>
+  <symbol id="i-alert" viewBox="0 0 24 24"><path d="M12 4 2.5 20h19z"/><path d="M12 10v5M12 17.5v.01"/></symbol>
+  <symbol id="i-chat" viewBox="0 0 24 24"><path d="M21 12a8 8 0 0 1-11.6 7.1L4 20.5l1.4-5.2A8 8 0 1 1 21 12z"/></symbol>
+  <symbol id="i-phone" viewBox="0 0 24 24"><path d="M21 16.5v3a1.5 1.5 0 0 1-1.6 1.5A17 17 0 0 1 3 4.6 1.5 1.5 0 0 1 4.5 3h3l1.5 4.5-2 1.5a13 13 0 0 0 8 8l1.5-2z"/></symbol>
+</svg>
+
+<header class="cover">
+  <div class="watermark" aria-hidden="true"></div>
+  <div class="wrap">
+    <div class="cover-top"><div class="logo" role="img" aria-label="Hurtz"></div><div class="cover-info">Kit comercial para clínicas</div></div>
+    <div class="cover-text">
+      <h1><em>Sinal</em> antecipado</h1>
+      <p class="cover-sub">Um passo a passo para a secretária cobrar o sinal, garantir o horário do paciente e reduzir as faltas.</p>
+    </div>
+    <div class="nums">
+      <div><b>8</b><span>passos da secretária</span></div>
+      <div><b>15</b><span>mensagens prontas</span></div>
+      <div><b>20</b><span>respostas a objeções</span></div>
+      <div><b>30</b><span>dias para implantar</span></div>
+    </div>
+  </div>
+</header>
+
+<div class="viewbar"><div class="wrap">
+  <div class="switch" role="group" aria-label="Área do kit">
+    <button type="button" id="view-sec">Atendimento</button>
+    <button type="button" id="view-ges">Gestor</button>
+  </div>
+  <p class="v-sec">Área da secretária, para usar durante as conversas.</p>
+  <p class="v-ges">Área do gestor, para definir regras e acompanhar resultados.</p>
+</div></div>
+
+<nav aria-label="Seções do kit"><div class="wrap">
+  <div class="logo" role="img" aria-label="Hurtz"></div>
+  <div class="links">
+    <a class="v-sec" href="#paciente">Paciente</a><a class="v-sec" href="#passos">Passos</a><a class="v-sec" href="#situacoes">Situações</a><a class="v-sec" href="#objecoes">Objeções</a><a class="v-sec" href="#atalhos">Atalhos</a><a class="v-sec" href="#rotina">Rotina</a><a class="v-sec" href="#treino">Treino</a><a class="v-sec" href="#clinica">Área do gestor</a>
+    <a class="v-ges" href="#paciente">Atendimento</a><a class="v-ges" href="#clinica">Clínica</a><a class="v-ges" href="#fluxo">Fluxo</a><a class="v-ges" href="#regras">Regras</a><a class="v-ges" href="#legal">Legal</a><a class="v-ges" href="#modelos">Modelos</a><a class="v-ges" href="#conta">Conta</a><a class="v-ges" href="#implantacao">Implantação</a><a class="v-ges" href="#indicadores">Indicadores</a><a class="v-ges" href="#checklist">Checklist</a>
+  </div>
+</div></nav>
+
+<main>
+<!-- ÁREA DA SECRETÁRIA -->
+<section id="paciente" class="v-sec"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Paciente atual</div>
+    <h2>Preencha uma vez e copie as mensagens prontas</h2>
+    <p class="support">Os dados aparecem em todas as mensagens desta área. Eles não ficam salvos e somem ao fechar a página.</p>
+  </div>
+  <div class="alert" id="setup-alert" hidden><svg class="ico"><use href="#i-alert"/></svg><div>Faltam dados da clínica, como chave Pix e titular. <a href="#clinica" id="go-clinic">Preencher na área do gestor</a>.</div></div>
+  <div class="card block">
+    <div class="form">
+      <label for="p-nome">Nome do paciente<input id="p-nome" data-p="nome" autocomplete="off"></label>
+      <label for="p-dia">Dia da consulta<input id="p-dia" type="date" autocomplete="off"></label>
+      <label for="p-hora">Hora da consulta<input id="p-hora" type="time" autocomplete="off"></label>
+      <label for="p-opcoes">Horários com vaga<input id="p-opcoes" data-p="horarios" placeholder="9:00, 11:30 ou 15:00" autocomplete="off"></label>
+      <label for="p-limite">Hora limite para pagar<input id="p-limite" type="time" autocomplete="off"></label>
+      <label for="p-recebido">Valor recebido no Pix (R$)<input id="p-recebido" inputmode="decimal" autocomplete="off"></label>
+    </div>
+    <div class="actions">
+      <button type="button" class="btn" id="p-novo">Novo paciente</button>
+      <button type="button" class="btn ghost" id="p-mais2">Limite: agora + 2 horas</button>
+    </div>
+    <p class="hint">Fora do expediente, use 2 horas após a abertura do dia seguinte. O botão Copiar avisa o que falta preencher.</p>
+  </div>
+</div></section>
+
+<section id="passos" class="v-sec"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Passo a passo</div>
+    <h2>Oito passos da secretária</h2>
+    <p class="support">O horário só é confirmado depois que o pagamento é conferido.</p>
+  </div>
+  <div class="flowsteps">
+    <div class="fs"><div class="dot">1</div><div class="fs-body"><h3>Paciente quer agendar</h3><p>Informe a data mais próxima e os horários com vaga. Etiqueta: nenhuma.</p>
+      <div class="m"><div class="m-top"><span class="tiny">Oferta de horário</span><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
+      <div class="bubble"><div class="text" data-msg data-key="oferta">Oi, {nome}! A data mais próxima com vaga é {dia}, com {profissional}. Temos estes horários: {horarios}. A consulta custa R$ {valor2}. Qual horário fica melhor para você?</div></div></div>
+    </div></div>
+    <div class="fs"><div class="dot">2</div><div class="fs-body"><h3>Paciente escolhe o horário</h3><p>Envie a ficha de dados para o prontuário. Etiqueta: Aguardando ficha.</p>
+      <div class="m"><div class="m-top"><span class="tiny">Ficha de dados</span><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
+      <div class="bubble"><div class="text" data-msg data-key="ficha">Para pré-agendar sua consulta, me envie por favor:
+
+Nome completo:
+CPF e RG:
+Data de nascimento:
+Gênero:
+Profissão:
+Endereço com CEP e cidade:
+E-mail:
+Seu telefone:
+Telefone de uma pessoa próxima:
+
+Esses dados são para o seu prontuário. No dia da consulta, traga seus documentos pessoais.</div></div>
+      <p class="hint">Apague as linhas que a clínica não usa no prontuário. Histórico de saúde fica para a consulta.</p></div>
+    </div></div>
+    <div class="fs"><div class="dot">3</div><div class="fs-body"><h3>Paciente devolve a ficha</h3><p>Confira os dados e peça apenas o que faltou. Marque na agenda como pré-agendado, com a hora limite para pagar. Etiqueta: Aguardando Pix.</p></div></div>
+    <div class="fs"><div class="dot">4</div><div class="fs-body"><h3>Envie a mensagem do sinal</h3><p>Envie primeiro o sinal e, logo depois, a remarcação.</p>
+      <div class="m"><div class="m-top"><span class="tiny">Pré-agendamento e sinal</span><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
+      <div class="bubble"><div class="text" data-msg data-key="sinal">Perfeito, {nome}! Já deixei sua consulta pré-agendada para {dia} às {hora}. 😃
+
+Para confirmar, pedimos um sinal de R$ {sinal2}, que garante sua data e horário.
+
+Não se preocupe: esse valor será descontado da consulta. No dia, você paga só os R$ {restante2} restantes.
+
+⚠️ Chave Pix:
+{chave}
+{titular}
+
+Seu horário fica reservado até as {hora limite}. Depois do pagamento, é só me enviar o comprovante por aqui. Agradecemos! 🫶🏻</div></div></div>
+      <div class="m"><div class="m-top"><span class="tiny">Remarcação, em outra mensagem</span><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
+      <div class="bubble"><div class="text" data-msg data-key="remarcar">Se precisar mudar, é só avisar até 24 horas antes. Remarcamos sem custo ou devolvemos o valor. Nossa política completa está aqui: {link}</div></div></div>
+    </div></div>
+    <div class="fs"><div class="dot">5</div><div class="fs-body"><h3>Receba o comprovante</h3><p>Confira valor, data e pagador no extrato do banco. A imagem sozinha não basta. Se faltar pagamento 30 minutos antes da hora limite, envie o lembrete.</p>
+      <div class="m"><div class="m-top"><span class="tiny">Lembrete de pagamento pendente</span><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
+      <div class="bubble"><div class="text" data-msg data-key="lembrete">Oi, {nome}! Seu horário de {dia} às {hora} fica reservado até as {hora limite}. Quer que eu mantenha para você?</div></div></div>
+    </div></div>
+    <div class="fs"><div class="dot">6</div><div class="fs-body"><h3>Confirme a consulta</h3><p>Mude o status para sinal pago e registre o valor. Etiqueta: Sinal pago.</p>
+      <div class="m"><div class="m-top"><span class="tiny">Sinal recebido</span><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
+      <div class="bubble"><div class="text" data-msg data-key="recebido">Reserva confirmada, {nome}! {dia} às {hora}, com {profissional}, em {endereco}. Sinal recebido: R$ {sinal2}. Valor a pagar no dia: R$ {restante2}. Remarcação sem custo até {prazo}.</div></div></div>
+    </div></div>
+    <div class="fs"><div class="dot">7</div><div class="fs-body"><h3>48 horas antes</h3><p>Peça a confirmação de presença. Etiqueta: Confirmar 48 h. Se o paciente remarcar, ofereça a vaga à lista de espera.</p>
+      <div class="m"><div class="m-top"><span class="tiny">Confirmação de presença</span><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
+      <div class="bubble"><div class="text" data-msg data-key="confirmar">Oi, {nome}! Sua consulta é {dia} às {hora}, em {endereco}, com sinal já pago. Responda 1 para confirmar ou 2 para remarcar. Você pode remarcar sem custo até {prazo}.</div></div></div>
+    </div></div>
+    <div class="fs"><div class="dot">8</div><div class="fs-body"><h3>No dia</h3><p>Desconte o sinal, cobre o restante e registre o atendimento. Em caso de falta, registre o status e envie a mensagem.</p>
+      <div class="m t-med"><div class="m-top"><span class="tiny">Depois da falta</span><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
+      <div class="bubble"><div class="text" data-msg>Oi, {nome}! Sentimos sua falta hoje. Seu sinal de R$ {sinal2} segue como crédito. Quer escolher uma nova data ou prefere a devolução?</div></div></div>
+      <div class="m t-outras"><div class="m-top"><span class="tiny">Depois da falta</span><span class="chan"><svg class="ico"><use href="#i-chat"/></svg>WhatsApp</span></div>
+      <div class="bubble"><div class="text" data-msg>Oi, {nome}! Sentimos sua falta hoje. Conforme a política que você recebeu, o sinal não é reembolsável nesse caso. Se algo aconteceu, me conte para vermos como ajudar. Quer agendar uma nova data?</div></div>
+      <p class="hint">Use esta versão só depois de validar a retenção com o conselho e o advogado.</p></div>
+    </div></div>
+  </div>
+</div></section>
+
+<section id="situacoes" class="v-sec"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Se acontecer</div>
+    <h2>Situações fora do caminho</h2>
+    <p class="support">Cada situação tem uma ação e, quando precisa, uma mensagem pronta.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Situação</th><th>O que a secretária faz</th></tr></thead>
+    <tbody>
+    <tr><td>Prazo venceu sem resposta</td><td>Libera o horário e envia o aviso de vaga liberada</td></tr>
+    <tr><td>Pedido fora do expediente</td><td>Usa como hora limite 2 horas após a abertura do dia seguinte</td></tr>
+    <tr><td>Comprovante não aparece no extrato</td><td>Mantém como pré-agendado e pede novo comprovante</td></tr>
+    <tr><td>Pix de valor diferente</td><td>Pede o ajuste antes de confirmar</td></tr>
+    <tr><td>Outra pessoa pagou</td><td>Registra o nome do pagador. A devolução vai para a conta de origem</td></tr>
+    <tr><td>Paciente pede para pagar depois</td><td>Oferece a lista de encaixes ou nova data, sem segurar a vaga</td></tr>
+    <tr><td>Paciente relata urgência</td><td>Não fala em sinal e passa ao protocolo de urgência</td></tr>
+    </tbody>
+  </table></div>
+  <div class="msgs">
+    <div class="m"><span class="tiny">Novo comprovante</span><div class="bubble"><div class="text" data-msg>Oi, {nome}! Ainda não localizei o Pix de R$ {sinal2} no extrato. Pode conferir a transação e me enviar o comprovante de novo?</div></div></div>
+    <div class="m"><span class="tiny">Ajuste do valor do Pix</span><div class="bubble"><div class="text" data-msg>Oi, {nome}! Recebemos R$ {recebido2}, e o sinal é de R$ {sinal2}. Pode enviar a diferença de R$ {diferenca}? Assim já confirmo o seu horário.</div></div></div>
+    <div class="m"><span class="tiny">Vaga liberada</span><div class="bubble"><div class="text" data-msg>Oi, {nome}! O prazo da reserva de {dia} às {hora} terminou, e a vaga foi liberada. Se ainda quiser agendar, é só me chamar para vermos uma nova data.</div></div></div>
+    <div class="m"><span class="tiny">Oferta para a lista de espera</span><div class="bubble"><div class="text" data-msg>Oi, {nome}! Abriu uma vaga {dia} às {hora}, com {profissional}. Quer ficar com esse horário?</div></div></div>
+    <div class="m"><span class="tiny">Remarcação pedida pelo paciente</span><div class="bubble"><div class="text" data-msg>Tudo certo, {nome}! Sua consulta foi remarcada para {dia} às {hora}. Seu sinal de R$ {sinal2} segue válido. No dia, você paga R$ {restante2}.</div></div></div>
+    <div class="m"><span class="tiny">Devolução do sinal</span><div class="bubble"><div class="text" data-msg>Oi, {nome}! Devolvemos hoje R$ {sinal2} por Pix para a conta de origem. O comprovante segue em anexo. Se quiser agendar outra data, é só me chamar.</div></div></div>
+    <div class="m"><div class="m-top"><span class="tiny">Roteiro de telefone</span><span class="chan"><svg class="ico"><use href="#i-phone"/></svg>Telefone</span></div><div class="bubble audio"><div class="text" data-msg>{nome}, a data mais próxima com vaga é {dia}, com {profissional}. Temos estes horários: {horarios}. Qual fica melhor para você? Vou enviar agora a ficha de dados pelo WhatsApp. Quando você devolver, mando os dados do sinal de R$ {sinal2}, que é descontado da consulta. Pode ser neste número?</div></div></div>
+  </div>
+</div></section>
+
+<section id="objecoes" class="v-sec"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Objeções</div>
+    <h2>Vinte respostas sobre o sinal</h2>
+    <p class="support">Responda só ao que foi perguntado. Termine com uma pergunta simples. Depois de duas tentativas, ofereça encaixe ou outra data.</p>
+  </div>
+  <div class="alert"><svg class="ico"><use href="#i-alert"/></svg><div><b>Urgência ou muita dor.</b> Não cobre sinal. Passe ao profissional responsável ou oriente a procurar o pronto-socorro, conforme o protocolo da clínica.</div></div>
+  <div class="block">
+    <label class="tiny" for="o-busca">Buscar objeção</label>
+    <input class="search" id="o-busca" type="search" placeholder="Digite golpe, caro, salário..." autocomplete="off">
+    <p class="hint" id="o-vazio" hidden>Nenhuma resposta encontrada. Tente outra palavra.</p>
+  </div>
+
+  <div class="block ogrupo"><h3 class="sub">Confiança</h3><div class="objs">
+    <div class="card obj"><h3>"Isso não é golpe?"</h3><div class="text" data-msg>É bom mesmo conferir! Você pode ver nosso endereço e redes sociais em {redes}. No Pix, vai aparecer {titular}. Se preferir, pode pagar pessoalmente na recepção até {hora limite}.</div></div>
+    <div class="card obj"><h3>"Não confio em pagar antes."</h3><div class="text" data-msg>Faz sentido. Envio os dados da clínica, o CNPJ e a política por escrito para você conferir antes. O Pix sai em nome de {titular}.</div></div>
+    <div class="card obj"><h3>"Por que o Pix está em outro nome?"</h3><div class="text" data-msg>{titular} é o responsável pela clínica, e a conta é a usada nos nossos recebimentos. Posso enviar os dados da clínica para você conferir.</div><span class="tag">Só se for verdade na clínica</span></div>
+    <div class="card obj"><h3>"Outra clínica não cobra."</h3><div class="text" data-msg>Cada clínica organiza a agenda do seu jeito. Aqui, a reserva garante que você será atendido no horário combinado.</div><span class="tag">Só se a agenda cumprir o horário</span></div>
+  </div></div>
+
+  <div class="block ogrupo"><h3 class="sub">Medo de perder o valor</h3><div class="objs">
+    <div class="card obj t-med"><h3>"Perco o dinheiro se eu faltar?"</h3><div class="text" data-msg>Não. O valor fica como crédito para nova data ou pode ser devolvido.</div></div>
+    <div class="card obj t-outras"><h3>"Perco o dinheiro se eu faltar?"</h3><div class="text" data-msg>Se avisar até 24 horas antes, não. Sem aviso, o sinal fica retido, como consta na política.</div></div>
+    <div class="card obj"><h3>"E se eu não puder ir?"</h3><div class="text" data-msg>É só avisar até 24 horas antes. Remarcamos sem custo ou devolvemos o valor.</div></div>
+    <div class="card obj"><h3>"E se o profissional cancelar?"</h3><div class="text" data-msg>Avisamos você. Aí você escolhe entre nova data e devolução integral.</div></div>
+    <div class="card obj"><h3>"Tenho convênio."</h3><div class="text" data-msg>Vou verificar como funciona para o seu plano e já retorno. O sinal vale para atendimentos particulares.</div></div>
+  </div></div>
+
+  <div class="block ogrupo"><h3 class="sub">Resistência a pagar antes</h3><div class="objs">
+    <div class="card obj"><h3>"Nunca paguei antes de consultar."</h3><div class="text" data-msg>Entendo. O sinal já faz parte do valor da consulta. Ele reserva o tempo do profissional para você.</div></div>
+    <div class="card obj"><h3>"Por que preciso pagar isso?"</h3><div class="text" data-msg>Nossa agenda tem horários limitados. Com a reserva, conseguimos garantir o seu horário sem espera e sem encaixes.</div></div>
+    <div class="card obj"><h3>"Tenho certeza de que vou. Preciso pagar mesmo assim?"</h3><div class="text" data-msg>Que bom! O sinal é o que confirma a vaga para todos os pacientes, e o valor já sai da sua consulta.</div></div>
+    <div class="card obj"><h3>"Já sou paciente da clínica."</h3><div class="text" data-msg>Ficamos felizes em receber você de novo! A reserva agora funciona assim para todos, e o valor é descontado da consulta.</div></div>
+  </div></div>
+
+  <div class="block ogrupo"><h3 class="sub">Dinheiro</h3><div class="objs">
+    <div class="card obj"><h3>"Está caro."</h3><div class="text" data-msg>O valor total continua o mesmo. São R$ {sinal2} agora e R$ {restante2} no dia. Quer que eu veja outra data que fique melhor para você?</div></div>
+    <div class="card obj"><h3>"Posso pagar só quando receber o salário?"</h3><div class="text" data-msg>Claro. Quer que eu veja um horário depois dessa data? Assim você garante a vaga quando fizer o pagamento.</div></div>
+    <div class="card obj"><h3>"Posso pagar uma parte agora?"</h3><div class="text" data-msg>O sinal já é uma parte da consulta, por isso a reserva confirma com R$ {sinal2}. Quer que eu envie um link para pagar no cartão?</div></div>
+    <div class="card obj"><h3>"Só tenho cartão."</h3><div class="text" data-msg>Sem problema. Envio um link para pagar no cartão.</div></div>
+  </div></div>
+
+  <div class="block ogrupo"><h3 class="sub">Dúvida ou silêncio</h3><div class="objs">
+    <div class="card obj"><h3>"Pago tudo no dia."</h3><div class="text" data-msg>Entendo. Para esse horário, a reserva é feita com o sinal. Sem ele, posso colocar você na lista de encaixes e avisar se abrir uma vaga.</div></div>
+    <div class="card obj"><h3>"Vou pensar."</h3><div class="text" data-msg>Claro. Consigo segurar esse horário até as {hora limite}. Depois disso, ele volta para a agenda. Posso chamar você antes?</div></div>
+    <div class="card obj"><h3>"Quero falar com o profissional antes de pagar."</h3><div class="text" data-msg>Sem problema. Me conte sua dúvida, e eu verifico com a equipe. Enquanto isso, seguro o horário até as {hora limite}.</div></div>
+    <div class="card obj"><h3>Paciente some depois de receber o Pix</h3><div class="text" data-msg>Ainda quer manter o horário de {dia} às {hora}? Se preferir outra data, é só me dizer.</div></div>
+  </div></div>
+</div></section>
+
+<section id="atalhos" class="v-sec"><div class="wrap">
+  <div class="head">
+    <div class="kicker">WhatsApp Business</div>
+    <h2>Atalhos e etiquetas</h2>
+    <p class="support">Com as respostas rápidas, a secretária digita a barra e escolhe a mensagem. As etiquetas mostram quem precisa de retorno.</p>
+  </div>
+  <div class="block">
+    <h3 class="sub">Como cadastrar uma resposta rápida</h3>
+    <ol class="bul">
+      <li><div class="dot">1</div><div>Abra as configurações do WhatsApp Business e entre em Ferramentas comerciais. O nome pode variar conforme a versão.</div></li>
+      <li><div class="dot">2</div><div>Abra Respostas rápidas e adicione uma nova.</div></li>
+      <li><div class="dot">3</div><div>Copie o texto abaixo, cole na mensagem e use o atalho da tabela.</div></li>
+      <li><div class="dot">4</div><div>Na conversa, digite a barra, escolha o atalho e troque o que estiver entre colchetes.</div></li>
+    </ol>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Atalho</th><th>Mensagem</th><th>Texto para cadastrar</th></tr></thead>
+    <tbody>
+    <tr><td><code>/oferta</code></td><td>Oferta de horário</td><td><button type="button" class="copy" data-tpl="oferta"></button></td></tr>
+    <tr><td><code>/ficha</code></td><td>Ficha de dados</td><td><button type="button" class="copy" data-tpl="ficha"></button></td></tr>
+    <tr><td><code>/sinal</code></td><td>Pré-agendamento e sinal</td><td><button type="button" class="copy" data-tpl="sinal"></button></td></tr>
+    <tr><td><code>/remarcar</code></td><td>Regra de remarcação</td><td><button type="button" class="copy" data-tpl="remarcar"></button></td></tr>
+    <tr><td><code>/lembrete</code></td><td>Lembrete de pagamento</td><td><button type="button" class="copy" data-tpl="lembrete"></button></td></tr>
+    <tr><td><code>/recebido</code></td><td>Sinal recebido</td><td><button type="button" class="copy" data-tpl="recebido"></button></td></tr>
+    <tr><td><code>/confirmar</code></td><td>Confirmação de presença</td><td><button type="button" class="copy" data-tpl="confirmar"></button></td></tr>
+    </tbody>
+  </table></div>
+  <div class="block">
+    <h3 class="sub">Etiquetas de conversa</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Etiqueta</th><th>Quando usar</th><th>Próxima ação</th></tr></thead>
+      <tbody>
+      <tr><td>Aguardando ficha</td><td>A ficha foi enviada</td><td>Enviar o sinal quando a ficha voltar</td></tr>
+      <tr><td>Aguardando Pix</td><td>A mensagem do sinal foi enviada</td><td>Conferir o extrato ou liberar a vaga na hora limite</td></tr>
+      <tr><td>Sinal pago</td><td>O pagamento foi conferido</td><td>Enviar a confirmação da reserva</td></tr>
+      <tr><td>Confirmar 48 h</td><td>Faltam 2 dias para a consulta</td><td>Pedir a confirmação de presença</td></tr>
+      <tr><td>Lista de espera</td><td>O paciente quer uma vaga mais próxima</td><td>Avisar quando abrir um horário</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div></section>
+
+<section id="rotina" class="v-sec"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Rotina</div>
+    <h2>Três revisões por dia</h2>
+    <p class="support">Com estas revisões, nenhum Pix ou confirmação fica para trás.</p>
+  </div>
+  <div class="cols">
+    <div class="card"><h3>Abertura</h3><ul class="pts"><li>Responda os pedidos da noite.</li><li>Confira os Pix recebidos no extrato.</li><li>Envie as confirmações de 48 horas.</li><li>Veja quem tem consulta hoje e quanto falta pagar.</li></ul></div>
+    <div class="card"><h3>Meio do dia</h3><ul class="pts"><li>Revise a etiqueta Aguardando Pix.</li><li>Envie os lembretes de pagamento.</li><li>Libere as vagas com prazo vencido.</li><li>Ofereça as vagas à lista de espera.</li></ul></div>
+    <div class="card"><h3>Fechamento</h3><ul class="pts"><li>Registre faltas e envie as mensagens.</li><li>Faça as devoluções combinadas.</li><li>Atualize os status e as etiquetas.</li><li>Anote objeções novas para o gestor.</li></ul></div>
+  </div>
+</div></section>
+
+<section id="treino" class="v-sec"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Treino</div>
+    <h2>Cinco situações para praticar</h2>
+    <p class="support">Responda antes de abrir a resposta. Treine antes de atender pacientes reais.</p>
+  </div>
+  <div class="objs">
+    <div class="card block"><h3>A paciente envia um comprovante, mas o Pix não aparece no extrato. O que você faz?</h3><details><summary>Ver resposta</summary><p>Mantenha como pré-agendado e envie a mensagem Novo comprovante. Só confirme depois que o valor aparecer no extrato.</p></details></div>
+    <div class="card block"><h3>O paciente diz que está com muita dor e precisa de atendimento hoje. O que você faz?</h3><details><summary>Ver resposta</summary><p>Não fale em sinal. Passe ao profissional responsável ou siga o protocolo de urgência da clínica.</p></details></div>
+    <div class="card block"><h3>O sinal é de R$ 100, e o paciente enviou R$ 50. O que você faz?</h3><details><summary>Ver resposta</summary><p>Preencha o valor recebido e envie a mensagem Ajuste do valor do Pix. Confirme só depois de receber a diferença.</p></details></div>
+    <div class="card block"><h3>A hora limite passou, e o paciente não respondeu. O que você faz?</h3><details><summary>Ver resposta</summary><p>Libere o horário na agenda, envie a mensagem Vaga liberada e ofereça a vaga à lista de espera.</p></details></div>
+    <div class="card block"><h3>O paciente avisa 3 horas antes que não vai. O que você faz?</h3><details><summary>Ver resposta</summary><p class="t-med">Registre o aviso tardio. O sinal vira crédito para nova data ou é devolvido a pedido. Ofereça a vaga à lista de espera.</p><p class="t-outras">Aplique a regra aprovada pela clínica e registre o caso. Se houver imprevisto, passe ao gestor. Ofereça a vaga à lista de espera.</p></details></div>
+    <div class="card block"><h3>Autoavaliação</h3><p class="hint">Acertou as cinco? Peça ao gestor para simular as objeções com você, em dupla, antes de começar.</p></div>
+  </div>
+</div></section>
+
+<!-- ÁREA DO GESTOR -->
+<section id="clinica" class="v-ges"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Comece aqui</div>
+    <h2>O horário vira um compromisso dos dois lados</h2>
+    <p class="support">A clínica reserva o tempo do profissional. O paciente garante a vaga com um valor abatido do atendimento. Quem comparece não paga nada a mais.</p>
+  </div>
+  <div class="card block">
+    <h3>Preencha uma vez. As mensagens do kit se ajustam à sua clínica.</h3>
+    <div class="form">
+      <label for="f-track">Profissão<select id="f-track"><option value="med">Medicina</option><option value="outras">Outras profissões</option></select></label>
+      <label for="f-clinica">Nome da clínica<input id="f-clinica" data-field="clinica" autocomplete="off"></label>
+      <label for="f-cnpj">CNPJ<input id="f-cnpj" data-field="cnpj" autocomplete="off"></label>
+      <label for="f-valor">Valor da consulta (R$)<input id="f-valor" data-field="valor" inputmode="decimal" autocomplete="off"></label>
+      <label for="f-sinal">Valor do sinal (R$)<input id="f-sinal" data-field="sinal" inputmode="decimal" autocomplete="off"></label>
+      <label for="f-prof">Profissional<input id="f-prof" data-field="profissional" autocomplete="off"></label>
+      <label for="f-chave">Chave Pix<input id="f-chave" data-field="chave" autocomplete="off"></label>
+      <label for="f-titular">Titular do Pix<input id="f-titular" data-field="titular" autocomplete="off"></label>
+      <label for="f-end">Endereço<input id="f-end" data-field="endereco" autocomplete="off"></label>
+      <label for="f-link">Link da política<input id="f-link" data-field="link" autocomplete="off"></label>
+      <label for="f-redes">Site ou redes sociais<input id="f-redes" data-field="redes" autocomplete="off"></label>
+      <label for="f-prazo">Prazo de crédito (dias)<input id="f-prazo" data-field="dias" inputmode="numeric" placeholder="90" autocomplete="off"></label>
+    </div>
+    <p class="hint">Os dados da clínica ficam só neste navegador. Em cada computador da recepção, é preciso preencher uma vez. Valores iniciais de exemplo: consulta de R$ 250 e sinal de R$ 100.</p>
+  </div>
+</div></section>
+
+<section id="fluxo" class="v-ges"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Fluxo</div>
+    <h2>Do pedido ao atendimento</h2>
+    <p class="support">O horário só é confirmado depois que o pagamento é conferido.</p>
+  </div>
+  <div class="flow" role="img" aria-label="Fluxo do sinal. O paciente escolhe o horário, preenche a ficha e recebe o pré-agendamento com Pix. Se pagar em 2 horas, a reserva é confirmada. Depois da confirmação em 48 horas, ele comparece, avisa até 24 horas antes ou falta.">
+    <svg viewBox="0 0 760 372">
+      <defs><marker id="seta" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z" style="fill:var(--line-strong)"/></marker></defs>
+      <path class="l" d="M196 66H214" marker-end="url(#seta)"/><path class="l" d="M386 66H406" marker-end="url(#seta)"/><path class="l" d="M534 66H564" marker-end="url(#seta)"/><path class="l" d="M470 106V152" marker-end="url(#seta)"/><path class="l" d="M384 176H336" marker-end="url(#seta)"/><path class="l" d="M250 200V240"/><path class="l" d="M134 240H626"/><path class="l" d="M134 240V268" marker-end="url(#seta)"/><path class="l" d="M380 240V268" marker-end="url(#seta)"/><path class="l" d="M626 240V268" marker-end="url(#seta)"/>
+      <rect class="b" x="24" y="42" width="172" height="48" rx="8"/><rect class="b" x="214" y="42" width="172" height="48" rx="8"/><rect class="b" x="564" y="42" width="172" height="48" rx="8"/><rect class="b" x="384" y="152" width="172" height="48" rx="8"/><rect class="b" x="164" y="152" width="172" height="48" rx="8"/><polygon class="b" points="406,66 470,26 534,66 470,106"/>
+      <rect class="d" x="24" y="268" width="220" height="80" rx="8"/><rect class="b" x="270" y="268" width="220" height="80" rx="8"/><rect class="b" x="516" y="268" width="220" height="80" rx="8"/>
+      <g text-anchor="middle"><text x="110" y="62">Escolhe o horário</text><text x="110" y="80">Preenche a ficha</text><text x="300" y="70">Pré-agenda com Pix</text><text x="470" y="70">Pagou em 2 h?</text><text x="650" y="70">Volta para a agenda</text><text x="470" y="180">Reserva confirmada</text><text x="250" y="180">Confirmação em 48 h</text><text class="s" x="549" y="56">não</text></g>
+      <text class="s" x="480" y="134">sim</text>
+      <text class="n" x="38" y="293">Comparece</text><text class="n" x="284" y="293">Avisa até 24 h antes</text><text class="n" x="530" y="293">Falta ou avisa tarde</text>
+      <text class="s" x="38" y="313">Sinal abatido do valor</text><text class="s" x="38" y="331">Paga o restante no dia</text><text class="s" x="284" y="313">Remarca sem custo ou</text><text class="s" x="284" y="331">recebe devolução integral</text><text class="s" x="530" y="313">Medicina: crédito ou devolução</text><text class="s" x="530" y="331">Outras: retenção, se validada</text>
+    </svg>
+  </div>
+  <div class="out">Registre um status para cada etapa na agenda: reservado, sinal pago, confirmado, atendido, remarcado, cancelado e falta.</div>
+  <div class="block">
+    <h3 class="sub">Por que a mensagem do sinal é escrita assim</h3>
+    <div class="tbl"><table>
+      <thead><tr><th>Elemento</th><th>Motivo</th></tr></thead>
+      <tbody>
+      <tr><td>Nome, dia e hora</td><td>O paciente confere o horário antes de pagar</td></tr>
+      <tr><td>A palavra sinal</td><td>Evita o tom de taxa e deixa claro que o valor faz parte da consulta</td></tr>
+      <tr><td>Valor restante em reais</td><td>Mostra que a consulta não ficou mais cara</td></tr>
+      <tr><td>Titular igual ao nome exibido no Pix</td><td>Reduz a desconfiança e o risco de golpe</td></tr>
+      <tr><td>Hora limite</td><td>Dá um motivo para pagar agora e permite liberar a vaga</td></tr>
+      <tr><td>Pedido do comprovante e agradecimento no final</td><td>Fecha a mensagem com a próxima ação do paciente</td></tr>
+      <tr><td>Remarcação em outra mensagem</td><td>Deixa a regra fácil de achar e registra o aviso antes do pagamento</td></tr>
+      </tbody>
+    </table></div>
+  </div>
+</div></section>
+
+<section id="regras" class="v-ges"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Regras</div>
+    <h2>Nove regras da política de sinal</h2>
+    <p class="support">O sinal fica entre 30% e 50% do valor e é abatido por inteiro. O destino do sinal na falta muda por profissão.</p>
+  </div>
+  <div class="rules">
+    <div><div class="n">Regra 1</div><h3>Valor</h3><p>De 30% a 50% da consulta, ou valor fixo. Exemplo: R$ 100 em consulta de R$ 250, com R$ 150 pagos no dia.</p></div>
+    <div><div class="n">Regra 2</div><h3>Abatimento</h3><p>100% no dia do atendimento. Diga sempre abatido. Nunca diga taxa.</p></div>
+    <div><div class="n">Regra 3</div><h3>Pagamento</h3><p>Pix ou link, em até 2 horas após reservar. Depois disso, o horário volta para a agenda.</p></div>
+    <div><div class="n">Regra 4</div><h3>Remarcação</h3><p>Grátis até 24 horas antes. O sinal segue válido para a nova data.</p></div>
+    <div><div class="n">Regra 5</div><h3>Cancelamento com 24 horas ou mais</h3><p>Devolução integral por Pix, ou crédito se o paciente preferir. Sem desconto.</p></div>
+    <div class="t-med"><div class="n">Regra 6</div><h3>Falta ou aviso tardio</h3><p>Sem retenção. O sinal vira crédito para nova data ou é devolvido a pedido.</p></div>
+    <div class="t-outras"><div class="n">Regra 6</div><h3>Falta ou aviso tardio</h3><p>Retenção limitada ao sinal, só após validar com o conselho e o jurídico. Deve constar na política aceita antes do pagamento.</p></div>
+    <div><div class="n">Regra 7</div><h3>Faltas repetidas</h3><p>Reserva só com pagamento integral antecipado, ou encaixe no dia. Na medicina, valide com o CRM.</p></div>
+    <div><div class="n">Regra 8</div><h3>Clínica atrasa ou cancela</h3><p>Devolução integral ou nova data, à escolha do paciente.</p></div>
+    <div><div class="n">Regra 9</div><h3>Doença ou imprevisto</h3><p>Nova data sem custo. O gestor decide e registra.</p></div>
+  </div>
+  <div class="out"><b>Onde não aplicar.</b> Urgência e emergência, retorno já incluído na consulta e atendimento por convênio. Convênio tem regras contratuais próprias, por isso o kit trata apenas do particular.</div>
+</div></section>
+
+<section id="legal" class="v-ges"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Cuidados legais</div>
+    <h2>Valide antes de lançar</h2>
+    <p class="support">Na medicina, cobrar por consulta não realizada é o maior risco do projeto. Esta seção orienta a conversa com o advogado e o conselho. Ela não substitui parecer jurídico.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Tema</th><th>O que diz</th><th>O que fazer</th></tr></thead>
+    <tbody>
+    <tr><td>Medicina: taxa ou multa por falta</td><td><a href="https://www.migalhas.com.br/depeso/428952/taxa-por-falta-do-paciente-veja-o-que-diz-o-cfm">Artigo da Migalhas</a> relata manifestações do CFM contra taxa de agendamento e multa, com base no art. 59 do Código de Ética Médica</td><td>Não reter o sinal por falta. Oferecer crédito ou devolução</td></tr>
+    <tr><td>Medicina: cobrança antecipada</td><td>O <a href="https://sistemas.cfm.org.br/normas/arquivos/pareceres/PR/2011/2302_2011.pdf">Parecer CRM-PR 2302/2011</a> trata a cobrança antecipada de quem falta como infração ética. O entendimento pode variar por regional</td><td>Fazer consulta formal ao seu CRM antes de lançar</td></tr>
+    <tr><td>Odontologia e outras profissões</td><td>Não localizamos parecer específico do CFO ou de CRO. Cada conselho tem código próprio</td><td>Perguntar ao seu conselho por escrito antes de prever retenção</td></tr>
+    <tr><td>Urgência e emergência</td><td>O <a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12653.htm">art. 135-A do Código Penal</a> torna crime exigir garantia como condição para atendimento emergencial</td><td>Nunca pedir sinal nesses casos. Orientar a recepção a identificar e encaminhar</td></tr>
+    <tr><td>Desistência à distância</td><td>O <a href="https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm">art. 49 do CDC</a> dá 7 dias para desistir de contratação fora do estabelecimento, com devolução imediata</td><td>Reservas por WhatsApp ou telefone entram nesse caso. Perguntar ao advogado como isso afeta consultas marcadas dentro de 7 dias</td></tr>
+    <tr><td>Valor da retenção</td><td>O <a href="https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm">CDC</a> veda vantagem manifestamente excessiva (art. 39, V) e desvantagem exagerada (art. 51, IV)</td><td>Limitar ao sinal, com regra clara e igual para os dois lados</td></tr>
+    <tr><td>Dados do paciente</td><td>A LGPD (Lei 13.709/2018) se aplica a dados de saúde e de pagamento</td><td>Não pedir dado clínico por WhatsApp para cobrar. Restringir o acesso ao comprovante</td></tr>
+    <tr><td>Nota fiscal</td><td>O sinal é receita da clínica</td><td>Perguntar ao contador em que momento emitir a nota</td></tr>
+    </tbody>
+  </table></div>
+  <div class="out t-med"><b>Efeito no resultado.</b> Sem retenção, o sinal compromete menos o paciente. Por isso, confirmação ativa e lista de espera fazem parte do processo.</div>
+</div></section>
+
+<section id="modelos" class="v-ges"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Modelos</div>
+    <h2>Política, recibo e aviso</h2>
+    <p class="support">São pontos de partida e devem passar pelo advogado antes do uso. A política precisa ser aceita antes do pagamento. Registre o aceite por WhatsApp.</p>
+  </div>
+  <div class="msgs">
+    <div class="m"><span class="tiny">Política de agendamento</span>
+      <div class="bubble"><div class="text" data-msg>Política de agendamento de {clinica}, CNPJ {cnpj}
+
+1. Para reservar seu horário, é pedido um sinal de R$ {sinal2}, pago em até 2 horas após a reserva.
+2. O sinal é abatido integralmente do valor do atendimento, de R$ {valor2}.
+3. Você pode remarcar sem custo, ou cancelar com devolução integral, avisando até 24 horas antes.
+4. Em caso de falta ou aviso com menos de 24 horas, {clausula}
+5. Se a clínica cancelar ou remarcar, você escolhe entre nova data e devolução integral.
+6. Doença e imprevistos serão analisados pela clínica.
+7. Contratações feitas à distância seguem o direito de desistência previsto em lei.
+8. Atendimentos de urgência e emergência não dependem de sinal.
+9. Seus dados são usados apenas para agendamento, pagamento e contato sobre o atendimento.
+
+Ao pagar o sinal, você confirma que leu e concorda com esta política.</div></div>
+    </div>
+    <div class="m"><span class="tiny">Recibo do sinal</span>
+      <div class="bubble"><div class="text" data-msg>Recebemos de {nome do paciente}, CPF {CPF do paciente}, R$ {sinal2} em {data do pagamento}, por {forma de pagamento}, como sinal do atendimento de {data do atendimento}, a ser abatido do valor total de R$ {valor2}. {clinica}, CNPJ {cnpj}.</div></div>
+    </div>
+    <div class="m"><span class="tiny">Aviso para recepção e site</span>
+      <div class="bubble"><div class="text" data-msg>Nossos horários são reservados com um sinal, abatido integralmente do seu atendimento. Remarcação sem custo até 24 horas antes. Peça a política completa à recepção. Urgências não dependem de sinal.</div></div>
+    </div>
+  </div>
+</div></section>
+
+<section id="conta" class="v-ges"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Conta</div>
+    <h2>Quanto a falta custa</h2>
+    <p class="support">Use os números da agenda dos últimos 3 meses. Os valores iniciais são exemplos. A meta é uma hipótese de cálculo.</p>
+  </div>
+  <div class="calc">
+    <div class="card form">
+      <label for="c-ag">Agendamentos por mês<input id="c-ag" type="number" min="0" value="240"></label>
+      <label for="c-val">Valor médio (R$)<input id="c-val" type="number" min="0" value="250"></label>
+      <label for="c-hoje">Taxa de falta hoje (%)<input id="c-hoje" type="number" min="0" max="100" value="20"></label>
+      <label for="c-meta">Meta com sinal (%)<input id="c-meta" type="number" min="0" max="100" value="8"></label>
+    </div>
+    <div class="card result">
+      <div class="tiny">Receita recuperada por mês</div>
+      <div class="big" id="c-out" aria-live="polite">R$ 7.200</div>
+      <p id="c-det">A perda cai de R$ 12.000 (48 faltas) para R$ 4.800 (19 faltas).</p>
+    </div>
+  </div>
+</div></section>
+
+<section id="implantacao" class="v-ges"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Implantação</div>
+    <h2>Trinta dias até a decisão</h2>
+    <p class="support">O lançamento começa com piloto em uma agenda. A cobrança só começa com a aprovação do conselho e do advogado.</p>
+  </div>
+  <div class="tl">
+    <div><div><b>Semana 1</b><small>Gestor</small></div><div><p>Medir as faltas dos últimos 3 meses, definir regras, consultar conselho e advogado.</p><p>Entrega: linha de base e política em rascunho.</p></div></div>
+    <div><div><b>Semana 2</b><small>Gestor e recepção</small></div><div><p>Configurar Pix ou link, preencher os dados da clínica, cadastrar atalhos e etiquetas, ajustar status na agenda e treinar a equipe.</p><p>Entrega: modelos aprovados e equipe treinada.</p></div></div>
+    <div><div><b>Semana 3</b><small>Recepção</small></div><div><p>Rodar o piloto com novos pacientes em uma agenda.</p><p>Entrega: primeiros dados e objeções anotadas.</p></div></div>
+    <div><div><b>Semana 4</b><small>Gestor</small></div><div><p>Comparar com a linha de base, ajustar valor e mensagens, decidir a expansão.</p><p>Entrega: decisão de expandir, ajustar ou parar.</p></div></div>
+  </div>
+  <div class="block">
+    <h3 class="sub">Treinamento da equipe em 90 minutos</h3>
+    <ol class="bul">
+      <li><div class="dot">1</div><div>Por que o sinal existe. Mostre a conta da perda da própria clínica.</div></li>
+      <li><div class="dot">2</div><div>Regras. Valor, prazos, exceções e quem autoriza cada uma.</div></li>
+      <li><div class="dot">3</div><div>Simulação. Cada pessoa faz o treino e responde às objeções em dupla.</div></li>
+      <li><div class="dot">4</div><div>Urgência. Como identificar o caso e para quem passar, sem falar em sinal.</div></li>
+      <li><div class="dot">5</div><div>Rotina. Usar a área de atendimento, os atalhos, as etiquetas e as três revisões do dia.</div></li>
+    </ol>
+  </div>
+</div></section>
+
+<section id="indicadores" class="v-ges"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Indicadores</div>
+    <h2>Dois números decidem a expansão</h2>
+    <p class="support">A taxa de falta deve cair. A perda com agendamentos a menos deve ficar abaixo da receita recuperada. As metas são sugestões iniciais.</p>
+  </div>
+  <div class="tbl"><table>
+    <thead><tr><th>Indicador</th><th>Cálculo</th><th>Frequência</th><th>Meta sugerida</th></tr></thead>
+    <tbody>
+    <tr><td>Taxa de falta</td><td>Faltas ÷ consultas agendadas</td><td>Semanal</td><td>Queda de 50% sobre a linha de base</td></tr>
+    <tr><td>Adesão ao sinal</td><td>Sinais pagos ÷ sinais oferecidos</td><td>Semanal</td><td>70% ou mais</td></tr>
+    <tr><td>Agendamentos</td><td>Total de consultas marcadas</td><td>Semanal</td><td>Queda de até 10%</td></tr>
+    <tr><td>Tempo até pagar</td><td>Tempo entre oferta e comprovante</td><td>Semanal</td><td>Até 2 horas</td></tr>
+    <tr><td>Ocupação da agenda</td><td>Horários atendidos ÷ horários disponíveis</td><td>Mensal</td><td>Alta sobre a linha de base</td></tr>
+    <tr><td>Vagas reaproveitadas</td><td>Cancelamentos preenchidos pela lista de espera ÷ cancelamentos</td><td>Mensal</td><td>50% ou mais</td></tr>
+    <tr><td>Receita recuperada</td><td>Faltas evitadas × valor médio</td><td>Mensal</td><td>Maior que a receita perdida com agendamentos a menos</td></tr>
+    <tr><td>Reclamações</td><td>Queixas sobre o sinal</td><td>Semanal</td><td>Todas tratadas em até 1 dia útil</td></tr>
+    </tbody>
+  </table></div>
+  <div class="out"><b>Quando rever.</b> Adesão abaixo de 50% ou agendamentos com queda acima de 20%. Reduza o sinal, revise a mensagem e teste de novo por 2 semanas.</div>
+</div></section>
+
+<section id="checklist" class="v-ges"><div class="wrap">
+  <div class="head">
+    <div class="kicker">Checklist</div>
+    <h2>Comece a cobrar só com a validação concluída</h2>
+    <p class="support"><span id="k-count">0 de 16</span> itens concluídos.</p>
+  </div>
+  <div class="prog" role="progressbar" aria-label="Progresso do checklist" aria-valuemin="0" aria-valuemax="16" aria-valuenow="0" id="k-bar"><i></i></div>
+  <div class="cols">
+    <div class="card"><h3>Validação</h3>
+      <label class="chk"><input type="checkbox" id="k1"><span>Consulta ao conselho respondida por escrito</span></label>
+      <label class="chk"><input type="checkbox" id="k2"><span>Política e cláusula de falta aprovadas pelo advogado</span></label>
+      <label class="chk"><input type="checkbox" id="k3"><span>Nota fiscal definida com o contador</span></label>
+      <label class="chk"><input type="checkbox" id="k4"><span>Protocolo de urgência escrito e sem sinal</span></label>
+    </div>
+    <div class="card"><h3>Operação</h3>
+      <label class="chk"><input type="checkbox" id="k5"><span>Taxa de falta dos últimos 3 meses calculada</span></label>
+      <label class="chk"><input type="checkbox" id="k6"><span>Valor do sinal definido por tipo de atendimento</span></label>
+      <label class="chk"><input type="checkbox" id="k7"><span>Pix ou link em nome da clínica</span></label>
+      <label class="chk"><input type="checkbox" id="k8"><span>Status de sinal criado na agenda</span></label>
+      <label class="chk"><input type="checkbox" id="k9"><span>Lista de espera ativa</span></label>
+      <label class="chk"><input type="checkbox" id="k10"><span>Atalhos e etiquetas no WhatsApp Business</span></label>
+      <label class="chk"><input type="checkbox" id="k11"><span>Rotina de devolução e créditos definida</span></label>
+    </div>
+    <div class="card"><h3>Equipe e paciente</h3>
+      <label class="chk"><input type="checkbox" id="k12"><span>Recepção treinada em mensagens e objeções</span></label>
+      <label class="chk"><input type="checkbox" id="k16"><span>Dados da clínica preenchidos na recepção</span></label>
+      <label class="chk"><input type="checkbox" id="k13"><span>Responsável pelas exceções definido</span></label>
+      <label class="chk"><input type="checkbox" id="k14"><span>Aviso publicado na recepção e no site</span></label>
+      <label class="chk"><input type="checkbox" id="k15"><span>Indicadores revisados toda semana</span></label>
+    </div>
+  </div>
+</div></section>
+</main>
+
+<footer><div class="wrap">
+  <div class="logo" role="img" aria-label="Hurtz"></div>
+  <h2>Fontes</h2>
+  <ul>
+    <li><a href="https://www.planalto.gov.br/ccivil_03/_ato2011-2014/2012/lei/l12653.htm">Lei 12.653/2012, art. 135-A do Código Penal</a></li>
+    <li><a href="https://www.planalto.gov.br/ccivil_03/leis/l8078compilado.htm">Código de Defesa do Consumidor, Lei 8.078/1990</a></li>
+    <li><a href="https://sistemas.cfm.org.br/normas/arquivos/pareceres/PR/2011/2302_2011.pdf">Parecer CRM-PR 2302/2011</a></li>
+    <li><a href="https://www.migalhas.com.br/depeso/428952/taxa-por-falta-do-paciente-veja-o-que-diz-o-cfm">Taxa por falta do paciente, Migalhas</a></li>
+  </ul>
+</div></footer>
+
+<script>
+(function(){
+  /* Os PNGs da marca têm fundo preto: converte brilho em transparência para usar como máscara CSS. */
+  function toMask(src,name){
+    var img=new Image();
+    img.onload=function(){
+      try{
+        var c=document.createElement('canvas');c.width=img.naturalWidth;c.height=img.naturalHeight;
+        var x=c.getContext('2d');x.drawImage(img,0,0);
+        var d=x.getImageData(0,0,c.width,c.height);
+        for(var i=0;i<d.data.length;i+=4){d.data[i+3]=d.data[i];d.data[i]=d.data[i+1]=d.data[i+2]=255}
+        x.putImageData(d,0,0);
+        document.documentElement.style.setProperty(name,'url('+c.toDataURL('image/png')+')');
+      }catch(e){}
+    };
+    img.src=src;
+  }
+  toMask('logo.png','--logo');toMask('mark.png','--mark');
+
+  /* Só os dados da clínica e o checklist são salvos. Os dados do paciente ficam apenas em memória. */
+  var KEY='kit-sinal-hurtz-v2',state={};
+  try{state=JSON.parse(localStorage.getItem(KEY))||{}}catch(e){}
+  if(state['f-valor']===undefined)state['f-valor']='250';
+  if(state['f-sinal']===undefined)state['f-sinal']='100';
+  function save(){try{localStorage.setItem(KEY,JSON.stringify(state))}catch(e){}}
+  var $=function(i){return document.getElementById(i)};
+  var trackEl=$('f-track');
+  var fields=[].slice.call(document.querySelectorAll('[data-field]'));
+  var msgs=[].slice.call(document.querySelectorAll('[data-msg]'));
+  var limiteManual=false;
+  function num(v){var n=parseFloat(String(v||'').replace(/\./g,'').replace(',','.'));return isNaN(n)?null:n}
+  function dec(n){return n.toLocaleString('pt-BR',{minimumFractionDigits:2,maximumFractionDigits:2})}
+  function brl(n){return n.toLocaleString('pt-BR',{minimumFractionDigits:Number.isInteger(n)?0:2,maximumFractionDigits:2})}
+  function esc(s){return s.replace(/[&<>]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;'}[c]})}
+  function diaBR(d){return d.toLocaleDateString('pt-BR',{weekday:'long',day:'2-digit',month:'2-digit'})}
+  function values(){
+    var v={};
+    fields.forEach(function(f){var t=(state[f.id]||'').trim();if(t)v[f.dataset.field]=t});
+    var a=num(v.valor),b=num(v.sinal),r=num($('p-recebido').value);
+    if(a!==null)v.valor2=dec(a);
+    if(b!==null)v.sinal2=dec(b);
+    if(a!==null&&b!==null&&a>=b)v.restante2=dec(a-b);
+    if(r!==null)v.recebido2=dec(r);
+    if(r!==null&&b!==null&&b>r)v.diferenca=dec(b-r);
+    var nome=$('p-nome').value.trim(),hor=$('p-opcoes').value.trim(),dia=$('p-dia').value,hora=$('p-hora').value,lim=$('p-limite').value;
+    if(nome)v.nome=nome;
+    if(hor)v.horarios=hor;
+    if(hora)v.hora=hora;
+    if(lim)v['hora limite']=lim;
+    if(dia){
+      var p=dia.split('-').map(Number),dt=new Date(p[0],p[1]-1,p[2]);
+      v.dia=diaBR(dt);
+      if(hora){dt.setDate(dt.getDate()-1);v.prazo=diaBR(dt)+' às '+hora}
+    }
+    v.clausula=trackEl.value==='med'
+      ?'o sinal permanece como crédito por '+(v.dias||'90')+' dias para nova data e pode ser devolvido a seu pedido.'
+      :'o valor do sinal não é devolvido, pois o horário ficou reservado e não pôde ser oferecido a outro paciente. Nenhum outro valor será cobrado.';
+    return v;
+  }
+  var ICON='<svg class="ico" aria-hidden="true"><use href="#i-copy"/></svg>';
+  function clipboard(text,btn,target){
+    var reset=function(){btn.classList.remove('done','warn');btn.innerHTML=ICON+'Copiar'};
+    var done=function(){btn.classList.add('done');btn.innerHTML=ICON+'Copiado';setTimeout(reset,2000)};
+    var fallback=function(){
+      var t=document.createElement('textarea'),ok=false;
+      t.value=text;t.style.position='fixed';t.style.opacity='0';document.body.appendChild(t);t.select();
+      try{ok=document.execCommand('copy')}catch(e){}
+      t.remove();btn.focus();
+      if(ok){done();return}
+      if(target){var r=document.createRange();r.selectNodeContents(target);var s=getSelection();s.removeAllRanges();s.addRange(r);btn.innerHTML=ICON+'Selecionado';setTimeout(reset,2000)}
+      else{btn.classList.add('warn');btn.innerHTML=ICON+'Não copiou';setTimeout(reset,2000)}
+    };
+    if(navigator.clipboard&&navigator.clipboard.writeText){navigator.clipboard.writeText(text).then(done,fallback)}else{fallback()}
+  }
+  var tplByKey={};
+  msgs.forEach(function(m){
+    m._tpl=m.textContent;
+    if(m.dataset.key)tplByKey[m.dataset.key]=m._tpl;
+    var host=m.parentElement;
+    var btn=document.createElement('button');
+    btn.type='button';btn.className='copy';btn.innerHTML=ICON+'Copiar';
+    /* Na área de atendimento, não copia mensagem com campo vazio para o paciente. */
+    var strict=!!m.closest('.v-sec');
+    btn.addEventListener('click',function(){
+      var faltam=[].slice.call(m.querySelectorAll('.var')).map(function(x){return x.textContent.slice(1,-1)});
+      if(strict&&faltam.length){
+        btn.classList.add('warn');btn.innerHTML=ICON+'Falta: '+esc(faltam.filter(function(x,i,a){return a.indexOf(x)===i}).slice(0,3).join(', '));
+        setTimeout(function(){btn.classList.remove('warn');btn.innerHTML=ICON+'Copiar'},2600);
+        return;
+      }
+      clipboard(m.textContent,btn,m);
+    });
+    if(host.classList.contains('obj')){m.after(btn)}else{host.insertBefore(btn,m)}
+  });
+  /* Texto para cadastrar no WhatsApp: mantém os dados da clínica e deixa os do paciente entre colchetes. */
+  [].slice.call(document.querySelectorAll('[data-tpl]')).forEach(function(b){
+    b.innerHTML=ICON+'Copiar';
+    b.addEventListener('click',function(){
+      var v=values(),t=tplByKey[b.dataset.tpl];
+      ['nome','dia','hora','hora limite','prazo','horarios'].forEach(function(k){delete v[k]});
+      clipboard(t.replace(/\{([^}]+)\}/g,function(_,k){return v[k]||'['+k+']'}),b,null);
+    });
+  });
+  function render(){
+    var v=values();
+    msgs.forEach(function(m){
+      m.innerHTML=esc(m._tpl).replace(/\{([^}]+)\}/g,function(_,k){return v[k]?'<span class="val">'+esc(v[k])+'</span>':'<span class="var">{'+esc(k)+'}</span>'});
+    });
+    document.body.dataset.track=trackEl.value;
+    $('setup-alert').hidden=!!(v.chave&&v.titular&&v.profissional&&v.endereco&&v.link);
+  }
+  fields.forEach(function(f){
+    f.value=state[f.id]||'';
+    f.addEventListener('input',function(){state[f.id]=f.value;save();render()});
+  });
+  trackEl.value=state.track==='outras'?'outras':'med';
+  trackEl.addEventListener('change',function(){state.track=trackEl.value;save();render()});
+
+  function limiteAgora(){
+    var d=new Date(Date.now()+2*3600*1000);
+    $('p-limite').value=String(d.getHours()).padStart(2,'0')+':'+String(d.getMinutes()).padStart(2,'0');
+    limiteManual=false;
+  }
+  ['p-nome','p-dia','p-hora','p-opcoes','p-recebido'].forEach(function(i){$(i).addEventListener('input',render)});
+  $('p-limite').addEventListener('input',function(){limiteManual=true;render()});
+  $('p-nome').addEventListener('input',function(){if(!limiteManual&&!$('p-limite').value)limiteAgora();render()});
+  $('p-mais2').addEventListener('click',function(){limiteAgora();render()});
+  $('p-novo').addEventListener('click',function(){
+    ['p-nome','p-dia','p-hora','p-opcoes','p-limite','p-recebido'].forEach(function(i){$(i).value=''});
+    limiteManual=false;render();$('p-nome').focus();
+  });
+  render();
+
+  /* Busca de objeções */
+  var cards=[].slice.call(document.querySelectorAll('.ogrupo .obj')),grupos=[].slice.call(document.querySelectorAll('.ogrupo'));
+  function norm(s){return s.toLowerCase().normalize('NFD').replace(/[̀-ͯ]/g,'')}
+  $('o-busca').addEventListener('input',function(){
+    var q=norm(this.value.trim()),algum=false;
+    cards.forEach(function(c){var ok=!q||norm(c.textContent).indexOf(q)>-1;c.hidden=!ok;if(ok&&c.offsetParent!==null)algum=true});
+    grupos.forEach(function(g){g.hidden=!g.querySelector('.obj:not([hidden])')});
+    $('o-vazio').hidden=!q||algum;
+  });
+
+  var checks=[].slice.call(document.querySelectorAll('.chk input'));
+  function prog(){
+    var n=checks.filter(function(c){return c.checked}).length;
+    $('k-count').textContent=n+' de '+checks.length;
+    $('k-bar').setAttribute('aria-valuenow',n);
+    $('k-bar').firstElementChild.style.width=(n/checks.length*100)+'%';
+  }
+  checks.forEach(function(c){
+    c.checked=!!state[c.id];
+    c.addEventListener('change',function(){state[c.id]=c.checked;save();prog()});
+  });
+
+  var ids=['c-ag','c-val','c-hoje','c-meta'].map($);
+  function calc(){
+    var ag=+ids[0].value||0,val=+ids[1].value||0,h=(+ids[2].value||0)/100,m=(+ids[3].value||0)/100;
+    var fh=ag*h,fm=ag*m;
+    $('c-out').textContent='R$ '+brl(Math.round(Math.max(0,fh-fm)*val));
+    $('c-det').textContent='A perda cai de R$ '+brl(Math.round(fh*val))+' ('+Math.round(fh)+' faltas) para R$ '+brl(Math.round(fm*val))+' ('+Math.round(fm)+' faltas).';
+  }
+  ids.forEach(function(i){i.addEventListener('input',calc)});
+
+  var links=[].slice.call(document.querySelectorAll('.links a'));
+  var secs=[].slice.call(document.querySelectorAll('main section')),cur=null,tick=false;
+  function active(){
+    tick=false;
+    var id=null,mark=innerHeight*.45;
+    secs.forEach(function(s){if(s.offsetParent!==null&&s.getBoundingClientRect().top<=mark)id=s.id});
+    if(id===cur)return;
+    cur=id;
+    links.forEach(function(a){
+      var on=a.getAttribute('href')==='#'+id;
+      a.classList.toggle('on',on);
+      if(on){var p=a.parentElement;p.scrollLeft=a.offsetLeft-p.offsetLeft-16}
+    });
+  }
+  addEventListener('scroll',function(){if(!tick){tick=true;requestAnimationFrame(active)}},{passive:true});
+  addEventListener('resize',active);
+
+  function setView(v,scroll){
+    document.body.dataset.view=v;
+    state.view=v;save();
+    $('view-sec').setAttribute('aria-pressed',v==='sec');
+    $('view-ges').setAttribute('aria-pressed',v==='ges');
+    cur=null;active();
+    if(scroll)document.querySelector('nav').scrollIntoView();
+  }
+  $('view-sec').addEventListener('click',function(){setView('sec',true)});
+  $('view-ges').addEventListener('click',function(){setView('ges',true)});
+  $('go-clinic').addEventListener('click',function(){setView('ges',false)});
+  function viewOf(id){var el=id?document.getElementById(id):null;return el&&el.classList.contains('v-ges')?'ges':el&&el.classList.contains('v-sec')?'sec':null}
+  links.forEach(function(a){a.addEventListener('click',function(){var w=viewOf(a.getAttribute('href').slice(1));if(w&&w!==document.body.dataset.view)setView(w,false)})});
+  addEventListener('hashchange',function(){
+    var id=location.hash.slice(1),w=viewOf(id);
+    if(w&&w!==document.body.dataset.view){setView(w,false);document.getElementById(id).scrollIntoView()}
+  });
+  setView(viewOf(location.hash.slice(1))||(state.view==='ges'?'ges':'sec'),false);
+
+  prog();calc();
+})();
+</script>
+
+</body></html>
