@@ -1,0 +1,400 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Kickoff Edifício Rotterdam</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #F5F2EC;
+    --ink: #181614;
+    --accent: #C06018;
+    --line: #D9D3C8;
+    --muted: #6B645B;
+    --field: #FBF9F5;
+    color-scheme: light;
+  }
+  * { box-sizing: border-box; }
+  html { -webkit-text-size-adjust: 100%; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font: 400 16px/1.5 Inter, system-ui, -apple-system, "Segoe UI", sans-serif;
+    padding: 32px 16px 64px;
+  }
+  .wrap { max-width: 640px; margin: 0 auto; display: grid; gap: 16px; }
+
+  .brand { font-weight: 700; letter-spacing: .32em; font-size: 13px; }
+  header { padding: 8px 0 8px; display: grid; gap: 12px; }
+  h1 { font-size: clamp(28px, 6vw, 36px); line-height: 1.1; margin: 0; font-weight: 700; text-wrap: balance; }
+  .lead { margin: 0; color: var(--muted); max-width: 52ch; }
+
+  fieldset.q {
+    border: 1px solid var(--line);
+    background: var(--field);
+    border-radius: 6px;
+    margin: 0;
+    padding: 20px;
+    min-width: 0;
+    display: grid;
+    gap: 14px;
+  }
+  fieldset.q.erro { border-color: var(--accent); }
+  legend { padding: 0; float: left; width: 100%; font-weight: 700; font-size: 17px; line-height: 1.35; }
+  legend + * { clear: both; }
+  .req { color: var(--accent); }
+  .dica { margin: -6px 0 0; font-size: 14px; color: var(--muted); }
+
+  .row { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+  .row > * { min-width: 0; }
+  .campo { display: grid; gap: 6px; }
+  .campo > span { font-size: 14px; color: var(--muted); }
+
+  input[type=text], input[type=number], input[type=date], select, textarea {
+    width: 100%;
+    font: inherit;
+    color: var(--ink);
+    background: var(--bg);
+    border: 1px solid var(--line);
+    border-radius: 4px;
+    padding: 11px 12px;
+    min-height: 46px;
+  }
+  textarea { min-height: 96px; resize: vertical; }
+  input:focus-visible, select:focus-visible, textarea:focus-visible,
+  .opcao:has(input:focus-visible), button:focus-visible {
+    outline: 2px solid var(--accent);
+    outline-offset: 2px;
+  }
+
+  .prefixo { display: grid; grid-template-columns: auto 1fr; align-items: stretch; }
+  .prefixo b { display: grid; place-items: center; padding: 0 12px; border: 1px solid var(--line); border-right: 0; border-radius: 4px 0 0 4px; background: var(--field); font-weight: 700; }
+  .prefixo input { border-radius: 0 4px 4px 0; }
+
+  .opcoes { display: grid; gap: 8px; }
+  .opcoes.lado { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+  .opcao { display: flex; align-items: center; gap: 10px; border: 1px solid var(--line); background: var(--bg); border-radius: 4px; padding: 12px; cursor: pointer; min-height: 46px; }
+  .opcao:has(input:checked) { border-color: var(--ink); }
+  .opcao input { accent-color: var(--accent); width: 18px; height: 18px; margin: 0; flex: none; }
+
+  .data-bloco { display: grid; gap: 8px; }
+  .nd { display: flex; align-items: center; gap: 8px; font-size: 14px; color: var(--muted); }
+  .nd input { accent-color: var(--accent); width: 16px; height: 16px; margin: 0; }
+  input:disabled { opacity: .45; }
+
+  .msg { margin: 0; font-size: 14px; color: var(--accent); font-weight: 700; display: none; }
+  fieldset.erro .msg { display: block; }
+
+  .rodape { display: grid; gap: 12px; padding-top: 4px; }
+  button.enviar {
+    font: 700 16px/1 Inter, system-ui, sans-serif;
+    background: var(--accent);
+    color: var(--bg);
+    border: 0;
+    border-radius: 4px;
+    padding: 16px 20px;
+    min-height: 52px;
+    cursor: pointer;
+  }
+  button.enviar:disabled { opacity: .6; cursor: default; }
+  .status { margin: 0; font-size: 14px; color: var(--accent); font-weight: 700; min-height: 1.5em; }
+  .hp { position: absolute; left: -9999px; width: 1px; height: 1px; overflow: hidden; }
+
+  .pronto { border: 1px solid var(--ink); border-radius: 6px; padding: 28px 24px; display: grid; gap: 8px; background: var(--field); }
+  .pronto h2 { margin: 0; font-size: 24px; line-height: 1.2; }
+  .pronto p { margin: 0; color: var(--muted); }
+
+  footer { font-size: 13px; color: var(--muted); padding-top: 8px; }
+
+  @media (max-width: 520px) {
+    body { padding-top: 24px; }
+    .row { grid-template-columns: 1fr; }
+    fieldset.q { padding: 16px; }
+  }
+  @media (prefers-reduced-motion: no-preference) {
+    fieldset.q { transition: border-color .15s; }
+  }
+</style>
+</head>
+<body>
+<main class="wrap">
+  <header>
+    <div class="brand">HURTZ</div>
+    <h1>Kickoff do Edifício Rotterdam</h1>
+    <p class="lead">8 perguntas, uns 5 minutos.</p>
+  </header>
+
+  <form id="form" novalidate>
+    <div class="wrap" style="gap:16px">
+
+      <fieldset class="q" data-q="nome">
+        <legend>Quem está respondendo? <span class="req">*</span></legend>
+        <input type="text" id="nome" name="nome" autocomplete="name" placeholder="Seu nome" maxlength="120">
+        <p class="msg">Escreva seu nome.</p>
+      </fieldset>
+
+      <fieldset class="q" data-q="meta">
+        <legend>1. Qual a meta de vendas? <span class="req">*</span></legend>
+        <div class="row">
+          <label class="campo"><span>Unidades</span>
+            <input type="number" id="meta_unidades" name="meta_unidades" inputmode="numeric" min="1" step="1" placeholder="Ex.: 40">
+          </label>
+          <label class="campo"><span>Em quanto tempo</span>
+            <input type="text" id="meta_prazo" name="meta_prazo" placeholder="Ex.: 6 meses" maxlength="200">
+          </label>
+        </div>
+        <p class="msg">Informe as unidades e o prazo.</p>
+      </fieldset>
+
+      <fieldset class="q" data-q="verba">
+        <legend>2. Qual a verba de mídia mensal? <span class="req">*</span></legend>
+        <p class="dica">Valor investido por mês nos anúncios.</p>
+        <div class="prefixo">
+          <b>R$</b>
+          <input type="number" id="verba_mensal" name="verba_mensal" inputmode="decimal" min="0" step="any" placeholder="0,00" aria-label="Verba mensal em reais">
+        </div>
+        <p class="msg">Informe o valor mensal.</p>
+      </fieldset>
+
+      <fieldset class="q" data-q="pagamento">
+        <legend>3. Como a mídia mensal vai ser paga? <span class="req">*</span></legend>
+        <div class="opcoes lado">
+          <label class="opcao"><input type="radio" name="pagamento" value="Cartão"> Cartão</label>
+          <label class="opcao"><input type="radio" name="pagamento" value="Pix"> Pix</label>
+        </div>
+        <p class="msg">Escolha uma opção.</p>
+      </fieldset>
+
+      <fieldset class="q" data-q="datas">
+        <legend>4. Quando começam as vendas e quando é o evento ou plantão de lançamento? <span class="req">*</span></legend>
+        <div class="row">
+          <div class="data-bloco">
+            <label class="campo"><span>Início das vendas</span>
+              <input type="date" id="inicio_vendas" name="inicio_vendas">
+            </label>
+            <label class="nd"><input type="checkbox" id="inicio_nd"> Ainda não definida</label>
+          </div>
+          <div class="data-bloco">
+            <label class="campo"><span>Evento ou plantão</span>
+              <input type="date" id="evento" name="evento">
+            </label>
+            <label class="nd"><input type="checkbox" id="evento_nd"> Ainda não definida</label>
+          </div>
+        </div>
+        <p class="msg">Escolha as duas datas ou marque "Ainda não definida".</p>
+      </fieldset>
+
+      <fieldset class="q" data-q="aprovacao">
+        <legend>5. Quem aprova as peças e em quanto tempo costuma responder? <span class="req">*</span></legend>
+        <div class="row">
+          <label class="campo"><span>Quem aprova</span>
+            <input type="text" id="aprovador" name="aprovador" placeholder="Nome e cargo" maxlength="200">
+          </label>
+          <label class="campo"><span>Tempo de resposta</span>
+            <select id="tempo_resposta" name="tempo_resposta">
+              <option value="">Selecione</option>
+              <option>No mesmo dia</option>
+              <option>Até 24 horas</option>
+              <option>Até 48 horas</option>
+              <option>Mais de 48 horas</option>
+            </select>
+          </label>
+        </div>
+        <p class="msg">Informe quem aprova e o tempo de resposta.</p>
+      </fieldset>
+
+      <fieldset class="q" data-q="registro">
+        <legend>6. O registro de incorporação está em dia? <span class="req">*</span></legend>
+        <div class="opcoes lado">
+          <label class="opcao"><input type="radio" name="registro" value="Sim"> Sim</label>
+          <label class="opcao"><input type="radio" name="registro" value="Não"> Não</label>
+          <label class="opcao"><input type="radio" name="registro" value="Em andamento"> Em andamento</label>
+        </div>
+        <label class="campo"><span>Tem algo que não pode ser prometido ou mostrado nos anúncios?</span>
+          <textarea id="restricoes" name="restricoes" placeholder="Se não tiver nada, escreva &quot;nada&quot;." maxlength="2000"></textarea>
+        </label>
+        <p class="msg">Responda o registro e se há algo proibido nos anúncios.</p>
+      </fieldset>
+
+      <fieldset class="q" data-q="mudanca">
+        <legend>7. Pode haver mudança de preço ou condição no meio da campanha? <span class="req">*</span></legend>
+        <div class="opcoes lado">
+          <label class="opcao"><input type="radio" name="mudanca" value="Sim"> Sim</label>
+          <label class="opcao"><input type="radio" name="mudanca" value="Não"> Não</label>
+          <label class="opcao"><input type="radio" name="mudanca" value="Ainda não sei"> Ainda não sei</label>
+        </div>
+        <label class="campo" id="mudanca_extra" hidden><span>O que pode mudar?</span>
+          <textarea id="mudanca_detalhe" name="mudanca_detalhe" maxlength="2000"></textarea>
+        </label>
+        <p class="msg">Escolha uma opção.</p>
+      </fieldset>
+
+      <fieldset class="q" data-q="trinta">
+        <legend>8. O que precisa acontecer nos primeiros 30 dias para você ficar tranquilo? <span class="req">*</span></legend>
+        <textarea id="trinta_dias" name="trinta_dias" maxlength="2000" aria-label="Primeiros 30 dias"></textarea>
+        <p class="msg">Conte o que você espera.</p>
+      </fieldset>
+
+      <div class="hp" aria-hidden="true">
+        <label>Site <input type="text" name="website" id="website" tabindex="-1" autocomplete="off"></label>
+      </div>
+
+      <div class="rodape">
+        <button class="enviar" type="submit" id="enviar">Enviar respostas</button>
+        <p class="status" id="status" role="status" aria-live="polite"></p>
+      </div>
+    </div>
+  </form>
+
+  <section class="pronto" id="pronto" hidden>
+    <h2 id="pronto-titulo">Respostas enviadas.</h2>
+    <p>Recebemos suas respostas.</p>
+  </section>
+
+  <footer>Hurtz Company</footer>
+</main>
+
+<script>
+(function () {
+  var form = document.getElementById("form");
+  var btn = document.getElementById("enviar");
+  var statusEl = document.getElementById("status");
+  var KEY = "kickoff-rotterdam-rascunho";
+
+  function $(id) { return document.getElementById(id); }
+  function val(id) { return ($(id).value || "").trim(); }
+  function radio(name) {
+    var el = form.querySelector('input[name="' + name + '"]:checked');
+    return el ? el.value : "";
+  }
+
+  // datas: "Ainda não definida" desliga o campo de data
+  [["inicio_vendas", "inicio_nd"], ["evento", "evento_nd"]].forEach(function (p) {
+    $(p[1]).addEventListener("change", function () {
+      $(p[0]).disabled = $(p[1]).checked;
+      if ($(p[1]).checked) $(p[0]).value = "";
+    });
+  });
+
+  // detalhe da mudança só aparece quando faz sentido
+  function atualizaMudanca() {
+    var v = radio("mudanca");
+    $("mudanca_extra").hidden = !(v === "Sim" || v === "Ainda não sei");
+  }
+  form.querySelectorAll('input[name="mudanca"]').forEach(function (r) {
+    r.addEventListener("change", atualizaMudanca);
+  });
+
+  // rascunho no navegador (se falhar, o formulário funciona igual)
+  function salvaRascunho() {
+    try {
+      var d = {};
+      form.querySelectorAll("input, select, textarea").forEach(function (el) {
+        if (!el.id && el.type !== "radio") return;
+        if (el.type === "radio") { if (el.checked) d["r:" + el.name] = el.value; }
+        else if (el.type === "checkbox") d[el.id] = el.checked;
+        else if (el.id !== "website") d[el.id] = el.value;
+      });
+      localStorage.setItem(KEY, JSON.stringify(d));
+    } catch (e) {}
+  }
+  function carregaRascunho() {
+    try {
+      var d = JSON.parse(localStorage.getItem(KEY) || "null");
+      if (!d) return;
+      Object.keys(d).forEach(function (k) {
+        if (k.indexOf("r:") === 0) {
+          var r = form.querySelector('input[name="' + k.slice(2) + '"][value="' + d[k] + '"]');
+          if (r) r.checked = true;
+        } else if ($(k)) {
+          if ($(k).type === "checkbox") { $(k).checked = d[k]; $(k).dispatchEvent(new Event("change")); }
+          else $(k).value = d[k];
+        }
+      });
+      atualizaMudanca();
+    } catch (e) {}
+  }
+  form.addEventListener("input", salvaRascunho);
+  form.addEventListener("change", salvaRascunho);
+  carregaRascunho();
+
+  function marca(nome, ok) {
+    form.querySelector('[data-q="' + nome + '"]').classList.toggle("erro", !ok);
+    return ok;
+  }
+
+  function valida() {
+    var r = [];
+    r.push(marca("nome", !!val("nome")));
+    r.push(marca("meta", !!val("meta_unidades") && Number(val("meta_unidades")) > 0 && !!val("meta_prazo")));
+    r.push(marca("verba", val("verba_mensal") !== "" && Number(val("verba_mensal")) >= 0));
+    r.push(marca("pagamento", !!radio("pagamento")));
+    r.push(marca("datas", (!!val("inicio_vendas") || $("inicio_nd").checked) && (!!val("evento") || $("evento_nd").checked)));
+    r.push(marca("aprovacao", !!val("aprovador") && !!val("tempo_resposta")));
+    r.push(marca("registro", !!radio("registro") && !!val("restricoes")));
+    r.push(marca("mudanca", !!radio("mudanca")));
+    r.push(marca("trinta", !!val("trinta_dias")));
+    return r.every(Boolean);
+  }
+
+  form.addEventListener("submit", function (ev) {
+    ev.preventDefault();
+    statusEl.textContent = "";
+    if (!valida()) {
+      statusEl.textContent = "Faltam respostas. Veja as perguntas marcadas.";
+      var primeira = form.querySelector("fieldset.erro");
+      if (primeira) primeira.scrollIntoView({ behavior: "smooth", block: "center" });
+      return;
+    }
+    var payload = {
+      nome: val("nome"),
+      meta_unidades: val("meta_unidades"),
+      meta_prazo: val("meta_prazo"),
+      verba_mensal: val("verba_mensal"),
+      pagamento: radio("pagamento"),
+      inicio_vendas: $("inicio_nd").checked ? "Ainda não definida" : val("inicio_vendas"),
+      evento: $("evento_nd").checked ? "Ainda não definida" : val("evento"),
+      aprovador: val("aprovador"),
+      tempo_resposta: val("tempo_resposta"),
+      registro: radio("registro"),
+      restricoes: val("restricoes"),
+      mudanca: radio("mudanca"),
+      mudanca_detalhe: $("mudanca_extra").hidden ? "" : val("mudanca_detalhe"),
+      trinta_dias: val("trinta_dias"),
+      website: val("website")
+    };
+    btn.disabled = true;
+    btn.textContent = "Enviando...";
+    fetch("https://kickoff-rotterdam.pages.dev/api/enviar", {
+      method: "POST",
+      headers: { "content-type": "application/json" },
+      body: JSON.stringify(payload)
+    }).then(function (r) {
+      return r.json().catch(function () { return { ok: false }; }).then(function (j) { return { r: r, j: j }; });
+    }).then(function (x) {
+      if (x.r.ok && x.j.ok) {
+        try { localStorage.removeItem(KEY); } catch (e) {}
+        form.hidden = true;
+        $("pronto-titulo").textContent = "Enviado. Obrigado.";
+        $("pronto").hidden = false;
+        window.scrollTo({ top: 0, behavior: "smooth" });
+      } else {
+        throw new Error(x.j.erro || "falha");
+      }
+    }).catch(function (e) {
+      btn.disabled = false;
+      btn.textContent = "Enviar respostas";
+      statusEl.textContent = (e && e.message && e.message !== "falha" && e.message.indexOf("Failed") < 0)
+        ? e.message
+        : "Não conseguimos enviar agora. Suas respostas continuam aqui, tente de novo.";
+    });
+  });
+})();
+</script>
+</body>
+</html>
