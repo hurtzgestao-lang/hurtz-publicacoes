@@ -1,5 +1,5 @@
 <!doctype html>
-<html lang="pt-BR">
+<html lang="pt-BR" data-theme="light">
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
@@ -186,6 +186,17 @@ footer h2{font-size:12px;font-weight:700;letter-spacing:.14em;text-transform:upp
 footer ul{list-style:none;padding:0;display:grid;gap:6px;font-size:14px;color:var(--cover-muted)}
 @media (prefers-reduced-motion:reduce){html{scroll-behavior:auto}*{transition:none!important}}
 </style>
+<style>
+/* Tema: claro por padrão, inclusive capa e rodapé. O botão da barra troca para escuro e lembra a escolha neste navegador. */
+:root[data-theme="light"]{--cover-bg:#F4F1EC;--cover-fg:#0A0908;--cover-muted:#574F46;--cover-line:#DDD4C8;--cover-accent:#A3480E}
+.theme-toggle{flex:none;display:inline-grid;place-items:center;width:34px;height:34px;padding:0;border:1px solid var(--line-strong);border-radius:999px;background:transparent;color:var(--fg);cursor:pointer;transition:border-color .15s}
+.theme-toggle:hover{border-color:var(--accent)}
+.theme-toggle svg{width:16px;height:16px;fill:none;stroke:currentColor;stroke-width:1.7;stroke-linecap:round;stroke-linejoin:round}
+.theme-toggle .sun,:root[data-theme="dark"] .theme-toggle .moon{display:none}
+:root[data-theme="dark"] .theme-toggle .sun{display:block}
+@media print{.theme-toggle{display:none}}
+</style>
+<script>try{var t=localStorage.getItem('hurtz-tema');if(t==='dark'||t==='light')document.documentElement.dataset.theme=t}catch(e){}</script>
 </head>
 <body>
 
@@ -228,6 +239,7 @@ footer ul{list-style:none;padding:0;display:grid;gap:6px;font-size:14px;color:va
     <a class="v-sec" href="#paciente">Paciente</a><a class="v-sec" href="#passos">Passos</a><a class="v-sec" href="#situacoes">Situações</a><a class="v-sec" href="#objecoes">Objeções</a><a class="v-sec" href="#atalhos">Atalhos</a><a class="v-sec" href="#rotina">Rotina</a><a class="v-sec" href="#treino">Treino</a><a class="v-sec" href="#clinica">Área do gestor</a>
     <a class="v-ges" href="#paciente">Atendimento</a><a class="v-ges" href="#clinica">Clínica</a><a class="v-ges" href="#fluxo">Fluxo</a><a class="v-ges" href="#regras">Regras</a><a class="v-ges" href="#legal">Legal</a><a class="v-ges" href="#modelos">Modelos</a><a class="v-ges" href="#conta">Conta</a><a class="v-ges" href="#implantacao">Implantação</a><a class="v-ges" href="#indicadores">Indicadores</a><a class="v-ges" href="#checklist">Checklist</a>
   </div>
+  <button class="theme-toggle" id="theme-toggle" type="button" aria-label="Usar tema escuro" title="Usar tema escuro"><svg class="moon" viewBox="0 0 24 24" aria-hidden="true"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5z"/></svg><svg class="sun" viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="4"/><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"/></svg></button>
 </div></nav>
 
 <main>
@@ -923,6 +935,19 @@ Ao pagar o sinal, você confirma que leu e concorda com esta política.</div></d
   setView(viewOf(location.hash.slice(1))||(state.view==='ges'?'ges':'sec'),false);
 
   prog();calc();
+})();
+</script>
+
+<script>
+(function(){
+  var root=document.documentElement,btn=document.getElementById('theme-toggle');
+  function sync(){var label=root.dataset.theme==='dark'?'Usar tema claro':'Usar tema escuro';btn.setAttribute('aria-label',label);btn.title=label}
+  btn.addEventListener('click',function(){
+    root.dataset.theme=root.dataset.theme==='dark'?'light':'dark';
+    try{localStorage.setItem('hurtz-tema',root.dataset.theme)}catch(e){}
+    sync();
+  });
+  sync();
 })();
 </script>
 
