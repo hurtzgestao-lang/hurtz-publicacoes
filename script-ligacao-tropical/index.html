@@ -167,6 +167,39 @@ td.ex { color: var(--muted); }
 
 footer { margin-top: 56px; padding-block: 24px 40px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--subtle); align-items: center; }
 footer .logo { width: 88px; background: var(--subtle); }
+
+/* níveis */
+.levels { margin-top: 24px; display: grid; gap: 10px; }
+.lvl-table { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border: 1px solid var(--line); border-radius: 8px; overflow: hidden; background: var(--surface); }
+@media (max-width: 640px) { .lvl-table { grid-template-columns: 1fr; } }
+.lvl-btn { font: inherit; color: var(--fg); background: var(--surface); border: 0; border-left: 1px solid var(--line); text-align: left; padding: 16px 18px; display: grid; gap: 6px; align-content: start; cursor: pointer; position: relative; min-width: 0; }
+.lvl-btn:first-child { border-left: 0; }
+@media (max-width: 640px) { .lvl-btn { border-left: 0; border-top: 1px solid var(--line); } .lvl-btn:first-child { border-top: 0; } }
+.lvl-btn:hover { background: var(--accent-soft); }
+.lvl-btn:focus-visible { outline: 2px solid var(--accent); outline-offset: -2px; }
+.lvl-btn[aria-pressed="true"] { background: var(--accent-soft); }
+.lvl-btn[aria-pressed="true"]::after { content: ""; position: absolute; left: 0; right: 0; bottom: 0; height: 3px; background: var(--accent); }
+.lvl-btn.mini::after { display: none; }
+.lvl-name { font-weight: 700; font-size: 17px; }
+.lvl-btn[aria-pressed="true"] .lvl-name { color: var(--accent); }
+.lvl-row { font-size: 13px; color: var(--muted); display: grid; grid-template-columns: 64px 1fr; gap: 8px; }
+.lvl-row i { font-style: normal; font-size: 11px; font-weight: 700; letter-spacing: 0.08em; text-transform: uppercase; color: var(--subtle); padding-top: 2px; }
+
+.roteiro-head { display: flex; justify-content: space-between; align-items: center; gap: 12px; flex-wrap: wrap; margin-bottom: 8px; }
+.roteiro-head h2 { font-size: 26px; }
+.mini-switch { display: flex; border: 1px solid var(--line); border-radius: 999px; overflow: hidden; background: var(--surface); }
+.lvl-btn.mini { display: block; padding: 6px 14px; font-size: 13px; border-left: 1px solid var(--line); border-top: 0; }
+.lvl-btn.mini:first-child { border-left: 0; }
+.lvl-btn.mini[aria-pressed="true"] { background: var(--accent); color: var(--band-fg); }
+.panel { display: grid; gap: 16px; }
+.panel-tag { display: flex; gap: 12px; align-items: baseline; flex-wrap: wrap; font-size: 15px; color: var(--muted); }
+.panel-tag .label { color: var(--accent); }
+.step.common { margin-top: 16px; }
+.step-n.spin { font-size: 22px; line-height: 1; width: 36px; height: 36px; display: inline-grid; place-items: center; border: 2px solid var(--accent); border-radius: 4px; letter-spacing: 0; }
+.bridges { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 10px; }
+@media (max-width: 560px) { .bridges { grid-template-columns: 1fr; } }
+.bridges > div { border: 1px solid var(--line); border-radius: 4px; padding: 12px 14px; display: grid; gap: 4px; font-size: 14px; min-width: 0; }
+.bridges b { color: var(--accent); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
 </style>
 </head>
 <body>
@@ -206,9 +239,33 @@ footer .logo { width: 88px; background: var(--subtle); }
     <span><b>Detalhe é na consulta.</b> Valor da manutenção, tipo de aparelho, forma de pagamento, tempo de montagem e casos de pacientes não se passam por telefone. Resposta padrão: "Isso a doutora te explica certinho na consulta, porque depende do seu caso."</span>
   </div>
 
+  <div class="levels" id="niveis">
+    <span class="label">Escolha o nível do roteiro</span>
+    <div class="lvl-table" role="group" aria-label="Nível do roteiro">
+      <button type="button" class="lvl-btn" data-level="iniciante">
+        <span class="lvl-name">Iniciante</span>
+        <span class="lvl-row"><i>Pra quem</i>Está começando a ligar</span>
+        <span class="lvl-row"><i>Modelo</i>Fala pronta, é só seguir</span>
+        <span class="lvl-row"><i>Tempo</i>3 min</span>
+      </button>
+      <button type="button" class="lvl-btn" data-level="intermediario">
+        <span class="lvl-name">Intermediário</span>
+        <span class="lvl-row"><i>Pra quem</i>Já liga com segurança</span>
+        <span class="lvl-row"><i>Modelo</i>Roteiro guia com 4 sins</span>
+        <span class="lvl-row"><i>Tempo</i>4 a 5 min</span>
+      </button>
+      <button type="button" class="lvl-btn" data-level="spin">
+        <span class="lvl-name">SPIN avançado</span>
+        <span class="lvl-row"><i>Pra quem</i>Domina o básico e quer converter mais</span>
+        <span class="lvl-row"><i>Modelo</i>Situação, Problema, Implicação, Necessidade</span>
+        <span class="lvl-row"><i>Tempo</i>5 a 8 min</span>
+      </button>
+    </div>
+  </div>
+
   <nav class="toc" aria-label="Seções">
     <a href="#antes">Antes de ligar</a>
-    <a href="#roteiro">Roteiro em 5 etapas</a>
+    <a href="#roteiro">Roteiro</a>
     <a href="#objecoes">Objeções</a>
     <a href="#followup">Quando não atende</a>
     <a href="#controle">Controle do dia</a>
@@ -231,91 +288,242 @@ footer .logo { width: 88px; background: var(--subtle); }
   </section>
 
   <section id="roteiro">
-    <h2>Roteiro em 5 etapas</h2>
-    <p class="intro">A ordem importa: primeiro a pessoa fala, depois você apresenta a oferta, depois fecha o horário. Pular direto pro preço faz a ligação virar só orçamento.</p>
+    <div class="roteiro-head">
+      <h2>Roteiro</h2>
+      <div class="mini-switch" role="group" aria-label="Trocar nível do roteiro">
+        <button type="button" class="lvl-btn mini" data-level="iniciante">Iniciante</button>
+        <button type="button" class="lvl-btn mini" data-level="intermediario">Intermediário</button>
+        <button type="button" class="lvl-btn mini" data-level="spin">SPIN avançado</button>
+      </div>
+    </div>
+    <p class="intro">A abertura tem 3 objetivos em 15 segundos: lembrar a pessoa de onde ela conhece a clínica, dar um motivo bom pra ela continuar na linha e fazer ela falar. Nunca abra perguntando "pode falar?": isso convida o "não".</p>
 
-    <div class="steps">
-      <article class="step">
-        <div class="step-head"><span class="step-n">ETAPA 1</span><h3>Abertura</h3><span class="time">até 20 s</span></div>
-        <div class="say">
-          <span class="who">Geovana</span>
-          <p>Oi, é a [nome]? Tudo bem? Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Você mandou mensagem pra gente agora há pouco sobre o aparelho, né?</p>
-          <p>Consegue falar dois minutinhos comigo?</p>
-        </div>
-        <div class="branch">
-          <span><b>Se sim:</b> segue pra etapa 2.</span>
-          <span><b>Se não pode agora:</b> "Tranquilo! Que horário fica melhor pra eu te ligar hoje?" Anota o horário e liga certinho nele.</span>
-        </div>
-      </article>
+    <!-- ===================== INICIANTE ===================== -->
+    <div class="panel" data-panel="iniciante">
+      <div class="panel-tag"><span class="label">Nível iniciante</span><span>Fala pronta. Siga na ordem, com o seu jeito de falar.</span></div>
+      <div class="steps">
+        <article class="step">
+          <div class="step-head"><span class="step-n">ETAPA 1</span><h3>Abertura com notícia boa</h3><span class="time">15 s</span></div>
+          <div class="say">
+            <span class="who">Geovana</span>
+            <p>Oi, [nome]! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Tudo bem com você?</p>
+          </div>
+          <div class="tip"><span>Espera ela responder. Esse segundo de pausa faz a pessoa entrar na conversa.</span></div>
+          <div class="say">
+            <span class="who">Geovana</span>
+            <p>Que bom! Vi que você chamou a gente sobre aparelho e te liguei rapidinho porque tenho uma notícia boa pra você: a montagem tá com a <b>promoção especial de novembro</b>.</p>
+            <p>Me conta uma coisa: o aparelho seria pra você mesmo?</p>
+          </div>
+          <div class="branch">
+            <span><b>Se disser que tá ocupada:</b> "Sem problema, é rapidinho. Prefere que eu te ligue às [hora] ou às [hora]?" Sempre dois horários, e liga certinho no combinado.</span>
+            <span><b>Se perguntar "quem é?":</b> "É a Geovana, da clínica Odonto Medic, aqui do Bairro Tropical. Você mandou mensagem no nosso WhatsApp sobre aparelho."</span>
+          </div>
+        </article>
 
-      <article class="step">
-        <div class="step-head"><span class="step-n">ETAPA 2</span><h3>Entender a pessoa</h3><span class="time">1 a 2 min</span></div>
-        <ol class="questions">
-          <li><div><p class="q">"O aparelho seria pra você ou pra outra pessoa?"</p><p class="why">Se for pra filho: "Quantos anos ele tem?" Menor de idade vem acompanhado de um responsável.</p></div></li>
-          <li><div><p class="q">"Você já usou aparelho antes ou seria o primeiro?"</p><p class="why">Quem já usou e tirou costuma decidir mais rápido. Só anota e segue.</p></div></li>
-          <li><div><p class="q">"O que mais te incomoda hoje no seu sorriso?"</p><p class="why">A pergunta mais importante. Deixa a pessoa falar e repete com as palavras dela.</p></div></li>
-          <li><div><p class="q">"Você mora aqui no Tropical ou perto?"</p><p class="why">Confirma que dá pra vir nas manutenções todo mês.</p></div></li>
-        </ol>
-        <div class="say">
-          <span class="who">Depois que ela responder</span>
-          <p>Entendi. Isso quem avalia certinho é a doutora na consulta, ela olha seu caso e te explica tudo antes de começar.</p>
-        </div>
-        <div class="tip"><span>Não opine sobre o caso. Nada de "o seu é simples" ou "fica pronto rápido".</span></div>
-      </article>
+        <article class="step">
+          <div class="step-head"><span class="step-n">ETAPA 2</span><h3>Três perguntas</h3><span class="time">1 min</span></div>
+          <ol class="questions">
+            <li><div><p class="q">"O aparelho seria pra você ou pra outra pessoa?"</p><p class="why">Se for pra filho: "Quantos anos ele tem?" Menor de idade vem com um responsável.</p></div></li>
+            <li><div><p class="q">"Você já usou aparelho antes ou seria o primeiro?"</p><p class="why">Só anota e segue.</p></div></li>
+            <li><div><p class="q">"E o que mais te incomoda hoje no seu sorriso?"</p><p class="why">A pergunta mais importante. Deixa falar e guarda as palavras exatas dela.</p></div></li>
+          </ol>
+          <div class="say">
+            <span class="who">Depois que ela responder</span>
+            <p>Entendi, [repete o que ela falou]. Isso a doutora avalia certinho na consulta e te explica tudo antes de começar.</p>
+          </div>
+        </article>
 
-      <article class="step">
-        <div class="step-head"><span class="step-n">ETAPA 3</span><h3>Apresentar a oferta</h3><span class="time">30 s</span></div>
-        <div class="say">
-          <span class="who">Geovana</span>
-          <p>Então, [nome], deixa eu te explicar a promoção desse mês. A montagem do aparelho tá saindo por <b>120 reais</b>. E no dia da montagem você ainda ganha uma <b>limpeza</b>, sem pagar nada a mais.</p>
-          <p>O primeiro passo é uma consulta aqui na clínica. A doutora avalia seu caso e te explica tudo. Essa é a nossa promoção especial de novembro.</p>
-        </div>
-        <div class="say">
-          <span class="who">Por que a Odonto Medic (escolha um, não os três)</span>
-          <p><b>Especialista:</b> "Seu aparelho é acompanhado por dentista especialista em ortodontia."</p>
-          <p><b>Estrutura:</b> "A clínica é toda equipada, você faz tudo aqui mesmo, no Bairro Tropical."</p>
-          <p><b>Prova social:</b> "Muita gente aqui da região já faz o aparelho com a gente."</p>
-        </div>
-      </article>
+        <article class="step">
+          <div class="step-head"><span class="step-n">ETAPA 3</span><h3>Oferta</h3><span class="time">30 s</span></div>
+          <div class="say">
+            <span class="who">Geovana</span>
+            <p>Então, [nome], funciona assim: o primeiro passo é uma consulta aqui na clínica com a doutora. E na promoção especial de novembro a montagem do aparelho tá saindo por <b>120 reais</b>, e no dia da montagem você ainda ganha uma <b>limpeza</b>, sem pagar nada a mais.</p>
+            <p>E aqui seu aparelho é acompanhado por dentista especialista em ortodontia.</p>
+          </div>
+        </article>
 
-      <article class="step">
-        <div class="step-head"><span class="step-n">ETAPA 4</span><h3>Fechar o horário</h3><span class="time">30 s</span></div>
-        <div class="say">
-          <span class="who">Geovana</span>
-          <p>Pra garantir essa condição, eu já deixo sua consulta marcada. Tenho <span class="fill">[dia]</span> às <span class="fill">[hora]</span> ou <span class="fill">[dia]</span> às <span class="fill">[hora]</span>. Qual fica melhor pra você?</p>
-        </div>
-        <div class="branch">
-          <span><b>Nunca pergunte "quer agendar?".</b> Sempre ofereça duas opções de horário, olhando a agenda na hora.</span>
-          <span><b>Se nenhum servir:</b> "Qual dia fica melhor pra você, de manhã ou de tarde?" e encaixa.</span>
-          <span><b>Se travar:</b> vai pra seção de objeções e depois volta pra cá.</span>
-        </div>
-      </article>
+        <article class="step">
+          <div class="step-head"><span class="step-n">ETAPA 4</span><h3>Fechar o horário</h3><span class="time">30 s</span></div>
+          <div class="say">
+            <span class="who">Geovana</span>
+            <p>Pra garantir essa condição, eu já deixo sua consulta marcada. Tenho <span class="fill">[dia]</span> às <span class="fill">[hora]</span> ou <span class="fill">[dia]</span> às <span class="fill">[hora]</span>. Qual fica melhor pra você?</p>
+          </div>
+          <div class="branch">
+            <span><b>Nunca pergunte "quer agendar?".</b> Sempre duas opções de horário.</span>
+            <span><b>Se nenhum servir:</b> "Qual dia fica melhor, de manhã ou de tarde?" e encaixa.</span>
+            <span><b>Se travar:</b> vai pra seção de objeções e depois volta pra cá.</span>
+          </div>
+        </article>
+      </div>
+    </div>
 
-      <article class="step">
-        <div class="step-head"><span class="step-n">ETAPA 5</span><h3>Confirmar e despedir</h3><span class="time">30 s</span></div>
-        <div class="say">
-          <span class="who">Geovana</span>
-          <p>Perfeito! Então sua consulta fica <span class="fill">[dia]</span>, às <span class="fill">[hora]</span>. Me confirma seu nome completo?</p>
-          <p>A clínica fica na Avenida Castanheira, no Bairro Tropical. Vou te mandar a localização e o resumo no WhatsApp agora. Chega uns 10 minutinhos antes, tá bom?</p>
-          <p>Se acontecer alguma coisa e você não puder vir, me avisa por lá que eu remarco pra você.</p>
-        </div>
-        <span class="label">Mandar logo depois de desligar</span>
-        <div class="msg">
-          <p>Oi, [nome]! Sua consulta tá confirmada:
+    <!-- ===================== INTERMEDIÁRIO ===================== -->
+    <div class="panel" data-panel="intermediario" hidden>
+      <div class="panel-tag"><span class="label">Nível intermediário</span><span>Roteiro guia. Você adapta a fala e conduz por 4 "sins" antes de pedir o horário.</span></div>
+      <div class="steps">
+        <article class="step">
+          <div class="step-head"><span class="step-n">ETAPA 1</span><h3>Abertura com o que ela escreveu</h3><span class="time">20 s</span></div>
+          <div class="say">
+            <span class="who">Geovana</span>
+            <p>Oi, [nome], tudo bom? Geovana aqui, da Odonto Medic do Bairro Tropical. Você chamou a gente agora há pouco perguntando sobre <span class="fill">[o que ela escreveu]</span>.</p>
+            <p>Te liguei porque por mensagem fica muita coisa solta, e em dois minutinhos eu te explico como funciona aqui. Me conta: o que te fez procurar aparelho agora?</p>
+          </div>
+          <div class="tip"><span>"Por que agora" é a pergunta de ouro. A resposta (casamento, trabalho novo, foto, autoestima, filho) é o motivo que você vai usar no fechamento.</span></div>
+        </article>
+
+        <article class="step">
+          <div class="step-head"><span class="step-n">ETAPA 2</span><h3>Aprofundar e devolver</h3><span class="time">1 a 2 min</span></div>
+          <ol class="questions">
+            <li><div><p class="q">"Faz tempo que você pensa em colocar?"</p><p class="why">Quem pensa há anos precisa de um empurrão, não de mais informação.</p></div></li>
+            <li><div><p class="q">"O que mais te incomoda hoje no seu sorriso?"</p><p class="why">Guarda as palavras exatas.</p></div></li>
+            <li><div><p class="q">"Já usou aparelho antes?"</p><p class="why">Se já usou e tirou: "E o que te fez tirar?" Isso mostra a objeção antes dela aparecer.</p></div></li>
+          </ol>
+          <div class="say">
+            <span class="who">Devolver o que ouviu</span>
+            <p>Deixa eu ver se entendi: você pensa nisso já faz [tempo], o que mais te incomoda é [o que ela disse] e agora você quer resolver por causa de [motivo]. É isso?</p>
+          </div>
+          <div class="tip"><span>Quando a pessoa ouve a própria história e diz "é isso", ela se sente entendida e confia mais em você.</span></div>
+        </article>
+
+        <article class="step">
+          <div class="step-head"><span class="step-n">ETAPA 3</span><h3>Os 4 sins</h3><span class="time">1 min</span></div>
+          <p class="tip"><span>Cada pergunta tem resposta fácil de "sim". Quatro sins seguidos deixam o horário como próximo passo natural.</span></p>
+          <ol class="questions">
+            <li><div><p class="q">Interesse: "Se a doutora avaliar e for indicado pra você, você quer começar logo?"</p></div></li>
+            <li><div><p class="q">Local: "Você mora aqui perto do Tropical, né?"</p></div></li>
+            <li><div><p class="q">Agenda: "Pra você é melhor de manhã ou de tarde?"</p><p class="why">Anota o turno. Você usa ele no fechamento.</p></div></li>
+            <li><div><p class="q">Condição: "A montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia, e o resto a doutora te explica na consulta. Faz sentido pra você?"</p></div></li>
+          </ol>
+        </article>
+
+        <article class="step">
+          <div class="step-head"><span class="step-n">ETAPA 4</span><h3>Diferencial certo pra cada pessoa</h3><span class="time">20 s</span></div>
+          <p class="tip"><span>Escolha um só, pelo que você ouviu:</span></p>
+          <div class="say">
+            <span class="who">Se demonstrou medo ou insegurança</span>
+            <p>Seu aparelho é acompanhado por dentista especialista em ortodontia, que te explica cada passo antes de fazer.</p>
+          </div>
+          <div class="say">
+            <span class="who">Se está desconfiada ou comparando</span>
+            <p>A clínica é toda equipada e você faz tudo aqui mesmo, no Bairro Tropical. Vem conhecer na consulta.</p>
+          </div>
+          <div class="say">
+            <span class="who">Se quer saber o que os outros acham</span>
+            <p>Muita gente aqui da região já faz o aparelho com a gente.</p>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-head"><span class="step-n">ETAPA 5</span><h3>Fechar com o motivo dela</h3><span class="time">30 s</span></div>
+          <div class="say">
+            <span class="who">Geovana</span>
+            <p>Então vamos dar o primeiro passo pra [motivo que ela falou]. Você disse que de [turno] é melhor: tenho <span class="fill">[dia]</span> às <span class="fill">[hora]</span> ou <span class="fill">[dia]</span> às <span class="fill">[hora]</span>. Qual fica bom?</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ===================== SPIN ===================== -->
+    <div class="panel" data-panel="spin" hidden>
+      <div class="panel-tag"><span class="label">Nível SPIN avançado</span><span>Conversa consultiva. Você fala 30% do tempo e ouve 70%. A pessoa chega sozinha à conclusão de que quer começar.</span></div>
+      <div class="steps">
+        <article class="step">
+          <div class="step-head"><span class="step-n">ABERTURA</span><h3>Pedir licença pra entender</h3><span class="time">20 s</span></div>
+          <div class="say">
+            <span class="who">Geovana</span>
+            <p>Oi, [nome]! Geovana aqui, da Odonto Medic do Bairro Tropical, tudo bem? Você falou com a gente sobre aparelho.</p>
+            <p>Antes de te passar qualquer informação, eu queria entender um pouquinho o que você procura, pra não te falar coisa que não serve pra você. Posso te fazer umas perguntinhas rápidas?</p>
+          </div>
+          <div class="tip"><span>Aqui pedir licença funciona, porque você oferece algo em troca: uma conversa sobre ela, e não uma venda.</span></div>
+        </article>
+
+        <article class="step">
+          <div class="step-head"><span class="step-n spin">S</span><h3>Situação</h3><span class="time">máx. 2 perguntas</span></div>
+          <ol class="questions">
+            <li><div><p class="q">"O aparelho é pra você? Já usou antes?"</p></div></li>
+            <li><div><p class="q">"Faz quanto tempo que você pensa em colocar?"</p></div></li>
+          </ol>
+          <div class="tip"><span>Não vire interrogatório. Situação é só pra contexto. O que vende vem nas próximas letras.</span></div>
+        </article>
+
+        <article class="step">
+          <div class="step-head"><span class="step-n spin">P</span><h3>Problema</h3><span class="time">1 min</span></div>
+          <ol class="questions">
+            <li><div><p class="q">"O que mais te incomoda hoje quando você sorri?"</p></div></li>
+            <li><div><p class="q">"Tem alguma coisa no dia a dia que te atrapalha por causa disso?"</p></div></li>
+            <li><div><p class="q">"E o que te impediu de começar até agora?"</p><p class="why">A resposta é a objeção dela, que aparece antes do preço. Anota: dinheiro, medo, tempo ou confiança.</p></div></li>
+          </ol>
+        </article>
+
+        <article class="step">
+          <div class="step-head"><span class="step-n spin">I</span><h3>Implicação</h3><span class="time">1 min</span></div>
+          <ol class="questions">
+            <li><div><p class="q">"E em que momentos isso mais mexe com você? Em foto, numa conversa, no trabalho?"</p></div></li>
+            <li><div><p class="q">"Se ficar do jeito que tá por mais um tempo, como você acha que vai se sentir?"</p></div></li>
+          </ol>
+          <div class="branch">
+            <span><b>Cuidado:</b> use só as palavras dela. Nunca comente a aparência da pessoa e nunca aumente o problema. Se ela não quiser aprofundar, pula pra próxima letra.</span>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-head"><span class="step-n spin">N</span><h3>Necessidade de solução</h3><span class="time">1 min</span></div>
+          <ol class="questions">
+            <li><div><p class="q">"Se você já tivesse começado o aparelho, o que seria diferente pra você hoje?"</p><p class="why">Aqui ela mesma fala o benefício. Guarda essa frase.</p></div></li>
+            <li><div><p class="q">"Pra você começar, o que pesa mais: um valor que caiba no bolso, um horário que encaixe ou confiar em quem vai cuidar?"</p><p class="why">A resposta diz qual ponte usar na apresentação.</p></div></li>
+          </ol>
+        </article>
+
+        <article class="step">
+          <div class="step-head"><span class="step-n">APRESENTAÇÃO</span><h3>Resumo dela + ponte + oferta</h3><span class="time">40 s</span></div>
+          <div class="say">
+            <span class="who">Geovana</span>
+            <p>[nome], pelo que você me contou, você quer [o benefício que ela falou no N]. E sobre [o que impediu ela], funciona assim: <span class="fill">[ponte]</span>.</p>
+            <p>O primeiro passo é a consulta com a doutora. E na promoção especial de novembro a montagem tá por <b>120 reais</b>, com <b>limpeza grátis</b> no dia da montagem.</p>
+          </div>
+          <div class="bridges">
+            <div><b>Dinheiro</b><span>"A montagem, que costuma ser o valor mais alto, tá por 120 reais. O resto a doutora vê com você na consulta."</span></div>
+            <div><b>Medo</b><span>"Seu aparelho é acompanhado por dentista especialista em ortodontia, que te explica cada passo antes de fazer."</span></div>
+            <div><b>Tempo</b><span>"Eu encaixo a consulta no horário que for melhor pra sua rotina."</span></div>
+            <div><b>Confiança</b><span>"A clínica é toda equipada e muita gente aqui da região já faz o aparelho com a gente. Vem conhecer."</span></div>
+          </div>
+        </article>
+
+        <article class="step">
+          <div class="step-head"><span class="step-n">FECHAMENTO</span><h3>Primeiro passo</h3><span class="time">20 s</span></div>
+          <div class="say">
+            <span class="who">Geovana</span>
+            <p>Faz sentido a gente dar esse primeiro passo? Tenho <span class="fill">[dia]</span> às <span class="fill">[hora]</span> ou <span class="fill">[dia]</span> às <span class="fill">[hora]</span>.</p>
+          </div>
+        </article>
+      </div>
+    </div>
+
+    <!-- ===================== COMUM ===================== -->
+    <article class="step common">
+      <div class="step-head"><span class="step-n">TODOS OS NÍVEIS</span><h3>Confirmar e despedir</h3><span class="time">30 s</span></div>
+      <div class="say">
+        <span class="who">Geovana</span>
+        <p>Perfeito! Então sua consulta fica <span class="fill">[dia]</span>, às <span class="fill">[hora]</span>. Me confirma seu nome completo?</p>
+        <p>A clínica fica na Avenida Castanheira, no Bairro Tropical. Vou te mandar a localização e o resumo no WhatsApp agora. Chega uns 10 minutinhos antes, tá bom?</p>
+        <p>Se acontecer alguma coisa e você não puder vir, me avisa por lá que eu remarco pra você.</p>
+      </div>
+      <span class="label">Mandar logo depois de desligar</span>
+      <div class="msg">
+        <p>Oi, [nome]! Sua consulta tá confirmada:
 [dia], às [hora]
 Promoção especial de novembro: montagem do aparelho por R$ 120 + limpeza grátis no dia da montagem.
 Odonto Medic, Avenida Castanheira, Bairro Tropical.
 Localização: https://maps.google.com/?q=-6.0368444,-49.8918091
 Qualquer coisa, é só me chamar aqui. Até lá!</p>
-          <button class="copy" type="button">Copiar mensagem</button>
-        </div>
-        <span class="label">Lembrete na véspera</span>
-        <div class="msg">
-          <p>Oi, [nome]! Passando pra lembrar da sua consulta amanhã, [hora], aqui na Odonto Medic. Posso confirmar sua presença?</p>
-          <button class="copy" type="button">Copiar mensagem</button>
-        </div>
-      </article>
-    </div>
+        <button class="copy" type="button">Copiar mensagem</button>
+      </div>
+      <span class="label">Lembrete na véspera</span>
+      <div class="msg">
+        <p>Oi, [nome]! Passando pra lembrar da sua consulta amanhã, [hora], aqui na Odonto Medic. Posso confirmar sua presença?</p>
+        <button class="copy" type="button">Copiar mensagem</button>
+      </div>
+    </article>
   </section>
 
   <section id="objecoes">
@@ -476,6 +684,27 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
   });
 });
+(function () {
+  var levels = ['iniciante', 'intermediario', 'spin'];
+  function setLevel(lv, save) {
+    if (levels.indexOf(lv) < 0) lv = 'iniciante';
+    document.querySelectorAll('.panel').forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== lv; });
+    document.querySelectorAll('.lvl-btn').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-level') === lv ? 'true' : 'false'); });
+    if (save) { try { localStorage.setItem('nivel-roteiro', lv); } catch (e) {} }
+  }
+  var saved = null;
+  try { saved = localStorage.getItem('nivel-roteiro'); } catch (e) {}
+  setLevel(saved || 'iniciante', false);
+  document.querySelectorAll('.lvl-btn').forEach(function (b) {
+    b.addEventListener('click', function () {
+      setLevel(b.getAttribute('data-level'), true);
+      if (!b.classList.contains('mini')) {
+        var r = document.getElementById('roteiro');
+        if (r && r.scrollIntoView) r.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
+      }
+    });
+  });
+})();
 </script>
 
 </body>
