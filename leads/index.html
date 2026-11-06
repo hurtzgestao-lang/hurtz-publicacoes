@@ -147,8 +147,6 @@
     .top p{font-size:14px}
   }
 </style>
-<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-<link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
 <body>
 <main class="shell">
@@ -229,8 +227,7 @@
 
 <script>
   const ENDPOINT = "https://crm.hurtzcompany.com.br/landing-leads/v1/dashboard";
-  const LEGACY_ENDPOINT = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/apr-submit";
-  const STORAGE_KEY = "hurtz_leads_dashboard_token";
+    const STORAGE_KEY = "hurtz_leads_dashboard_token";
   const state = { rows: [], filtered: [], token: "" };
   let loadVersion = 0;
 
@@ -300,9 +297,9 @@
     if ($("untilInput").value) params.set("until", $("untilInput").value);
 
     try {
-      const results = await Promise.allSettled([ENDPOINT, LEGACY_ENDPOINT].map(async (endpoint) => {
+      const results = await Promise.allSettled([[ENDPOINT, 8000]].map(async ([endpoint, timeout]) => {
         const response = await fetch(`${endpoint}?${params}`, {
-          headers: { "x-dashboard-token": token }, cache: "no-store", signal: AbortSignal.timeout(8000)
+          headers: { "x-dashboard-token": token }, cache: "no-store", signal: AbortSignal.timeout(timeout)
         });
         const data = await response.json();
         if (!response.ok || !data.success) throw new Error(data.error || "Erro ao carregar leads");
@@ -310,7 +307,7 @@
       }));
       if (version !== loadVersion) return;
       const available = results.filter((result) => result.status === "fulfilled");
-      if (!available.length) throw new Error("Não foi possível carregar os leads. Confira o código de acesso e tente novamente.");
+      if (!available.length) throw new Error("Não foi possível carregar os leads. Confira a conexão e o código de acesso.");
       const rows = available.flatMap((result) => Array.isArray(result.value.rows) ? result.value.rows : []);
       state.rows = Array.from(new Map(rows.map((row) => [row.id, row])).values())
         .filter(isSessionStrategicLead).sort((a, b) => new Date(b.created_at) - new Date(a.created_at));
@@ -318,8 +315,7 @@
       applyFilters();
       const updatedAt = dateTime.format(new Date());
       const notices = [];
-      if (results[0].status === "rejected") notices.push("Captação da V2 indisponível nesta consulta.");
-      if (results[1].status === "rejected") notices.push("Histórico das outras páginas indisponível no Supabase anterior.");
+      if (results[0].status === "rejected") notices.push("Base de leads da VPS indisponível nesta consulta.");
       setStatus(`Atualizado em ${updatedAt}. Até 500 registros por base. ${notices.join(" ")}`, notices.length > 0);
     } catch (error) {
       if (version !== loadVersion) return;

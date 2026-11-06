@@ -639,7 +639,7 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
 
 <script>
   const HURTZ_WHATSAPP = "5517997028470";
-  const LEAD_ENDPOINT = "https://uxttihjsxfowursjyult.supabase.co/functions/v1/apr-submit";
+  const LEAD_ENDPOINT = "https://crm.hurtzcompany.com.br/landing-leads/v1/submit";
   const META_PIXEL_ID = window.HURTZ_META_PIXEL_ID || "2215367202619844";
 
   window.setTimeout(() => {
@@ -732,57 +732,25 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   }
 
   async function saveLead(fields, leadEventId) {
-    const currentRevenue = Number.isFinite(fields.monthlyRevenueAmount) ? fields.monthlyRevenueAmount : 0;
-    const currentSurgeries = parseInteger(fields.surgeriesMonth);
-    const tracking = getTrackingData();
-    tracking.meta_pixel_id = META_PIXEL_ID;
-    tracking.meta_event_id_lead = leadEventId;
+    // Mesmo UUID em reenvios do mesmo formulário (a API é idempotente); novo UUID para o próximo lead.
+    if (!saveLead.submissionId) saveLead.submissionId = newSubmissionId();
     const payload = {
-      quiz: "sessao_estrategica",
-      version: "sessao_estrategica_simplificada_2026-08-12",
-      procedure: "Sessão Estratégica Gratuita",
-      current_surgeries_month: currentSurgeries,
-      current_surgeries_label: fields.surgeriesMonth,
-      current_average_ticket: 1,
-      current_ticket_label: "Não informado",
-      current_revenue: currentRevenue,
-      desired_surgeries_month: 20,
-      desired_surgeries_label: "20+",
-      desired_average_ticket: 1,
-      desired_ticket_label: "Não informado",
-      goal_revenue: Math.max(currentRevenue, 20),
-      growth_surgeries: 20,
-      growth_revenue: 0,
-      evaluations_month: 0,
-      consultations_label: "Não informado",
-      estimated_conversion: 0,
-      main_source: "Sessão Estratégica",
-      first_contact_owner: "WhatsApp",
-      followup_process: "Retorno via WhatsApp em até 1 dia útil",
+      source: "sessao-estrategica",
+      submission_id: saveLead.submissionId,
+      completion_status: "submitted",
+      name: fields.name,
+      email: fields.email,
+      phone: fields.phone,
+      clinic: fields.instagram,
+      owner: fields.clinicOwner,
+      revenue: fields.monthlyRevenue,
       priority: "Lead da Sessão Estratégica",
-      lead: {
-        name: fields.name,
-        nome: fields.name,
-        email: fields.email,
-        whatsapp: fields.phone,
-        instagram: fields.instagram
-      },
       form_answers: {
-        nome: fields.name,
-        email: fields.email,
-        telefone: fields.phone,
-        instagram: fields.instagram,
-        faturamento_medio_mensal: fields.monthlyRevenue,
-        faturamento_medio_mensal_valor: fields.monthlyRevenueValue,
-        clinica_propria: fields.clinicOwner,
-        cirurgias_vendidas_por_mes: fields.surgeriesMonth
+        surgeries: fields.surgeriesMonth,
+        faturamento_valor: fields.monthlyRevenueValue
       },
-      meta: {
-        pixel_id: META_PIXEL_ID,
-        lead_event_id: leadEventId
-      },
-      tracking,
-      event_source_url: window.location.href
+      meta: { pixel_id: META_PIXEL_ID, lead_event_id: leadEventId },
+      tracking: getTrackingData()
     };
 
     const response = await fetch(LEAD_ENDPOINT, {
@@ -794,7 +762,18 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
     if (!response.ok || !data.success) {
       throw new Error(data.error || "Não foi possível salvar o lead.");
     }
+    saveLead.submissionId = null;
     return data;
+  }
+
+  function newSubmissionId() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") return window.crypto.randomUUID();
+    const bytes = new Uint8Array(16);
+    window.crypto.getRandomValues(bytes);
+    bytes[6] = (bytes[6] & 0x0f) | 0x40;
+    bytes[8] = (bytes[8] & 0x3f) | 0x80;
+    const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
   }
 
   function selectedOptionLabel(select) {
@@ -831,6 +810,8 @@ FINISH: unreviewed and undocumented is unfinished; this build ends with the fini
   }
 
   async function sendServerMetaEvent(eventName, eventId, customData = {}, userData = {}) {
+    // Evento de servidor ia para o Supabase antigo (fora do ar). O Pixel do navegador já envia o Contact.
+    return;
     const safeEventId = eventId || createMetaEventId(eventName.toLowerCase());
     try {
       await fetch(LEAD_ENDPOINT, {
