@@ -40,6 +40,7 @@
 }
 
 * { box-sizing: border-box; }
+[hidden] { display: none !important; }
 body {
   margin: 0; background: var(--bg); color: var(--fg);
   font-family: var(--font); font-size: 16px; line-height: 1.6;
@@ -274,6 +275,24 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
 .win-n { font-size: 72px; font-weight: 700; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
 #confetti { position: fixed; inset: 0; z-index: 60; pointer-events: none; width: 100%; height: 100%; }
 
+
+/* resumo do nível */
+.brief { border: 1px solid var(--line); border-top: 0; border-radius: 0 0 8px 8px; background: var(--accent-soft); padding: 18px 20px; display: grid; gap: 14px; margin-top: -10px; animation: rise .28s ease; }
+.brief-head { display: grid; gap: 2px; }
+.brief-head .label { color: var(--accent); }
+.brief-head p { font-weight: 700; font-size: 17px; color: var(--fg); }
+.moves { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; counter-reset: mv; }
+@media (max-width: 640px) { .moves { grid-template-columns: 1fr; } }
+.moves li { counter-increment: mv; display: grid; gap: 2px; font-size: 14px; color: var(--muted); min-width: 0; }
+.moves li b { color: var(--fg); font-size: 15px; }
+.moves li b::before { content: counter(mv) ". "; color: var(--accent); }
+.brief-note { font-size: 13px; color: var(--muted); }
+@media (prefers-reduced-motion: reduce) { .brief { animation: none; } }
+.method { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-bottom: 16px; }
+@media (max-width: 640px) { .method { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
+.method > div { border: 1.5px solid var(--accent); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; font-size: 13px; color: var(--muted); min-width: 0; }
+.method b { color: var(--accent); font-size: 15px; }
+.obj .ans b { color: var(--accent-ink); }
 </style>
 </head>
 <body>
@@ -335,6 +354,33 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
         <span class="lvl-row"><i>Tempo</i>5 a 8 min</span>
       </button>
     </div>
+    <div class="brief" data-lv="iniciante">
+      <div class="brief-head"><span class="label">Você está no nível iniciante</span><p>Foco: seguir a fala pronta e sempre terminar oferecendo 2 horários.</p></div>
+      <ol class="moves">
+        <li><b>Abre com a notícia boa</b><span>A promoção especial de novembro é o motivo pra ela ficar na linha.</span></li>
+        <li><b>Faz as 3 perguntas</b><span>Pra quem é, se já usou e o que incomoda.</span></li>
+        <li><b>Oferece 2 horários</b><span>Nunca pergunta "quer agendar?".</span></li>
+      </ol>
+      <p class="brief-note">Neste nível mudam: preparação, roteiro, objeções (respostas prontas) e follow-up (3 dias simples).</p>
+    </div>
+    <div class="brief" data-lv="intermediario" hidden>
+      <div class="brief-head"><span class="label">Você está no nível intermediário</span><p>Foco: descobrir o motivo dela e usar esse motivo pra fechar.</p></div>
+      <ol class="moves">
+        <li><b>Pergunta "por que agora?"</b><span>O motivo dela vira o argumento do fechamento.</span></li>
+        <li><b>Devolve a história</b><span>"Deixa eu ver se entendi..." faz ela se sentir ouvida.</span></li>
+        <li><b>Conduz 4 sins</b><span>Interesse, local, turno e condição, antes do horário.</span></li>
+      </ol>
+      <p class="brief-note">Neste nível mudam: preparação, roteiro, objeções (método Acolher, Isolar, Responder e Fechar) e follow-up (com áudio e ângulo novo a cada contato).</p>
+    </div>
+    <div class="brief" data-lv="spin" hidden>
+      <div class="brief-head"><span class="label">Você está no nível SPIN avançado</span><p>Foco: fazer a pessoa falar o problema e o benefício com as palavras dela.</p></div>
+      <ol class="moves">
+        <li><b>Situação curta</b><span>No máximo 2 perguntas de contexto.</span></li>
+        <li><b>Problema revela a trava</b><span>"O que te impediu de começar até agora?"</span></li>
+        <li><b>Necessidade na boca dela</b><span>Ela diz o benefício e você só conecta com a consulta.</span></li>
+      </ol>
+      <p class="brief-note">Neste nível mudam: preparação, roteiro, objeções (perguntas que voltam pro benefício dela) e follow-up (personalizado com o que ela contou).</p>
+    </div>
   </div>
 
   <section class="mode" id="modo" aria-labelledby="hello">
@@ -369,16 +415,49 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
 
   <section id="antes">
     <h2>Antes de ligar</h2>
-    <p class="intro">Lead de anúncio esfria rápido. Quem recebe a ligação logo depois de mandar mensagem atende muito mais e lembra por que chamou.</p>
-    <ul class="check">
-      <li><span>Ligar em até <b>5 minutos</b> depois que a mensagem chegou no WhatsApp.</span></li>
-      <li><span>Ler o que a pessoa escreveu e ver o nome dela no WhatsApp.</span></li>
-      <li><span>Separar <b>2 horários livres</b> na agenda pra oferecer: um mais perto e outro em outro dia ou turno.</span></li>
-      <li><span>Mandar uma mensagem curta antes de ligar, pra pessoa não estranhar o número:</span></li>
-    </ul>
-    <div class="msg" style="margin-top:12px">
-      <p>Oi, [nome]! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Vou te ligar rapidinho pra explicar a promoção do aparelho, tá bom?</p>
-      <button class="copy" type="button">Copiar mensagem</button>
+
+    <div data-lv="iniciante">
+      <p class="intro">Lead de anúncio esfria rápido. Quem recebe a ligação logo depois de mandar mensagem atende muito mais e lembra por que chamou.</p>
+      <ul class="check">
+        <li><span>Ligar em até <b>5 minutos</b> depois que a mensagem chegou no WhatsApp.</span></li>
+        <li><span>Ver o nome da pessoa no WhatsApp.</span></li>
+        <li><span>Separar <b>2 horários livres</b> na agenda: um mais perto e outro em outro dia.</span></li>
+        <li><span>Mandar o aviso abaixo pra pessoa não estranhar o número.</span></li>
+      </ul>
+      <div class="msg" style="margin-top:12px">
+        <p>Oi, [nome]! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Vou te ligar rapidinho pra explicar a promoção do aparelho, tá bom?</p>
+        <button class="copy" type="button">Copiar mensagem</button>
+      </div>
+    </div>
+
+    <div data-lv="intermediario" hidden>
+      <p class="intro">No intermediário, a ligação começa com o que a pessoa escreveu. Por isso a preparação leva 1 minuto a mais.</p>
+      <ul class="check">
+        <li><span>Ligar em até <b>5 minutos</b>.</span></li>
+        <li><span>Ler a conversa inteira e anotar <b>o que ela perguntou</b> (valor, tipo de aparelho, como funciona). Isso entra na abertura.</span></li>
+        <li><span>Pelo jeito da mensagem, chutar o perfil: <b>medrosa, desconfiada ou curiosa</b>. Ajuda a escolher o diferencial depois.</span></li>
+        <li><span>Separar 2 horários em <b>turnos diferentes</b> (um de manhã e um de tarde), pra encaixar no 3º sim.</span></li>
+        <li><span>Mandar um aviso que já mostra que você leu a mensagem dela:</span></li>
+      </ul>
+      <div class="msg" style="margin-top:12px">
+        <p>Oi, [nome]! Vi sua mensagem sobre [o que ela perguntou]. Vou te ligar em 2 minutinhos pra te explicar direitinho, pode ser?</p>
+        <button class="copy" type="button">Copiar mensagem</button>
+      </div>
+    </div>
+
+    <div data-lv="spin" hidden>
+      <p class="intro">No SPIN você vai ouvir mais do que falar. Prepare o terreno pra conseguir anotar as palavras exatas da pessoa.</p>
+      <ul class="check">
+        <li><span>Ambiente silencioso e <b>papel com 4 linhas: S, P, I, N</b>. Em cada uma, anota a frase dela.</span></li>
+        <li><span>Revisar as <b>4 pontes</b> (dinheiro, medo, tempo, confiança) que estão no roteiro.</span></li>
+        <li><span>Ler a conversa do WhatsApp e não repetir pergunta que ela já respondeu.</span></li>
+        <li><span>Combinar consigo mesma: <b>falar 30%, ouvir 70%</b>. Se você está falando muito, faça uma pergunta.</span></li>
+        <li><span>Mandar um aviso que já prepara a conversa:</span></li>
+      </ul>
+      <div class="msg" style="margin-top:12px">
+        <p>Oi, [nome]! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Antes de te passar qualquer informação, queria entender o que você procura. Posso te ligar rapidinho?</p>
+        <button class="copy" type="button">Copiar mensagem</button>
+      </div>
     </div>
   </section>
 
@@ -623,88 +702,106 @@ Qualquer coisa, é só me chamar aqui. Até lá!</p>
 
   <section id="objecoes">
     <h2>Objeções</h2>
-    <p class="intro">Regra pra todas: concorda primeiro, responde curto e volta pra etapa 4 com os dois horários. Objeção respondida sem pedir o horário de novo é ligação perdida.</p>
-    <div class="obj-grid">
-      <div class="obj">
-        <p class="heard">"E a manutenção, quanto é?"</p>
-        <p class="ans">"Isso a doutora te passa certinho na consulta, porque depende do seu caso. O que eu já te garanto é a montagem por 120 reais na promoção especial de novembro. Quer que eu já reserve sua consulta?"</p>
+
+    <!-- INICIANTE -->
+    <div data-lv="iniciante">
+      <p class="intro">Resposta pronta pra cada caso. Concorda primeiro, responde curto e volta pros dois horários.</p>
+      <div class="obj-grid">
+        <div class="obj"><p class="heard">"E a manutenção, quanto é?"</p><p class="ans">"Isso a doutora te passa certinho na consulta, porque depende do seu caso. O que eu já te garanto é a montagem por 120 reais na promoção especial de novembro. Quer que eu já reserve sua consulta?"</p></div>
+        <div class="obj"><p class="heard">"Tá caro" ou "não tenho dinheiro agora"</p><p class="ans">"Entendo. A montagem normalmente é o valor mais alto do aparelho, e na promoção especial de novembro ela tá por 120. As formas de pagamento a doutora vê com você na consulta. Se for melhor, deixo marcado pra depois do seu pagamento."</p></div>
+        <div class="obj"><p class="heard">"Vou pensar"</p><p class="ans">"Claro. Faz assim: eu deixo um horário reservado no seu nome. Se mudar de ideia, é só me avisar que eu libero, e assim você não perde a promoção."</p></div>
+        <div class="obj"><p class="heard">"Preciso falar com meu marido"</p><p class="ans">"Faz sentido. Ele pode vir junto, inclusive. Quer que eu deixe o horário reservado e você me confirma até amanhã de manhã?"</p></div>
+        <div class="obj"><p class="heard">"Tenho medo de doer"</p><p class="ans">"Essa dúvida é muito comum. A doutora explica cada passo antes de começar e você pode perguntar tudo pra ela na hora. Montar aparelho não é cirurgia."</p></div>
+        <div class="obj"><p class="heard">"Não tenho tempo"</p><p class="ans">"Me fala qual dia e horário encaixa melhor na sua rotina que eu procuro aqui na agenda pra você."</p></div>
+        <div class="obj"><p class="heard">"Por que tão barato? Tem pegadinha?"</p><p class="ans">"Pergunta justa! É a promoção especial de novembro da clínica. O valor é da montagem mesmo, e a doutora te passa tudo certinho antes de começar, sem surpresa."</p></div>
+        <div class="obj"><p class="heard">"Vou ver em outro lugar"</p><p class="ans">"Tranquilo, é bom comparar. Se quiser, deixo uma consulta marcada pra você conhecer a clínica e decidir com calma."</p></div>
       </div>
-      <div class="obj">
-        <p class="heard">"Tá caro" ou "não tenho dinheiro agora"</p>
-        <p class="ans">"Entendo. A montagem normalmente é o valor mais alto do aparelho, e na promoção especial de novembro ela tá por 120. As formas de pagamento a doutora vê com você na consulta. Se for melhor, deixo marcado pra depois do seu pagamento."</p>
+    </div>
+
+    <!-- INTERMEDIÁRIO -->
+    <div data-lv="intermediario" hidden>
+      <p class="intro">Aqui você não responde de cara. Usa 4 passos, porque a primeira objeção quase nunca é a verdadeira.</p>
+      <div class="method">
+        <div><b>1 · Acolher</b><span>Concorda com o sentimento: "Entendo", "Faz sentido".</span></div>
+        <div><b>2 · Isolar</b><span>Pergunta se é só isso ou se tem outra coisa por trás.</span></div>
+        <div><b>3 · Responder</b><span>Curto, só sobre o que ela confirmou.</span></div>
+        <div><b>4 · Fechar</b><span>Volta pros dois horários.</span></div>
       </div>
-      <div class="obj">
-        <p class="heard">"Vou pensar"</p>
-        <p class="ans">"Claro. Ficou alguma dúvida, no valor, no horário ou no tratamento?" Se não tiver dúvida: "Faz assim, eu deixo um horário reservado no seu nome. Se mudar de ideia, é só me avisar que eu libero, e assim você não perde a promoção."</p>
+      <div class="obj-grid">
+        <div class="obj"><p class="heard">"Tá caro"</p>
+          <p class="ans"><b>Acolher:</b> "Entendo, é um investimento."<br><b>Isolar:</b> "Tirando o valor, tem mais alguma coisa que te deixa em dúvida?"<br><b>Responder:</b> "A montagem, que é a parte mais cara, tá por 120 na promoção especial de novembro. O resto a doutora vê com você."<br><b>Fechar:</b> "Deixo pra depois do seu pagamento? Tenho [dia] ou [dia]."</p></div>
+        <div class="obj"><p class="heard">"Vou pensar"</p>
+          <p class="ans"><b>Acolher:</b> "Claro, é uma decisão importante."<br><b>Isolar:</b> "Pensar sobre o quê exatamente: o valor, o horário ou o tratamento em si?"<br><b>Responder:</b> responde só o ponto que ela escolheu.<br><b>Fechar:</b> "Resolvido isso, qual horário fica melhor?"</p></div>
+        <div class="obj"><p class="heard">"Preciso falar com meu marido"</p>
+          <p class="ans"><b>Acolher:</b> "Faz sentido decidir junto."<br><b>Isolar:</b> "O que você acha que ele vai perguntar?"<br><b>Responder:</b> responde a dúvida dele agora, por ela.<br><b>Fechar:</b> "Ele pode vir junto na consulta. Fica melhor [dia] ou [dia]?"</p></div>
+        <div class="obj"><p class="heard">"Tenho medo"</p>
+          <p class="ans"><b>Acolher:</b> "Muita gente sente isso."<br><b>Isolar:</b> "É medo de doer ou de como fica no dia a dia?"<br><b>Responder:</b> "A doutora explica cada passo antes e você pergunta tudo na consulta. Montar aparelho não é cirurgia."<br><b>Fechar:</b> "Vamos marcar pra você tirar essas dúvidas com ela?"</p></div>
+        <div class="obj"><p class="heard">"Não tenho tempo"</p>
+          <p class="ans"><b>Acolher:</b> "Rotina corrida, né?"<br><b>Isolar:</b> "Se eu achar um horário que encaixe, faz sentido começar?"<br><b>Responder:</b> "Qual o seu horário mais livre na semana?"<br><b>Fechar:</b> encaixa no horário que ela disse.</p></div>
+        <div class="obj"><p class="heard">"Vou ver em outro lugar"</p>
+          <p class="ans"><b>Acolher:</b> "É bom comparar mesmo."<br><b>Isolar:</b> "O que vai pesar mais na sua escolha: valor, estrutura ou quem vai cuidar?"<br><b>Responder:</b> usa o diferencial que ela escolheu.<br><b>Fechar:</b> "Vem conhecer na consulta e compara com calma. [dia] ou [dia]?"</p></div>
+        <div class="obj"><p class="heard">"E a manutenção, quanto é?"</p>
+          <p class="ans"><b>Acolher:</b> "Boa pergunta."<br><b>Isolar:</b> "Saber esse valor é o que falta pra você decidir?"<br><b>Responder:</b> "Ele depende do seu caso, por isso a doutora passa na consulta. Você sai de lá com tudo explicado."<br><b>Fechar:</b> "Vamos marcar? [dia] ou [dia]."</p></div>
+        <div class="obj"><p class="heard">"Por que tão barato?"</p>
+          <p class="ans"><b>Acolher:</b> "Pergunta justa!"<br><b>Isolar:</b> "Você ficou com receio de ter alguma pegadinha?"<br><b>Responder:</b> "É a promoção especial de novembro. O valor é da montagem mesmo, e a doutora explica tudo antes."<br><b>Fechar:</b> "Quer garantir? [dia] ou [dia]."</p></div>
       </div>
-      <div class="obj">
-        <p class="heard">"Preciso falar com meu marido" (ou esposa, pais)</p>
-        <p class="ans">"Faz sentido. Ele pode vir junto, inclusive. Quer que eu deixe o horário reservado e você me confirma até amanhã de manhã?"</p>
-      </div>
-      <div class="obj">
-        <p class="heard">"Tenho medo de doer"</p>
-        <p class="ans">"Essa dúvida é muito comum. A doutora explica cada passo antes de começar e você pode perguntar tudo pra ela na hora. Montar aparelho não é cirurgia."</p>
-      </div>
-      <div class="obj">
-        <p class="heard">"Não tenho tempo, trabalho o dia todo"</p>
-        <p class="ans">"Me fala qual dia e horário encaixa melhor na sua rotina que eu procuro aqui na agenda pra você." Depois oferece os horários que tiver mais perto do que ela pediu.</p>
-      </div>
-      <div class="obj">
-        <p class="heard">"Por que tão barato? Tem pegadinha?"</p>
-        <p class="ans">"Pergunta justa! É a promoção especial de novembro da clínica. O valor é da montagem mesmo, e a doutora te passa tudo certinho antes de começar, sem surpresa."</p>
-      </div>
-      <div class="obj">
-        <p class="heard">"Quero o transparente" (estético ou alinhador)</p>
-        <p class="ans">"Os modelos e os valores de cada um a doutora te mostra na consulta, aí você escolhe vendo de perto. Vamos marcar?"</p>
-      </div>
-      <div class="obj">
-        <p class="heard">"Vou ver em outro lugar"</p>
-        <p class="ans">"Tranquilo, é bom comparar. Só te lembro que esse valor é da nossa promoção especial de novembro. Se quiser, deixo uma consulta marcada pra você conhecer a clínica e decidir com calma."</p>
-      </div>
-      <div class="obj">
-        <p class="heard">"É pro meu filho"</p>
-        <p class="ans">"Que bom! Quantos anos ele tem? No dia ele vem com você ou com outro responsável. Qual horário fica melhor pra vocês dois, depois da escola?"</p>
+    </div>
+
+    <!-- SPIN -->
+    <div data-lv="spin" hidden>
+      <p class="intro">No SPIN, objeção quase sempre quer dizer que a Implicação ou a Necessidade ficaram fracas. Em vez de rebater, faça uma pergunta que traga a pessoa de volta pro benefício que ela mesma falou.</p>
+      <div class="obj-grid">
+        <div class="obj"><p class="heard">"Tá caro"</p><p class="ans">"Entendo. Você me falou que queria [benefício dela]. Pra você, quanto vale resolver isso?" Deixa ela responder. Depois usa a ponte: "A montagem, que costuma ser o valor mais alto, tá por 120. O resto a doutora vê com você."</p></div>
+        <div class="obj"><p class="heard">"Vou pensar"</p><p class="ans">"Claro. Me ajuda a entender: o que falta pra você se sentir segura de dar o primeiro passo?" A resposta é a objeção real. Trata ela com a ponte certa.</p></div>
+        <div class="obj"><p class="heard">"Preciso falar com meu marido"</p><p class="ans">"Faz sentido decidir junto. Se dependesse só de você, você começaria?" Se sim: "Então vamos marcar e ele vem junto conhecer a doutora."</p></div>
+        <div class="obj"><p class="heard">"Tenho medo"</p><p class="ans">"O que exatamente te dá medo?" Ouve. "E se a doutora te explicar cada passo antes de fazer qualquer coisa, isso te deixa mais tranquila?"</p></div>
+        <div class="obj"><p class="heard">"Não tenho tempo"</p><p class="ans">"Você comentou que isso te incomoda em [momento que ela citou]. Se eu encaixar num horário que não atrapalhe sua rotina, faz sentido começar?"</p></div>
+        <div class="obj"><p class="heard">"Vou ver em outro lugar"</p><p class="ans">"O que seria mais importante pra você na hora de escolher onde fazer?" Usa o critério dela: "Então vem conhecer e vê se a gente atende isso."</p></div>
+        <div class="obj"><p class="heard">"E a manutenção, quanto é?"</p><p class="ans">"Isso depende do seu caso, a doutora passa na consulta. Saber esse valor é o que falta pra você decidir?" Se sim: "Então a consulta é exatamente o passo pra isso."</p></div>
+        <div class="obj"><p class="heard">"Agora não é o momento"</p><p class="ans">"Entendo. Você me disse que pensa nisso faz [tempo]. O que precisaria mudar pra ser o momento?"</p></div>
       </div>
     </div>
   </section>
 
   <section id="followup">
     <h2>Quando não atende</h2>
-    <p class="intro">3 dias, 3 ligações e 3 mensagens. Cada contato traz uma coisa nova. Depois disso, encerra com educação e deixa a porta aberta.</p>
-    <div class="cad">
-      <div class="cad-row">
-        <div class="cad-when">Dia 1<span>na hora</span></div>
-        <div class="cad-what">
-          <span>Ligação 1. Não atendeu? Manda na hora:</span>
-          <div class="msg">
-            <p>Oi, [nome]! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Tentei te ligar agora pra explicar a promoção do aparelho: montagem por R$ 120 e limpeza grátis no mesmo dia. Qual horário fica bom pra eu te ligar?</p>
-            <button class="copy" type="button">Copiar mensagem</button>
-          </div>
-        </div>
+
+    <div data-lv="iniciante">
+      <p class="intro">3 dias, 3 ligações e 3 mensagens. Depois disso, encerra com educação.</p>
+      <div class="cad">
+        <div class="cad-row"><div class="cad-when">Dia 1<span>na hora</span></div><div class="cad-what"><span>Ligação 1. Não atendeu? Manda na hora:</span>
+          <div class="msg"><p>Oi, [nome]! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Tentei te ligar agora pra explicar a promoção do aparelho: montagem por R$ 120 e limpeza grátis no mesmo dia. Qual horário fica bom pra eu te ligar?</p><button class="copy" type="button">Copiar mensagem</button></div></div></div>
+        <div class="cad-row"><div class="cad-when">Dia 1<span>2 a 3 horas depois</span></div><div class="cad-what"><span>Ligação 2, se ela não respondeu.</span></div></div>
+        <div class="cad-row"><div class="cad-when">Dia 2<span>manhã</span></div><div class="cad-what"><span>Ligação 3. Não atendeu? Manda os horários:</span>
+          <div class="msg"><p>[nome], separei dois horários essa semana pra sua consulta, com a promoção especial de novembro: [dia] às [hora] ou [dia] às [hora]. Algum desses fica bom pra você?</p><button class="copy" type="button">Copiar mensagem</button></div></div></div>
+        <div class="cad-row"><div class="cad-when">Dia 3<span>fim da tarde</span></div><div class="cad-what"><span>Última mensagem.</span>
+          <div class="msg"><p>Oi, [nome]! Não quero te incomodar. Vou deixar seu contato aqui e, quando quiser começar o aparelho, é só me chamar. A montagem por R$ 120 é a nossa promoção especial de novembro.</p><button class="copy" type="button">Copiar mensagem</button></div></div></div>
       </div>
-      <div class="cad-row">
-        <div class="cad-when">Dia 1<span>2 a 3 horas depois</span></div>
-        <div class="cad-what"><span>Ligação 2, se ela não respondeu a mensagem.</span></div>
+    </div>
+
+    <div data-lv="intermediario" hidden>
+      <p class="intro">Cada contato traz um ângulo novo. Áudio no meio da cadência aumenta a resposta, porque a pessoa ouve uma voz de verdade.</p>
+      <div class="cad">
+        <div class="cad-row"><div class="cad-when">Dia 1<span>na hora</span></div><div class="cad-what"><span>Ligação 1. Não atendeu? Responde o que ela perguntou:</span>
+          <div class="msg"><p>Oi, [nome]! Tentei te ligar pra responder sua pergunta sobre [o que ela perguntou]. Por telefone eu te explico em 2 minutinhos. Qual horário fica bom?</p><button class="copy" type="button">Copiar mensagem</button></div></div></div>
+        <div class="cad-row"><div class="cad-when">Dia 1<span>2 a 3 horas depois</span></div><div class="cad-what"><span>Ligação 2. Não atendeu? Grava um <b>áudio de até 20 segundos</b>, sorrindo:</span>
+          <div class="msg"><p>Oi, [nome], aqui é a Geovana, da Odonto Medic! Te liguei duas vezes, mas acho que você tava ocupada. Só queria te contar que a montagem do aparelho tá por 120 reais, com limpeza grátis no dia. Me responde por aqui que eu te explico tudo, tá?</p><button class="copy" type="button">Copiar roteiro do áudio</button></div></div></div>
+        <div class="cad-row"><div class="cad-when">Dia 2<span>manhã</span></div><div class="cad-what"><span>Ligação 3. Não atendeu? Facilita a decisão:</span>
+          <div class="msg"><p>[nome], pra facilitar, já deixei dois horários separados pra sua consulta: [dia] de manhã ou [dia] de tarde. É só me responder 1 ou 2.</p><button class="copy" type="button">Copiar mensagem</button></div></div></div>
+        <div class="cad-row"><div class="cad-when">Dia 3<span>fim da tarde</span></div><div class="cad-what"><span>Encerramento que deixa a porta aberta:</span>
+          <div class="msg"><p>Oi, [nome]! Vou parar de te chamar pra não incomodar. Se ainda pensar em aparelho, me manda um "oi" que eu te encaixo na agenda. A promoção especial de novembro continua valendo.</p><button class="copy" type="button">Copiar mensagem</button></div></div></div>
       </div>
-      <div class="cad-row">
-        <div class="cad-when">Dia 2<span>manhã</span></div>
-        <div class="cad-what">
-          <span>Ligação 3. Não atendeu? Manda os horários direto:</span>
-          <div class="msg">
-            <p>[nome], separei dois horários essa semana pra sua consulta, com a promoção especial de novembro: [dia] às [hora] ou [dia] às [hora]. Algum desses fica bom pra você?</p>
-            <button class="copy" type="button">Copiar mensagem</button>
-          </div>
-        </div>
-      </div>
-      <div class="cad-row">
-        <div class="cad-when">Dia 3<span>fim da tarde</span></div>
-        <div class="cad-what">
-          <span>Última mensagem. Depois dela, para de chamar.</span>
-          <div class="msg">
-            <p>Oi, [nome]! Não quero te incomodar. Vou deixar seu contato aqui e, quando quiser começar o aparelho, é só me chamar. A montagem por R$ 120 é a nossa promoção especial de novembro.</p>
-            <button class="copy" type="button">Copiar mensagem</button>
-          </div>
-        </div>
+    </div>
+
+    <div data-lv="spin" hidden>
+      <p class="intro">Duas situações. Se ela nunca atendeu, use a cadência do intermediário. Se já conversou com você e não marcou, use o que ela contou na ligação. Mensagem com as palavras dela tem muito mais resposta.</p>
+      <div class="cad">
+        <div class="cad-row"><div class="cad-when">Dia 1<span>3 horas depois da conversa</span></div><div class="cad-what"><span>Retoma o problema que ela falou:</span>
+          <div class="msg"><p>Oi, [nome]! Fiquei pensando no que você me falou sobre [problema dela]. Separei [dia] às [hora] com a doutora pra você dar o primeiro passo. Fica bom pra você?</p><button class="copy" type="button">Copiar mensagem</button></div></div></div>
+        <div class="cad-row"><div class="cad-when">Dia 2<span>tarde</span></div><div class="cad-what"><span>Responde a trava dela com a ponte:</span>
+          <div class="msg"><p>[nome], sobre [a trava dela: valor, medo, tempo], lembrei que [ponte]. Se ajudar, posso deixar sua consulta em [dia] às [hora].</p><button class="copy" type="button">Copiar mensagem</button></div></div></div>
+        <div class="cad-row"><div class="cad-when">Dia 4<span>manhã</span></div><div class="cad-what"><span>Volta pro benefício que ela mesma disse:</span>
+          <div class="msg"><p>Oi, [nome]! Lembrei de você porque você me disse que queria [benefício dela]. Quando sentir que é a hora, me chama que eu encaixo você na agenda, tá?</p><button class="copy" type="button">Copiar mensagem</button></div></div></div>
       </div>
     </div>
   </section>
@@ -800,6 +897,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
   function setLevel(lv, save) {
     if (levels.indexOf(lv) < 0) lv = 'iniciante';
     window.__nivel = (levels.indexOf(lv) < 0 ? 'iniciante' : lv);
+    document.querySelectorAll('[data-lv]').forEach(function (el) { el.hidden = el.getAttribute('data-lv') !== lv; });
     document.querySelectorAll('.panel').forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== lv; });
     document.querySelectorAll('.lvl-btn').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-level') === lv ? 'true' : 'false'); });
     if (save) { try { localStorage.setItem('nivel-roteiro', lv); } catch (e) {} }
@@ -810,10 +908,6 @@ document.querySelectorAll('.copy').forEach(function (btn) {
   document.querySelectorAll('.lvl-btn').forEach(function (b) {
     b.addEventListener('click', function () {
       setLevel(b.getAttribute('data-level'), true);
-      if (!b.classList.contains('mini')) {
-        var r = document.getElementById('roteiro');
-        if (r && r.scrollIntoView) r.scrollIntoView({ behavior: window.matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth', block: 'start' });
-      }
     });
   });
 })();
@@ -832,18 +926,43 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     tempo: { nome: 'o tempo', ponte: 'eu encaixo a consulta no horário que for melhor pra sua rotina' },
     confianca: { nome: 'a confiança', ponte: 'a clínica é toda equipada e muita gente aqui da região já faz o aparelho com a gente, vem conhecer' }
   };
-  var OBJ = [
-    ['"E a manutenção, quanto é?"', 'Isso a doutora te passa certinho na consulta, porque depende do seu caso. O que eu já te garanto é a montagem por 120 reais na promoção especial de novembro. Quer que eu já reserve sua consulta?'],
-    ['"Tá caro" ou "não tenho dinheiro agora"', 'Entendo. A montagem normalmente é o valor mais alto do aparelho, e na promoção especial de novembro ela tá por 120. As formas de pagamento a doutora vê com você na consulta. Se for melhor, deixo marcado pra depois do seu pagamento.'],
-    ['"Vou pensar"', 'Claro. Ficou alguma dúvida, no valor, no horário ou no tratamento? Faz assim: eu deixo um horário reservado no seu nome. Se mudar de ideia, é só me avisar que eu libero, e assim você não perde a promoção.'],
-    ['"Preciso falar com meu marido" (ou esposa, pais)', 'Faz sentido. Ele pode vir junto, inclusive. Quer que eu deixe o horário reservado e você me confirma até amanhã de manhã?'],
-    ['"Tenho medo de doer"', 'Essa dúvida é muito comum. A doutora explica cada passo antes de começar e você pode perguntar tudo pra ela na hora. Montar aparelho não é cirurgia.'],
-    ['"Não tenho tempo"', 'Me fala qual dia e horário encaixa melhor na sua rotina que eu procuro aqui na agenda pra você.'],
-    ['"Por que tão barato? Tem pegadinha?"', 'Pergunta justa! É a promoção especial de novembro da clínica. O valor é da montagem mesmo, e a doutora te passa tudo certinho antes de começar, sem surpresa.'],
-    ['"Quero o transparente"', 'Os modelos e os valores de cada um a doutora te mostra na consulta, aí você escolhe vendo de perto. Vamos marcar?'],
-    ['"Vou ver em outro lugar"', 'Tranquilo, é bom comparar. Só te lembro que esse valor é da nossa promoção especial de novembro. Se quiser, deixo uma consulta marcada pra você conhecer a clínica e decidir com calma.'],
-    ['"É pro meu filho"', 'Que bom! Quantos anos ele tem? No dia ele vem com você ou com outro responsável. Qual horário fica melhor pra vocês dois, depois da escola?']
-  ];
+  var OBJTIP = {
+    iniciante: 'Concorda, responde curto e volta pros dois horários.',
+    intermediario: 'Acolher, isolar, responder e fechar. Espera ela responder o isolar antes de seguir.',
+    spin: 'Não rebata. Pergunte e deixe ela chegar na resposta.'
+  };
+  var OBJ = {
+    iniciante: [
+      ['"E a manutenção, quanto é?"', 'Isso a doutora te passa certinho na consulta, porque depende do seu caso. O que eu já te garanto é a montagem por 120 reais na promoção especial de novembro. Quer que eu já reserve sua consulta?'],
+      ['"Tá caro" ou "não tenho dinheiro agora"', 'Entendo. A montagem normalmente é o valor mais alto do aparelho, e na promoção especial de novembro ela tá por 120. As formas de pagamento a doutora vê com você na consulta. Se for melhor, deixo marcado pra depois do seu pagamento.'],
+      ['"Vou pensar"', 'Claro. Faz assim: eu deixo um horário reservado no seu nome. Se mudar de ideia, é só me avisar que eu libero, e assim você não perde a promoção.'],
+      ['"Preciso falar com meu marido"', 'Faz sentido. Ele pode vir junto, inclusive. Quer que eu deixe o horário reservado e você me confirma até amanhã de manhã?'],
+      ['"Tenho medo de doer"', 'Essa dúvida é muito comum. A doutora explica cada passo antes de começar e você pode perguntar tudo pra ela na hora. Montar aparelho não é cirurgia.'],
+      ['"Não tenho tempo"', 'Me fala qual dia e horário encaixa melhor na sua rotina que eu procuro aqui na agenda pra você.'],
+      ['"Por que tão barato?"', 'Pergunta justa! É a promoção especial de novembro da clínica. O valor é da montagem mesmo, e a doutora te passa tudo certinho antes de começar, sem surpresa.'],
+      ['"Vou ver em outro lugar"', 'Tranquilo, é bom comparar. Se quiser, deixo uma consulta marcada pra você conhecer a clínica e decidir com calma.']
+    ],
+    intermediario: [
+      ['"Tá caro"', 'Entendo, é um investimento.\nTirando o valor, tem mais alguma coisa que te deixa em dúvida?\nA montagem, que é a parte mais cara, tá por 120 na promoção especial de novembro. O resto a doutora vê com você.\nDeixo pra depois do seu pagamento? Tenho {h1} ou {h2}.'],
+      ['"Vou pensar"', 'Claro, é uma decisão importante.\nPensar sobre o quê exatamente: o valor, o horário ou o tratamento em si?\n(Responde só o ponto que ela escolheu.)\nResolvido isso, fica melhor {h1} ou {h2}?'],
+      ['"Preciso falar com meu marido"', 'Faz sentido decidir junto.\nO que você acha que ele vai perguntar?\n(Responde a dúvida dele agora, pra ela.)\nEle pode vir junto na consulta. Fica melhor {h1} ou {h2}?'],
+      ['"Tenho medo"', 'Muita gente sente isso.\nÉ medo de doer ou de como fica no dia a dia?\nA doutora explica cada passo antes e você pergunta tudo na consulta. Montar aparelho não é cirurgia.\nVamos marcar pra você tirar essas dúvidas com ela? {h1} ou {h2}?'],
+      ['"Não tenho tempo"', 'Rotina corrida, né?\nSe eu achar um horário que encaixe, faz sentido começar?\nQual o seu horário mais livre na semana?'],
+      ['"Vou ver em outro lugar"', 'É bom comparar mesmo.\nO que vai pesar mais na sua escolha: valor, estrutura ou quem vai cuidar?\n(Usa o diferencial que ela escolheu.)\nVem conhecer na consulta e compara com calma. {h1} ou {h2}?'],
+      ['"E a manutenção, quanto é?"', 'Boa pergunta.\nSaber esse valor é o que falta pra você decidir?\nEle depende do seu caso, por isso a doutora passa na consulta. Você sai de lá com tudo explicado.\nVamos marcar? {h1} ou {h2}.'],
+      ['"Por que tão barato?"', 'Pergunta justa!\nVocê ficou com receio de ter alguma pegadinha?\nÉ a promoção especial de novembro. O valor é da montagem mesmo, e a doutora explica tudo antes.\nQuer garantir? {h1} ou {h2}.']
+    ],
+    spin: [
+      ['"Tá caro"', 'Entendo. Você me falou que queria {beneficio}. Pra você, quanto vale resolver isso?\n(Deixa ela responder.)\nA montagem, que costuma ser o valor mais alto, tá por 120. O resto a doutora vê com você na consulta.'],
+      ['"Vou pensar"', 'Claro. Me ajuda a entender: o que falta pra você se sentir segura de dar o primeiro passo?\n(A resposta é a objeção real. Trata com a ponte certa.)'],
+      ['"Preciso falar com meu marido"', 'Faz sentido decidir junto. Se dependesse só de você, você começaria?\nSe sim: então vamos marcar e ele vem junto conhecer a doutora.'],
+      ['"Tenho medo"', 'O que exatamente te dá medo?\n(Ouve.)\nE se a doutora te explicar cada passo antes de fazer qualquer coisa, isso te deixa mais tranquila?'],
+      ['"Não tenho tempo"', 'Você comentou que {incomodo} te incomoda. Se eu encaixar num horário que não atrapalhe sua rotina, faz sentido começar?'],
+      ['"Vou ver em outro lugar"', 'O que seria mais importante pra você na hora de escolher onde fazer?\n(Usa o critério dela.) Então vem conhecer e vê se a gente atende isso.'],
+      ['"E a manutenção, quanto é?"', 'Isso depende do seu caso, a doutora passa na consulta. Saber esse valor é o que falta pra você decidir?\nSe sim: então a consulta é exatamente o passo pra isso.'],
+      ['"Agora não é o momento"', 'Entendo. Você me disse que pensa nisso faz {tempo}. O que precisaria mudar pra ser o momento?']
+    ]
+  };
 
   var CLOSE_CHOICES = [
     { label: function () { return 'Escolheu ' + (S.h1 || 'o 1º horário'); }, go: 'confirm', set: function () { S.hora = S.h1 || '[horário]'; }, primary: true },
@@ -1075,12 +1194,12 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     var w = document.createElement('div'); w.className = 'node';
     w.innerHTML = '<span class="label step-l">Objeção</span><h3 class="node-title">O que ela falou?</h3>';
     var list = document.createElement('div'); list.className = 'obj-list';
-    OBJ.forEach(function (o) {
+    OBJ[level].forEach(function (o) {
       var b = document.createElement('button'); b.type = 'button'; b.className = 'obj-btn'; b.textContent = o[0];
       b.addEventListener('click', function () {
         body.innerHTML = '';
         var a = document.createElement('div'); a.className = 'node';
-        a.innerHTML = '<span class="label step-l">Objeção</span><p class="heard-q">Ela: ' + esc(o[0]) + '</p><div class="say big-say"><span class="who">Você responde</span><p>' + esc(o[1]) + '</p></div><p class="node-tip">Concorda, responde curto e volta pros dois horários.</p>';
+        a.innerHTML = '<span class="label step-l">Objeção</span><p class="heard-q">Ela: ' + esc(o[0]) + '</p><div class="say big-say"><span class="who">Você responde</span>' + o[1].split('\n').map(function (x) { return '<p>' + fill(x) + '</p>'; }).join('') + '</div><p class="node-tip">' + OBJTIP[level] + '</p>';
         var acts = document.createElement('div'); acts.className = 'acts';
         acts.innerHTML = '<span class="label">E agora?</span>';
         var grid = document.createElement('div'); grid.className = 'choice-grid';
