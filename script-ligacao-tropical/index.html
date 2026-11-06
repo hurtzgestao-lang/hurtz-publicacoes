@@ -336,7 +336,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
     <div class="price"><small>R$</small>120</div>
     <div class="what">
       <strong>Montagem do aparelho + limpeza grátis no dia da montagem</strong>
-      <span>Promoção especial de novembro. O primeiro passo é agendar a consulta.</span>
+      <span>Promoção especial de novembro. O primeiro passo é a consulta, que é gratuita. Atendimento de segunda a sexta das 8h às 18h e sábado até o meio-dia.</span>
     </div>
   </div>
 
@@ -530,7 +530,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
           <div class="step-head"><span class="step-n">ETAPA 3</span><h3>Oferta</h3><span class="time">30 s</span></div>
           <div class="say">
             <span class="who">Geovana</span>
-            <p>Então, [nome], funciona assim: o primeiro passo é uma consulta aqui na clínica com a doutora. E na promoção especial de novembro a montagem do aparelho tá saindo por <b>120 reais</b>, e no dia da montagem você ainda ganha uma <b>limpeza</b>, sem pagar nada a mais.</p>
+            <p>Então, [nome], funciona assim: o primeiro passo é uma consulta gratuita aqui na clínica com a doutora. E na promoção especial de novembro a montagem do aparelho tá saindo por <b>120 reais</b>, e no dia da montagem você ainda ganha uma <b>limpeza</b>, sem pagar nada a mais.</p>
             <p>E aqui seu aparelho é acompanhado por dentista especialista em ortodontia.</p>
           </div>
         </article>
@@ -585,7 +585,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
             <li><div><p class="q">Interesse: "Se a doutora avaliar e for indicado pra você, você quer começar logo?"</p></div></li>
             <li><div><p class="q">Local: "Você mora aqui perto do Tropical, né?"</p></div></li>
             <li><div><p class="q">Agenda: "Pra você é melhor de manhã ou de tarde?"</p><p class="why">Anota o turno. Você usa ele no fechamento.</p></div></li>
-            <li><div><p class="q">Condição: "A montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia, e o resto a doutora te explica na consulta. Faz sentido pra você?"</p></div></li>
+            <li><div><p class="q">Condição: "A consulta é gratuita, a montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia, e o resto a doutora te explica na consulta. Faz sentido pra você?"</p></div></li>
           </ol>
         </article>
 
@@ -672,7 +672,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
           <div class="say">
             <span class="who">Geovana</span>
             <p>[nome], pelo que você me contou, você quer [o benefício que ela falou no N]. E sobre [o que impediu ela], funciona assim: <span class="fill">[ponte]</span>.</p>
-            <p>O primeiro passo é a consulta com a doutora. E na promoção especial de novembro a montagem tá por <b>120 reais</b>, com <b>limpeza grátis</b> no dia da montagem.</p>
+            <p>O primeiro passo é uma consulta gratuita com a doutora. E na promoção especial de novembro a montagem tá por <b>120 reais</b>, com <b>limpeza grátis</b> no dia da montagem.</p>
           </div>
           <div class="bridges">
             <div><b>Dinheiro</b><span>"A montagem, que costuma ser o valor mais alto, tá por 120 reais. O resto a doutora vê com você na consulta."</span></div>
@@ -963,7 +963,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
   };
   var OBJ = {
     iniciante: [
-      ['"E a manutenção, quanto é?"', 'Isso a doutora te passa certinho na consulta, porque depende do seu caso. O que eu já te garanto é a montagem por 120 reais na promoção especial de novembro. Quer que eu já reserve sua consulta?'],
+      ['"E a manutenção, quanto é?"', 'Isso a doutora te passa certinho na consulta, que é gratuita, porque depende do seu caso. O que eu já te garanto é a montagem por 120 reais na promoção especial de novembro. Quer que eu já reserve sua consulta?'],
       ['"Tá caro" ou "não tenho dinheiro agora"', 'Entendo. A montagem normalmente é o valor mais alto do aparelho, e na promoção especial de novembro ela tá por 120. As formas de pagamento a doutora vê com você na consulta. Se for melhor, deixo marcado pra depois do seu pagamento.'],
       ['"Vou pensar"', 'Claro. Faz assim: eu deixo um horário reservado no seu nome. Se mudar de ideia, é só me avisar que eu libero, e assim você não perde a promoção.'],
       ['"Preciso falar com meu marido" (ou pais)', 'Faz sentido. Ele pode vir junto, inclusive. Quer que eu deixe o horário reservado e você me confirma até amanhã de manhã?'],
@@ -1030,9 +1030,9 @@ document.querySelectorAll('.copy').forEach(function (btn) {
 
     /* valor */
     { k: 'total', c: 'Valor e pagamento', q: 'Quanto fica o tratamento todo?', a: ['O valor total depende do seu caso, por isso a doutora passa na consulta. O que eu já te garanto é a montagem por 120 reais na promoção especial de novembro.'] },
-    { k: 'consulta', c: 'Valor e pagamento', q: 'A consulta é paga?', a: ['(Fale o valor da consulta ou se ela é gratuita, conforme a regra da clínica.)', 'E na consulta você já sai com tudo explicado.'], tip: 'Se não souber, confirme com a clínica e responda no WhatsApp. Não chute.' },
+    { k: 'consulta', c: 'Valor e pagamento', q: 'A consulta é paga?', a: ['Não, a consulta é gratuita! Você conhece a doutora, ela avalia seu caso e te explica tudo, sem pagar nada.', 'Quer que eu já reserve? Tenho {h1} ou {h2}.'], tip: 'Consulta gratuita é argumento forte. Use sempre que ela hesitar.' },
     { k: 'parcela', c: 'Valor e pagamento', q: 'Parcela? Aceita cartão ou pix?', a: ['As formas de pagamento a doutora vê com você na consulta, pra encaixar no que for melhor pra você.'] },
-    { k: 'convenio', c: 'Valor e pagamento', q: 'Aceita convênio ou plano?', a: ['(Responda conforme a regra da clínica.)', 'Se não aceitar: pelo plano não, mas a montagem tá por 120 reais na promoção especial de novembro.'] },
+    { k: 'convenio', c: 'Valor e pagamento', q: 'Aceita convênio ou plano?', a: ['Isso a gente vê certinho na consulta, que é gratuita. Leva sua carteirinha que a doutora confere com você.', 'E a montagem tá por 120 reais na promoção especial de novembro.'], tip: 'Não confirme nem negue convênio por telefone.' },
     { k: 'desconto', c: 'Valor e pagamento', q: 'Faz mais barato? Tem desconto?', a: ['A promoção especial de novembro já é a nossa melhor condição: montagem por 120 reais com limpeza grátis no dia. O resto a doutora vê com você na consulta.'] },
     { k: 'familia', c: 'Valor e pagamento', q: 'Vale pra mim e pra outra pessoa da família?', a: ['Posso marcar a consulta de vocês dois juntos, e a doutora confirma as condições pra cada um. Quer?'], ch: [{ label: 'Marcar os dois', go: 'CLOSE', primary: true }, { label: 'Voltar pra conversa', go: 'RETURN' }] },
     { k: 'mais_barato', c: 'Valor e pagamento', q: 'Vi mais barato em outro lugar', a: ['Pode ser! O importante é comparar o tratamento todo: quem acompanha, a estrutura e o que tá incluso. Vem conhecer e compara com calma.'] },
@@ -1041,7 +1041,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     /* agenda */
     { k: 'hoje', c: 'Agenda e local', q: 'Dá pra ir hoje?', a: ['Deixa eu ver a agenda pra você...', '(Se tiver vaga hoje, oferece. Se não, oferece o horário mais cedo possível.)'], ch: [{ label: 'Marcou', go: 'outro', primary: true }, { label: 'Voltar pra conversa', go: 'RETURN' }] },
     { k: 'sem_marcar', c: 'Agenda e local', q: 'Posso passar aí sem marcar?', a: ['O melhor é marcar, pra você não esperar e a doutora ter o tempo certinho pra você. Tenho {h1} ou {h2}.'], ch: [{ label: 'Escolher horário', go: 'CLOSE', primary: true }] },
-    { k: 'funcionamento', c: 'Agenda e local', q: 'Que horas a clínica funciona? Abre sábado?', a: ['(Fale o horário de funcionamento da clínica.)', 'Qual horário é melhor pra você?'] },
+    { k: 'funcionamento', c: 'Agenda e local', q: 'Que horas a clínica funciona? Abre sábado?', a: ['A gente atende de segunda a sexta, das 8h às 18h, e no sábado até o meio-dia.', 'Qual horário é melhor pra você?'] },
     { k: 'endereco', c: 'Agenda e local', q: 'Onde fica a clínica?', a: ['Fica na Avenida Castanheira, no Bairro Tropical. Te mando a localização no WhatsApp agora.'] },
     { k: 'longe', c: 'Agenda e local', q: 'Moro longe ou em outra cidade', a: ['Muita gente vem de outros bairros. A clínica fica na Avenida Castanheira, Bairro Tropical. Dá pra você vir até aqui quando precisar?'], ch: [{ label: 'Dá sim', go: 'RETURN', primary: true }, { label: 'Não dá', go: 'OUT:seminteresse' }] },
     { k: 'data_futura', c: 'Agenda e local', q: 'Só posso depois de uma data', a: ['Tranquilo! Me fala a partir de quando que eu já deixo reservado.'], ch: [{ label: 'Marcou a data', go: 'outro', primary: true }, { label: 'Ligar mais perto da data', go: 'OUT:retorno' }] },
@@ -1102,7 +1102,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     i4: { step: 'Perguntas', say: ['E o que mais te incomoda hoje no seu sorriso?'], tip: 'A pergunta mais importante. Deixa falar e anota as palavras dela.',
       input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: os dentes da frente tortos' }, choices: [{ label: 'Próximo', go: 'i5', primary: true }, { label: 'Não soube dizer', go: 'i6' }] },
     i5: { step: 'Perguntas', say: ['Entendi, {incomodo}. Isso a doutora avalia certinho na consulta e te explica tudo antes de começar.'], choices: [{ label: 'Próximo', go: 'i6', primary: true }, { label: 'Fez uma pergunta', go: 'SIT' }] },
-    i6: { step: 'Oferta', say: ['Então, {nome}, funciona assim: o primeiro passo é uma consulta aqui na clínica com a doutora. E na promoção especial de novembro a montagem do aparelho tá saindo por 120 reais, e no dia da montagem você ainda ganha uma limpeza, sem pagar nada a mais.', 'E aqui seu aparelho é acompanhado por dentista especialista em ortodontia.'],
+    i6: { step: 'Oferta', say: ['Então, {nome}, funciona assim: o primeiro passo é uma consulta gratuita aqui na clínica com a doutora. E na promoção especial de novembro a montagem do aparelho tá saindo por 120 reais, e no dia da montagem você ainda ganha uma limpeza, sem pagar nada a mais.', 'E aqui seu aparelho é acompanhado por dentista especialista em ortodontia.'],
       choices: [{ label: 'Ela gostou', go: 'i7', primary: true }, { label: 'Fez uma pergunta', go: 'SIT' }, { label: 'Levantou objeção', go: 'OBJ' }] },
     i7: { step: 'Fechamento', say: ['Pra garantir essa condição, eu já deixo sua consulta marcada. Tenho {h1} ou {h2}. Qual fica melhor pra você?'], tip: 'Nunca pergunte "quer agendar?".', choices: CLOSE_CHOICES },
 
@@ -1122,8 +1122,8 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     m6: { step: '4 sins · 1 de 4', say: ['Se a doutora avaliar e for indicado pra você, você quer começar logo?'], choices: [{ label: 'Sim', go: 'm7', primary: true }, { label: 'Hesitou', go: 'OBJ' }, { label: 'Perguntou algo', go: 'SIT' }] },
     m7: { step: '4 sins · 2 de 4', say: ['Você mora aqui perto do Tropical, né?'], choices: [{ label: 'Sim', go: 'm8', primary: true }, { label: 'Mora longe', go: 'SIT:longe' }] },
     m8: { step: '4 sins · 3 de 4', say: ['Pra você é melhor de manhã ou de tarde?'],
-      choices: [{ label: 'Manhã', go: 'm9', set: function () { S.turno = 'manhã'; }, primary: true }, { label: 'Tarde', go: 'm9', set: function () { S.turno = 'tarde'; }, primary: true }, { label: 'Só fim de semana ou à noite', go: 'SIT:funcionamento', set: function () { S.turno = 'horário que você falou'; } }] },
-    m9: { step: '4 sins · 4 de 4', say: ['A montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia, e o resto a doutora te explica na consulta. Faz sentido pra você?'],
+      choices: [{ label: 'Manhã', go: 'm9', set: function () { S.turno = 'manhã'; }, primary: true }, { label: 'Tarde', go: 'm9', set: function () { S.turno = 'tarde'; }, primary: true }, { label: 'Sábado', go: 'm9', set: function () { S.turno = 'sábado de manhã'; }, primary: true }, { label: 'Só à noite', go: 'SIT:funcionamento', set: function () { S.turno = 'horário que você falou'; } }] },
+    m9: { step: '4 sins · 4 de 4', say: ['A consulta é gratuita, a montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia, e o resto a doutora te explica na consulta. Faz sentido pra você?'],
       choices: [{ label: 'Sim', go: 'm10', primary: true }, { label: 'Hesitou', go: 'OBJ' }, { label: 'Perguntou de manutenção ou total', go: 'SIT:total' }] },
     m10: { step: 'Diferencial', say: ['Qual o jeito dela?'], silent: true, tip: 'Escolha pelo que você ouviu até aqui.',
       choices: [{ label: 'Tem medo ou insegurança', go: 'm10a', primary: true }, { label: 'Desconfiada ou comparando', go: 'm10b', primary: true }, { label: 'Quer saber dos outros', go: 'm10c', primary: true }, { label: 'Já tá decidida', go: 'm11' }] },
@@ -1136,7 +1136,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     s0: { step: 'Abertura', say: ['Oi, {nome}! Geovana aqui, da Odonto Medic do Bairro Tropical, tudo bem? Você falou com a gente sobre aparelho.', 'Antes de te passar qualquer informação, eu queria entender um pouquinho o que você procura, pra não te falar coisa que não serve pra você. Posso te fazer umas perguntinhas rápidas?'],
       choices: [{ label: 'Pode perguntar', go: 's1', primary: true }, { label: 'Quer só o preço', go: 's0p' }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Não lembra da mensagem', go: 'SIT:nao_lembra' }, { label: 'Atendeu outra pessoa', go: 'SIT:outra_pessoa' }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
     s0b: { step: 'Abertura', say: ['Antes de te passar qualquer informação, posso te fazer umas perguntinhas rápidas pra entender o que você procura?'], choices: [{ label: 'Pode perguntar', go: 's1', primary: true }, { label: 'Quer só o preço', go: 's0p' }] },
-    s0p: { step: 'Abertura', say: ['Claro! A montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia. E pra eu te explicar o resto direitinho, me conta rapidinho: o que te fez procurar aparelho?'],
+    s0p: { step: 'Abertura', say: ['Claro! A consulta é gratuita e a montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia. E pra eu te explicar o resto direitinho, me conta rapidinho: o que te fez procurar aparelho?'],
       tip: 'Dá o número e devolve com pergunta. Assim a conversa continua.', choices: [{ label: 'Ela respondeu', go: 's1b', primary: true }, { label: 'Só queria o preço mesmo', go: 'SIT:curiosa' }] },
     s1: { step: 'S · Situação', say: ['O aparelho é pra você? Já usou antes?'], tip: 'Situação é só contexto. No máximo 2 perguntas.', choices: [{ label: 'Próximo', go: 's1b', primary: true }, { label: 'É pra filho', go: 'SIT:crianca' }, { label: 'Usa agora em outro lugar', go: 'SIT:ja_usa' }] },
     s1b: { step: 'S · Situação', say: ['Faz quanto tempo que você pensa em colocar?'], input: { key: 'tempo', label: 'Há quanto tempo', ph: 'Ex.: desde a adolescência' }, choices: [{ label: 'Próximo', go: 's2', primary: true }] },
@@ -1150,7 +1150,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     s3c: { step: 'I · Implicação', say: ['Obrigada por dividir isso comigo, {nome}. Você não tá sozinha, muita gente sente a mesma coisa.'], tip: 'Acolhe e não aprofunda mais. Segue com calma.', choices: [{ label: 'Próximo', go: 's4', primary: true }] },
     s4: { step: 'N · Necessidade', say: ['Se você já tivesse começado o aparelho, o que seria diferente pra você hoje?'], tip: 'Aqui ela mesma fala o benefício. Anota a frase dela.',
       input: { key: 'beneficio', label: 'O que ela disse', ph: 'Ex.: sorrir sem vergonha nas fotos' }, choices: [{ label: 'Próximo', go: 's5', primary: true }] },
-    s5: { step: 'Apresentação', say: ['{nome}, pelo que você me contou, você quer {beneficio}. E sobre {barreiraNome}, funciona assim: {ponte}.', 'O primeiro passo é a consulta com a doutora. E na promoção especial de novembro a montagem tá por 120 reais, com limpeza grátis no dia da montagem.'],
+    s5: { step: 'Apresentação', say: ['{nome}, pelo que você me contou, você quer {beneficio}. E sobre {barreiraNome}, funciona assim: {ponte}.', 'O primeiro passo é uma consulta gratuita com a doutora. E na promoção especial de novembro a montagem tá por 120 reais, com limpeza grátis no dia da montagem.'],
       choices: [{ label: 'Ela concordou', go: 's6', primary: true }, { label: 'Fez uma pergunta', go: 'SIT' }, { label: 'Levantou objeção', go: 'OBJ' }] },
     s6: { step: 'Fechamento', say: ['Faz sentido a gente dar esse primeiro passo? Tenho {h1} ou {h2}.'], choices: CLOSE_CHOICES }
   };
@@ -1411,7 +1411,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
       b2.addEventListener('click', function () { fn(); close(); });
       g.appendChild(b1); g.appendChild(b2); acts.appendChild(g); w.appendChild(acts);
     };
-    var resumo = 'Oi, ' + nome + '! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Como combinamos, segue o resumo:\nPromoção especial de novembro: montagem do aparelho por R$ 120 + limpeza grátis no dia da montagem.\nO primeiro passo é a consulta com a doutora, que te explica tudo do seu caso.\nOdonto Medic, Avenida Castanheira, Bairro Tropical.\nLocalização: https://maps.google.com/?q=-6.0368444,-49.8918091\nQuer que eu reserve seu horário? Tenho ' + (S.h1 || '[dia e hora]') + ' ou ' + (S.h2 || '[dia e hora]') + '.';
+    var resumo = 'Oi, ' + nome + '! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Como combinamos, segue o resumo:\nPromoção especial de novembro: montagem do aparelho por R$ 120 + limpeza grátis no dia da montagem.\nO primeiro passo é uma consulta gratuita com a doutora, que te explica tudo do seu caso.\nOdonto Medic, Avenida Castanheira, Bairro Tropical.\nLocalização: https://maps.google.com/?q=-6.0368444,-49.8918091\nQuer que eu reserve seu horário? Tenho ' + (S.h1 || '[dia e hora]') + ' ou ' + (S.h2 || '[dia e hora]') + '.';
     if (kind === 'agendou') {
       progress(1);
       register('agendou', S.hora || '');
