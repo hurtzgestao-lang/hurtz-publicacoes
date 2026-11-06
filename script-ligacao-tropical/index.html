@@ -293,6 +293,23 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
 .method > div { border: 1.5px solid var(--accent); border-radius: 8px; padding: 12px 14px; display: grid; gap: 4px; font-size: 13px; color: var(--muted); min-width: 0; }
 .method b { color: var(--accent); font-size: 15px; }
 .obj .ans b { color: var(--accent-ink); }
+
+/* modo ligação: mais opções */
+.seg { display: flex; border: 1.5px solid var(--line); border-radius: 8px; overflow: hidden; }
+.seg-b { flex: 1; font: inherit; font-weight: 700; font-size: 14px; padding: 10px 12px; background: var(--surface); color: var(--muted); border: 0; cursor: pointer; }
+.seg-b + .seg-b { border-left: 1.5px solid var(--line); }
+.seg-b[aria-pressed="true"] { background: var(--accent); color: var(--band-fg); }
+.seg-b:focus-visible { outline: 2px solid var(--fg); outline-offset: -2px; }
+.big-say p.stage { font-size: 15px; color: var(--muted); font-style: italic; }
+.fld.search input { background: var(--surface); }
+.sit-wrap { display: grid; gap: 18px; }
+.sit-group { display: grid; gap: 8px; }
+.sit-group .label { color: var(--accent); }
+.call-foot button.hl { border-color: var(--accent); color: var(--accent); }
+.dv { display: grid; gap: 28px; }
+.dv-group { display: grid; gap: 12px; }
+.dv-h { font-size: 16px; color: var(--accent); }
+.dv-tip { font-size: 13px; color: var(--subtle); }
 </style>
 </head>
 <body>
@@ -408,6 +425,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
     <a href="#antes">Antes de ligar</a>
     <a href="#roteiro">Roteiro</a>
     <a href="#objecoes">Objeções</a>
+    <a href="#duvidas">Dúvidas</a>
     <a href="#followup">Quando não atende</a>
     <a href="#controle">Controle do dia</a>
     <a href="#regras">Regras</a>
@@ -763,6 +781,12 @@ Qualquer coisa, é só me chamar aqui. Até lá!</p>
     </div>
   </section>
 
+  <section id="duvidas">
+    <h2>Dúvidas e situações</h2>
+    <p class="intro">Valem pra todos os níveis. No Modo ligação, o botão <b>Dúvida</b> abre essa lista com busca, durante a chamada.</p>
+    <div id="duvidas-list" class="dv"></div>
+  </section>
+
   <section id="followup">
     <h2>Quando não atende</h2>
 
@@ -872,8 +896,9 @@ Qualquer coisa, é só me chamar aqui. Até lá!</p>
   <div class="call-body" id="call-body"></div>
   <div class="call-foot" id="call-foot" hidden>
     <button type="button" id="call-back">Voltar</button>
-    <button type="button" id="call-obj">Objeção</button>
-    <button type="button" id="call-no">Sem interesse</button>
+    <button type="button" id="call-sit" class="hl">Dúvida</button>
+    <button type="button" id="call-obj" class="hl">Objeção</button>
+    <button type="button" id="call-end">Encerrar</button>
   </div>
 </div>
 <canvas id="confetti" hidden aria-hidden="true"></canvas>
@@ -917,6 +942,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
   var S = {};
   var hist = [];
   var visited = 0;
+  var lastMain = null;
   var level = 'iniciante';
   var TOTAL = { iniciante: 9, intermediario: 15, spin: 13 };
   var LEVEL_NAME = { iniciante: 'Iniciante', intermediario: 'Intermediário', spin: 'SPIN avançado' };
@@ -924,8 +950,11 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     dinheiro: { nome: 'o valor', ponte: 'a montagem, que costuma ser o valor mais alto, tá por 120 reais, e o resto a doutora vê com você na consulta' },
     medo: { nome: 'o medo', ponte: 'seu aparelho é acompanhado por dentista especialista em ortodontia, que te explica cada passo antes de fazer' },
     tempo: { nome: 'o tempo', ponte: 'eu encaixo a consulta no horário que for melhor pra sua rotina' },
-    confianca: { nome: 'a confiança', ponte: 'a clínica é toda equipada e muita gente aqui da região já faz o aparelho com a gente, vem conhecer' }
+    confianca: { nome: 'a confiança', ponte: 'a clínica é toda equipada e muita gente aqui da região já faz o aparelho com a gente, vem conhecer' },
+    nada: { nome: 'começar', ponte: 'o primeiro passo é simples, é só a consulta com a doutora' }
   };
+
+  /* ---------- objeções por nível ---------- */
   var OBJTIP = {
     iniciante: 'Concorda, responde curto e volta pros dois horários.',
     intermediario: 'Acolher, isolar, responder e fechar. Espera ela responder o isolar antes de seguir.',
@@ -936,86 +965,167 @@ document.querySelectorAll('.copy').forEach(function (btn) {
       ['"E a manutenção, quanto é?"', 'Isso a doutora te passa certinho na consulta, porque depende do seu caso. O que eu já te garanto é a montagem por 120 reais na promoção especial de novembro. Quer que eu já reserve sua consulta?'],
       ['"Tá caro" ou "não tenho dinheiro agora"', 'Entendo. A montagem normalmente é o valor mais alto do aparelho, e na promoção especial de novembro ela tá por 120. As formas de pagamento a doutora vê com você na consulta. Se for melhor, deixo marcado pra depois do seu pagamento.'],
       ['"Vou pensar"', 'Claro. Faz assim: eu deixo um horário reservado no seu nome. Se mudar de ideia, é só me avisar que eu libero, e assim você não perde a promoção.'],
-      ['"Preciso falar com meu marido"', 'Faz sentido. Ele pode vir junto, inclusive. Quer que eu deixe o horário reservado e você me confirma até amanhã de manhã?'],
+      ['"Preciso falar com meu marido" (ou pais)', 'Faz sentido. Ele pode vir junto, inclusive. Quer que eu deixe o horário reservado e você me confirma até amanhã de manhã?'],
       ['"Tenho medo de doer"', 'Essa dúvida é muito comum. A doutora explica cada passo antes de começar e você pode perguntar tudo pra ela na hora. Montar aparelho não é cirurgia.'],
       ['"Não tenho tempo"', 'Me fala qual dia e horário encaixa melhor na sua rotina que eu procuro aqui na agenda pra você.'],
-      ['"Por que tão barato?"', 'Pergunta justa! É a promoção especial de novembro da clínica. O valor é da montagem mesmo, e a doutora te passa tudo certinho antes de começar, sem surpresa.'],
-      ['"Vou ver em outro lugar"', 'Tranquilo, é bom comparar. Se quiser, deixo uma consulta marcada pra você conhecer a clínica e decidir com calma.']
+      ['"Por que tão barato? Tem pegadinha?"', 'Pergunta justa! É a promoção especial de novembro da clínica. O valor é da montagem mesmo, e a doutora te passa tudo certinho antes de começar, sem surpresa.'],
+      ['"Vou ver em outro lugar"', 'Tranquilo, é bom comparar. Se quiser, deixo uma consulta marcada pra você conhecer a clínica e decidir com calma.'],
+      ['"Já tenho dentista"', 'Que bom que você já se cuida! A promoção é pra montagem do aparelho aqui com a gente. Se quiser conhecer, deixo uma consulta marcada e você decide depois.'],
+      ['"Não confio em promoção"', 'Entendo. Por isso o primeiro passo é a consulta: você conhece a clínica e a doutora, e só decide depois.'],
+      ['"Vou viajar" ou "tô de mudança"', 'Tranquilo! Quando você volta? Já deixo marcado pra depois.'],
+      ['"Meu dente nem é tão torto"', 'Pode ser! Quem avalia se precisa e como fica é a doutora. A consulta serve justamente pra você tirar essa dúvida.'],
+      ['"Agora não é o momento"', 'Entendo. Quer que eu te chame mais pra frente? Me fala um mês bom pra você que eu anoto aqui.']
     ],
     intermediario: [
       ['"Tá caro"', 'Entendo, é um investimento.\nTirando o valor, tem mais alguma coisa que te deixa em dúvida?\nA montagem, que é a parte mais cara, tá por 120 na promoção especial de novembro. O resto a doutora vê com você.\nDeixo pra depois do seu pagamento? Tenho {h1} ou {h2}.'],
       ['"Vou pensar"', 'Claro, é uma decisão importante.\nPensar sobre o quê exatamente: o valor, o horário ou o tratamento em si?\n(Responde só o ponto que ela escolheu.)\nResolvido isso, fica melhor {h1} ou {h2}?'],
-      ['"Preciso falar com meu marido"', 'Faz sentido decidir junto.\nO que você acha que ele vai perguntar?\n(Responde a dúvida dele agora, pra ela.)\nEle pode vir junto na consulta. Fica melhor {h1} ou {h2}?'],
+      ['"Preciso falar com meu marido" (ou pais)', 'Faz sentido decidir junto.\nO que você acha que ele vai perguntar?\n(Responde a dúvida dele agora, pra ela.)\nEle pode vir junto na consulta. Fica melhor {h1} ou {h2}?'],
       ['"Tenho medo"', 'Muita gente sente isso.\nÉ medo de doer ou de como fica no dia a dia?\nA doutora explica cada passo antes e você pergunta tudo na consulta. Montar aparelho não é cirurgia.\nVamos marcar pra você tirar essas dúvidas com ela? {h1} ou {h2}?'],
       ['"Não tenho tempo"', 'Rotina corrida, né?\nSe eu achar um horário que encaixe, faz sentido começar?\nQual o seu horário mais livre na semana?'],
       ['"Vou ver em outro lugar"', 'É bom comparar mesmo.\nO que vai pesar mais na sua escolha: valor, estrutura ou quem vai cuidar?\n(Usa o diferencial que ela escolheu.)\nVem conhecer na consulta e compara com calma. {h1} ou {h2}?'],
       ['"E a manutenção, quanto é?"', 'Boa pergunta.\nSaber esse valor é o que falta pra você decidir?\nEle depende do seu caso, por isso a doutora passa na consulta. Você sai de lá com tudo explicado.\nVamos marcar? {h1} ou {h2}.'],
-      ['"Por que tão barato?"', 'Pergunta justa!\nVocê ficou com receio de ter alguma pegadinha?\nÉ a promoção especial de novembro. O valor é da montagem mesmo, e a doutora explica tudo antes.\nQuer garantir? {h1} ou {h2}.']
+      ['"Por que tão barato?"', 'Pergunta justa!\nVocê ficou com receio de ter alguma pegadinha?\nÉ a promoção especial de novembro. O valor é da montagem mesmo, e a doutora explica tudo antes.\nQuer garantir? {h1} ou {h2}.'],
+      ['"Já tenho dentista"', 'Que bom!\nVocê já faz aparelho com ele ou só consultas?\n(Se não faz aparelho:) A promoção é pra montagem aqui, e você conhece a doutora antes de decidir qualquer coisa.\n{h1} ou {h2}?'],
+      ['"Não confio em promoção"', 'É normal desconfiar.\nO que te deixaria mais segura: conhecer a clínica, conhecer a doutora ou ver tudo explicado antes?\nNa consulta você faz as três coisas antes de decidir.\n{h1} ou {h2}?'],
+      ['"Vou viajar" ou "tô de mudança"', 'Ah, que bom!\nVocê volta quando?\nEntão já deixo reservado pra quando você voltar.\n(Oferece 2 horários depois da volta.)'],
+      ['"Meu dente nem é tão torto"', 'Entendo.\nMas tem alguma coisa que te incomoda, mesmo que pequena?\nA consulta serve justamente pra doutora te dizer se vale a pena.\n{h1} ou {h2}?'],
+      ['"Agora não é o momento"', 'Entendo.\nO que precisaria acontecer pra ser o momento?\n(Se for algo que a consulta resolve, mostra isso.)\nSe não for agora, qual mês fica bom pra eu te chamar?']
     ],
     spin: [
       ['"Tá caro"', 'Entendo. Você me falou que queria {beneficio}. Pra você, quanto vale resolver isso?\n(Deixa ela responder.)\nA montagem, que costuma ser o valor mais alto, tá por 120. O resto a doutora vê com você na consulta.'],
       ['"Vou pensar"', 'Claro. Me ajuda a entender: o que falta pra você se sentir segura de dar o primeiro passo?\n(A resposta é a objeção real. Trata com a ponte certa.)'],
-      ['"Preciso falar com meu marido"', 'Faz sentido decidir junto. Se dependesse só de você, você começaria?\nSe sim: então vamos marcar e ele vem junto conhecer a doutora.'],
+      ['"Preciso falar com meu marido" (ou pais)', 'Faz sentido decidir junto. Se dependesse só de você, você começaria?\nSe sim: então vamos marcar e ele vem junto conhecer a doutora.'],
       ['"Tenho medo"', 'O que exatamente te dá medo?\n(Ouve.)\nE se a doutora te explicar cada passo antes de fazer qualquer coisa, isso te deixa mais tranquila?'],
       ['"Não tenho tempo"', 'Você comentou que {incomodo} te incomoda. Se eu encaixar num horário que não atrapalhe sua rotina, faz sentido começar?'],
       ['"Vou ver em outro lugar"', 'O que seria mais importante pra você na hora de escolher onde fazer?\n(Usa o critério dela.) Então vem conhecer e vê se a gente atende isso.'],
       ['"E a manutenção, quanto é?"', 'Isso depende do seu caso, a doutora passa na consulta. Saber esse valor é o que falta pra você decidir?\nSe sim: então a consulta é exatamente o passo pra isso.'],
+      ['"Por que tão barato?"', 'Boa pergunta! O que te deixaria tranquila de que não tem pegadinha?\n(Ouve.) Na consulta a doutora explica tudo antes de qualquer coisa, e o valor da montagem é esse mesmo.'],
+      ['"Já tenho dentista"', 'E com ele você já conversou sobre {incomodo}?\n(Se não:) O que te fez procurar a gente pra isso?'],
+      ['"Não confio em promoção"', 'O que já aconteceu que te deixou com o pé atrás?\n(Ouve.) Na consulta você conhece tudo antes de decidir. Isso resolve pra você?'],
+      ['"Vou viajar" ou "tô de mudança"', 'Quando você volta? E faz sentido já deixar o primeiro passo garantido pra quando chegar?'],
+      ['"Meu dente nem é tão torto"', 'Mas você me falou que {incomodo} te incomoda. Isso ainda te incomoda, mesmo sendo pouco?'],
       ['"Agora não é o momento"', 'Entendo. Você me disse que pensa nisso faz {tempo}. O que precisaria mudar pra ser o momento?']
     ]
   };
+
+  /* ---------- dúvidas e situações (todos os níveis) ---------- */
+  var DEF = 'default';
+  var SIT = [
+    /* tratamento */
+    { k: 'dor', c: 'Sobre o tratamento', q: 'Aparelho dói?', a: ['É uma dúvida muito comum. A doutora explica na consulta tudo que você vai sentir em cada etapa, e você pode perguntar o que quiser pra ela.', 'Montar aparelho não é cirurgia.'] },
+    { k: 'duracao', c: 'Sobre o tratamento', q: 'Quanto tempo vou usar?', a: ['Isso depende de cada caso, e quem define é a doutora depois de avaliar. Na consulta você já sai sabendo.'], tip: 'Nunca chute prazo.' },
+    { k: 'tipos', c: 'Sobre o tratamento', q: 'Tem transparente, estético ou alinhador?', a: ['Os modelos e os valores de cada um a doutora te mostra na consulta, aí você escolhe vendo de perto.'] },
+    { k: 'idade', c: 'Sobre o tratamento', q: 'Tenho idade pra usar?', a: ['Muita gente começa o aparelho adulto. Quem avalia o seu caso é a doutora, e na consulta ela te fala certinho.'] },
+    { k: 'crianca', c: 'Sobre o tratamento', q: 'Com que idade criança pode usar?', a: ['Quem avalia isso é a doutora, olhando os dentes dele. Quantos anos ele tem? Posso marcar a consulta pra ela ver.'] },
+    { k: 'saude', c: 'Sobre o tratamento', q: 'Tô grávida, tenho problema de saúde ou uso remédio', a: ['Obrigada por me contar, {nome}. É importante a doutora saber disso, então fala com ela na consulta antes de qualquer procedimento.'], tip: 'Não opine. Só anote e marque a consulta.' },
+    { k: 'extracao', c: 'Sobre o tratamento', q: 'Vai precisar arrancar dente?', a: ['Isso só a doutora consegue dizer depois de avaliar. Na consulta ela te explica o planejamento todo.'] },
+    { k: 'comer', c: 'Sobre o tratamento', q: 'Posso comer de tudo com aparelho?', a: ['A doutora te passa todas as orientações no dia da montagem, inclusive sobre alimentação.'] },
+    { k: 'resultado', c: 'Sobre o tratamento', q: 'Vai ficar perfeito? Garante resultado?', a: ['Cada caso é um caso, e quem te explica o que dá pra alcançar é a doutora, depois de avaliar. Por isso o primeiro passo é a consulta.'], tip: 'Nunca prometa resultado.' },
+    { k: 'quem', c: 'Sobre o tratamento', q: 'Quem é a dentista?', a: ['Seu aparelho é acompanhado por dentista especialista em ortodontia, e você conhece ela na consulta.'] },
+    { k: 'exames', c: 'Sobre o tratamento', q: 'Precisa de raio-x ou exame?', a: ['Se precisar de algum exame, a doutora te orienta na consulta.'] },
+    { k: 'ja_usa', c: 'Sobre o tratamento', q: 'Já uso aparelho em outro lugar', a: ['Entendi! Você quer trocar de clínica e continuar aqui com a gente?', 'A doutora avalia na consulta como fica o seu caso.'],
+      ch: [{ label: 'Quer trocar', go: 'CLOSE', primary: true }, { label: 'Só tava curiosa', go: 'OUT:seminteresse' }, { label: 'Voltar pra conversa', go: 'RETURN' }] },
+    { k: 'tirar', c: 'Sobre o tratamento', q: 'Quero tirar o aparelho que uso', a: ['Isso a doutora avalia na consulta. Posso te marcar pra ela ver seu caso?'], ch: [{ label: 'Marcar consulta', go: 'CLOSE', primary: true }, { label: 'Encerrar', go: 'END' }] },
+
+    /* valor */
+    { k: 'total', c: 'Valor e pagamento', q: 'Quanto fica o tratamento todo?', a: ['O valor total depende do seu caso, por isso a doutora passa na consulta. O que eu já te garanto é a montagem por 120 reais na promoção especial de novembro.'] },
+    { k: 'consulta', c: 'Valor e pagamento', q: 'A consulta é paga?', a: ['(Fale o valor da consulta ou se ela é gratuita, conforme a regra da clínica.)', 'E na consulta você já sai com tudo explicado.'], tip: 'Se não souber, confirme com a clínica e responda no WhatsApp. Não chute.' },
+    { k: 'parcela', c: 'Valor e pagamento', q: 'Parcela? Aceita cartão ou pix?', a: ['As formas de pagamento a doutora vê com você na consulta, pra encaixar no que for melhor pra você.'] },
+    { k: 'convenio', c: 'Valor e pagamento', q: 'Aceita convênio ou plano?', a: ['(Responda conforme a regra da clínica.)', 'Se não aceitar: pelo plano não, mas a montagem tá por 120 reais na promoção especial de novembro.'] },
+    { k: 'desconto', c: 'Valor e pagamento', q: 'Faz mais barato? Tem desconto?', a: ['A promoção especial de novembro já é a nossa melhor condição: montagem por 120 reais com limpeza grátis no dia. O resto a doutora vê com você na consulta.'] },
+    { k: 'familia', c: 'Valor e pagamento', q: 'Vale pra mim e pra outra pessoa da família?', a: ['Posso marcar a consulta de vocês dois juntos, e a doutora confirma as condições pra cada um. Quer?'], ch: [{ label: 'Marcar os dois', go: 'CLOSE', primary: true }, { label: 'Voltar pra conversa', go: 'RETURN' }] },
+    { k: 'mais_barato', c: 'Valor e pagamento', q: 'Vi mais barato em outro lugar', a: ['Pode ser! O importante é comparar o tratamento todo: quem acompanha, a estrutura e o que tá incluso. Vem conhecer e compara com calma.'] },
+    { k: 'sem_condicao', c: 'Valor e pagamento', q: 'Tô sem condições agora (desempregada, apertada)', a: ['Entendo, {nome}, sem pressão nenhuma. Quer que eu te chame mais pra frente?'], ch: [{ label: 'Ligar mais pra frente', go: 'OUT:retorno', primary: true }, { label: 'Não quer', go: 'OUT:seminteresse' }] },
+
+    /* agenda */
+    { k: 'hoje', c: 'Agenda e local', q: 'Dá pra ir hoje?', a: ['Deixa eu ver a agenda pra você...', '(Se tiver vaga hoje, oferece. Se não, oferece o horário mais cedo possível.)'], ch: [{ label: 'Marcou', go: 'outro', primary: true }, { label: 'Voltar pra conversa', go: 'RETURN' }] },
+    { k: 'sem_marcar', c: 'Agenda e local', q: 'Posso passar aí sem marcar?', a: ['O melhor é marcar, pra você não esperar e a doutora ter o tempo certinho pra você. Tenho {h1} ou {h2}.'], ch: [{ label: 'Escolher horário', go: 'CLOSE', primary: true }] },
+    { k: 'funcionamento', c: 'Agenda e local', q: 'Que horas a clínica funciona? Abre sábado?', a: ['(Fale o horário de funcionamento da clínica.)', 'Qual horário é melhor pra você?'] },
+    { k: 'endereco', c: 'Agenda e local', q: 'Onde fica a clínica?', a: ['Fica na Avenida Castanheira, no Bairro Tropical. Te mando a localização no WhatsApp agora.'] },
+    { k: 'longe', c: 'Agenda e local', q: 'Moro longe ou em outra cidade', a: ['Muita gente vem de outros bairros. A clínica fica na Avenida Castanheira, Bairro Tropical. Dá pra você vir até aqui quando precisar?'], ch: [{ label: 'Dá sim', go: 'RETURN', primary: true }, { label: 'Não dá', go: 'OUT:seminteresse' }] },
+    { k: 'data_futura', c: 'Agenda e local', q: 'Só posso depois de uma data', a: ['Tranquilo! Me fala a partir de quando que eu já deixo reservado.'], ch: [{ label: 'Marcou a data', go: 'outro', primary: true }, { label: 'Ligar mais perto da data', go: 'OUT:retorno' }] },
+    { k: 'remarcar', c: 'Agenda e local', q: 'Já tenho consulta e quero remarcar', a: ['Claro, {nome}! Tenho {h1} ou {h2}. Qual fica melhor?'], ch: [{ label: 'Escolher horário', go: 'CLOSE', primary: true }] },
+    { k: 'ja_marcado', c: 'Agenda e local', q: 'Já tenho consulta marcada', a: ['Ah, que ótimo! Deixa eu confirmar aqui: é dia [dia] às [hora], né? Te espero!'], ch: [{ label: 'Encerrar', go: 'END', primary: true }] },
+
+    /* ligação */
+    { k: 'nao_lembra', c: 'Situações da ligação', q: 'Não lembra de ter mandado mensagem', a: ['Pode ter sido pelo anúncio do aparelho no Instagram ou Facebook. Você chegou a ver a promoção da montagem por 120 reais?'], ch: [{ label: 'Lembrou', go: 'RETURN', primary: true }, { label: 'Não tem interesse', go: 'OUT:seminteresse' }] },
+    { k: 'outra_pessoa', c: 'Situações da ligação', q: 'Atendeu outra pessoa ou ela não está', a: ['Ah, tudo bem! Aqui é a Geovana, da Odonto Medic. Qual o melhor horário pra eu falar com {nome}?'], ch: [{ label: 'Combinou horário', go: 'OUT:retorno', primary: true }, { label: 'Não sabe', go: 'OUT:naoatendeu' }] },
+    { k: 'menor', c: 'Situações da ligação', q: 'Quem atendeu é menor de idade', a: ['Você pode chamar seu pai ou sua mãe pra mim?', 'Se não estiverem: qual horário eu consigo falar com eles?'], ch: [{ label: 'Chamou o responsável', go: 'RETURN', primary: true }, { label: 'Ligar depois', go: 'OUT:retorno' }] },
+    { k: 'errado', c: 'Situações da ligação', q: 'Número errado', a: ['Desculpa o incômodo! Tenha um ótimo dia.'], ch: [{ label: 'Registrar número errado', go: 'OUT:invalido', primary: true }] },
+    { k: 'caiu', c: 'Situações da ligação', q: 'A ligação caiu', a: ['Liga de novo na hora. Se não atender, manda:', '"Oi, {nome}! A ligação caiu. Vou te ligar de novo agora, tá?"'], ch: [{ label: 'Ela atendeu de novo', go: 'RETURN', primary: true }, { label: 'Não atendeu mais', go: 'OUT:naoatendeu' }] },
+    { k: 'barulho', c: 'Situações da ligação', q: 'Lugar barulhento ou não tá ouvindo', a: ['Tô te ouvindo pouquinho, {nome}. Prefere que eu te ligue em 10 minutinhos?'], ch: [{ label: 'Ligar depois', go: 'OUT:retorno', primary: true }, { label: 'Melhorou, seguir', go: 'RETURN' }] },
+    { k: 'whats', c: 'Situações da ligação', q: 'Pediu pra mandar tudo pelo WhatsApp', a: ['Claro! Te mando o resumo agora. E pra você não perder a promoção, já te deixo um horário reservado: {h1} ou {h2}? Se não der, é só me falar por lá que eu libero.'], ch: [{ label: 'Escolheu horário', go: 'CLOSE', primary: true }, { label: 'Só quer o resumo', go: 'OUT:whats' }] },
+    { k: 'golpe', c: 'Situações da ligação', q: 'Acha que é golpe ou desconfia da ligação', a: ['Entendo o cuidado! Somos a Odonto Medic, na Avenida Castanheira, Bairro Tropical. Você mandou mensagem no nosso WhatsApp sobre aparelho. Te mando nossa localização pra você conferir.'] },
+    { k: 'irritada', c: 'Situações da ligação', q: 'Pessoa irritada, grosseira ou pediu pra não ligar', a: ['Desculpa o incômodo, {nome}. Não vou mais te ligar. Se precisar, é só chamar a gente no WhatsApp.'], tip: 'Não discuta e não insista. Anota pra ninguém ligar de novo.', ch: [{ label: 'Registrar: não ligar mais', go: 'OUT:naoligar', primary: true }] },
+    { k: 'ja_paciente', c: 'Situações da ligação', q: 'Já é paciente da clínica', a: ['Que bom, então você já conhece a gente! Vou te encaixar com a doutora pra ver o aparelho. Tenho {h1} ou {h2}.'], ch: [{ label: 'Escolher horário', go: 'CLOSE', primary: true }] },
+    { k: 'ocupada2', c: 'Situações da ligação', q: 'Tá ocupada ou dirigindo', a: ['Sem problema! Qual o melhor horário pra eu te ligar hoje?'], ch: [{ label: 'Combinou horário', go: 'OUT:retorno', primary: true }] },
+
+    /* fora do perfil */
+    { k: 'so_limpeza', c: 'Fora do aparelho', q: 'Quer só a limpeza', a: ['Posso te ajudar com isso também! A limpeza grátis vem junto no dia da montagem do aparelho. Se for só a limpeza, deixa eu ver a agenda pra você.'], tip: 'Marca pela regra normal da clínica.', ch: [{ label: 'Tem interesse no aparelho também', go: 'RETURN', primary: true }, { label: 'Só a limpeza', go: 'OUT:fora' }] },
+    { k: 'outro_proc', c: 'Fora do aparelho', q: 'Quer outro procedimento (clareamento, implante, dor de dente)', a: ['Anota o que ela quer e marca pela agenda normal da clínica.', 'Se ela também tiver interesse em aparelho, volta pro roteiro.'], ch: [{ label: 'Também quer aparelho', go: 'RETURN', primary: true }, { label: 'Só o outro procedimento', go: 'OUT:fora' }] },
+    { k: 'curiosa', c: 'Fora do aparelho', q: 'Só queria saber o preço, sem intenção', a: ['Tranquilo! A montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia. Se em algum momento quiser começar, é só me chamar.'], ch: [{ label: 'Ficou interessada', go: 'CLOSE', primary: true }, { label: 'Encerrar', go: 'OUT:seminteresse' }] }
+  ];
+  var SITMAP = {}; SIT.forEach(function (x) { SITMAP[x.k] = x; });
 
   var CLOSE_CHOICES = [
     { label: function () { return 'Escolheu ' + (S.h1 || 'o 1º horário'); }, go: 'confirm', set: function () { S.hora = S.h1 || '[horário]'; }, primary: true },
     { label: function () { return 'Escolheu ' + (S.h2 || 'o 2º horário'); }, go: 'confirm', set: function () { S.hora = S.h2 || '[horário]'; }, primary: true },
     { label: 'Pediu outro horário', go: 'outro' },
-    { label: 'Levantou objeção', go: 'OBJ' }
+    { label: 'Quer ir hoje', go: 'SIT:hoje' },
+    { label: 'Só pode depois de uma data', go: 'SIT:data_futura' },
+    { label: 'Levantou objeção', go: 'OBJ' },
+    { label: 'Pediu pelo WhatsApp', go: 'SIT:whats' }
   ];
 
   var N = {
     /* ---------- comuns ---------- */
-    quem: { step: 'Abertura', say: ['É a Geovana, da clínica Odonto Medic, aqui do Bairro Tropical. Você mandou mensagem no nosso WhatsApp sobre aparelho.'],
-      choices: [{ label: 'Lembrou', go: 'BACK', primary: true }] },
+    ret: { step: 'Retorno combinado', say: ['Oi, {nome}! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. A gente combinou de eu te ligar agora, lembra? Tudo bem com você?'],
+      choices: [{ label: 'Lembrou, pode falar', go: 'RETNEXT', primary: true }, { label: 'Ainda tá ocupada', go: 'ocupada' }, { label: 'Não lembra', go: 'SIT:nao_lembra' }, { label: 'Atendeu outra pessoa', go: 'SIT:outra_pessoa' }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
     ocupada: { step: 'Abertura', say: ['Sem problema, é rapidinho. Prefere que eu te ligue às [horário] ou às [horário]?'], tip: 'Sempre dois horários. E liga certinho no combinado.',
-      choices: [{ label: 'Combinou um horário', go: 'OUT:retorno', primary: true }, { label: 'Não quis', go: 'OUT:seminteresse' }] },
+      choices: [{ label: 'Combinou um horário', go: 'OUT:retorno', primary: true }, { label: 'Deu 1 minuto, seguir', go: 'RETURN' }, { label: 'Não quis', go: 'OUT:seminteresse' }] },
     outro: { step: 'Fechamento', say: ['Qual dia fica melhor pra você, de manhã ou de tarde?'], input: { key: 'hora', label: 'Horário que vocês combinaram', ph: 'Ex.: sexta às 15h' },
-      choices: [{ label: 'Marcar esse horário', go: 'confirm', primary: true }] },
+      choices: [{ label: 'Marcar esse horário', go: 'confirm', primary: true }, { label: 'Nenhum horário serve agora', go: 'OUT:retorno' }] },
     confirm: { step: 'Confirmação', say: ['Perfeito! Então sua consulta fica {hora}. Me confirma seu nome completo?', 'A clínica fica na Avenida Castanheira, no Bairro Tropical. Vou te mandar a localização e o resumo no WhatsApp agora. Chega uns 10 minutinhos antes, tá bom?', 'Se acontecer alguma coisa e você não puder vir, me avisa por lá que eu remarco pra você.'],
-      choices: [{ label: 'Consulta marcada!', go: 'OUT:agendou', primary: true }] },
+      choices: [{ label: 'Consulta marcada!', go: 'OUT:agendou', primary: true }, { label: 'Quis trocar o horário', go: 'outro' }, { label: 'Vai levar mais alguém', go: 'SIT:familia' }, { label: 'Desistiu na hora', go: 'OBJ' }] },
 
     /* ---------- iniciante ---------- */
     i1: { step: 'Abertura', say: ['Oi, {nome}! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Tudo bem com você?'], tip: 'Espera ela responder. Esse segundo de pausa faz a pessoa entrar na conversa.',
-      choices: [{ label: 'Ela respondeu', go: 'i2', primary: true }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
+      choices: [{ label: 'Ela respondeu', go: 'i2', primary: true }, { label: 'Atendeu outra pessoa', go: 'SIT:outra_pessoa' }, { label: 'Caixa postal ou não atendeu', go: 'OUT:naoatendeu' }, { label: 'Número errado', go: 'SIT:errado' }] },
     i2: { step: 'Abertura', say: ['Que bom! Vi que você chamou a gente sobre aparelho e te liguei rapidinho porque tenho uma notícia boa pra você: a montagem tá com a promoção especial de novembro.', 'Me conta uma coisa: o aparelho seria pra você mesmo?'],
-      choices: [{ label: 'É pra ela', go: 'i3', primary: true }, { label: 'É pra filho ou outra pessoa', go: 'i2b' }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Perguntou "quem é?"', go: 'quem' }] },
-    i2b: { step: 'Perguntas', say: ['Que legal! Quantos anos ele tem?'], tip: 'Menor de idade vem com um responsável.', choices: [{ label: 'Próximo', go: 'i3', primary: true }] },
-    i3: { step: 'Perguntas', say: ['Você já usou aparelho antes ou seria o primeiro?'], tip: 'Só anota e segue.', choices: [{ label: 'Próximo', go: 'i4', primary: true }] },
+      choices: [{ label: 'É pra ela', go: 'i3', primary: true }, { label: 'É pra filho ou outra pessoa', go: 'i2b' }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Perguntou "quem é?"', go: 'quem' }, { label: 'Não lembra da mensagem', go: 'SIT:nao_lembra' }, { label: 'Perguntou o preço direto', go: 'i6' }, { label: 'Disse que não quer', go: 'OBJ' }] },
+    quem: { step: 'Abertura', say: ['É a Geovana, da clínica Odonto Medic, aqui do Bairro Tropical. Você mandou mensagem no nosso WhatsApp sobre aparelho.'],
+      choices: [{ label: 'Lembrou', go: 'BACK', primary: true }, { label: 'Não lembra', go: 'SIT:nao_lembra' }, { label: 'Acha que é golpe', go: 'SIT:golpe' }] },
+    i2b: { step: 'Perguntas', say: ['Que legal! Quantos anos ele tem?'], tip: 'Menor de idade vem com um responsável.', choices: [{ label: 'Próximo', go: 'i3', primary: true }, { label: 'Perguntou a idade certa pra usar', go: 'SIT:crianca' }] },
+    i3: { step: 'Perguntas', say: ['Você já usou aparelho antes ou seria o primeiro?'], tip: 'Só anota e segue.',
+      choices: [{ label: 'Nunca usou', go: 'i4', primary: true }, { label: 'Já usou e tirou', go: 'i4', primary: true }, { label: 'Usa agora em outro lugar', go: 'SIT:ja_usa' }] },
     i4: { step: 'Perguntas', say: ['E o que mais te incomoda hoje no seu sorriso?'], tip: 'A pergunta mais importante. Deixa falar e anota as palavras dela.',
-      input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: os dentes da frente tortos' }, choices: [{ label: 'Próximo', go: 'i5', primary: true }] },
-    i5: { step: 'Perguntas', say: ['Entendi, {incomodo}. Isso a doutora avalia certinho na consulta e te explica tudo antes de começar.'], choices: [{ label: 'Próximo', go: 'i6', primary: true }] },
+      input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: os dentes da frente tortos' }, choices: [{ label: 'Próximo', go: 'i5', primary: true }, { label: 'Não soube dizer', go: 'i6' }] },
+    i5: { step: 'Perguntas', say: ['Entendi, {incomodo}. Isso a doutora avalia certinho na consulta e te explica tudo antes de começar.'], choices: [{ label: 'Próximo', go: 'i6', primary: true }, { label: 'Fez uma pergunta', go: 'SIT' }] },
     i6: { step: 'Oferta', say: ['Então, {nome}, funciona assim: o primeiro passo é uma consulta aqui na clínica com a doutora. E na promoção especial de novembro a montagem do aparelho tá saindo por 120 reais, e no dia da montagem você ainda ganha uma limpeza, sem pagar nada a mais.', 'E aqui seu aparelho é acompanhado por dentista especialista em ortodontia.'],
-      choices: [{ label: 'Próximo', go: 'i7', primary: true }, { label: 'Levantou objeção', go: 'OBJ' }] },
+      choices: [{ label: 'Ela gostou', go: 'i7', primary: true }, { label: 'Fez uma pergunta', go: 'SIT' }, { label: 'Levantou objeção', go: 'OBJ' }] },
     i7: { step: 'Fechamento', say: ['Pra garantir essa condição, eu já deixo sua consulta marcada. Tenho {h1} ou {h2}. Qual fica melhor pra você?'], tip: 'Nunca pergunte "quer agendar?".', choices: CLOSE_CHOICES },
 
     /* ---------- intermediário ---------- */
     m1: { step: 'Abertura', say: ['Oi, {nome}, tudo bom? Geovana aqui, da Odonto Medic do Bairro Tropical. Você chamou a gente agora há pouco perguntando sobre {escreveu}.', 'Te liguei porque por mensagem fica muita coisa solta, e em dois minutinhos eu te explico como funciona aqui. Me conta: o que te fez procurar aparelho agora?'],
       tip: 'A resposta é o motivo que você vai usar no fechamento.', input: { key: 'motivo', label: 'Motivo dela', ph: 'Ex.: casamento em março' },
-      choices: [{ label: 'Próximo', go: 'm2', primary: true }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
+      choices: [{ label: 'Contou o motivo', go: 'm2', primary: true }, { label: 'Não tem motivo específico', go: 'm2', set: function () { if (!S.motivo) S.motivo = 'cuidar do seu sorriso'; } }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Não lembra da mensagem', go: 'SIT:nao_lembra' }, { label: 'Atendeu outra pessoa', go: 'SIT:outra_pessoa' }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
+    m1b: { step: 'Abertura', say: ['Me conta: o que te fez procurar aparelho agora?'], input: { key: 'motivo', label: 'Motivo dela', ph: 'Ex.: casamento em março' }, choices: [{ label: 'Próximo', go: 'm2', primary: true }] },
     m2: { step: 'Aprofundar', say: ['Faz tempo que você pensa em colocar?'], tip: 'Quem pensa há anos precisa de um empurrão, não de mais informação.',
       input: { key: 'tempo', label: 'Há quanto tempo', ph: 'Ex.: uns dois anos' }, choices: [{ label: 'Próximo', go: 'm3', primary: true }] },
-    m3: { step: 'Aprofundar', say: ['O que mais te incomoda hoje no seu sorriso?'], input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: dente encavalado' }, choices: [{ label: 'Próximo', go: 'm4', primary: true }] },
-    m4: { step: 'Aprofundar', say: ['Já usou aparelho antes?'], choices: [{ label: 'Nunca usou', go: 'm5', primary: true }, { label: 'Já usou e tirou', go: 'm4b' }] },
-    m4b: { step: 'Aprofundar', say: ['E o que te fez tirar?'], tip: 'Isso mostra a objeção antes dela aparecer. Guarda a resposta.', choices: [{ label: 'Próximo', go: 'm5', primary: true }] },
+    m3: { step: 'Aprofundar', say: ['O que mais te incomoda hoje no seu sorriso?'], input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: dente encavalado' }, choices: [{ label: 'Próximo', go: 'm4', primary: true }, { label: 'Fez uma pergunta', go: 'SIT' }] },
+    m4: { step: 'Aprofundar', say: ['Já usou aparelho antes?'], choices: [{ label: 'Nunca usou', go: 'm5', primary: true }, { label: 'Já usou e tirou', go: 'm4b' }, { label: 'Usa agora em outro lugar', go: 'SIT:ja_usa' }] },
+    m4b: { step: 'Aprofundar', say: ['E o que te fez tirar?'], tip: 'Isso mostra a objeção antes dela aparecer. Guarda a resposta.', choices: [{ label: 'Próximo', go: 'm5', primary: true }, { label: 'Foi por dinheiro, medo ou outra trava', go: 'OBJ' }] },
     m5: { step: 'Devolver', say: ['Deixa eu ver se entendi: você pensa nisso já faz {tempo}, o que mais te incomoda é {incomodo} e agora você quer resolver por causa de {motivo}. É isso?'],
-      tip: 'Quando a pessoa ouve a própria história e diz "é isso", ela confia mais em você.', choices: [{ label: 'Ela disse "é isso"', go: 'm6', primary: true }] },
-    m6: { step: '4 sins · 1 de 4', say: ['Se a doutora avaliar e for indicado pra você, você quer começar logo?'], choices: [{ label: 'Sim', go: 'm7', primary: true }, { label: 'Hesitou', go: 'OBJ' }] },
-    m7: { step: '4 sins · 2 de 4', say: ['Você mora aqui perto do Tropical, né?'], choices: [{ label: 'Sim', go: 'm8', primary: true }, { label: 'Mora longe', go: 'm7b' }] },
-    m7b: { step: '4 sins · 2 de 4', say: ['A clínica fica na Avenida Castanheira, no Bairro Tropical. Dá pra você vir até aqui uma vez por mês?'], choices: [{ label: 'Dá sim', go: 'm8', primary: true }, { label: 'Não dá', go: 'OUT:seminteresse' }] },
+      tip: 'Quando a pessoa ouve a própria história e diz "é isso", ela confia mais em você.', choices: [{ label: 'Ela disse "é isso"', go: 'm6', primary: true }, { label: 'Ela corrigiu', go: 'm5b' }] },
+    m5b: { step: 'Devolver', say: ['Ah, entendi melhor agora. Obrigada por me explicar!'], tip: 'Corrija as anotações abaixo com o que ela falou.', input: { key: 'incomodo', label: 'O que incomoda (corrigido)', ph: '' }, choices: [{ label: 'Próximo', go: 'm6', primary: true }] },
+    m6: { step: '4 sins · 1 de 4', say: ['Se a doutora avaliar e for indicado pra você, você quer começar logo?'], choices: [{ label: 'Sim', go: 'm7', primary: true }, { label: 'Hesitou', go: 'OBJ' }, { label: 'Perguntou algo', go: 'SIT' }] },
+    m7: { step: '4 sins · 2 de 4', say: ['Você mora aqui perto do Tropical, né?'], choices: [{ label: 'Sim', go: 'm8', primary: true }, { label: 'Mora longe', go: 'SIT:longe' }] },
     m8: { step: '4 sins · 3 de 4', say: ['Pra você é melhor de manhã ou de tarde?'],
-      choices: [{ label: 'Manhã', go: 'm9', set: function () { S.turno = 'manhã'; }, primary: true }, { label: 'Tarde', go: 'm9', set: function () { S.turno = 'tarde'; }, primary: true }] },
+      choices: [{ label: 'Manhã', go: 'm9', set: function () { S.turno = 'manhã'; }, primary: true }, { label: 'Tarde', go: 'm9', set: function () { S.turno = 'tarde'; }, primary: true }, { label: 'Só fim de semana ou à noite', go: 'SIT:funcionamento', set: function () { S.turno = 'horário que você falou'; } }] },
     m9: { step: '4 sins · 4 de 4', say: ['A montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia, e o resto a doutora te explica na consulta. Faz sentido pra você?'],
-      choices: [{ label: 'Sim', go: 'm10', primary: true }, { label: 'Hesitou', go: 'OBJ' }] },
+      choices: [{ label: 'Sim', go: 'm10', primary: true }, { label: 'Hesitou', go: 'OBJ' }, { label: 'Perguntou de manutenção ou total', go: 'SIT:total' }] },
     m10: { step: 'Diferencial', say: ['Qual o jeito dela?'], silent: true, tip: 'Escolha pelo que você ouviu até aqui.',
-      choices: [{ label: 'Tem medo ou insegurança', go: 'm10a', primary: true }, { label: 'Desconfiada ou comparando', go: 'm10b', primary: true }, { label: 'Quer saber dos outros', go: 'm10c', primary: true }] },
+      choices: [{ label: 'Tem medo ou insegurança', go: 'm10a', primary: true }, { label: 'Desconfiada ou comparando', go: 'm10b', primary: true }, { label: 'Quer saber dos outros', go: 'm10c', primary: true }, { label: 'Já tá decidida', go: 'm11' }] },
     m10a: { step: 'Diferencial', say: ['Seu aparelho é acompanhado por dentista especialista em ortodontia, que te explica cada passo antes de fazer.'], choices: [{ label: 'Próximo', go: 'm11', primary: true }] },
     m10b: { step: 'Diferencial', say: ['A clínica é toda equipada e você faz tudo aqui mesmo, no Bairro Tropical. Vem conhecer na consulta.'], choices: [{ label: 'Próximo', go: 'm11', primary: true }] },
     m10c: { step: 'Diferencial', say: ['Muita gente aqui da região já faz o aparelho com a gente.'], choices: [{ label: 'Próximo', go: 'm11', primary: true }] },
@@ -1023,28 +1133,33 @@ document.querySelectorAll('.copy').forEach(function (btn) {
 
     /* ---------- SPIN ---------- */
     s0: { step: 'Abertura', say: ['Oi, {nome}! Geovana aqui, da Odonto Medic do Bairro Tropical, tudo bem? Você falou com a gente sobre aparelho.', 'Antes de te passar qualquer informação, eu queria entender um pouquinho o que você procura, pra não te falar coisa que não serve pra você. Posso te fazer umas perguntinhas rápidas?'],
-      choices: [{ label: 'Pode perguntar', go: 's1', primary: true }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
-    s1: { step: 'S · Situação', say: ['O aparelho é pra você? Já usou antes?'], tip: 'Situação é só contexto. No máximo 2 perguntas.', choices: [{ label: 'Próximo', go: 's1b', primary: true }] },
+      choices: [{ label: 'Pode perguntar', go: 's1', primary: true }, { label: 'Quer só o preço', go: 's0p' }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Não lembra da mensagem', go: 'SIT:nao_lembra' }, { label: 'Atendeu outra pessoa', go: 'SIT:outra_pessoa' }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
+    s0b: { step: 'Abertura', say: ['Antes de te passar qualquer informação, posso te fazer umas perguntinhas rápidas pra entender o que você procura?'], choices: [{ label: 'Pode perguntar', go: 's1', primary: true }, { label: 'Quer só o preço', go: 's0p' }] },
+    s0p: { step: 'Abertura', say: ['Claro! A montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia. E pra eu te explicar o resto direitinho, me conta rapidinho: o que te fez procurar aparelho?'],
+      tip: 'Dá o número e devolve com pergunta. Assim a conversa continua.', choices: [{ label: 'Ela respondeu', go: 's1b', primary: true }, { label: 'Só queria o preço mesmo', go: 'SIT:curiosa' }] },
+    s1: { step: 'S · Situação', say: ['O aparelho é pra você? Já usou antes?'], tip: 'Situação é só contexto. No máximo 2 perguntas.', choices: [{ label: 'Próximo', go: 's1b', primary: true }, { label: 'É pra filho', go: 'SIT:crianca' }, { label: 'Usa agora em outro lugar', go: 'SIT:ja_usa' }] },
     s1b: { step: 'S · Situação', say: ['Faz quanto tempo que você pensa em colocar?'], input: { key: 'tempo', label: 'Há quanto tempo', ph: 'Ex.: desde a adolescência' }, choices: [{ label: 'Próximo', go: 's2', primary: true }] },
     s2: { step: 'P · Problema', say: ['O que mais te incomoda hoje quando você sorri?'], input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: o espaço entre os dentes' }, choices: [{ label: 'Próximo', go: 's2b', primary: true }] },
-    s2b: { step: 'P · Problema', say: ['Tem alguma coisa no dia a dia que te atrapalha por causa disso?'], choices: [{ label: 'Próximo', go: 's2c', primary: true }] },
+    s2b: { step: 'P · Problema', say: ['Tem alguma coisa no dia a dia que te atrapalha por causa disso?'], input: { key: 'momento', label: 'Momento que ela citou', ph: 'Ex.: em fotos, no trabalho' }, choices: [{ label: 'Próximo', go: 's2c', primary: true }, { label: 'Disse que não atrapalha', go: 's2c' }] },
     s2c: { step: 'P · Problema', say: ['E o que te impediu de começar até agora?'], tip: 'Toque no que ela respondeu. Isso decide a ponte da apresentação.',
-      choices: [{ label: 'Dinheiro', go: 's3', set: function () { S.barreira = 'dinheiro'; }, primary: true }, { label: 'Medo', go: 's3', set: function () { S.barreira = 'medo'; }, primary: true }, { label: 'Tempo', go: 's3', set: function () { S.barreira = 'tempo'; }, primary: true }, { label: 'Confiança', go: 's3', set: function () { S.barreira = 'confianca'; }, primary: true }] },
+      choices: [{ label: 'Dinheiro', go: 's3', set: function () { S.barreira = 'dinheiro'; }, primary: true }, { label: 'Medo', go: 's3', set: function () { S.barreira = 'medo'; }, primary: true }, { label: 'Tempo', go: 's3', set: function () { S.barreira = 'tempo'; }, primary: true }, { label: 'Confiança', go: 's3', set: function () { S.barreira = 'confianca'; }, primary: true }, { label: 'Nada, só não procurou', go: 's3', set: function () { S.barreira = 'nada'; } }] },
     s3: { step: 'I · Implicação', say: ['E em que momentos isso mais mexe com você? Em foto, numa conversa, no trabalho?'], tip: 'Use só as palavras dela. Nunca comente a aparência nem aumente o problema.',
-      choices: [{ label: 'Ela se abriu', go: 's3b', primary: true }, { label: 'Não quis aprofundar', go: 's4' }] },
+      choices: [{ label: 'Ela se abriu', go: 's3b', primary: true }, { label: 'Não quis aprofundar', go: 's4' }, { label: 'Ficou emocionada', go: 's3c' }] },
     s3b: { step: 'I · Implicação', say: ['Se ficar do jeito que tá por mais um tempo, como você acha que vai se sentir?'], choices: [{ label: 'Próximo', go: 's4', primary: true }] },
+    s3c: { step: 'I · Implicação', say: ['Obrigada por dividir isso comigo, {nome}. Você não tá sozinha, muita gente sente a mesma coisa.'], tip: 'Acolhe e não aprofunda mais. Segue com calma.', choices: [{ label: 'Próximo', go: 's4', primary: true }] },
     s4: { step: 'N · Necessidade', say: ['Se você já tivesse começado o aparelho, o que seria diferente pra você hoje?'], tip: 'Aqui ela mesma fala o benefício. Anota a frase dela.',
       input: { key: 'beneficio', label: 'O que ela disse', ph: 'Ex.: sorrir sem vergonha nas fotos' }, choices: [{ label: 'Próximo', go: 's5', primary: true }] },
     s5: { step: 'Apresentação', say: ['{nome}, pelo que você me contou, você quer {beneficio}. E sobre {barreiraNome}, funciona assim: {ponte}.', 'O primeiro passo é a consulta com a doutora. E na promoção especial de novembro a montagem tá por 120 reais, com limpeza grátis no dia da montagem.'],
-      choices: [{ label: 'Próximo', go: 's6', primary: true }, { label: 'Levantou objeção', go: 'OBJ' }] },
+      choices: [{ label: 'Ela concordou', go: 's6', primary: true }, { label: 'Fez uma pergunta', go: 'SIT' }, { label: 'Levantou objeção', go: 'OBJ' }] },
     s6: { step: 'Fechamento', say: ['Faz sentido a gente dar esse primeiro passo? Tenho {h1} ou {h2}.'], choices: CLOSE_CHOICES }
   };
   var FIRST = { iniciante: 'i1', intermediario: 'm1', spin: 's0' };
+  var RETNEXT = { iniciante: 'i2', intermediario: 'm1b', spin: 's0b' };
   var CLOSE = { iniciante: 'i7', intermediario: 'm11', spin: 's6' };
 
   /* ---------- utilidades ---------- */
   function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
-  function val(k, fb) {
+  function val(k) {
     var v;
     if (k === 'barreiraNome') v = S.barreira ? BARREIRA[S.barreira].nome : '';
     else if (k === 'ponte') v = S.barreira ? BARREIRA[S.barreira].ponte : '';
@@ -1058,7 +1173,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
       return v ? '<mark class="v">' + esc(v) + '</mark>' : '<mark class="v empty">[' + (FB[k] || k) + ']</mark>';
     });
   }
-  function plain(t) { return t.replace(/\{(\w+)\}/g, function (_, k) { return val(k) || '[' + (FB[k] || k) + ']'; }); }
+  function norm(t) { return t.toLowerCase().normalize('NFD').replace(/[\u0300-\u036f]/g, ''); }
   function today() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
   function hhmm() { var d = new Date(); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }
   function loadLog() { try { return JSON.parse(localStorage.getItem('ligacoes-' + today()) || '[]'); } catch (e) { return []; } }
@@ -1076,9 +1191,29 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     b.addEventListener('click', function () { copyText(text, b); });
     w.appendChild(p); w.appendChild(b); return w;
   }
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function btnGrid(list) {
+    var acts = el('div', 'acts');
+    acts.appendChild(el('span', 'label', 'O que aconteceu?'));
+    var grid = el('div', 'choice-grid');
+    list.forEach(function (c) {
+      var b = el('button', 'big' + (c.primary ? ' primary' : ''));
+      b.type = 'button';
+      b.textContent = typeof c.label === 'function' ? c.label() : c.label;
+      b.addEventListener('click', function () { if (c.set) c.set(); if (c.fn) c.fn(); else show(c.go, true); });
+      grid.appendChild(b);
+    });
+    acts.appendChild(grid); return acts;
+  }
+  function sayBlock(lines, who) {
+    return '<div class="say big-say"><span class="who">' + (who || 'Você fala') + '</span>' + lines.map(function (x) {
+      var isNote = /^\(.*\)$/.test(x.trim());
+      return '<p' + (isNote ? ' class="stage"' : '') + '>' + fill(x) + '</p>';
+    }).join('') + '</div>';
+  }
 
   /* ---------- placar ---------- */
-  var RES = { agendou: 'Agendou', retorno: 'Ligar de novo', naoatendeu: 'Não atendeu', seminteresse: 'Sem interesse' };
+  var RES = { agendou: 'Agendou', retorno: 'Ligar de novo', naoatendeu: 'Não atendeu', seminteresse: 'Sem interesse', invalido: 'Número errado', fora: 'Outro procedimento', whats: 'Resumo no WhatsApp', naoligar: 'Não ligar mais' };
   function renderScore() {
     var ag = LOG.filter(function (l) { return l.r === 'agendou'; }).length;
     document.getElementById('sc-lig').textContent = LOG.length;
@@ -1089,8 +1224,8 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     LOG.slice().reverse().forEach(function (l, iRev) {
       var i = LOG.length - 1 - iRev;
       var li = document.createElement('li');
-      li.innerHTML = '<span class="t">' + esc(l.h) + '</span><span class="n">' + esc(l.n || 'Sem nome') + (l.d ? '<small>' + esc(l.d) + '</small>' : '') + '</span><span class="status ' + (l.r === 'agendou' ? 'ok' : '') + '">' + RES[l.r] + '</span>';
-      var x = document.createElement('button'); x.type = 'button'; x.className = 'rm'; x.setAttribute('aria-label', 'Apagar registro de ' + (l.n || 'sem nome')); x.textContent = '×';
+      li.innerHTML = '<span class="t">' + esc(l.h) + '</span><span class="n">' + esc(l.n || 'Sem nome') + (l.d ? '<small>' + esc(l.d) + '</small>' : '') + '</span><span class="status ' + (l.r === 'agendou' ? 'ok' : '') + '">' + (RES[l.r] || l.r) + '</span>';
+      var x = el('button', 'rm'); x.type = 'button'; x.setAttribute('aria-label', 'Apagar registro de ' + (l.n || 'sem nome')); x.textContent = '×';
       x.addEventListener('click', function () { LOG.splice(i, 1); saveLog(); renderScore(); });
       li.appendChild(x); ul.appendChild(li);
     });
@@ -1101,8 +1236,9 @@ document.querySelectorAll('.copy').forEach(function (btn) {
   }
   document.getElementById('sc-report').addEventListener('click', function () {
     var d = new Date(); var dd = ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2);
+    var leads = LOG.filter(function (l) { return l.r !== 'invalido'; }).length;
     var ag = LOG.filter(function (l) { return l.r === 'agendou'; }).length;
-    copyText('⚜️ Relatório Diário ' + dd + '⚜️\n\n📲 Pacientes: ' + LOG.length + '\n📇 Consultas: ' + ag, this);
+    copyText('⚜️ Relatório Diário ' + dd + '⚜️\n\n📲 Pacientes: ' + leads + '\n📇 Consultas: ' + ag, this);
   });
 
   /* ---------- tela da ligação ---------- */
@@ -1112,7 +1248,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
 
   function open() {
     level = window.__nivel || 'iniciante';
-    S = {}; hist = []; visited = 0;
+    S = { tipo: 'primeiro' }; hist = []; visited = 0; lastMain = null;
     document.getElementById('call-level').textContent = LEVEL_NAME[level];
     ov.hidden = false; document.body.classList.add('locked');
     renderPrep();
@@ -1124,9 +1260,10 @@ document.querySelectorAll('.copy').forEach(function (btn) {
 
   function setFoot(show) { document.getElementById('call-foot').hidden = !show; }
   function progress(p) { bar.style.width = Math.round(p * 100) + '%'; }
+  function paint(w) { body.innerHTML = ''; body.appendChild(w); body.scrollTop = 0; }
 
   function field(id, label, ph, key) {
-    var w = document.createElement('label'); w.className = 'fld'; w.setAttribute('for', id);
+    var w = el('label', 'fld'); w.setAttribute('for', id);
     w.innerHTML = '<span>' + esc(label) + '</span>';
     var i = document.createElement('input'); i.id = id; i.type = 'text'; i.placeholder = ph; i.autocomplete = 'off'; i.value = S[key] || '';
     i.addEventListener('input', function () { S[key] = i.value.trim(); });
@@ -1135,128 +1272,192 @@ document.querySelectorAll('.copy').forEach(function (btn) {
 
   function renderPrep() {
     progress(0); setFoot(false);
-    body.innerHTML = '';
-    var h = document.createElement('div'); h.className = 'node';
-    h.innerHTML = '<span class="label step-l">Antes de ligar</span><h3 class="node-title">Quem você vai chamar agora?</h3>';
+    var h = el('div', 'node', '<span class="label step-l">Antes de ligar</span><h3 class="node-title">Quem você vai chamar agora?</h3>');
+    var seg = el('div', 'seg');
+    [['primeiro', 'Primeiro contato'], ['retorno', 'Retorno combinado']].forEach(function (o) {
+      var b = el('button', 'seg-b'); b.type = 'button'; b.textContent = o[1]; b.setAttribute('aria-pressed', S.tipo === o[0] ? 'true' : 'false');
+      b.addEventListener('click', function () { S.tipo = o[0]; seg.querySelectorAll('.seg-b').forEach(function (x) { x.setAttribute('aria-pressed', x === b ? 'true' : 'false'); }); });
+      seg.appendChild(b);
+    });
+    h.appendChild(seg);
     h.appendChild(field('f-nome', 'Nome do lead', 'Ex.: Maria', 'nome'));
-    if (level === 'intermediario') h.appendChild(field('f-esc', 'O que ela escreveu no WhatsApp', 'Ex.: o valor do aparelho', 'escreveu'));
-    var row = document.createElement('div'); row.className = 'fld-row';
+    h.appendChild(field('f-esc', level === 'intermediario' ? 'O que ela escreveu no WhatsApp' : 'O que ela escreveu (opcional)', 'Ex.: o valor do aparelho', 'escreveu'));
+    var row = el('div', 'fld-row');
     row.appendChild(field('f-h1', '1º horário livre', 'Ex.: quinta às 9h', 'h1'));
     row.appendChild(field('f-h2', '2º horário livre', 'Ex.: sábado às 10h', 'h2'));
     h.appendChild(row);
-    var pre = document.createElement('div'); pre.className = 'pre';
-    pre.innerHTML = '<span class="label">Opcional: mande antes de ligar</span>';
-    var preBtn = document.createElement('button'); preBtn.type = 'button'; preBtn.className = 'copy';
-    preBtn.textContent = 'Copiar aviso pro WhatsApp';
+    var pre = el('div', 'pre', '<span class="label">Opcional: mande antes de ligar</span>');
+    var preBtn = el('button', 'copy'); preBtn.type = 'button'; preBtn.textContent = 'Copiar aviso pro WhatsApp';
     preBtn.addEventListener('click', function () { copyText('Oi, ' + (S.nome || '[nome]') + '! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Vou te ligar rapidinho pra explicar a promoção do aparelho, tá bom?', preBtn); });
     pre.appendChild(preBtn); h.appendChild(pre);
-    var go = document.createElement('button'); go.type = 'button'; go.className = 'big primary'; go.textContent = 'Ligar agora';
-    go.addEventListener('click', function () { show(FIRST[level], true); });
-    var acts = document.createElement('div'); acts.className = 'acts'; acts.appendChild(go); h.appendChild(acts);
-    body.appendChild(h);
+    var go = el('button', 'big primary'); go.type = 'button'; go.textContent = 'Ligar agora';
+    go.addEventListener('click', function () { show(S.tipo === 'retorno' ? 'ret' : FIRST[level], true); });
+    var acts = el('div', 'acts'); acts.appendChild(go); h.appendChild(acts);
+    paint(h);
     setTimeout(function () { var f = document.getElementById('f-nome'); if (f) f.focus(); }, 50);
   }
 
   function show(id, push) {
     if (id === 'BACK') { hist.pop(); var prev = hist.pop(); if (prev) show(prev, true); else renderPrep(); return; }
-    if (id === 'OBJ') { if (push !== false) hist.push('OBJ'); return renderObj(); }
+    if (id === 'RETURN') return show(lastMain || FIRST[level], true);
+    if (id === 'RETNEXT') return show(RETNEXT[level], true);
+    if (id === 'CLOSE') return show(CLOSE[level], true);
+    if (id === 'END') return renderEnd();
+    if (id === 'OBJ') { hist.push('OBJ'); return renderObj(); }
+    if (id === 'SIT') { hist.push('SIT'); return renderSitList(); }
+    if (id.indexOf('SIT:') === 0) { hist.push(id); return renderSit(id.slice(4)); }
     if (id.indexOf('OUT:') === 0) return renderOut(id.slice(4));
     var n = N[id]; if (!n) return;
     if (push) { hist.push(id); visited++; }
+    if (['quem', 'ocupada', 'outro', 'confirm'].indexOf(id) < 0) lastMain = id;
     progress(Math.min(visited / TOTAL[level], 0.95)); setFoot(true);
-    body.innerHTML = '';
-    var w = document.createElement('div'); w.className = 'node';
-    w.innerHTML = '<span class="label step-l">' + esc(n.step) + '</span>';
-    if (n.silent) {
-      w.innerHTML += '<h3 class="node-title">' + esc(n.say[0]) + '</h3>';
-    } else {
-      var sayBox = document.createElement('div'); sayBox.className = 'say big-say';
-      sayBox.innerHTML = '<span class="who">Você fala</span>' + n.say.map(function (s) { return '<p>' + fill(s) + '</p>'; }).join('');
-      w.appendChild(sayBox);
-    }
-    if (n.tip) { var tp = document.createElement('p'); tp.className = 'node-tip'; tp.textContent = n.tip; w.appendChild(tp); }
+    var w = el('div', 'node', '<span class="label step-l">' + esc(n.step) + '</span>');
+    if (n.silent) w.innerHTML += '<h3 class="node-title">' + esc(n.say[0]) + '</h3>';
+    else w.innerHTML += sayBlock(n.say);
+    if (n.tip) w.appendChild(el('p', 'node-tip', esc(n.tip)));
     if (n.input) { var f = field('in-' + n.input.key, n.input.label, n.input.ph, n.input.key); f.classList.add('note'); w.appendChild(f); }
-    var acts = document.createElement('div'); acts.className = 'acts';
-    var label = document.createElement('span'); label.className = 'label'; label.textContent = 'O que aconteceu?'; acts.appendChild(label);
-    var grid = document.createElement('div'); grid.className = 'choice-grid';
-    n.choices.forEach(function (c) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'big' + (c.primary ? ' primary' : '');
-      b.textContent = typeof c.label === 'function' ? c.label() : c.label;
-      b.addEventListener('click', function () { if (c.set) c.set(); show(c.go, true); });
-      grid.appendChild(b);
-    });
-    acts.appendChild(grid); w.appendChild(acts);
-    body.appendChild(w); body.scrollTop = 0;
+    w.appendChild(btnGrid(n.choices));
+    paint(w);
   }
 
-  function renderObj() {
-    setFoot(true); body.innerHTML = '';
-    var w = document.createElement('div'); w.className = 'node';
-    w.innerHTML = '<span class="label step-l">Objeção</span><h3 class="node-title">O que ela falou?</h3>';
-    var list = document.createElement('div'); list.className = 'obj-list';
-    OBJ[level].forEach(function (o) {
-      var b = document.createElement('button'); b.type = 'button'; b.className = 'obj-btn'; b.textContent = o[0];
-      b.addEventListener('click', function () {
-        body.innerHTML = '';
-        var a = document.createElement('div'); a.className = 'node';
-        a.innerHTML = '<span class="label step-l">Objeção</span><p class="heard-q">Ela: ' + esc(o[0]) + '</p><div class="say big-say"><span class="who">Você responde</span>' + o[1].split('\n').map(function (x) { return '<p>' + fill(x) + '</p>'; }).join('') + '</div><p class="node-tip">' + OBJTIP[level] + '</p>';
-        var acts = document.createElement('div'); acts.className = 'acts';
-        acts.innerHTML = '<span class="label">E agora?</span>';
-        var grid = document.createElement('div'); grid.className = 'choice-grid';
-        [['Voltar pro horário', function () { show(CLOSE[level], true); }, true], ['Outra objeção', renderObj], ['Ligar outro dia', function () { renderOut('retorno'); }], ['Não quer mesmo', function () { renderOut('seminteresse'); }]].forEach(function (c) {
-          var bb = document.createElement('button'); bb.type = 'button'; bb.className = 'big' + (c[2] ? ' primary' : ''); bb.textContent = c[0];
-          bb.addEventListener('click', c[1]); grid.appendChild(bb);
-        });
-        acts.appendChild(grid); a.appendChild(acts); body.appendChild(a); body.scrollTop = 0;
-      });
-      list.appendChild(b);
+  function renderSit(k) {
+    var x = SITMAP[k]; if (!x) return;
+    setFoot(true);
+    var w = el('div', 'node', '<span class="label step-l">' + esc(x.c) + '</span><p class="heard-q">Ela: ' + esc(x.q) + '</p>' + sayBlock(x.a, 'Você responde'));
+    if (x.tip) w.appendChild(el('p', 'node-tip', esc(x.tip)));
+    w.appendChild(btnGrid(x.ch || [
+      { label: 'Voltar pra conversa', go: 'RETURN', primary: true },
+      { label: 'Ir pro horário', go: 'CLOSE', primary: true },
+      { label: 'Outra dúvida', go: 'SIT' },
+      { label: 'Ligar depois', go: 'OUT:retorno' },
+      { label: 'Encerrar', go: 'END' }
+    ]));
+    paint(w);
+  }
+
+  function listScreen(title, items, onPick) {
+    setFoot(true);
+    var w = el('div', 'node', '<span class="label step-l">' + esc(title) + '</span><h3 class="node-title">O que ela falou?</h3>');
+    var sl = el('label', 'fld search'); sl.setAttribute('for', 'q-search');
+    sl.innerHTML = '<span>Buscar</span>';
+    var q = document.createElement('input'); q.id = 'q-search'; q.type = 'search'; q.placeholder = 'Digite uma palavra: dói, pix, sábado, golpe...'; q.autocomplete = 'off';
+    sl.appendChild(q); w.appendChild(sl);
+    var wrap = el('div', 'sit-wrap'); var groups = {};
+    items.forEach(function (it) {
+      if (!groups[it.c]) { var g = el('div', 'sit-group'); g.appendChild(el('span', 'label', esc(it.c))); var l = el('div', 'obj-list'); g.appendChild(l); groups[it.c] = { g: g, l: l }; wrap.appendChild(g); }
+      var b = el('button', 'obj-btn'); b.type = 'button'; b.textContent = it.q; b.setAttribute('data-s', norm(it.q + ' ' + (it.a || []).join(' ')));
+      b.addEventListener('click', function () { onPick(it); });
+      groups[it.c].l.appendChild(b);
     });
-    w.appendChild(list); body.appendChild(w); body.scrollTop = 0;
+    var none = el('p', 'node-tip', 'Nada encontrado. Use "Voltar pra conversa", responda com calma e anote a dúvida pra gente incluir aqui.'); none.hidden = true;
+    q.addEventListener('input', function () {
+      var t = norm(q.value.trim()); var any = false;
+      Object.keys(groups).forEach(function (c) {
+        var vis = 0;
+        groups[c].l.querySelectorAll('.obj-btn').forEach(function (b) { var ok = !t || b.getAttribute('data-s').indexOf(t) >= 0; b.hidden = !ok; if (ok) vis++; });
+        groups[c].g.hidden = vis === 0; if (vis) any = true;
+      });
+      none.hidden = any;
+    });
+    w.appendChild(wrap); w.appendChild(none);
+    w.appendChild(btnGrid([{ label: 'Voltar pra conversa', go: 'RETURN', primary: true }]));
+    paint(w);
+    setTimeout(function () { if (window.matchMedia('(pointer: fine)').matches) q.focus(); }, 50);
+  }
+  function renderSitList() { listScreen('Dúvidas e situações', SIT, function (it) { show('SIT:' + it.k, true); }); }
+  function renderObj() {
+    var items = OBJ[level].map(function (o) { return { c: 'Objeções · nível ' + LEVEL_NAME[level], q: o[0], a: [o[1]], o: o }; });
+    listScreen('Objeção', items, function (it) {
+      var w = el('div', 'node', '<span class="label step-l">Objeção</span><p class="heard-q">Ela: ' + esc(it.o[0]) + '</p>' + sayBlock(it.o[1].split('\n'), 'Você responde') + '<p class="node-tip">' + esc(OBJTIP[level]) + '</p>');
+      w.appendChild(btnGrid([
+        { label: 'Superou, ir pro horário', go: 'CLOSE', primary: true },
+        { label: 'Voltar pra conversa', go: 'RETURN' },
+        { label: 'Outra objeção', go: 'OBJ' },
+        { label: 'Ligar outro dia', go: 'OUT:retorno' },
+        { label: 'Não quer mesmo', go: 'OUT:seminteresse' }
+      ]));
+      paint(w);
+    });
+  }
+
+  function renderEnd() {
+    setFoot(true);
+    var w = el('div', 'node', '<span class="label step-l">Encerrar ligação</span><h3 class="node-title">Como terminou?</h3>');
+    w.appendChild(btnGrid([
+      { label: 'Marcou consulta', go: 'CLOSE', primary: true },
+      { label: 'Ligar de novo depois', go: 'OUT:retorno' },
+      { label: 'Não atendeu ou caiu', go: 'OUT:naoatendeu' },
+      { label: 'Pediu resumo no WhatsApp', go: 'OUT:whats' },
+      { label: 'Sem interesse', go: 'OUT:seminteresse' },
+      { label: 'Quer outro procedimento', go: 'OUT:fora' },
+      { label: 'Número errado', go: 'OUT:invalido' },
+      { label: 'Pediu pra não ligar mais', go: 'OUT:naoligar' }
+    ]));
+    paint(w);
   }
 
   function register(r, d) { LOG.push({ h: hhmm(), n: S.nome || '', r: r, d: d || '' }); saveLog(); renderScore(); }
 
   function renderOut(kind) {
-    setFoot(false); body.innerHTML = '';
-    var w = document.createElement('div'); w.className = 'node out out-' + kind;
+    setFoot(false);
+    var w = el('div', 'node out out-' + kind);
     var nome = S.nome || '[nome]';
     var finish = function (label, fn) {
-      var acts = document.createElement('div'); acts.className = 'acts';
-      var g = document.createElement('div'); g.className = 'choice-grid';
-      var b1 = document.createElement('button'); b1.type = 'button'; b1.className = 'big primary'; b1.textContent = label;
+      var acts = el('div', 'acts'); var g = el('div', 'choice-grid');
+      var b1 = el('button', 'big primary'); b1.type = 'button'; b1.textContent = label;
       b1.addEventListener('click', function () { fn(); open(); });
-      var b2 = document.createElement('button'); b2.type = 'button'; b2.className = 'big'; b2.textContent = 'Fechar';
+      var b2 = el('button', 'big'); b2.type = 'button'; b2.textContent = 'Registrar e fechar';
       b2.addEventListener('click', function () { fn(); close(); });
       g.appendChild(b1); g.appendChild(b2); acts.appendChild(g); w.appendChild(acts);
     };
+    var resumo = 'Oi, ' + nome + '! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Como combinamos, segue o resumo:\nPromoção especial de novembro: montagem do aparelho por R$ 120 + limpeza grátis no dia da montagem.\nO primeiro passo é a consulta com a doutora, que te explica tudo do seu caso.\nOdonto Medic, Avenida Castanheira, Bairro Tropical.\nLocalização: https://maps.google.com/?q=-6.0368444,-49.8918091\nQuer que eu reserve seu horário? Tenho ' + (S.h1 || '[dia e hora]') + ' ou ' + (S.h2 || '[dia e hora]') + '.';
     if (kind === 'agendou') {
       progress(1);
       register('agendou', S.hora || '');
       var ag = LOG.filter(function (l) { return l.r === 'agendou'; }).length;
       w.innerHTML = '<p class="win-n">' + ag + 'ª</p><h3 class="node-title">Consulta marcada, Geovana!</h3><p class="node-tip">' + (ag === 1 ? 'A primeira do dia. Que comece a sequência!' : 'Mais uma pra conta. Você tá mandando bem demais.') + '</p><span class="label">Manda agora no WhatsApp</span>';
       w.appendChild(msgBox('Oi, ' + nome + '! Sua consulta tá confirmada:\n' + (S.hora || '[dia e hora]') + '\nPromoção especial de novembro: montagem do aparelho por R$ 120 + limpeza grátis no dia da montagem.\nOdonto Medic, Avenida Castanheira, Bairro Tropical.\nLocalização: https://maps.google.com/?q=-6.0368444,-49.8918091\nQualquer coisa, é só me chamar aqui. Até lá!'));
-      finish('Próxima ligação', function () {});
-      body.appendChild(w); confetti();
-      return;
+      w.appendChild(el('span', 'label', 'Lembrete pra mandar na véspera'));
+      w.appendChild(msgBox('Oi, ' + nome + '! Passando pra lembrar da sua consulta amanhã, ' + (S.hora || '[hora]') + ', aqui na Odonto Medic. Posso confirmar sua presença?'));
+      var acts = el('div', 'acts'); var g = el('div', 'choice-grid');
+      var b1 = el('button', 'big primary'); b1.type = 'button'; b1.textContent = 'Próxima ligação'; b1.addEventListener('click', open);
+      var b2 = el('button', 'big'); b2.type = 'button'; b2.textContent = 'Fechar'; b2.addEventListener('click', close);
+      g.appendChild(b1); g.appendChild(b2); acts.appendChild(g); w.appendChild(acts);
+      paint(w); confetti(); return;
     }
     if (kind === 'naoatendeu') {
       w.innerHTML = '<h3 class="node-title">Não atendeu. Acontece!</h3><p class="node-tip">Manda a mensagem agora e tenta de novo em 2 a 3 horas.</p>';
       w.appendChild(msgBox('Oi, ' + nome + '! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Tentei te ligar agora pra explicar a promoção do aparelho: montagem por R$ 120 e limpeza grátis no mesmo dia. Qual horário fica bom pra eu te ligar?'));
       finish('Registrar e próxima', function () { register('naoatendeu', 'Mensagem enviada'); });
     } else if (kind === 'retorno') {
-      w.innerHTML = '<h3 class="node-title">Combinado, liga de novo depois</h3>';
+      w.innerHTML = '<h3 class="node-title">Combinado, liga de novo depois</h3><p class="node-tip">Quando ligar, escolha "Retorno combinado" antes de começar.</p>';
       w.appendChild(field('f-ret', 'Quando ligar de novo', 'Ex.: hoje às 18h', 'retorno'));
       finish('Registrar e próxima', function () { register('retorno', S.retorno ? 'Retornar ' + S.retorno : ''); });
+    } else if (kind === 'whats') {
+      w.innerHTML = '<h3 class="node-title">Manda o resumo agora</h3><p class="node-tip">Se ela não responder em 2 horas, liga de novo.</p>';
+      w.appendChild(msgBox(resumo));
+      finish('Registrar e próxima', function () { register('whats', 'Resumo enviado'); });
+    } else if (kind === 'invalido') {
+      w.innerHTML = '<h3 class="node-title">Número errado</h3><p class="node-tip">Não conta como paciente no relatório do dia.</p>';
+      finish('Registrar e próxima', function () { register('invalido'); });
+    } else if (kind === 'fora') {
+      w.innerHTML = '<h3 class="node-title">Outro procedimento</h3><p class="node-tip">Marca pela agenda normal da clínica e anota o que ela quer.</p>';
+      w.appendChild(field('f-fora', 'O que ela quer', 'Ex.: clareamento', 'fora'));
+      finish('Registrar e próxima', function () { register('fora', S.fora || ''); });
+    } else if (kind === 'naoligar') {
+      w.innerHTML = '<h3 class="node-title">Anotado: não ligar mais</h3><p class="node-tip">Ninguém da clínica deve chamar esse número de novo pela promoção.</p>';
+      finish('Registrar e próxima', function () { register('naoligar'); });
     } else {
-      w.innerHTML = '<h3 class="node-title">Tudo bem, encerra com carinho</h3><div class="say big-say"><span class="who">Você fala</span><p>Tudo bem, ' + esc(nome) + '! Obrigada pela atenção. Se mudar de ideia, é só chamar a gente no WhatsApp, tá?</p></div><p class="node-tip">Nem toda ligação vira consulta. A próxima pode ser a sua.</p>';
+      w.innerHTML = '<h3 class="node-title">Tudo bem, encerra com carinho</h3>' + sayBlock(['Tudo bem, ' + nome + '! Obrigada pela atenção. Se mudar de ideia, é só chamar a gente no WhatsApp, tá?']) + '<p class="node-tip">Nem toda ligação vira consulta. A próxima pode ser a sua.</p>';
       finish('Registrar e próxima', function () { register('seminteresse'); });
     }
-    body.appendChild(w); body.scrollTop = 0;
+    paint(w);
   }
 
   document.getElementById('call-back').addEventListener('click', function () { show('BACK'); });
+  document.getElementById('call-sit').addEventListener('click', function () { show('SIT'); });
   document.getElementById('call-obj').addEventListener('click', function () { show('OBJ'); });
-  document.getElementById('call-no').addEventListener('click', function () { renderOut('seminteresse'); });
+  document.getElementById('call-end').addEventListener('click', function () { show('END'); });
 
   /* ---------- confete ---------- */
   function confetti() {
@@ -1274,8 +1475,20 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     })(t0);
   }
 
+  /* ---------- seção estática de dúvidas ---------- */
+  (function () {
+    var box = document.getElementById('duvidas-list'); if (!box) return;
+    var groups = {};
+    SIT.forEach(function (x) {
+      if (!groups[x.c]) { var g = el('div', 'dv-group'); g.appendChild(el('h3', 'dv-h', esc(x.c))); var grid = el('div', 'obj-grid'); g.appendChild(grid); groups[x.c] = grid; box.appendChild(g); }
+      var c = el('div', 'obj', '<p class="heard">' + esc(x.q) + '</p>' + x.a.map(function (a) { return '<p class="ans">' + esc(a).replace(/\{(\w+)\}/g, function (_, k) { return '[' + (FB[k] || k) + ']'; }) + '</p>'; }).join('') + (x.tip ? '<p class="ans dv-tip">' + esc(x.tip) + '</p>' : ''));
+      groups[x.c].appendChild(c);
+    });
+  })();
+
   renderScore();
 })();
+
 </script>
 
 </body>
