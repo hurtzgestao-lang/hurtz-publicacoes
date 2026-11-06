@@ -200,6 +200,80 @@ footer .logo { width: 88px; background: var(--subtle); }
 @media (max-width: 560px) { .bridges { grid-template-columns: 1fr; } }
 .bridges > div { border: 1px solid var(--line); border-radius: 4px; padding: 12px 14px; display: grid; gap: 4px; font-size: 14px; min-width: 0; }
 .bridges b { color: var(--accent); font-size: 12px; letter-spacing: 0.1em; text-transform: uppercase; }
+
+/* modo ligação */
+.mode { margin-top: 28px; border: 1.5px solid var(--fg); border-radius: 8px; background: var(--surface); padding: 24px; display: grid; gap: 20px; }
+.mode-top { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+.mode-hi h2 { font-size: 26px; }
+.mode-hi p { color: var(--muted); }
+.start { font: inherit; font-weight: 700; font-size: 17px; color: var(--band-fg); background: var(--accent); border: 0; border-radius: 8px; padding: 16px 28px; cursor: pointer; transition: transform .15s; }
+.start:hover { transform: translateY(-2px); }
+.start:focus-visible { outline: 2px solid var(--fg); outline-offset: 3px; }
+.score { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); border-top: 1px solid var(--line); border-bottom: 1px solid var(--line); }
+.score > div { padding: 14px 0 14px 16px; display: grid; gap: 2px; border-left: 1px solid var(--line); min-width: 0; }
+.score > div:first-child { border-left: 0; padding-left: 0; }
+.score b { font-size: 34px; line-height: 1; font-variant-numeric: tabular-nums; }
+.score .hl b { color: var(--accent); }
+.score span { font-size: 12px; color: var(--subtle); }
+.sc-list { list-style: none; margin: 0; padding: 0; display: grid; max-height: 260px; overflow-y: auto; }
+.sc-list:empty { display: none; }
+.sc-list li { display: grid; grid-template-columns: 48px 1fr auto 28px; gap: 10px; align-items: center; padding: 8px 0; border-top: 1px solid var(--line); font-size: 14px; }
+.sc-list li:first-child { border-top: 0; }
+.sc-list .t { color: var(--subtle); font-variant-numeric: tabular-nums; }
+.sc-list .n { min-width: 0; overflow-wrap: anywhere; }
+.sc-list small { display: block; color: var(--subtle); font-size: 12px; }
+.sc-list .rm { font: inherit; background: none; border: 0; color: var(--subtle); cursor: pointer; font-size: 18px; line-height: 1; }
+.sc-list .rm:hover { color: var(--accent); }
+.sc-empty { font-size: 14px; color: var(--muted); }
+.mode-foot { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; font-size: 12px; color: var(--subtle); }
+
+body.locked { overflow: hidden; }
+.call { position: fixed; inset: 0; z-index: 50; background: var(--bg); display: grid; grid-template-rows: auto auto 1fr auto; padding-top: env(safe-area-inset-top, 0px); padding-bottom: env(safe-area-inset-bottom, 0px); }
+.call[hidden] { display: none; }
+.call-head, .call-body, .call-foot { padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+.call-head { display: flex; justify-content: space-between; align-items: center; padding-block: 14px; max-width: 792px; width: 100%; margin: 0 auto; }
+.call-meta { display: grid; }
+.call-meta b { font-size: 16px; }
+.call-x { font: inherit; font-size: 28px; line-height: 1; background: none; border: 1px solid var(--line); border-radius: 8px; width: 44px; height: 44px; color: var(--fg); cursor: pointer; }
+.call-prog { height: 4px; background: var(--line); }
+.call-prog div { height: 100%; width: 0; background: var(--accent); transition: width .35s ease; }
+.call-body { overflow-y: auto; padding-block: 24px 32px; min-height: 0; }
+.node { max-width: 760px; margin: 0 auto; display: grid; gap: 18px; animation: rise .28s ease; }
+@keyframes rise { from { opacity: .4; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+@media (prefers-reduced-motion: reduce) { .node { animation: none; } .call-prog div, .start { transition: none; } }
+.step-l { color: var(--accent); }
+.node-title { font-size: clamp(24px, 5vw, 32px); }
+.big-say p { font-size: clamp(19px, 3.6vw, 23px); line-height: 1.5; }
+.big-say p + p { margin-top: 12px; }
+mark.v { background: var(--accent-soft); color: var(--accent-ink); font-weight: 700; padding: 0 4px; border-radius: 2px; }
+mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); color: var(--accent); border-radius: 0; }
+.node-tip { font-size: 15px; color: var(--muted); }
+.fld { display: grid; gap: 6px; }
+.fld span { font-size: 13px; font-weight: 700; color: var(--muted); }
+.fld input { font: inherit; font-size: 17px; color: var(--fg); background: var(--surface); border: 1.5px solid var(--line); border-radius: 8px; padding: 12px 14px; width: 100%; }
+.fld input:focus { outline: none; border-color: var(--accent); }
+.fld.note input { background: var(--accent-soft); }
+.fld-row { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+@media (max-width: 520px) { .fld-row { grid-template-columns: 1fr; } }
+.pre { display: flex; gap: 12px; align-items: center; flex-wrap: wrap; }
+.acts { display: grid; gap: 10px; margin-top: 4px; }
+.choice-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(200px, 1fr)); gap: 10px; }
+.big { font: inherit; font-size: 16px; font-weight: 700; color: var(--fg); background: var(--surface); border: 1.5px solid var(--line); border-radius: 8px; padding: 14px 16px; cursor: pointer; text-align: left; transition: border-color .15s, transform .1s; }
+.big:hover { border-color: var(--accent); }
+.big:active { transform: scale(.98); }
+.big.primary { background: var(--accent); border-color: var(--accent); color: var(--band-fg); }
+.big:focus-visible, .obj-btn:focus-visible, .call-foot button:focus-visible, .call-x:focus-visible { outline: 2px solid var(--fg); outline-offset: 2px; }
+.obj-list { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 8px; }
+.obj-btn { font: inherit; font-size: 15px; text-align: left; color: var(--fg); background: var(--surface); border: 1px solid var(--line); border-radius: 8px; padding: 12px 14px; cursor: pointer; }
+.obj-btn:hover { border-color: var(--accent); }
+.heard-q { font-size: 15px; color: var(--muted); }
+.call-foot { display: flex; gap: 8px; padding-block: 12px; border-top: 1px solid var(--line); background: var(--surface); justify-content: center; flex-wrap: wrap; }
+.call-foot[hidden] { display: none; }
+.call-foot button { font: inherit; font-size: 14px; font-weight: 700; color: var(--fg); background: none; border: 1px solid var(--line); border-radius: 999px; padding: 8px 16px; cursor: pointer; }
+.call-foot button:hover { border-color: var(--accent); color: var(--accent); }
+.win-n { font-size: 72px; font-weight: 700; line-height: 1; color: var(--accent); font-variant-numeric: tabular-nums; }
+#confetti { position: fixed; inset: 0; z-index: 60; pointer-events: none; width: 100%; height: 100%; }
+
 </style>
 </head>
 <body>
@@ -262,6 +336,27 @@ footer .logo { width: 88px; background: var(--subtle); }
       </button>
     </div>
   </div>
+
+  <section class="mode" id="modo" aria-labelledby="hello">
+    <div class="mode-top">
+      <div class="mode-hi">
+        <h2 id="hello">Oi, Geovana!</h2>
+        <p id="cheer">Bora marcar a primeira do dia?</p>
+      </div>
+      <button type="button" class="start" id="start-call">Começar ligação</button>
+    </div>
+    <div class="score">
+      <div><b id="sc-lig">0</b><span>ligações hoje</span></div>
+      <div class="hl"><b id="sc-ag">0</b><span>consultas marcadas</span></div>
+      <div><b id="sc-taxa">0%</b><span>de conversão</span></div>
+    </div>
+    <ul class="sc-list" id="sc-list"></ul>
+    <p class="sc-empty" id="sc-empty">Nenhuma ligação ainda hoje. Toque em <b>Começar ligação</b>: a tela guia a conversa com o nível escolhido acima, já com o nome da pessoa.</p>
+    <div class="mode-foot">
+      <button type="button" class="copy" id="sc-report">Copiar relatório do dia</button>
+      <span>O placar fica salvo só neste aparelho e zera todo dia.</span>
+    </div>
+  </section>
 
   <nav class="toc" aria-label="Seções">
     <a href="#antes">Antes de ligar</a>
@@ -616,7 +711,7 @@ Qualquer coisa, é só me chamar aqui. Até lá!</p>
 
   <section id="controle">
     <h2>Controle do dia</h2>
-    <p class="intro">Sem CRM, anota cada lead num caderno ou planilha simples com essas colunas. No fim do dia, essa lista vira o relatório diário do grupo: total de linhas em Pacientes e total de "Agendou" em Consultas.</p>
+    <p class="intro">Usando o <b>Modo ligação</b>, o placar lá em cima faz isso sozinho e copia o relatório do dia. Sem ele, anota cada lead num caderno ou planilha simples com essas colunas. No fim do dia, essa lista vira o relatório diário do grupo: total de linhas em Pacientes e total de "Agendou" em Consultas.</p>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Data</th><th>Nome</th><th>Telefone</th><th>Tentativas</th><th>Resultado</th><th>Dia e hora marcados</th></tr></thead>
@@ -670,6 +765,22 @@ Qualquer coisa, é só me chamar aqui. Até lá!</p>
   </footer>
 </div>
 
+
+<div class="call" id="call" hidden role="dialog" aria-modal="true" aria-labelledby="call-level">
+  <div class="call-head">
+    <div class="call-meta"><span class="label">Ligação · nível</span><b id="call-level">Iniciante</b></div>
+    <button type="button" class="call-x" id="call-x" aria-label="Fechar ligação">×</button>
+  </div>
+  <div class="call-prog"><div id="call-bar"></div></div>
+  <div class="call-body" id="call-body"></div>
+  <div class="call-foot" id="call-foot" hidden>
+    <button type="button" id="call-back">Voltar</button>
+    <button type="button" id="call-obj">Objeção</button>
+    <button type="button" id="call-no">Sem interesse</button>
+  </div>
+</div>
+<canvas id="confetti" hidden aria-hidden="true"></canvas>
+
 <script>
 document.querySelectorAll('.copy').forEach(function (btn) {
   btn.addEventListener('click', function () {
@@ -688,6 +799,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
   var levels = ['iniciante', 'intermediario', 'spin'];
   function setLevel(lv, save) {
     if (levels.indexOf(lv) < 0) lv = 'iniciante';
+    window.__nivel = (levels.indexOf(lv) < 0 ? 'iniciante' : lv);
     document.querySelectorAll('.panel').forEach(function (p) { p.hidden = p.getAttribute('data-panel') !== lv; });
     document.querySelectorAll('.lvl-btn').forEach(function (b) { b.setAttribute('aria-pressed', b.getAttribute('data-level') === lv ? 'true' : 'false'); });
     if (save) { try { localStorage.setItem('nivel-roteiro', lv); } catch (e) {} }
@@ -704,6 +816,346 @@ document.querySelectorAll('.copy').forEach(function (btn) {
       }
     });
   });
+})();
+
+/* ================= MODO LIGAÇÃO ================= */
+(function () {
+  var S = {};
+  var hist = [];
+  var visited = 0;
+  var level = 'iniciante';
+  var TOTAL = { iniciante: 9, intermediario: 15, spin: 13 };
+  var LEVEL_NAME = { iniciante: 'Iniciante', intermediario: 'Intermediário', spin: 'SPIN avançado' };
+  var BARREIRA = {
+    dinheiro: { nome: 'o valor', ponte: 'a montagem, que costuma ser o valor mais alto, tá por 120 reais, e o resto a doutora vê com você na consulta' },
+    medo: { nome: 'o medo', ponte: 'seu aparelho é acompanhado por dentista especialista em ortodontia, que te explica cada passo antes de fazer' },
+    tempo: { nome: 'o tempo', ponte: 'eu encaixo a consulta no horário que for melhor pra sua rotina' },
+    confianca: { nome: 'a confiança', ponte: 'a clínica é toda equipada e muita gente aqui da região já faz o aparelho com a gente, vem conhecer' }
+  };
+  var OBJ = [
+    ['"E a manutenção, quanto é?"', 'Isso a doutora te passa certinho na consulta, porque depende do seu caso. O que eu já te garanto é a montagem por 120 reais na promoção especial de novembro. Quer que eu já reserve sua consulta?'],
+    ['"Tá caro" ou "não tenho dinheiro agora"', 'Entendo. A montagem normalmente é o valor mais alto do aparelho, e na promoção especial de novembro ela tá por 120. As formas de pagamento a doutora vê com você na consulta. Se for melhor, deixo marcado pra depois do seu pagamento.'],
+    ['"Vou pensar"', 'Claro. Ficou alguma dúvida, no valor, no horário ou no tratamento? Faz assim: eu deixo um horário reservado no seu nome. Se mudar de ideia, é só me avisar que eu libero, e assim você não perde a promoção.'],
+    ['"Preciso falar com meu marido" (ou esposa, pais)', 'Faz sentido. Ele pode vir junto, inclusive. Quer que eu deixe o horário reservado e você me confirma até amanhã de manhã?'],
+    ['"Tenho medo de doer"', 'Essa dúvida é muito comum. A doutora explica cada passo antes de começar e você pode perguntar tudo pra ela na hora. Montar aparelho não é cirurgia.'],
+    ['"Não tenho tempo"', 'Me fala qual dia e horário encaixa melhor na sua rotina que eu procuro aqui na agenda pra você.'],
+    ['"Por que tão barato? Tem pegadinha?"', 'Pergunta justa! É a promoção especial de novembro da clínica. O valor é da montagem mesmo, e a doutora te passa tudo certinho antes de começar, sem surpresa.'],
+    ['"Quero o transparente"', 'Os modelos e os valores de cada um a doutora te mostra na consulta, aí você escolhe vendo de perto. Vamos marcar?'],
+    ['"Vou ver em outro lugar"', 'Tranquilo, é bom comparar. Só te lembro que esse valor é da nossa promoção especial de novembro. Se quiser, deixo uma consulta marcada pra você conhecer a clínica e decidir com calma.'],
+    ['"É pro meu filho"', 'Que bom! Quantos anos ele tem? No dia ele vem com você ou com outro responsável. Qual horário fica melhor pra vocês dois, depois da escola?']
+  ];
+
+  var CLOSE_CHOICES = [
+    { label: function () { return 'Escolheu ' + (S.h1 || 'o 1º horário'); }, go: 'confirm', set: function () { S.hora = S.h1 || '[horário]'; }, primary: true },
+    { label: function () { return 'Escolheu ' + (S.h2 || 'o 2º horário'); }, go: 'confirm', set: function () { S.hora = S.h2 || '[horário]'; }, primary: true },
+    { label: 'Pediu outro horário', go: 'outro' },
+    { label: 'Levantou objeção', go: 'OBJ' }
+  ];
+
+  var N = {
+    /* ---------- comuns ---------- */
+    quem: { step: 'Abertura', say: ['É a Geovana, da clínica Odonto Medic, aqui do Bairro Tropical. Você mandou mensagem no nosso WhatsApp sobre aparelho.'],
+      choices: [{ label: 'Lembrou', go: 'BACK', primary: true }] },
+    ocupada: { step: 'Abertura', say: ['Sem problema, é rapidinho. Prefere que eu te ligue às [horário] ou às [horário]?'], tip: 'Sempre dois horários. E liga certinho no combinado.',
+      choices: [{ label: 'Combinou um horário', go: 'OUT:retorno', primary: true }, { label: 'Não quis', go: 'OUT:seminteresse' }] },
+    outro: { step: 'Fechamento', say: ['Qual dia fica melhor pra você, de manhã ou de tarde?'], input: { key: 'hora', label: 'Horário que vocês combinaram', ph: 'Ex.: sexta às 15h' },
+      choices: [{ label: 'Marcar esse horário', go: 'confirm', primary: true }] },
+    confirm: { step: 'Confirmação', say: ['Perfeito! Então sua consulta fica {hora}. Me confirma seu nome completo?', 'A clínica fica na Avenida Castanheira, no Bairro Tropical. Vou te mandar a localização e o resumo no WhatsApp agora. Chega uns 10 minutinhos antes, tá bom?', 'Se acontecer alguma coisa e você não puder vir, me avisa por lá que eu remarco pra você.'],
+      choices: [{ label: 'Consulta marcada!', go: 'OUT:agendou', primary: true }] },
+
+    /* ---------- iniciante ---------- */
+    i1: { step: 'Abertura', say: ['Oi, {nome}! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Tudo bem com você?'], tip: 'Espera ela responder. Esse segundo de pausa faz a pessoa entrar na conversa.',
+      choices: [{ label: 'Ela respondeu', go: 'i2', primary: true }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
+    i2: { step: 'Abertura', say: ['Que bom! Vi que você chamou a gente sobre aparelho e te liguei rapidinho porque tenho uma notícia boa pra você: a montagem tá com a promoção especial de novembro.', 'Me conta uma coisa: o aparelho seria pra você mesmo?'],
+      choices: [{ label: 'É pra ela', go: 'i3', primary: true }, { label: 'É pra filho ou outra pessoa', go: 'i2b' }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Perguntou "quem é?"', go: 'quem' }] },
+    i2b: { step: 'Perguntas', say: ['Que legal! Quantos anos ele tem?'], tip: 'Menor de idade vem com um responsável.', choices: [{ label: 'Próximo', go: 'i3', primary: true }] },
+    i3: { step: 'Perguntas', say: ['Você já usou aparelho antes ou seria o primeiro?'], tip: 'Só anota e segue.', choices: [{ label: 'Próximo', go: 'i4', primary: true }] },
+    i4: { step: 'Perguntas', say: ['E o que mais te incomoda hoje no seu sorriso?'], tip: 'A pergunta mais importante. Deixa falar e anota as palavras dela.',
+      input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: os dentes da frente tortos' }, choices: [{ label: 'Próximo', go: 'i5', primary: true }] },
+    i5: { step: 'Perguntas', say: ['Entendi, {incomodo}. Isso a doutora avalia certinho na consulta e te explica tudo antes de começar.'], choices: [{ label: 'Próximo', go: 'i6', primary: true }] },
+    i6: { step: 'Oferta', say: ['Então, {nome}, funciona assim: o primeiro passo é uma consulta aqui na clínica com a doutora. E na promoção especial de novembro a montagem do aparelho tá saindo por 120 reais, e no dia da montagem você ainda ganha uma limpeza, sem pagar nada a mais.', 'E aqui seu aparelho é acompanhado por dentista especialista em ortodontia.'],
+      choices: [{ label: 'Próximo', go: 'i7', primary: true }, { label: 'Levantou objeção', go: 'OBJ' }] },
+    i7: { step: 'Fechamento', say: ['Pra garantir essa condição, eu já deixo sua consulta marcada. Tenho {h1} ou {h2}. Qual fica melhor pra você?'], tip: 'Nunca pergunte "quer agendar?".', choices: CLOSE_CHOICES },
+
+    /* ---------- intermediário ---------- */
+    m1: { step: 'Abertura', say: ['Oi, {nome}, tudo bom? Geovana aqui, da Odonto Medic do Bairro Tropical. Você chamou a gente agora há pouco perguntando sobre {escreveu}.', 'Te liguei porque por mensagem fica muita coisa solta, e em dois minutinhos eu te explico como funciona aqui. Me conta: o que te fez procurar aparelho agora?'],
+      tip: 'A resposta é o motivo que você vai usar no fechamento.', input: { key: 'motivo', label: 'Motivo dela', ph: 'Ex.: casamento em março' },
+      choices: [{ label: 'Próximo', go: 'm2', primary: true }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
+    m2: { step: 'Aprofundar', say: ['Faz tempo que você pensa em colocar?'], tip: 'Quem pensa há anos precisa de um empurrão, não de mais informação.',
+      input: { key: 'tempo', label: 'Há quanto tempo', ph: 'Ex.: uns dois anos' }, choices: [{ label: 'Próximo', go: 'm3', primary: true }] },
+    m3: { step: 'Aprofundar', say: ['O que mais te incomoda hoje no seu sorriso?'], input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: dente encavalado' }, choices: [{ label: 'Próximo', go: 'm4', primary: true }] },
+    m4: { step: 'Aprofundar', say: ['Já usou aparelho antes?'], choices: [{ label: 'Nunca usou', go: 'm5', primary: true }, { label: 'Já usou e tirou', go: 'm4b' }] },
+    m4b: { step: 'Aprofundar', say: ['E o que te fez tirar?'], tip: 'Isso mostra a objeção antes dela aparecer. Guarda a resposta.', choices: [{ label: 'Próximo', go: 'm5', primary: true }] },
+    m5: { step: 'Devolver', say: ['Deixa eu ver se entendi: você pensa nisso já faz {tempo}, o que mais te incomoda é {incomodo} e agora você quer resolver por causa de {motivo}. É isso?'],
+      tip: 'Quando a pessoa ouve a própria história e diz "é isso", ela confia mais em você.', choices: [{ label: 'Ela disse "é isso"', go: 'm6', primary: true }] },
+    m6: { step: '4 sins · 1 de 4', say: ['Se a doutora avaliar e for indicado pra você, você quer começar logo?'], choices: [{ label: 'Sim', go: 'm7', primary: true }, { label: 'Hesitou', go: 'OBJ' }] },
+    m7: { step: '4 sins · 2 de 4', say: ['Você mora aqui perto do Tropical, né?'], choices: [{ label: 'Sim', go: 'm8', primary: true }, { label: 'Mora longe', go: 'm7b' }] },
+    m7b: { step: '4 sins · 2 de 4', say: ['A clínica fica na Avenida Castanheira, no Bairro Tropical. Dá pra você vir até aqui uma vez por mês?'], choices: [{ label: 'Dá sim', go: 'm8', primary: true }, { label: 'Não dá', go: 'OUT:seminteresse' }] },
+    m8: { step: '4 sins · 3 de 4', say: ['Pra você é melhor de manhã ou de tarde?'],
+      choices: [{ label: 'Manhã', go: 'm9', set: function () { S.turno = 'manhã'; }, primary: true }, { label: 'Tarde', go: 'm9', set: function () { S.turno = 'tarde'; }, primary: true }] },
+    m9: { step: '4 sins · 4 de 4', say: ['A montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia, e o resto a doutora te explica na consulta. Faz sentido pra você?'],
+      choices: [{ label: 'Sim', go: 'm10', primary: true }, { label: 'Hesitou', go: 'OBJ' }] },
+    m10: { step: 'Diferencial', say: ['Qual o jeito dela?'], silent: true, tip: 'Escolha pelo que você ouviu até aqui.',
+      choices: [{ label: 'Tem medo ou insegurança', go: 'm10a', primary: true }, { label: 'Desconfiada ou comparando', go: 'm10b', primary: true }, { label: 'Quer saber dos outros', go: 'm10c', primary: true }] },
+    m10a: { step: 'Diferencial', say: ['Seu aparelho é acompanhado por dentista especialista em ortodontia, que te explica cada passo antes de fazer.'], choices: [{ label: 'Próximo', go: 'm11', primary: true }] },
+    m10b: { step: 'Diferencial', say: ['A clínica é toda equipada e você faz tudo aqui mesmo, no Bairro Tropical. Vem conhecer na consulta.'], choices: [{ label: 'Próximo', go: 'm11', primary: true }] },
+    m10c: { step: 'Diferencial', say: ['Muita gente aqui da região já faz o aparelho com a gente.'], choices: [{ label: 'Próximo', go: 'm11', primary: true }] },
+    m11: { step: 'Fechamento', say: ['Então vamos dar o primeiro passo pra {motivo}. Você disse que de {turno} é melhor: tenho {h1} ou {h2}. Qual fica bom?'], choices: CLOSE_CHOICES },
+
+    /* ---------- SPIN ---------- */
+    s0: { step: 'Abertura', say: ['Oi, {nome}! Geovana aqui, da Odonto Medic do Bairro Tropical, tudo bem? Você falou com a gente sobre aparelho.', 'Antes de te passar qualquer informação, eu queria entender um pouquinho o que você procura, pra não te falar coisa que não serve pra você. Posso te fazer umas perguntinhas rápidas?'],
+      choices: [{ label: 'Pode perguntar', go: 's1', primary: true }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
+    s1: { step: 'S · Situação', say: ['O aparelho é pra você? Já usou antes?'], tip: 'Situação é só contexto. No máximo 2 perguntas.', choices: [{ label: 'Próximo', go: 's1b', primary: true }] },
+    s1b: { step: 'S · Situação', say: ['Faz quanto tempo que você pensa em colocar?'], input: { key: 'tempo', label: 'Há quanto tempo', ph: 'Ex.: desde a adolescência' }, choices: [{ label: 'Próximo', go: 's2', primary: true }] },
+    s2: { step: 'P · Problema', say: ['O que mais te incomoda hoje quando você sorri?'], input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: o espaço entre os dentes' }, choices: [{ label: 'Próximo', go: 's2b', primary: true }] },
+    s2b: { step: 'P · Problema', say: ['Tem alguma coisa no dia a dia que te atrapalha por causa disso?'], choices: [{ label: 'Próximo', go: 's2c', primary: true }] },
+    s2c: { step: 'P · Problema', say: ['E o que te impediu de começar até agora?'], tip: 'Toque no que ela respondeu. Isso decide a ponte da apresentação.',
+      choices: [{ label: 'Dinheiro', go: 's3', set: function () { S.barreira = 'dinheiro'; }, primary: true }, { label: 'Medo', go: 's3', set: function () { S.barreira = 'medo'; }, primary: true }, { label: 'Tempo', go: 's3', set: function () { S.barreira = 'tempo'; }, primary: true }, { label: 'Confiança', go: 's3', set: function () { S.barreira = 'confianca'; }, primary: true }] },
+    s3: { step: 'I · Implicação', say: ['E em que momentos isso mais mexe com você? Em foto, numa conversa, no trabalho?'], tip: 'Use só as palavras dela. Nunca comente a aparência nem aumente o problema.',
+      choices: [{ label: 'Ela se abriu', go: 's3b', primary: true }, { label: 'Não quis aprofundar', go: 's4' }] },
+    s3b: { step: 'I · Implicação', say: ['Se ficar do jeito que tá por mais um tempo, como você acha que vai se sentir?'], choices: [{ label: 'Próximo', go: 's4', primary: true }] },
+    s4: { step: 'N · Necessidade', say: ['Se você já tivesse começado o aparelho, o que seria diferente pra você hoje?'], tip: 'Aqui ela mesma fala o benefício. Anota a frase dela.',
+      input: { key: 'beneficio', label: 'O que ela disse', ph: 'Ex.: sorrir sem vergonha nas fotos' }, choices: [{ label: 'Próximo', go: 's5', primary: true }] },
+    s5: { step: 'Apresentação', say: ['{nome}, pelo que você me contou, você quer {beneficio}. E sobre {barreiraNome}, funciona assim: {ponte}.', 'O primeiro passo é a consulta com a doutora. E na promoção especial de novembro a montagem tá por 120 reais, com limpeza grátis no dia da montagem.'],
+      choices: [{ label: 'Próximo', go: 's6', primary: true }, { label: 'Levantou objeção', go: 'OBJ' }] },
+    s6: { step: 'Fechamento', say: ['Faz sentido a gente dar esse primeiro passo? Tenho {h1} ou {h2}.'], choices: CLOSE_CHOICES }
+  };
+  var FIRST = { iniciante: 'i1', intermediario: 'm1', spin: 's0' };
+  var CLOSE = { iniciante: 'i7', intermediario: 'm11', spin: 's6' };
+
+  /* ---------- utilidades ---------- */
+  function esc(t) { return String(t).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+  function val(k, fb) {
+    var v;
+    if (k === 'barreiraNome') v = S.barreira ? BARREIRA[S.barreira].nome : '';
+    else if (k === 'ponte') v = S.barreira ? BARREIRA[S.barreira].ponte : '';
+    else v = S[k];
+    return v ? v : null;
+  }
+  var FB = { nome: 'nome', h1: '1º horário', h2: '2º horário', escreveu: 'o que ela escreveu', motivo: 'o motivo dela', tempo: 'esse tempo', incomodo: 'o que ela falou', turno: 'manhã ou tarde', beneficio: 'o que ela falou', barreiraNome: 'o que te travou', ponte: 'ponte', hora: 'dia e hora' };
+  function fill(t) {
+    return esc(t).replace(/\{(\w+)\}/g, function (_, k) {
+      var v = val(k);
+      return v ? '<mark class="v">' + esc(v) + '</mark>' : '<mark class="v empty">[' + (FB[k] || k) + ']</mark>';
+    });
+  }
+  function plain(t) { return t.replace(/\{(\w+)\}/g, function (_, k) { return val(k) || '[' + (FB[k] || k) + ']'; }); }
+  function today() { var d = new Date(); return d.getFullYear() + '-' + (d.getMonth() + 1) + '-' + d.getDate(); }
+  function hhmm() { var d = new Date(); return ('0' + d.getHours()).slice(-2) + ':' + ('0' + d.getMinutes()).slice(-2); }
+  function loadLog() { try { return JSON.parse(localStorage.getItem('ligacoes-' + today()) || '[]'); } catch (e) { return []; } }
+  var LOG = loadLog();
+  function saveLog() { try { localStorage.setItem('ligacoes-' + today(), JSON.stringify(LOG)); } catch (e) {} }
+  function copyText(text, btn) {
+    var done = function () { var t = btn.textContent; btn.textContent = 'Copiado!'; setTimeout(function () { btn.textContent = t; }, 1500); };
+    var fb = function () { var ta = btn.parentElement.querySelector('.copytxt'); if (ta) { var r = document.createRange(); r.selectNodeContents(ta); var s = getSelection(); s.removeAllRanges(); s.addRange(r); } btn.textContent = 'Selecionado, use Copiar'; };
+    try { navigator.clipboard.writeText(text).then(done, fb); } catch (e) { fb(); }
+  }
+  function msgBox(text) {
+    var w = document.createElement('div'); w.className = 'msg';
+    var p = document.createElement('p'); p.className = 'copytxt'; p.textContent = text;
+    var b = document.createElement('button'); b.type = 'button'; b.className = 'copy'; b.textContent = 'Copiar mensagem';
+    b.addEventListener('click', function () { copyText(text, b); });
+    w.appendChild(p); w.appendChild(b); return w;
+  }
+
+  /* ---------- placar ---------- */
+  var RES = { agendou: 'Agendou', retorno: 'Ligar de novo', naoatendeu: 'Não atendeu', seminteresse: 'Sem interesse' };
+  function renderScore() {
+    var ag = LOG.filter(function (l) { return l.r === 'agendou'; }).length;
+    document.getElementById('sc-lig').textContent = LOG.length;
+    document.getElementById('sc-ag').textContent = ag;
+    document.getElementById('sc-taxa').textContent = LOG.length ? Math.round(ag / LOG.length * 100) + '%' : '0%';
+    var ul = document.getElementById('sc-list'); ul.innerHTML = '';
+    document.getElementById('sc-empty').hidden = LOG.length > 0;
+    LOG.slice().reverse().forEach(function (l, iRev) {
+      var i = LOG.length - 1 - iRev;
+      var li = document.createElement('li');
+      li.innerHTML = '<span class="t">' + esc(l.h) + '</span><span class="n">' + esc(l.n || 'Sem nome') + (l.d ? '<small>' + esc(l.d) + '</small>' : '') + '</span><span class="status ' + (l.r === 'agendou' ? 'ok' : '') + '">' + RES[l.r] + '</span>';
+      var x = document.createElement('button'); x.type = 'button'; x.className = 'rm'; x.setAttribute('aria-label', 'Apagar registro de ' + (l.n || 'sem nome')); x.textContent = '×';
+      x.addEventListener('click', function () { LOG.splice(i, 1); saveLog(); renderScore(); });
+      li.appendChild(x); ul.appendChild(li);
+    });
+    var hr = new Date().getHours();
+    document.getElementById('hello').textContent = (hr < 12 ? 'Bom dia' : hr < 18 ? 'Boa tarde' : 'Boa noite') + ', Geovana!';
+    var cheer = ['Bora marcar a primeira do dia?', 'Uma consulta marcada já faz o dia valer.', 'Tá voando hoje!', 'Que dia! Continua assim.'];
+    document.getElementById('cheer').textContent = ag === 0 ? cheer[0] : ag < 3 ? cheer[1] : ag < 6 ? cheer[2] : cheer[3];
+  }
+  document.getElementById('sc-report').addEventListener('click', function () {
+    var d = new Date(); var dd = ('0' + d.getDate()).slice(-2) + '/' + ('0' + (d.getMonth() + 1)).slice(-2);
+    var ag = LOG.filter(function (l) { return l.r === 'agendou'; }).length;
+    copyText('⚜️ Relatório Diário ' + dd + '⚜️\n\n📲 Pacientes: ' + LOG.length + '\n📇 Consultas: ' + ag, this);
+  });
+
+  /* ---------- tela da ligação ---------- */
+  var ov = document.getElementById('call');
+  var body = document.getElementById('call-body');
+  var bar = document.getElementById('call-bar');
+
+  function open() {
+    level = window.__nivel || 'iniciante';
+    S = {}; hist = []; visited = 0;
+    document.getElementById('call-level').textContent = LEVEL_NAME[level];
+    ov.hidden = false; document.body.classList.add('locked');
+    renderPrep();
+  }
+  function close() { ov.hidden = true; document.body.classList.remove('locked'); }
+  document.getElementById('start-call').addEventListener('click', open);
+  document.getElementById('call-x').addEventListener('click', close);
+  document.addEventListener('keydown', function (e) { if (e.key === 'Escape' && !ov.hidden) close(); });
+
+  function setFoot(show) { document.getElementById('call-foot').hidden = !show; }
+  function progress(p) { bar.style.width = Math.round(p * 100) + '%'; }
+
+  function field(id, label, ph, key) {
+    var w = document.createElement('label'); w.className = 'fld'; w.setAttribute('for', id);
+    w.innerHTML = '<span>' + esc(label) + '</span>';
+    var i = document.createElement('input'); i.id = id; i.type = 'text'; i.placeholder = ph; i.autocomplete = 'off'; i.value = S[key] || '';
+    i.addEventListener('input', function () { S[key] = i.value.trim(); });
+    w.appendChild(i); return w;
+  }
+
+  function renderPrep() {
+    progress(0); setFoot(false);
+    body.innerHTML = '';
+    var h = document.createElement('div'); h.className = 'node';
+    h.innerHTML = '<span class="label step-l">Antes de ligar</span><h3 class="node-title">Quem você vai chamar agora?</h3>';
+    h.appendChild(field('f-nome', 'Nome do lead', 'Ex.: Maria', 'nome'));
+    if (level === 'intermediario') h.appendChild(field('f-esc', 'O que ela escreveu no WhatsApp', 'Ex.: o valor do aparelho', 'escreveu'));
+    var row = document.createElement('div'); row.className = 'fld-row';
+    row.appendChild(field('f-h1', '1º horário livre', 'Ex.: quinta às 9h', 'h1'));
+    row.appendChild(field('f-h2', '2º horário livre', 'Ex.: sábado às 10h', 'h2'));
+    h.appendChild(row);
+    var pre = document.createElement('div'); pre.className = 'pre';
+    pre.innerHTML = '<span class="label">Opcional: mande antes de ligar</span>';
+    var preBtn = document.createElement('button'); preBtn.type = 'button'; preBtn.className = 'copy';
+    preBtn.textContent = 'Copiar aviso pro WhatsApp';
+    preBtn.addEventListener('click', function () { copyText('Oi, ' + (S.nome || '[nome]') + '! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Vou te ligar rapidinho pra explicar a promoção do aparelho, tá bom?', preBtn); });
+    pre.appendChild(preBtn); h.appendChild(pre);
+    var go = document.createElement('button'); go.type = 'button'; go.className = 'big primary'; go.textContent = 'Ligar agora';
+    go.addEventListener('click', function () { show(FIRST[level], true); });
+    var acts = document.createElement('div'); acts.className = 'acts'; acts.appendChild(go); h.appendChild(acts);
+    body.appendChild(h);
+    setTimeout(function () { var f = document.getElementById('f-nome'); if (f) f.focus(); }, 50);
+  }
+
+  function show(id, push) {
+    if (id === 'BACK') { hist.pop(); var prev = hist.pop(); if (prev) show(prev, true); else renderPrep(); return; }
+    if (id === 'OBJ') { if (push !== false) hist.push('OBJ'); return renderObj(); }
+    if (id.indexOf('OUT:') === 0) return renderOut(id.slice(4));
+    var n = N[id]; if (!n) return;
+    if (push) { hist.push(id); visited++; }
+    progress(Math.min(visited / TOTAL[level], 0.95)); setFoot(true);
+    body.innerHTML = '';
+    var w = document.createElement('div'); w.className = 'node';
+    w.innerHTML = '<span class="label step-l">' + esc(n.step) + '</span>';
+    if (n.silent) {
+      w.innerHTML += '<h3 class="node-title">' + esc(n.say[0]) + '</h3>';
+    } else {
+      var sayBox = document.createElement('div'); sayBox.className = 'say big-say';
+      sayBox.innerHTML = '<span class="who">Você fala</span>' + n.say.map(function (s) { return '<p>' + fill(s) + '</p>'; }).join('');
+      w.appendChild(sayBox);
+    }
+    if (n.tip) { var tp = document.createElement('p'); tp.className = 'node-tip'; tp.textContent = n.tip; w.appendChild(tp); }
+    if (n.input) { var f = field('in-' + n.input.key, n.input.label, n.input.ph, n.input.key); f.classList.add('note'); w.appendChild(f); }
+    var acts = document.createElement('div'); acts.className = 'acts';
+    var label = document.createElement('span'); label.className = 'label'; label.textContent = 'O que aconteceu?'; acts.appendChild(label);
+    var grid = document.createElement('div'); grid.className = 'choice-grid';
+    n.choices.forEach(function (c) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'big' + (c.primary ? ' primary' : '');
+      b.textContent = typeof c.label === 'function' ? c.label() : c.label;
+      b.addEventListener('click', function () { if (c.set) c.set(); show(c.go, true); });
+      grid.appendChild(b);
+    });
+    acts.appendChild(grid); w.appendChild(acts);
+    body.appendChild(w); body.scrollTop = 0;
+  }
+
+  function renderObj() {
+    setFoot(true); body.innerHTML = '';
+    var w = document.createElement('div'); w.className = 'node';
+    w.innerHTML = '<span class="label step-l">Objeção</span><h3 class="node-title">O que ela falou?</h3>';
+    var list = document.createElement('div'); list.className = 'obj-list';
+    OBJ.forEach(function (o) {
+      var b = document.createElement('button'); b.type = 'button'; b.className = 'obj-btn'; b.textContent = o[0];
+      b.addEventListener('click', function () {
+        body.innerHTML = '';
+        var a = document.createElement('div'); a.className = 'node';
+        a.innerHTML = '<span class="label step-l">Objeção</span><p class="heard-q">Ela: ' + esc(o[0]) + '</p><div class="say big-say"><span class="who">Você responde</span><p>' + esc(o[1]) + '</p></div><p class="node-tip">Concorda, responde curto e volta pros dois horários.</p>';
+        var acts = document.createElement('div'); acts.className = 'acts';
+        acts.innerHTML = '<span class="label">E agora?</span>';
+        var grid = document.createElement('div'); grid.className = 'choice-grid';
+        [['Voltar pro horário', function () { show(CLOSE[level], true); }, true], ['Outra objeção', renderObj], ['Ligar outro dia', function () { renderOut('retorno'); }], ['Não quer mesmo', function () { renderOut('seminteresse'); }]].forEach(function (c) {
+          var bb = document.createElement('button'); bb.type = 'button'; bb.className = 'big' + (c[2] ? ' primary' : ''); bb.textContent = c[0];
+          bb.addEventListener('click', c[1]); grid.appendChild(bb);
+        });
+        acts.appendChild(grid); a.appendChild(acts); body.appendChild(a); body.scrollTop = 0;
+      });
+      list.appendChild(b);
+    });
+    w.appendChild(list); body.appendChild(w); body.scrollTop = 0;
+  }
+
+  function register(r, d) { LOG.push({ h: hhmm(), n: S.nome || '', r: r, d: d || '' }); saveLog(); renderScore(); }
+
+  function renderOut(kind) {
+    setFoot(false); body.innerHTML = '';
+    var w = document.createElement('div'); w.className = 'node out out-' + kind;
+    var nome = S.nome || '[nome]';
+    var finish = function (label, fn) {
+      var acts = document.createElement('div'); acts.className = 'acts';
+      var g = document.createElement('div'); g.className = 'choice-grid';
+      var b1 = document.createElement('button'); b1.type = 'button'; b1.className = 'big primary'; b1.textContent = label;
+      b1.addEventListener('click', function () { fn(); open(); });
+      var b2 = document.createElement('button'); b2.type = 'button'; b2.className = 'big'; b2.textContent = 'Fechar';
+      b2.addEventListener('click', function () { fn(); close(); });
+      g.appendChild(b1); g.appendChild(b2); acts.appendChild(g); w.appendChild(acts);
+    };
+    if (kind === 'agendou') {
+      progress(1);
+      register('agendou', S.hora || '');
+      var ag = LOG.filter(function (l) { return l.r === 'agendou'; }).length;
+      w.innerHTML = '<p class="win-n">' + ag + 'ª</p><h3 class="node-title">Consulta marcada, Geovana!</h3><p class="node-tip">' + (ag === 1 ? 'A primeira do dia. Que comece a sequência!' : 'Mais uma pra conta. Você tá mandando bem demais.') + '</p><span class="label">Manda agora no WhatsApp</span>';
+      w.appendChild(msgBox('Oi, ' + nome + '! Sua consulta tá confirmada:\n' + (S.hora || '[dia e hora]') + '\nPromoção especial de novembro: montagem do aparelho por R$ 120 + limpeza grátis no dia da montagem.\nOdonto Medic, Avenida Castanheira, Bairro Tropical.\nLocalização: https://maps.google.com/?q=-6.0368444,-49.8918091\nQualquer coisa, é só me chamar aqui. Até lá!'));
+      finish('Próxima ligação', function () {});
+      body.appendChild(w); confetti();
+      return;
+    }
+    if (kind === 'naoatendeu') {
+      w.innerHTML = '<h3 class="node-title">Não atendeu. Acontece!</h3><p class="node-tip">Manda a mensagem agora e tenta de novo em 2 a 3 horas.</p>';
+      w.appendChild(msgBox('Oi, ' + nome + '! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Tentei te ligar agora pra explicar a promoção do aparelho: montagem por R$ 120 e limpeza grátis no mesmo dia. Qual horário fica bom pra eu te ligar?'));
+      finish('Registrar e próxima', function () { register('naoatendeu', 'Mensagem enviada'); });
+    } else if (kind === 'retorno') {
+      w.innerHTML = '<h3 class="node-title">Combinado, liga de novo depois</h3>';
+      w.appendChild(field('f-ret', 'Quando ligar de novo', 'Ex.: hoje às 18h', 'retorno'));
+      finish('Registrar e próxima', function () { register('retorno', S.retorno ? 'Retornar ' + S.retorno : ''); });
+    } else {
+      w.innerHTML = '<h3 class="node-title">Tudo bem, encerra com carinho</h3><div class="say big-say"><span class="who">Você fala</span><p>Tudo bem, ' + esc(nome) + '! Obrigada pela atenção. Se mudar de ideia, é só chamar a gente no WhatsApp, tá?</p></div><p class="node-tip">Nem toda ligação vira consulta. A próxima pode ser a sua.</p>';
+      finish('Registrar e próxima', function () { register('seminteresse'); });
+    }
+    body.appendChild(w); body.scrollTop = 0;
+  }
+
+  document.getElementById('call-back').addEventListener('click', function () { show('BACK'); });
+  document.getElementById('call-obj').addEventListener('click', function () { show('OBJ'); });
+  document.getElementById('call-no').addEventListener('click', function () { renderOut('seminteresse'); });
+
+  /* ---------- confete ---------- */
+  function confetti() {
+    if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+    var c = document.getElementById('confetti'); var ctx = c.getContext('2d');
+    c.width = innerWidth; c.height = innerHeight; c.hidden = false;
+    var cs = getComputedStyle(document.documentElement);
+    var cols = [cs.getPropertyValue('--accent').trim() || '#C06018', '#E2A87A', '#F0CEB4', cs.getPropertyValue('--fg').trim() || '#181614'];
+    var ps = []; for (var i = 0; i < 140; i++) ps.push({ x: c.width / 2 + (Math.random() - 0.5) * 120, y: c.height * 0.35, vx: (Math.random() - 0.5) * 14, vy: -Math.random() * 14 - 4, s: 4 + Math.random() * 6, r: Math.random() * 6, vr: (Math.random() - 0.5) * 0.3, col: cols[i % cols.length] });
+    var t0 = performance.now();
+    (function frame(t) {
+      ctx.clearRect(0, 0, c.width, c.height);
+      ps.forEach(function (p) { p.vy += 0.35; p.vx *= 0.99; p.x += p.vx; p.y += p.vy; p.r += p.vr; ctx.save(); ctx.translate(p.x, p.y); ctx.rotate(p.r); ctx.fillStyle = p.col; ctx.fillRect(-p.s / 2, -p.s / 4, p.s, p.s / 2); ctx.restore(); });
+      if (t - t0 < 2600) requestAnimationFrame(frame); else { ctx.clearRect(0, 0, c.width, c.height); c.hidden = true; }
+    })(t0);
+  }
+
+  renderScore();
 })();
 </script>
 
