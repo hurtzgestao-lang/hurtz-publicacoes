@@ -1,0 +1,482 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" href="apple-touch-icon.png">
+<title>Ligação Aparelho Tropical</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+<style>
+/* Layout: guia de bolso em coluna única. Faixa da oferta no topo, 5 etapas em sequência, objeções em grade, follow-up e controle no fim. */
+:root {
+  --bg: #F5F2EC;        /* off-white */
+  --surface: #FFFFFF;
+  --fg: #181614;        /* carvão */
+  --muted: #3D3A36;     /* grafite */
+  --subtle: #8C8880;    /* pedra */
+  --line: #E8E4DC;      /* areia */
+  --accent: #C06018;    /* brasa viva */
+  --accent-soft: #F9EDE3;
+  --accent-ink: #73380D;
+  --band-bg: #181614;
+  --band-fg: #F5F2EC;
+  --font: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --bg: #181614; --surface: #221F1C; --fg: #F5F2EC; --muted: #D6D1C8; --subtle: #8C8880;
+    --line: #3D3A36; --accent: #E2A87A; --accent-soft: #2C1F15; --accent-ink: #F0CEB4;
+    --band-bg: #C06018; --band-fg: #FFFFFF; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --bg: #181614; --surface: #221F1C; --fg: #F5F2EC; --muted: #D6D1C8; --subtle: #8C8880;
+  --line: #3D3A36; --accent: #E2A87A; --accent-soft: #2C1F15; --accent-ink: #F0CEB4;
+  --band-bg: #C06018; --band-fg: #FFFFFF; color-scheme: dark;
+}
+
+* { box-sizing: border-box; }
+body {
+  margin: 0; background: var(--bg); color: var(--fg);
+  font-family: var(--font); font-size: 16px; line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+.wrap {
+  max-width: 820px; margin: 0 auto;
+  padding-left: max(16px, env(safe-area-inset-left, 0px));
+  padding-right: max(16px, env(safe-area-inset-right, 0px));
+}
+h1, h2, h3 { font-weight: 700; margin: 0; text-wrap: balance; line-height: 1.15; }
+p { margin: 0; }
+.label {
+  font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--subtle);
+}
+
+/* topo */
+.top { display: flex; justify-content: space-between; align-items: center; gap: 16px; padding-block: 24px; border-bottom: 1px solid var(--line); flex-wrap: wrap; }
+.logo {
+  width: 120px; aspect-ratio: 731 / 193; max-width: 100%; background: var(--fg);
+  -webkit-mask: url("data:image/png;base64,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") center / contain no-repeat;
+  mask: url("data:image/png;base64,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") center / contain no-repeat;
+}
+
+/* abertura */
+.hero { display: grid; gap: 16px; padding-block: 40px 32px; }
+.hero h1 { font-size: clamp(32px, 6vw, 48px); letter-spacing: 0.01em; }
+.hero .sub { color: var(--muted); max-width: 60ch; }
+.meta { display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; color: var(--muted); }
+.meta b { color: var(--fg); }
+
+/* faixa da oferta */
+.offer { background: var(--band-bg); color: var(--band-fg); border-radius: 8px; padding: 24px; display: grid; grid-template-columns: auto 1fr; gap: 8px 32px; align-items: center; }
+.offer .price { font-size: clamp(44px, 9vw, 64px); font-weight: 700; line-height: 1; font-variant-numeric: tabular-nums; }
+.offer .price small { font-size: 0.4em; vertical-align: 0.9em; margin-right: 4px; }
+.offer .what { display: grid; gap: 4px; min-width: 0; }
+.offer .what strong { font-size: 18px; }
+.offer .what span { opacity: 0.85; font-size: 14px; }
+@media (max-width: 520px) { .offer { grid-template-columns: 1fr; } }
+
+.goal { margin-top: 16px; display: flex; gap: 12px; align-items: baseline; border: 1px solid var(--line); border-radius: 8px; padding: 16px 20px; background: var(--surface); flex-wrap: wrap; }
+.goal .label { color: var(--accent); }
+
+/* navegação */
+nav.toc { display: flex; flex-wrap: wrap; gap: 8px; padding-block: 24px 8px; }
+nav.toc a { font-size: 13px; color: var(--fg); text-decoration: none; border: 1px solid var(--line); border-radius: 999px; padding: 6px 14px; background: var(--surface); }
+nav.toc a:hover, nav.toc a:focus-visible { border-color: var(--accent); color: var(--accent); outline: none; }
+
+section { padding-block: 40px 8px; scroll-margin-top: 16px; }
+section > h2 { font-size: 26px; margin-bottom: 8px; }
+section > .intro { color: var(--muted); margin-bottom: 24px; max-width: 62ch; }
+
+/* checklist */
+.check { list-style: none; padding: 0; margin: 0; display: grid; gap: 10px; }
+.check li { display: grid; grid-template-columns: 20px 1fr; gap: 12px; align-items: start; }
+.check li::before { content: ""; width: 16px; height: 16px; border: 1.5px solid var(--accent); border-radius: 2px; margin-top: 4px; }
+
+/* etapas */
+.steps { display: grid; gap: 16px; }
+.step { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 24px; display: grid; gap: 16px; }
+.step-head { display: flex; gap: 16px; align-items: baseline; flex-wrap: wrap; }
+.step-n { font-size: 13px; font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; letter-spacing: 0.08em; }
+.step-head h3 { font-size: 20px; }
+.step-head .time { font-size: 13px; color: var(--subtle); margin-left: auto; }
+
+.say { border-left: 2px solid var(--accent); padding: 4px 0 4px 16px; display: grid; gap: 4px; }
+.say .who { font-size: 11px; font-weight: 700; letter-spacing: 0.12em; text-transform: uppercase; color: var(--accent); }
+.say p { font-size: 17px; }
+.say p + p { margin-top: 8px; }
+
+.branch { background: var(--accent-soft); border-radius: 4px; padding: 14px 16px; display: grid; gap: 6px; font-size: 15px; color: var(--accent-ink); }
+.branch b { color: var(--accent-ink); }
+
+.tip { font-size: 14px; color: var(--muted); display: grid; gap: 4px; }
+.tip ul { margin: 0; padding-left: 18px; }
+
+ol.questions { margin: 0; padding-left: 0; list-style: none; display: grid; gap: 14px; counter-reset: q; }
+ol.questions li { counter-increment: q; display: grid; grid-template-columns: 28px 1fr; gap: 8px; }
+ol.questions li::before { content: counter(q); font-weight: 700; color: var(--accent); font-variant-numeric: tabular-nums; }
+ol.questions .q { font-size: 17px; font-weight: 700; }
+ol.questions .why { font-size: 14px; color: var(--muted); }
+
+.fill { border-bottom: 1.5px dashed var(--accent); color: var(--accent); font-weight: 700; padding: 0 2px; white-space: nowrap; }
+
+/* objeções */
+.obj-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 680px) { .obj-grid { grid-template-columns: 1fr; } }
+.obj { border: 1px solid var(--line); border-radius: 8px; background: var(--surface); padding: 20px; display: grid; gap: 10px; align-content: start; min-width: 0; }
+.obj .heard { font-size: 18px; font-weight: 700; }
+.obj .heard::before { content: "Lead: "; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--subtle); vertical-align: 2px; }
+.obj p.ans { font-size: 15px; }
+
+/* cadência */
+.cad { display: grid; gap: 0; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); overflow: hidden; }
+.cad-row { display: grid; grid-template-columns: 140px 1fr; gap: 16px; padding: 18px 20px; border-top: 1px solid var(--line); }
+.cad-row:first-child { border-top: 0; }
+.cad-when { font-weight: 700; font-size: 14px; }
+.cad-when span { display: block; font-weight: 400; color: var(--subtle); font-size: 13px; }
+.cad-what { display: grid; gap: 10px; min-width: 0; }
+@media (max-width: 560px) { .cad-row { grid-template-columns: 1fr; gap: 6px; } }
+
+.msg { background: var(--bg); border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; display: grid; gap: 10px; }
+.msg p { font-size: 15px; white-space: pre-line; }
+.copy { justify-self: start; font: inherit; font-size: 13px; font-weight: 700; color: var(--accent); background: none; border: 1px solid var(--accent); border-radius: 4px; padding: 4px 12px; cursor: pointer; }
+.copy:hover { background: var(--accent-soft); }
+.copy:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+/* controle */
+.table-wrap { overflow-x: auto; border: 1px solid var(--line); border-radius: 8px; background: var(--surface); }
+table { border-collapse: collapse; width: 100%; min-width: 620px; font-size: 14px; }
+th, td { text-align: left; padding: 12px 14px; border-top: 1px solid var(--line); vertical-align: top; }
+thead th { border-top: 0; font-size: 11px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--subtle); }
+td.ex { color: var(--muted); }
+.status { display: inline-block; font-size: 12px; font-weight: 700; border-radius: 999px; padding: 2px 10px; border: 1px solid var(--line); white-space: nowrap; }
+.status.ok { border-color: var(--accent); color: var(--accent); }
+
+.rules { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+@media (max-width: 680px) { .rules { grid-template-columns: 1fr; } }
+.rules > div { border: 1px solid var(--line); border-radius: 8px; padding: 20px; background: var(--surface); min-width: 0; }
+.rules h3 { font-size: 16px; margin-bottom: 10px; }
+.rules ul { margin: 0; padding-left: 18px; display: grid; gap: 6px; font-size: 15px; }
+
+.pending { border: 1.5px dashed var(--accent); border-radius: 8px; padding: 20px; display: grid; gap: 10px; }
+.pending ul { margin: 0; padding-left: 18px; display: grid; gap: 4px; }
+
+footer { margin-top: 56px; padding-block: 24px 40px; border-top: 1px solid var(--line); display: flex; justify-content: space-between; gap: 16px; flex-wrap: wrap; font-size: 13px; color: var(--subtle); align-items: center; }
+footer .logo { width: 88px; background: var(--subtle); }
+</style>
+</head>
+<body>
+
+<div class="wrap">
+  <header class="top">
+    <div class="logo" role="img" aria-label="Hurtz Company"></div>
+    <span class="label">Material de treinamento · novembro 2026</span>
+  </header>
+
+  <div class="hero">
+    <span class="label">Odonto Medic Tropical · Parauapebas</span>
+    <h1>Script de ligação para aparelho ortodôntico</h1>
+    <p class="sub">Guia da Geovana para ligar pra quem chamou no WhatsApp pelo anúncio. Use como roteiro, não como texto decorado: fale com o seu jeito e mantenha a ordem das etapas.</p>
+    <div class="meta">
+      <span>Para: <b>Geovana</b></span>
+      <span>Duração: <b>3 a 5 min</b></span>
+      <span>Validade da promoção: <b>até 30/11</b></span>
+    </div>
+  </div>
+
+  <div class="offer">
+    <div class="price"><small>R$</small>120</div>
+    <div class="what">
+      <strong>Montagem do aparelho + limpeza grátis no dia da montagem</strong>
+      <span>Promoção de Black Friday da clínica, válida só em novembro. O primeiro passo é agendar a consulta.</span>
+    </div>
+  </div>
+
+  <div class="goal">
+    <span class="label">Meta de toda ligação</span>
+    <span>Desligar com a <b>consulta marcada</b>, com dia e horário. Se não der, com <b>horário certo pra ligar de novo</b>.</span>
+  </div>
+
+  <div class="goal" style="margin-top:12px">
+    <span class="label">Regra de ouro</span>
+    <span><b>Detalhe é na consulta.</b> Valor da manutenção, tipo de aparelho, forma de pagamento, tempo de montagem e casos de pacientes não se passam por telefone. Resposta padrão: "Isso a doutora te explica certinho na consulta, porque depende do seu caso."</span>
+  </div>
+
+  <nav class="toc" aria-label="Seções">
+    <a href="#antes">Antes de ligar</a>
+    <a href="#roteiro">Roteiro em 5 etapas</a>
+    <a href="#objecoes">Objeções</a>
+    <a href="#followup">Quando não atende</a>
+    <a href="#controle">Controle do dia</a>
+    <a href="#regras">Regras</a>
+  </nav>
+
+  <section id="antes">
+    <h2>Antes de ligar</h2>
+    <p class="intro">Lead de anúncio esfria rápido. Quem recebe a ligação logo depois de mandar mensagem atende muito mais e lembra por que chamou.</p>
+    <ul class="check">
+      <li><span>Ligar em até <b>5 minutos</b> depois que a mensagem chegou no WhatsApp.</span></li>
+      <li><span>Ler o que a pessoa escreveu e ver o nome dela no WhatsApp.</span></li>
+      <li><span>Separar <b>2 horários livres</b> na agenda pra oferecer: um mais perto e outro em outro dia ou turno.</span></li>
+      <li><span>Mandar uma mensagem curta antes de ligar, pra pessoa não estranhar o número:</span></li>
+    </ul>
+    <div class="msg" style="margin-top:12px">
+      <p>Oi, [nome]! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Vou te ligar rapidinho pra explicar a promoção do aparelho, tá bom?</p>
+      <button class="copy" type="button">Copiar mensagem</button>
+    </div>
+  </section>
+
+  <section id="roteiro">
+    <h2>Roteiro em 5 etapas</h2>
+    <p class="intro">A ordem importa: primeiro a pessoa fala, depois você apresenta a oferta, depois fecha o horário. Pular direto pro preço faz a ligação virar só orçamento.</p>
+
+    <div class="steps">
+      <article class="step">
+        <div class="step-head"><span class="step-n">ETAPA 1</span><h3>Abertura</h3><span class="time">até 20 s</span></div>
+        <div class="say">
+          <span class="who">Geovana</span>
+          <p>Oi, é a [nome]? Tudo bem? Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Você mandou mensagem pra gente agora há pouco sobre o aparelho, né?</p>
+          <p>Consegue falar dois minutinhos comigo?</p>
+        </div>
+        <div class="branch">
+          <span><b>Se sim:</b> segue pra etapa 2.</span>
+          <span><b>Se não pode agora:</b> "Tranquilo! Que horário fica melhor pra eu te ligar hoje?" Anota o horário e liga certinho nele.</span>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-head"><span class="step-n">ETAPA 2</span><h3>Entender a pessoa</h3><span class="time">1 a 2 min</span></div>
+        <ol class="questions">
+          <li><div><p class="q">"O aparelho seria pra você ou pra outra pessoa?"</p><p class="why">Se for pra filho: "Quantos anos ele tem?" Menor de idade vem acompanhado de um responsável.</p></div></li>
+          <li><div><p class="q">"Você já usou aparelho antes ou seria o primeiro?"</p><p class="why">Quem já usou e tirou costuma decidir mais rápido. Só anota e segue.</p></div></li>
+          <li><div><p class="q">"O que mais te incomoda hoje no seu sorriso?"</p><p class="why">A pergunta mais importante. Deixa a pessoa falar e repete com as palavras dela.</p></div></li>
+          <li><div><p class="q">"Você mora aqui no Tropical ou perto?"</p><p class="why">Confirma que dá pra vir nas manutenções todo mês.</p></div></li>
+        </ol>
+        <div class="say">
+          <span class="who">Depois que ela responder</span>
+          <p>Entendi. Isso quem avalia certinho é a doutora na consulta, ela olha seu caso e te explica tudo antes de começar.</p>
+        </div>
+        <div class="tip"><span>Não opine sobre o caso. Nada de "o seu é simples" ou "fica pronto rápido".</span></div>
+      </article>
+
+      <article class="step">
+        <div class="step-head"><span class="step-n">ETAPA 3</span><h3>Apresentar a oferta</h3><span class="time">30 s</span></div>
+        <div class="say">
+          <span class="who">Geovana</span>
+          <p>Então, [nome], deixa eu te explicar a promoção desse mês. A montagem do aparelho tá saindo por <b>120 reais</b>. E no dia da montagem você ainda ganha uma <b>limpeza</b>, sem pagar nada a mais.</p>
+          <p>O primeiro passo é uma consulta aqui na clínica. A doutora avalia seu caso e te explica tudo. Essa condição é da nossa Black Friday e vale só até o fim de novembro.</p>
+        </div>
+        <div class="say">
+          <span class="who">Por que a Odonto Medic (escolha um, não os três)</span>
+          <p><b>Especialista:</b> "Seu aparelho é acompanhado por dentista especialista em ortodontia."</p>
+          <p><b>Estrutura:</b> "A clínica é toda equipada, você faz tudo aqui mesmo, no Bairro Tropical."</p>
+          <p><b>Prova social:</b> "Muita gente aqui da região já faz o aparelho com a gente."</p>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-head"><span class="step-n">ETAPA 4</span><h3>Fechar o horário</h3><span class="time">30 s</span></div>
+        <div class="say">
+          <span class="who">Geovana</span>
+          <p>Pra garantir essa condição, eu já deixo sua consulta marcada. Tenho <span class="fill">[dia]</span> às <span class="fill">[hora]</span> ou <span class="fill">[dia]</span> às <span class="fill">[hora]</span>. Qual fica melhor pra você?</p>
+        </div>
+        <div class="branch">
+          <span><b>Nunca pergunte "quer agendar?".</b> Sempre ofereça duas opções de horário, olhando a agenda na hora.</span>
+          <span><b>Se nenhum servir:</b> "Qual dia fica melhor pra você, de manhã ou de tarde?" e encaixa.</span>
+          <span><b>Se travar:</b> vai pra seção de objeções e depois volta pra cá.</span>
+        </div>
+      </article>
+
+      <article class="step">
+        <div class="step-head"><span class="step-n">ETAPA 5</span><h3>Confirmar e despedir</h3><span class="time">30 s</span></div>
+        <div class="say">
+          <span class="who">Geovana</span>
+          <p>Perfeito! Então sua consulta fica <span class="fill">[dia]</span>, às <span class="fill">[hora]</span>. Me confirma seu nome completo?</p>
+          <p>A clínica fica na Avenida Castanheira, no Bairro Tropical. Vou te mandar a localização e o resumo no WhatsApp agora. Chega uns 10 minutinhos antes, tá bom?</p>
+          <p>Se acontecer alguma coisa e você não puder vir, me avisa por lá que eu remarco pra você.</p>
+        </div>
+        <span class="label">Mandar logo depois de desligar</span>
+        <div class="msg">
+          <p>Oi, [nome]! Sua consulta tá confirmada:
+[dia], às [hora]
+Promoção de novembro: montagem do aparelho por R$ 120 + limpeza grátis no dia da montagem.
+Odonto Medic, Avenida Castanheira, Bairro Tropical.
+Localização: https://maps.google.com/?q=-6.0368444,-49.8918091
+Qualquer coisa, é só me chamar aqui. Até lá!</p>
+          <button class="copy" type="button">Copiar mensagem</button>
+        </div>
+        <span class="label">Lembrete na véspera</span>
+        <div class="msg">
+          <p>Oi, [nome]! Passando pra lembrar da sua consulta amanhã, [hora], aqui na Odonto Medic. Posso confirmar sua presença?</p>
+          <button class="copy" type="button">Copiar mensagem</button>
+        </div>
+      </article>
+    </div>
+  </section>
+
+  <section id="objecoes">
+    <h2>Objeções</h2>
+    <p class="intro">Regra pra todas: concorda primeiro, responde curto e volta pra etapa 4 com os dois horários. Objeção respondida sem pedir o horário de novo é ligação perdida.</p>
+    <div class="obj-grid">
+      <div class="obj">
+        <p class="heard">"E a manutenção, quanto é?"</p>
+        <p class="ans">"Isso a doutora te passa certinho na consulta, porque depende do seu caso. O que eu já te garanto é a montagem por 120 reais aqui em novembro. Quer que eu já reserve sua consulta?"</p>
+      </div>
+      <div class="obj">
+        <p class="heard">"Tá caro" ou "não tenho dinheiro agora"</p>
+        <p class="ans">"Entendo. A montagem normalmente é o valor mais alto do aparelho, e esse mês ela tá por 120. As formas de pagamento a doutora vê com você na consulta. Se for melhor, deixo marcado pra depois do seu pagamento, ainda dentro de novembro."</p>
+      </div>
+      <div class="obj">
+        <p class="heard">"Vou pensar"</p>
+        <p class="ans">"Claro. Ficou alguma dúvida, no valor, no horário ou no tratamento?" Se não tiver dúvida: "Faz assim, eu deixo um horário reservado no seu nome. Se mudar de ideia, é só me avisar que eu libero, e assim você não perde a promoção."</p>
+      </div>
+      <div class="obj">
+        <p class="heard">"Preciso falar com meu marido" (ou esposa, pais)</p>
+        <p class="ans">"Faz sentido. Ele pode vir junto, inclusive. Quer que eu deixe o horário reservado e você me confirma até amanhã de manhã?"</p>
+      </div>
+      <div class="obj">
+        <p class="heard">"Tenho medo de doer"</p>
+        <p class="ans">"Essa dúvida é muito comum. A doutora explica cada passo antes de começar e você pode perguntar tudo pra ela na hora. Montar aparelho não é cirurgia."</p>
+      </div>
+      <div class="obj">
+        <p class="heard">"Não tenho tempo, trabalho o dia todo"</p>
+        <p class="ans">"Me fala qual dia e horário encaixa melhor na sua rotina que eu procuro aqui na agenda pra você." Depois oferece os horários que tiver mais perto do que ela pediu.</p>
+      </div>
+      <div class="obj">
+        <p class="heard">"Por que tão barato? Tem pegadinha?"</p>
+        <p class="ans">"Pergunta justa! É a promoção de Black Friday da clínica, só em novembro. O valor é da montagem mesmo, e a doutora te passa tudo certinho antes de começar, sem surpresa."</p>
+      </div>
+      <div class="obj">
+        <p class="heard">"Quero o transparente" (estético ou alinhador)</p>
+        <p class="ans">"Os modelos e os valores de cada um a doutora te mostra na consulta, aí você escolhe vendo de perto. Vamos marcar?"</p>
+      </div>
+      <div class="obj">
+        <p class="heard">"Vou ver em outro lugar"</p>
+        <p class="ans">"Tranquilo, é bom comparar. Só te lembro que esse valor vai até o fim de novembro. Se quiser, deixo uma consulta marcada pra você conhecer a clínica e decidir com calma."</p>
+      </div>
+      <div class="obj">
+        <p class="heard">"É pro meu filho"</p>
+        <p class="ans">"Que bom! Quantos anos ele tem? No dia ele vem com você ou com outro responsável. Qual horário fica melhor pra vocês dois, depois da escola?"</p>
+      </div>
+    </div>
+  </section>
+
+  <section id="followup">
+    <h2>Quando não atende</h2>
+    <p class="intro">3 dias, 3 ligações e 3 mensagens. Cada contato traz uma coisa nova. Depois disso, encerra com educação e deixa a porta aberta.</p>
+    <div class="cad">
+      <div class="cad-row">
+        <div class="cad-when">Dia 1<span>na hora</span></div>
+        <div class="cad-what">
+          <span>Ligação 1. Não atendeu? Manda na hora:</span>
+          <div class="msg">
+            <p>Oi, [nome]! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Tentei te ligar agora pra explicar a promoção do aparelho: montagem por R$ 120 e limpeza grátis no mesmo dia. Qual horário fica bom pra eu te ligar?</p>
+            <button class="copy" type="button">Copiar mensagem</button>
+          </div>
+        </div>
+      </div>
+      <div class="cad-row">
+        <div class="cad-when">Dia 1<span>2 a 3 horas depois</span></div>
+        <div class="cad-what"><span>Ligação 2, se ela não respondeu a mensagem.</span></div>
+      </div>
+      <div class="cad-row">
+        <div class="cad-when">Dia 2<span>manhã</span></div>
+        <div class="cad-what">
+          <span>Ligação 3. Não atendeu? Manda os horários direto:</span>
+          <div class="msg">
+            <p>[nome], separei dois horários essa semana pra sua consulta, com a condição de novembro: [dia] às [hora] ou [dia] às [hora]. Algum desses fica bom pra você?</p>
+            <button class="copy" type="button">Copiar mensagem</button>
+          </div>
+        </div>
+      </div>
+      <div class="cad-row">
+        <div class="cad-when">Dia 3<span>fim da tarde</span></div>
+        <div class="cad-what">
+          <span>Última mensagem. Depois dela, para de chamar.</span>
+          <div class="msg">
+            <p>Oi, [nome]! Não quero te incomodar. Vou deixar seu contato aqui e, quando quiser começar o aparelho, é só me chamar. A promoção de R$ 120 vale até 30 de novembro.</p>
+            <button class="copy" type="button">Copiar mensagem</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="controle">
+    <h2>Controle do dia</h2>
+    <p class="intro">Sem CRM, anota cada lead num caderno ou planilha simples com essas colunas. No fim do dia, essa lista vira o relatório diário do grupo: total de linhas em Pacientes e total de "Agendou" em Consultas.</p>
+    <div class="table-wrap">
+      <table>
+        <thead><tr><th>Data</th><th>Nome</th><th>Telefone</th><th>Tentativas</th><th>Resultado</th><th>Dia e hora marcados</th></tr></thead>
+        <tbody>
+          <tr><td class="ex">06/11</td><td class="ex">Exemplo: Maria</td><td class="ex">(94) 9xxxx-xxxx</td><td class="ex">1</td><td><span class="status ok">Agendou</span></td><td class="ex">10/11 às 9h</td></tr>
+          <tr><td class="ex">06/11</td><td class="ex">Exemplo: João</td><td class="ex">(94) 9xxxx-xxxx</td><td class="ex">2</td><td><span class="status">Ligar de novo</span></td><td class="ex">Retornar hoje às 18h</td></tr>
+          <tr><td class="ex">06/11</td><td class="ex">Exemplo: Ana</td><td class="ex">(94) 9xxxx-xxxx</td><td class="ex">3</td><td><span class="status">Não atende</span></td><td class="ex">Mensagem do dia 3 enviada</td></tr>
+        </tbody>
+      </table>
+    </div>
+    <p class="tip" style="margin-top:12px">Resultados possíveis: Agendou, Ligar de novo, Não atende, Sem interesse.</p>
+  </section>
+
+  <section id="regras">
+    <h2>Regras</h2>
+    <div class="rules">
+      <div>
+        <h3>Sempre</h3>
+        <ul>
+          <li>Falar o nome da pessoa pelo menos 2 vezes na ligação.</li>
+          <li>Sorrir enquanto fala. A voz muda e a pessoa percebe.</li>
+          <li>Oferecer dois horários, nunca perguntar se quer agendar.</li>
+          <li>Mandar a confirmação no WhatsApp logo depois de desligar.</li>
+          <li>Desligar com um próximo passo combinado.</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Nunca</h3>
+        <ul>
+          <li>Dizer como é o caso da pessoa ou quanto tempo o tratamento vai durar. Quem avalia é a doutora.</li>
+          <li>Passar por telefone valor de manutenção, forma de pagamento, tipo de aparelho ou tempo de montagem. Tudo isso é na consulta.</li>
+          <li>Prometer resultado ou dizer que "não dói nada".</li>
+          <li>Inventar prazo de promoção. Ela vai até 30/11, e é isso.</li>
+          <li>Insistir depois que a pessoa disse que não quer.</li>
+          <li>Ler o roteiro palavra por palavra.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="confirmar">
+    <div class="pending">
+      <span class="label" style="color:var(--accent)">Campos tracejados</span>
+      <p>Os campos com sublinhado tracejado no roteiro, como [dia] e [hora], a Geovana preenche na hora com a agenda da clínica.</p>
+    </div>
+  </section>
+
+  <footer>
+    <span>Preparado pela Hurtz Company para a Odonto Medic Tropical · 06/11/2026</span>
+    <div class="logo" role="img" aria-label="Hurtz Company"></div>
+  </footer>
+</div>
+
+<script>
+document.querySelectorAll('.copy').forEach(function (btn) {
+  btn.addEventListener('click', function () {
+    var p = btn.parentElement.querySelector('p');
+    var text = p.innerText.trim();
+    var done = function () { var t = btn.textContent; btn.textContent = 'Copiado'; setTimeout(function () { btn.textContent = t; }, 1500); };
+    var fallback = function () {
+      var r = document.createRange(); r.selectNodeContents(p);
+      var s = window.getSelection(); s.removeAllRanges(); s.addRange(r);
+      btn.textContent = 'Texto selecionado, use Ctrl+C';
+    };
+    try { navigator.clipboard.writeText(text).then(done, fallback); } catch (e) { fallback(); }
+  });
+});
+</script>
+
+</body>
+</html>
