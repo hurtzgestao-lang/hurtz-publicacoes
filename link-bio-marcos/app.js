@@ -2,7 +2,11 @@
   "use strict";
 
   const WHATSAPP_NUMBER = "5517997028470";
+  // Painel de leads (lp.marcoshurtz.com.br/leads): API da VPS, origem "link-bio-marcos".
+  const PANEL_ENDPOINT = "https://crm.hurtzcompany.com.br/landing-leads/v1/submit";
+  // Fluxo anterior (Kairoz CRM + planilha "Link Bio Marcos"), mantido em paralelo.
   const SUBMIT_ENDPOINT = "https://api.kairozcrm.com.br/functions/v1/link-bio-marcos-submit";
+  const SUBMISSION_KEY = "hurtz-link-bio-marcos-submission-v1";
   const STORAGE_KEY = "hurtz-link-bio-marcos-form-v2";
   const TRACKING_KEY = "hurtz-link-bio-marcos-tracking-v1";
   const ITI_VERSION = "29.2.3";
@@ -439,19 +443,77 @@
       ...utmFields(),
     };
 
-    try {
-      const response = await fetch(SUBMIT_ENDPOINT, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(payload),
-      });
-      const result = await response.json().catch(() => ({}));
-      if (!response.ok || result.success === false) throw new Error(result.error || "Falha ao salvar lead.");
-      return { ok: true, result };
-    } catch (error) {
-      console.error("[link-bio-marcos] submit failed", error);
-      return { ok: false, error };
+    // Os dois destinos recebem o mesmo lead. Basta um salvar para o visitante ver a confirmação.
+    const results = await Promise.allSettled([
+      postJson(PANEL_ENDPOINT, panelPayload()),
+      postJson(SUBMIT_ENDPOINT, payload),
+    ]);
+    results.forEach((result, index) => {
+      if (result.status === "rejected") {
+        console.error(`[link-bio-marcos] ${index === 0 ? "painel" : "kairoz"} submit failed`, result.reason);
+      }
+    });
+    const saved = results.find((result) => result.status === "fulfilled");
+    if (saved) {
+      if (results[0].status === "fulfilled") clearSubmissionId();
+      return { ok: true, result: saved.value };
     }
+    return { ok: false, error: results[0].reason };
+  }
+
+  async function postJson(url, body) {
+    const response = await fetch(url, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(body),
+    });
+    const result = await response.json().catch(() => ({}));
+    if (!response.ok || result.success === false) throw new Error(result.error || "Falha ao salvar lead.");
+    return result;
+  }
+
+  function panelPayload() {
+    const answers = { cargo: data.cargo || "", segmento: data.segmento || "", faturamento: data.faturamento || "" };
+    return {
+      source: "link-bio-marcos",
+      submission_id: submissionId(),
+      completion_status: "submitted",
+      name: data.nome || "",
+      email: data.email || "",
+      phone: data.telefone_e164 || phoneE164() || data.telefone || "",
+      clinic: answers.segmento,
+      owner: answers.cargo,
+      revenue: answers.faturamento,
+      priority: "Lead Link Bio Marcos",
+      lead: answers,
+      form_answers: answers,
+      tracking: { ...tracking, landing_url: window.location.href, referrer_url: document.referrer || "" },
+    };
+  }
+
+  // Mesmo UUID em reenvios da mesma sessão (a API é idempotente); novo UUID depois que o painel salva.
+  function submissionId() {
+    try {
+      const saved = sessionStorage.getItem(SUBMISSION_KEY);
+      if (saved) return saved;
+    } catch { /* sem sessionStorage: segue com um id novo */ }
+    const id = newUuid();
+    try { sessionStorage.setItem(SUBMISSION_KEY, id); } catch { /* ignora */ }
+    return id;
+  }
+
+  function clearSubmissionId() {
+    try { sessionStorage.removeItem(SUBMISSION_KEY); } catch { /* ignora */ }
+  }
+
+  function newUuid() {
+    if (window.crypto && typeof window.crypto.randomUUID === "function") return window.crypto.randomUUID();
+    const bytes = new Uint8Array(16);
+    window.crypto.getRandomValues(bytes);
+    bytes[6] = (bytes[6] & 0x0f) | 0x40;
+    bytes[8] = (bytes[8] & 0x3f) | 0x80;
+    const hex = Array.from(bytes, (b) => b.toString(16).padStart(2, "0")).join("");
+    return `${hex.slice(0, 8)}-${hex.slice(8, 12)}-${hex.slice(12, 16)}-${hex.slice(16, 20)}-${hex.slice(20)}`;
   }
 
   function utmFields() {
