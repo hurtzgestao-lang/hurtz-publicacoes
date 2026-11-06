@@ -24,21 +24,9 @@
   --accent-ink: #73380D;
   --band-bg: #181614;
   --band-fg: #F5F2EC;
+  color-scheme: light;
   --font: 'Inter', 'Helvetica Neue', Helvetica, Arial, sans-serif;
 }
-@media (prefers-color-scheme: dark) {
-  :root:not([data-theme="light"]) {
-    --bg: #181614; --surface: #221F1C; --fg: #F5F2EC; --muted: #D6D1C8; --subtle: #8C8880;
-    --line: #3D3A36; --accent: #E2A87A; --accent-soft: #2C1F15; --accent-ink: #F0CEB4;
-    --band-bg: #C06018; --band-fg: #FFFFFF; color-scheme: dark;
-  }
-}
-:root[data-theme="dark"] {
-  --bg: #181614; --surface: #221F1C; --fg: #F5F2EC; --muted: #D6D1C8; --subtle: #8C8880;
-  --line: #3D3A36; --accent: #E2A87A; --accent-soft: #2C1F15; --accent-ink: #F0CEB4;
-  --band-bg: #C06018; --band-fg: #FFFFFF; color-scheme: dark;
-}
-
 * { box-sizing: border-box; }
 [hidden] { display: none !important; }
 body {
@@ -324,7 +312,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
   <div class="hero">
     <span class="label">Odonto Medic Tropical · Parauapebas</span>
     <h1>Script de ligação para aparelho ortodôntico</h1>
-    <p class="sub">Guia da Geovana para ligar pra quem chamou no WhatsApp pelo anúncio. Use como roteiro, não como texto decorado: fale com o seu jeito e mantenha a ordem das etapas.</p>
+    <p class="sub">Guia da Geovana para ligar pra quem chamou no WhatsApp pelo anúncio. Fala do seu jeito, só mantém a ordem das etapas.</p>
     <div class="meta">
       <span>Para: <b>Geovana</b></span>
       <span>Duração: <b>3 a 5 min</b></span>
@@ -346,8 +334,8 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
   </div>
 
   <div class="goal" style="margin-top:12px">
-    <span class="label">Regra de ouro</span>
-    <span><b>Detalhe é na consulta.</b> Valor da manutenção, tipo de aparelho, forma de pagamento, tempo de montagem e casos de pacientes não se passam por telefone. Resposta padrão: "Isso a doutora te explica certinho na consulta, porque depende do seu caso."</span>
+    <span class="label">Regra principal</span>
+    <span>Valor da manutenção, tipo de aparelho, forma de pagamento, tempo de montagem e casos de pacientes ficam pra consulta. Quando perguntarem, responde: "Isso a doutora te explica certinho na consulta, porque depende do seu caso."</span>
   </div>
 
   <div class="levels" id="niveis">
@@ -373,31 +361,31 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
       </button>
     </div>
     <div class="brief" data-lv="iniciante">
-      <div class="brief-head"><span class="label">Você está no nível iniciante</span><p>Foco: seguir a fala pronta e sempre terminar oferecendo 2 horários.</p></div>
+      <div class="brief-head"><span class="label">Você está no nível iniciante</span><p>Segue a fala pronta e termina sempre oferecendo 2 horários.</p></div>
       <ol class="moves">
-        <li><b>Abre com a notícia boa</b><span>A promoção especial de novembro é o motivo pra ela ficar na linha.</span></li>
+        <li><b>Abre com a notícia boa</b><span>Fala da promoção especial de novembro logo no começo.</span></li>
         <li><b>Faz as 3 perguntas</b><span>Pra quem é, se já usou e o que incomoda.</span></li>
         <li><b>Oferece 2 horários</b><span>Nunca pergunta "quer agendar?".</span></li>
       </ol>
-      <p class="brief-note">Neste nível mudam: preparação, roteiro, objeções (respostas prontas) e follow-up (3 dias simples).</p>
+      <p class="brief-note">Neste nível: preparação, roteiro, objeções com resposta pronta e follow-up de 3 dias.</p>
     </div>
     <div class="brief" data-lv="intermediario" hidden>
-      <div class="brief-head"><span class="label">Você está no nível intermediário</span><p>Foco: descobrir o motivo dela e usar esse motivo pra fechar.</p></div>
+      <div class="brief-head"><span class="label">Você está no nível intermediário</span><p>Descobre o motivo dela e usa esse motivo pra fechar.</p></div>
       <ol class="moves">
         <li><b>Pergunta "por que agora?"</b><span>O motivo dela vira o argumento do fechamento.</span></li>
-        <li><b>Devolve a história</b><span>"Deixa eu ver se entendi..." faz ela se sentir ouvida.</span></li>
+        <li><b>Devolve a história</b><span>"Deixa eu ver se entendi..." e repete o que ela contou.</span></li>
         <li><b>Conduz 4 sins</b><span>Interesse, local, turno e condição, antes do horário.</span></li>
       </ol>
-      <p class="brief-note">Neste nível mudam: preparação, roteiro, objeções (método Acolher, Isolar, Responder e Fechar) e follow-up (com áudio e ângulo novo a cada contato).</p>
+      <p class="brief-note">Neste nível: preparação, roteiro, objeções em 4 passos (acolher, isolar, responder, fechar) e follow-up com áudio.</p>
     </div>
     <div class="brief" data-lv="spin" hidden>
-      <div class="brief-head"><span class="label">Você está no nível SPIN avançado</span><p>Foco: fazer a pessoa falar o problema e o benefício com as palavras dela.</p></div>
+      <div class="brief-head"><span class="label">Você está no nível SPIN avançado</span><p>Faz a pessoa contar o problema e o que ela quer, com as palavras dela.</p></div>
       <ol class="moves">
         <li><b>Situação curta</b><span>No máximo 2 perguntas de contexto.</span></li>
-        <li><b>Problema revela a trava</b><span>"O que te impediu de começar até agora?"</span></li>
-        <li><b>Necessidade na boca dela</b><span>Ela diz o benefício e você só conecta com a consulta.</span></li>
+        <li><b>Problema mostra a trava</b><span>"O que te impediu de começar até agora?"</span></li>
+        <li><b>Necessidade na boca dela</b><span>Ela diz o que quer e você liga isso à consulta.</span></li>
       </ol>
-      <p class="brief-note">Neste nível mudam: preparação, roteiro, objeções (perguntas que voltam pro benefício dela) e follow-up (personalizado com o que ela contou).</p>
+      <p class="brief-note">Neste nível: preparação, roteiro, objeções em forma de pergunta e follow-up com o que ela contou.</p>
     </div>
   </div>
 
@@ -415,7 +403,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
       <div><b id="sc-taxa">0%</b><span>de conversão</span></div>
     </div>
     <ul class="sc-list" id="sc-list"></ul>
-    <p class="sc-empty" id="sc-empty">Nenhuma ligação ainda hoje. Toque em <b>Começar ligação</b>: a tela guia a conversa com o nível escolhido acima, já com o nome da pessoa.</p>
+    <p class="sc-empty" id="sc-empty">Nenhuma ligação ainda hoje. Toca em <b>Começar ligação</b> e a tela vai mostrando o que falar, no nível que você escolheu, já com o nome da pessoa.</p>
     <div class="mode-foot">
       <button type="button" class="copy" id="sc-report">Copiar relatório do dia</button>
       <span>O placar fica salvo só neste aparelho e zera todo dia.</span>
@@ -436,7 +424,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
     <h2>Antes de ligar</h2>
 
     <div data-lv="iniciante">
-      <p class="intro">Lead de anúncio esfria rápido. Quem recebe a ligação logo depois de mandar mensagem atende muito mais e lembra por que chamou.</p>
+      <p class="intro">Liga rápido. Quem acabou de mandar mensagem ainda lembra por que chamou.</p>
       <ul class="check">
         <li><span>Ligar em até <b>5 minutos</b> depois que a mensagem chegou no WhatsApp.</span></li>
         <li><span>Ver o nome da pessoa no WhatsApp.</span></li>
@@ -450,11 +438,11 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
     </div>
 
     <div data-lv="intermediario" hidden>
-      <p class="intro">No intermediário, a ligação começa com o que a pessoa escreveu. Por isso a preparação leva 1 minuto a mais.</p>
+      <p class="intro">Aqui a ligação começa pelo que a pessoa escreveu, então tira 1 minuto pra ler a conversa.</p>
       <ul class="check">
         <li><span>Ligar em até <b>5 minutos</b>.</span></li>
         <li><span>Ler a conversa inteira e anotar <b>o que ela perguntou</b> (valor, tipo de aparelho, como funciona). Isso entra na abertura.</span></li>
-        <li><span>Pelo jeito da mensagem, chutar o perfil: <b>medrosa, desconfiada ou curiosa</b>. Ajuda a escolher o diferencial depois.</span></li>
+        <li><span>Pelo jeito da mensagem, chutar o perfil: <b>medrosa, desconfiada ou curiosa</b>. Você usa isso na etapa 4.</span></li>
         <li><span>Separar 2 horários em <b>turnos diferentes</b> (um de manhã e um de tarde), pra encaixar no 3º sim.</span></li>
         <li><span>Mandar um aviso que já mostra que você leu a mensagem dela:</span></li>
       </ul>
@@ -465,12 +453,12 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
     </div>
 
     <div data-lv="spin" hidden>
-      <p class="intro">No SPIN você vai ouvir mais do que falar. Prepare o terreno pra conseguir anotar as palavras exatas da pessoa.</p>
+      <p class="intro">No SPIN você ouve mais do que fala. Deixa papel e caneta perto pra anotar as palavras da pessoa.</p>
       <ul class="check">
         <li><span>Ambiente silencioso e <b>papel com 4 linhas: S, P, I, N</b>. Em cada uma, anota a frase dela.</span></li>
         <li><span>Revisar as <b>4 pontes</b> (dinheiro, medo, tempo, confiança) que estão no roteiro.</span></li>
         <li><span>Ler a conversa do WhatsApp e não repetir pergunta que ela já respondeu.</span></li>
-        <li><span>Combinar consigo mesma: <b>falar 30%, ouvir 70%</b>. Se você está falando muito, faça uma pergunta.</span></li>
+        <li><span><b>Falar 30%, ouvir 70%</b>. Se perceber que tá falando muito, faz uma pergunta.</span></li>
         <li><span>Mandar um aviso que já prepara a conversa:</span></li>
       </ul>
       <div class="msg" style="margin-top:12px">
@@ -489,7 +477,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
         <button type="button" class="lvl-btn mini" data-level="spin">SPIN avançado</button>
       </div>
     </div>
-    <p class="intro">A abertura tem 3 objetivos em 15 segundos: lembrar a pessoa de onde ela conhece a clínica, dar um motivo bom pra ela continuar na linha e fazer ela falar. Nunca abra perguntando "pode falar?": isso convida o "não".</p>
+    <p class="intro">Nos primeiros 15 segundos a pessoa precisa lembrar de onde conhece a clínica, ouvir a promoção e começar a falar. Não abre com "pode falar?", porque fica fácil ela dizer que não.</p>
 
     <!-- ===================== INICIANTE ===================== -->
     <div class="panel" data-panel="iniciante">
@@ -501,7 +489,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
             <span class="who">Geovana</span>
             <p>Oi, [nome]! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Tudo bem com você?</p>
           </div>
-          <div class="tip"><span>Espera ela responder. Esse segundo de pausa faz a pessoa entrar na conversa.</span></div>
+          <div class="tip"><span>Espera ela responder antes de seguir.</span></div>
           <div class="say">
             <span class="who">Geovana</span>
             <p>Que bom! Vi que você chamou a gente sobre aparelho e te liguei rapidinho porque tenho uma notícia boa pra você: a montagem tá com a <b>promoção especial de novembro</b>.</p>
@@ -518,7 +506,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
           <ol class="questions">
             <li><div><p class="q">"O aparelho seria pra você ou pra outra pessoa?"</p><p class="why">Se for pra filho: "Quantos anos ele tem?" Menor de idade vem com um responsável.</p></div></li>
             <li><div><p class="q">"Você já usou aparelho antes ou seria o primeiro?"</p><p class="why">Só anota e segue.</p></div></li>
-            <li><div><p class="q">"E o que mais te incomoda hoje no seu sorriso?"</p><p class="why">A pergunta mais importante. Deixa falar e guarda as palavras exatas dela.</p></div></li>
+            <li><div><p class="q">"E o que mais te incomoda hoje no seu sorriso?"</p><p class="why">Deixa ela falar e guarda as palavras que ela usar.</p></div></li>
           </ol>
           <div class="say">
             <span class="who">Depois que ela responder</span>
@@ -561,26 +549,26 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
             <p>Oi, [nome], tudo bom? Geovana aqui, da Odonto Medic do Bairro Tropical. Você chamou a gente agora há pouco perguntando sobre <span class="fill">[o que ela escreveu]</span>.</p>
             <p>Te liguei porque por mensagem fica muita coisa solta, e em dois minutinhos eu te explico como funciona aqui. Me conta: o que te fez procurar aparelho agora?</p>
           </div>
-          <div class="tip"><span>"Por que agora" é a pergunta de ouro. A resposta (casamento, trabalho novo, foto, autoestima, filho) é o motivo que você vai usar no fechamento.</span></div>
+          <div class="tip"><span>A resposta (casamento, trabalho novo, foto, autoestima, filho) é o que você vai usar no fechamento.</span></div>
         </article>
 
         <article class="step">
           <div class="step-head"><span class="step-n">ETAPA 2</span><h3>Aprofundar e devolver</h3><span class="time">1 a 2 min</span></div>
           <ol class="questions">
-            <li><div><p class="q">"Faz tempo que você pensa em colocar?"</p><p class="why">Quem pensa há anos precisa de um empurrão, não de mais informação.</p></div></li>
+            <li><div><p class="q">"Faz tempo que você pensa em colocar?"</p><p class="why">Se faz anos que ela pensa nisso, ela já sabe o que quer. Falta marcar.</p></div></li>
             <li><div><p class="q">"O que mais te incomoda hoje no seu sorriso?"</p><p class="why">Guarda as palavras exatas.</p></div></li>
-            <li><div><p class="q">"Já usou aparelho antes?"</p><p class="why">Se já usou e tirou: "E o que te fez tirar?" Isso mostra a objeção antes dela aparecer.</p></div></li>
+            <li><div><p class="q">"Já usou aparelho antes?"</p><p class="why">Se já usou e tirou: "E o que te fez tirar?" Assim você já sabe a objeção dela.</p></div></li>
           </ol>
           <div class="say">
             <span class="who">Devolver o que ouviu</span>
             <p>Deixa eu ver se entendi: você pensa nisso já faz [tempo], o que mais te incomoda é [o que ela disse] e agora você quer resolver por causa de [motivo]. É isso?</p>
           </div>
-          <div class="tip"><span>Quando a pessoa ouve a própria história e diz "é isso", ela se sente entendida e confia mais em você.</span></div>
+          <div class="tip"><span>Espera ela dizer "é isso". Se ela corrigir, anota do jeito dela.</span></div>
         </article>
 
         <article class="step">
           <div class="step-head"><span class="step-n">ETAPA 3</span><h3>Os 4 sins</h3><span class="time">1 min</span></div>
-          <p class="tip"><span>Cada pergunta tem resposta fácil de "sim". Quatro sins seguidos deixam o horário como próximo passo natural.</span></p>
+          <p class="tip"><span>São 4 perguntas fáceis de responder "sim". Depois delas, oferece o horário.</span></p>
           <ol class="questions">
             <li><div><p class="q">Interesse: "Se a doutora avaliar e for indicado pra você, você quer começar logo?"</p></div></li>
             <li><div><p class="q">Local: "Você mora aqui perto do Tropical, né?"</p></div></li>
@@ -618,7 +606,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
 
     <!-- ===================== SPIN ===================== -->
     <div class="panel" data-panel="spin" hidden>
-      <div class="panel-tag"><span class="label">Nível SPIN avançado</span><span>Conversa consultiva. Você fala 30% do tempo e ouve 70%. A pessoa chega sozinha à conclusão de que quer começar.</span></div>
+      <div class="panel-tag"><span class="label">Nível SPIN avançado</span><span>Você pergunta e escuta. Fala 30% do tempo e ouve 70%.</span></div>
       <div class="steps">
         <article class="step">
           <div class="step-head"><span class="step-n">ABERTURA</span><h3>Pedir licença pra entender</h3><span class="time">20 s</span></div>
@@ -627,7 +615,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
             <p>Oi, [nome]! Geovana aqui, da Odonto Medic do Bairro Tropical, tudo bem? Você falou com a gente sobre aparelho.</p>
             <p>Antes de te passar qualquer informação, eu queria entender um pouquinho o que você procura, pra não te falar coisa que não serve pra você. Posso te fazer umas perguntinhas rápidas?</p>
           </div>
-          <div class="tip"><span>Aqui pedir licença funciona, porque você oferece algo em troca: uma conversa sobre ela, e não uma venda.</span></div>
+          <div class="tip"><span>Aqui pode pedir licença, porque você vai perguntar sobre ela antes de falar de preço.</span></div>
         </article>
 
         <article class="step">
@@ -636,7 +624,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
             <li><div><p class="q">"O aparelho é pra você? Já usou antes?"</p></div></li>
             <li><div><p class="q">"Faz quanto tempo que você pensa em colocar?"</p></div></li>
           </ol>
-          <div class="tip"><span>Não vire interrogatório. Situação é só pra contexto. O que vende vem nas próximas letras.</span></div>
+          <div class="tip"><span>Só 2 perguntas aqui, pra não virar interrogatório.</span></div>
         </article>
 
         <article class="step">
@@ -644,7 +632,7 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
           <ol class="questions">
             <li><div><p class="q">"O que mais te incomoda hoje quando você sorri?"</p></div></li>
             <li><div><p class="q">"Tem alguma coisa no dia a dia que te atrapalha por causa disso?"</p></div></li>
-            <li><div><p class="q">"E o que te impediu de começar até agora?"</p><p class="why">A resposta é a objeção dela, que aparece antes do preço. Anota: dinheiro, medo, tempo ou confiança.</p></div></li>
+            <li><div><p class="q">"E o que te impediu de começar até agora?"</p><p class="why">Anota o que travou ela: dinheiro, medo, tempo ou confiança.</p></div></li>
           </ol>
         </article>
 
@@ -662,8 +650,8 @@ mark.v.empty { background: none; border-bottom: 1.5px dashed var(--accent); colo
         <article class="step">
           <div class="step-head"><span class="step-n spin">N</span><h3>Necessidade de solução</h3><span class="time">1 min</span></div>
           <ol class="questions">
-            <li><div><p class="q">"Se você já tivesse começado o aparelho, o que seria diferente pra você hoje?"</p><p class="why">Aqui ela mesma fala o benefício. Guarda essa frase.</p></div></li>
-            <li><div><p class="q">"Pra você começar, o que pesa mais: um valor que caiba no bolso, um horário que encaixe ou confiar em quem vai cuidar?"</p><p class="why">A resposta diz qual ponte usar na apresentação.</p></div></li>
+            <li><div><p class="q">"Se você já tivesse começado o aparelho, o que seria diferente pra você hoje?"</p><p class="why">Guarda essa frase do jeito que ela falou.</p></div></li>
+            <li><div><p class="q">"Pra você começar, o que pesa mais: um valor que caiba no bolso, um horário que encaixe ou confiar em quem vai cuidar?"</p><p class="why">Pela resposta você escolhe a frase de baixo que vai usar.</p></div></li>
           </ol>
         </article>
 
@@ -739,7 +727,7 @@ Qualquer coisa, é só me chamar aqui. Até lá!</p>
 
     <!-- INTERMEDIÁRIO -->
     <div data-lv="intermediario" hidden>
-      <p class="intro">Aqui você não responde de cara. Usa 4 passos, porque a primeira objeção quase nunca é a verdadeira.</p>
+      <p class="intro">Antes de responder, descobre se é só isso mesmo. Muitas vezes a primeira objeção esconde outra.</p>
       <div class="method">
         <div><b>1 · Acolher</b><span>Concorda com o sentimento: "Entendo", "Faz sentido".</span></div>
         <div><b>2 · Isolar</b><span>Pergunta se é só isso ou se tem outra coisa por trás.</span></div>
@@ -768,10 +756,10 @@ Qualquer coisa, é só me chamar aqui. Até lá!</p>
 
     <!-- SPIN -->
     <div data-lv="spin" hidden>
-      <p class="intro">No SPIN, objeção quase sempre quer dizer que a Implicação ou a Necessidade ficaram fracas. Em vez de rebater, faça uma pergunta que traga a pessoa de volta pro benefício que ela mesma falou.</p>
+      <p class="intro">Quando aparecer objeção, não rebate. Faz uma pergunta que leve ela de volta pro que ela disse que quer.</p>
       <div class="obj-grid">
         <div class="obj"><p class="heard">"Tá caro"</p><p class="ans">"Entendo. Você me falou que queria [benefício dela]. Pra você, quanto vale resolver isso?" Deixa ela responder. Depois usa a ponte: "A montagem, que costuma ser o valor mais alto, tá por 120. O resto a doutora vê com você."</p></div>
-        <div class="obj"><p class="heard">"Vou pensar"</p><p class="ans">"Claro. Me ajuda a entender: o que falta pra você se sentir segura de dar o primeiro passo?" A resposta é a objeção real. Trata ela com a ponte certa.</p></div>
+        <div class="obj"><p class="heard">"Vou pensar"</p><p class="ans">"Claro. O que falta pra você se sentir segura de dar o primeiro passo?" A resposta é a objeção real. Trata ela com a ponte certa.</p></div>
         <div class="obj"><p class="heard">"Preciso falar com meu marido"</p><p class="ans">"Faz sentido decidir junto. Se dependesse só de você, você começaria?" Se sim: "Então vamos marcar e ele vem junto conhecer a doutora."</p></div>
         <div class="obj"><p class="heard">"Tenho medo"</p><p class="ans">"O que exatamente te dá medo?" Ouve. "E se a doutora te explicar cada passo antes de fazer qualquer coisa, isso te deixa mais tranquila?"</p></div>
         <div class="obj"><p class="heard">"Não tenho tempo"</p><p class="ans">"Você comentou que isso te incomoda em [momento que ela citou]. Se eu encaixar num horário que não atrapalhe sua rotina, faz sentido começar?"</p></div>
@@ -805,7 +793,7 @@ Qualquer coisa, é só me chamar aqui. Até lá!</p>
     </div>
 
     <div data-lv="intermediario" hidden>
-      <p class="intro">Cada contato traz um ângulo novo. Áudio no meio da cadência aumenta a resposta, porque a pessoa ouve uma voz de verdade.</p>
+      <p class="intro">Cada contato fala de um jeito diferente. No dia 1 tem um áudio curto, pra ela ouvir sua voz.</p>
       <div class="cad">
         <div class="cad-row"><div class="cad-when">Dia 1<span>na hora</span></div><div class="cad-what"><span>Ligação 1. Não atendeu? Responde o que ela perguntou:</span>
           <div class="msg"><p>Oi, [nome]! Tentei te ligar pra responder sua pergunta sobre [o que ela perguntou]. Por telefone eu te explico em 2 minutinhos. Qual horário fica bom?</p><button class="copy" type="button">Copiar mensagem</button></div></div></div>
@@ -819,7 +807,7 @@ Qualquer coisa, é só me chamar aqui. Até lá!</p>
     </div>
 
     <div data-lv="spin" hidden>
-      <p class="intro">Duas situações. Se ela nunca atendeu, use a cadência do intermediário. Se já conversou com você e não marcou, use o que ela contou na ligação. Mensagem com as palavras dela tem muito mais resposta.</p>
+      <p class="intro">Duas situações. Se ela nunca atendeu, use a cadência do intermediário. Se já conversou com você e não marcou, use o que ela contou na ligação. Usa as palavras que ela usou.</p>
       <div class="cad">
         <div class="cad-row"><div class="cad-when">Dia 1<span>3 horas depois da conversa</span></div><div class="cad-what"><span>Retoma o problema que ela falou:</span>
           <div class="msg"><p>Oi, [nome]! Fiquei pensando no que você me falou sobre [problema dela]. Separei [dia] às [hora] com a doutora pra você dar o primeiro passo. Fica bom pra você?</p><button class="copy" type="button">Copiar mensagem</button></div></div></div>
@@ -833,7 +821,7 @@ Qualquer coisa, é só me chamar aqui. Até lá!</p>
 
   <section id="controle">
     <h2>Controle do dia</h2>
-    <p class="intro">Usando o <b>Modo ligação</b>, o placar lá em cima faz isso sozinho e copia o relatório do dia. Sem ele, anota cada lead num caderno ou planilha simples com essas colunas. No fim do dia, essa lista vira o relatório diário do grupo: total de linhas em Pacientes e total de "Agendou" em Consultas.</p>
+    <p class="intro">Se usar o <b>Modo ligação</b>, o placar lá em cima anota tudo e copia o relatório do dia. Sem ele, anota cada lead num caderno ou planilha simples com essas colunas. No fim do dia, essa lista vira o relatório diário do grupo: total de linhas em Pacientes e total de "Agendou" em Consultas.</p>
     <div class="table-wrap">
       <table>
         <thead><tr><th>Data</th><th>Nome</th><th>Telefone</th><th>Tentativas</th><th>Resultado</th><th>Dia e hora marcados</th></tr></thead>
@@ -854,7 +842,7 @@ Qualquer coisa, é só me chamar aqui. Até lá!</p>
         <h3>Sempre</h3>
         <ul>
           <li>Falar o nome da pessoa pelo menos 2 vezes na ligação.</li>
-          <li>Sorrir enquanto fala. A voz muda e a pessoa percebe.</li>
+          <li>Sorrir enquanto fala.</li>
           <li>Oferecer dois horários, nunca perguntar se quer agendar.</li>
           <li>Mandar a confirmação no WhatsApp logo depois de desligar.</li>
           <li>Desligar com um próximo passo combinado.</li>
@@ -994,7 +982,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     ],
     spin: [
       ['"Tá caro"', 'Entendo. Você me falou que queria {beneficio}. Pra você, quanto vale resolver isso?\n(Deixa ela responder.)\nA montagem, que costuma ser o valor mais alto, tá por 120. O resto a doutora vê com você na consulta.'],
-      ['"Vou pensar"', 'Claro. Me ajuda a entender: o que falta pra você se sentir segura de dar o primeiro passo?\n(A resposta é a objeção real. Trata com a ponte certa.)'],
+      ['"Vou pensar"', 'Claro. O que falta pra você se sentir segura de dar o primeiro passo?\n(A resposta é a objeção real. Trata com a ponte certa.)'],
       ['"Preciso falar com meu marido" (ou pais)', 'Faz sentido decidir junto. Se dependesse só de você, você começaria?\nSe sim: então vamos marcar e ele vem junto conhecer a doutora.'],
       ['"Tenho medo"', 'O que exatamente te dá medo?\n(Ouve.)\nE se a doutora te explicar cada passo antes de fazer qualquer coisa, isso te deixa mais tranquila?'],
       ['"Não tenho tempo"', 'Você comentou que {incomodo} te incomoda. Se eu encaixar num horário que não atrapalhe sua rotina, faz sentido começar?'],
@@ -1030,7 +1018,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
 
     /* valor */
     { k: 'total', c: 'Valor e pagamento', q: 'Quanto fica o tratamento todo?', a: ['O valor total depende do seu caso, por isso a doutora passa na consulta. O que eu já te garanto é a montagem por 120 reais na promoção especial de novembro.'] },
-    { k: 'consulta', c: 'Valor e pagamento', q: 'A consulta é paga?', a: ['Não, a consulta é gratuita! Você conhece a doutora, ela avalia seu caso e te explica tudo, sem pagar nada.', 'Quer que eu já reserve? Tenho {h1} ou {h2}.'], tip: 'Consulta gratuita é argumento forte. Use sempre que ela hesitar.' },
+    { k: 'consulta', c: 'Valor e pagamento', q: 'A consulta é paga?', a: ['Não, a consulta é gratuita! Você conhece a doutora, ela avalia seu caso e te explica tudo, sem pagar nada.', 'Quer que eu já reserve? Tenho {h1} ou {h2}.'], tip: 'Lembra da consulta gratuita sempre que ela hesitar.' },
     { k: 'parcela', c: 'Valor e pagamento', q: 'Parcela? Aceita cartão ou pix?', a: ['As formas de pagamento a doutora vê com você na consulta, pra encaixar no que for melhor pra você.'] },
     { k: 'convenio', c: 'Valor e pagamento', q: 'Aceita convênio ou plano?', a: ['Isso a gente vê certinho na consulta, que é gratuita. Leva sua carteirinha que a doutora confere com você.', 'E a montagem tá por 120 reais na promoção especial de novembro.'], tip: 'Não confirme nem negue convênio por telefone.' },
     { k: 'desconto', c: 'Valor e pagamento', q: 'Faz mais barato? Tem desconto?', a: ['A promoção especial de novembro já é a nossa melhor condição: montagem por 120 reais com limpeza grátis no dia. O resto a doutora vê com você na consulta.'] },
@@ -1090,7 +1078,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
       choices: [{ label: 'Consulta marcada!', go: 'OUT:agendou', primary: true }, { label: 'Quis trocar o horário', go: 'outro' }, { label: 'Vai levar mais alguém', go: 'SIT:familia' }, { label: 'Desistiu na hora', go: 'OBJ' }] },
 
     /* ---------- iniciante ---------- */
-    i1: { step: 'Abertura', say: ['Oi, {nome}! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Tudo bem com você?'], tip: 'Espera ela responder. Esse segundo de pausa faz a pessoa entrar na conversa.',
+    i1: { step: 'Abertura', say: ['Oi, {nome}! Aqui é a Geovana, da Odonto Medic do Bairro Tropical. Tudo bem com você?'], tip: 'Espera ela responder antes de seguir.',
       choices: [{ label: 'Ela respondeu', go: 'i2', primary: true }, { label: 'Atendeu outra pessoa', go: 'SIT:outra_pessoa' }, { label: 'Caixa postal ou não atendeu', go: 'OUT:naoatendeu' }, { label: 'Número errado', go: 'SIT:errado' }] },
     i2: { step: 'Abertura', say: ['Que bom! Vi que você chamou a gente sobre aparelho e te liguei rapidinho porque tenho uma notícia boa pra você: a montagem tá com a promoção especial de novembro.', 'Me conta uma coisa: o aparelho seria pra você mesmo?'],
       choices: [{ label: 'É pra ela', go: 'i3', primary: true }, { label: 'É pra filho ou outra pessoa', go: 'i2b' }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Perguntou "quem é?"', go: 'quem' }, { label: 'Não lembra da mensagem', go: 'SIT:nao_lembra' }, { label: 'Perguntou o preço direto', go: 'i6' }, { label: 'Disse que não quer', go: 'OBJ' }] },
@@ -1099,7 +1087,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     i2b: { step: 'Perguntas', say: ['Que legal! Quantos anos ele tem?'], tip: 'Menor de idade vem com um responsável.', choices: [{ label: 'Próximo', go: 'i3', primary: true }, { label: 'Perguntou a idade certa pra usar', go: 'SIT:crianca' }] },
     i3: { step: 'Perguntas', say: ['Você já usou aparelho antes ou seria o primeiro?'], tip: 'Só anota e segue.',
       choices: [{ label: 'Nunca usou', go: 'i4', primary: true }, { label: 'Já usou e tirou', go: 'i4', primary: true }, { label: 'Usa agora em outro lugar', go: 'SIT:ja_usa' }] },
-    i4: { step: 'Perguntas', say: ['E o que mais te incomoda hoje no seu sorriso?'], tip: 'A pergunta mais importante. Deixa falar e anota as palavras dela.',
+    i4: { step: 'Perguntas', say: ['E o que mais te incomoda hoje no seu sorriso?'], tip: 'Deixa ela falar e anota as palavras que ela usar.',
       input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: os dentes da frente tortos' }, choices: [{ label: 'Próximo', go: 'i5', primary: true }, { label: 'Não soube dizer', go: 'i6' }] },
     i5: { step: 'Perguntas', say: ['Entendi, {incomodo}. Isso a doutora avalia certinho na consulta e te explica tudo antes de começar.'], choices: [{ label: 'Próximo', go: 'i6', primary: true }, { label: 'Fez uma pergunta', go: 'SIT' }] },
     i6: { step: 'Oferta', say: ['Então, {nome}, funciona assim: o primeiro passo é uma consulta gratuita aqui na clínica com a doutora. E na promoção especial de novembro a montagem do aparelho tá saindo por 120 reais, e no dia da montagem você ainda ganha uma limpeza, sem pagar nada a mais.', 'E aqui seu aparelho é acompanhado por dentista especialista em ortodontia.'],
@@ -1108,16 +1096,16 @@ document.querySelectorAll('.copy').forEach(function (btn) {
 
     /* ---------- intermediário ---------- */
     m1: { step: 'Abertura', say: ['Oi, {nome}, tudo bom? Geovana aqui, da Odonto Medic do Bairro Tropical. Você chamou a gente agora há pouco perguntando sobre {escreveu}.', 'Te liguei porque por mensagem fica muita coisa solta, e em dois minutinhos eu te explico como funciona aqui. Me conta: o que te fez procurar aparelho agora?'],
-      tip: 'A resposta é o motivo que você vai usar no fechamento.', input: { key: 'motivo', label: 'Motivo dela', ph: 'Ex.: casamento em março' },
+      tip: 'Você vai usar esse motivo no fechamento.', input: { key: 'motivo', label: 'Motivo dela', ph: 'Ex.: casamento em março' },
       choices: [{ label: 'Contou o motivo', go: 'm2', primary: true }, { label: 'Não tem motivo específico', go: 'm2', set: function () { if (!S.motivo) S.motivo = 'cuidar do seu sorriso'; } }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Não lembra da mensagem', go: 'SIT:nao_lembra' }, { label: 'Atendeu outra pessoa', go: 'SIT:outra_pessoa' }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
     m1b: { step: 'Abertura', say: ['Me conta: o que te fez procurar aparelho agora?'], input: { key: 'motivo', label: 'Motivo dela', ph: 'Ex.: casamento em março' }, choices: [{ label: 'Próximo', go: 'm2', primary: true }] },
-    m2: { step: 'Aprofundar', say: ['Faz tempo que você pensa em colocar?'], tip: 'Quem pensa há anos precisa de um empurrão, não de mais informação.',
+    m2: { step: 'Aprofundar', say: ['Faz tempo que você pensa em colocar?'], tip: 'Se faz anos que ela pensa nisso, ela já sabe o que quer. Falta marcar.',
       input: { key: 'tempo', label: 'Há quanto tempo', ph: 'Ex.: uns dois anos' }, choices: [{ label: 'Próximo', go: 'm3', primary: true }] },
     m3: { step: 'Aprofundar', say: ['O que mais te incomoda hoje no seu sorriso?'], input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: dente encavalado' }, choices: [{ label: 'Próximo', go: 'm4', primary: true }, { label: 'Fez uma pergunta', go: 'SIT' }] },
     m4: { step: 'Aprofundar', say: ['Já usou aparelho antes?'], choices: [{ label: 'Nunca usou', go: 'm5', primary: true }, { label: 'Já usou e tirou', go: 'm4b' }, { label: 'Usa agora em outro lugar', go: 'SIT:ja_usa' }] },
-    m4b: { step: 'Aprofundar', say: ['E o que te fez tirar?'], tip: 'Isso mostra a objeção antes dela aparecer. Guarda a resposta.', choices: [{ label: 'Próximo', go: 'm5', primary: true }, { label: 'Foi por dinheiro, medo ou outra trava', go: 'OBJ' }] },
+    m4b: { step: 'Aprofundar', say: ['E o que te fez tirar?'], tip: 'Assim você já sabe a objeção dela. Guarda a resposta.', choices: [{ label: 'Próximo', go: 'm5', primary: true }, { label: 'Foi por dinheiro, medo ou outra trava', go: 'OBJ' }] },
     m5: { step: 'Devolver', say: ['Deixa eu ver se entendi: você pensa nisso já faz {tempo}, o que mais te incomoda é {incomodo} e agora você quer resolver por causa de {motivo}. É isso?'],
-      tip: 'Quando a pessoa ouve a própria história e diz "é isso", ela confia mais em você.', choices: [{ label: 'Ela disse "é isso"', go: 'm6', primary: true }, { label: 'Ela corrigiu', go: 'm5b' }] },
+      tip: 'Espera ela dizer "é isso". Se ela corrigir, anota do jeito dela.', choices: [{ label: 'Ela disse "é isso"', go: 'm6', primary: true }, { label: 'Ela corrigiu', go: 'm5b' }] },
     m5b: { step: 'Devolver', say: ['Ah, entendi melhor agora. Obrigada por me explicar!'], tip: 'Corrija as anotações abaixo com o que ela falou.', input: { key: 'incomodo', label: 'O que incomoda (corrigido)', ph: '' }, choices: [{ label: 'Próximo', go: 'm6', primary: true }] },
     m6: { step: '4 sins · 1 de 4', say: ['Se a doutora avaliar e for indicado pra você, você quer começar logo?'], choices: [{ label: 'Sim', go: 'm7', primary: true }, { label: 'Hesitou', go: 'OBJ' }, { label: 'Perguntou algo', go: 'SIT' }] },
     m7: { step: '4 sins · 2 de 4', say: ['Você mora aqui perto do Tropical, né?'], choices: [{ label: 'Sim', go: 'm8', primary: true }, { label: 'Mora longe', go: 'SIT:longe' }] },
@@ -1137,18 +1125,18 @@ document.querySelectorAll('.copy').forEach(function (btn) {
       choices: [{ label: 'Pode perguntar', go: 's1', primary: true }, { label: 'Quer só o preço', go: 's0p' }, { label: 'Tá ocupada', go: 'ocupada' }, { label: 'Não lembra da mensagem', go: 'SIT:nao_lembra' }, { label: 'Atendeu outra pessoa', go: 'SIT:outra_pessoa' }, { label: 'Não atendeu', go: 'OUT:naoatendeu' }] },
     s0b: { step: 'Abertura', say: ['Antes de te passar qualquer informação, posso te fazer umas perguntinhas rápidas pra entender o que você procura?'], choices: [{ label: 'Pode perguntar', go: 's1', primary: true }, { label: 'Quer só o preço', go: 's0p' }] },
     s0p: { step: 'Abertura', say: ['Claro! A consulta é gratuita e a montagem tá por 120 reais na promoção especial de novembro, com limpeza grátis no dia. E pra eu te explicar o resto direitinho, me conta rapidinho: o que te fez procurar aparelho?'],
-      tip: 'Dá o número e devolve com pergunta. Assim a conversa continua.', choices: [{ label: 'Ela respondeu', go: 's1b', primary: true }, { label: 'Só queria o preço mesmo', go: 'SIT:curiosa' }] },
-    s1: { step: 'S · Situação', say: ['O aparelho é pra você? Já usou antes?'], tip: 'Situação é só contexto. No máximo 2 perguntas.', choices: [{ label: 'Próximo', go: 's1b', primary: true }, { label: 'É pra filho', go: 'SIT:crianca' }, { label: 'Usa agora em outro lugar', go: 'SIT:ja_usa' }] },
+      tip: 'Fala o valor e já emenda uma pergunta.', choices: [{ label: 'Ela respondeu', go: 's1b', primary: true }, { label: 'Só queria o preço mesmo', go: 'SIT:curiosa' }] },
+    s1: { step: 'S · Situação', say: ['O aparelho é pra você? Já usou antes?'], tip: 'No máximo 2 perguntas aqui.', choices: [{ label: 'Próximo', go: 's1b', primary: true }, { label: 'É pra filho', go: 'SIT:crianca' }, { label: 'Usa agora em outro lugar', go: 'SIT:ja_usa' }] },
     s1b: { step: 'S · Situação', say: ['Faz quanto tempo que você pensa em colocar?'], input: { key: 'tempo', label: 'Há quanto tempo', ph: 'Ex.: desde a adolescência' }, choices: [{ label: 'Próximo', go: 's2', primary: true }] },
     s2: { step: 'P · Problema', say: ['O que mais te incomoda hoje quando você sorri?'], input: { key: 'incomodo', label: 'O que ela disse', ph: 'Ex.: o espaço entre os dentes' }, choices: [{ label: 'Próximo', go: 's2b', primary: true }] },
     s2b: { step: 'P · Problema', say: ['Tem alguma coisa no dia a dia que te atrapalha por causa disso?'], input: { key: 'momento', label: 'Momento que ela citou', ph: 'Ex.: em fotos, no trabalho' }, choices: [{ label: 'Próximo', go: 's2c', primary: true }, { label: 'Disse que não atrapalha', go: 's2c' }] },
-    s2c: { step: 'P · Problema', say: ['E o que te impediu de começar até agora?'], tip: 'Toque no que ela respondeu. Isso decide a ponte da apresentação.',
+    s2c: { step: 'P · Problema', say: ['E o que te impediu de começar até agora?'], tip: 'Toca no que ela respondeu. A tela já monta a frase certa depois.',
       choices: [{ label: 'Dinheiro', go: 's3', set: function () { S.barreira = 'dinheiro'; }, primary: true }, { label: 'Medo', go: 's3', set: function () { S.barreira = 'medo'; }, primary: true }, { label: 'Tempo', go: 's3', set: function () { S.barreira = 'tempo'; }, primary: true }, { label: 'Confiança', go: 's3', set: function () { S.barreira = 'confianca'; }, primary: true }, { label: 'Nada, só não procurou', go: 's3', set: function () { S.barreira = 'nada'; } }] },
     s3: { step: 'I · Implicação', say: ['E em que momentos isso mais mexe com você? Em foto, numa conversa, no trabalho?'], tip: 'Use só as palavras dela. Nunca comente a aparência nem aumente o problema.',
       choices: [{ label: 'Ela se abriu', go: 's3b', primary: true }, { label: 'Não quis aprofundar', go: 's4' }, { label: 'Ficou emocionada', go: 's3c' }] },
     s3b: { step: 'I · Implicação', say: ['Se ficar do jeito que tá por mais um tempo, como você acha que vai se sentir?'], choices: [{ label: 'Próximo', go: 's4', primary: true }] },
-    s3c: { step: 'I · Implicação', say: ['Obrigada por dividir isso comigo, {nome}. Você não tá sozinha, muita gente sente a mesma coisa.'], tip: 'Acolhe e não aprofunda mais. Segue com calma.', choices: [{ label: 'Próximo', go: 's4', primary: true }] },
-    s4: { step: 'N · Necessidade', say: ['Se você já tivesse começado o aparelho, o que seria diferente pra você hoje?'], tip: 'Aqui ela mesma fala o benefício. Anota a frase dela.',
+    s3c: { step: 'I · Implicação', say: ['Obrigada por me contar, {nome}. Muita gente sente a mesma coisa.'], tip: 'Acolhe e não aprofunda mais. Segue com calma.', choices: [{ label: 'Próximo', go: 's4', primary: true }] },
+    s4: { step: 'N · Necessidade', say: ['Se você já tivesse começado o aparelho, o que seria diferente pra você hoje?'], tip: 'Anota essa frase do jeito que ela falou.',
       input: { key: 'beneficio', label: 'O que ela disse', ph: 'Ex.: sorrir sem vergonha nas fotos' }, choices: [{ label: 'Próximo', go: 's5', primary: true }] },
     s5: { step: 'Apresentação', say: ['{nome}, pelo que você me contou, você quer {beneficio}. E sobre {barreiraNome}, funciona assim: {ponte}.', 'O primeiro passo é uma consulta gratuita com a doutora. E na promoção especial de novembro a montagem tá por 120 reais, com limpeza grátis no dia da montagem.'],
       choices: [{ label: 'Ela concordou', go: 's6', primary: true }, { label: 'Fez uma pergunta', go: 'SIT' }, { label: 'Levantou objeção', go: 'OBJ' }] },
@@ -1232,7 +1220,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
     });
     var hr = new Date().getHours();
     document.getElementById('hello').textContent = (hr < 12 ? 'Bom dia' : hr < 18 ? 'Boa tarde' : 'Boa noite') + ', Geovana!';
-    var cheer = ['Bora marcar a primeira do dia?', 'Uma consulta marcada já faz o dia valer.', 'Tá voando hoje!', 'Que dia! Continua assim.'];
+    var cheer = ['Bora marcar a primeira do dia?', 'Já tem consulta no placar!', 'Tá voando hoje!', 'Que dia! Continua assim.'];
     document.getElementById('cheer').textContent = ag === 0 ? cheer[0] : ag < 3 ? cheer[1] : ag < 6 ? cheer[2] : cheer[3];
   }
   document.getElementById('sc-report').addEventListener('click', function () {
@@ -1416,7 +1404,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
       progress(1);
       register('agendou', S.hora || '');
       var ag = LOG.filter(function (l) { return l.r === 'agendou'; }).length;
-      w.innerHTML = '<p class="win-n">' + ag + 'ª</p><h3 class="node-title">Consulta marcada, Geovana!</h3><p class="node-tip">' + (ag === 1 ? 'A primeira do dia. Que comece a sequência!' : 'Mais uma pra conta. Você tá mandando bem demais.') + '</p><span class="label">Manda agora no WhatsApp</span>';
+      w.innerHTML = '<p class="win-n">' + ag + 'ª</p><h3 class="node-title">Consulta marcada, Geovana!</h3><p class="node-tip">' + (ag === 1 ? 'A primeira do dia!' : 'Mais uma! Tá mandando bem.') + '</p><span class="label">Manda agora no WhatsApp</span>';
       w.appendChild(msgBox('Oi, ' + nome + '! Sua consulta tá confirmada:\n' + (S.hora || '[dia e hora]') + '\nPromoção especial de novembro: montagem do aparelho por R$ 120 + limpeza grátis no dia da montagem.\nOdonto Medic, Avenida Castanheira, Bairro Tropical.\nLocalização: https://maps.google.com/?q=-6.0368444,-49.8918091\nQualquer coisa, é só me chamar aqui. Até lá!'));
       w.appendChild(el('span', 'label', 'Lembrete pra mandar na véspera'));
       w.appendChild(msgBox('Oi, ' + nome + '! Passando pra lembrar da sua consulta amanhã, ' + (S.hora || '[hora]') + ', aqui na Odonto Medic. Posso confirmar sua presença?'));
@@ -1449,7 +1437,7 @@ document.querySelectorAll('.copy').forEach(function (btn) {
       w.innerHTML = '<h3 class="node-title">Anotado: não ligar mais</h3><p class="node-tip">Ninguém da clínica deve chamar esse número de novo pela promoção.</p>';
       finish('Registrar e próxima', function () { register('naoligar'); });
     } else {
-      w.innerHTML = '<h3 class="node-title">Tudo bem, encerra com carinho</h3>' + sayBlock(['Tudo bem, ' + nome + '! Obrigada pela atenção. Se mudar de ideia, é só chamar a gente no WhatsApp, tá?']) + '<p class="node-tip">Nem toda ligação vira consulta. A próxima pode ser a sua.</p>';
+      w.innerHTML = '<h3 class="node-title">Tudo bem, encerra com carinho</h3>' + sayBlock(['Tudo bem, ' + nome + '! Obrigada pela atenção. Se mudar de ideia, é só chamar a gente no WhatsApp, tá?']) + '<p class="node-tip">Faz parte. Bora pra próxima.</p>';
       finish('Registrar e próxima', function () { register('seminteresse'); });
     }
     paint(w);
