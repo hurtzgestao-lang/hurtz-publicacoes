@@ -1,0 +1,903 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Black Rochamed 2026 | Calendário</title>
+<meta name="description" content="Calendário da Black Rochamed 2026: lives de teste, Live Esquenta Black em 20/11 e lives de venda em 28, 29 e 30 de novembro.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+<script>
+  try { if (localStorage.getItem('hurtz-tema') === 'escuro') document.documentElement.setAttribute('data-tema', 'escuro'); } catch (e) {}
+</script>
+<style>
+  :root {
+    --bg: #F5F2EC;
+    --surface: #FBF9F5;
+    --ink: #181614;
+    --ink-2: #3D3A36;
+    --muted: #8C8880;
+    --line: #E8E4DC;
+    --brasa: #C06018;
+    --brasa-ink: #974A12;
+    --brasa-soft: #F9EDE3;
+    --brasa-line: #F0CEB4;
+    --black-bg: #181614;
+    --black-ink: #F5F2EC;
+    --black-muted: #B9B4AA;
+    --ok: #1A7A4A;
+    --shadow: 0 1px 0 rgba(24,22,20,.04), 0 12px 32px rgba(24,22,20,.06);
+    --radius: 14px;
+    --display: "Outfit", "Inter", Helvetica, Arial, sans-serif;
+    --sans: "Inter", Helvetica, Arial, sans-serif;
+    color-scheme: light;
+  }
+  :root[data-tema="escuro"] {
+    --bg: #181614;
+    --surface: #1F1D1A;
+    --ink: #F5F2EC;
+    --ink-2: #D6D1C8;
+    --muted: #9C978E;
+    --line: #3D3A36;
+    --brasa: #D48444;
+    --brasa-ink: #E2A87A;
+    --brasa-soft: #2C1404;
+    --brasa-line: #4E2508;
+    --black-bg: #0F0E0D;
+    --black-ink: #F5F2EC;
+    --black-muted: #9C978E;
+    --shadow: none;
+    color-scheme: dark;
+  }
+  :root[data-tema="escuro"] .logo-escuro { display: none; }
+  :root:not([data-tema="escuro"]) .logo-claro { display: none; }
+
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; scroll-padding-top: 120px; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--ink);
+    font-family: var(--sans);
+    font-size: 16px;
+    line-height: 1.6;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { display: block; max-width: 100%; }
+  a { color: inherit; }
+  button { font: inherit; color: inherit; }
+  .wrap { width: min(1120px, 100% - 32px); margin-inline: auto; }
+
+  /* topo */
+  .topo {
+    position: sticky; top: 0; z-index: 20;
+    background: color-mix(in srgb, var(--bg) 92%, transparent);
+    backdrop-filter: blur(10px);
+    border-bottom: 1px solid var(--line);
+  }
+  .topo-linha { display: flex; align-items: center; justify-content: space-between; gap: 12px; height: 60px; }
+  .topo img { height: 22px; width: auto; }
+  .tema {
+    border: 1px solid var(--line); background: var(--surface); border-radius: 999px;
+    padding: 6px 14px; font-size: 13px; cursor: pointer;
+  }
+  .nav { display: flex; gap: 6px; overflow-x: auto; padding: 0 0 10px; scrollbar-width: none; }
+  .nav::-webkit-scrollbar { display: none; }
+  .nav a {
+    flex: none; text-decoration: none; font-size: 13px; font-weight: 600;
+    padding: 6px 12px; border-radius: 999px; border: 1px solid var(--line); color: var(--ink-2);
+    background: var(--surface);
+  }
+  .nav a:hover { border-color: var(--brasa); color: var(--brasa-ink); }
+
+  /* hero */
+  .hero { padding: 56px 0 32px; display: grid; gap: 40px; grid-template-columns: 1.15fr .85fr; align-items: center; }
+  .marca-cliente { display: flex; align-items: center; gap: 12px; margin-bottom: 22px; }
+  .marca-cliente img { width: 44px; height: 44px; border-radius: 50%; }
+  .marca-cliente span { font-size: 13px; color: var(--muted); letter-spacing: .02em; }
+  .marca-cliente strong { display: block; color: var(--ink); font-size: 14px; letter-spacing: 0; }
+  h1 {
+    font-family: var(--display); font-weight: 700; letter-spacing: -.02em;
+    font-size: clamp(40px, 7vw, 72px); line-height: 1; margin: 0 0 20px;
+  }
+  h1 em { font-style: normal; color: var(--brasa); }
+  .lead { font-size: 18px; color: var(--ink-2); max-width: 540px; margin: 0 0 28px; }
+  .acoes { display: flex; flex-wrap: wrap; gap: 10px; }
+  .btn {
+    display: inline-flex; align-items: center; gap: 8px; cursor: pointer;
+    border-radius: 999px; padding: 12px 20px; font-weight: 600; font-size: 15px;
+    border: 1px solid var(--ink); background: var(--ink); color: var(--bg); text-decoration: none;
+  }
+  .btn.sec { background: transparent; color: var(--ink); border-color: var(--line); }
+  .btn.sec:hover { border-color: var(--ink); }
+  .hero-fotos { position: relative; height: 460px; }
+  .hero-fotos img {
+    position: absolute; object-fit: cover; border-radius: 18px; box-shadow: 0 20px 50px rgba(24,22,20,.18);
+  }
+  .hero-fotos .f1 { width: 80%; height: 66%; right: 0; top: 0; object-position: center 55%; }
+  .hero-fotos .f2 { width: 42%; height: 58%; left: 0; bottom: 0; object-position: center 70%; border: 5px solid var(--bg); }
+
+  /* datas-chave */
+  .chave { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 8px; margin: 8px 0 72px; }
+  .chave a {
+    text-decoration: none; border: 1px solid var(--line); background: var(--surface);
+    border-radius: 12px; padding: 12px 12px 14px; display: block;
+  }
+  .chave a:hover { border-color: var(--brasa); }
+  .chave .dt { font-family: var(--display); font-weight: 700; font-size: 22px; line-height: 1.1; }
+  .chave .dw { font-size: 12px; color: var(--muted); }
+  .chave .nm { font-size: 13px; font-weight: 600; margin-top: 6px; line-height: 1.3; }
+  .chave .teste { border-color: var(--brasa-line); background: var(--brasa-soft); }
+  .chave .black { background: var(--black-bg); color: var(--black-ink); border-color: var(--black-bg); }
+  .chave .black .dw { color: var(--black-muted); }
+
+  /* seções */
+  section { margin-bottom: 88px; }
+  .sec-titulo { display: flex; align-items: end; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 24px; }
+  .eyebrow { font-size: 12px; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--brasa-ink); margin: 0 0 6px; }
+  h2 { font-family: var(--display); font-weight: 700; font-size: clamp(28px, 4vw, 40px); letter-spacing: -.015em; line-height: 1.1; margin: 0; }
+  h3 { font-family: var(--display); font-weight: 700; font-size: 20px; line-height: 1.25; margin: 0 0 6px; }
+  .sub { color: var(--ink-2); max-width: 640px; margin: 10px 0 0; }
+
+  /* grade do calendário */
+  .legenda { display: flex; flex-wrap: wrap; gap: 14px; font-size: 13px; color: var(--ink-2); }
+  .legenda span { display: inline-flex; align-items: center; gap: 6px; }
+  .legenda i { width: 14px; height: 14px; border-radius: 4px; display: inline-block; border: 1px solid var(--line); }
+  .lg-aq { background: var(--surface); }
+  .lg-es { background: var(--brasa-soft); border-color: var(--brasa-line) !important; }
+  .lg-bf { background: var(--black-bg); border-color: var(--black-bg) !important; }
+  .lg-live { background: var(--brasa); border-color: var(--brasa) !important; border-radius: 50% !important; }
+  .grade { display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); gap: 6px; }
+  .grade .sem { font-size: 12px; font-weight: 600; color: var(--muted); text-align: center; padding-bottom: 4px; text-transform: uppercase; letter-spacing: .06em; }
+  .cel {
+    min-height: 104px; border-radius: 12px; border: 1px solid var(--line); background: var(--surface);
+    padding: 8px 10px; text-align: left; cursor: pointer; display: flex; flex-direction: column; gap: 4px;
+    transition: transform .12s ease, border-color .12s ease;
+  }
+  .cel:hover { transform: translateY(-2px); border-color: var(--brasa); }
+  .cel.fora { background: transparent; border-style: dashed; opacity: .45; cursor: default; }
+  .cel.fora:hover { transform: none; border-color: var(--line); }
+  .cel .n { font-family: var(--display); font-weight: 700; font-size: 18px; line-height: 1; }
+  .cel .m { font-size: 11px; color: var(--muted); font-weight: 400; margin-left: 2px; }
+  .cel .t { font-size: 12px; line-height: 1.3; color: var(--ink-2); }
+  .cel.es { background: var(--brasa-soft); border-color: var(--brasa-line); }
+  .cel.bf { background: var(--black-bg); border-color: var(--black-bg); color: var(--black-ink); }
+  .cel.bf .t, .cel.bf .m { color: var(--black-muted); }
+  .cel .pill {
+    margin-top: auto; align-self: flex-start; font-size: 11px; font-weight: 600; line-height: 1.2;
+    background: var(--brasa); color: #F5F2EC; border-radius: 999px; padding: 3px 8px;
+  }
+  .cel.hoje { outline: 2px solid var(--brasa); outline-offset: 2px; }
+  .cel .hj { font-size: 10px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; color: var(--brasa-ink); }
+  .cel.bf .hj { color: var(--brasa-line); }
+
+  /* fases e dias */
+  .fase { margin-bottom: 48px; }
+  .fase-cab {
+    display: grid; grid-template-columns: auto 1fr; gap: 4px 16px; align-items: baseline;
+    padding: 18px 0; border-top: 2px solid var(--ink); margin-bottom: 16px;
+  }
+  .fase-cab .num { font-family: var(--display); font-weight: 700; font-size: 14px; color: var(--brasa-ink); grid-row: span 2; }
+  .fase-cab h3 { font-size: 24px; margin: 0; }
+  .fase-cab p { margin: 0; color: var(--ink-2); grid-column: 2; }
+  .dias { display: grid; gap: 12px; }
+  .dia {
+    display: grid; grid-template-columns: 110px 1fr; gap: 20px; background: var(--surface);
+    border: 1px solid var(--line); border-radius: var(--radius); padding: 18px 20px; box-shadow: var(--shadow);
+    scroll-margin-top: 120px;
+  }
+  .dia.es { background: var(--brasa-soft); border-color: var(--brasa-line); }
+  .dia.bf { background: var(--black-bg); border-color: var(--black-bg); color: var(--black-ink); }
+  .dia.bf .item p, .dia.bf .data .dw, .dia.bf .nota { color: var(--black-muted); }
+  .dia.bf .tag { border-color: #3D3A36; color: var(--black-ink); }
+  .dia.foco { outline: 2px solid var(--brasa); outline-offset: 3px; }
+  .data .dd { font-family: var(--display); font-weight: 700; font-size: 34px; line-height: 1; }
+  .data .dw { font-size: 13px; color: var(--muted); margin-top: 4px; }
+  .data .hj { display: inline-block; margin-top: 8px; font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em; background: var(--brasa); color: #F5F2EC; padding: 2px 8px; border-radius: 999px; }
+  .dia h4 { font-family: var(--display); font-size: 20px; font-weight: 700; margin: 0 0 10px; line-height: 1.25; }
+  .live-badge {
+    display: inline-flex; align-items: center; gap: 8px; font-size: 12px; font-weight: 600; letter-spacing: .04em;
+    background: var(--brasa); color: #F5F2EC; border-radius: 999px; padding: 4px 10px 4px 8px; margin-bottom: 10px;
+  }
+  .live-badge::before { content: ""; width: 8px; height: 8px; border-radius: 50%; background: #F5F2EC; }
+  .itens { display: grid; gap: 8px; }
+  .item { display: grid; grid-template-columns: 96px 1fr; gap: 12px; align-items: start; }
+  .item p { margin: 0; color: var(--ink-2); font-size: 15px; }
+  .tag {
+    font-size: 11px; font-weight: 600; text-transform: uppercase; letter-spacing: .08em;
+    border: 1px solid var(--line); border-radius: 6px; padding: 3px 7px; text-align: center; line-height: 1.4;
+  }
+  .tag.live { background: var(--brasa); color: #F5F2EC !important; border-color: var(--brasa) !important; }
+  .quem { font-size: 11px; font-weight: 600; color: var(--muted); margin-left: 6px; text-transform: uppercase; letter-spacing: .06em; }
+  .dia.bf .quem { color: var(--black-muted); }
+  .nota { margin: 12px 0 0; font-size: 14px; color: var(--muted); border-left: 2px solid var(--brasa); padding-left: 10px; }
+
+  /* lives */
+  .lives-grupo { margin-bottom: 18px; font-size: 13px; font-weight: 600; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); }
+  .lives { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 16px; margin-bottom: 40px; }
+  .live {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 18px; overflow: hidden;
+    display: flex; flex-direction: column; box-shadow: var(--shadow);
+  }
+  .live.bf { background: var(--black-bg); color: var(--black-ink); border-color: var(--black-bg); }
+  .live .foto { aspect-ratio: 4 / 3; overflow: hidden; background: var(--line); }
+  .live .foto img { width: 100%; height: 100%; object-fit: cover; }
+  .live .corpo { padding: 18px 20px 20px; display: flex; flex-direction: column; gap: 10px; flex: 1; }
+  .live .quando { font-size: 13px; font-weight: 600; color: var(--brasa-ink); }
+  .live.bf .quando { color: var(--brasa-line); }
+  .live h3 { margin: 0; }
+  .live p { margin: 0; font-size: 15px; color: var(--ink-2); }
+  .live.bf p { color: var(--black-muted); }
+  .live .testa { margin-top: auto; padding-top: 12px; border-top: 1px solid var(--line); font-size: 14px; }
+  .live.bf .testa { border-color: #3D3A36; }
+  .live .testa b { display: block; font-size: 11px; text-transform: uppercase; letter-spacing: .1em; color: var(--muted); margin-bottom: 2px; }
+
+  .medir { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .caixa { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 22px 24px; }
+  .caixa ul, .caixa ol { margin: 0; padding-left: 20px; }
+  .caixa li { margin-bottom: 8px; color: var(--ink-2); }
+  .caixa li:last-child { margin-bottom: 0; }
+  .caixa li strong { color: var(--ink); }
+
+  /* semana */
+  .semana { display: grid; grid-template-columns: 300px 1fr; gap: 28px; align-items: center; background: var(--surface); border: 1px solid var(--line); border-radius: 18px; padding: 20px; }
+  .semana img { width: 100%; aspect-ratio: 4 / 5; object-fit: cover; border-radius: 12px; }
+  .dias-semana { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 10px; margin-top: 16px; }
+  .dias-semana div { border: 1px solid var(--line); border-radius: 12px; padding: 12px; }
+  .dias-semana b { display: block; font-family: var(--display); font-size: 16px; }
+  .dias-semana span { font-size: 14px; color: var(--ink-2); }
+
+  /* roteiro */
+  .barra { display: flex; height: 56px; border-radius: 12px; overflow: hidden; margin-bottom: 20px; border: 1px solid var(--line); }
+  .barra div { display: flex; align-items: center; justify-content: center; font-size: 12px; font-weight: 600; padding: 0 6px; text-align: center; line-height: 1.2; border-right: 1px solid var(--bg); }
+  .barra div:last-child { border-right: 0; }
+  .b-abre, .b-fecha { background: var(--line); color: var(--ink); }
+  .b-bloco { background: var(--surface); color: var(--ink); }
+  .b-rel { background: var(--brasa); color: #F5F2EC; }
+  .b-rep { background: var(--brasa-soft); color: var(--brasa-ink); }
+  .passos-roteiro { display: grid; gap: 10px; }
+  .pr { display: grid; grid-template-columns: 96px 1fr; gap: 16px; padding: 14px 0; border-bottom: 1px solid var(--line); }
+  .pr:last-child { border-bottom: 0; }
+  .pr .min { font-family: var(--display); font-weight: 700; font-size: 18px; }
+  .pr p { margin: 2px 0 0; color: var(--ink-2); }
+  .pr h4 { margin: 0; font-size: 16px; }
+
+  /* operação */
+  .fluxo { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; margin-bottom: 40px; counter-reset: passo; }
+  .fluxo div { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px; position: relative; }
+  .fluxo div::before {
+    counter-increment: passo; content: counter(passo);
+    display: inline-flex; align-items: center; justify-content: center; width: 32px; height: 32px; border-radius: 50%;
+    background: var(--ink); color: var(--bg); font-family: var(--display); font-weight: 700; margin-bottom: 12px;
+  }
+  .fluxo h4 { margin: 0 0 4px; font-size: 16px; }
+  .fluxo p { margin: 0; font-size: 14px; color: var(--ink-2); }
+  .duas { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+  .equipe { display: grid; gap: 14px; }
+  .equipe div h4 { margin: 0; font-size: 16px; }
+  .equipe div p { margin: 2px 0 0; color: var(--ink-2); font-size: 15px; }
+  .check { list-style: none; padding: 0 !important; margin: 0; }
+  .check li { margin-bottom: 4px !important; }
+  .check label { display: flex; gap: 10px; align-items: flex-start; cursor: pointer; padding: 6px 0; }
+  .check input { width: 18px; height: 18px; accent-color: var(--brasa); margin-top: 3px; flex: none; }
+  .check input:checked + span { text-decoration: line-through; color: var(--muted); }
+  .limpar { margin-top: 12px; border: 0; background: none; color: var(--muted); font-size: 13px; text-decoration: underline; cursor: pointer; padding: 0; }
+
+  /* tráfego */
+  .trafego { display: grid; gap: 12px; }
+  .tr { display: grid; grid-template-columns: 220px 1fr; gap: 24px; background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 24px; }
+  .tr.es { background: var(--brasa-soft); border-color: var(--brasa-line); }
+  .tr.bf { background: var(--black-bg); color: var(--black-ink); border-color: var(--black-bg); }
+  .tr.bf p { color: var(--black-muted); }
+  .tr h4 { margin: 0; font-family: var(--display); font-size: 18px; }
+  .tr .per { font-size: 13px; color: var(--muted); }
+  .tr p { margin: 0; color: var(--ink-2); }
+  .intensidade { display: flex; gap: 4px; margin-top: 10px; }
+  .intensidade i { width: 22px; height: 6px; border-radius: 3px; background: var(--line); }
+  .intensidade i.on { background: var(--brasa); }
+  .dado { margin-top: 16px; font-size: 15px; color: var(--ink-2); }
+  .dado strong { color: var(--ink); }
+
+  /* regras */
+  .regras { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+  .regra { background: var(--surface); border: 1px solid var(--line); border-radius: var(--radius); padding: 20px 22px; }
+  .regra h4 { margin: 0 0 6px; font-size: 16px; }
+  .regra p { margin: 0; color: var(--ink-2); font-size: 15px; }
+
+  footer { border-top: 1px solid var(--line); padding: 32px 0 48px; color: var(--muted); font-size: 14px; }
+  footer .wrap { display: flex; justify-content: space-between; align-items: center; gap: 16px; flex-wrap: wrap; }
+  footer img { height: 20px; width: auto; }
+
+  @media (max-width: 900px) {
+    .hero { grid-template-columns: 1fr; padding-top: 32px; gap: 28px; }
+    .hero-fotos { height: 340px; }
+    .chave { grid-template-columns: repeat(7, 140px); overflow-x: auto; padding-bottom: 6px; margin-right: -16px; padding-right: 16px; }
+    .lives { grid-template-columns: 1fr 1fr; }
+    .fluxo { grid-template-columns: 1fr 1fr; }
+    .semana { grid-template-columns: 1fr; }
+    .semana img { aspect-ratio: 16 / 10; }
+  }
+  @media (max-width: 640px) {
+    body { font-size: 15px; }
+    .lead { font-size: 16px; }
+    .hero-fotos { height: 280px; }
+    .grade { gap: 3px; }
+    .grade .sem { font-size: 10px; letter-spacing: 0; }
+    .cel { min-height: 64px; padding: 5px; border-radius: 8px; gap: 2px; }
+    .cel .n { font-size: 15px; }
+    .cel .m { display: none; }
+    .cel .t { display: none; }
+    .cel .hj { font-size: 8px; letter-spacing: 0; }
+    .cel .pill { font-size: 0; width: 12px; height: 12px; padding: 0; }
+    .dia { grid-template-columns: 1fr; gap: 10px; padding: 16px; }
+    .data { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; }
+    .data .dd { font-size: 26px; }
+    .data .dw, .data .hj { margin-top: 0; }
+    .item { grid-template-columns: 1fr; gap: 4px; }
+    .tag { justify-self: start; }
+    .lives, .medir, .duas, .regras, .fluxo { grid-template-columns: 1fr; }
+    .dias-semana { grid-template-columns: 1fr 1fr; }
+    .tr { grid-template-columns: 1fr; gap: 8px; }
+    .pr { grid-template-columns: 72px 1fr; }
+    .barra { height: 44px; }
+    .barra div { font-size: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topo">
+  <div class="wrap">
+    <div class="topo-linha">
+      <div>
+        <img class="logo-escuro" src="assets/logo-hurtz-escuro.png" alt="Hurtz">
+        <img class="logo-claro" src="assets/logo-hurtz-claro.png" alt="Hurtz">
+      </div>
+      <button class="tema" id="tema" type="button">Tema escuro</button>
+    </div>
+    <nav class="nav" aria-label="Seções">
+      <a href="#calendario">Calendário</a>
+      <a href="#dia-a-dia">Dia a dia</a>
+      <a href="#lives">Lives</a>
+      <a href="#roteiro">Roteiro</a>
+      <a href="#operacao">Operação</a>
+      <a href="#trafego">Tráfego</a>
+      <a href="#regras">Regras</a>
+    </nav>
+  </div>
+</header>
+
+<main class="wrap">
+
+  <div class="hero">
+    <div>
+      <div class="marca-cliente">
+        <img src="assets/rochamed.jpg" alt="Farmácias Rochamed">
+        <span><strong>Farmácias Rochamed</strong>Parauapebas, PA</span>
+      </div>
+      <h1>Black Rochamed <em>2026</em></h1>
+      <p class="lead">Do anúncio das datas até o pós-venda: 13/11 a 02/12. Duas lives de teste, a Live Esquenta Black na sexta, 20/11, e três lives de venda na Black, nos dias 28, 29 e 30 de novembro.</p>
+      <div class="acoes">
+        <button class="btn" id="ir-hoje" type="button">Ir para hoje</button>
+        <button class="btn sec" id="baixar-ics" type="button">Salvar as lives na agenda</button>
+      </div>
+    </div>
+    <div class="hero-fotos" aria-hidden="true">
+      <img class="f1" src="assets/esquenta-topo.jpg" alt="">
+      <img class="f2" src="assets/cica.jpg" alt="">
+    </div>
+  </div>
+
+  <div class="chave" id="chave"></div>
+
+  <section id="calendario">
+    <div class="sec-titulo">
+      <div>
+        <p class="eyebrow">Visão do mês</p>
+        <h2>Calendário</h2>
+      </div>
+      <div class="legenda">
+        <span><i class="lg-aq"></i>Aquecimento</span>
+        <span><i class="lg-es"></i>Esquenta</span>
+        <span><i class="lg-bf"></i>Black</span>
+        <span><i class="lg-live"></i>Live</span>
+      </div>
+    </div>
+    <div class="grade" id="grade"></div>
+  </section>
+
+  <section id="dia-a-dia">
+    <div class="sec-titulo">
+      <div>
+        <p class="eyebrow">O que sai em cada dia</p>
+        <h2>Dia a dia</h2>
+        <p class="sub">Cada ação tem dono. <b>Hurtz</b> cuida de feed, reels e anúncios. <b>Loja</b> cuida de lives, stories do dia, WhatsApp e estoque.</p>
+      </div>
+    </div>
+    <div id="fases"></div>
+  </section>
+
+  <section id="semana">
+    <div class="semana">
+      <img src="assets/semana.jpg" alt="Campanhas da semana Rochamed">
+      <div>
+        <p class="eyebrow">A semana continua</p>
+        <h2>As campanhas fixas seguem rodando</h2>
+        <p class="sub">O público já espera essas ofertas. Elas continuam e passam a levar o aviso das lives e da Black.</p>
+        <div class="dias-semana">
+          <div><b>Segunda</b><span>Suplementação</span></div>
+          <div><b>Terça</b><span>Genérico</span></div>
+          <div><b>Quarta</b><span>Quarta da Beleza</span></div>
+          <div><b>Quinta</b><span>Missão Quinta da Fralda</span></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="lives">
+    <div class="sec-titulo">
+      <div>
+        <p class="eyebrow">Seis lives</p>
+        <h2>Antes da Black, cada live testa uma coisa</h2>
+        <p class="sub">As três primeiras já vendem e servem para acertar horário, produtos e o caminho do pedido. O que funcionar nelas vai para os dias 28, 29 e 30.</p>
+      </div>
+    </div>
+    <p class="lives-grupo">Antes da Black</p>
+    <div class="lives" id="lives-antes"></div>
+    <p class="lives-grupo">Black Rochamed</p>
+    <div class="lives" id="lives-black"></div>
+
+    <div class="medir">
+      <div class="caixa">
+        <h3>O que anotar em cada live</h3>
+        <ul>
+          <li><strong>Pico de pessoas ao vivo</strong> e quanto tempo ficaram</li>
+          <li><strong>Comentários "eu quero"</strong> por produto</li>
+          <li><strong>Conversas abertas</strong> no WhatsApp durante e depois da live</li>
+          <li><strong>Pedidos fechados</strong>, faturamento e ticket médio</li>
+          <li><strong>Produto mais pedido</strong> e o que ninguém pediu</li>
+          <li><strong>Onde travou</strong>: fila no WhatsApp, pagamento, estoque, entrega</li>
+        </ul>
+      </div>
+      <div class="caixa">
+        <h3>Como decidir depois dos testes</h3>
+        <ul>
+          <li>O horário que trouxe mais <strong>pedidos</strong> fica para a Black. Audiência sozinha não decide.</li>
+          <li>Produto sem pedido em duas lives sai do mix.</li>
+          <li>Produto mais pedido volta na live seguinte e vira âncora da Black.</li>
+          <li>Se o WhatsApp formar fila, entra mais uma pessoa no atendimento.</li>
+          <li>O formato do ensaio de 25/11 é o que vai ao ar nos dias 28, 29 e 30.</li>
+        </ul>
+      </div>
+    </div>
+  </section>
+
+  <section id="roteiro">
+    <div class="sec-titulo">
+      <div>
+        <p class="eyebrow">Live de 60 minutos</p>
+        <h2>Roteiro</h2>
+        <p class="sub">Um produto a cada 4 ou 5 minutos, com oferta-relâmpago para segurar quem está assistindo. Na live de teste de 40 minutos, fica uma oferta-relâmpago só.</p>
+      </div>
+    </div>
+    <div class="barra" aria-hidden="true">
+      <div class="b-abre" style="flex:5">Abertura</div>
+      <div class="b-bloco" style="flex:15">Bloco 1</div>
+      <div class="b-rel" style="flex:5">Relâmpago</div>
+      <div class="b-bloco" style="flex:15">Bloco 2</div>
+      <div class="b-rel" style="flex:5">Relâmpago</div>
+      <div class="b-rep" style="flex:10">Repasse</div>
+      <div class="b-fecha" style="flex:5">Fecho</div>
+    </div>
+    <div class="caixa passos-roteiro">
+      <div class="pr"><div class="min">0 a 5</div><div><h4>Abertura</h4><p>Cumprimenta quem chega, pede para comentar de onde está assistindo e explica como comprar: comenta "eu quero" e o nome do produto.</p></div></div>
+      <div class="pr"><div class="min">5 a 20</div><div><h4>Bloco 1, três produtos</h4><p>Mostra na mão, fala para quem é, dá o preço de/por da live e chama o comentário.</p></div></div>
+      <div class="pr"><div class="min">20 a 25</div><div><h4>Oferta-relâmpago</h4><p>Um produto com preço só para quem está ao vivo, por 5 minutos. Avisa no começo da live que vai ter.</p></div></div>
+      <div class="pr"><div class="min">25 a 40</div><div><h4>Bloco 2, três produtos</h4><p>Mesma dinâmica. Começa pelo produto mais forte do bloco.</p></div></div>
+      <div class="pr"><div class="min">40 a 45</div><div><h4>Segunda oferta-relâmpago</h4><p>Pode ser o produto mais pedido até aqui, com mais desconto.</p></div></div>
+      <div class="pr"><div class="min">45 a 55</div><div><h4>Repasse</h4><p>Volta nos mais pedidos para quem chegou depois.</p></div></div>
+      <div class="pr"><div class="min">55 a 60</div><div><h4>Fecho</h4><p>Data e hora da próxima live. Preço da live vale até 23h59 no WhatsApp.</p></div></div>
+    </div>
+  </section>
+
+  <section id="operacao">
+    <div class="sec-titulo">
+      <div>
+        <p class="eyebrow">Na hora da live</p>
+        <h2>Operação</h2>
+      </div>
+    </div>
+    <h3 style="margin-bottom:14px">Como o cliente compra</h3>
+    <div class="fluxo">
+      <div><h4>Comenta</h4><p>"Eu quero" e o nome do produto, nos comentários da live.</p></div>
+      <div><h4>Recebe o contato</h4><p>A equipe chama no Direct ou no WhatsApp. O link do WhatsApp fica fixado nos comentários.</p></div>
+      <div><h4>Paga</h4><p>Pix, cartão ou link de pagamento, com o preço da live.</p></div>
+      <div><h4>Recebe</h4><p>Entrega da Rochamed em casa ou retirada na loja.</p></div>
+    </div>
+    <div class="duas">
+      <div class="caixa">
+        <h3>Equipe de cada live</h3>
+        <div class="equipe">
+          <div><h4>Apresentadora</h4><p>Alguém da equipe que o público conhece. Em dermocosmético, a farmacêutica dá mais segurança.</p></div>
+          <div><h4>Comentários</h4><p>Responde, fixa o link do WhatsApp e anota quem pediu o quê.</p></div>
+          <div><h4>WhatsApp</h4><p>Fecha os pedidos com a tabela de preços da live. A live de 18/11 mostra se uma pessoa dá conta.</p></div>
+          <div><h4>Separação</h4><p>Deixa os produtos na ordem do roteiro e separa os pedidos durante a live.</p></div>
+        </div>
+      </div>
+      <div class="caixa">
+        <h3>Checklist antes de entrar ao vivo</h3>
+        <ul class="check" id="checklist"></ul>
+        <button class="limpar" id="limpar" type="button">Desmarcar tudo para a próxima live</button>
+      </div>
+    </div>
+  </section>
+
+  <section id="trafego">
+    <div class="sec-titulo">
+      <div>
+        <p class="eyebrow">Meta Ads</p>
+        <h2>Tráfego por fase</h2>
+        <p class="sub">Os anúncios de mensagem seguem como base e ganham verba conforme a Black se aproxima.</p>
+      </div>
+    </div>
+    <div class="trafego">
+      <div class="tr">
+        <div><h4>Aquecimento</h4><div class="per">13 a 19/11</div><div class="intensidade"><i class="on"></i><i></i><i></i></div></div>
+        <p>Campanha de mensagens com o anúncio das datas e o convite para o grupo VIP. Os anúncios que hoje trazem conversa continuam. Convites da live de 18/11 e da Esquenta impulsionados para quem mora perto das lojas.</p>
+      </div>
+      <div class="tr es">
+        <div><h4>Esquenta</h4><div class="per">20 a 26/11</div><div class="intensidade"><i class="on"></i><i class="on"></i><i></i></div></div>
+        <p>Convite de cada live impulsionado na véspera e no dia, até a hora de entrar ao vivo. A partir de 23/11 a verba sobe, com as revelações de preço nas mensagens e o vídeo "como comprar na live" em alcance.</p>
+      </div>
+      <div class="tr bf">
+        <div><h4>Black</h4><div class="per">27 a 30/11</div><div class="intensidade"><i class="on"></i><i class="on"></i><i class="on"></i></div></div>
+        <p>Verba no pico. Mensagens com as ofertas do dia, impulsionamento de cada live e anúncio para quem já interagiu com o perfil ou assistiu aos vídeos.</p>
+      </div>
+    </div>
+    <p class="dado">Na semana de 05 a 12/11 as campanhas abriram <strong>26 conversas a cerca de R$ 5,64 cada</strong>, com frequência de <strong>1,55</strong>. O público ainda não cansou dos anúncios, então há espaço para subir a verba sem saturar.</p>
+  </section>
+
+  <section id="regras">
+    <div class="sec-titulo">
+      <div>
+        <p class="eyebrow">Farmácia ao vivo</p>
+        <h2>Regras da live</h2>
+        <p class="sub">Na dúvida sobre um produto, o farmacêutico responsável decide se ele entra.</p>
+      </div>
+    </div>
+    <div class="regras">
+      <div class="regra"><h4>Medicamento</h4><p>Medicamento de tarja não entra em oferta na live. Isento de prescrição só com a advertência obrigatória e orientação do farmacêutico.</p></div>
+      <div class="regra"><h4>Linha infantil</h4><p>Fórmula infantil, mamadeira, bico e chupeta não entram em oferta (NBCAL, Lei 11.265/2006). Leite em pó e composto lácteo levam a frase do Ministério da Saúde sobre aleitamento materno.</p></div>
+      <div class="regra"><h4>Preço de/por</h4><p>O "de" é o preço que estava na prateleira antes da Black. O Procon fiscaliza preço nessa época.</p></div>
+      <div class="regra"><h4>Estoque</h4><p>Só entra na live o que tem estoque para a live inteira. "Últimas unidades" só quando for verdade.</p></div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>Calendário preparado pela Hurtz Company para as Farmácias Rochamed. Atualizado em 12/11/2026.</span>
+    <span>
+      <img class="logo-escuro" src="assets/logo-hurtz-escuro.png" alt="Hurtz">
+      <img class="logo-claro" src="assets/logo-hurtz-claro.png" alt="Hurtz">
+    </span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  var FASES = [
+    { id: 'aq', num: '01', nome: 'Aquecimento', periodo: '13 a 19/11', obj: 'Avisar as datas, montar o grupo VIP no WhatsApp e rodar a primeira live de teste.' },
+    { id: 'es', num: '02', nome: 'Esquenta', periodo: '20 a 26/11', obj: 'Live Esquenta Black na sexta, revelação das ofertas e ensaio do formato final.' },
+    { id: 'bf', num: '03', nome: 'Black Rochamed', periodo: '27 a 30/11', obj: 'Abertura na sexta e três lives de venda.' },
+    { id: 'pos', num: '04', nome: 'Pós-Black', periodo: '01 e 02/12', obj: 'Entregar, fazer o pós-venda e fechar os números.' }
+  ];
+
+  // tipo, dono, texto
+  var DIAS = [
+    { d: '2026-11-13', f: 'aq', t: 'Anúncio das datas', itens: [
+      ['Feed', 'Hurtz', 'Carrossel com as datas: Live Esquenta Black na sexta 20/11, às 18h, e Black Rochamed de 27 a 30/11, com lives nos dias 28, 29 e 30. O último card chama para o grupo VIP.'],
+      ['Stories', 'Loja', 'Enquete "o que você quer ver com desconto na Black?": beleza, cabelo, perfume, infantil ou suplemento.'],
+      ['WhatsApp', 'Loja', 'Abrir o grupo VIP de ofertas, onde só a farmácia posta. Link na bio e nos stories.'],
+      ['Tráfego', 'Hurtz', 'Campanha de mensagens com o carrossel. Chamada: entra no VIP e recebe as ofertas antes.']
+    ]},
+    { d: '2026-11-14', f: 'aq', t: 'Bastidores', itens: [
+      ['Reels', 'Hurtz', 'Equipe na loja separando produtos: escolhendo o que entra na Black.'],
+      ['Stories', 'Loja', 'Resultado da enquete e link do grupo VIP.']
+    ]},
+    { d: '2026-11-15', f: 'aq', t: 'Dia leve', itens: [
+      ['Stories', 'Loja', 'Um lembrete do grupo VIP basta.']
+    ]},
+    { d: '2026-11-16', f: 'aq', t: 'Segunda da Suplementação', itens: [
+      ['Feed', 'Hurtz', 'Post da Segunda da Suplementação, como de costume.'],
+      ['Live', 'Loja', 'Agendar no Instagram a live de quarta, 19h, e a Live Esquenta Black de sexta, 18h, para o público ativar o lembrete.'],
+      ['Stories', 'Loja', '"Quarta tem a primeira live da Rochamed", com a figurinha de lembrete.']
+    ]},
+    { d: '2026-11-17', f: 'aq', t: 'Terça do Genérico', itens: [
+      ['Feed', 'Hurtz', 'Terça do Genérico, como de costume. Genérico fica fora das lives.'],
+      ['Reels', 'Hurtz', 'A apresentadora convida para a live de amanhã, em 15 segundos.'],
+      ['Tráfego', 'Hurtz', 'Impulsionar o convite para quem mora perto das lojas, até a hora da live.']
+    ]},
+    { d: '2026-11-18', f: 'aq', t: 'Quarta da Beleza ao vivo', live: { tipo: 'teste', rotulo: 'Live de teste', hora: '19h', dur: 40, nome: 'Quarta da Beleza ao vivo' }, itens: [
+      ['Live', 'Loja', '40 minutos com 6 a 8 produtos de beleza e cabelo: kits Eldora Siàge, Haskell, Labotrat e Principia. Preço da live vale até 23h59 no WhatsApp.'],
+      ['Feed', 'Hurtz', 'Quarta da Beleza com o aviso da live às 19h.'],
+      ['Stories', 'Loja', 'Contagem regressiva ao longo do dia e "falta 1 hora" às 18h.'],
+      ['WhatsApp', 'Loja', 'Aviso no grupo VIP às 18h30 com o link da live.']
+    ]},
+    { d: '2026-11-19', f: 'aq', t: 'Quinta da Fralda e convite da Esquenta', itens: [
+      ['Feed', 'Hurtz', 'Missão Quinta da Fralda, como de costume.'],
+      ['Feed', 'Hurtz', '"Amanhã tem Live Esquenta Black, às 18h", com três ofertas em destaque.'],
+      ['Reels', 'Hurtz', 'Corte da live de quarta com o produto mais pedido.'],
+      ['Tráfego', 'Hurtz', 'Impulsionar o convite da Esquenta para quem mora perto das lojas, até a hora da live.'],
+      ['Reunião', 'Todos', '20 minutos para olhar os números da live de quarta e o que travou no pedido.']
+    ]},
+    { d: '2026-11-20', f: 'es', t: 'Live Esquenta Black', live: { tipo: 'esquenta', rotulo: 'Esquenta Black', hora: '18h', dur: 60, nome: 'Live Esquenta Black' }, nota: 'Feriado da Consciência Negra. O fim de tarde de feriado é o mais perto de um fim de semana antes da Black, por isso a live de sábado, 28/11, usa o mesmo horário. O feriado pode reduzir o público: vale comparar pedidos, não só audiência.', itens: [
+      ['Live', 'Loja', '60 minutos com uma amostra das ofertas da Black: os mais pedidos de quarta, perfumes, kits de presente e um item de cada categoria. Termina anunciando a Black de 27 a 30.'],
+      ['Stories', 'Loja', 'Contagem regressiva desde a manhã, avisos às 17h e às 17h50. Depois, os pedidos chegando, sem mostrar dados de cliente.'],
+      ['WhatsApp', 'Loja', 'Aviso no grupo VIP às 17h30. Às 21h, lembrete: preço da live até 23h59.'],
+      ['Tráfego', 'Hurtz', 'Convite da Esquenta impulsionado até as 18h.']
+    ]},
+    { d: '2026-11-21', f: 'es', t: 'Depois da Esquenta', itens: [
+      ['Reels', 'Hurtz', 'Corte da Esquenta com o melhor momento e o produto mais pedido.'],
+      ['Stories', 'Loja', 'Pedidos da Esquenta saindo para entrega e "faltam 6 dias para a Black".'],
+      ['WhatsApp', 'Loja', 'Confirmar entrega ou retirada de quem comprou na Esquenta.']
+    ]},
+    { d: '2026-11-22', f: 'es', t: 'O que vai ter na Black', itens: [
+      ['Feed', 'Hurtz', 'Carrossel por categoria (beleza, cabelo, perfume, infantil, suplemento), ainda sem preço.'],
+      ['Stories', 'Loja', '"Faltam 5 dias para a Black Rochamed."']
+    ]},
+    { d: '2026-11-23', f: 'es', t: 'Primeira revelação', itens: [
+      ['Feed', 'Hurtz', 'Segunda da Suplementação e o primeiro produto-âncora com o preço da Black.'],
+      ['Live', 'Loja', 'Agendar no Instagram a live de quarta e as três lives da Black.'],
+      ['Tráfego', 'Hurtz', 'A verba sobe: mensagens com as revelações e alcance com o vídeo de convite.']
+    ]},
+    { d: '2026-11-24', f: 'es', t: 'Como comprar na live', itens: [
+      ['Feed', 'Hurtz', 'Terça do Genérico e a segunda revelação.'],
+      ['Reels', 'Hurtz', '"Como comprar na live": comenta, recebe o contato no WhatsApp, recebe em casa ou retira na loja.']
+    ]},
+    { d: '2026-11-25', f: 'es', t: 'Ensaio geral', live: { tipo: 'teste', rotulo: 'Live de teste', hora: '19h', dur: 60, nome: 'Ensaio geral da Black' }, itens: [
+      ['Live', 'Loja', '60 minutos com o roteiro completo da Black, duas ofertas-relâmpago e a equipe inteira. Serve para ajustar o tempo de cada bloco.'],
+      ['Feed', 'Hurtz', 'Quarta da Beleza com o aviso da live.'],
+      ['WhatsApp', 'Loja', 'Aviso no grupo VIP às 18h30.']
+    ]},
+    { d: '2026-11-26', f: 'es', t: 'Véspera', itens: [
+      ['Feed', 'Hurtz', 'Missão Quinta da Fralda e a terceira revelação, da linha infantil.'],
+      ['Stories', 'Loja', '"Amanhã começa a Black Rochamed."'],
+      ['WhatsApp', 'Loja', '"Amanhã às 7h você recebe as ofertas antes de todo mundo."'],
+      ['Estoque', 'Loja', 'Produtos separados por live, tabela de preços da live com quem atende o WhatsApp, maquininha e link de pagamento testados, entregas escaladas.']
+    ]},
+    { d: '2026-11-27', f: 'bf', t: 'Abertura da Black', marco: 'Black Friday', itens: [
+      ['WhatsApp', 'Loja', '7h: ofertas no grupo VIP antes de a loja abrir.'],
+      ['Feed', 'Hurtz', '8h: "Começou a Black Rochamed".'],
+      ['Stories', 'Loja', 'Ofertas e movimento da loja o dia todo. Lembrete da live de amanhã, 18h.'],
+      ['Tráfego', 'Hurtz', 'Verba no pico até 30/11: mensagens com as ofertas do dia e impulsionamento de cada live na véspera e no dia.']
+    ]},
+    { d: '2026-11-28', f: 'bf', t: 'Beleza e cuidados', live: { tipo: 'black', rotulo: 'Live 1', hora: '18h', dur: 60, nome: 'Live 1: Beleza e cuidados' }, itens: [
+      ['Live', 'Loja', '60 minutos de dermocosmético, cabelo, maquiagem, perfume e kits.'],
+      ['Stories', 'Loja', 'Contagem regressiva desde a manhã, avisos às 17h e às 17h50. Depois, os pedidos chegando.'],
+      ['WhatsApp', 'Loja', 'Aviso no grupo VIP às 17h30. Às 21h, repescagem: preço da live até 23h59.']
+    ]},
+    { d: '2026-11-29', f: 'bf', t: 'Família e presentes', live: { tipo: 'black', rotulo: 'Live 2', hora: '19h', dur: 60, nome: 'Live 2: Família e presentes' }, itens: [
+      ['Live', 'Loja', '60 minutos de linha infantil (fraldas, lenços, higiene), suplementos, vitaminas e kits de presente.'],
+      ['Reels', 'Hurtz', 'Corte da live de sábado, publicado de manhã.'],
+      ['WhatsApp', 'Loja', 'Aviso no grupo VIP às 18h30.']
+    ]},
+    { d: '2026-11-30', f: 'bf', t: 'Última chance: Fecha Mês Black', live: { tipo: 'black', rotulo: 'Live 3', hora: '19h', dur: 60, nome: 'Live 3: Última chance' }, itens: [
+      ['Live', 'Loja', '60 minutos com os mais pedidos de sábado e domingo e uma oferta-relâmpago final. As ofertas encerram às 23h59.'],
+      ['Feed', 'Hurtz', '"Último dia da Black Rochamed."'],
+      ['WhatsApp', 'Loja', 'Aviso às 18h30 e "última hora" às 23h.']
+    ]},
+    { d: '2026-12-01', f: 'pos', t: 'Entregas e pós-venda', itens: [
+      ['WhatsApp', 'Loja', 'Mensagem para quem comprou: chegou certinho? E o convite para seguir no grupo VIP.'],
+      ['Stories', 'Loja', 'Agradecimento com o resultado da Black.'],
+      ['Estoque', 'Loja', 'Fechar as entregas pendentes.']
+    ]},
+    { d: '2026-12-02', f: 'pos', t: 'Fechamento', itens: [
+      ['Reunião', 'Todos', 'Números por live, por produto e por horário. Decidir se a Quarta da Beleza ao vivo vira fixa e abrir o calendário de Natal.']
+    ]}
+  ];
+
+  var LIVES_INFO = {
+    '2026-11-18': { foto: 'labotrat.jpg', pos: 'center 62%', txt: 'Beleza e cabelo, a categoria de maior ticket nos stories. Kits Eldora Siàge, Haskell, Labotrat e Principia.', testa: 'O caminho do pedido, do comentário ao pagamento, e se uma pessoa dá conta do WhatsApp.' },
+    '2026-11-20': { foto: 'presente.jpg', pos: 'center 62%', txt: 'Amostra das ofertas da Black: os mais pedidos de quarta, perfumes, kits de presente e um item de cada categoria. Cai no feriado da Consciência Negra.', testa: 'Fim de tarde de feriado, mesmo horário da live de 28/11, e quais categorias vendem além da beleza.' },
+    '2026-11-25': { foto: 'haskell.jpg', pos: 'center 58%', txt: 'Roteiro completo da Black, duas ofertas-relâmpago e a equipe inteira no lugar.', testa: 'Se o roteiro cabe em 60 minutos e se a oferta-relâmpago segura quem está assistindo.' },
+    '2026-11-28': { foto: 'principia.jpg', pos: 'center 60%', txt: 'Dermocosmético, cabelo, maquiagem, perfume e kits.', testa: 'Mesmo horário da Esquenta. O mix sai do que mais vendeu nas lives anteriores.' },
+    '2026-11-29': { foto: 'fofo.jpg', pos: 'center 45%', txt: 'Linha infantil (fraldas, lenços, higiene), suplementos, vitaminas e kits de presente.', testa: 'Domingo à noite, com o público em casa.' },
+    '2026-11-30': { foto: 'fechames-topo.jpg', pos: 'center 40%', txt: 'Os mais pedidos de sábado e domingo e uma oferta-relâmpago final. Fecha o mês junto com a Black.', testa: 'Ofertas encerram às 23h59.' }
+  };
+
+  var CHECK = [
+    'Live agendada no Instagram com dois dias de antecedência',
+    'Internet testada no local da live',
+    'Celular carregado e no modo não perturbe',
+    'Tripé, luz e microfone de lapela',
+    'Produtos na ordem do roteiro, com plaquinha de preço',
+    'Tabela de preços da live com quem atende o WhatsApp',
+    'Estoque conferido para cada produto anunciado',
+    'Link do WhatsApp pronto para fixar nos comentários',
+    'Segundo celular para acompanhar os comentários'
+  ];
+
+  var SEM = ['dom', 'seg', 'ter', 'qua', 'qui', 'sex', 'sáb'];
+  var SEM_LONGO = ['domingo', 'segunda', 'terça', 'quarta', 'quinta', 'sexta', 'sábado'];
+  var MES = ['jan', 'fev', 'mar', 'abr', 'mai', 'jun', 'jul', 'ago', 'set', 'out', 'nov', 'dez'];
+
+  function parse(s) { var p = s.split('-'); return new Date(+p[0], +p[1] - 1, +p[2]); }
+  function iso(dt) { return dt.getFullYear() + '-' + String(dt.getMonth() + 1).padStart(2, '0') + '-' + String(dt.getDate()).padStart(2, '0'); }
+  function dm(dt) { return String(dt.getDate()).padStart(2, '0') + '/' + String(dt.getMonth() + 1).padStart(2, '0'); }
+  function el(tag, cls, html) { var e = document.createElement(tag); if (cls) e.className = cls; if (html != null) e.innerHTML = html; return e; }
+  function esc(s) { return String(s).replace(/[&<>"]/g, function (c) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]; }); }
+
+  var porData = {};
+  DIAS.forEach(function (x) { porData[x.d] = x; });
+  var hoje = iso(new Date());
+
+  // datas-chave
+  var chave = document.getElementById('chave');
+  DIAS.filter(function (x) { return x.live || x.marco; }).forEach(function (x) {
+    var dt = parse(x.d);
+    var cls = x.f === 'bf' ? 'black' : 'teste';
+    var nome = x.live ? (x.live.tipo === 'black' ? x.live.rotulo + ' · ' + x.live.hora : x.live.nome + ' · ' + x.live.hora) : x.marco;
+    var a = el('a', cls, '<div class="dt">' + dm(dt) + '</div><div class="dw">' + SEM_LONGO[dt.getDay()] + '</div><div class="nm">' + esc(nome) + '</div>');
+    a.href = '#d-' + x.d;
+    a.addEventListener('click', function () { focar(x.d); });
+    chave.appendChild(a);
+  });
+
+  // grade
+  var grade = document.getElementById('grade');
+  ['seg', 'ter', 'qua', 'qui', 'sex', 'sáb', 'dom'].forEach(function (s) { grade.appendChild(el('div', 'sem', s)); });
+  var ini = new Date(2026, 10, 9);
+  for (var i = 0; i < 28; i++) {
+    var dt = new Date(ini.getFullYear(), ini.getMonth(), ini.getDate() + i);
+    var k = iso(dt);
+    var info = porData[k];
+    var c = el('button', 'cel' + (info ? ' ' + info.f : ' fora') + (k === hoje ? ' hoje' : ''));
+    c.type = 'button';
+    var html = '<span class="n">' + dt.getDate() + (dt.getDate() === 1 || i === 0 ? '<span class="m">' + MES[dt.getMonth()] + '</span>' : '') + '</span>';
+    if (k === hoje) html += '<span class="hj">hoje</span>';
+    if (info) {
+      html += '<span class="t">' + esc(info.live ? '' : info.t) + '</span>';
+      if (info.live) html += '<span class="pill">' + esc(info.live.rotulo + ' ' + info.live.hora) + '</span>';
+      else if (info.marco) html += '<span class="pill">' + esc(info.marco) + '</span>';
+    }
+    c.innerHTML = html;
+    if (info) {
+      c.setAttribute('aria-label', dm(dt) + ': ' + info.t);
+      (function (kk) { c.addEventListener('click', function () { focar(kk, true); }); })(k);
+    } else {
+      c.disabled = true;
+    }
+    grade.appendChild(c);
+  }
+
+  // fases e dias
+  var fasesEl = document.getElementById('fases');
+  FASES.forEach(function (f) {
+    var box = el('div', 'fase');
+    box.appendChild(el('div', 'fase-cab', '<span class="num">' + f.num + '</span><h3>' + esc(f.nome) + ' · ' + esc(f.periodo) + '</h3><p>' + esc(f.obj) + '</p>'));
+    var lista = el('div', 'dias');
+    DIAS.filter(function (x) { return x.f === f.id; }).forEach(function (x) {
+      var dt = parse(x.d);
+      var card = el('article', 'dia ' + (x.f === 'es' || x.f === 'bf' ? x.f : ''));
+      card.id = 'd-' + x.d;
+      var data = '<div class="data"><div class="dd">' + dm(dt) + '</div><div class="dw">' + SEM_LONGO[dt.getDay()] + '</div>' + (x.d === hoje ? '<span class="hj">hoje</span>' : '') + '</div>';
+      var corpo = '<div>';
+      if (x.live) corpo += '<div class="live-badge">' + esc(x.live.rotulo + ' · ' + x.live.hora + ' · ' + x.live.dur + ' min') + '</div>';
+      else if (x.marco) corpo += '<div class="live-badge">' + esc(x.marco) + '</div>';
+      corpo += '<h4>' + esc(x.t) + '</h4><div class="itens">';
+      x.itens.forEach(function (it) {
+        corpo += '<div class="item"><span class="tag' + (it[0] === 'Live' && x.live ? ' live' : '') + '">' + esc(it[0]) + '</span><p>' + esc(it[2]) + '<span class="quem">' + esc(it[1]) + '</span></p></div>';
+      });
+      corpo += '</div>';
+      if (x.nota) corpo += '<p class="nota">' + esc(x.nota) + '</p>';
+      corpo += '</div>';
+      card.innerHTML = data + corpo;
+      lista.appendChild(card);
+    });
+    box.appendChild(lista);
+    fasesEl.appendChild(box);
+  });
+
+  // cards das lives
+  function cardLive(x) {
+    var dt = parse(x.d);
+    var inf = LIVES_INFO[x.d];
+    var c = el('article', 'live' + (x.live.tipo === 'black' ? ' bf' : ''));
+    c.innerHTML =
+      '<div class="foto"><img src="assets/' + inf.foto + '" alt="" style="object-position:' + inf.pos + '" loading="lazy"></div>' +
+      '<div class="corpo"><div class="quando">' + esc(SEM_LONGO[dt.getDay()] + ', ' + dm(dt) + ' · ' + x.live.hora + ' · ' + x.live.dur + ' min') + '</div>' +
+      '<h3>' + esc(x.live.nome) + '</h3><p>' + esc(inf.txt) + '</p>' +
+      '<div class="testa"><b>' + (x.live.tipo === 'black' ? 'Observação' : 'O que testa') + '</b>' + esc(inf.testa) + '</div></div>';
+    return c;
+  }
+  var antes = document.getElementById('lives-antes');
+  var black = document.getElementById('lives-black');
+  DIAS.filter(function (x) { return x.live; }).forEach(function (x) {
+    (x.live.tipo === 'black' ? black : antes).appendChild(cardLive(x));
+  });
+
+  // checklist
+  var CK = 'rochamed-black-checklist';
+  var marcados = {};
+  try { marcados = JSON.parse(localStorage.getItem(CK) || '{}') || {}; } catch (e) { marcados = {}; }
+  var ul = document.getElementById('checklist');
+  CHECK.forEach(function (txt, idx) {
+    var li = el('li');
+    li.innerHTML = '<label><input type="checkbox" data-i="' + idx + '"' + (marcados[idx] ? ' checked' : '') + '><span>' + esc(txt) + '</span></label>';
+    ul.appendChild(li);
+  });
+  ul.addEventListener('change', function (ev) {
+    var t = ev.target; if (!t.dataset) return;
+    marcados[t.dataset.i] = t.checked;
+    try { localStorage.setItem(CK, JSON.stringify(marcados)); } catch (e) {}
+  });
+  document.getElementById('limpar').addEventListener('click', function () {
+    marcados = {};
+    try { localStorage.removeItem(CK); } catch (e) {}
+    ul.querySelectorAll('input').forEach(function (i) { i.checked = false; });
+  });
+
+  // foco num dia
+  function focar(k, rolar) {
+    document.querySelectorAll('.dia.foco').forEach(function (d) { d.classList.remove('foco'); });
+    var alvo = document.getElementById('d-' + k);
+    if (!alvo) return;
+    alvo.classList.add('foco');
+    if (rolar) alvo.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  document.getElementById('ir-hoje').addEventListener('click', function () {
+    var datas = DIAS.map(function (x) { return x.d; });
+    var alvo = datas.find(function (d) { return d >= hoje; }) || datas[datas.length - 1];
+    focar(alvo, true);
+  });
+
+  // .ics
+  document.getElementById('baixar-ics').addEventListener('click', function () {
+    function pad(n) { return String(n).padStart(2, '0'); }
+    function utc(d, h, m) {
+      // horário de Parauapebas: UTC-3, sem horário de verão
+      var p = d.split('-');
+      var t = new Date(Date.UTC(+p[0], +p[1] - 1, +p[2], h + 3, m));
+      return t.getUTCFullYear() + pad(t.getUTCMonth() + 1) + pad(t.getUTCDate()) + 'T' + pad(t.getUTCHours()) + pad(t.getUTCMinutes()) + '00Z';
+    }
+    var linhas = ['BEGIN:VCALENDAR', 'VERSION:2.0', 'PRODID:-//Hurtz//Black Rochamed 2026//PT', 'CALSCALE:GREGORIAN', 'METHOD:PUBLISH'];
+    DIAS.filter(function (x) { return x.live; }).forEach(function (x) {
+      var h = parseInt(x.live.hora, 10);
+      linhas.push('BEGIN:VEVENT',
+        'UID:rochamed-' + x.d + '@pages.hurtzcompany.com.br',
+        'DTSTAMP:20261112T120000Z',
+        'DTSTART:' + utc(x.d, h, 0),
+        'DTEND:' + utc(x.d, h, x.live.dur),
+        'SUMMARY:Rochamed ao vivo: ' + x.live.nome,
+        'DESCRIPTION:' + x.itens[0][2].replace(/,/g, '\\,'),
+        'BEGIN:VALARM', 'TRIGGER:-PT2H', 'ACTION:DISPLAY', 'DESCRIPTION:Live em 2 horas', 'END:VALARM',
+        'END:VEVENT');
+    });
+    linhas.push('END:VCALENDAR');
+    var blob = new Blob([linhas.join('\r\n')], { type: 'text/calendar;charset=utf-8' });
+    var a = document.createElement('a');
+    a.href = URL.createObjectURL(blob);
+    a.download = 'lives-black-rochamed-2026.ics';
+    document.body.appendChild(a); a.click(); a.remove();
+  });
+
+  // tema
+  var btnTema = document.getElementById('tema');
+  function rotulo() { btnTema.textContent = document.documentElement.getAttribute('data-tema') === 'escuro' ? 'Tema claro' : 'Tema escuro'; }
+  rotulo();
+  btnTema.addEventListener('click', function () {
+    var escuro = document.documentElement.getAttribute('data-tema') === 'escuro';
+    if (escuro) document.documentElement.removeAttribute('data-tema'); else document.documentElement.setAttribute('data-tema', 'escuro');
+    try { localStorage.setItem('hurtz-tema', escuro ? 'claro' : 'escuro'); } catch (e) {}
+    rotulo();
+  });
+})();
+</script>
+</body>
+</html>
