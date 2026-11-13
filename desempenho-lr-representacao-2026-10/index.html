@@ -1,0 +1,396 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>LR Representação · Desempenho</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+<style>
+:root {
+  --brasa: #C06018; --brasa-escura: #974A12; --brasa-clara: #E2A87A; --brasa-100: #F0CEB4; --brasa-minima: #F9EDE3;
+  --carvao: #181614; --grafite: #3D3A36; --pedra: #6F6B64; --areia: #E8E4DC; --offwhite: #F5F2EC; --cartao: #FFFFFF;
+  --bom: #1A7A4A;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; line-height: 1.55; color: var(--carvao); background: var(--offwhite); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p { margin: 0; }
+.num { font-variant-numeric: tabular-nums; }
+.rotulo { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--pedra); }
+.pagina { max-width: 1120px; margin: 0 auto; padding: 16px 16px 64px; }
+
+.topo { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+/* o PNG do logo é quadrado com muita margem: recorta a faixa central */
+.topo img { flex: none; width: 170px; height: 44px; object-fit: cover; display: block; mix-blend-mode: multiply; margin-left: -8px; }
+.topo .rotulo { text-align: right; }
+
+.cab { margin-bottom: 24px; }
+.cab h1 { margin-top: 6px; font-size: 40px; line-height: 1.1; letter-spacing: -.02em; }
+.cab p { margin-top: 10px; color: var(--grafite); max-width: 62ch; }
+
+/* bloco escuro de abertura */
+.res { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); background: var(--carvao); color: var(--offwhite); border-radius: 6px; overflow: hidden; }
+.res .rotulo { color: var(--brasa-clara); }
+.res-principal { padding: 32px 36px 30px; min-width: 0; }
+.res-numero { margin-top: 10px; font-size: 84px; line-height: 1; font-weight: 700; letter-spacing: -.04em; color: #fff; }
+.res-numero small { font-size: 20px; font-weight: 400; letter-spacing: 0; color: var(--areia); margin-left: 6px; }
+.res-var { margin-top: 10px; font-size: 14px; color: #B8B3AA; }
+.res-var b { color: #6FD3A0; }
+.res-texto { margin-top: 18px; max-width: 54ch; color: var(--areia); font-size: 15px; line-height: 1.6; }
+.res-subs { display: grid; align-content: center; border-left: 1px solid var(--grafite); }
+.res-sub { padding: 20px 36px; }
+.res-sub + .res-sub { border-top: 1px solid var(--grafite); }
+.res-sub .valor { margin-top: 4px; font-size: 30px; font-weight: 700; line-height: 1.1; color: #fff; }
+
+section { margin-top: 56px; }
+.titulo-secao { font-size: 26px; line-height: 1.2; letter-spacing: -.01em; }
+.intro-secao { margin-top: 6px; color: var(--grafite); max-width: 64ch; }
+.cartao { background: var(--cartao); border: 1px solid var(--areia); border-radius: 4px; padding: 24px; min-width: 0; }
+.cartao h3 { font-size: 16px; line-height: 1.35; }
+.cartao .sub { margin-top: 2px; font-size: 13px; color: var(--pedra); }
+
+.kpis { margin-top: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.kpi { background: var(--cartao); border: 1px solid var(--areia); border-radius: 4px; padding: 18px 20px; min-width: 0; }
+.kpi .valor { margin-top: 6px; font-size: 30px; font-weight: 700; line-height: 1.1; letter-spacing: -.01em; }
+.kpi .det { margin-top: 4px; font-size: 13px; color: var(--pedra); }
+
+.grade-2 { margin-top: 12px; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 12px; }
+.grade-2b { margin-top: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.mt { margin-top: 12px; }
+
+/* gráficos */
+.grafico { margin-top: 16px; width: 100%; }
+.grafico svg { display: block; width: 100%; height: auto; overflow: visible; }
+.legenda { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--pedra); }
+.legenda span { display: inline-flex; align-items: center; gap: 6px; }
+.legenda i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+
+/* antes e depois */
+.virada { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin-top: 18px; }
+.virada .lado .valor { margin-top: 4px; font-size: 34px; font-weight: 700; line-height: 1.1; }
+.virada .lado .det { font-size: 13px; color: var(--pedra); }
+.virada .depois .valor { color: var(--brasa); }
+.virada .seta { font-size: 22px; color: var(--brasa-clara); }
+.selo { display: inline-block; margin-top: 18px; padding: 6px 12px; border-radius: 4px; background: #E3F1E9; color: var(--bom); font-weight: 700; font-size: 14px; }
+.nota { margin-top: 14px; font-size: 14px; color: var(--grafite); }
+
+/* listas */
+.lista { list-style: none; margin: 16px 0 0; padding: 0; }
+.lista li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--areia); }
+.lista li:first-child { border-top: 0; padding-top: 4px; }
+.lista .nome { font-weight: 700; }
+.lista .desc { grid-column: 1; font-size: 13px; color: var(--pedra); }
+.lista .dado { grid-row: 1 / span 2; grid-column: 2; text-align: right; }
+.lista .dado b { display: block; font-size: 20px; line-height: 1.2; }
+.lista .dado span { font-size: 13px; color: var(--pedra); }
+
+.barras-h { margin-top: 16px; display: grid; gap: 10px; }
+.barra-h { display: grid; grid-template-columns: 64px minmax(0, 1fr) 44px; align-items: center; gap: 10px; font-size: 13px; }
+.barra-h .trilho { height: 10px; background: var(--offwhite); border-radius: 2px; overflow: hidden; }
+.barra-h .trilho div { height: 100%; background: var(--brasa-clara); border-radius: 2px; }
+.barra-h.destaque .trilho div { background: var(--brasa); }
+.barra-h .pct { text-align: right; font-weight: 700; }
+
+.empilhada { margin-top: 18px; display: flex; height: 14px; border-radius: 2px; overflow: hidden; gap: 2px; }
+.empilhada div { height: 100%; }
+
+/* tabela */
+.tabela-envolve { margin-top: 12px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+th, td { padding: 12px 10px; text-align: right; white-space: nowrap; }
+thead th { white-space: normal; vertical-align: bottom; line-height: 1.3; }
+th:first-child, td:first-child { text-align: left; }
+thead th { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--pedra); font-weight: 700; border-bottom: 1px solid var(--areia); }
+tbody td { border-bottom: 1px solid var(--areia); }
+tbody tr.foco td { background: var(--brasa-minima); font-weight: 700; }
+tbody tr.parcial td { color: var(--pedra); }
+tfoot td { font-weight: 700; border-top: 2px solid var(--carvao); }
+
+.rodape { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--areia); font-size: 13px; color: var(--pedra); display: grid; gap: 6px; }
+
+@media (max-width: 860px) {
+  .res { grid-template-columns: 1fr; }
+  .res-subs { border-left: 0; border-top: 1px solid var(--grafite); }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grade-2, .grade-2b { grid-template-columns: 1fr; }
+}
+@media (max-width: 520px) {
+  .cab h1 { font-size: 30px; }
+  .res-principal { padding: 24px 20px; }
+  .res-numero { font-size: 64px; }
+  .res-sub { padding: 16px 20px; }
+  .titulo-secao { font-size: 22px; }
+  .cartao { padding: 18px; }
+  .kpi { padding: 14px 16px; }
+  .kpi .valor { font-size: 24px; }
+  .virada .lado .valor { font-size: 26px; }
+  .topo img { width: 140px; height: 36px; }
+}
+</style>
+</head>
+<body>
+<main class="pagina">
+
+  <header class="topo">
+    <img src="logo-hurtz.png" alt="Hurtz Company">
+    <span class="rotulo">Relatório de desempenho</span>
+  </header>
+
+  <div class="cab">
+    <span class="rotulo">LR Representação · Meta Ads</span>
+    <h1>Outubro e os últimos 6 meses</h1>
+    <p>Como os anúncios da LR performaram de maio a outubro de 2026, com outubro em detalhe e a primeira quinzena de novembro, que já mostra o resultado das mudanças feitas no fim do mês.</p>
+  </div>
+
+  <div class="res">
+    <div class="res-principal">
+      <span class="rotulo">Outubro · contatos gerados</span>
+      <div class="res-numero num">572<small>contatos</small></div>
+      <p class="res-var">Custo por contato <b>20% menor</b> que em setembro (R$ 6,43 → R$ 5,13)</p>
+      <p class="res-texto">Outubro foi o mês da nova estrutura de imóveis por formulário. Ela entrou no ar em 27/10 e, nos 5 últimos dias do mês, o custo por contato caiu para R$ 3,10. É essa estrutura que está rodando em novembro.</p>
+    </div>
+    <div class="res-subs">
+      <div class="res-sub"><span class="rotulo">Investimento</span><div class="valor num">R$ 2.936,03</div></div>
+      <div class="res-sub"><span class="rotulo">Custo por contato</span><div class="valor num">R$ 5,13</div></div>
+      <div class="res-sub"><span class="rotulo">Pessoas alcançadas</span><div class="valor num">81.784</div></div>
+    </div>
+  </div>
+
+  <!-- OUTUBRO -->
+  <section>
+    <h2 class="titulo-secao">Outubro em detalhe</h2>
+    <p class="intro-secao">De onde vieram os contatos, quais campanhas puxaram o resultado e quem respondeu aos anúncios.</p>
+
+    <div class="kpis">
+      <div class="kpi"><span class="rotulo">Formulários</span><div class="valor num">472</div><div class="det">cadastros com nome e telefone</div></div>
+      <div class="kpi"><span class="rotulo">WhatsApp</span><div class="valor num">100</div><div class="det">conversas iniciadas</div></div>
+      <div class="kpi"><span class="rotulo">Taxa de clique</span><div class="valor num">2,86%</div><div class="det">entre as maiores dos 6 meses</div></div>
+      <div class="kpi"><span class="rotulo">Instagram</span><div class="valor num">67%</div><div class="det">dos contatos vieram de lá</div></div>
+    </div>
+
+    <div class="grade-2">
+      <div class="cartao">
+        <h3>Contatos por dia</h3>
+        <p class="sub">Cada barra é um dia de outubro</p>
+        <div class="grafico" id="g-outubro"></div>
+        <div class="legenda">
+          <span><i style="background:var(--brasa-clara)"></i>1 a 26/10</span>
+          <span><i style="background:var(--brasa)"></i>Nova estrutura, 27 a 31/10</span>
+          <span><i style="background:var(--areia)"></i>Sem veiculação</span>
+        </div>
+      </div>
+      <div class="cartao">
+        <h3>A virada do fim do mês</h3>
+        <p class="sub">Custo por contato, antes e depois da nova estrutura</p>
+        <div class="virada">
+          <div class="lado"><span class="rotulo">1 a 26/10</span><div class="valor num">R$ 6,44</div><div class="det num">348 contatos</div></div>
+          <div class="seta" aria-hidden="true">→</div>
+          <div class="lado depois"><span class="rotulo">27 a 31/10</span><div class="valor num">R$ 3,10</div><div class="det num">224 contatos</div></div>
+        </div>
+        <span class="selo num">52% mais barato por contato</span>
+        <p class="nota">Em 5 dias, a nova estrutura gerou 39% de todos os contatos do mês.</p>
+      </div>
+    </div>
+
+    <div class="grade-2b">
+      <div class="cartao">
+        <h3>Campanhas que puxaram o resultado</h3>
+        <p class="sub">Cadastros de formulário em outubro e custo por cadastro</p>
+        <ul class="lista">
+          <li><span class="nome">Imóveis · formulário condicional</span><span class="desc">Maior volume do mês</span><span class="dado num"><b>163</b><span>R$ 3,34 cada</span></span></li>
+          <li><span class="nome">Imóveis · formulário anexo</span><span class="desc">Melhor taxa de clique entre as grandes (3,59%)</span><span class="dado num"><b>100</b><span>R$ 3,44 cada</span></span></li>
+          <li><span class="nome">Imóveis · nova estrutura (27/10)</span><span class="desc">Menor custo do mês, em só 5 dias no ar</span><span class="dado num"><b>94</b><span>R$ 2,18 cada</span></span></li>
+          <li><span class="nome">Veículos · leads</span><span class="desc">Principal campanha de veículos</span><span class="dado num"><b>54</b><span>R$ 4,30 cada</span></span></li>
+        </ul>
+      </div>
+      <div class="cartao">
+        <h3>Onde o investimento foi</h3>
+        <p class="sub">Divisão do valor investido em outubro por linha</p>
+        <div class="empilhada" aria-hidden="true">
+          <div style="width:73.4%;background:var(--brasa)"></div>
+          <div style="width:18.7%;background:var(--brasa-clara)"></div>
+          <div style="width:7.9%;background:var(--grafite)"></div>
+        </div>
+        <ul class="lista">
+          <li><span class="nome">Imóveis</span><span class="desc">Formulário e WhatsApp</span><span class="dado num"><b>73%</b><span>R$ 2.154,82</span></span></li>
+          <li><span class="nome">Veículos</span><span class="desc">Formulário</span><span class="dado num"><b>19%</b><span>R$ 549,83</span></span></li>
+          <li><span class="nome">Vagas e outros</span><span class="desc">Recrutamento pelo WhatsApp e teste de maquinário</span><span class="dado num"><b>8%</b><span>R$ 231,38</span></span></li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="cartao mt">
+      <h3>Quem chamou a LR em outubro</h3>
+      <p class="sub">Participação de cada faixa de idade nos contatos · mulheres 52%, homens 48%</p>
+      <div class="barras-h">
+        <div class="barra-h"><span>18 a 24</span><div class="trilho"><div style="width:60%"></div></div><span class="pct num">20%</span></div>
+        <div class="barra-h destaque"><span>25 a 34</span><div class="trilho"><div style="width:100%"></div></div><span class="pct num">33%</span></div>
+        <div class="barra-h"><span>35 a 44</span><div class="trilho"><div style="width:79%"></div></div><span class="pct num">26%</span></div>
+        <div class="barra-h"><span>45 a 54</span><div class="trilho"><div style="width:39%"></div></div><span class="pct num">13%</span></div>
+        <div class="barra-h"><span>55 a 64</span><div class="trilho"><div style="width:15%"></div></div><span class="pct num">5%</span></div>
+        <div class="barra-h"><span>65+</span><div class="trilho"><div style="width:9%"></div></div><span class="pct num">3%</span></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- 6 MESES -->
+  <section>
+    <h2 class="titulo-secao">Últimos 6 meses</h2>
+    <p class="intro-secao">De maio a outubro foram R$ 23.080,43 investidos, 5.108 contatos gerados a R$ 4,52 cada, e 310.682 pessoas diferentes alcançadas na região.</p>
+
+    <div class="grade-2b">
+      <div class="cartao">
+        <h3>Contatos por mês</h3>
+        <p class="sub">Formulários + conversas no WhatsApp · Nov* = só de 1 a 12/11</p>
+        <div class="grafico" id="g-meses"></div>
+      </div>
+      <div class="cartao">
+        <h3>Custo por contato</h3>
+        <p class="sub">Quanto menor, melhor</p>
+        <div class="grafico" id="g-cpl"></div>
+      </div>
+    </div>
+
+    <div class="cartao mt">
+      <h3>Mês a mês</h3>
+      <div class="tabela-envolve">
+        <table class="num">
+          <thead><tr><th>Mês</th><th>Investimento</th><th>Contatos</th><th>Formulários</th><th>WhatsApp</th><th>Custo por contato</th><th>Pessoas alcançadas</th><th>Taxa de clique</th></tr></thead>
+          <tbody id="t-meses"></tbody>
+          <tfoot><tr><td>Mai a out</td><td>R$ 23.080,43</td><td>5.108</td><td>4.826</td><td>282</td><td>R$ 4,52</td><td>310.682</td><td>2,53%</td></tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- NOVEMBRO -->
+  <section>
+    <h2 class="titulo-secao">Começo de novembro</h2>
+    <p class="intro-secao">De 1 a 12/11, com a nova estrutura rodando o mês inteiro.</p>
+
+    <div class="kpis">
+      <div class="kpi"><span class="rotulo">Contatos</span><div class="valor num">533</div><div class="det">93% do outubro inteiro, em 12 dias</div></div>
+      <div class="kpi"><span class="rotulo">Custo por contato</span><div class="valor num" style="color:var(--brasa)">R$ 2,77</div><div class="det">46% menor que outubro</div></div>
+      <div class="kpi"><span class="rotulo">Investimento</span><div class="valor num">R$ 1.475,66</div><div class="det">83% em imóveis</div></div>
+      <div class="kpi"><span class="rotulo">Taxa de clique</span><div class="valor num">3,15%</div><div class="det">a maior do período</div></div>
+    </div>
+
+    <div class="cartao mt">
+      <h3>Contatos por dia em novembro</h3>
+      <p class="sub">Média de 44 contatos por dia, contra 32 por dia de anúncio no ar em outubro</p>
+      <div class="grafico" id="g-novembro"></div>
+    </div>
+  </section>
+
+  <footer class="rodape">
+    <p><b>Contato</b> = cadastro feito no formulário do anúncio + conversa iniciada no WhatsApp. <b>Custo por contato</b> = investimento ÷ contatos.</p>
+    <p>Fonte: Gerenciador de Anúncios da Meta, conta da LR Representação. Dados até 12/11/2026. Novembro é parcial.</p>
+    <p>Hurtz Company · infraestrutura de aquisição e conversão</p>
+  </footer>
+</main>
+
+<script>
+const MESES = [
+  { m: 'Mai', inv: 4463.60, c: 1260, f: 1238, w: 22,  cpl: 3.54, alc: 142041, ctr: 2.28 },
+  { m: 'Jun', inv: 4123.60, c: 942,  f: 923,  w: 19,  cpl: 4.38, alc: 138609, ctr: 2.31 },
+  { m: 'Jul', inv: 3272.92, c: 785,  f: 755,  w: 30,  cpl: 4.17, alc: 93774,  ctr: 2.56 },
+  { m: 'Ago', inv: 4342.08, c: 936,  f: 925,  w: 11,  cpl: 4.64, alc: 115264, ctr: 2.57 },
+  { m: 'Set', inv: 3942.20, c: 613,  f: 513,  w: 100, cpl: 6.43, alc: 96679,  ctr: 2.88 },
+  { m: 'Out', inv: 2936.03, c: 572,  f: 472,  w: 100, cpl: 5.13, alc: 81784,  ctr: 2.86, foco: true },
+  { m: 'Nov*', inv: 1475.66, c: 533, f: 530,  w: 3,   cpl: 2.77, alc: 57727,  ctr: 3.15, parcial: true }
+];
+// [investimento, contatos] por dia
+const OUT = [[46,9],[0,0],[0,1],[0,0],[0,1],[171,40],[299,42],[263,33],[139,19],[6,3],[0,0],[0,0],[92,30],[161,37],[142,28],[177,23],[170,18],[188,78],[203,33],[184,26],[0,1],[0,1],[0,0],[0,0],[0,0],[0,0],[98,20],[143,43],[133,47],[158,61],[162,53]];
+const NOV = [[176,60],[173,96],[132,54],[125,46],[18,10],[130,30],[218,68],[171,58],[100,49],[71,26],[89,30],[73,24]];
+
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const brl = v => 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const int = v => v.toLocaleString('pt-BR');
+const pct = v => v.toLocaleString('pt-BR', { minimumFractionDigits: 2 }) + '%';
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, txt) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (txt != null) e.textContent = txt; return e; }
+
+// barras verticais com rótulo de valor; desenha na largura real do contêiner para o texto não encolher
+function barras(alvo, itens, { H = 220, rotular = true, tituloFn } = {}) {
+  const W = Math.max(280, alvo.clientWidth);
+  const topo = 22, base = 26, max = Math.max(...itens.map(i => i.v)) * 1.08;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img' });
+  const bw = W / itens.length, gap = Math.max(2, bw * 0.22);
+  svg.appendChild(el('line', { x1: 0, x2: W, y1: H - base, y2: H - base, stroke: css('--areia') }));
+  itens.forEach((it, i) => {
+    const h = it.v > 0 ? Math.max(3, (it.v / max) * (H - topo - base)) : 3;
+    const x = i * bw + gap / 2, y = H - base - h, cx = x + (bw - gap) / 2;
+    const r = el('rect', { x, y, width: bw - gap, height: h, rx: 2, fill: it.cor });
+    if (tituloFn) r.appendChild(el('title', {}, tituloFn(it)));
+    svg.appendChild(r);
+    const rot = typeof it.rot === 'function' ? it.rot(bw) : it.rot !== false;
+    if (rotular && it.v > 0 && rot) svg.appendChild(el('text', { x: cx, y: y - 6, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700, fill: css('--carvao') }, it.txt ?? int(it.v)));
+    if (it.eixo) svg.appendChild(el('text', { x: cx, y: H - 8, 'text-anchor': 'middle', 'font-size': 11, fill: css('--pedra') }, it.eixo));
+  });
+  alvo.appendChild(svg);
+  return { svg, W, bw };
+}
+
+function desenhar() {
+  document.querySelectorAll('.grafico').forEach(g => g.innerHTML = '');
+
+  // contatos por mês
+  barras(document.getElementById('g-meses'), MESES.map(m => ({
+    v: m.c, eixo: m.m, cor: m.foco ? css('--brasa') : m.parcial ? css('--brasa-clara') : css('--brasa-100')
+  })), { tituloFn: it => it.eixo + ': ' + int(it.v) + ' contatos' });
+
+  // custo por contato (linha)
+  (function () {
+    const alvo = document.getElementById('g-cpl'), W = Math.max(280, alvo.clientWidth), H = 220, topo = 28, base = 26, pad = 24;
+    const max = 7.2, svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img' });
+    const x = i => pad + i * (W - 2 * pad) / (MESES.length - 1), y = v => topo + (1 - v / max) * (H - topo - base);
+    svg.appendChild(el('line', { x1: 0, x2: W, y1: H - base, y2: H - base, stroke: css('--areia') }));
+    svg.appendChild(el('polyline', { points: MESES.map((m, i) => x(i) + ',' + y(m.cpl)).join(' '), fill: 'none', stroke: css('--brasa-clara'), 'stroke-width': 2 }));
+    MESES.forEach((m, i) => {
+      const destaque = m.foco || m.parcial;
+      const c = el('circle', { cx: x(i), cy: y(m.cpl), r: destaque ? 6 : 4, fill: destaque ? css('--brasa') : css('--brasa-clara'), stroke: css('--cartao'), 'stroke-width': 2 });
+      c.appendChild(el('title', {}, m.m + ': ' + brl(m.cpl)));
+      svg.appendChild(c);
+      svg.appendChild(el('text', { x: x(i), y: y(m.cpl) - 12, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700, fill: destaque ? css('--brasa-escura') : css('--carvao') }, m.cpl.toLocaleString('pt-BR', { minimumFractionDigits: 2 })));
+      svg.appendChild(el('text', { x: x(i), y: H - 8, 'text-anchor': 'middle', 'font-size': 11, fill: css('--pedra') }, m.m));
+    });
+    alvo.appendChild(svg);
+  })();
+
+  // outubro dia a dia
+  (function () {
+    const alvo = document.getElementById('g-outubro'), H = 230, EIXO = [1, 6, 11, 16, 21, 27, 31];
+    const { svg, bw } = barras(alvo, OUT.map(([inv, c], i) => {
+      const dia = i + 1, noAr = inv > 15;
+      return {
+        v: noAr ? c : 0, eixo: EIXO.includes(dia) ? String(dia) : '', dia, c, inv,
+        cor: !noAr ? css('--areia') : dia >= 27 ? css('--brasa') : css('--brasa-clara'),
+        // em tela estreita só o pico de cada fase ganha número
+        rot: w => noAr && (w >= 18 ? (c >= 40 || dia >= 27) : (dia === 18 || dia === 30))
+      };
+    }), { H, tituloFn: it => it.dia + '/10: ' + (it.inv > 15 ? it.c + ' contatos' : 'sem veiculação') });
+    const xm = 26 * bw;
+    svg.appendChild(el('line', { x1: xm, x2: xm, y1: 6, y2: H - 26, stroke: css('--brasa'), 'stroke-dasharray': '3 3' }));
+    svg.appendChild(el('text', { x: xm - 6, y: 12, 'text-anchor': 'end', 'font-size': 11, 'font-weight': 700, fill: css('--brasa-escura') }, 'nova estrutura'));
+  })();
+
+  // novembro dia a dia
+  barras(document.getElementById('g-novembro'), NOV.map(([inv, c], i) => ({
+    v: c, eixo: String(i + 1), cor: css('--brasa'), dia: i + 1
+  })), { tituloFn: it => it.dia + '/11: ' + it.v + ' contatos' });
+}
+desenhar();
+let larguraAnterior = innerWidth;
+addEventListener('resize', () => { if (innerWidth !== larguraAnterior) { larguraAnterior = innerWidth; desenhar(); } });
+
+// tabela
+document.getElementById('t-meses').innerHTML = MESES.map(m => {
+  const nome = { Mai: 'Maio', Jun: 'Junho', Jul: 'Julho', Ago: 'Agosto', Set: 'Setembro', Out: 'Outubro', 'Nov*': 'Novembro (1 a 12)' }[m.m];
+  return `<tr class="${m.foco ? 'foco' : m.parcial ? 'parcial' : ''}"><td>${nome}</td><td>${brl(m.inv)}</td><td>${int(m.c)}</td><td>${int(m.f)}</td><td>${int(m.w)}</td><td>${brl(m.cpl)}</td><td>${int(m.alc)}</td><td>${pct(m.ctr)}</td></tr>`;
+}).join('');
+</script>
+</body>
+</html>
