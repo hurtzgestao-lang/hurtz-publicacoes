@@ -1,0 +1,499 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Dr. Sidney Colares · Desempenho</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+<style>
+:root {
+  --brasa: #C06018; --brasa-escura: #974A12; --brasa-clara: #E2A87A; --brasa-100: #F0CEB4; --brasa-minima: #F9EDE3;
+  --carvao: #181614; --grafite: #3D3A36; --pedra: #6F6B64; --areia: #E8E4DC; --offwhite: #F5F2EC; --cartao: #FFFFFF;
+  --bom: #1A7A4A;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; line-height: 1.55; color: var(--carvao); background: var(--offwhite); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p { margin: 0; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--brasa); outline-offset: 2px; }
+.num { font-variant-numeric: tabular-nums; }
+.rotulo { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--pedra); }
+.pagina { max-width: 1120px; margin: 0 auto; padding: 16px 16px 64px; }
+
+.topo { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.topo img { flex: none; width: 170px; height: 44px; object-fit: cover; display: block; mix-blend-mode: multiply; margin-left: -8px; }
+.topo .rotulo { text-align: right; }
+
+.cab { margin-bottom: 20px; }
+.cab h1 { margin-top: 6px; font-size: 40px; line-height: 1.1; letter-spacing: -.02em; }
+.cab p { margin-top: 10px; color: var(--grafite); max-width: 62ch; }
+
+.seletor-faixa { position: sticky; top: 0; z-index: 10; margin: 0 -16px 20px; padding: 10px 16px; background: var(--offwhite); border-bottom: 1px solid var(--areia); }
+.seletor { display: flex; align-items: center; gap: 12px; }
+.seletor .rotulo { flex: none; }
+.meses { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; flex: 1; max-width: 600px; padding: 4px; background: var(--cartao); border: 1px solid var(--areia); border-radius: 6px; }
+.meses button { min-height: 40px; padding: 6px 4px; border: 0; border-radius: 4px; background: none; font-size: 14px; font-weight: 700; color: var(--grafite); white-space: nowrap; }
+.meses button:hover { background: var(--offwhite); }
+.meses button[aria-pressed="true"] { background: var(--carvao); color: #fff; }
+.meses button small { font-weight: 400; font-size: 11px; opacity: .75; }
+
+.res { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); background: var(--carvao); color: var(--offwhite); border-radius: 6px; overflow: hidden; }
+.res .rotulo { color: var(--brasa-clara); }
+.res-principal { padding: 32px 36px 30px; min-width: 0; }
+.res-numero { margin-top: 10px; font-size: 84px; line-height: 1; font-weight: 700; letter-spacing: -.04em; color: #fff; }
+.res-numero small { font-size: 20px; font-weight: 400; letter-spacing: 0; color: var(--areia); margin-left: 6px; }
+.res-var { margin-top: 10px; font-size: 14px; color: #B8B3AA; }
+.res-var b { color: #6FD3A0; }
+.res-texto { margin-top: 18px; max-width: 54ch; color: var(--areia); font-size: 15px; line-height: 1.6; }
+.res-subs { display: grid; align-content: center; border-left: 1px solid var(--grafite); }
+.res-sub { padding: 20px 36px; }
+.res-sub + .res-sub { border-top: 1px solid var(--grafite); }
+.res-sub .valor { margin-top: 4px; font-size: 30px; font-weight: 700; line-height: 1.1; color: #fff; }
+
+section { margin-top: 56px; }
+.titulo-secao { font-size: 26px; line-height: 1.2; letter-spacing: -.01em; }
+.intro-secao { margin-top: 6px; color: var(--grafite); max-width: 64ch; }
+.cartao { background: var(--cartao); border: 1px solid var(--areia); border-radius: 4px; padding: 24px; min-width: 0; }
+.cartao h3 { font-size: 16px; line-height: 1.35; }
+.cartao .sub { margin-top: 2px; font-size: 13px; color: var(--pedra); }
+
+.kpis { margin-top: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.kpi { background: var(--cartao); border: 1px solid var(--areia); border-radius: 4px; padding: 18px 20px; min-width: 0; }
+.kpi .valor { margin-top: 6px; font-size: 30px; font-weight: 700; line-height: 1.1; letter-spacing: -.01em; }
+.kpi .valor.brasa { color: var(--brasa); }
+.kpi .det { margin-top: 4px; font-size: 13px; color: var(--pedra); }
+
+.grade-2 { margin-top: 12px; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 12px; }
+.grade-2b { margin-top: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.mt { margin-top: 12px; }
+
+.grafico { margin-top: 16px; width: 100%; }
+.grafico svg { display: block; width: 100%; height: auto; overflow: visible; }
+.legenda { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--pedra); }
+.legenda span { display: inline-flex; align-items: center; gap: 6px; }
+.legenda i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+
+.virada { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin-top: 18px; }
+.virada .lado .valor { margin-top: 4px; font-size: 30px; font-weight: 700; line-height: 1.1; white-space: nowrap; }
+.virada .lado .det { font-size: 13px; color: var(--pedra); }
+.virada .depois .valor { color: var(--brasa); }
+.virada .seta { font-size: 22px; color: var(--brasa-clara); }
+.semana { margin-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.semana .valor { margin-top: 4px; font-size: 34px; font-weight: 700; line-height: 1.1; }
+.semana .valor.brasa { color: var(--brasa); }
+.selo { display: inline-block; margin-top: 18px; padding: 6px 12px; border-radius: 4px; background: #E3F1E9; color: var(--bom); font-weight: 700; font-size: 14px; }
+.nota { margin-top: 14px; font-size: 14px; color: var(--grafite); }
+
+.lista { list-style: none; margin: 16px 0 0; padding: 0; }
+.lista li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--areia); }
+.lista li:first-child { border-top: 0; padding-top: 4px; }
+.lista .nome { font-weight: 700; }
+.lista .desc { grid-column: 1; font-size: 13px; color: var(--pedra); }
+.lista .dado { grid-row: 1 / span 2; grid-column: 2; text-align: right; }
+.lista .dado b { display: block; font-size: 20px; line-height: 1.2; }
+.lista .dado span { font-size: 13px; color: var(--pedra); }
+
+.barras-h { margin-top: 16px; display: grid; gap: 10px; }
+.barra-h { display: grid; grid-template-columns: 64px minmax(0, 1fr) 44px; align-items: center; gap: 10px; font-size: 13px; }
+.barra-h .trilho { height: 10px; background: var(--offwhite); border-radius: 2px; overflow: hidden; }
+.barra-h .trilho div { height: 100%; background: var(--brasa-clara); border-radius: 2px; }
+.barra-h.destaque .trilho div { background: var(--brasa); }
+.barra-h .pct { text-align: right; font-weight: 700; }
+
+.empilhada { margin-top: 18px; display: flex; height: 14px; border-radius: 2px; overflow: hidden; gap: 2px; }
+.empilhada div { height: 100%; }
+
+.tabela-envolve { margin-top: 12px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+table.curta { min-width: 520px; }
+th, td { padding: 12px 10px; text-align: right; white-space: nowrap; }
+thead th { white-space: normal; vertical-align: bottom; line-height: 1.3; }
+th:first-child, td:first-child { text-align: left; }
+thead th { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--pedra); font-weight: 700; border-bottom: 1px solid var(--areia); }
+tbody td { border-bottom: 1px solid var(--areia); }
+#t-meses tr { cursor: pointer; }
+#t-meses tr:hover td { background: var(--offwhite); }
+tbody tr.foco td { background: var(--brasa-minima); font-weight: 700; }
+tfoot td { font-weight: 700; border-top: 2px solid var(--carvao); }
+
+.rodape { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--areia); font-size: 13px; color: var(--pedra); display: grid; gap: 6px; }
+
+@media (max-width: 860px) {
+  .res { grid-template-columns: 1fr; }
+  .res-subs { border-left: 0; border-top: 1px solid var(--grafite); }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grade-2, .grade-2b { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .seletor { display: block; }
+  .seletor .rotulo { display: block; margin-bottom: 6px; }
+  .meses button { font-size: 13px; padding: 6px 0; }
+  .meses button small { display: none; }
+}
+@media (max-width: 520px) {
+  .cab h1 { font-size: 30px; }
+  .res-principal { padding: 24px 20px; }
+  .res-numero { font-size: 64px; }
+  .res-sub { padding: 16px 20px; }
+  .titulo-secao { font-size: 22px; }
+  .cartao { padding: 18px; }
+  .kpi { padding: 14px 16px; }
+  .kpi .valor { font-size: 24px; }
+  .virada .lado .valor, .semana .valor { font-size: 26px; }
+  .topo img { width: 140px; height: 36px; }
+}
+</style>
+</head>
+<body>
+<main class="pagina">
+
+  <header class="topo">
+    <img src="logo-hurtz.png" alt="Hurtz Company">
+    <span class="rotulo">Relatório de desempenho</span>
+  </header>
+
+  <div class="cab">
+    <span class="rotulo">Dr. Sidney Colares · Meta Ads</span>
+    <h1>Desempenho dos últimos 6 meses</h1>
+    <p>Como os anúncios do Dr. Sidney performaram de junho a novembro de 2026, com novembro até o dia 15. Escolha o mês para ver os números dele em detalhe.</p>
+  </div>
+
+  <div class="seletor-faixa">
+    <div class="seletor">
+      <span class="rotulo">Mês</span>
+      <div class="meses" id="meses" role="group" aria-label="Escolher mês"></div>
+    </div>
+  </div>
+
+  <div class="res">
+    <div class="res-principal">
+      <span class="rotulo" id="h-rotulo"></span>
+      <div class="res-numero num"><span id="h-numero"></span><small>conversas</small></div>
+      <p class="res-var" id="h-var"></p>
+      <p class="res-texto" id="h-texto"></p>
+    </div>
+    <div class="res-subs">
+      <div class="res-sub"><span class="rotulo">Investimento</span><div class="valor num" id="h-inv"></div></div>
+      <div class="res-sub"><span class="rotulo">Custo por conversa</span><div class="valor num" id="h-cpl"></div></div>
+      <div class="res-sub"><span class="rotulo">Pessoas alcançadas</span><div class="valor num" id="h-alc"></div></div>
+    </div>
+  </div>
+
+  <!-- DETALHE DO MÊS -->
+  <section>
+    <h2 class="titulo-secao" id="d-titulo"></h2>
+    <p class="intro-secao">Quantas pessoas chamaram no WhatsApp, quais procedimentos puxaram o resultado e quem procurou o doutor.</p>
+
+    <div class="kpis">
+      <div class="kpi"><span class="rotulo">WhatsApp</span><div class="valor num" id="k-w"></div><div class="det" id="k-w-det"></div></div>
+      <div class="kpi"><span class="rotulo">Taxa de clique</span><div class="valor num" id="k-ctr"></div><div class="det" id="k-ctr-det"></div></div>
+      <div class="kpi"><span class="rotulo">Por dia no ar</span><div class="valor num" id="k-dia"></div><div class="det" id="k-dia-det"></div></div>
+      <div class="kpi"><span class="rotulo">Instagram</span><div class="valor num" id="k-ig"></div><div class="det">das conversas vieram de lá</div></div>
+    </div>
+
+    <div class="grade-2">
+      <div class="cartao">
+        <h3>Conversas por dia</h3>
+        <p class="sub" id="g-dia-sub"></p>
+        <div class="grafico" id="g-dia"></div>
+        <div class="legenda" id="g-dia-leg"></div>
+      </div>
+      <div class="cartao" id="destaque"></div>
+    </div>
+
+    <div class="grade-2b">
+      <div class="cartao">
+        <h3>Procedimentos anunciados</h3>
+        <p class="sub">Conversas no mês e custo por conversa de cada procedimento</p>
+        <div class="empilhada" id="emp" aria-hidden="true"></div>
+        <ul class="lista" id="procs"></ul>
+      </div>
+      <div class="cartao">
+        <h3>Anúncios em destaque</h3>
+        <p class="sub">Os anúncios que mais trouxeram conversas no mês</p>
+        <ul class="lista" id="ads"></ul>
+      </div>
+    </div>
+
+    <div class="cartao mt">
+      <h3 id="idade-titulo"></h3>
+      <p class="sub" id="idade-sub"></p>
+      <div class="barras-h" id="idade"></div>
+    </div>
+  </section>
+
+  <!-- 6 MESES -->
+  <section>
+    <h2 class="titulo-secao">Visão dos 6 meses</h2>
+    <p class="intro-secao" id="v-intro"></p>
+
+    <div class="grade-2b">
+      <div class="cartao">
+        <h3>Conversas por mês</h3>
+        <p class="sub">Conversas no WhatsApp e cadastros · Nov* = só de 1 a 15/11</p>
+        <div class="grafico" id="g-meses"></div>
+      </div>
+      <div class="cartao">
+        <h3>Custo por conversa</h3>
+        <p class="sub">Quanto menor, melhor</p>
+        <div class="grafico" id="g-cpl"></div>
+      </div>
+    </div>
+
+    <div class="cartao mt">
+      <h3>Mês a mês</h3>
+      <p class="sub">Toque numa linha para ver o mês em detalhe</p>
+      <div class="tabela-envolve">
+        <table class="num">
+          <thead><tr><th>Mês</th><th>Investimento</th><th>Conversas</th><th>Custo por conversa</th><th>Pessoas alcançadas</th><th>Taxa de clique</th><th>Dias no ar</th></tr></thead>
+          <tbody id="t-meses"></tbody>
+          <tfoot><tr id="t-total"></tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- ATENDIMENTO -->
+  <section>
+    <h2 class="titulo-secao">Do WhatsApp ao procedimento</h2>
+    <p class="intro-secao" id="a-intro"></p>
+
+    <div class="kpis">
+      <div class="kpi"><span class="rotulo">Pacientes atendidos</span><div class="valor num" id="a-p"></div><div class="det">nos relatórios da equipe</div></div>
+      <div class="kpi"><span class="rotulo">Procedimentos agendados</span><div class="valor num brasa" id="a-a"></div><div class="det">cirurgias marcadas</div></div>
+      <div class="kpi"><span class="rotulo">Botox</span><div class="valor num" id="a-b"></div><div class="det">aplicações vendidas</div></div>
+      <div class="kpi"><span class="rotulo">Consultas</span><div class="valor num" id="a-c"></div><div class="det">avaliações marcadas</div></div>
+    </div>
+
+    <div class="cartao mt">
+      <h3>Por período</h3>
+      <p class="sub">Somatório dos relatórios diários enviados pela equipe no grupo de vendas</p>
+      <div class="tabela-envolve">
+        <table class="num curta">
+          <thead><tr><th>Período</th><th>Pacientes atendidos</th><th>Procedimentos agendados</th><th>Botox</th><th>Consultas</th></tr></thead>
+          <tbody id="t-atend"></tbody>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <footer class="rodape">
+    <p><b>Conversa</b> = pessoa que chamou no WhatsApp pelo anúncio, mais os cadastros da landing page em setembro. <b>Custo por conversa</b> = investimento ÷ conversas. Anúncios de vaga de emprego ficaram de fora.</p>
+    <p>Fontes: Gerenciador de Anúncios da Meta, conta do Dr. Sidney Colares, dados até 15/11/2026, e relatórios diários da equipe de atendimento, de 18/08 a 12/11/2026. Novembro é parcial.</p>
+    <p>Hurtz Company · infraestrutura de aquisição e conversão</p>
+  </footer>
+</main>
+
+<script>
+const DADOS = {"10":{"inv":172.35,"c":17,"w":16,"f":1,"cpl":10.14,"alc":4187,"ctr":1.01,"noar":2,"ig":82,"mulheres":94,"idade":[["18-24",6],["25-34",18],["35-44",41],["45-54",18],["55-64",18],["65+",0]],"procs":{"Lifting, pescoço e papada":{"inv":12.78,"c":3},"Remarketing":{"inv":14.99,"c":3},"Rinoplastia":{"inv":94.12,"c":8},"Blefaroplastia":{"inv":50.46,"c":3}},"dias":[[151,12],[21,5],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0]],"best":null,"ads":[]},"11":{"inv":2112.68,"c":362,"w":361,"f":1,"cpl":5.84,"alc":35431,"ctr":1.81,"noar":12,"ig":57,"mulheres":100,"idade":[["18-24",0],["25-34",0],["35-44",23],["45-54",42],["55-64",25],["65+",10]],"procs":{"Blefaroplastia":{"inv":1770.16,"c":299},"Remarketing":{"inv":342.52,"c":63}},"dias":[[0,0],[0,0],[0,0],[101,32],[215,46],[154,29],[176,30],[126,25],[305,35],[261,45],[165,29],[102,18],[183,24],[151,28],[174,21]],"best":{"ini":4,"fim":10,"s":1338,"c":242,"cpl":5.53},"ads":[{"nome":"Vídeo L1 · captação","quem":"Láisa","r":147,"cpr":5.42},{"nome":"Vídeo L1 · captação","quem":"Fabíola","r":147,"cpr":5.54},{"nome":"Vídeo L2 · remarketing","quem":"Fabíola","r":35,"cpr":4.9},{"nome":"Vídeo L2 · remarketing","quem":"Láisa","r":28,"cpr":6.11}]},"06":{"inv":5252.82,"c":372,"w":371,"f":1,"cpl":14.12,"alc":81735,"ctr":1.14,"noar":30,"ig":75,"mulheres":71,"idade":[["18-24",14],["25-34",24],["35-44",33],["45-54",19],["55-64",6],["65+",3]],"procs":{"Rinoplastia":{"inv":2519.13,"c":202},"Blefaroplastia":{"inv":1097.79,"c":60},"Lifting, pescoço e papada":{"inv":984.45,"c":67},"Botox":{"inv":635.08,"c":43},"Remarketing":{"inv":16.37,"c":0}},"dias":[[158,13],[166,10],[229,22],[307,25],[294,24],[382,23],[347,23],[321,13],[383,27],[274,18],[224,21],[171,11],[162,17],[261,17],[186,9],[154,12],[101,6],[82,4],[62,5],[45,6],[89,5],[114,4],[127,14],[94,5],[74,5],[54,8],[76,5],[92,3],[99,9],[123,8]],"best":{"ini":23,"fim":29,"s":616,"c":49,"cpl":12.57},"ads":[{"nome":"Rinoplastia","quem":"Láisa","r":59,"cpr":9.02},{"nome":"Rinoplastia","quem":"Láisa","r":33,"cpr":16.17},{"nome":"Rinoplastia","quem":"Láisa","r":30,"cpr":17.88},{"nome":"Rinoplastia","quem":"Fabíola","r":24,"cpr":8.8}]},"07":{"inv":4383.92,"c":385,"w":385,"f":0,"cpl":11.39,"alc":73669,"ctr":1.36,"noar":22,"ig":75,"mulheres":67,"idade":[["18-24",9],["25-34",28],["35-44",38],["45-54",18],["55-64",6],["65+",1]],"procs":{"Rinoplastia":{"inv":2797.37,"c":239},"Blefaroplastia":{"inv":443.52,"c":45},"Lifting, pescoço e papada":{"inv":1143.03,"c":101}},"dias":[[114,13],[60,6],[36,10],[27,2],[38,1],[2,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[0,0],[173,13],[214,19],[218,20],[218,20],[138,17],[142,24],[325,22],[353,24],[284,28],[294,32],[228,26],[244,14],[309,21],[326,23],[267,27],[191,9],[182,14]],"best":{"ini":19,"fim":25,"s":1764,"c":173,"cpl":10.2},"ads":[{"nome":"Rinoplastia","quem":"Fabíola","r":45,"cpr":8.84},{"nome":"Lifting, pescoço e papada","quem":"Fabíola","r":35,"cpr":6.82},{"nome":"Rinoplastia","quem":"Fabíola","r":33,"cpr":12.16},{"nome":"Rinoplastia","quem":"Fabíola","r":31,"cpr":12.81}]},"08":{"inv":6599.76,"c":620,"w":620,"f":0,"cpl":10.64,"alc":78596,"ctr":1.28,"noar":31,"ig":73,"mulheres":83,"idade":[["18-24",6],["25-34",17],["35-44",33],["45-54",28],["55-64",14],["65+",2]],"procs":{"Rinoplastia":{"inv":3095.37,"c":192},"Blefaroplastia":{"inv":652.67,"c":54},"Lifting, pescoço e papada":{"inv":2654.97,"c":354},"Remarketing":{"inv":196.75,"c":20}},"dias":[[105,12],[243,22],[229,16],[271,21],[293,14],[205,12],[183,13],[164,11],[204,12],[250,14],[329,15],[252,19],[197,18],[238,47],[157,29],[220,31],[260,24],[361,28],[319,34],[210,12],[204,34],[74,15],[125,20],[154,14],[271,20],[274,23],[220,25],[142,22],[115,7],[126,13],[205,23]],"best":{"ini":13,"fim":19,"s":1752,"c":211,"cpl":8.3},"ads":[{"nome":"Lifting, pescoço e papada","quem":"Láisa","r":50,"cpr":3.56},{"nome":"Lifting, pescoço e papada","quem":"Fabíola","r":41,"cpr":4.23},{"nome":"Lifting, pescoço e papada","quem":"Fabíola","r":38,"cpr":4.64},{"nome":"Lifting, pescoço e papada","quem":"Láisa","r":34,"cpr":5.14}]},"09":{"inv":5649.25,"c":496,"w":479,"f":17,"cpl":11.39,"alc":57300,"ctr":1.41,"noar":30,"ig":74,"mulheres":94,"idade":[["18-24",5],["25-34",13],["35-44",30],["45-54",30],["55-64",17],["65+",5]],"procs":{"Blefaroplastia":{"inv":1149.73,"c":70},"Rinoplastia":{"inv":1925.98,"c":98},"Lifting, pescoço e papada":{"inv":1809.85,"c":211},"Remarketing":{"inv":763.69,"c":116}},"dias":[[283,22],[195,23],[197,21],[149,11],[116,16],[224,15],[164,20],[252,28],[291,25],[233,19],[139,10],[105,8],[208,20],[213,17],[224,18],[203,18],[157,22],[137,14],[110,9],[175,17],[241,17],[282,19],[188,19],[140,10],[141,8],[121,9],[136,9],[145,8],[267,29],[216,15]],"best":{"ini":2,"fim":8,"s":1297,"c":134,"cpl":9.68},"ads":[{"nome":"Remarketing de lifting","quem":"Fabíola","r":52,"cpr":3.57},{"nome":"Lifting, pescoço e papada","quem":"Fabíola","r":51,"cpr":5.84},{"nome":"Remarketing de lifting","quem":"Láisa","r":45,"cpr":4.11},{"nome":"Lifting, pescoço e papada","quem":"Láisa","r":44,"cpr":6.72}]}};
+const TOTAL = {"inv":24170.78,"c":2252,"cpl":10.73,"alc":205269};
+const ATEND = {"11":{"p":229,"c":3,"a":8,"b":6,"de":"05","ate":"12","dias":7},"08":{"p":216,"c":8,"a":23,"b":13,"de":"18","ate":"31","dias":10},"09":{"p":359,"c":14,"a":30,"b":12,"de":"01","ate":"30","dias":22}};
+const ORDEM = ['06', '07', '08', '09', '10', '11'];
+const NOME = { '06': 'Junho', '07': 'Julho', '08': 'Agosto', '09': 'Setembro', '10': 'Outubro', '11': 'Novembro' };
+const CURTO = { '06': 'Jun', '07': 'Jul', '08': 'Ago', '09': 'Set', '10': 'Out', '11': 'Nov*' };
+const PARCIAL = { '11': ' (1 a 15)' };
+
+// leitura de cada mês: só o que deu certo
+const TEXTO = {
+  '06': { var: 'Cinco procedimentos anunciados ao mesmo tempo', txt: 'Junho foi o mês com mais frentes no ar: rinoplastia, blefaroplastia, lifting, papada e botox. A rinoplastia puxou o resultado, com mais da metade das conversas.' },
+  '07': { var: 'Custo por conversa <b>19% menor</b> que em junho (R$ 14,12 → R$ 11,39)', txt: 'Julho baixou o custo por conversa e manteve a rinoplastia como carro-chefe. A lipo de papada entrou como destaque, com conversa abaixo de R$ 7.' },
+  '08': { var: 'Maior volume de conversas até então: 620', txt: 'Agosto teve anúncio no ar todos os 31 dias e o custo por conversa caiu de novo. O lifting de pescoço virou o grande destaque, com conversas a menos de R$ 4.' },
+  '09': { var: 'Taxa de clique mais alta até então (1,41%)', txt: 'Setembro trouxe o remarketing, que falou com quem já conhecia o doutor e gerou conversas a partir de R$ 3,57. Foi também o mês do teste da landing page.' },
+  '10': { var: 'Campanhas pausadas a partir de 02/10', txt: 'Outubro ficou praticamente sem anúncio no ar. A conta voltou em 04/11 com a nova estrutura, só de blefaroplastia para paciente modelo.' },
+  '11': { var: 'Custo por conversa <b>49% menor</b> que em setembro (R$ 11,39 → R$ 5,84)', txt: 'Com a nova estrutura, novembro já soma 362 conversas em 12 dias de anúncio, 73% do volume de setembro inteiro. É o menor custo por conversa dos 6 meses.' }
+};
+
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const brl = v => 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const int = v => v.toLocaleString('pt-BR');
+const pct = v => v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%';
+const dd = (d, k) => String(d).padStart(2, '0') + '/' + k;
+const $ = id => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, txt) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (txt != null) e.textContent = txt; return e; }
+
+let atual = '11';
+
+function barras(alvo, itens, { H = 220, tituloFn } = {}) {
+  const W = Math.max(280, alvo.clientWidth);
+  const topo = 22, base = 26, max = Math.max(1, ...itens.map(i => i.v)) * 1.08;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img' });
+  const bw = W / itens.length, gap = Math.max(2, bw * 0.22);
+  svg.appendChild(el('line', { x1: 0, x2: W, y1: H - base, y2: H - base, stroke: css('--areia') }));
+  itens.forEach((it, i) => {
+    const h = it.v > 0 ? Math.max(3, (it.v / max) * (H - topo - base)) : 3;
+    const x = i * bw + gap / 2, y = H - base - h, cx = x + (bw - gap) / 2;
+    const r = el('rect', { x, y, width: bw - gap, height: h, rx: 2, fill: it.cor });
+    if (tituloFn) r.appendChild(el('title', {}, tituloFn(it)));
+    if (it.clique) { r.style.cursor = 'pointer'; r.addEventListener('click', it.clique); }
+    svg.appendChild(r);
+    const rot = typeof it.rot === 'function' ? it.rot(bw) : it.rot !== false;
+    if (it.v > 0 && rot) svg.appendChild(el('text', { x: cx, y: y - 6, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700, fill: css('--carvao') }, int(it.v)));
+    const naBorda = cx > W - 10;
+    if (it.eixo) svg.appendChild(el('text', { x: naBorda ? W : cx, y: H - 8, 'text-anchor': naBorda ? 'end' : 'middle', 'font-size': 11, 'font-weight': it.forte ? 700 : 400, fill: it.forte ? css('--carvao') : css('--pedra') }, it.eixo));
+  });
+  alvo.appendChild(svg);
+  return { svg, W, bw };
+}
+
+function graficoDia() {
+  const m = DADOS[atual], alvo = $('g-dia'), n = m.dias.length, nov = atual === '11';
+  alvo.innerHTML = '';
+  const eixo = d => d === 1 || d === n || ((d - 1) % 5 === 0 && n - d >= 3) || (nov && d === 4);
+  const pico = Math.max(...m.dias.map(([s, c]) => s > 5 ? c : 0));
+  barras(alvo, m.dias.map(([s, c], i) => {
+    const dia = i + 1, noAr = s > 5;
+    return {
+      v: noAr ? c : 0, eixo: eixo(dia) ? String(dia) : '', dia, c,
+      cor: !noAr ? css('--areia') : css('--brasa'),
+      rot: w => noAr && (w >= 22 || c === pico || (w >= 18 && c >= pico * 0.6))
+    };
+  }), { H: 230, tituloFn: it => dd(it.dia, atual) + ': ' + (it.v > 0 ? it.c + ' conversas' : 'sem anúncio no ar') });
+  $('g-dia-sub').textContent = 'Cada barra é um dia de ' + NOME[atual].toLowerCase() + (nov ? ' (até o dia 15)' : '');
+  const temZero = m.dias.some(x => x[0] <= 5);
+  $('g-dia-leg').innerHTML = '<span><i style="background:var(--brasa)"></i>Conversas no dia</span>' + (temZero ? '<span><i style="background:var(--areia)"></i>Sem anúncio no ar</span>' : '');
+}
+
+function destaque() {
+  const m = DADOS[atual], c = $('destaque');
+  if (atual === '11') {
+    const set = DADOS['09'], porDiaSet = set.c / set.noar, porDiaNov = m.c / m.noar;
+    c.innerHTML = `<h3>Novembro contra setembro</h3><p class="sub">Custo por conversa com a nova estrutura de blefaroplastia</p>
+      <div class="virada"><div class="lado"><span class="rotulo">Setembro</span><div class="valor num">${brl(set.cpl)}</div><div class="det num">${int(set.c)} conversas no mês</div></div>
+      <div class="seta" aria-hidden="true">→</div>
+      <div class="lado depois"><span class="rotulo">1 a 15/11</span><div class="valor num">${brl(m.cpl)}</div><div class="det num">${int(m.c)} conversas</div></div></div>
+      <span class="selo num">${Math.round((1 - m.cpl / set.cpl) * 100)}% mais barato por conversa</span>
+      <p class="nota">Média de ${int(Math.round(porDiaNov))} conversas por dia de anúncio no ar, contra ${int(Math.round(porDiaSet))} por dia em setembro.</p>`;
+    return;
+  }
+  if (atual === '10') {
+    c.innerHTML = `<h3>A volta em novembro</h3><p class="sub">Outubro ficou com anúncio no ar só nos dois primeiros dias</p>
+      <p class="nota" style="margin-top:18px">A conta voltou em 04/11 com uma estrutura nova, só de blefaroplastia para paciente modelo, com captação, remarketing e reconhecimento separados. Veja o resultado em novembro.</p>
+      <span class="selo">No ar desde 04/11</span>`;
+    return;
+  }
+  const b = m.best;
+  if (!b) { c.innerHTML = ''; return; }
+  const abaixo = Math.round((1 - b.cpl / m.cpl) * 100);
+  c.innerHTML = `<h3>Melhor semana do mês</h3><p class="sub">Os 7 dias seguidos com menor custo por conversa</p>
+    <p class="rotulo" style="margin-top:18px">${dd(b.ini, atual)} a ${dd(b.fim, atual)}</p>
+    <div class="semana" style="margin-top:6px">
+      <div><span class="rotulo">Conversas</span><div class="valor num">${int(b.c)}</div></div>
+      <div><span class="rotulo">Custo por conversa</span><div class="valor num brasa">${brl(b.cpl)}</div></div>
+    </div>
+    ${abaixo >= 3 ? `<span class="selo num">${abaixo}% abaixo da média do mês</span>` : ''}
+    <p class="nota">Média do mês: ${brl(m.cpl)} por conversa, com ${int(Math.round(m.c / m.noar))} conversas por dia de anúncio no ar.</p>`;
+}
+
+const CORES = { 'Blefaroplastia': 'var(--brasa)', 'Rinoplastia': 'var(--brasa-escura)', 'Lifting, pescoço e papada': 'var(--brasa-clara)', 'Botox': 'var(--brasa-100)', 'Remarketing': 'var(--grafite)', 'Landing page e testes': 'var(--pedra)' };
+function procs() {
+  const m = DADOS[atual];
+  const ps = Object.entries(m.procs).filter(([, v]) => v.inv > 1 && v.c > 0).sort((a, b) => b[1].c - a[1].c || b[1].inv - a[1].inv);
+  const total = ps.reduce((s, [, v]) => s + v.inv, 0);
+  $('emp').innerHTML = ps.map(([p, v]) => `<div title="${p}" style="width:${v.inv / total * 100}%;background:${CORES[p]}"></div>`).join('');
+  const comConv = ps.filter(([, v]) => v.c >= 5), menor = comConv.length ? Math.min(...comConv.map(([, v]) => v.inv / v.c)) : -1;
+  $('procs').innerHTML = ps.map(([p, v], i) => {
+    const cpc = v.c ? v.inv / v.c : 0;
+    const desc = i === 0 && v.c > 0 && Math.abs(cpc - menor) < 0.005 ? 'Maior volume e menor custo do mês' : i === 0 ? 'Maior volume do mês' : v.c >= 5 && Math.abs(cpc - menor) < 0.005 ? 'Menor custo por conversa do mês' : Math.round(v.inv / total * 100) + '% do investimento';
+    return `<li><span class="nome"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px;background:${CORES[p]}"></i>${p}</span><span class="desc">${desc}</span><span class="dado num"><b>${int(v.c)}</b><span>${v.c ? brl(cpc) + ' cada' : brl(v.inv)}</span></span></li>`;
+  }).join('');
+}
+
+function ads() {
+  const m = DADOS[atual];
+  $('ads').innerHTML = m.ads.length ? m.ads.map((a, i) => `<li><span class="nome">${a.nome}</span><span class="desc">${[a.quem ? 'WhatsApp da ' + a.quem : '', i === 0 ? 'mais conversas do mês' : ''].filter(Boolean).join(' · ')}</span><span class="dado num"><b>${int(a.r)}</b><span>${brl(a.cpr)} cada</span></span></li>`).join('')
+    : '<li><span class="desc">Mês com pouco tempo de anúncio no ar.</span></li>';
+}
+
+function idade() {
+  const m = DADOS[atual], id = m.idade.filter(x => x[1] > 0), max = Math.max(...id.map(x => x[1]));
+  $('idade-titulo').textContent = 'Quem chamou o doutor em ' + NOME[atual].toLowerCase();
+  $('idade-sub').textContent = `Participação de cada faixa de idade nas conversas · mulheres ${m.mulheres}%` + (m.mulheres < 100 ? `, homens ${100 - m.mulheres}%` : '') + (atual === '11' ? ' · em novembro o anúncio foi só para mulheres de 40 a 65 anos' : '');
+  $('idade').innerHTML = id.map(([f, p]) => `<div class="barra-h${p === max ? ' destaque' : ''}"><span>${f.replace('-', ' a ')}</span><div class="trilho"><div style="width:${p / max * 100}%"></div></div><span class="pct num">${p}%</span></div>`).join('');
+}
+
+function visaoGeral() {
+  $('g-meses').innerHTML = ''; $('g-cpl').innerHTML = '';
+  barras($('g-meses'), ORDEM.map(k => ({
+    v: DADOS[k].c, eixo: CURTO[k], forte: k === atual, clique: () => escolher(k),
+    cor: k === atual ? css('--brasa') : css('--brasa-100')
+  })), { tituloFn: it => it.eixo + ': ' + int(it.v) + ' conversas' });
+
+  const alvo = $('g-cpl'), W = Math.max(280, alvo.clientWidth), H = 220, topo = 28, base = 26, pad = 24;
+  const max = Math.max(...ORDEM.map(k => DADOS[k].cpl)) * 1.12;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img' });
+  const x = i => pad + i * (W - 2 * pad) / (ORDEM.length - 1), y = v => topo + (1 - v / max) * (H - topo - base);
+  svg.appendChild(el('line', { x1: 0, x2: W, y1: H - base, y2: H - base, stroke: css('--areia') }));
+  svg.appendChild(el('polyline', { points: ORDEM.map((k, i) => x(i) + ',' + y(DADOS[k].cpl)).join(' '), fill: 'none', stroke: css('--brasa-clara'), 'stroke-width': 2 }));
+  ORDEM.forEach((k, i) => {
+    const sel = k === atual, v = DADOS[k].cpl;
+    const c = el('circle', { cx: x(i), cy: y(v), r: sel ? 7 : 4, fill: sel ? css('--brasa') : css('--brasa-clara'), stroke: css('--cartao'), 'stroke-width': 2 });
+    c.appendChild(el('title', {}, CURTO[k] + ': ' + brl(v)));
+    c.style.cursor = 'pointer'; c.addEventListener('click', () => escolher(k));
+    svg.appendChild(c);
+    svg.appendChild(el('text', { x: x(i), y: y(v) - 12, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700, fill: sel ? css('--brasa-escura') : css('--carvao') }, v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })));
+    svg.appendChild(el('text', { x: x(i), y: H - 8, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': sel ? 700 : 400, fill: sel ? css('--carvao') : css('--pedra') }, CURTO[k]));
+  });
+  alvo.appendChild(svg);
+
+  $('t-meses').innerHTML = ORDEM.map(k => {
+    const m = DADOS[k];
+    return `<tr data-mes="${k}" class="${k === atual ? 'foco' : ''}"><td>${NOME[k]}${PARCIAL[k] || ''}</td><td>${brl(m.inv)}</td><td>${int(m.c)}</td><td>${brl(m.cpl)}</td><td>${int(m.alc)}</td><td>${pct(m.ctr)}</td><td>${m.noar}</td></tr>`;
+  }).join('');
+}
+
+function atendimento() {
+  const ks = Object.keys(ATEND).sort(), soma = f => ks.reduce((s, k) => s + ATEND[k][f], 0);
+  $('a-p').textContent = int(soma('p'));
+  $('a-a').textContent = int(soma('a'));
+  $('a-b').textContent = int(soma('b'));
+  $('a-c').textContent = int(soma('c'));
+  $('a-intro').textContent = `Nos períodos com relatório diário da equipe, ${int(soma('p'))} pacientes foram atendidos no WhatsApp e ${int(soma('a') + soma('b'))} procedimentos foram vendidos: ${int(soma('a'))} cirurgias agendadas e ${int(soma('b'))} aplicações de botox.`;
+  const per = { '08': 'Agosto (18 a 31)', '09': 'Setembro', '11': 'Novembro (5 a 12), nova estrutura' };
+  $('t-atend').innerHTML = ks.map(k => { const a = ATEND[k]; return `<tr><td>${per[k]}</td><td>${int(a.p)}</td><td>${int(a.a)}</td><td>${int(a.b)}</td><td>${int(a.c)}</td></tr>`; }).join('');
+}
+
+function escolher(k, rolar) {
+  atual = k;
+  const m = DADOS[k], t = TEXTO[k];
+  document.querySelectorAll('#meses button').forEach(b => b.setAttribute('aria-pressed', b.dataset.mes === k));
+  try { history.replaceState(null, '', '#' + CURTO[k].replace('*', '').toLowerCase()); } catch (e) {}
+  $('h-rotulo').textContent = NOME[k] + (PARCIAL[k] || '') + ' · conversas geradas';
+  $('h-numero').textContent = int(m.c);
+  $('h-var').innerHTML = t.var;
+  $('h-texto').textContent = t.txt;
+  $('h-inv').textContent = brl(m.inv);
+  $('h-cpl').textContent = brl(m.cpl);
+  $('h-alc').textContent = int(m.alc);
+  $('d-titulo').textContent = NOME[k] + ' em detalhe' + (PARCIAL[k] || '');
+  $('k-w').textContent = int(m.w);
+  $('k-w-det').textContent = m.f > 2 ? `mais ${int(m.f)} cadastros na landing page` : 'conversas iniciadas';
+  $('k-ctr').textContent = pct(m.ctr);
+  const rank = ORDEM.map(o => DADOS[o].ctr).sort((a, b) => b - a).indexOf(m.ctr) + 1;
+  $('k-ctr-det').textContent = rank === 1 ? 'a maior do período' : rank <= 3 ? 'entre as 3 maiores do período' : 'de quem viu o anúncio clicou nele';
+  $('k-dia').textContent = int(Math.round(m.c / Math.max(1, m.noar)));
+  $('k-dia-det').textContent = `conversas por dia, em ${m.noar} dias de anúncio no ar`;
+  $('k-ig').textContent = m.ig + '%';
+  graficoDia(); destaque(); procs(); ads(); idade(); visaoGeral();
+  if (rolar) window.scrollTo({ top: document.querySelector('.res').getBoundingClientRect().top + scrollY - document.querySelector('.seletor-faixa').offsetHeight - 12, behavior: 'smooth' });
+}
+
+$('v-intro').textContent = `De junho a 15 de novembro foram ${brl(TOTAL.inv)} investidos, ${int(TOTAL.c)} conversas geradas a ${brl(TOTAL.cpl)} cada, e ${int(TOTAL.alc)} pessoas diferentes alcançadas na região.`;
+$('t-total').innerHTML = `<td>Jun a 15/11</td><td>${brl(TOTAL.inv)}</td><td>${int(TOTAL.c)}</td><td>${brl(TOTAL.cpl)}</td><td>${int(TOTAL.alc)}</td><td></td><td>${ORDEM.reduce((s, k) => s + DADOS[k].noar, 0)}</td>`;
+$('meses').innerHTML = ORDEM.map(k => `<button type="button" data-mes="${k}" aria-pressed="false">${CURTO[k].replace('*', '')}${k === '11' ? '<small> parcial</small>' : ''}</button>`).join('');
+$('meses').addEventListener('click', e => { const b = e.target.closest('button'); if (b) escolher(b.dataset.mes); });
+$('t-meses').addEventListener('click', e => { const tr = e.target.closest('tr'); if (tr) escolher(tr.dataset.mes, true); });
+atendimento();
+
+const hash = location.hash.slice(1);
+const doHash = ORDEM.find(k => CURTO[k].replace('*', '').toLowerCase() === hash);
+escolher(doHash || '11');
+let larguraAnterior = innerWidth;
+addEventListener('resize', () => { if (innerWidth !== larguraAnterior) { larguraAnterior = innerWidth; graficoDia(); visaoGeral(); } });
+</script>
+</body>
+</html>
