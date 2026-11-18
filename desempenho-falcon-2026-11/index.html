@@ -1,0 +1,572 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex, nofollow">
+<title>Falcon · Desempenho</title>
+<link rel="icon" href="favicon.svg" type="image/svg+xml">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap">
+<style>
+:root {
+  --brasa: #C06018; --brasa-escura: #974A12; --brasa-clara: #E2A87A; --brasa-100: #F0CEB4; --brasa-minima: #F9EDE3;
+  --carvao: #181614; --grafite: #3D3A36; --pedra: #6F6B64; --areia: #E8E4DC; --offwhite: #F5F2EC; --cartao: #FFFFFF;
+  --bom: #1A7A4A;
+}
+*, *::before, *::after { box-sizing: border-box; }
+html, body { margin: 0; }
+body { font-family: Inter, 'Helvetica Neue', Arial, sans-serif; font-size: 15px; line-height: 1.55; color: var(--carvao); background: var(--offwhite); -webkit-font-smoothing: antialiased; }
+h1, h2, h3, p { margin: 0; }
+button { font: inherit; color: inherit; cursor: pointer; }
+:focus-visible { outline: 2px solid var(--brasa); outline-offset: 2px; }
+.num { font-variant-numeric: tabular-nums; }
+.rotulo { font-size: 11px; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--pedra); }
+.pagina { max-width: 1120px; margin: 0 auto; padding: 16px 16px 64px; }
+
+.topo { display: flex; align-items: center; justify-content: space-between; gap: 16px; margin-bottom: 20px; }
+.topo img { flex: none; width: 170px; height: 44px; object-fit: cover; display: block; mix-blend-mode: multiply; margin-left: -8px; }
+.topo .rotulo { text-align: right; }
+
+.cab { margin-bottom: 20px; }
+.cab h1 { margin-top: 6px; font-size: 40px; line-height: 1.1; letter-spacing: -.02em; }
+.cab p { margin-top: 10px; color: var(--grafite); max-width: 62ch; }
+
+.seletor-faixa { position: sticky; top: 0; z-index: 10; margin: 0 -16px 20px; padding: 10px 16px; background: var(--offwhite); border-bottom: 1px solid var(--areia); }
+.seletor { display: flex; align-items: center; gap: 12px; }
+.seletor .rotulo { flex: none; }
+.meses { display: grid; grid-template-columns: repeat(6, minmax(0, 1fr)); gap: 4px; flex: 1; max-width: 600px; padding: 4px; background: var(--cartao); border: 1px solid var(--areia); border-radius: 6px; }
+.meses button { min-height: 40px; padding: 6px 4px; border: 0; border-radius: 4px; background: none; font-size: 14px; font-weight: 700; color: var(--grafite); white-space: nowrap; }
+.meses button:hover { background: var(--offwhite); }
+.meses button[aria-pressed="true"] { background: var(--carvao); color: #fff; }
+.meses button small { font-weight: 400; font-size: 11px; opacity: .75; }
+
+.res { display: grid; grid-template-columns: minmax(0, 1.3fr) minmax(0, 1fr); background: var(--carvao); color: var(--offwhite); border-radius: 6px; overflow: hidden; }
+.res .rotulo { color: var(--brasa-clara); }
+.res-principal { padding: 32px 36px 30px; min-width: 0; }
+.res-numero { margin-top: 10px; font-size: 84px; line-height: 1; font-weight: 700; letter-spacing: -.04em; color: #fff; }
+.res-numero small { font-size: 20px; font-weight: 400; letter-spacing: 0; color: var(--areia); margin-left: 6px; }
+.res-var { margin-top: 10px; font-size: 14px; color: #B8B3AA; }
+.res-var b { color: #6FD3A0; }
+.res-texto { margin-top: 18px; max-width: 54ch; color: var(--areia); font-size: 15px; line-height: 1.6; }
+.res-subs { display: grid; align-content: center; border-left: 1px solid var(--grafite); }
+.res-sub { padding: 20px 36px; }
+.res-sub + .res-sub { border-top: 1px solid var(--grafite); }
+.res-sub .valor { margin-top: 4px; font-size: 30px; font-weight: 700; line-height: 1.1; color: #fff; }
+
+section { margin-top: 56px; }
+.titulo-secao { font-size: 26px; line-height: 1.2; letter-spacing: -.01em; }
+.intro-secao { margin-top: 6px; color: var(--grafite); max-width: 64ch; }
+.cartao { background: var(--cartao); border: 1px solid var(--areia); border-radius: 4px; padding: 24px; min-width: 0; }
+.cartao h3 { font-size: 16px; line-height: 1.35; }
+.cartao .sub { margin-top: 2px; font-size: 13px; color: var(--pedra); }
+
+.kpis { margin-top: 20px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.kpi { background: var(--cartao); border: 1px solid var(--areia); border-radius: 4px; padding: 18px 20px; min-width: 0; }
+.kpi .valor { margin-top: 6px; font-size: 30px; font-weight: 700; line-height: 1.1; letter-spacing: -.01em; }
+.kpi .valor.brasa { color: var(--brasa); }
+.kpi .det { margin-top: 4px; font-size: 13px; color: var(--pedra); }
+
+.grade-2 { margin-top: 12px; display: grid; grid-template-columns: minmax(0, 1.6fr) minmax(0, 1fr); gap: 12px; }
+.grade-2b { margin-top: 12px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.mt { margin-top: 12px; }
+
+.grafico { margin-top: 16px; width: 100%; }
+.grafico svg { display: block; width: 100%; height: auto; overflow: visible; }
+.legenda { margin-top: 12px; display: flex; flex-wrap: wrap; gap: 6px 18px; font-size: 12px; color: var(--pedra); }
+.legenda span { display: inline-flex; align-items: center; gap: 6px; }
+.legenda i { display: inline-block; width: 10px; height: 10px; border-radius: 2px; }
+
+.virada { display: grid; grid-template-columns: 1fr auto 1fr; align-items: center; gap: 12px; margin-top: 18px; }
+.virada .lado .valor { margin-top: 4px; font-size: 30px; font-weight: 700; line-height: 1.1; white-space: nowrap; }
+.virada .lado .det { font-size: 13px; color: var(--pedra); }
+.virada .depois .valor { color: var(--brasa); }
+.virada .seta { font-size: 22px; color: var(--brasa-clara); }
+.semana { margin-top: 18px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.semana .valor { margin-top: 4px; font-size: 34px; font-weight: 700; line-height: 1.1; }
+.semana .valor.brasa { color: var(--brasa); }
+.selo { display: inline-block; margin-top: 18px; padding: 6px 12px; border-radius: 4px; background: #E3F1E9; color: var(--bom); font-weight: 700; font-size: 14px; }
+.nota { margin-top: 14px; font-size: 14px; color: var(--grafite); }
+
+.lista { list-style: none; margin: 16px 0 0; padding: 0; }
+.lista li { display: grid; grid-template-columns: minmax(0, 1fr) auto; gap: 4px 16px; align-items: baseline; padding: 12px 0; border-top: 1px solid var(--areia); }
+.lista li:first-child { border-top: 0; padding-top: 4px; }
+.lista .nome { font-weight: 700; }
+.lista .desc { grid-column: 1; font-size: 13px; color: var(--pedra); }
+.lista .dado { grid-row: 1 / span 2; grid-column: 2; text-align: right; }
+.lista .dado b { display: block; font-size: 20px; line-height: 1.2; }
+.lista .dado span { font-size: 13px; color: var(--pedra); }
+
+.barras-h { margin-top: 16px; display: grid; gap: 10px; }
+.barra-h { display: grid; grid-template-columns: 64px minmax(0, 1fr) 44px; align-items: center; gap: 10px; font-size: 13px; }
+.barra-h .trilho { height: 10px; background: var(--offwhite); border-radius: 2px; overflow: hidden; }
+.barra-h .trilho div { height: 100%; background: var(--brasa-clara); border-radius: 2px; }
+.barra-h.destaque .trilho div { background: var(--brasa); }
+.barra-h .pct { text-align: right; font-weight: 700; }
+
+.empilhada { margin-top: 18px; display: flex; height: 14px; border-radius: 2px; overflow: hidden; gap: 2px; }
+.empilhada div { height: 100%; }
+
+.tabela-envolve { margin-top: 12px; overflow-x: auto; }
+table { width: 100%; border-collapse: collapse; font-size: 14px; min-width: 640px; }
+table.curta { min-width: 520px; }
+th, td { padding: 12px 10px; text-align: right; white-space: nowrap; }
+thead th { white-space: normal; vertical-align: bottom; line-height: 1.3; }
+th:first-child, td:first-child { text-align: left; }
+thead th { font-size: 11px; letter-spacing: .08em; text-transform: uppercase; color: var(--pedra); font-weight: 700; border-bottom: 1px solid var(--areia); }
+tbody td { border-bottom: 1px solid var(--areia); }
+#t-meses tr { cursor: pointer; }
+#t-meses tr:hover td { background: var(--offwhite); }
+tbody tr.foco td { background: var(--brasa-minima); font-weight: 700; }
+tfoot td { font-weight: 700; border-top: 2px solid var(--carvao); }
+
+/* do anúncio ao procedimento */
+.funil { margin-top: 18px; display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); gap: 12px; }
+.etapa { position: relative; padding: 16px 18px; background: var(--offwhite); border-radius: 4px; min-width: 0; }
+.etapa .valor { margin-top: 4px; font-size: 30px; font-weight: 700; line-height: 1.1; }
+.etapa .det { margin-top: 4px; font-size: 13px; color: var(--pedra); }
+.etapa.fim { background: var(--brasa-minima); }
+.etapa.fim .valor { color: var(--brasa); }
+.etapa + .etapa::before { content: '→'; position: absolute; left: -11px; top: 50%; transform: translateY(-50%); font-size: 14px; color: var(--brasa-clara); }
+.cruz-rodape { margin-top: 16px; display: flex; flex-wrap: wrap; gap: 8px 24px; font-size: 14px; color: var(--grafite); }
+.cruz-rodape b { color: var(--carvao); }
+@media (max-width: 860px) { .funil { grid-template-columns: repeat(2, minmax(0, 1fr)); } .etapa + .etapa::before { display: none; } }
+
+.rodape { margin-top: 56px; padding-top: 20px; border-top: 1px solid var(--areia); font-size: 13px; color: var(--pedra); display: grid; gap: 6px; }
+
+@media (max-width: 860px) {
+  .res { grid-template-columns: 1fr; }
+  .res-subs { border-left: 0; border-top: 1px solid var(--grafite); }
+  .kpis { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .grade-2, .grade-2b { grid-template-columns: 1fr; }
+}
+@media (max-width: 600px) {
+  .seletor { display: block; }
+  .seletor .rotulo { display: block; margin-bottom: 6px; }
+  .meses button { font-size: 13px; padding: 6px 0; }
+  .meses button small { display: none; }
+}
+@media (max-width: 520px) {
+  .cab h1 { font-size: 30px; }
+  .res-principal { padding: 24px 20px; }
+  .res-numero { font-size: 64px; }
+  .res-sub { padding: 16px 20px; }
+  .titulo-secao { font-size: 22px; }
+  .cartao { padding: 18px; }
+  .kpi { padding: 14px 16px; }
+  .kpi .valor { font-size: 24px; }
+  .virada .lado .valor, .semana .valor { font-size: 26px; }
+  .topo img { width: 140px; height: 36px; }
+}
+.mudancas { list-style: none; margin: 16px 0 0; padding: 0; display: grid; gap: 10px; }
+.mudancas li { position: relative; padding-left: 20px; font-size: 14px; color: var(--grafite); }
+.mudancas li::before { content: ''; position: absolute; left: 2px; top: 8px; width: 8px; height: 8px; border-radius: 2px; background: var(--brasa); }
+.mudancas li b { color: var(--carvao); }
+.qual-num { margin-top: 16px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 12px; }
+.qual-num .valor { margin-top: 4px; font-size: 30px; font-weight: 700; line-height: 1.1; }
+.qual-num .valor.brasa { color: var(--brasa); }
+.qual-num .det { font-size: 13px; color: var(--pedra); }
+.barra-h.larga { grid-template-columns: 128px minmax(0, 1fr) 64px; }
+.proximo { margin-top: 12px; background: var(--carvao); color: var(--areia); border-radius: 6px; padding: 24px 28px; }
+.proximo .rotulo { color: var(--brasa-clara); }
+.proximo h3 { margin-top: 6px; font-size: 20px; line-height: 1.3; color: #fff; }
+.proximo p { margin-top: 8px; max-width: 70ch; font-size: 15px; }
+@media (max-width: 520px) { .barra-h.larga { grid-template-columns: 104px minmax(0, 1fr) 56px; } .proximo { padding: 20px; } }
+</style>
+</head>
+<body>
+<main class="pagina">
+
+  <header class="topo">
+    <img src="logo-hurtz.png" alt="Hurtz Company">
+    <span class="rotulo">Relatório de desempenho</span>
+  </header>
+
+  <div class="cab">
+    <span class="rotulo">Falcon · Meta Ads</span>
+    <h1>Desempenho dos últimos 6 meses</h1>
+    <p>Como os anúncios da Falcon performaram de junho a novembro de 2026, com novembro até o dia 17. Escolha o mês para ver os números, o que mudou e a qualidade dos contatos dele.</p>
+  </div>
+
+  <div class="seletor-faixa">
+    <div class="seletor">
+      <span class="rotulo">Mês</span>
+      <div class="meses" id="meses" role="group" aria-label="Escolher mês"></div>
+    </div>
+  </div>
+
+  <div class="res">
+    <div class="res-principal">
+      <span class="rotulo" id="h-rotulo"></span>
+      <div class="res-numero num"><span id="h-numero"></span><small>contatos</small></div>
+      <p class="res-var" id="h-var"></p>
+      <p class="res-texto" id="h-texto"></p>
+    </div>
+    <div class="res-subs">
+      <div class="res-sub"><span class="rotulo">Investimento</span><div class="valor num" id="h-inv"></div></div>
+      <div class="res-sub"><span class="rotulo">Custo por contato</span><div class="valor num" id="h-cpl"></div></div>
+      <div class="res-sub"><span class="rotulo">Pessoas alcançadas</span><div class="valor num" id="h-alc"></div></div>
+    </div>
+  </div>
+
+  <!-- DETALHE DO MÊS -->
+  <section>
+    <h2 class="titulo-secao" id="d-titulo"></h2>
+    <p class="intro-secao">De onde vieram os contatos, o que mudou nas campanhas e quais anúncios puxaram o resultado.</p>
+
+    <div class="kpis">
+      <div class="kpi"><span class="rotulo">Formulários</span><div class="valor num" id="k-f"></div><div class="det">cadastros com nome e WhatsApp</div></div>
+      <div class="kpi"><span class="rotulo">WhatsApp e site</span><div class="valor num" id="k-o"></div><div class="det" id="k-o-det"></div></div>
+      <div class="kpi"><span class="rotulo">Taxa de clique</span><div class="valor num" id="k-ctr"></div><div class="det" id="k-ctr-det"></div></div>
+      <div class="kpi"><span class="rotulo">Instagram</span><div class="valor num" id="k-ig"></div><div class="det">dos contatos vieram de lá</div></div>
+    </div>
+
+    <div class="grade-2">
+      <div class="cartao">
+        <h3>Contatos por dia</h3>
+        <p class="sub" id="g-dia-sub"></p>
+        <div class="grafico" id="g-dia"></div>
+        <div class="legenda" id="g-dia-leg"></div>
+      </div>
+      <div class="cartao" id="destaque"></div>
+    </div>
+
+    <div class="grade-2b">
+      <div class="cartao">
+        <h3 id="mud-titulo"></h3>
+        <p class="sub">Mudanças feitas nas campanhas ao longo do mês</p>
+        <ul class="mudancas" id="mud"></ul>
+      </div>
+      <div class="cartao" id="qual"></div>
+    </div>
+
+    <div class="grade-2b">
+      <div class="cartao">
+        <h3>Linhas que puxaram o resultado</h3>
+        <p class="sub">Contatos no mês e custo por contato de cada linha</p>
+        <div class="empilhada" id="emp" aria-hidden="true"></div>
+        <ul class="lista" id="linhas"></ul>
+      </div>
+      <div class="cartao">
+        <h3>Anúncios em destaque</h3>
+        <p class="sub">Os anúncios que mais trouxeram contatos no mês</p>
+        <ul class="lista" id="ads"></ul>
+      </div>
+    </div>
+
+    <div class="cartao mt">
+      <h3 id="idade-titulo"></h3>
+      <p class="sub" id="idade-sub"></p>
+      <div class="barras-h" id="idade"></div>
+    </div>
+  </section>
+
+  <!-- 6 MESES -->
+  <section>
+    <h2 class="titulo-secao">Visão dos 6 meses</h2>
+    <p class="intro-secao" id="v-intro"></p>
+
+    <div class="grade-2b">
+      <div class="cartao">
+        <h3>Contatos por mês</h3>
+        <p class="sub">Formulários, WhatsApp e site · Nov* = só de 1 a 17/11</p>
+        <div class="grafico" id="g-meses"></div>
+      </div>
+      <div class="cartao">
+        <h3>Custo por contato</h3>
+        <p class="sub">Quanto menor, melhor</p>
+        <div class="grafico" id="g-cpl"></div>
+      </div>
+    </div>
+
+    <div class="cartao mt">
+      <h3>Mês a mês</h3>
+      <p class="sub">Toque numa linha para ver o mês em detalhe</p>
+      <div class="tabela-envolve">
+        <table class="num">
+          <thead><tr><th>Mês</th><th>Investimento</th><th>Contatos</th><th>Formulários</th><th>WhatsApp e site</th><th>Custo por contato</th><th>Pessoas alcançadas</th><th>Taxa de clique</th></tr></thead>
+          <tbody id="t-meses"></tbody>
+          <tfoot><tr id="t-total"></tr></tfoot>
+        </table>
+      </div>
+    </div>
+  </section>
+
+  <!-- QUALIDADE -->
+  <section>
+    <h2 class="titulo-secao">Qualidade dos contatos</h2>
+    <p class="intro-secao">Como o formulário foi ganhando filtro mês a mês, para chegar ao comercial quem tem entrada para dar.</p>
+
+    <div class="cartao mt">
+      <h3>A pergunta de entrada, mês a mês</h3>
+      <p class="sub">Respostas dos formulários · a Meta guarda as respostas por 90 dias, por isso a leitura começa em 20/08 · toque numa linha para ver o mês</p>
+      <div class="tabela-envolve">
+        <table class="num">
+          <thead><tr><th>Mês</th><th>Cadastros</th><th>Passaram pela pergunta de entrada</th><th>Responderam que têm entrada</th><th>Informaram a faixa em reais</th></tr></thead>
+          <tbody id="t-qual"></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="grade-2b">
+      <div class="cartao">
+        <h3>Faixa de entrada declarada</h3>
+        <p class="sub" id="fx-sub"></p>
+        <div class="barras-h" id="fx"></div>
+        <p class="nota" id="fx-nota"></p>
+      </div>
+      <div class="cartao">
+        <h3>De onde vem a entrada</h3>
+        <p class="sub" id="or-sub"></p>
+        <div class="barras-h" id="or"></div>
+        <p class="nota">“Ainda não tenho” já é barrado na primeira pergunta e não chega como cadastro.</p>
+      </div>
+    </div>
+
+    <div class="proximo">
+      <span class="rotulo">Próximo passo · decidido em 17/11</span>
+      <h3>Formulário que só deixa passar quem tem a entrada guardada</h3>
+      <p>Pelo retorno dos vendedores, quem responde FGTS, venda de bem ou “ainda vou conseguir” passa a ser barrado no próprio formulário e deixa de chegar como cadastro. Ele entra nos anúncios de R$ 30 mil de entrada e no CRM.</p>
+    </div>
+  </section>
+
+  <footer class="rodape">
+    <p><b>Contato</b> = cadastro no formulário do anúncio + conversa iniciada no WhatsApp + cadastro no simulador do site. <b>Custo por contato</b> = investimento ÷ contatos. Anúncios de vaga de emprego ficaram de fora.</p>
+    <p>Fontes: Gerenciador de Anúncios da Meta, conta da Falcon, dados até 17/11/2026, e respostas dos formulários de 20/08 a 17/11/2026. Novembro é parcial.</p>
+    <p>Hurtz Company · infraestrutura de aquisição e conversão</p>
+  </footer>
+</main>
+
+<script>
+const DADOS = {"10":{"inv":3189.24,"c":1036,"f":1025,"site":7,"w":4,"cpl":3.08,"alc":56467,"ctr":3.21,"noar":30,"ig":57,"mulheres":49,"idade":[["18-24",3],["25-34",17],["35-44",29],["45-54",32],["55-64",14],["65+",5]],"linhas":[{"nome":"Imóvel · filtro de entrada","inv":2349.83,"c":760,"camps":13},{"nome":"Imóvel · vídeos","inv":514.26,"c":188,"camps":1},{"nome":"Imóvel · alto valor","inv":253.53,"c":78,"camps":7},{"nome":"Imóvel · simulador no site","inv":71.62,"c":10,"camps":1}],"ads":[{"nome":"Vídeo 04 de imóvel","desc":"no ar desde 13/04, versão escalada","r":188,"cpr":2.74},{"nome":"Vídeo 05 · filtro de entrada","desc":"no ar desde 03/09, versão escalada","r":144,"cpr":2.13},{"nome":"Vídeo 01 · filtro de entrada","desc":"no ar desde 03/09, versão escalada","r":107,"cpr":2.84},{"nome":"Vídeo 05 · filtro de entrada","desc":"no ar desde 03/09","r":93,"cpr":1.98}],"dias":[[159,36],[96,21],[113,48],[15,5],[0,0],[132,27],[178,52],[153,26],[160,37],[154,37],[156,45],[141,59],[102,51],[84,31],[67,16],[85,24],[71,28],[104,41],[88,32],[87,41],[93,29],[82,43],[77,30],[60,22],[115,54],[68,31],[69,20],[106,24],[120,43],[136,34],[116,49]],"best":{"ini":20,"fim":26,"s":582,"c":250,"cpl":2.33}},"11":{"inv":2176.3,"c":699,"f":692,"site":0,"w":7,"cpl":3.11,"alc":45845,"ctr":2.74,"noar":17,"ig":62,"mulheres":40,"idade":[["18-24",2],["25-34",19],["35-44",34],["45-54",27],["55-64",15],["65+",3]],"linhas":[{"nome":"Imóvel · alto valor","inv":953.5,"c":316,"camps":7},{"nome":"Imóvel · filtro de entrada","inv":764.27,"c":242,"camps":7},{"nome":"Imóvel · R$ 30 mil de entrada","inv":458.53,"c":141,"camps":3}],"ads":[{"nome":"Vídeo 01 · alto valor","desc":"no ar desde 28/10, versão escalada","r":146,"cpr":2.35},{"nome":"Vídeo 05 · filtro de entrada","desc":"no ar desde 17/10","r":71,"cpr":2.47},{"nome":"Vídeo 05 · filtro de entrada","desc":"no ar desde 03/09, versão escalada","r":61,"cpr":2.86},{"nome":"Vídeo 01 · R$ 30 mil de entrada","desc":"no ar desde 09/11","r":58,"cpr":2.67}],"dias":[[218,83],[174,74],[126,45],[103,26],[98,24],[129,27],[119,30],[172,50],[127,35],[102,38],[126,42],[108,34],[103,35],[97,27],[142,61],[120,36],[112,32]],"best":{"ini":10,"fim":16,"s":798,"c":273,"cpl":2.92}},"06":{"inv":1005.02,"c":211,"f":148,"site":0,"w":63,"cpl":4.76,"alc":17680,"ctr":2.5,"noar":28,"ig":50,"mulheres":49,"idade":[["18-24",6],["25-34",18],["35-44",26],["45-54",32],["55-64",15],["65+",3]],"linhas":[{"nome":"Imóvel · anúncios em imagem","inv":959.72,"c":204,"camps":28},{"nome":"Veículos · formulário","inv":28.95,"c":4,"camps":2},{"nome":"Carta contemplada","inv":14.48,"c":3,"camps":1}],"ads":[{"nome":"Imagem 01 de imóvel","desc":"no ar desde 05/05, versão escalada","r":29,"cpr":1.75},{"nome":"Imagem 01 de imóvel","desc":"no ar desde 05/05, versão escalada","r":22,"cpr":3.49},{"nome":"Imagem 01 de imóvel","desc":"no ar desde 05/05","r":22,"cpr":2.13},{"nome":"Imagem 01 de imóvel","desc":"no ar desde 05/05, versão escalada","r":22,"cpr":2.15}],"dias":[[42,6],[23,10],[0,0],[0,0],[56,26],[55,24],[42,20],[45,18],[38,14],[30,4],[39,6],[37,4],[15,0],[16,2],[17,1],[48,7],[58,12],[65,6],[43,6],[26,4],[41,4],[34,4],[31,3],[31,2],[28,6],[29,3],[16,5],[36,2],[33,5],[32,7]],"best":{"ini":5,"fim":11,"s":305,"c":112,"cpl":2.72}},"07":{"inv":3517.25,"c":1176,"f":1172,"site":0,"w":4,"cpl":2.99,"alc":63699,"ctr":2.37,"noar":29,"ig":65,"mulheres":52,"idade":[["18-24",3],["25-34",18],["35-44",30],["45-54",32],["55-64",14],["65+",4]],"linhas":[{"nome":"Imóvel · vídeos","inv":1472.56,"c":528,"camps":12},{"nome":"Imóvel · formulário aberto","inv":1273.91,"c":389,"camps":6},{"nome":"Imóvel · anúncios em imagem","inv":770.78,"c":259,"camps":12}],"ads":[{"nome":"Vídeo 04 de imóvel","desc":"no ar desde 13/04","r":125,"cpr":2.35},{"nome":"Vídeo 05 de imóvel","desc":"no ar desde 13/04","r":114,"cpr":2.56},{"nome":"Criativo 01 · formulário aberto","desc":"no ar desde 01/07","r":104,"cpr":2.83},{"nome":"Criativo 05 · formulário aberto","desc":"no ar desde 01/07","r":103,"cpr":2.88}],"dias":[[109,41],[135,61],[108,30],[33,12],[0,0],[108,24],[167,51],[167,56],[148,52],[126,50],[119,45],[138,53],[85,14],[123,49],[127,47],[124,36],[123,48],[104,33],[140,62],[130,35],[119,37],[64,16],[0,0],[174,58],[180,58],[145,42],[129,46],[119,41],[107,37],[100,27],[67,15]],"best":{"ini":9,"fim":15,"s":866,"c":310,"cpl":2.79}},"08":{"inv":2793.21,"c":913,"f":896,"site":11,"w":6,"cpl":3.06,"alc":53685,"ctr":2.94,"noar":26,"ig":56,"mulheres":46,"idade":[["18-24",1],["25-34",15],["35-44",29],["45-54",32],["55-64",18],["65+",5]],"linhas":[{"nome":"Imóvel · vídeos","inv":1908.09,"c":611,"camps":8},{"nome":"Imóvel · filtro de entrada","inv":553.59,"c":232,"camps":7},{"nome":"Imóvel · anúncios em imagem","inv":148.09,"c":45,"camps":2},{"nome":"Imóvel · simulador no site","inv":109.69,"c":16,"camps":2},{"nome":"Imóvel · formulário aberto","inv":73.75,"c":9,"camps":2}],"ads":[{"nome":"Vídeo 04 de imóvel","desc":"no ar desde 13/04, versão escalada","r":232,"cpr":2.53},{"nome":"Vídeo 05 de imóvel","desc":"no ar desde 13/04, versão escalada","r":135,"cpr":3.35},{"nome":"Vídeo 05 de imóvel","desc":"no ar desde 13/04, versão escalada","r":63,"cpr":3.62},{"nome":"Vídeo 04 de imóvel","desc":"no ar desde 13/04, versão escalada","r":61,"cpr":3.06}],"dias":[[0,0],[0,0],[138,41],[148,41],[134,36],[118,41],[107,29],[118,34],[114,38],[96,27],[48,10],[0,0],[0,0],[135,40],[148,45],[105,37],[89,37],[83,25],[79,20],[85,25],[106,40],[80,29],[109,37],[0,0],[105,30],[125,41],[119,42],[103,47],[84,42],[127,44],[90,35]],"best":{"ini":25,"fim":31,"s":753,"c":281,"cpl":2.68}},"09":{"inv":3278.59,"c":1112,"f":1052,"site":56,"w":4,"cpl":2.95,"alc":52175,"ctr":3.18,"noar":26,"ig":56,"mulheres":50,"idade":[["18-24",3],["25-34",18],["35-44",30],["45-54",32],["55-64",13],["65+",5]],"linhas":[{"nome":"Imóvel · filtro de entrada","inv":2205.52,"c":821,"camps":14},{"nome":"Imóvel · vídeos","inv":503.99,"c":207,"camps":1},{"nome":"Imóvel · simulador no site","inv":388.24,"c":72,"camps":2},{"nome":"Veículos · formulário","inv":180.84,"c":12,"camps":4}],"ads":[{"nome":"Vídeo 04 de imóvel","desc":"no ar desde 13/04, versão escalada","r":207,"cpr":2.43},{"nome":"Vídeo 05 · filtro de entrada","desc":"no ar desde 03/09","r":106,"cpr":1.3},{"nome":"Vídeo 01 · filtro de entrada","desc":"no ar desde 03/09","r":79,"cpr":1.74},{"nome":"Criativo 02 · pergunta de entrada","desc":"no ar desde 21/08","r":78,"cpr":3.27}],"dias":[[85,33],[93,24],[113,49],[141,40],[118,37],[173,66],[145,59],[103,41],[115,33],[121,49],[134,45],[116,37],[107,35],[161,56],[98,20],[10,4],[0,0],[0,0],[0,0],[0,0],[174,41],[163,55],[149,52],[137,47],[151,46],[106,35],[179,66],[130,60],[131,37],[127,45]],"best":{"ini":6,"fim":12,"s":907,"c":330,"cpl":2.75}}};
+const QUAL = {"10":{"total":1027,"aberto":189,"pergunta":838,"sim":601,"poss":194,"nao":43,"faixa":0,"f30":0,"guardado":0,"fgts":0,"venda":0,"vou":0,"ate15":0,"f15":0,"f3060":0,"f60":0},"11":{"total":695,"aberto":0,"pergunta":553,"sim":397,"poss":152,"nao":4,"faixa":142,"f30":41,"guardado":81,"fgts":24,"venda":30,"vou":7,"ate15":25,"f15":76,"f3060":25,"f60":16},"09":{"total":1053,"aberto":207,"pergunta":846,"sim":613,"poss":172,"nao":61,"faixa":0,"f30":0,"guardado":0,"fgts":0,"venda":0,"vou":0,"ate15":0,"f15":0,"f3060":0,"f60":0},"08":{"total":389,"aberto":152,"pergunta":237,"sim":169,"poss":60,"nao":8,"faixa":0,"f30":0,"guardado":0,"fgts":0,"venda":0,"vou":0,"ate15":0,"f15":0,"f3060":0,"f60":0}};
+const TOTAL = {"inv":15959.61,"c":5147,"alc":165394,"cpl":3.1,"ctr":2.85};
+const ORDEM = ['06', '07', '08', '09', '10', '11'];
+const NOME = { '06': 'Junho', '07': 'Julho', '08': 'Agosto', '09': 'Setembro', '10': 'Outubro', '11': 'Novembro' };
+const CURTO = { '06': 'Jun', '07': 'Jul', '08': 'Ago', '09': 'Set', '10': 'Out', '11': 'Nov*' };
+const PARCIAL = { '11': ' (1 a 17)' };
+
+// leitura de cada mês: só o que deu certo
+const TEXTO = {
+  '06': { var: 'Ponto de partida: anúncios em imagem, formulário e WhatsApp', txt: 'Junho rodou com anúncios em imagem de imóveis e testes de veículo e carta contemplada. A melhor semana, de 05 a 11/06, saiu a R$ 2,72 por contato, e a melhor imagem trouxe contato a R$ 1,75.' },
+  '07': { var: 'Contatos <b>5,6 vezes</b> maiores que em junho (211 → 1.176)', txt: 'Julho foi o mês de maior volume do período. Os vídeos de imóvel voltaram ao ar e o formulário novo entrou em 01/07. Com mais investimento, o custo por contato ainda caiu 37%, de R$ 4,76 para R$ 2,99.' },
+  '08': { var: 'Formulário com pergunta de entrada no ar desde <b>21/08</b>', txt: 'Agosto trouxe o formulário que pergunta se a pessoa tem valor de entrada, e essa linha teve o menor custo do mês: R$ 2,39 por contato. A taxa de clique subiu de 2,37% para 2,94%.' },
+  '09': { var: 'Filtro de entrada virou a linha principal: <b>74%</b> dos contatos', txt: 'Setembro escalou os vídeos com filtro de entrada lançados em 03/09. O melhor deles trouxe contato a R$ 1,30, e 80% dos cadastros do mês já passaram pela pergunta de entrada.' },
+  '10': { var: 'Taxa de clique mais alta dos 6 meses (3,21%)', txt: 'Outubro teve anúncio no ar em 30 dias e a melhor semana do período: de 20 a 26/10, contato a R$ 2,33. No fim do mês entrou a linha de imóveis de alto valor, que puxa novembro.' },
+  '11': { var: '<b>100%</b> dos cadastros passam pela pergunta de entrada', txt: 'Em 17 dias, novembro soma 699 contatos. A linha de alto valor virou a principal e o formulário novo, de 09/11, passou a mostrar a faixa de entrada em reais e de onde vem o dinheiro.' }
+};
+
+const MUDOU = {
+  '06': ['<b>Anúncios em imagem</b> de imóveis, com levas novas de criativo em 08, 16, 17 e 18/06', '<b>Teste de veículo</b> por formulário (16/06)', '<b>Teste de carta contemplada</b> (15/06)', 'Parte dos contatos chegou pelo <b>WhatsApp</b>: 63 conversas'],
+  '07': ['<b>Formulário novo</b>, com 6 campanhas próprias (01/07)', '<b>Volta dos vídeos de imóvel</b>, que viraram a principal linha do mês', '<b>Escala do investimento</b>: de R$ 1.005 em junho para R$ 3.517', 'Cópias das melhores campanhas para escalar (07 e 18/07)'],
+  '08': ['<b>Pergunta de entrada no formulário</b>: “Você possui valor de entrada disponível?” (21/08)', '<b>Simulador de consórcio no site</b>, com cadastro pela página (26/08)', 'O vídeo 04 de imóvel seguiu como o anúncio de mais contatos'],
+  '09': ['<b>5 vídeos novos</b> com filtro de entrada (03/09)', '<b>Teste de 4 vídeos de veículo</b> por formulário (11/09)', '<b>Cópias das melhores campanhas</b> de filtro para escalar (24/09)'],
+  '10': ['<b>Vídeo novo</b> com filtro de entrada (17/10)', '<b>Linha de imóveis de alto valor</b>, com 7 campanhas (26 a 30/10)', 'Anúncio no ar em 30 dias do mês'],
+  '11': ['<b>Verba concentrada</b> nas campanhas que mais rendem (09/11)', '<b>Formulário novo com faixa de entrada</b> em reais e origem do dinheiro (09/11)', '<b>3 campanhas de imóvel com R$ 30 mil de entrada</b> (09/11)', 'Decidido em 17/11: formulário que barra FGTS, venda de bem e “ainda vou conseguir”']
+};
+
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const brl = v => 'R$ ' + v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+const int = v => v.toLocaleString('pt-BR');
+const pct = v => v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 }) + '%';
+const p0 = (a, b) => Math.round(a / b * 100) + '%';
+const dd = (d, k) => String(d).padStart(2, '0') + '/' + k;
+const $ = id => document.getElementById(id);
+const NS = 'http://www.w3.org/2000/svg';
+function el(tag, attrs, txt) { const e = document.createElementNS(NS, tag); for (const k in attrs) e.setAttribute(k, attrs[k]); if (txt != null) e.textContent = txt; return e; }
+
+let atual = '11';
+
+function barras(alvo, itens, { H = 220, tituloFn } = {}) {
+  const W = Math.max(280, alvo.clientWidth);
+  const topo = 22, base = 26, max = Math.max(1, ...itens.map(i => i.v)) * 1.08;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img' });
+  const bw = W / itens.length, gap = Math.max(2, bw * 0.22);
+  svg.appendChild(el('line', { x1: 0, x2: W, y1: H - base, y2: H - base, stroke: css('--areia') }));
+  itens.forEach((it, i) => {
+    const h = it.v > 0 ? Math.max(3, (it.v / max) * (H - topo - base)) : 3;
+    const x = i * bw + gap / 2, y = H - base - h, cx = x + (bw - gap) / 2;
+    const r = el('rect', { x, y, width: bw - gap, height: h, rx: 2, fill: it.cor });
+    if (tituloFn) r.appendChild(el('title', {}, tituloFn(it)));
+    if (it.clique) { r.style.cursor = 'pointer'; r.addEventListener('click', it.clique); }
+    svg.appendChild(r);
+    const rot = typeof it.rot === 'function' ? it.rot(bw) : it.rot !== false;
+    if (it.v > 0 && rot) svg.appendChild(el('text', { x: cx, y: y - 6, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700, fill: css('--carvao') }, int(it.v)));
+    const naBorda = cx > W - 10;
+    if (it.eixo) svg.appendChild(el('text', { x: naBorda ? W : cx, y: H - 8, 'text-anchor': naBorda ? 'end' : 'middle', 'font-size': 11, 'font-weight': it.forte ? 700 : 400, fill: it.forte ? css('--carvao') : css('--pedra') }, it.eixo));
+  });
+  alvo.appendChild(svg);
+  return { svg, W, bw };
+}
+
+function graficoDia() {
+  const m = DADOS[atual], alvo = $('g-dia'), n = m.dias.length;
+  alvo.innerHTML = '';
+  const eixo = d => d === 1 || d === n || ((d - 1) % 5 === 0 && n - d >= 3);
+  const pico = Math.max(...m.dias.map(([s, c]) => s > 5 ? c : 0));
+  barras(alvo, m.dias.map(([s, c], i) => {
+    const dia = i + 1, noAr = s > 5;
+    return {
+      v: noAr ? c : 0, eixo: eixo(dia) ? String(dia) : '', dia, c,
+      cor: !noAr ? css('--areia') : css('--brasa'),
+      rot: w => noAr && (w >= 22 || c === pico || (w >= 18 && c >= pico * 0.6))
+    };
+  }), { H: 230, tituloFn: it => dd(it.dia, atual) + ': ' + (it.v > 0 ? it.c + ' contatos' : 'sem anúncio no ar') });
+  $('g-dia-sub').textContent = 'Cada barra é um dia de ' + NOME[atual].toLowerCase() + (atual === '11' ? ' (até o dia 17)' : '');
+  const temZero = m.dias.some(x => x[0] <= 5);
+  $('g-dia-leg').innerHTML = '<span><i style="background:var(--brasa)"></i>Contatos no dia</span>' + (temZero ? '<span><i style="background:var(--areia)"></i>Sem anúncio no ar</span>' : '');
+}
+
+function destaque() {
+  const m = DADOS[atual], c = $('destaque');
+  if (atual === '07') {
+    const j = DADOS['06'];
+    c.innerHTML = `<h3>Julho contra junho</h3><p class="sub">O mês em que a conta ganhou escala</p>
+      <div class="virada"><div class="lado"><span class="rotulo">Junho</span><div class="valor num">${brl(j.cpl)}</div><div class="det num">${int(j.c)} contatos</div></div>
+      <div class="seta" aria-hidden="true">→</div>
+      <div class="lado depois"><span class="rotulo">Julho</span><div class="valor num">${brl(m.cpl)}</div><div class="det num">${int(m.c)} contatos</div></div></div>
+      <span class="selo num">${Math.round((1 - m.cpl / j.cpl) * 100)}% mais barato por contato</span>
+      <p class="nota">Média de ${int(Math.round(m.c / m.noar))} contatos por dia de anúncio no ar, contra ${int(Math.round(j.c / j.noar))} por dia em junho.</p>`;
+    return;
+  }
+  const b = m.best, abaixo = Math.round((1 - b.cpl / m.cpl) * 100);
+  const melhor = ORDEM.every(k => DADOS[k].best.cpl >= b.cpl);
+  c.innerHTML = `<h3>Melhor semana do mês</h3><p class="sub">Os 7 dias seguidos com menor custo por contato</p>
+    <p class="rotulo" style="margin-top:18px">${dd(b.ini, atual)} a ${dd(b.fim, atual)}</p>
+    <div class="semana" style="margin-top:6px">
+      <div><span class="rotulo">Contatos</span><div class="valor num">${int(b.c)}</div></div>
+      <div><span class="rotulo">Custo por contato</span><div class="valor num brasa">${brl(b.cpl)}</div></div>
+    </div>
+    ${melhor ? '<span class="selo">Melhor semana dos 6 meses</span>' : abaixo >= 3 ? `<span class="selo num">${abaixo}% abaixo da média do mês</span>` : ''}
+    <p class="nota">Média do mês: ${brl(m.cpl)} por contato, com ${int(Math.round(m.c / m.noar))} contatos por dia de anúncio no ar.</p>`;
+}
+
+function mudancas() {
+  $('mud-titulo').textContent = 'O que mudou em ' + NOME[atual].toLowerCase();
+  $('mud').innerHTML = MUDOU[atual].map(t => `<li>${t}</li>`).join('');
+}
+
+function qualidade() {
+  const c = $('qual'), q = QUAL[atual];
+  if (!q) {
+    c.innerHTML = `<h3>Qualidade em ${NOME[atual].toLowerCase()}</h3><p class="sub">Como os contatos chegavam</p>
+      <p class="nota" style="margin-top:18px">${atual === '07' ? 'O formulário de julho era aberto, só com nome, WhatsApp e cidade, para ganhar volume e alimentar o aprendizado da Meta.' : 'Junho misturava formulário e conversa no WhatsApp, com o atendimento qualificando na conversa.'} A pergunta sobre valor de entrada entrou no formulário em 21/08.</p>
+      <span class="selo">Base para o filtro de agosto</span>`;
+    return;
+  }
+  const filtrados = q.pergunta + q.faixa, temEntrada = q.sim + q.faixa;
+  c.innerHTML = `<h3>Qualidade em ${NOME[atual].toLowerCase()}</h3><p class="sub">Respostas dos formulários${atual === '08' ? ', a partir de 20/08' : ''}</p>
+    <div class="qual-num">
+      <div><span class="rotulo">Passaram pela pergunta</span><div class="valor num brasa">${p0(filtrados, q.total)}</div><div class="det num">${int(filtrados)} de ${int(q.total)} cadastros</div></div>
+      <div><span class="rotulo">Declararam entrada</span><div class="valor num">${int(temEntrada)}</div><div class="det num">${p0(temEntrada, filtrados)} dos que responderam</div></div>
+    </div>
+    ${q.faixa ? `<p class="nota">No formulário novo, ${int(q.faixa)} pessoas informaram a faixa em reais: <b>${int(q.f30)}</b> com R$ 30 mil ou mais e <b>${int(q.guardado)}</b> com o dinheiro guardado.</p>` : `<p class="nota">${atual === '08' ? 'Primeiro mês com a pergunta de entrada no formulário.' : atual === '09' ? 'O filtro passou a cobrir 8 em cada 10 cadastros.' : 'Mais de 8 em cada 10 cadastros já passavam pelo filtro.'}</p>`}`;
+}
+
+const CORES = ['var(--brasa)', 'var(--brasa-escura)', 'var(--brasa-clara)', 'var(--brasa-100)', 'var(--grafite)', 'var(--pedra)'];
+function linhas() {
+  const m = DADOS[atual], ls = m.linhas.filter(l => l.c > 0), total = ls.reduce((s, l) => s + l.inv, 0);
+  const comVol = ls.filter(l => l.c >= 20), menor = Math.min(...comVol.map(l => l.inv / l.c));
+  $('emp').innerHTML = ls.map((l, i) => `<div title="${l.nome}" style="width:${l.inv / total * 100}%;background:${CORES[i]}"></div>`).join('');
+  $('linhas').innerHTML = ls.map((l, i) => {
+    const cpc = l.inv / l.c, eMenor = l.c >= 20 && Math.abs(cpc - menor) < 0.005;
+    const desc = i === 0 && eMenor ? 'Maior volume e menor custo do mês' : i === 0 ? 'Maior volume do mês' : eMenor ? 'Menor custo por contato do mês' : Math.round(l.inv / total * 100) + '% do investimento';
+    return `<li><span class="nome"><i style="display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:8px;background:${CORES[i]}"></i>${l.nome}</span><span class="desc">${desc}</span><span class="dado num"><b>${int(l.c)}</b><span>${brl(cpc)} cada</span></span></li>`;
+  }).join('');
+}
+
+function ads() {
+  $('ads').innerHTML = DADOS[atual].ads.map((a, i) => `<li><span class="nome">${a.nome}</span><span class="desc">${[a.desc, i === 0 ? 'mais contatos do mês' : ''].filter(Boolean).join(' · ')}</span><span class="dado num"><b>${int(a.r)}</b><span>${brl(a.cpr)} cada</span></span></li>`).join('');
+}
+
+function idade() {
+  const m = DADOS[atual], max = Math.max(...m.idade.map(x => x[1]));
+  $('idade-titulo').textContent = 'Quem procurou a Falcon em ' + NOME[atual].toLowerCase();
+  $('idade-sub').textContent = `Participação de cada faixa de idade nos contatos · mulheres ${m.mulheres}%, homens ${100 - m.mulheres}%`;
+  $('idade').innerHTML = m.idade.filter(x => x[1] > 0).map(([f, p]) => `<div class="barra-h${p === max ? ' destaque' : ''}"><span>${f.replace('-', ' a ')}</span><div class="trilho"><div style="width:${p / max * 100}%"></div></div><span class="pct num">${p}%</span></div>`).join('');
+}
+
+function visaoGeral() {
+  $('g-meses').innerHTML = ''; $('g-cpl').innerHTML = '';
+  barras($('g-meses'), ORDEM.map(k => ({
+    v: DADOS[k].c, eixo: CURTO[k], forte: k === atual, clique: () => escolher(k),
+    cor: k === atual ? css('--brasa') : css('--brasa-100')
+  })), { tituloFn: it => it.eixo + ': ' + int(it.v) + ' contatos' });
+
+  const alvo = $('g-cpl'), W = Math.max(280, alvo.clientWidth), H = 220, topo = 28, base = 26, pad = 24;
+  const max = Math.max(...ORDEM.map(k => DADOS[k].cpl)) * 1.15;
+  const svg = el('svg', { viewBox: `0 0 ${W} ${H}`, width: W, height: H, role: 'img' });
+  const x = i => pad + i * (W - 2 * pad) / (ORDEM.length - 1), y = v => topo + (1 - v / max) * (H - topo - base);
+  svg.appendChild(el('line', { x1: 0, x2: W, y1: H - base, y2: H - base, stroke: css('--areia') }));
+  svg.appendChild(el('polyline', { points: ORDEM.map((k, i) => x(i) + ',' + y(DADOS[k].cpl)).join(' '), fill: 'none', stroke: css('--brasa-clara'), 'stroke-width': 2 }));
+  ORDEM.forEach((k, i) => {
+    const sel = k === atual, v = DADOS[k].cpl;
+    const c = el('circle', { cx: x(i), cy: y(v), r: sel ? 7 : 4, fill: sel ? css('--brasa') : css('--brasa-clara'), stroke: css('--cartao'), 'stroke-width': 2 });
+    c.appendChild(el('title', {}, CURTO[k] + ': ' + brl(v)));
+    c.style.cursor = 'pointer'; c.addEventListener('click', () => escolher(k));
+    svg.appendChild(c);
+    svg.appendChild(el('text', { x: x(i), y: y(v) - 12, 'text-anchor': 'middle', 'font-size': 12, 'font-weight': 700, fill: sel ? css('--brasa-escura') : css('--carvao') }, v.toLocaleString('pt-BR', { minimumFractionDigits: 2, maximumFractionDigits: 2 })));
+    svg.appendChild(el('text', { x: x(i), y: H - 8, 'text-anchor': 'middle', 'font-size': 11, 'font-weight': sel ? 700 : 400, fill: sel ? css('--carvao') : css('--pedra') }, CURTO[k]));
+  });
+  alvo.appendChild(svg);
+
+  $('t-meses').innerHTML = ORDEM.map(k => {
+    const m = DADOS[k];
+    return `<tr data-mes="${k}" class="${k === atual ? 'foco' : ''}"><td>${NOME[k]}${PARCIAL[k] || ''}</td><td>${brl(m.inv)}</td><td>${int(m.c)}</td><td>${int(m.f)}</td><td>${int(m.w + m.site)}</td><td>${brl(m.cpl)}</td><td>${int(m.alc)}</td><td>${pct(m.ctr)}</td></tr>`;
+  }).join('');
+  $('t-qual').innerHTML = ['08', '09', '10', '11'].map(k => {
+    const q = QUAL[k], filt = q.pergunta + q.faixa;
+    return `<tr data-mes="${k}" class="${k === atual ? 'foco' : ''}"><td>${NOME[k]}${k === '08' ? ' (20 a 31)' : PARCIAL[k] || ''}</td><td>${int(q.total)}</td><td>${p0(filt, q.total)}</td><td>${p0(q.sim + q.faixa, filt)}</td><td>${q.faixa ? int(q.faixa) : '—'}</td></tr>`;
+  }).join('');
+}
+
+function faixas() {
+  const q = QUAL['11'], fx = [['Até R$ 15 mil', q.ate15], ['R$ 15 a 30 mil', q.f15], ['R$ 30 a 60 mil', q.f3060], ['Acima de R$ 60 mil', q.f60]];
+  const or = [['Dinheiro guardado', q.guardado], ['Venda de bem', q.venda], ['FGTS', q.fgts], ['Ainda vou conseguir', q.vou]];
+  const bar = (arr, dest) => { const max = Math.max(...arr.map(x => x[1])); return arr.map(([n, v]) => `<div class="barra-h larga${dest(n, v, max) ? ' destaque' : ''}"><span>${n}</span><div class="trilho"><div style="width:${v / max * 100}%"></div></div><span class="pct num">${int(v)}</span></div>`).join(''); };
+  $('fx-sub').textContent = `Formulário de 09/11 · ${int(q.faixa)} cadastros de 09 a 17/11`;
+  $('fx').innerHTML = bar(fx, (n, v, max) => v === max);
+  $('fx-nota').innerHTML = `<b>${int(q.f15 + q.f3060 + q.f60)}</b> declararam mais de R$ 15 mil de entrada, e <b>${int(q.f30)}</b> declararam R$ 30 mil ou mais.`;
+  $('or-sub').textContent = `Mesmo formulário · ${p0(q.guardado, q.faixa)} têm o dinheiro guardado`;
+  $('or').innerHTML = bar(or, n => n === 'Dinheiro guardado');
+}
+
+function escolher(k, rolar) {
+  atual = k;
+  const m = DADOS[k], t = TEXTO[k];
+  document.querySelectorAll('#meses button').forEach(b => b.setAttribute('aria-pressed', b.dataset.mes === k));
+  try { history.replaceState(null, '', '#' + CURTO[k].replace('*', '').toLowerCase()); } catch (e) {}
+  $('h-rotulo').textContent = NOME[k] + (PARCIAL[k] || '') + ' · contatos gerados';
+  $('h-numero').textContent = int(m.c);
+  $('h-var').innerHTML = t.var;
+  $('h-texto').textContent = t.txt;
+  $('h-inv').textContent = brl(m.inv);
+  $('h-cpl').textContent = brl(m.cpl);
+  $('h-alc').textContent = int(m.alc);
+  $('d-titulo').textContent = NOME[k] + ' em detalhe' + (PARCIAL[k] || '');
+  $('k-f').textContent = int(m.f);
+  $('k-o').textContent = int(m.w + m.site);
+  $('k-o-det').textContent = m.site ? `${int(m.w)} no WhatsApp e ${int(m.site)} no simulador do site` : 'conversas iniciadas no WhatsApp';
+  $('k-ctr').textContent = pct(m.ctr);
+  const rank = ORDEM.map(o => DADOS[o].ctr).sort((a, b) => b - a).indexOf(m.ctr) + 1;
+  $('k-ctr-det').textContent = rank === 1 ? 'a maior do período' : rank <= 3 ? 'entre as 3 maiores do período' : 'de quem viu o anúncio clicou nele';
+  $('k-ig').textContent = m.ig + '%';
+  graficoDia(); destaque(); mudancas(); qualidade(); linhas(); ads(); idade(); visaoGeral();
+  if (rolar) window.scrollTo({ top: document.querySelector('.res').getBoundingClientRect().top + scrollY - document.querySelector('.seletor-faixa').offsetHeight - 12, behavior: 'smooth' });
+}
+
+$('v-intro').textContent = `De junho a 17 de novembro foram ${brl(TOTAL.inv)} investidos, ${int(TOTAL.c)} contatos gerados a ${brl(TOTAL.cpl)} cada, e ${int(TOTAL.alc)} pessoas diferentes alcançadas.`;
+$('t-total').innerHTML = `<td>Jun a 17/11</td><td>${brl(TOTAL.inv)}</td><td>${int(TOTAL.c)}</td><td>${int(ORDEM.reduce((s, k) => s + DADOS[k].f, 0))}</td><td>${int(ORDEM.reduce((s, k) => s + DADOS[k].w + DADOS[k].site, 0))}</td><td>${brl(TOTAL.cpl)}</td><td>${int(TOTAL.alc)}</td><td>${pct(TOTAL.ctr)}</td>`;
+$('meses').innerHTML = ORDEM.map(k => `<button type="button" data-mes="${k}" aria-pressed="false">${CURTO[k].replace('*', '')}${k === '11' ? '<small> parcial</small>' : ''}</button>`).join('');
+$('meses').addEventListener('click', e => { const b = e.target.closest('button'); if (b) escolher(b.dataset.mes); });
+['t-meses', 't-qual'].forEach(id => $(id).addEventListener('click', e => { const tr = e.target.closest('tr'); if (tr) escolher(tr.dataset.mes, true); }));
+faixas();
+
+const hash = location.hash.slice(1);
+const doHash = ORDEM.find(k => CURTO[k].replace('*', '').toLowerCase() === hash);
+escolher(doHash || '11');
+let larguraAnterior = innerWidth;
+addEventListener('resize', () => { if (innerWidth !== larguraAnterior) { larguraAnterior = innerWidth; graficoDia(); visaoGeral(); } });
+</script>
+</body>
+</html>
