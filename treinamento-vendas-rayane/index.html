@@ -1,0 +1,380 @@
+<!doctype html>
+<html lang="pt-BR">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="robots" content="noindex, nofollow">
+<meta name="theme-color" content="#181614">
+<title>Vender Bem · Dra Rayane</title>
+<link rel="icon" type="image/png" href="favicon-32.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap">
+<style>
+:root{
+  --bg:#181614; --card:#221f1c; --card2:#2b2723; --line:#3a352f;
+  --tx:#F5F2EC; --tx2:#b9b2a7; --ac:#DD6C1E; --ac2:#C06018; --ok:#6fae6a; --warn:#e0a63c;
+}
+*{box-sizing:border-box}
+html,body{margin:0}
+body{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:84px}
+.wrap{max-width:760px;margin:0 auto;padding:0 16px}
+header{position:sticky;top:0;z-index:5;background:rgba(24,22,20,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.bar{display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px}
+.marca{font-weight:700;letter-spacing:.02em;font-size:15px}
+.marca span{color:var(--ac)}
+.prog{display:flex;align-items:center;gap:8px;font-size:13px;color:var(--tx2);white-space:nowrap}
+.prog i{display:block;width:80px;height:6px;border-radius:9px;background:var(--line);overflow:hidden}
+.prog i b{display:block;height:100%;background:var(--ac);width:0;transition:width .3s}
+h1{font-size:28px;line-height:1.2;margin:28px 0 8px}
+h2{font-size:22px;line-height:1.25;margin:28px 0 10px}
+h3{font-size:17px;margin:22px 0 8px;color:var(--ac)}
+p{margin:0 0 12px}
+.sub{color:var(--tx2)}
+.kicker{font-size:12px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--ac)}
+.grid{display:grid;gap:12px;margin:20px 0}
+.mod{display:flex;gap:14px;align-items:center;background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;color:inherit;text-decoration:none}
+.mod:hover{border-color:var(--ac2)}
+.num{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--card2);font-weight:700;color:var(--ac)}
+.mod.feito .num{background:var(--ac);color:#fff}
+.mod b{display:block}
+.mod small{color:var(--tx2);font-size:14px}
+.box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
+.box.dest{border-color:var(--ac2);background:linear-gradient(180deg,#2a2018,var(--card))}
+ul.lista{margin:0;padding-left:20px}
+ul.lista li{margin:6px 0}
+.fala{background:var(--card2);border-left:3px solid var(--ac);border-radius:4px 12px 12px 4px;padding:10px 14px;margin:8px 0;font-size:15.5px}
+.fala.nao{border-left-color:#8a8278;color:var(--tx2);text-decoration:line-through;text-decoration-color:#8a827888}
+.bolhas{display:flex;flex-direction:column;gap:6px;margin:10px 0}
+.b{max-width:85%;padding:8px 12px;border-radius:14px;font-size:15px}
+.b.ela{align-self:flex-end;background:#3b2a1c;border-bottom-right-radius:4px}
+.b.pac{align-self:flex-start;background:var(--card2);border-bottom-left-radius:4px}
+.tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--card2);color:var(--tx2);margin-bottom:6px}
+.tag.ok{background:#22331f;color:#a6d8a0}
+.tag.x{background:#3a2a1a;color:#f0c38a}
+.passos{counter-reset:p;list-style:none;padding:0;margin:0}
+.passos li{counter-increment:p;position:relative;padding:0 0 14px 40px}
+.passos li::before{content:counter(p);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--card2);color:var(--ac);font-weight:700;display:grid;place-items:center;font-size:14px}
+.check{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer}
+.check:last-child{border-bottom:0}
+.check input{width:20px;height:20px;accent-color:var(--ac);flex:none;margin-top:2px}
+details.obj{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:10px 0}
+details.obj summary{cursor:pointer;padding:14px 16px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}
+details.obj summary::after{content:"+";color:var(--ac);font-size:20px;line-height:1}
+details.obj[open] summary::after{content:"−"}
+details.obj .in{padding:0 16px 14px}
+.nav-mod{display:flex;justify-content:space-between;gap:10px;margin:28px 0}
+.btn{display:inline-block;background:var(--ac);color:#fff;border:0;border-radius:10px;padding:12px 18px;font:600 15px Inter,sans-serif;text-decoration:none;cursor:pointer}
+.btn.sec{background:var(--card2);color:var(--tx)}
+nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:6;background:#12100f;border-top:1px solid var(--line);display:flex;justify-content:center;padding-bottom:env(safe-area-inset-bottom)}
+nav.tabs a{flex:1;max-width:190px;text-align:center;padding:10px 4px 12px;color:var(--tx2);text-decoration:none;font-size:12.5px;font-weight:600}
+nav.tabs a svg{display:block;margin:0 auto 3px;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
+nav.tabs a.on{color:var(--ac)}
+.view[hidden]{display:none}
+table{width:100%;border-collapse:collapse;font-size:15px}
+td,th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+th{color:var(--tx2);font-weight:600;font-size:13px}
+.rodape{color:var(--tx2);font-size:13px;margin:36px 0 10px;text-align:center}
+@media (max-width:420px){h1{font-size:24px}.prog i{width:56px}}
+</style>
+</head>
+<body>
+<header><div class="wrap bar">
+  <div class="marca">HURTZ <span>·</span> Vender Bem</div>
+  <div class="prog"><i><b id="pbar"></b></i><span id="ptx">0 de 6</span></div>
+</div></header>
+
+<main class="wrap" id="main"></main>
+
+<nav class="tabs" aria-label="Áreas">
+  <a href="#inicio" data-t="inicio"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg>Início</a>
+  <a href="#consulta" data-t="consulta"><svg viewBox="0 0 24 24"><path d="M9 4h6v3H9zM6 6h12v15H6zM9 12h6M9 16h4"/></svg>Roteiro</a>
+  <a href="#objecoes" data-t="objecoes"><svg viewBox="0 0 24 24"><path d="M4 4h16v13H9l-5 4z"/></svg>Objeções</a>
+  <a href="#whats" data-t="whats"><svg viewBox="0 0 24 24"><path d="M5 19l1.5-4A8 8 0 1 1 9 18z"/></svg>WhatsApp</a>
+</nav>
+
+<script>
+const MODS = [
+{
+ id:"m1", titulo:"Quem chega já quer", resumo:"Vender não é convencer. É ajudar a decidir.",
+ html:`
+<p>A pessoa que te chama pelo anúncio já viu teu vídeo, já pensou no rosto dela e já escreveu "quero agendar". Ela não precisa ser convencida de que quer. Ela precisa de alguém que conduza.</p>
+<div class="box dest"><b>A virada:</b> teu papel não é tirar dúvida e esperar. É dizer o próximo passo. Paciente gosta de quem decide.</div>
+<h3>O que já é teu ponto forte</h3>
+<ul class="lista">
+<li><b>Tu fala como dona:</b> "eu consigo", "eu tenho esse horário". Isso passa segurança. Continua.</li>
+<li><b>Tu acolhe:</b> a paciente sente que foi ouvida. É por isso que vem indicação de tia, mãe e prima.</li>
+<li><b>Tu explica simples:</b> "a carinha de brava", "a abinha do nariz". Paciente entende e se vê no procedimento.</li>
+</ul>
+<h3>O que trava a venda</h3>
+<ul class="lista">
+<li>Responder e esperar a paciente puxar o próximo passo.</li>
+<li>Ficar sem graça de falar valor, como se estivesse pedindo um favor.</li>
+<li>Deixar sair "pra pensar" sem nada marcado.</li>
+</ul>
+<h3>O que os números das tuas conversas mostram</h3>
+<p>Nas conversas da Black, <b>quem marcou recebeu um dia e um horário concretos</b>. Quem recebeu só uma pergunta solta, na maioria das vezes, não voltou. A diferença não foi preço. Foi condução.</p>
+<h3>Regra do módulo</h3>
+<div class="fala">Toda conversa termina com um próximo passo com data: avaliação marcada, procedimento marcado ou retorno combinado.</div>`,
+ treino:"O Vinicius faz uma paciente que escreveu 'vi o anúncio e quero agendar'. Tu responde 3 mensagens. Conta: em quantas tu deu o próximo passo?",
+ check:["Entendi que quem chega pelo anúncio já quer","Sei qual é meu ponto forte no atendimento","Toda conversa minha termina com um passo com data"]
+},
+{
+ id:"m2", titulo:"Agregar valor", resumo:"Transformar técnica em resultado que a paciente sente.",
+ html:`
+<p>Paciente não compra "1 ml de ácido". Ela compra se sentir bem na foto, parar de parecer cansada, não ficar artificial. Valor é ligar o que tu faz com o que ela quer.</p>
+<h3>A fórmula do valor</h3>
+<ol class="passos">
+<li><b>A queixa dela, com as palavras dela.</b> "Tu falou que se acha com cara de cansada nas fotos."</li>
+<li><b>O que causa.</b> "Isso vem da perda de colágeno e da sustentação, que começa depois dos 30."</li>
+<li><b>O que tu vai fazer.</b> "Eu monto um protocolo pra devolver essa sustentação, no teu ritmo."</li>
+<li><b>Como fica no dia a dia.</b> "A ideia é tu se olhar e se ver descansada, sem ninguém saber o que tu fez."</li>
+<li><b>Por que contigo.</b> "Eu avalio tua estrutura óssea antes. Não aplico igual pra todo mundo, e tem retorno pra conferir."</li>
+</ol>
+<div class="box dest"><b>Regra de ouro:</b> nunca fala valor sem ter falado da queixa dela antes. Preço sem valor sempre parece caro.</div>
+<h3>Ficha de valor por procedimento</h3>
+<div class="box"><span class="tag">Botox</span>
+<p><b>O que ela quer:</b> parecer menos brava e menos cansada, sem perder a expressão.</p>
+<div class="fala">Aqui eu não congelo teu rosto. Eu suavizo onde tu franze, na testa, nos pés de galinha, na carinha de brava, e tu continua com tua expressão.</div>
+<p class="sub">Diferencial: dose pensada pro teu músculo, retorno pra ajustar.</p></div>
+<div class="box"><span class="tag">Boca (ácido hialurônico)</span>
+<p><b>O que ela quer:</b> boca mais bonita e hidratada, com medo de ficar exagerada.</p>
+<div class="fala">Eu sigo o desenho da tua boca. A ideia é contorno e hidratação, não aumentar até ficar estranho. Se tu quiser mais depois, a gente faz com calma.</div>
+<p class="sub">Diferencial: naturalidade, proporção com o rosto todo.</p></div>
+<div class="box"><span class="tag">Bioestimulador de colágeno</span>
+<p><b>O que ela quer:</b> pele mais firme, menos flacidez, sem mudar o rosto.</p>
+<div class="fala">O bioestimulador faz teu corpo produzir colágeno de novo. O resultado vem aos poucos, nas semanas seguintes, e fica natural porque é a tua pele trabalhando.</div>
+<p class="sub">Diferencial: resultado gradual, ninguém percebe "procedimento". Explica o prazo pra ela não se frustrar.</p></div>
+<div class="box"><span class="tag">Papada e flacidez</span>
+<p><b>O que ela quer:</b> parar de esconder o pescoço nas fotos de lado.</p>
+<div class="fala">Tenho recebido muita queixa de papada. Pra isso eu combino o bioestimulador com a tecnologia aqui do Instituto do Dr. Rafael, num protocolo que eu monto depois de te avaliar.</div>
+<p class="sub">Sempre deixa claro que a tecnologia é do Dr. Rafael.</p></div>
+<h3>O que não fazer</h3>
+<div class="fala nao">Dar valor total por foto ("uns 10 a 12 mil").</div>
+<div class="fala nao">Prometer resultado ("vai sumir", "vai ficar perfeito").</div>
+<div class="fala nao">Usar desconto como o motivo de fechar.</div>
+<p class="sub">Desconto e promoção como argumento vão contra o código de ética do biomédico e baixam o valor que tu está construindo. O argumento é teu cuidado e teu protocolo.</p>`,
+ treino:"Escolhe 2 procedimentos e fala a fórmula do valor em voz alta, com as tuas palavras, pra uma paciente que o Vinicius vai inventar na hora.",
+ check:["Sei a fórmula do valor de cabeça","Tenho minha frase de valor de cada procedimento","Não falo preço antes de falar da queixa"]
+},
+{
+ id:"m3", titulo:"WhatsApp até a avaliação", resumo:"Em até 2 trocas a paciente já tem dia e hora.",
+ html:`
+<p>No WhatsApp o objetivo é um só: <b>marcar a avaliação com o Pix feito.</b> Não é lugar de vender o procedimento inteiro.</p>
+<h3>A conversa que marca</h3>
+<ol class="passos">
+<li><b>Cumprimento com o nome.</b> "Oi, Sarah! Aqui é a Rayane, que bom que tu me chamou."</li>
+<li><b>Uma pergunta fechada, com opções.</b> "O que mais te incomoda hoje: a boca, as linhas ou a flacidez?"</li>
+<li><b>Mostra que dá pra ajudar.</b> "Isso dá pra tratar sim, mas preciso ver teu rosto de perto."</li>
+<li><b>Dois horários.</b> "Tenho terça às 9h ou quarta às 14h30. Qual fica melhor?"</li>
+<li><b>Garante o horário.</b> Avaliação de R$ 100 no Pix, que vira desconto no procedimento feito em até 30 dias.</li>
+<li><b>Dados e endereço.</b> Nome completo, data de nascimento e localização.</li>
+<li><b>Fecha o risco de falta.</b> "Se acontecer algum imprevisto, tu me avisa antes?"</li>
+</ol>
+<h3>Exemplo</h3>
+<div class="bolhas">
+<div class="b pac">Vi o anúncio e quero agendar minha avaliação</div>
+<div class="b ela">Oi, Sarah! Aqui é a Rayane</div>
+<div class="b ela">O que mais te incomoda hoje: a boca, as linhas ou a flacidez?</div>
+<div class="b pac">A boca e esse bigode chinês</div>
+<div class="b ela">Isso dá pra tratar sim, mas preciso ver tua estrutura de perto</div>
+<div class="b ela">Tenho terça às 9h ou quarta às 14h30. Qual fica melhor?</div>
+<div class="b pac">Quarta</div>
+<div class="b ela">Fechado! Pra garantir teu horário a avaliação é R$ 100 no Pix, e esse valor vira desconto no procedimento</div>
+</div>
+<h3>O que faz a paciente sumir</h3>
+<table>
+<tr><th>Quando acontece</th><th>Troca por</th></tr>
+<tr><td>Pergunta aberta solta: "qual procedimento você tem interesse?"</td><td>Pergunta com opções + horário logo depois</td></tr>
+<tr><td>Três perguntas seguidas</td><td>Uma pergunta por vez</td></tr>
+<tr><td>"Vamos agendar uma avaliação?"</td><td>"Terça às 9h ou quarta às 14h30?"</td></tr>
+<tr><td>Valor por foto ou por ml</td><td>"O valor eu te passo certinho na avaliação, depois de ver teu rosto"</td></tr>
+</table>
+<h3>Caso real</h3>
+<div class="box"><span class="tag x">Esfriou</span><p>Uma paciente mandou 53 mensagens, foto da papada e disse que só podia sábado. A resposta foi "vamos agendar pra sábado então", sem horário. Ela não respondeu mais.</p><div class="fala">Sábado eu tenho 8h ou 10h. Qual fica melhor pra ti?</div></div>
+<div class="box"><span class="tag ok">Fechou</span><p>Duas pacientes marcaram no mesmo dia quando receberam: "Às 14h30, tenho esse horário na segunda-feira".</p></div>
+<h3>Áudio</h3>
+<p>Teu público gosta de áudio, e tu fala bem. Usa áudio curto, até 30 segundos, e <b>sempre termina o áudio com os dois horários</b>. Depois manda os horários também por escrito, porque tem paciente que não ouve na hora.</p>
+<h3>Sobre a avaliação</h3>
+<div class="box dest">O valor é <b>R$ 100 no Pix</b>, a avaliação inteira, que desconta no procedimento feito em até 30 dias. Não existe mais a taxa de R$ 50. Todo mundo garante que vem; o que faz vir é o Pix.</div>`,
+ treino:"O Vinicius manda 'vi o anúncio e quero agendar' pelo teu WhatsApp de verdade. Tu tem que chegar no horário em até 2 trocas.",
+ check:["Faço uma pergunta por vez, com opções","Ofereço dois horários em até 2 trocas","Explico a avaliação de R$ 100 que desconta no procedimento","Termino todo áudio com horário"]
+},
+{
+ id:"m4", titulo:"A consulta que vende", resumo:"A paciente fala mais que tu. E se convence sozinha.",
+ html:`
+<p>A avaliação é onde a venda acontece. Quem fala mais é a paciente: <b>ela fala 70%, tu fala 30%.</b> Quanto mais ela conta da queixa, mais ela mesma enxerga a necessidade.</p>
+<h3>As 5 etapas</h3>
+<ol class="passos">
+<li><b>Acolher (2 min).</b> Chama pelo nome, agradece a vinda, pergunta como chegou até ti.</li>
+<li><b>Ouvir a queixa (10 min).</b> As 4 perguntas abaixo, uma de cada vez.</li>
+<li><b>Mostrar no espelho (5 min).</b> Dá o espelho e pede pra ela apontar o que incomoda. Depois tu mostra o que tu vê, com calma.</li>
+<li><b>Apresentar o protocolo (10 min).</b> O que tu vai fazer, por quê, quantas sessões, como fica e os cuidados. Usa a fórmula do valor.</li>
+<li><b>Valor e fechamento (5 min).</b> Módulo 5.</li>
+</ol>
+<h3>As 4 perguntas</h3>
+<div class="fala"><b>Situação:</b> Há quanto tempo isso te incomoda?</div>
+<div class="fala"><b>Problema:</b> Em que momento tu mais repara? Foto, espelho, alguém comentou?</div>
+<div class="fala"><b>Implicação:</b> E isso te atrapalha em quê? Tu evita foto, maquiagem, sair?</div>
+<div class="fala"><b>Necessidade:</b> Se isso melhorasse, o que ia mudar pra ti?</div>
+<p class="sub">A última é a mais importante: a resposta dela é o teu argumento de venda. Guarda a frase dela e devolve na hora do valor.</p>
+<h3>Devolvendo as palavras dela</h3>
+<div class="fala">Tu me falou que apaga as fotos de lado por causa da papada e que quer estar bem na formatura da tua filha. Então o que eu montei pra ti é isso aqui...</div>
+<h3>O que evitar</h3>
+<ul class="lista">
+<li>Explicar a técnica por 10 minutos antes de ouvir a paciente.</li>
+<li>Mostrar vários procedimentos de uma vez. Ela fica perdida e diz "vou pensar".</li>
+<li>Terminar a avaliação sem falar valor. Paciente que sai sem valor quase sempre não volta.</li>
+</ul>`,
+ treino:"Roleplay de avaliação completa (15 min). O Vinicius é uma paciente de 48 anos com papada. Ele marca em quantas perguntas tu falou mais que ela.",
+ check:["Faço as 4 perguntas antes de explicar qualquer coisa","Uso o espelho e deixo ela apontar","Devolvo a frase dela na hora do protocolo","Nunca termino a avaliação sem falar valor"]
+},
+{
+ id:"m5", titulo:"Preço e fechamento", resumo:"Um valor, firme, e silêncio. Depois uma pergunta de escolha.",
+ html:`
+<p>Falar preço não é pedir favor. Tu acabou de montar um plano pra um problema que ela te contou. O valor é só a informação que falta pra ela decidir.</p>
+<h3>Quando falar</h3>
+<p>Depois da queixa e do protocolo. Nunca antes. No WhatsApp, o valor do procedimento fica pra avaliação.</p>
+<h3>Como falar</h3>
+<ol class="passos">
+<li><b>Resume o protocolo em uma frase,</b> com a palavra dela.</li>
+<li><b>Fala um valor só, firme.</b> "O protocolo que eu montei pra ti fica R$ 1.400."</li>
+<li><b>Fica em silêncio.</b> Não explica, não pede desculpa, não oferece nada. Espera ela falar.</li>
+<li><b>Lembra o que já foi pago.</b> "E os R$ 100 da avaliação já descontam daí."</li>
+<li><b>Mostra a forma de pagar.</b> Pix ou parcelado no cartão.</li>
+<li><b>Pergunta de escolha.</b> "Tu quer fazer hoje ou prefere que eu reserve sexta pra ti?"</li>
+</ol>
+<div class="fala nao">"Fica R$ 1.400, mas se achar caro a gente vê um jeitinho..."</div>
+<div class="fala">"Fica R$ 1.400. Tu quer fazer hoje ou prefere que eu reserve sexta?"</div>
+<h3>Mesmo valor pra todo mundo</h3>
+<p>Quando cada paciente ouve um preço diferente, a conta não fecha e as amigas comparam. Monta tua tabela "a partir de" e usa sempre a mesma.</p>
+<table>
+<tr><th>Procedimento</th><th>A partir de</th></tr>
+<tr><td>Botox</td><td>R$ ____</td></tr>
+<tr><td>Boca, 1 ml</td><td>R$ ____</td></tr>
+<tr><td>Bioestimulador</td><td>R$ ____</td></tr>
+<tr><td>Protocolo de papada</td><td>R$ ____</td></tr>
+</table>
+<p class="sub">Preenche na aula com o Vinicius.</p>
+<h3>Se ela não fechar hoje</h3>
+<p>Ela não sai sem data. Ou marca o procedimento, ou combina quando tu vai chamar.</p>
+<div class="fala">Sem problema. Posso deixar teu horário de sexta reservado até amanhã? Se tu decidir, é só me mandar um ok.</div>
+<h3>Sobre dar algo a mais</h3>
+<p>Se em algum caso tu decidir abrir uma exceção, ela tem que ser troca: tu dá algo e ela dá a decisão com data. Nunca como primeira resposta ao "tá caro". E a avaliação não se dispensa: é o Pix que faz a paciente aparecer.</p>`,
+ treino:"O Vinicius é a paciente. Tu fala o valor e fica 5 segundos em silêncio. Repete 3 vezes até sair firme, sem 'mas'.",
+ check:["Falo um valor só e fico em silêncio","Uso pergunta de escolha pra fechar","Tenho minha tabela 'a partir de' preenchida","Ninguém sai da avaliação sem data"]
+},
+{
+ id:"m6", titulo:"Objeções", resumo:"Objeção é dúvida. Responde a dúvida e volta pro horário.",
+ html:`
+<p>Quando a paciente diz "tá caro" ou "vou pensar", quase nunca é um não. É uma dúvida que ela não falou. Teu trabalho é descobrir qual e voltar pro próximo passo.</p>
+<h3>O jeito de responder qualquer objeção</h3>
+<ol class="passos">
+<li><b>Concorda com o sentimento.</b> "Entendo, é um investimento."</li>
+<li><b>Pergunta o que tem por trás.</b> "O que pesa mais pra ti?"</li>
+<li><b>Responde aquilo.</b></li>
+<li><b>Volta pro horário ou pra decisão.</b></li>
+</ol>
+<p>As respostas prontas estão na aba <b>Objeções</b>, embaixo, pra tu abrir no celular quando precisar.</p>
+<h3>Casos das tuas conversas</h3>
+<div class="box"><span class="tag">"Uma conhecida faz mais barato"</span><p>Uma paciente comparou teu preço com o de uma conhecida e adiou o Pix.</p><div class="fala">Pode ser. Antes de comparar, vê se é o mesmo produto, a mesma quantidade e se tem retorno incluso. Aqui tu tem tudo isso.</div></div>
+<div class="box"><span class="tag">"Quando eu receber eu te aviso"</span><p>Paciente com motivo real (salário, carro, filho doente) não se empurra. Responde curto e combina quando chamar.</p><div class="fala">Claro! Teu pagamento cai que dia? Eu te chamo nesse dia pra gente marcar.</div></div>`,
+ treino:"Rodada relâmpago: o Vinicius solta 8 objeções seguidas. Tu responde cada uma em até 2 frases e volta pro horário.",
+ check:["Sei os 4 passos de qualquer objeção","Abro a aba Objeções quando travo","Sempre volto pro horário ou pra decisão"]
+}
+];
+
+const OBJ = [
+["Tá caro","Entendo, é um investimento. O que pesa mais pra ti: o valor total ou a parcela?","Se for a parcela: mostra o parcelamento. Se for o total: volta pro que ela te contou da queixa e pro que muda pra ela."],
+["Vou pensar","Claro, é teu rosto. Me diz o que ficou de dúvida, que eu te ajudo agora.","Se não tiver dúvida: \"Posso deixar teu horário de sexta guardado até amanhã?\""],
+["Vou falar com meu marido","Faz sentido. O que tu acha que ele vai perguntar?","Responde a dúvida dele agora. Oferece: \"Se quiser, traz ele no dia, que eu explico pra ele também.\""],
+["A avaliação é paga?","É R$ 100 no Pix pra guardar teu horário, e esse valor vira desconto no procedimento feito em até 30 dias.","Depois: \"Qual dia da semana fica melhor pra ti?\""],
+["Me fala o preço por aqui","O valor certinho eu te passo na avaliação, porque depende do teu rosto. Não quero te dar um número errado.","Volta pros dois horários."],
+["Uma conhecida faz mais barato","Pode ser. Vê se é o mesmo produto, a mesma quantidade e se tem retorno incluso.","Não baixa o preço. Reforça teu cuidado e o retorno."],
+["Tenho medo de ficar artificial","Esse é meu maior cuidado. Eu sigo teu rosto, e prefiro fazer menos e tu voltar pra mais do que exagerar.","Mostra um antes e depois natural, se tiver autorização da paciente."],
+["Dói?","A gente usa anestésico e eu vou te avisando cada etapa. A maioria das pacientes fala que é bem tranquilo.","Não promete que não dói nada."],
+["Quero pagar no dia","A avaliação é no Pix antes, porque é ela que guarda teu horário. O procedimento tu paga no dia.","Manda a chave Pix com teu nome junto."],
+["Quando eu receber eu aviso","Claro! Teu pagamento cai que dia? Eu te chamo nesse dia pra gente marcar.","Anota o dia e chama mesmo."],
+["Agora não é um bom momento","Entendo. Tem alguma data importante chegando? Formatura, festa, viagem?","Se tiver data, usa o prazo: bioestimulador precisa de semanas pra aparecer."],
+["Já fiz e não gostei","Me conta o que não gostou. Isso me ajuda a fazer diferente pra ti.","Ouve tudo antes de falar. Depois mostra o que muda contigo."]
+];
+
+const ROTEIRO = `
+<span class="kicker">Abre no celular antes da consulta</span>
+<h1>Roteiro da avaliação</h1>
+<p class="sub">30 minutos. A paciente fala mais que tu.</p>
+<div class="box"><h3 style="margin-top:0">1 · Acolher</h3><div class="fala">Oi, {nome}! Que bom que tu veio. Como tu me achou?</div></div>
+<div class="box"><h3 style="margin-top:0">2 · Ouvir (uma por vez)</h3>
+<div class="fala">Há quanto tempo isso te incomoda?</div>
+<div class="fala">Em que momento tu mais repara?</div>
+<div class="fala">Isso te atrapalha em quê?</div>
+<div class="fala">Se isso melhorasse, o que ia mudar pra ti?</div>
+<p class="sub">Guarda a última resposta.</p></div>
+<div class="box"><h3 style="margin-top:0">3 · Espelho</h3><div class="fala">Me mostra aqui o que mais te incomoda.</div></div>
+<div class="box"><h3 style="margin-top:0">4 · Protocolo</h3><p>Queixa dela → o que causa → o que tu vai fazer → como fica no dia a dia → por que contigo.</p><div class="fala">Tu me falou que {frase dela}. Então o que eu montei pra ti é...</div></div>
+<div class="box dest"><h3 style="margin-top:0">5 · Valor e fechamento</h3>
+<div class="fala">O protocolo que eu montei pra ti fica R$ ____.</div>
+<p><b>Silêncio.</b></p>
+<div class="fala">E os R$ 100 da avaliação já descontam daí. Pode ser no Pix ou parcelado.</div>
+<div class="fala">Tu quer fazer hoje ou prefere que eu reserve {dia}?</div></div>
+<div class="box"><h3 style="margin-top:0">Não fechou?</h3><div class="fala">Posso deixar teu horário de {dia} guardado até amanhã?</div><p class="sub">Ninguém sai sem data.</p></div>`;
+
+const WHATS = `
+<span class="kicker">Mensagens prontas</span>
+<h1>WhatsApp</h1>
+<p class="sub">Copia, troca o que está entre chaves e manda em bolhas curtas.</p>
+${[
+["Primeira resposta","Oi, {nome}! Aqui é a Rayane\nO que mais te incomoda hoje: a boca, as linhas ou a flacidez?"],
+["Depois da queixa","Isso dá pra tratar sim, mas preciso ver teu rosto de perto\nTenho {dia} às {hora} ou {dia} às {hora}. Qual fica melhor?"],
+["Garantir o horário","Fechado! Pra garantir teu horário, a avaliação é R$ 100 no Pix\nEsse valor vira desconto no procedimento feito em até 30 dias\nChave Pix (celular): 94984128187, em nome de Rayane da Conceicao Silva"],
+["Dados e endereço","Me passa teu nome completo e data de nascimento?\nÉ na Rua 10, nº 216, Cidade Nova, em frente aos Correios\nSe acontecer algum imprevisto, tu me avisa antes?"],
+["Retomar quem parou","Oi, {nome}, aqui é a Rayane\nTu tinha me falado de {queixa}. Ainda quer ver isso?\nTenho {dia} às {hora} ou {dia} às {hora}"],
+["Véspera","Oi, {nome}! Amanhã às {hora} tô te esperando\nPosso confirmar?"]
+].map(([t,m])=>`<div class="box"><span class="tag">${t}</span><div class="bolhas">${m.split("\n").map(l=>`<div class="b ela">${l}</div>`).join("")}</div><button class="btn sec" data-copiar="${encodeURIComponent(m)}">Copiar</button></div>`).join("")}`;
+
+/* progresso */
+const KEY="vender-bem-rayane";
+let est={};
+try{est=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){est={}}
+function salvar(){try{localStorage.setItem(KEY,JSON.stringify(est))}catch(e){}}
+function feito(m){return m.check.every((_,i)=>est[m.id+"-"+i])}
+function atualizaProg(){
+  const n=MODS.filter(feito).length;
+  document.getElementById("pbar").style.width=(n/MODS.length*100)+"%";
+  document.getElementById("ptx").textContent=n+" de "+MODS.length;
+}
+
+const main=document.getElementById("main");
+function inicio(){
+  return `<span class="kicker">Treinamento Hurtz</span>
+<h1>Vender bem, Dra Rayane</h1>
+<p class="sub">6 módulos curtos pra transformar a paciente que te chama em paciente que faz o procedimento. Do WhatsApp ao fechamento na cadeira.</p>
+<div class="grid">${MODS.map((m,i)=>`<a class="mod ${feito(m)?"feito":""}" href="#${m.id}"><span class="num">${feito(m)?"✓":i+1}</span><span><b>${m.titulo}</b><small>${m.resumo}</small></span></a>`).join("")}</div>
+<div class="box"><b>Como usar:</b> cada módulo tem a explicação, exemplos das tuas conversas, um treino pra fazer na aula e um checklist. Embaixo tu tem o roteiro da avaliação, as objeções e as mensagens prontas pra abrir no celular.</div>
+<p class="rodape">Hurtz Company</p>`;
+}
+function modulo(i){
+  const m=MODS[i];
+  return `<span class="kicker">Módulo ${i+1} de ${MODS.length}</span>
+<h1>${m.titulo}</h1><p class="sub">${m.resumo}</p>${m.html}
+<h2>Treino da aula</h2><div class="box dest">${m.treino}</div>
+<h2>Checklist</h2><div class="box">${m.check.map((c,j)=>`<label class="check"><input type="checkbox" data-k="${m.id}-${j}" ${est[m.id+"-"+j]?"checked":""}><span>${c}</span></label>`).join("")}</div>
+<div class="nav-mod">${i>0?`<a class="btn sec" href="#${MODS[i-1].id}">Anterior</a>`:`<a class="btn sec" href="#inicio">Início</a>`}${i<MODS.length-1?`<a class="btn" href="#${MODS[i+1].id}">Próximo</a>`:`<a class="btn" href="#inicio">Concluir</a>`}</div>`;
+}
+function objecoes(){
+  return `<span class="kicker">Abre quando travar</span><h1>Objeções</h1><p class="sub">Concorda, pergunta, responde, volta pro horário.</p>
+${OBJ.map(([o,r,d])=>`<details class="obj"><summary>"${o}"</summary><div class="in"><div class="fala">${r}</div><p class="sub">${d}</p></div></details>`).join("")}`;
+}
+function render(){
+  const h=(location.hash||"#inicio").slice(1);
+  const i=MODS.findIndex(m=>m.id===h);
+  main.innerHTML = i>=0?modulo(i): h==="consulta"?ROTEIRO: h==="objecoes"?objecoes(): h==="whats"?WHATS: inicio();
+  document.querySelectorAll("nav.tabs a").forEach(a=>a.classList.toggle("on",a.dataset.t===h||(i>=0&&a.dataset.t==="inicio")));
+  window.scrollTo(0,0); atualizaProg();
+}
+main.addEventListener("change",e=>{const k=e.target.dataset.k;if(k){est[k]=e.target.checked;salvar();atualizaProg()}});
+main.addEventListener("click",e=>{const c=e.target.dataset.copiar;if(c){const t=decodeURIComponent(c);(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{e.target.textContent="Copiado"},()=>{e.target.textContent="Seleciona e copia"});setTimeout(()=>e.target.textContent="Copiar",1800)}});
+addEventListener("hashchange",render);
+render();
+</script>
+</body>
+</html>
