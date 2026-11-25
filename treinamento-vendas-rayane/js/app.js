@@ -14,7 +14,7 @@ const feitasMod = (m,mi) => m.aulas.filter((_,ai)=>aulaFeita(mi,ai)).length;
 function prog(){
   const n = MODS.reduce((s,m,mi)=>s+feitasMod(m,mi),0);
   document.getElementById('pbar').style.width = (totalAulas? n/totalAulas*100 : 0)+'%';
-  document.getElementById('ptx').textContent = n+' de '+totalAulas+' aulas';
+  document.getElementById('ptx').textContent = n+'/'+totalAulas+' aulas';
 }
 
 /* embaralha as alternativas de forma estável por pergunta */
