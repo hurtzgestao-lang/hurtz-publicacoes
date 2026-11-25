@@ -12,11 +12,11 @@
 <style>
 :root{
   --bg:#181614; --card:#221f1c; --card2:#2b2723; --line:#3a352f;
-  --tx:#F5F2EC; --tx2:#b9b2a7; --ac:#DD6C1E; --ac2:#C06018; --ok:#6fae6a; --warn:#e0a63c;
+  --tx:#F5F2EC; --tx2:#b9b2a7; --ac:#DD6C1E; --ac2:#C06018; --ok:#6fae6a;
 }
 *{box-sizing:border-box}
 html,body{margin:0}
-body{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.55;-webkit-font-smoothing:antialiased;padding-bottom:84px}
+body{background:var(--bg);color:var(--tx);font-family:Inter,system-ui,sans-serif;font-size:16px;line-height:1.6;-webkit-font-smoothing:antialiased;padding-bottom:84px}
 .wrap{max-width:760px;margin:0 auto;padding:0 16px}
 header{position:sticky;top:0;z-index:5;background:rgba(24,22,20,.94);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
 .bar{display:flex;align-items:center;justify-content:space-between;height:56px;gap:12px}
@@ -26,7 +26,7 @@ header{position:sticky;top:0;z-index:5;background:rgba(24,22,20,.94);backdrop-fi
 .prog i{display:block;width:80px;height:6px;border-radius:9px;background:var(--line);overflow:hidden}
 .prog i b{display:block;height:100%;background:var(--ac);width:0;transition:width .3s}
 h1{font-size:28px;line-height:1.2;margin:28px 0 8px}
-h2{font-size:22px;line-height:1.25;margin:28px 0 10px}
+h2{font-size:22px;line-height:1.25;margin:34px 0 12px;padding-top:18px;border-top:1px solid var(--line)}
 h3{font-size:17px;margin:22px 0 8px;color:var(--ac)}
 p{margin:0 0 12px}
 .sub{color:var(--tx2)}
@@ -37,10 +37,12 @@ p{margin:0 0 12px}
 .num{flex:none;width:42px;height:42px;border-radius:50%;display:grid;place-items:center;background:var(--card2);font-weight:700;color:var(--ac)}
 .mod.feito .num{background:var(--ac);color:#fff}
 .mod b{display:block}
-.mod small{color:var(--tx2);font-size:14px}
+.mod small{color:var(--tx2);font-size:14px;display:block}
+.mod em{font-style:normal;font-size:12px;color:var(--ac)}
 .box{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:14px 0}
 .box.dest{border-color:var(--ac2);background:linear-gradient(180deg,#2a2018,var(--card))}
-ul.lista{margin:0;padding-left:20px}
+.box > :last-child{margin-bottom:0}
+ul.lista{margin:0 0 12px;padding-left:20px}
 ul.lista li{margin:6px 0}
 .fala{background:var(--card2);border-left:3px solid var(--ac);border-radius:4px 12px 12px 4px;padding:10px 14px;margin:8px 0;font-size:15.5px}
 .fala.nao{border-left-color:#8a8278;color:var(--tx2);text-decoration:line-through;text-decoration-color:#8a827888}
@@ -48,17 +50,29 @@ ul.lista li{margin:6px 0}
 .b{max-width:85%;padding:8px 12px;border-radius:14px;font-size:15px}
 .b.ela{align-self:flex-end;background:#3b2a1c;border-bottom-right-radius:4px}
 .b.pac{align-self:flex-start;background:var(--card2);border-bottom-left-radius:4px}
+.b small{display:block;font-size:11px;color:var(--ac);font-weight:700;letter-spacing:.06em}
 .tag{display:inline-block;font-size:12px;font-weight:600;padding:2px 9px;border-radius:99px;background:var(--card2);color:var(--tx2);margin-bottom:6px}
 .tag.ok{background:#22331f;color:#a6d8a0}
 .tag.x{background:#3a2a1a;color:#f0c38a}
-.passos{counter-reset:p;list-style:none;padding:0;margin:0}
+.passos{counter-reset:p;list-style:none;padding:0;margin:0 0 12px}
 .passos li{counter-increment:p;position:relative;padding:0 0 14px 40px}
 .passos li::before{content:counter(p);position:absolute;left:0;top:0;width:28px;height:28px;border-radius:50%;background:var(--card2);color:var(--ac);font-weight:700;display:grid;place-items:center;font-size:14px}
+.spin{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+.spin div{background:var(--card);border:1px solid var(--line);border-radius:12px;padding:12px 8px;text-align:center}
+.spin b{display:block;font-size:26px;color:var(--ac);line-height:1.1}
+.spin span{font-size:12.5px;color:var(--tx2)}
 .check{display:flex;gap:10px;align-items:flex-start;padding:8px 0;border-bottom:1px solid var(--line);cursor:pointer}
 .check:last-child{border-bottom:0}
 .check input{width:20px;height:20px;accent-color:var(--ac);flex:none;margin-top:2px}
+.quiz{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:16px;margin:12px 0}
+.quiz p.q{font-weight:600}
+.quiz button{display:block;width:100%;text-align:left;background:var(--card2);color:var(--tx);border:1px solid var(--line);border-radius:10px;padding:10px 12px;margin:6px 0;font:15px Inter,sans-serif;cursor:pointer}
+.quiz button.certa{border-color:var(--ok);background:#22331f}
+.quiz button.errada{border-color:#a5552a;background:#3a2318}
+.quiz .exp{margin-top:10px;font-size:15px;color:var(--tx2)}
 details.obj{background:var(--card);border:1px solid var(--line);border-radius:12px;margin:10px 0}
 details.obj summary{cursor:pointer;padding:14px 16px;font-weight:600;list-style:none;display:flex;justify-content:space-between;gap:10px}
+details.obj summary::-webkit-details-marker{display:none}
 details.obj summary::after{content:"+";color:var(--ac);font-size:20px;line-height:1}
 details.obj[open] summary::after{content:"−"}
 details.obj .in{padding:0 16px 14px}
@@ -69,24 +83,23 @@ nav.tabs{position:fixed;bottom:0;left:0;right:0;z-index:6;background:#12100f;bor
 nav.tabs a{flex:1;max-width:190px;text-align:center;padding:10px 4px 12px;color:var(--tx2);text-decoration:none;font-size:12.5px;font-weight:600}
 nav.tabs a svg{display:block;margin:0 auto 3px;width:22px;height:22px;fill:none;stroke:currentColor;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round}
 nav.tabs a.on{color:var(--ac)}
-.view[hidden]{display:none}
-table{width:100%;border-collapse:collapse;font-size:15px}
+table{width:100%;border-collapse:collapse;font-size:15px;margin-bottom:12px}
 td,th{text-align:left;padding:8px 6px;border-bottom:1px solid var(--line);vertical-align:top}
 th{color:var(--tx2);font-weight:600;font-size:13px}
 .rodape{color:var(--tx2);font-size:13px;margin:36px 0 10px;text-align:center}
-@media (max-width:420px){h1{font-size:24px}.prog i{width:56px}}
+@media (max-width:420px){h1{font-size:24px}.prog i{width:56px}.spin b{font-size:22px}}
 </style>
 </head>
 <body>
 <header><div class="wrap bar">
   <div class="marca">HURTZ <span>·</span> Vender Bem</div>
-  <div class="prog"><i><b id="pbar"></b></i><span id="ptx">0 de 6</span></div>
+  <div class="prog"><i><b id="pbar"></b></i><span id="ptx">0 de 0</span></div>
 </div></header>
 
 <main class="wrap" id="main"></main>
 
 <nav class="tabs" aria-label="Áreas">
-  <a href="#inicio" data-t="inicio"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg>Início</a>
+  <a href="#inicio" data-t="inicio"><svg viewBox="0 0 24 24"><path d="M3 11 12 4l9 7v9h-6v-6H9v6H3z"/></svg>Aulas</a>
   <a href="#consulta" data-t="consulta"><svg viewBox="0 0 24 24"><path d="M9 4h6v3H9zM6 6h12v15H6zM9 12h6M9 16h4"/></svg>Roteiro</a>
   <a href="#objecoes" data-t="objecoes"><svg viewBox="0 0 24 24"><path d="M4 4h16v13H9l-5 4z"/></svg>Objeções</a>
   <a href="#whats" data-t="whats"><svg viewBox="0 0 24 24"><path d="M5 19l1.5-4A8 8 0 1 1 9 18z"/></svg>WhatsApp</a>
@@ -94,159 +107,425 @@ th{color:var(--tx2);font-weight:600;font-size:13px}
 
 <script>
 const MODS = [
+/* ============ 1 ============ */
 {
- id:"m1", titulo:"Quem chega já quer", resumo:"Vender não é convencer. É ajudar a decidir.",
+ id:"m1", titulo:"O que é vender na estética", resumo:"Vender não é convencer. É ajudar a paciente a decidir.", tempo:"15 min",
  html:`
-<p>A pessoa que te chama pelo anúncio já viu teu vídeo, já pensou no rosto dela e já escreveu "quero agendar". Ela não precisa ser convencida de que quer. Ela precisa de alguém que conduza.</p>
-<div class="box dest"><b>A virada:</b> teu papel não é tirar dúvida e esperar. É dizer o próximo passo. Paciente gosta de quem decide.</div>
-<h3>O que já é teu ponto forte</h3>
+<h2>A aula</h2>
+<p>Muita profissional da saúde sente que vender é "empurrar" alguma coisa. Por isso trava na hora de falar valor, explica demais, deixa a paciente ir embora "pra pensar" e fica esperando ela voltar. Ela quase nunca volta.</p>
+<p>Na estética, vender é outra coisa. A paciente chega com um incômodo que já carrega há meses ou anos: a papada que aparece na foto de lado, a testa marcada que faz parecer brava, a boca que perdeu volume. Ela já quer resolver. O que ela não sabe é <b>o que fazer, com quem e se vale a pena</b>.</p>
+<div class="box dest"><b>Vender é conduzir a paciente até uma decisão boa pra ela.</b> Você faz as perguntas certas, mostra o caminho e ajuda a dizer sim. Quem não conduz deixa a paciente sozinha com a dúvida. E sozinha, ela adia.</div>
+<h3>Por que a paciente adia</h3>
+<p>Toda decisão de procedimento estético mexe com três coisas ao mesmo tempo:</p>
 <ul class="lista">
-<li><b>Tu fala como dona:</b> "eu consigo", "eu tenho esse horário". Isso passa segurança. Continua.</li>
-<li><b>Tu acolhe:</b> a paciente sente que foi ouvida. É por isso que vem indicação de tia, mãe e prima.</li>
-<li><b>Tu explica simples:</b> "a carinha de brava", "a abinha do nariz". Paciente entende e se vê no procedimento.</li>
+<li><b>Medo:</b> de ficar artificial, de doer, de dar errado, de alguém perceber.</li>
+<li><b>Dinheiro:</b> ela precisa sentir que o valor se paga no que vai mudar pra ela.</li>
+<li><b>Culpa:</b> muita mulher sente que está gastando "com vaidade" e precisa de permissão pra cuidar de si.</li>
 </ul>
-<h3>O que trava a venda</h3>
+<p>Se você não trabalha essas três coisas na conversa, a resposta padrão é "vou pensar". Não é falta de interesse. É medo, dinheiro e culpa sem resposta.</p>
+<h3>Os três papéis que você precisa ocupar</h3>
+<table>
+<tr><th>Papel</th><th>O que faz</th></tr>
+<tr><td><b>Investigadora</b></td><td>Pergunta antes de explicar. Descobre o que realmente incomoda e por quê. (Módulos 3 e 4: SPIN)</td></tr>
+<tr><td><b>Especialista</b></td><td>Explica com segurança o que vai fazer e por quê, sem prometer milagre. (Módulo 5: valor)</td></tr>
+<tr><td><b>Guia</b></td><td>Diz qual é o próximo passo e ajuda a paciente a decidir. (Módulos 7 a 9)</td></tr>
+</table>
+<h3>O que já é ponto forte seu</h3>
 <ul class="lista">
-<li>Responder e esperar a paciente puxar o próximo passo.</li>
-<li>Ficar sem graça de falar valor, como se estivesse pedindo um favor.</li>
-<li>Deixar sair "pra pensar" sem nada marcado.</li>
+<li><b>Você fala como dona:</b> "eu consigo", "eu tenho esse horário". Isso passa segurança. A paciente sente que tem alguém que decide.</li>
+<li><b>Você acolhe:</b> a paciente se sente ouvida. É por isso que vem indicação de mãe, tia e prima.</li>
+<li><b>Você explica simples:</b> "a carinha de brava", "a abinha do nariz". A paciente entende e se enxerga no procedimento.</li>
 </ul>
-<h3>O que os números das tuas conversas mostram</h3>
-<p>Nas conversas da Black, <b>quem marcou recebeu um dia e um horário concretos</b>. Quem recebeu só uma pergunta solta, na maioria das vezes, não voltou. A diferença não foi preço. Foi condução.</p>
-<h3>Regra do módulo</h3>
-<div class="fala">Toda conversa termina com um próximo passo com data: avaliação marcada, procedimento marcado ou retorno combinado.</div>`,
- treino:"O Vinicius faz uma paciente que escreveu 'vi o anúncio e quero agendar'. Tu responde 3 mensagens. Conta: em quantas tu deu o próximo passo?",
- check:["Entendi que quem chega pelo anúncio já quer","Sei qual é meu ponto forte no atendimento","Toda conversa minha termina com um passo com data"]
+<p>O treinamento não é pra mudar quem você é. É pra colocar um método por trás do que você já faz bem, pra funcionar com toda paciente e não só com algumas.</p>
+<h3>O que suas conversas mostram</h3>
+<p>Nas conversas da Black, as pacientes que marcaram tinham uma coisa em comum: <b>receberam um dia e um horário concretos</b>. As que receberam só uma pergunta solta, na maioria, não voltaram. A diferença não foi preço. Foi condução.</p>
+<h3>A regra que vale pra tudo</h3>
+<div class="fala">Toda conversa termina com um próximo passo com data: avaliação marcada, procedimento marcado ou um retorno combinado.</div>`,
+ treino:"O Vinicius faz uma paciente que escreveu 'vi o anúncio e quero agendar'. Você responde 3 mensagens. No fim, contem juntos: em quantas você deu o próximo passo?",
+ quiz:[
+  {q:"A paciente disse 'vou pensar'. Na maioria das vezes, isso significa:",o:["Ela não tem interesse","Ela tem uma dúvida, medo ou questão de dinheiro que não foi resolvida","Ela vai voltar sozinha amanhã"],c:1,e:"'Vou pensar' quase sempre é medo, dinheiro ou culpa sem resposta. Seu trabalho é descobrir qual."},
+  {q:"O que as pacientes que marcaram na Black receberam?",o:["Um desconto maior","Uma explicação longa do procedimento","Um dia e um horário concretos"],c:2,e:"Horário concreto é condução. Pergunta solta deixa a decisão no ar."},
+  {q:"Qual é o seu papel na venda?",o:["Convencer a paciente","Conduzir a paciente até uma decisão boa pra ela","Responder as dúvidas e esperar"],c:1,e:"Vender bem é conduzir: perguntar, mostrar o caminho e ajudar a decidir."}
+ ],
+ check:["Entendi que vender é conduzir, não empurrar","Sei as 3 coisas que fazem a paciente adiar","Toda conversa minha termina com um passo com data"]
 },
+/* ============ 2 ============ */
 {
- id:"m2", titulo:"Agregar valor", resumo:"Transformar técnica em resultado que a paciente sente.",
+ id:"m2", titulo:"Como a paciente decide", resumo:"Dor, desejo, medo e confiança. O que passa na cabeça dela.", tempo:"20 min",
  html:`
-<p>Paciente não compra "1 ml de ácido". Ela compra se sentir bem na foto, parar de parecer cansada, não ficar artificial. Valor é ligar o que tu faz com o que ela quer.</p>
+<h2>A aula</h2>
+<p>Antes de aprender o método, você precisa entender o que acontece na cabeça da paciente entre ver seu anúncio e deitar na sua maca. Ela passa por quatro estágios, e em cada um ela precisa de uma coisa diferente de você.</p>
+<h3>Os 4 estágios da decisão</h3>
+<ol class="passos">
+<li><b>Incômodo.</b> "Não gosto de como eu estou na foto." Ela sente, mas ainda não sabe o que fazer. <i>Precisa de: alguém que entenda.</i></li>
+<li><b>Busca.</b> Viu seu vídeo, chamou no WhatsApp. Está comparando, pesquisando, com medo. <i>Precisa de: segurança e um próximo passo simples (a avaliação).</i></li>
+<li><b>Avaliação.</b> Está na sua frente. Quer saber se tem jeito, quanto custa, se vai ficar natural. <i>Precisa de: ser ouvida, ver o problema com clareza e entender o plano.</i></li>
+<li><b>Decisão.</b> Pesa valor contra o que vai mudar. <i>Precisa de: um valor claro, uma forma de pagar e alguém que peça a decisão.</i></li>
+</ol>
+<p>O erro mais comum é pular estágios. Falar preço no WhatsApp (estágio 4) quando ela ainda está no estágio 2. Explicar a técnica (estágio 3) antes de ouvir o incômodo (estágio 1). Quando você pula, ela trava.</p>
+<h3>Dor e desejo</h3>
+<p>Toda paciente tem uma <b>dor</b> (o que incomoda hoje) e um <b>desejo</b> (como ela quer se sentir). A dor faz ela procurar. O desejo faz ela pagar.</p>
+<table>
+<tr><th>Dor (o que ela fala)</th><th>Desejo (o que ela quer de verdade)</th></tr>
+<tr><td>"Pareço brava, cansada"</td><td>Parecer descansada, leve, de bem com a vida</td></tr>
+<tr><td>"Apago as fotos de lado"</td><td>Sair na foto da formatura da filha sem se esconder</td></tr>
+<tr><td>"Minha boca murchou"</td><td>Se sentir bonita e feminina de novo</td></tr>
+<tr><td>"Estou envelhecendo rápido"</td><td>Envelhecer bem, sem cara de procedimento</td></tr>
+</table>
+<div class="box dest">Quem vende procedimento, vende técnica. Quem vende o desejo, vende resultado. <b>O valor que a paciente paga está no desejo, não na seringa.</b> O SPIN (próximo módulo) é a ferramenta pra descobrir esse desejo.</div>
+<h3>Os medos mais comuns</h3>
+<ul class="lista">
+<li><b>"Vou ficar artificial."</b> O medo número um. Fale de naturalidade antes que ela pergunte.</li>
+<li><b>"Vai doer?"</b> Fale do anestésico e de como você conduz cada etapa.</li>
+<li><b>"E se der errado?"</b> Fale do retorno, da avaliação da estrutura, do seu cuidado.</li>
+<li><b>"Alguém vai perceber?"</b> Fale do resultado gradual (no bioestimulador) e da dose certa (no Botox).</li>
+<li><b>"Meu marido vai achar caro."</b> Ajude ela a explicar o valor pra ele.</li>
+</ul>
+<h3>Confiança vem antes de preço</h3>
+<p>A paciente só aceita o valor de quem ela confia. E confiança na estética vem de três coisas: <b>sentir que foi ouvida</b>, <b>entender o que vai ser feito</b> e <b>ver que você não está com pressa de vender</b>. Por isso, no método, você pergunta primeiro e fala de valor por último.</p>`,
+ treino:"Pegue 3 pacientes reais suas (sem dizer o nome). Para cada uma, escreva qual era a dor e qual era o desejo. O Vinicius ajuda a achar o desejo por trás da dor.",
+ quiz:[
+  {q:"A paciente diz 'apago as fotos de lado'. Isso é:",o:["O desejo dela","A dor dela","Uma objeção"],c:1,e:"É a dor. O desejo é o que ela quer sentir: sair bem na foto da formatura, por exemplo."},
+  {q:"O que faz a paciente pagar?",o:["O desejo","A técnica","O desconto"],c:0,e:"A dor faz procurar, o desejo faz pagar."},
+  {q:"Qual é o medo número um em harmonização?",o:["Dor","Ficar artificial","Preço"],c:1,e:"Fale de naturalidade antes que ela pergunte."}
+ ],
+ check:["Sei os 4 estágios da decisão","Separo dor de desejo","Conheço os medos mais comuns e como responder"]
+},
+/* ============ 3 ============ */
+{
+ id:"m3", titulo:"SPIN: o método", resumo:"As 4 perguntas que fazem a paciente se convencer sozinha.", tempo:"30 min",
+ html:`
+<h2>A aula</h2>
+<p>SPIN é um método de vendas criado a partir da observação de milhares de vendas de alto valor. A descoberta principal foi simples: <b>quem vende mais é quem pergunta mais, e não quem explica mais.</b></p>
+<p>Por quê? Porque quando você explica, a paciente escuta (e às vezes desconfia). Quando você pergunta, é ela quem fala do problema dela. E ninguém duvida do que a própria boca disse.</p>
+<div class="spin"><div><b>S</b><span>Situação</span></div><div><b>P</b><span>Problema</span></div><div><b>I</b><span>Implicação</span></div><div><b>N</b><span>Necessidade</span></div></div>
+<p>São quatro tipos de pergunta, sempre nessa ordem. Cada uma tem um objetivo.</p>
+
+<h3>S · Situação: entender o contexto</h3>
+<p>Perguntas sobre a vida dela e o histórico. Servem pra você conhecer a paciente e pra ela relaxar. São fáceis de responder.</p>
+<div class="fala">Você já fez algum procedimento no rosto antes?</div>
+<div class="fala">Como é sua rotina de cuidados com a pele?</div>
+<div class="fala">Como você chegou até mim?</div>
+<p class="sub"><b>Cuidado:</b> poucas. Duas ou três no máximo. Pergunta de situação demais parece interrogatório e cansa.</p>
+
+<h3>P · Problema: achar o incômodo</h3>
+<p>Perguntas que fazem ela falar o que incomoda. Aqui aparece a <b>dor</b>.</p>
+<div class="fala">O que mais te incomoda quando você se olha no espelho?</div>
+<div class="fala">Há quanto tempo isso te incomoda?</div>
+<div class="fala">Em que momento você mais repara? Foto, espelho, alguém comentou?</div>
+<p class="sub">Deixe ela falar. Não corte pra explicar. Quanto mais ela fala, melhor.</p>
+
+<h3>I · Implicação: o que esse problema causa</h3>
+<p>Essa é a pergunta mais poderosa e a que quase ninguém faz. Ela faz a paciente perceber <b>o tamanho</b> do problema: como ele afeta a vida dela, a autoestima, as fotos, o trabalho.</p>
+<div class="fala">E isso te atrapalha em quê no dia a dia?</div>
+<div class="fala">Você deixa de fazer alguma coisa por causa disso? Foto, sair, se maquiar?</div>
+<div class="fala">Como você se sente quando vê essa foto?</div>
+<div class="fala">Se ficar como está, como você imagina daqui a uns anos?</div>
+<p class="sub">Sem implicação, a papada é "só uma papada". Com implicação, ela é "o motivo de eu não aparecer em nenhuma foto da família". É aqui que o valor nasce.</p>
+
+<h3>N · Necessidade: ela fala o benefício</h3>
+<p>Perguntas que fazem a paciente dizer, com as palavras dela, o que vai mudar quando o problema for resolvido. Aqui aparece o <b>desejo</b>.</p>
+<div class="fala">Se isso melhorasse, o que mudaria pra você?</div>
+<div class="fala">Como seria se olhar e se ver descansada?</div>
+<div class="fala">Por que é importante resolver isso agora?</div>
+<div class="box dest"><b>O segredo do SPIN:</b> na pergunta de necessidade, quem fala o benefício é a paciente. Você não precisa vender. Ela acabou de vender pra ela mesma. Depois você só devolve as palavras dela na hora de apresentar o protocolo.</div>
+
+<h3>Por que a ordem importa</h3>
+<table>
+<tr><th>Se você pula...</th><th>Acontece</th></tr>
+<tr><td>Situação</td><td>Parece fria, apressada</td></tr>
+<tr><td>Problema</td><td>Você oferece procedimento sem saber o que ela quer</td></tr>
+<tr><td>Implicação</td><td>O problema parece pequeno e o valor parece caro</td></tr>
+<tr><td>Necessidade</td><td>Você tem que convencer, porque ela não falou o benefício</td></tr>
+</table>
+
+<h3>As 5 regras de ouro do SPIN</h3>
+<ol class="passos">
+<li><b>Uma pergunta por vez.</b> Três perguntas juntas = nenhuma resposta.</li>
+<li><b>Escute de verdade.</b> A próxima pergunta nasce da resposta dela, não do roteiro.</li>
+<li><b>Use as palavras dela.</b> Se ela disse "cara de cansada", você fala "cara de cansada", não "perda de volume".</li>
+<li><b>Não explique durante o SPIN.</b> A explicação vem depois. Se ela perguntar algo técnico, responda curto e volte a perguntar.</li>
+<li><b>Anote a frase da necessidade.</b> Ela vai ser seu argumento de venda.</li>
+</ol>`,
+ treino:"O Vinicius é uma paciente. Você faz só perguntas, nenhuma explicação, até chegar na necessidade. Ele levanta a mão toda vez que você explicar em vez de perguntar. Repita até conseguir fazer S, P, I e N sem nenhuma mão levantada.",
+ quiz:[
+  {q:"'Você deixa de tirar foto por causa disso?' é uma pergunta de:",o:["Situação","Problema","Implicação","Necessidade"],c:2,e:"Implicação mostra o que o problema causa na vida dela."},
+  {q:"'Se isso melhorasse, o que mudaria pra você?' é uma pergunta de:",o:["Problema","Implicação","Necessidade"],c:2,e:"Necessidade: ela fala o benefício com as palavras dela."},
+  {q:"Qual pergunta quase ninguém faz e é a que mais aumenta o valor?",o:["Situação","Implicação","Necessidade"],c:1,e:"Sem implicação o problema parece pequeno e o preço parece caro."},
+  {q:"A paciente pergunta 'e dói?' no meio do SPIN. O que fazer?",o:["Explicar toda a técnica","Responder curto e voltar a perguntar","Ignorar a pergunta"],c:1,e:"Responda curto (anestésico, você conduz) e volte pro SPIN."}
+ ],
+ check:["Sei o que é cada letra do SPIN","Sei por que a implicação é a mais importante","Faço uma pergunta por vez e uso as palavras dela","Anoto a frase da necessidade"]
+},
+/* ============ 4 ============ */
+{
+ id:"m4", titulo:"SPIN na prática", resumo:"Perguntas prontas por procedimento e conversas completas.", tempo:"35 min",
+ html:`
+<h2>A aula</h2>
+<p>Agora o SPIN aplicado aos seus procedimentos. Use essas perguntas como ponto de partida, mas a melhor pergunta sempre é a que nasce da resposta dela.</p>
+
+<h3>Botox</h3>
+<table>
+<tr><th></th><th>Pergunta</th></tr>
+<tr><td><b>S</b></td><td>Já fez Botox antes? Como foi?</td></tr>
+<tr><td><b>P</b></td><td>O que mais te incomoda: a testa, entre as sobrancelhas ou os pés de galinha?</td></tr>
+<tr><td><b>I</b></td><td>Alguém já te perguntou se você estava brava ou cansada sem você estar?</td></tr>
+<tr><td><b>N</b></td><td>Como seria se olhar e se ver mais leve, sem perder sua expressão?</td></tr>
+</table>
+
+<h3>Boca</h3>
+<table>
+<tr><th></th><th>Pergunta</th></tr>
+<tr><td><b>S</b></td><td>Já fez preenchimento? O que achou do resultado?</td></tr>
+<tr><td><b>P</b></td><td>O que você gostaria de mudar na sua boca: volume, contorno ou hidratação?</td></tr>
+<tr><td><b>I</b></td><td>Você tem medo de ficar com a boca exagerada? Já viu alguém assim?</td></tr>
+<tr><td><b>N</b></td><td>Se ficasse do jeito que você imagina, como você se sentiria?</td></tr>
+</table>
+
+<h3>Bioestimulador e flacidez</h3>
+<table>
+<tr><th></th><th>Pergunta</th></tr>
+<tr><td><b>S</b></td><td>Você cuida da pele em casa? Usa algum produto?</td></tr>
+<tr><td><b>P</b></td><td>Quando você começou a perceber a pele mais flácida?</td></tr>
+<tr><td><b>I</b></td><td>Isso faz você parecer mais velha do que se sente?</td></tr>
+<tr><td><b>N</b></td><td>Se a pele ficasse mais firme aos poucos, sem ninguém perceber que foi procedimento, o que isso mudaria?</td></tr>
+</table>
+
+<h3>Papada</h3>
+<table>
+<tr><th></th><th>Pergunta</th></tr>
+<tr><td><b>S</b></td><td>A papada sempre existiu ou apareceu com o tempo?</td></tr>
+<tr><td><b>P</b></td><td>Em que momento ela mais te incomoda?</td></tr>
+<tr><td><b>I</b></td><td>Você evita foto de lado? Já apagou foto por causa dela?</td></tr>
+<tr><td><b>N</b></td><td>Tem alguma data importante chegando em que você gostaria de estar bem?</td></tr>
+</table>
+
+<h2>Conversa completa na avaliação</h2>
+<p>Veja como o SPIN funciona numa consulta de verdade. Repare que a Dra quase não explica nada até o final.</p>
+<div class="bolhas">
+<div class="b ela"><small>S</small>Você já fez algum procedimento no rosto?</div>
+<div class="b pac">Só limpeza de pele. Tenho medo de ficar estranha.</div>
+<div class="b ela"><small>P</small>Entendi. E o que mais te incomoda quando você se olha?</div>
+<div class="b pac">Essa papada. E o rosto meio caído.</div>
+<div class="b ela"><small>P</small>Há quanto tempo isso te incomoda?</div>
+<div class="b pac">Uns dois anos. Depois que fiz 45 piorou.</div>
+<div class="b ela"><small>I</small>E isso atrapalha você em quê no dia a dia?</div>
+<div class="b pac">Eu não tiro mais foto de lado. Nas fotos da família eu fico atrás.</div>
+<div class="b ela"><small>I</small>Como você se sente quando vê essas fotos?</div>
+<div class="b pac">Mal. Parece que estou mais velha do que eu sou.</div>
+<div class="b ela"><small>N</small>Tem alguma data importante chegando?</div>
+<div class="b pac">A formatura da minha filha, em fevereiro.</div>
+<div class="b ela"><small>N</small>E se você estivesse bem nessa formatura, o que mudaria pra você?</div>
+<div class="b pac">Eu ia aparecer em todas as fotos. Ia estar feliz de verdade.</div>
+</div>
+<div class="box dest"><b>Repare:</b> a paciente acabou de dizer o motivo pra fazer o procedimento: "aparecer em todas as fotos da formatura da minha filha". Agora, quando você apresentar o protocolo, você usa exatamente isso. O valor deixa de ser "R$ X por um procedimento" e vira "R$ X pra estar nas fotos da formatura".</div>
+<div class="fala">Você me falou que quer aparecer em todas as fotos da formatura da sua filha. Pra isso, o que eu montei pra você é...</div>
+
+<h2>SPIN no WhatsApp</h2>
+<p>No WhatsApp o SPIN é mais curto: <b>uma pergunta de problema, uma de implicação ou necessidade, e já o horário.</b> O SPIN completo fica pra avaliação.</p>
+<div class="bolhas">
+<div class="b pac">Vi o anúncio e quero agendar</div>
+<div class="b ela"><small>P</small>Oi, Maria! Aqui é a Rayane. O que mais te incomoda hoje: a boca, as linhas ou a flacidez?</div>
+<div class="b pac">A flacidez e a papada</div>
+<div class="b ela"><small>N</small>Entendi. Tem alguma data que você quer estar bem?</div>
+<div class="b pac">Natal com a família</div>
+<div class="b ela">Dá tempo de começar. Preciso ver você de perto pra montar o protocolo. Tenho terça às 9h ou quarta às 14h30. Qual fica melhor?</div>
+</div>
+
+<h2>Erros comuns no SPIN</h2>
+<ul class="lista">
+<li><b>Perguntar e já explicar.</b> "O que te incomoda? Porque o Botox serve pra..." Pare na pergunta.</li>
+<li><b>Pergunta aberta demais no WhatsApp.</b> "Me conta tudo sobre você" ninguém responde. Dê opções.</li>
+<li><b>Pular a implicação.</b> É a mais desconfortável de perguntar e a que mais vende.</li>
+<li><b>Esquecer a frase dela.</b> Anote no celular ou na ficha logo depois que ela falar.</li>
+</ul>`,
+ treino:"3 rodadas de roleplay com o Vinicius, uma por procedimento (Botox, boca, papada). Em cada uma, você tem que conseguir a frase da necessidade da paciente e depois repetir pra ela na apresentação do protocolo.",
+ quiz:[
+  {q:"No WhatsApp, o SPIN deve ser:",o:["Completo, com as 4 etapas","Curto: uma ou duas perguntas e já o horário","Pulado, direto pro preço"],c:1,e:"O SPIN completo é na avaliação. No WhatsApp, curto e com horário."},
+  {q:"A paciente disse 'quero aparecer nas fotos da formatura'. O que você faz com isso?",o:["Esquece, já passou","Usa essa frase na apresentação do protocolo","Oferece um desconto"],c:1,e:"A frase dela vira seu argumento: 'você me falou que quer aparecer nas fotos...'"},
+  {q:"'O que te incomoda? Porque o Botox serve pra...' tem qual erro?",o:["Perguntou e já explicou","Pergunta fechada demais","Nenhum erro"],c:0,e:"Pare na pergunta e espere a resposta."}
+ ],
+ check:["Sei as perguntas de SPIN de cada procedimento","Consigo a frase da necessidade na avaliação","Faço o SPIN curto no WhatsApp com horário no fim"]
+},
+/* ============ 5 ============ */
+{
+ id:"m5", titulo:"Agregar valor", resumo:"Transformar técnica em resultado que a paciente sente.", tempo:"25 min",
+ html:`
+<h2>A aula</h2>
+<p>Paciente não compra "1 ml de ácido hialurônico". Ela compra se sentir bem na foto, parar de parecer cansada, não ficar artificial. <b>Valor é a ligação entre o que você faz e o que ela quer.</b></p>
+<p>Quando a paciente acha caro, quase nunca é porque ela não tem o dinheiro. É porque ela ainda não viu valor suficiente. O preço só parece caro quando é maior que o valor percebido.</p>
+<div class="box dest"><b>Preço caro = valor que ainda não foi mostrado.</b> Antes de pensar em baixar o preço, pense em aumentar o valor.</div>
+
 <h3>A fórmula do valor</h3>
 <ol class="passos">
-<li><b>A queixa dela, com as palavras dela.</b> "Tu falou que se acha com cara de cansada nas fotos."</li>
-<li><b>O que causa.</b> "Isso vem da perda de colágeno e da sustentação, que começa depois dos 30."</li>
-<li><b>O que tu vai fazer.</b> "Eu monto um protocolo pra devolver essa sustentação, no teu ritmo."</li>
-<li><b>Como fica no dia a dia.</b> "A ideia é tu se olhar e se ver descansada, sem ninguém saber o que tu fez."</li>
-<li><b>Por que contigo.</b> "Eu avalio tua estrutura óssea antes. Não aplico igual pra todo mundo, e tem retorno pra conferir."</li>
+<li><b>A queixa dela, com as palavras dela</b> (veio do SPIN). "Você me falou que se acha com cara de cansada nas fotos."</li>
+<li><b>O que causa.</b> "Isso vem da perda de colágeno e de sustentação, que começa depois dos 30."</li>
+<li><b>O que você vai fazer.</b> "Eu monto um protocolo pra devolver essa sustentação, no seu ritmo."</li>
+<li><b>Como fica no dia a dia.</b> "A ideia é você se olhar e se ver descansada, sem ninguém saber o que você fez."</li>
+<li><b>Por que com você.</b> "Eu avalio sua estrutura óssea antes. Não aplico igual pra todo mundo, e tem retorno pra conferir."</li>
 </ol>
-<div class="box dest"><b>Regra de ouro:</b> nunca fala valor sem ter falado da queixa dela antes. Preço sem valor sempre parece caro.</div>
+
+<h3>O que aumenta o valor percebido</h3>
+<ul class="lista">
+<li><b>Avaliação de verdade:</b> examinar, tocar, usar o espelho, explicar o que você vê. Paciente que foi bem examinada confia mais.</li>
+<li><b>Protocolo personalizado:</b> "o que eu montei pra você" vale mais que "o procedimento custa".</li>
+<li><b>Explicar o porquê:</b> por que essa quantidade, por que nesse ponto, por que essa ordem.</li>
+<li><b>Mostrar o cuidado:</b> produto de qualidade, retorno incluso, acompanhamento depois.</li>
+<li><b>Prova:</b> antes e depois de pacientes (com autorização), depoimentos, indicações.</li>
+<li><b>Prazo e plano:</b> "em 15 dias você vê o resultado completo", "em fevereiro já está como você quer".</li>
+</ul>
+
 <h3>Ficha de valor por procedimento</h3>
 <div class="box"><span class="tag">Botox</span>
 <p><b>O que ela quer:</b> parecer menos brava e menos cansada, sem perder a expressão.</p>
-<div class="fala">Aqui eu não congelo teu rosto. Eu suavizo onde tu franze, na testa, nos pés de galinha, na carinha de brava, e tu continua com tua expressão.</div>
-<p class="sub">Diferencial: dose pensada pro teu músculo, retorno pra ajustar.</p></div>
+<p><b>Medo principal:</b> ficar com cara congelada.</p>
+<div class="fala">Aqui eu não congelo seu rosto. Eu suavizo onde você franze, na testa, nos pés de galinha, na carinha de brava, e você continua com a sua expressão.</div>
+<p class="sub">Valor: dose pensada pro seu músculo, retorno pra ajustar, começa a aparecer em poucos dias.</p></div>
 <div class="box"><span class="tag">Boca (ácido hialurônico)</span>
-<p><b>O que ela quer:</b> boca mais bonita e hidratada, com medo de ficar exagerada.</p>
-<div class="fala">Eu sigo o desenho da tua boca. A ideia é contorno e hidratação, não aumentar até ficar estranho. Se tu quiser mais depois, a gente faz com calma.</div>
-<p class="sub">Diferencial: naturalidade, proporção com o rosto todo.</p></div>
+<p><b>O que ela quer:</b> boca mais bonita e hidratada.</p>
+<p><b>Medo principal:</b> ficar exagerada.</p>
+<div class="fala">Eu sigo o desenho da sua boca. A ideia é contorno e hidratação, não aumentar até ficar estranho. Se você quiser mais depois, a gente faz com calma.</div>
+<p class="sub">Valor: naturalidade, proporção com o resto do rosto.</p></div>
 <div class="box"><span class="tag">Bioestimulador de colágeno</span>
 <p><b>O que ela quer:</b> pele mais firme, menos flacidez, sem mudar o rosto.</p>
-<div class="fala">O bioestimulador faz teu corpo produzir colágeno de novo. O resultado vem aos poucos, nas semanas seguintes, e fica natural porque é a tua pele trabalhando.</div>
-<p class="sub">Diferencial: resultado gradual, ninguém percebe "procedimento". Explica o prazo pra ela não se frustrar.</p></div>
+<p><b>Medo principal:</b> gastar e não ver resultado.</p>
+<div class="fala">O bioestimulador faz o seu corpo produzir colágeno de novo. O resultado vem aos poucos, nas semanas seguintes, e fica natural porque é a sua pele trabalhando.</div>
+<p class="sub">Valor: resultado gradual, ninguém percebe "procedimento". Explique o prazo pra ela não se frustrar.</p></div>
 <div class="box"><span class="tag">Papada e flacidez</span>
-<p><b>O que ela quer:</b> parar de esconder o pescoço nas fotos de lado.</p>
-<div class="fala">Tenho recebido muita queixa de papada. Pra isso eu combino o bioestimulador com a tecnologia aqui do Instituto do Dr. Rafael, num protocolo que eu monto depois de te avaliar.</div>
-<p class="sub">Sempre deixa claro que a tecnologia é do Dr. Rafael.</p></div>
-<h3>O que não fazer</h3>
+<p><b>O que ela quer:</b> parar de se esconder nas fotos de lado.</p>
+<p><b>Medo principal:</b> que não tenha jeito sem cirurgia.</p>
+<div class="fala">Tenho recebido muita queixa de papada. Pra isso eu combino o bioestimulador com a tecnologia aqui do Instituto do Dr. Rafael, num protocolo que eu monto depois de avaliar você.</div>
+<p class="sub">Sempre deixe claro que a tecnologia é do Dr. Rafael.</p></div>
+
+<h3>O que destrói o valor</h3>
 <div class="fala nao">Dar valor total por foto ("uns 10 a 12 mil").</div>
+<div class="fala nao">Falar preço por ml antes de falar do resultado.</div>
 <div class="fala nao">Prometer resultado ("vai sumir", "vai ficar perfeito").</div>
-<div class="fala nao">Usar desconto como o motivo de fechar.</div>
-<p class="sub">Desconto e promoção como argumento vão contra o código de ética do biomédico e baixam o valor que tu está construindo. O argumento é teu cuidado e teu protocolo.</p>`,
- treino:"Escolhe 2 procedimentos e fala a fórmula do valor em voz alta, com as tuas palavras, pra uma paciente que o Vinicius vai inventar na hora.",
- check:["Sei a fórmula do valor de cabeça","Tenho minha frase de valor de cada procedimento","Não falo preço antes de falar da queixa"]
+<div class="fala nao">Usar desconto como motivo pra fechar.</div>
+<div class="fala nao">Pedir desculpa pelo preço ("eu sei que é caro, mas...").</div>
+<p class="sub">Desconto e promoção como argumento vão contra o código de ética do biomédico e baixam o valor que você está construindo. O argumento é o seu cuidado e o seu protocolo.</p>`,
+ treino:"Escreva a fórmula do valor dos 4 procedimentos com as suas palavras, no papel. Depois fale em voz alta pro Vinicius, que vai fazer uma paciente diferente pra cada um.",
+ quiz:[
+  {q:"A paciente achou caro. O que isso geralmente significa?",o:["Ela não tem dinheiro","O valor ainda não foi mostrado","Precisa de desconto"],c:1,e:"Preço parece caro quando é maior que o valor percebido."},
+  {q:"Qual frase agrega mais valor?",o:["O Botox custa R$ X","O protocolo que eu montei pra você fica R$ X","Fica R$ X, mas posso fazer um desconto"],c:1,e:"'O que eu montei pra você' mostra que foi pensado pra ela."},
+  {q:"Na papada, de quem é a tecnologia?",o:["Da Dra Rayane","Do Instituto do Dr. Rafael","Não precisa falar"],c:1,e:"Sempre deixe claro que a tecnologia é do Dr. Rafael."}
+ ],
+ check:["Sei a fórmula do valor de cabeça","Tenho minha frase de valor de cada procedimento","Não falo preço antes de falar do resultado","Nunca peço desculpa pelo preço"]
 },
+/* ============ 6 ============ */
 {
- id:"m3", titulo:"WhatsApp até a avaliação", resumo:"Em até 2 trocas a paciente já tem dia e hora.",
+ id:"m6", titulo:"WhatsApp até a avaliação", resumo:"Em até 2 trocas a paciente já tem dia e hora.", tempo:"25 min",
  html:`
-<p>No WhatsApp o objetivo é um só: <b>marcar a avaliação com o Pix feito.</b> Não é lugar de vender o procedimento inteiro.</p>
+<h2>A aula</h2>
+<p>No WhatsApp o objetivo é um só: <b>marcar a avaliação com o Pix feito.</b> Não é lugar de vender o procedimento inteiro, nem de passar preço, nem de fazer consulta por foto. Tudo isso é na avaliação.</p>
 <h3>A conversa que marca</h3>
 <ol class="passos">
-<li><b>Cumprimento com o nome.</b> "Oi, Sarah! Aqui é a Rayane, que bom que tu me chamou."</li>
-<li><b>Uma pergunta fechada, com opções.</b> "O que mais te incomoda hoje: a boca, as linhas ou a flacidez?"</li>
-<li><b>Mostra que dá pra ajudar.</b> "Isso dá pra tratar sim, mas preciso ver teu rosto de perto."</li>
+<li><b>Cumprimento com o nome.</b> "Oi, Sarah! Aqui é a Rayane, que bom que você me chamou."</li>
+<li><b>Uma pergunta de problema com opções.</b> "O que mais te incomoda hoje: a boca, as linhas ou a flacidez?"</li>
+<li><b>Uma pergunta de implicação ou necessidade (opcional).</b> "Tem alguma data que você quer estar bem?"</li>
+<li><b>Mostra que dá pra ajudar.</b> "Isso dá pra tratar sim, mas preciso ver você de perto."</li>
 <li><b>Dois horários.</b> "Tenho terça às 9h ou quarta às 14h30. Qual fica melhor?"</li>
 <li><b>Garante o horário.</b> Avaliação de R$ 100 no Pix, que vira desconto no procedimento feito em até 30 dias.</li>
 <li><b>Dados e endereço.</b> Nome completo, data de nascimento e localização.</li>
-<li><b>Fecha o risco de falta.</b> "Se acontecer algum imprevisto, tu me avisa antes?"</li>
+<li><b>Fecha o risco de falta.</b> "Se acontecer algum imprevisto, você me avisa antes?"</li>
 </ol>
-<h3>Exemplo</h3>
-<div class="bolhas">
-<div class="b pac">Vi o anúncio e quero agendar minha avaliação</div>
-<div class="b ela">Oi, Sarah! Aqui é a Rayane</div>
-<div class="b ela">O que mais te incomoda hoje: a boca, as linhas ou a flacidez?</div>
-<div class="b pac">A boca e esse bigode chinês</div>
-<div class="b ela">Isso dá pra tratar sim, mas preciso ver tua estrutura de perto</div>
-<div class="b ela">Tenho terça às 9h ou quarta às 14h30. Qual fica melhor?</div>
-<div class="b pac">Quarta</div>
-<div class="b ela">Fechado! Pra garantir teu horário a avaliação é R$ 100 no Pix, e esse valor vira desconto no procedimento</div>
-</div>
+<h3>Por que dois horários e não "quando você quiser"</h3>
+<p>"Quando você quiser" obriga a paciente a pensar na agenda dela, abrir o calendário, decidir. Dá trabalho, e ela deixa pra depois. Dois horários é uma escolha fácil: ela só responde "terça". Isso se chama <b>pergunta de escolha</b>, e você vai usar de novo no fechamento.</p>
 <h3>O que faz a paciente sumir</h3>
 <table>
-<tr><th>Quando acontece</th><th>Troca por</th></tr>
+<tr><th>Quando acontece</th><th>Troque por</th></tr>
 <tr><td>Pergunta aberta solta: "qual procedimento você tem interesse?"</td><td>Pergunta com opções + horário logo depois</td></tr>
 <tr><td>Três perguntas seguidas</td><td>Uma pergunta por vez</td></tr>
 <tr><td>"Vamos agendar uma avaliação?"</td><td>"Terça às 9h ou quarta às 14h30?"</td></tr>
-<tr><td>Valor por foto ou por ml</td><td>"O valor eu te passo certinho na avaliação, depois de ver teu rosto"</td></tr>
+<tr><td>Valor por foto ou por ml</td><td>"O valor certinho eu passo na avaliação, depois de ver você"</td></tr>
+<tr><td>Demora pra responder</td><td>Responder em até 5 minutos, nem que seja "já te respondo"</td></tr>
 </table>
-<h3>Caso real</h3>
-<div class="box"><span class="tag x">Esfriou</span><p>Uma paciente mandou 53 mensagens, foto da papada e disse que só podia sábado. A resposta foi "vamos agendar pra sábado então", sem horário. Ela não respondeu mais.</p><div class="fala">Sábado eu tenho 8h ou 10h. Qual fica melhor pra ti?</div></div>
+<h3>Casos reais</h3>
+<div class="box"><span class="tag x">Esfriou</span><p>Uma paciente mandou 53 mensagens, foto da papada e disse que só podia sábado. A resposta foi "vamos agendar pra sábado então", sem horário. Ela não respondeu mais.</p><div class="fala">Sábado eu tenho 8h ou 10h. Qual fica melhor pra você?</div></div>
 <div class="box"><span class="tag ok">Fechou</span><p>Duas pacientes marcaram no mesmo dia quando receberam: "Às 14h30, tenho esse horário na segunda-feira".</p></div>
 <h3>Áudio</h3>
-<p>Teu público gosta de áudio, e tu fala bem. Usa áudio curto, até 30 segundos, e <b>sempre termina o áudio com os dois horários</b>. Depois manda os horários também por escrito, porque tem paciente que não ouve na hora.</p>
+<p>Seu público gosta de áudio, e você fala bem. Use áudio curto, até 30 segundos, e <b>sempre termine o áudio com os dois horários</b>. Depois mande os horários também por escrito, porque tem paciente que não ouve na hora.</p>
 <h3>Sobre a avaliação</h3>
-<div class="box dest">O valor é <b>R$ 100 no Pix</b>, a avaliação inteira, que desconta no procedimento feito em até 30 dias. Não existe mais a taxa de R$ 50. Todo mundo garante que vem; o que faz vir é o Pix.</div>`,
- treino:"O Vinicius manda 'vi o anúncio e quero agendar' pelo teu WhatsApp de verdade. Tu tem que chegar no horário em até 2 trocas.",
- check:["Faço uma pergunta por vez, com opções","Ofereço dois horários em até 2 trocas","Explico a avaliação de R$ 100 que desconta no procedimento","Termino todo áudio com horário"]
+<div class="box dest">O valor é <b>R$ 100 no Pix</b>, a avaliação inteira, que desconta no procedimento feito em até 30 dias. Não existe mais a taxa de R$ 50. Todo mundo garante que vem; o que faz a paciente aparecer é o Pix feito.</div>
+<h3>Lead que parou de responder</h3>
+<p>Não mande "oi, sumiu?". Retome do ponto onde parou, lembrando o que ela falou, e já com horário:</p>
+<div class="fala">Oi, Maria, aqui é a Rayane. Você tinha me falado da papada e da formatura da sua filha. Ainda dá tempo de começar. Tenho terça às 9h ou quarta às 14h30.</div>`,
+ treino:"O Vinicius manda 'vi o anúncio e quero agendar' pelo seu WhatsApp de verdade. Você tem que chegar no horário em até 2 trocas, com o Pix explicado certinho.",
+ quiz:[
+  {q:"Qual é o objetivo do WhatsApp?",o:["Vender o procedimento","Marcar a avaliação com o Pix feito","Passar o preço"],c:1,e:"Procedimento e preço ficam pra avaliação."},
+  {q:"Quanto é a avaliação?",o:["R$ 50 de taxa + R$ 70 no dia","R$ 100 no Pix, que desconta no procedimento","Grátis"],c:1,e:"R$ 100 no Pix, inteira, desconta no procedimento feito em até 30 dias."},
+  {q:"Por que oferecer dois horários?",o:["Porque é uma escolha fácil de responder","Pra parecer ocupada","Não faz diferença"],c:0,e:"Pergunta de escolha: ela só responde 'terça'."}
+ ],
+ check:["Faço uma pergunta por vez, com opções","Ofereço dois horários em até 2 trocas","Explico a avaliação de R$ 100 que desconta no procedimento","Termino todo áudio com horário","Retomo lead parado lembrando o que ela falou"]
 },
+/* ============ 7 ============ */
 {
- id:"m4", titulo:"A consulta que vende", resumo:"A paciente fala mais que tu. E se convence sozinha.",
+ id:"m7", titulo:"A consulta que vende", resumo:"A estrutura da avaliação, do bom dia ao fechamento.", tempo:"30 min",
  html:`
-<p>A avaliação é onde a venda acontece. Quem fala mais é a paciente: <b>ela fala 70%, tu fala 30%.</b> Quanto mais ela conta da queixa, mais ela mesma enxerga a necessidade.</p>
-<h3>As 5 etapas</h3>
+<h2>A aula</h2>
+<p>A avaliação é onde a venda acontece. Não é uma consulta técnica com preço no final: é uma conversa com começo, meio e fim, e cada parte prepara a próxima.</p>
+<div class="box dest"><b>Regra 70/30:</b> a paciente fala 70% do tempo, você fala 30%. Quanto mais ela conta da queixa, mais ela mesma enxerga a necessidade.</div>
+<h3>As 6 etapas (cerca de 40 minutos)</h3>
 <ol class="passos">
-<li><b>Acolher (2 min).</b> Chama pelo nome, agradece a vinda, pergunta como chegou até ti.</li>
-<li><b>Ouvir a queixa (10 min).</b> As 4 perguntas abaixo, uma de cada vez.</li>
-<li><b>Mostrar no espelho (5 min).</b> Dá o espelho e pede pra ela apontar o que incomoda. Depois tu mostra o que tu vê, com calma.</li>
-<li><b>Apresentar o protocolo (10 min).</b> O que tu vai fazer, por quê, quantas sessões, como fica e os cuidados. Usa a fórmula do valor.</li>
-<li><b>Valor e fechamento (5 min).</b> Módulo 5.</li>
+<li><b>Acolher (3 min).</b> Chame pelo nome, agradeça a vinda, ofereça água. Pergunte como ela chegou até você. Quebre o gelo: ela está nervosa.</li>
+<li><b>SPIN (10 a 15 min).</b> Situação, problema, implicação e necessidade, uma pergunta por vez. Anote a frase da necessidade.</li>
+<li><b>Exame e espelho (5 min).</b> Dê o espelho e peça pra ela apontar o que incomoda. Depois mostre o que você vê, com calma e sem assustar. Explique a estrutura óssea, a pele, o que muda com a idade.</li>
+<li><b>Apresentar o protocolo (10 min).</b> Use a fórmula do valor e as palavras dela. O que você vai fazer, por quê, quantas sessões, quando aparece o resultado, cuidados depois.</li>
+<li><b>Valor e fechamento (5 min).</b> Módulo 8.</li>
+<li><b>Próximo passo (2 min).</b> Procedimento marcado (ou feito na hora), orientações, retorno. Se não fechou, data combinada.</li>
 </ol>
-<h3>As 4 perguntas</h3>
-<div class="fala"><b>Situação:</b> Há quanto tempo isso te incomoda?</div>
-<div class="fala"><b>Problema:</b> Em que momento tu mais repara? Foto, espelho, alguém comentou?</div>
-<div class="fala"><b>Implicação:</b> E isso te atrapalha em quê? Tu evita foto, maquiagem, sair?</div>
-<div class="fala"><b>Necessidade:</b> Se isso melhorasse, o que ia mudar pra ti?</div>
-<p class="sub">A última é a mais importante: a resposta dela é o teu argumento de venda. Guarda a frase dela e devolve na hora do valor.</p>
-<h3>Devolvendo as palavras dela</h3>
-<div class="fala">Tu me falou que apaga as fotos de lado por causa da papada e que quer estar bem na formatura da tua filha. Então o que eu montei pra ti é isso aqui...</div>
+<h3>Como apresentar o protocolo</h3>
+<div class="fala">Você me falou que não aparece mais nas fotos da família por causa da papada, e que quer estar bem na formatura da sua filha em fevereiro. Pelo que eu vi, a sua pele perdeu sustentação nessa região. O que eu montei pra você é um protocolo em duas etapas: o bioestimulador, que faz a sua pele produzir colágeno de novo, e a tecnologia aqui do Instituto do Dr. Rafael. O resultado vem aos poucos, e em fevereiro você já está do jeito que quer, sem ninguém perceber que fez procedimento.</div>
+<p>Repare na estrutura: <b>frase dela → o que você viu → o que vai fazer → quando aparece → como ela vai se sentir.</b></p>
+<h3>Uma coisa de cada vez</h3>
+<p>Se ela tem várias queixas, não apresente cinco procedimentos de uma vez. Ela fica perdida e diz "vou pensar". Comece pelo que mais incomoda (o que ela falou primeiro ou com mais emoção) e deixe o resto como "próxima etapa".</p>
+<div class="fala">A papada é o que mais te incomoda, então a gente começa por ela. A boca a gente pode ver numa segunda etapa, se você quiser.</div>
 <h3>O que evitar</h3>
 <ul class="lista">
 <li>Explicar a técnica por 10 minutos antes de ouvir a paciente.</li>
-<li>Mostrar vários procedimentos de uma vez. Ela fica perdida e diz "vou pensar".</li>
-<li>Terminar a avaliação sem falar valor. Paciente que sai sem valor quase sempre não volta.</li>
+<li>Mostrar vários procedimentos de uma vez.</li>
+<li>Falar de valor antes de apresentar o protocolo.</li>
+<li>Terminar a avaliação sem falar valor. Paciente que sai sem valor quase nunca volta.</li>
+<li>Deixar o celular tocar e atender no meio. A paciente precisa sentir que tem sua atenção toda.</li>
 </ul>`,
- treino:"Roleplay de avaliação completa (15 min). O Vinicius é uma paciente de 48 anos com papada. Ele marca em quantas perguntas tu falou mais que ela.",
- check:["Faço as 4 perguntas antes de explicar qualquer coisa","Uso o espelho e deixo ela apontar","Devolvo a frase dela na hora do protocolo","Nunca termino a avaliação sem falar valor"]
+ treino:"Roleplay de avaliação completa (20 min). O Vinicius é uma paciente de 48 anos com papada e medo de ficar artificial. Ele marca em quantos momentos você falou mais que ela. Depois, troquem: você observa e ele faz a Dra.",
+ quiz:[
+  {q:"Quem deve falar mais na avaliação?",o:["A Dra","A paciente","Os dois igual"],c:1,e:"Regra 70/30: ela fala 70%."},
+  {q:"A paciente tem 4 queixas. O que fazer?",o:["Apresentar os 4 procedimentos","Começar pelo que mais incomoda e deixar o resto como próxima etapa","Mandar ela escolher"],c:1,e:"Muitas opções = 'vou pensar'."},
+  {q:"Qual é a ordem certa?",o:["Valor, protocolo, SPIN","SPIN, exame, protocolo, valor","Exame, valor, SPIN"],c:1,e:"Primeiro ouvir, depois mostrar, depois o plano e só então o valor."}
+ ],
+ check:["Sigo as 6 etapas da avaliação","Faço o SPIN completo antes de explicar","Uso o espelho e deixo ela apontar","Apresento o protocolo com a frase dela","Começo pela queixa principal"]
 },
+/* ============ 8 ============ */
 {
- id:"m5", titulo:"Preço e fechamento", resumo:"Um valor, firme, e silêncio. Depois uma pergunta de escolha.",
+ id:"m8", titulo:"Preço e fechamento", resumo:"Um valor, firme, e silêncio. Depois uma pergunta de escolha.", tempo:"25 min",
  html:`
-<p>Falar preço não é pedir favor. Tu acabou de montar um plano pra um problema que ela te contou. O valor é só a informação que falta pra ela decidir.</p>
+<h2>A aula</h2>
+<p>Falar preço não é pedir favor. Você acabou de montar um plano pra um problema que ela mesma te contou. O valor é só a informação que falta pra ela decidir.</p>
+<p>O desconforto que você sente na hora do preço passa pra paciente. Se você fala com insegurança, ela entende que o valor é negociável ou que não vale. Se você fala com tranquilidade, ela entende que é justo.</p>
 <h3>Quando falar</h3>
-<p>Depois da queixa e do protocolo. Nunca antes. No WhatsApp, o valor do procedimento fica pra avaliação.</p>
-<h3>Como falar</h3>
+<p>Depois do SPIN e do protocolo. Nunca antes. No WhatsApp, o valor do procedimento fica pra avaliação.</p>
+<h3>Como falar: passo a passo</h3>
 <ol class="passos">
-<li><b>Resume o protocolo em uma frase,</b> com a palavra dela.</li>
-<li><b>Fala um valor só, firme.</b> "O protocolo que eu montei pra ti fica R$ 1.400."</li>
-<li><b>Fica em silêncio.</b> Não explica, não pede desculpa, não oferece nada. Espera ela falar.</li>
-<li><b>Lembra o que já foi pago.</b> "E os R$ 100 da avaliação já descontam daí."</li>
-<li><b>Mostra a forma de pagar.</b> Pix ou parcelado no cartão.</li>
-<li><b>Pergunta de escolha.</b> "Tu quer fazer hoje ou prefere que eu reserve sexta pra ti?"</li>
+<li><b>Resuma o protocolo em uma frase,</b> com a palavra dela.</li>
+<li><b>Fale um valor só, firme.</b> "O protocolo que eu montei pra você fica R$ 1.400."</li>
+<li><b>Fique em silêncio.</b> Não explique, não peça desculpa, não ofereça nada. Espere ela falar. O silêncio parece longo pra você, mas pra ela é o tempo de pensar.</li>
+<li><b>Lembre o que já foi pago.</b> "E os R$ 100 da avaliação já descontam daí."</li>
+<li><b>Mostre a forma de pagar.</b> Pix ou parcelado no cartão.</li>
+<li><b>Faça a pergunta de escolha.</b> "Você quer fazer hoje ou prefere que eu reserve sexta pra você?"</li>
 </ol>
 <div class="fala nao">"Fica R$ 1.400, mas se achar caro a gente vê um jeitinho..."</div>
-<div class="fala">"Fica R$ 1.400. Tu quer fazer hoje ou prefere que eu reserve sexta?"</div>
+<div class="fala">"Fica R$ 1.400. Você quer fazer hoje ou prefere que eu reserve sexta?"</div>
+<h3>Tipos de fechamento</h3>
+<table>
+<tr><th>Tipo</th><th>Como falar</th></tr>
+<tr><td><b>Escolha</b></td><td>"Você prefere fazer hoje ou na sexta?"</td></tr>
+<tr><td><b>Data</b></td><td>"Pra estar pronta na formatura, o ideal é começar até dia X. Vamos marcar?"</td></tr>
+<tr><td><b>Forma de pagar</b></td><td>"Fica melhor pra você no Pix ou parcelado?"</td></tr>
+<tr><td><b>Resumo</b></td><td>"Então fica assim: protocolo de papada, começa sexta, retorno em 30 dias. Posso confirmar?"</td></tr>
+</table>
+<p>Todos têm uma coisa em comum: <b>você pede a decisão</b>. Quem não pede, não recebe.</p>
 <h3>Mesmo valor pra todo mundo</h3>
-<p>Quando cada paciente ouve um preço diferente, a conta não fecha e as amigas comparam. Monta tua tabela "a partir de" e usa sempre a mesma.</p>
+<p>Quando cada paciente ouve um preço diferente, as amigas comparam e a confiança cai. Monte sua tabela "a partir de" e use sempre a mesma.</p>
 <table>
 <tr><th>Procedimento</th><th>A partir de</th></tr>
 <tr><td>Botox</td><td>R$ ____</td></tr>
@@ -254,85 +533,142 @@ const MODS = [
 <tr><td>Bioestimulador</td><td>R$ ____</td></tr>
 <tr><td>Protocolo de papada</td><td>R$ ____</td></tr>
 </table>
-<p class="sub">Preenche na aula com o Vinicius.</p>
+<p class="sub">Preencha na aula com o Vinicius.</p>
 <h3>Se ela não fechar hoje</h3>
-<p>Ela não sai sem data. Ou marca o procedimento, ou combina quando tu vai chamar.</p>
-<div class="fala">Sem problema. Posso deixar teu horário de sexta reservado até amanhã? Se tu decidir, é só me mandar um ok.</div>
+<p>Ela não sai sem data. Ou marca o procedimento, ou combina quando você vai chamar.</p>
+<div class="fala">Sem problema. Posso deixar seu horário de sexta reservado até amanhã? Se você decidir, é só me mandar um ok.</div>
+<p>E chame mesmo no dia combinado, lembrando o que ela falou na avaliação.</p>
 <h3>Sobre dar algo a mais</h3>
-<p>Se em algum caso tu decidir abrir uma exceção, ela tem que ser troca: tu dá algo e ela dá a decisão com data. Nunca como primeira resposta ao "tá caro". E a avaliação não se dispensa: é o Pix que faz a paciente aparecer.</p>`,
- treino:"O Vinicius é a paciente. Tu fala o valor e fica 5 segundos em silêncio. Repete 3 vezes até sair firme, sem 'mas'.",
- check:["Falo um valor só e fico em silêncio","Uso pergunta de escolha pra fechar","Tenho minha tabela 'a partir de' preenchida","Ninguém sai da avaliação sem data"]
+<p>Se em algum caso você decidir abrir uma exceção, ela tem que ser uma troca: você dá algo e ela dá a decisão com data. Nunca como primeira resposta ao "tá caro". E a avaliação não se dispensa: é o Pix que faz a paciente aparecer.</p>`,
+ treino:"O Vinicius é a paciente. Você fala o valor e fica 5 segundos em silêncio. Repita até sair firme, sem 'mas'. Depois, treine os 4 tipos de fechamento, um de cada vez.",
+ quiz:[
+  {q:"Depois de falar o valor, você deve:",o:["Explicar por que é esse valor","Ficar em silêncio e esperar","Oferecer parcelamento na hora"],c:1,e:"O silêncio é o tempo dela pensar. Não preencha."},
+  {q:"A paciente não fechou. Ela deve sair:",o:["Com o seu contato","Com uma data combinada","Com um desconto"],c:1,e:"Ninguém sai sem data."},
+  {q:"Qual é um fechamento de escolha?",o:["Vamos fazer?","Você prefere hoje ou sexta?","Me avisa quando decidir"],c:1,e:"Duas opções, as duas são sim."}
+ ],
+ check:["Falo um valor só e fico em silêncio","Uso os 4 tipos de fechamento","Tenho minha tabela 'a partir de' preenchida","Ninguém sai da avaliação sem data"]
 },
+/* ============ 9 ============ */
 {
- id:"m6", titulo:"Objeções", resumo:"Objeção é dúvida. Responde a dúvida e volta pro horário.",
+ id:"m9", titulo:"Objeções", resumo:"Objeção é dúvida. Responda a dúvida e volte pra decisão.", tempo:"25 min",
  html:`
-<p>Quando a paciente diz "tá caro" ou "vou pensar", quase nunca é um não. É uma dúvida que ela não falou. Teu trabalho é descobrir qual e voltar pro próximo passo.</p>
-<h3>O jeito de responder qualquer objeção</h3>
+<h2>A aula</h2>
+<p>Quando a paciente diz "tá caro" ou "vou pensar", quase nunca é um não. É uma dúvida que ela não falou. Seu trabalho é descobrir qual e voltar pro próximo passo.</p>
+<p>A objeção também é sinal de interesse. Quem não quer, não discute preço: só vai embora. Quem pergunta "e se eu não gostar?" está imaginando fazer.</p>
+<h3>O método de 4 passos</h3>
 <ol class="passos">
-<li><b>Concorda com o sentimento.</b> "Entendo, é um investimento."</li>
-<li><b>Pergunta o que tem por trás.</b> "O que pesa mais pra ti?"</li>
-<li><b>Responde aquilo.</b></li>
-<li><b>Volta pro horário ou pra decisão.</b></li>
+<li><b>Concorde com o sentimento.</b> "Entendo, é um investimento." Nunca discuta nem se defenda.</li>
+<li><b>Pergunte o que tem por trás.</b> "O que pesa mais pra você?" A primeira objeção quase nunca é a real.</li>
+<li><b>Responda aquilo.</b> Curto, com segurança.</li>
+<li><b>Volte pro horário ou pra decisão.</b> Sempre termine com uma pergunta de escolha.</li>
 </ol>
-<p>As respostas prontas estão na aba <b>Objeções</b>, embaixo, pra tu abrir no celular quando precisar.</p>
-<h3>Casos das tuas conversas</h3>
-<div class="box"><span class="tag">"Uma conhecida faz mais barato"</span><p>Uma paciente comparou teu preço com o de uma conhecida e adiou o Pix.</p><div class="fala">Pode ser. Antes de comparar, vê se é o mesmo produto, a mesma quantidade e se tem retorno incluso. Aqui tu tem tudo isso.</div></div>
-<div class="box"><span class="tag">"Quando eu receber eu te aviso"</span><p>Paciente com motivo real (salário, carro, filho doente) não se empurra. Responde curto e combina quando chamar.</p><div class="fala">Claro! Teu pagamento cai que dia? Eu te chamo nesse dia pra gente marcar.</div></div>`,
- treino:"Rodada relâmpago: o Vinicius solta 8 objeções seguidas. Tu responde cada uma em até 2 frases e volta pro horário.",
- check:["Sei os 4 passos de qualquer objeção","Abro a aba Objeções quando travo","Sempre volto pro horário ou pra decisão"]
+<h3>As objeções mais comuns e o que está por trás</h3>
+<table>
+<tr><th>Ela fala</th><th>Normalmente quer dizer</th></tr>
+<tr><td>"Tá caro"</td><td>Ainda não vi valor suficiente, ou a parcela não cabe</td></tr>
+<tr><td>"Vou pensar"</td><td>Tenho medo, ou uma dúvida que não falei</td></tr>
+<tr><td>"Vou falar com meu marido"</td><td>Não sei explicar pra ele por que vale, ou preciso de permissão</td></tr>
+<tr><td>"Uma conhecida faz mais barato"</td><td>Não entendi a diferença entre vocês</td></tr>
+<tr><td>"Agora não"</td><td>Não vi urgência</td></tr>
+</table>
+<h3>Antecipe as objeções</h3>
+<p>A melhor forma de lidar com objeção é responder antes que ela apareça. Se você já sabe que quase toda paciente tem medo de ficar artificial, fale de naturalidade na apresentação do protocolo. Se sabe que o marido pesa, pergunte no SPIN: "você decide sozinha ou conversa com alguém antes?"</p>
+<h3>Casos das suas conversas</h3>
+<div class="box"><span class="tag">"Uma conhecida faz mais barato"</span><p>Uma paciente comparou seu preço com o de uma conhecida e adiou o Pix.</p><div class="fala">Pode ser. Antes de comparar, veja se é o mesmo produto, a mesma quantidade e se tem retorno incluso. Aqui você tem tudo isso.</div></div>
+<div class="box"><span class="tag">"Quando eu receber eu te aviso"</span><p>Paciente com motivo real (salário, carro, filho doente) não se empurra. Responda curto e combine quando chamar.</p><div class="fala">Claro! Seu pagamento cai que dia? Eu te chamo nesse dia pra gente marcar.</div></div>
+<p>As respostas prontas de todas as objeções estão na aba <b>Objeções</b>, embaixo, pra você abrir no celular quando precisar.</p>`,
+ treino:"Rodada relâmpago: o Vinicius solta as 12 objeções da aba Objeções, fora de ordem. Você responde cada uma em até 2 frases, seguindo os 4 passos, e volta pro horário.",
+ quiz:[
+  {q:"Primeiro passo diante de 'tá caro':",o:["Dar desconto","Concordar com o sentimento","Explicar o produto de novo"],c:1,e:"'Entendo, é um investimento.' Nunca discuta."},
+  {q:"'Vou falar com meu marido' geralmente quer dizer:",o:["Ela não quer","Ela não sabe explicar pra ele por que vale","Ela vai voltar amanhã"],c:1,e:"Ajude ela a explicar, ou convide ele pra vir junto."},
+  {q:"Toda resposta de objeção termina com:",o:["Um desconto","Uma pergunta de escolha ou horário","'Qualquer coisa me chama'"],c:1,e:"Sempre volte pra decisão."}
+ ],
+ check:["Sei os 4 passos de qualquer objeção","Sei o que está por trás das objeções comuns","Antecipo o medo de ficar artificial","Sempre volto pro horário ou pra decisão"]
+},
+/* ============ 10 ============ */
+{
+ id:"m10", titulo:"Depois do procedimento", resumo:"Retorno, fidelização e indicação: a venda que vem sozinha.", tempo:"15 min",
+ html:`
+<h2>A aula</h2>
+<p>Você já tem uma força enorme: indicação. Paciente atendida traz mãe, tia, prima. Esse módulo é pra transformar isso em método, em vez de deixar acontecer por acaso.</p>
+<h3>O pós que fideliza</h3>
+<ol class="passos">
+<li><b>No mesmo dia:</b> mensagem curta perguntando como ela está e lembrando os cuidados.</li>
+<li><b>Em 7 dias:</b> "Como está se sentindo? Já começou a perceber diferença?"</li>
+<li><b>No retorno:</b> foto de antes e depois lado a lado, mostrada pra ela. É o momento em que ela vê o resultado e fica feliz.</li>
+<li><b>No retorno, a próxima etapa:</b> lembre o que ficou pra depois ("a boca a gente deixou pra segunda etapa") e o prazo de manutenção.</li>
+</ol>
+<h3>Pedir indicação</h3>
+<p>A melhor hora de pedir indicação é quando ela está feliz com o resultado: no retorno.</p>
+<div class="fala">Que bom que você gostou! Se você tiver alguém da família ou amiga que tem a mesma queixa, pode me indicar. Vou cuidar dela com o mesmo carinho.</div>
+<h3>Manutenção</h3>
+<p>Botox dura alguns meses. Bioestimulador tem sessões. Anote a data de cada paciente e chame antes de vencer:</p>
+<div class="fala">Oi, Ana! Já faz uns meses do seu Botox. Quer que eu reserve um horário pra gente refazer antes de começar a voltar?</div>
+<p class="sub">Paciente que volta é a venda mais fácil que existe: ela já confia, já conhece o resultado e não precisa de SPIN de novo.</p>`,
+ treino:"Liste 5 pacientes que fizeram procedimento nos últimos meses. Para cada uma, escreva a mensagem de manutenção ou de próxima etapa. Mande pelo menos 2 ainda essa semana.",
+ quiz:[
+  {q:"Melhor hora pra pedir indicação:",o:["No dia do procedimento","No retorno, quando ela vê o resultado","Antes de fazer"],c:1,e:"Ela está feliz e acabou de ver o antes e depois."},
+  {q:"Qual é a venda mais fácil?",o:["Paciente nova do anúncio","Paciente que já fez e volta pra manutenção","Paciente que pediu preço"],c:1,e:"Ela já confia e já conhece o resultado."}
+ ],
+ check:["Tenho o roteiro de pós (dia, 7 dias, retorno)","Peço indicação no retorno","Anoto a data de manutenção de cada paciente"]
 }
 ];
 
 const OBJ = [
-["Tá caro","Entendo, é um investimento. O que pesa mais pra ti: o valor total ou a parcela?","Se for a parcela: mostra o parcelamento. Se for o total: volta pro que ela te contou da queixa e pro que muda pra ela."],
-["Vou pensar","Claro, é teu rosto. Me diz o que ficou de dúvida, que eu te ajudo agora.","Se não tiver dúvida: \"Posso deixar teu horário de sexta guardado até amanhã?\""],
-["Vou falar com meu marido","Faz sentido. O que tu acha que ele vai perguntar?","Responde a dúvida dele agora. Oferece: \"Se quiser, traz ele no dia, que eu explico pra ele também.\""],
-["A avaliação é paga?","É R$ 100 no Pix pra guardar teu horário, e esse valor vira desconto no procedimento feito em até 30 dias.","Depois: \"Qual dia da semana fica melhor pra ti?\""],
-["Me fala o preço por aqui","O valor certinho eu te passo na avaliação, porque depende do teu rosto. Não quero te dar um número errado.","Volta pros dois horários."],
-["Uma conhecida faz mais barato","Pode ser. Vê se é o mesmo produto, a mesma quantidade e se tem retorno incluso.","Não baixa o preço. Reforça teu cuidado e o retorno."],
-["Tenho medo de ficar artificial","Esse é meu maior cuidado. Eu sigo teu rosto, e prefiro fazer menos e tu voltar pra mais do que exagerar.","Mostra um antes e depois natural, se tiver autorização da paciente."],
-["Dói?","A gente usa anestésico e eu vou te avisando cada etapa. A maioria das pacientes fala que é bem tranquilo.","Não promete que não dói nada."],
-["Quero pagar no dia","A avaliação é no Pix antes, porque é ela que guarda teu horário. O procedimento tu paga no dia.","Manda a chave Pix com teu nome junto."],
-["Quando eu receber eu aviso","Claro! Teu pagamento cai que dia? Eu te chamo nesse dia pra gente marcar.","Anota o dia e chama mesmo."],
-["Agora não é um bom momento","Entendo. Tem alguma data importante chegando? Formatura, festa, viagem?","Se tiver data, usa o prazo: bioestimulador precisa de semanas pra aparecer."],
-["Já fiz e não gostei","Me conta o que não gostou. Isso me ajuda a fazer diferente pra ti.","Ouve tudo antes de falar. Depois mostra o que muda contigo."]
+["Tá caro","Entendo, é um investimento. O que pesa mais pra você: o valor total ou a parcela?","Se for a parcela: mostre o parcelamento. Se for o total: volte pro que ela contou da queixa e pro que muda pra ela."],
+["Vou pensar","Claro, é o seu rosto. Me diz o que ficou de dúvida, que eu te ajudo agora.","Se não tiver dúvida: \"Posso deixar seu horário de sexta guardado até amanhã?\""],
+["Vou falar com meu marido","Faz sentido. O que você acha que ele vai perguntar?","Responda a dúvida dele agora. Ofereça: \"Se quiser, traz ele no dia, que eu explico pra ele também.\""],
+["A avaliação é paga?","É R$ 100 no Pix pra guardar seu horário, e esse valor vira desconto no procedimento feito em até 30 dias.","Depois: \"Qual dia da semana fica melhor pra você?\""],
+["Me fala o preço por aqui","O valor certinho eu passo na avaliação, porque depende do seu rosto. Não quero te dar um número errado.","Volte pros dois horários."],
+["Uma conhecida faz mais barato","Pode ser. Veja se é o mesmo produto, a mesma quantidade e se tem retorno incluso.","Não baixe o preço. Reforce seu cuidado e o retorno."],
+["Tenho medo de ficar artificial","Esse é o meu maior cuidado. Eu sigo o seu rosto, e prefiro fazer menos e você voltar pra mais do que exagerar.","Mostre um antes e depois natural, se tiver autorização da paciente."],
+["Dói?","A gente usa anestésico e eu vou te avisando cada etapa. A maioria das pacientes fala que é bem tranquilo.","Não prometa que não dói nada."],
+["Quero pagar no dia","A avaliação é no Pix antes, porque é ela que guarda o seu horário. O procedimento você paga no dia.","Mande a chave Pix com o seu nome junto."],
+["Quando eu receber eu aviso","Claro! Seu pagamento cai que dia? Eu te chamo nesse dia pra gente marcar.","Anote o dia e chame mesmo."],
+["Agora não é um bom momento","Entendo. Tem alguma data importante chegando? Formatura, festa, viagem?","Se tiver data, use o prazo: o bioestimulador precisa de semanas pra aparecer."],
+["Já fiz e não gostei","Me conta o que você não gostou. Isso me ajuda a fazer diferente pra você.","Ouça tudo antes de falar. Depois mostre o que muda com você."]
 ];
 
 const ROTEIRO = `
-<span class="kicker">Abre no celular antes da consulta</span>
+<span class="kicker">Abra no celular antes da consulta</span>
 <h1>Roteiro da avaliação</h1>
-<p class="sub">30 minutos. A paciente fala mais que tu.</p>
-<div class="box"><h3 style="margin-top:0">1 · Acolher</h3><div class="fala">Oi, {nome}! Que bom que tu veio. Como tu me achou?</div></div>
-<div class="box"><h3 style="margin-top:0">2 · Ouvir (uma por vez)</h3>
-<div class="fala">Há quanto tempo isso te incomoda?</div>
-<div class="fala">Em que momento tu mais repara?</div>
-<div class="fala">Isso te atrapalha em quê?</div>
-<div class="fala">Se isso melhorasse, o que ia mudar pra ti?</div>
-<p class="sub">Guarda a última resposta.</p></div>
-<div class="box"><h3 style="margin-top:0">3 · Espelho</h3><div class="fala">Me mostra aqui o que mais te incomoda.</div></div>
-<div class="box"><h3 style="margin-top:0">4 · Protocolo</h3><p>Queixa dela → o que causa → o que tu vai fazer → como fica no dia a dia → por que contigo.</p><div class="fala">Tu me falou que {frase dela}. Então o que eu montei pra ti é...</div></div>
+<p class="sub">Cerca de 40 minutos. A paciente fala mais que você.</p>
+<div class="box"><h3 style="margin-top:0">1 · Acolher</h3><div class="fala">Oi, {nome}! Que bom que você veio. Como você me achou?</div></div>
+<div class="box"><h3 style="margin-top:0">2 · SPIN (uma por vez)</h3>
+<div class="fala"><b>S</b> · Você já fez algum procedimento no rosto?</div>
+<div class="fala"><b>P</b> · O que mais te incomoda quando você se olha?</div>
+<div class="fala"><b>P</b> · Há quanto tempo isso te incomoda?</div>
+<div class="fala"><b>I</b> · E isso te atrapalha em quê no dia a dia?</div>
+<div class="fala"><b>I</b> · Você deixa de fazer alguma coisa por causa disso?</div>
+<div class="fala"><b>N</b> · Tem alguma data importante chegando?</div>
+<div class="fala"><b>N</b> · Se isso melhorasse, o que mudaria pra você?</div>
+<p class="sub">Anote a resposta da última.</p></div>
+<div class="box"><h3 style="margin-top:0">3 · Espelho</h3><div class="fala">Me mostra aqui o que mais te incomoda.</div><p class="sub">Depois mostre o que você vê, com calma.</p></div>
+<div class="box"><h3 style="margin-top:0">4 · Protocolo</h3><p>Frase dela → o que você viu → o que vai fazer → quando aparece → como ela vai se sentir.</p><div class="fala">Você me falou que {frase dela}. O que eu montei pra você é...</div></div>
 <div class="box dest"><h3 style="margin-top:0">5 · Valor e fechamento</h3>
-<div class="fala">O protocolo que eu montei pra ti fica R$ ____.</div>
+<div class="fala">O protocolo que eu montei pra você fica R$ ____.</div>
 <p><b>Silêncio.</b></p>
 <div class="fala">E os R$ 100 da avaliação já descontam daí. Pode ser no Pix ou parcelado.</div>
-<div class="fala">Tu quer fazer hoje ou prefere que eu reserve {dia}?</div></div>
-<div class="box"><h3 style="margin-top:0">Não fechou?</h3><div class="fala">Posso deixar teu horário de {dia} guardado até amanhã?</div><p class="sub">Ninguém sai sem data.</p></div>`;
+<div class="fala">Você quer fazer hoje ou prefere que eu reserve {dia}?</div></div>
+<div class="box"><h3 style="margin-top:0">Não fechou?</h3><div class="fala">Posso deixar seu horário de {dia} guardado até amanhã?</div><p class="sub">Ninguém sai sem data.</p></div>`;
 
 const WHATS = `
 <span class="kicker">Mensagens prontas</span>
 <h1>WhatsApp</h1>
-<p class="sub">Copia, troca o que está entre chaves e manda em bolhas curtas.</p>
+<p class="sub">Copie, troque o que está entre chaves e mande em bolhas curtas.</p>
 ${[
 ["Primeira resposta","Oi, {nome}! Aqui é a Rayane\nO que mais te incomoda hoje: a boca, as linhas ou a flacidez?"],
-["Depois da queixa","Isso dá pra tratar sim, mas preciso ver teu rosto de perto\nTenho {dia} às {hora} ou {dia} às {hora}. Qual fica melhor?"],
-["Garantir o horário","Fechado! Pra garantir teu horário, a avaliação é R$ 100 no Pix\nEsse valor vira desconto no procedimento feito em até 30 dias\nChave Pix (celular): 94984128187, em nome de Rayane da Conceicao Silva"],
-["Dados e endereço","Me passa teu nome completo e data de nascimento?\nÉ na Rua 10, nº 216, Cidade Nova, em frente aos Correios\nSe acontecer algum imprevisto, tu me avisa antes?"],
-["Retomar quem parou","Oi, {nome}, aqui é a Rayane\nTu tinha me falado de {queixa}. Ainda quer ver isso?\nTenho {dia} às {hora} ou {dia} às {hora}"],
-["Véspera","Oi, {nome}! Amanhã às {hora} tô te esperando\nPosso confirmar?"]
+["Depois da queixa","Isso dá pra tratar sim, mas preciso ver você de perto\nTenho {dia} às {hora} ou {dia} às {hora}. Qual fica melhor?"],
+["Garantir o horário","Fechado! Pra garantir seu horário, a avaliação é R$ 100 no Pix\nEsse valor vira desconto no procedimento feito em até 30 dias\nChave Pix (celular): 94984128187, em nome de Rayane da Conceicao Silva"],
+["Dados e endereço","Me passa seu nome completo e data de nascimento?\nÉ na Rua 10, nº 216, Cidade Nova, em frente aos Correios\nSe acontecer algum imprevisto, você me avisa antes?"],
+["Retomar quem parou","Oi, {nome}, aqui é a Rayane\nVocê tinha me falado de {queixa}. Ainda quer ver isso?\nTenho {dia} às {hora} ou {dia} às {hora}"],
+["Véspera","Oi, {nome}! Amanhã às {hora} estou te esperando\nPosso confirmar?"],
+["Pós-procedimento (7 dias)","Oi, {nome}! Como você está?\nJá começou a perceber diferença?"],
+["Manutenção","Oi, {nome}! Já faz uns meses do seu {procedimento}\nQuer que eu reserve um horário pra gente refazer?"]
 ].map(([t,m])=>`<div class="box"><span class="tag">${t}</span><div class="bolhas">${m.split("\n").map(l=>`<div class="b ela">${l}</div>`).join("")}</div><button class="btn sec" data-copiar="${encodeURIComponent(m)}">Copiar</button></div>`).join("")}`;
 
 /* progresso */
-const KEY="vender-bem-rayane";
+const KEY="vender-bem-rayane-v2";
 let est={};
 try{est=JSON.parse(localStorage.getItem(KEY)||"{}")}catch(e){est={}}
 function salvar(){try{localStorage.setItem(KEY,JSON.stringify(est))}catch(e){}}
@@ -347,21 +683,28 @@ const main=document.getElementById("main");
 function inicio(){
   return `<span class="kicker">Treinamento Hurtz</span>
 <h1>Vender bem, Dra Rayane</h1>
-<p class="sub">6 módulos curtos pra transformar a paciente que te chama em paciente que faz o procedimento. Do WhatsApp ao fechamento na cadeira.</p>
-<div class="grid">${MODS.map((m,i)=>`<a class="mod ${feito(m)?"feito":""}" href="#${m.id}"><span class="num">${feito(m)?"✓":i+1}</span><span><b>${m.titulo}</b><small>${m.resumo}</small></span></a>`).join("")}</div>
-<div class="box"><b>Como usar:</b> cada módulo tem a explicação, exemplos das tuas conversas, um treino pra fazer na aula e um checklist. Embaixo tu tem o roteiro da avaliação, as objeções e as mensagens prontas pra abrir no celular.</div>
+<p class="sub">10 aulas pra transformar a paciente que te chama em paciente que faz o procedimento, do WhatsApp ao retorno. Com o método SPIN, exemplos das suas conversas, treino e teste em cada aula.</p>
+<div class="grid">${MODS.map((m,i)=>`<a class="mod ${feito(m)?"feito":""}" href="#${m.id}"><span class="num">${feito(m)?"✓":i+1}</span><span><b>${m.titulo}</b><small>${m.resumo}</small><em>${m.tempo}</em></span></a>`).join("")}</div>
+<div class="box"><b>Como usar:</b> cada aula tem a explicação, exemplos, um treino pra fazer com o Vinicius, um teste rápido e um checklist. Embaixo você tem o roteiro da avaliação, as objeções e as mensagens prontas pra abrir no celular durante o atendimento.</div>
 <p class="rodape">Hurtz Company</p>`;
+}
+function quizHtml(m){
+  return m.quiz.map((q,qi)=>{
+    const r=est[m.id+"-q"+qi];
+    return `<div class="quiz"><p class="q">${qi+1}. ${q.q}</p>${q.o.map((o,oi)=>`<button data-quiz="${m.id}|${qi}|${oi}" class="${r!==undefined?(oi===q.c?"certa":(oi===r?"errada":"")):""}">${o}</button>`).join("")}${r!==undefined?`<p class="exp">${r===q.c?"Certo! ":"Não é essa. "}${q.e}</p>`:""}</div>`;
+  }).join("");
 }
 function modulo(i){
   const m=MODS[i];
-  return `<span class="kicker">Módulo ${i+1} de ${MODS.length}</span>
+  return `<span class="kicker">Aula ${i+1} de ${MODS.length} · ${m.tempo}</span>
 <h1>${m.titulo}</h1><p class="sub">${m.resumo}</p>${m.html}
-<h2>Treino da aula</h2><div class="box dest">${m.treino}</div>
+<h2>Treino com o Vinicius</h2><div class="box dest">${m.treino}</div>
+<h2>Teste rápido</h2><div id="quiz">${quizHtml(m)}</div>
 <h2>Checklist</h2><div class="box">${m.check.map((c,j)=>`<label class="check"><input type="checkbox" data-k="${m.id}-${j}" ${est[m.id+"-"+j]?"checked":""}><span>${c}</span></label>`).join("")}</div>
-<div class="nav-mod">${i>0?`<a class="btn sec" href="#${MODS[i-1].id}">Anterior</a>`:`<a class="btn sec" href="#inicio">Início</a>`}${i<MODS.length-1?`<a class="btn" href="#${MODS[i+1].id}">Próximo</a>`:`<a class="btn" href="#inicio">Concluir</a>`}</div>`;
+<div class="nav-mod">${i>0?`<a class="btn sec" href="#${MODS[i-1].id}">Anterior</a>`:`<a class="btn sec" href="#inicio">Início</a>`}${i<MODS.length-1?`<a class="btn" href="#${MODS[i+1].id}">Próxima aula</a>`:`<a class="btn" href="#inicio">Concluir</a>`}</div>`;
 }
 function objecoes(){
-  return `<span class="kicker">Abre quando travar</span><h1>Objeções</h1><p class="sub">Concorda, pergunta, responde, volta pro horário.</p>
+  return `<span class="kicker">Abra quando travar</span><h1>Objeções</h1><p class="sub">Concorde, pergunte, responda, volte pra decisão.</p>
 ${OBJ.map(([o,r,d])=>`<details class="obj"><summary>"${o}"</summary><div class="in"><div class="fala">${r}</div><p class="sub">${d}</p></div></details>`).join("")}`;
 }
 function render(){
@@ -372,7 +715,12 @@ function render(){
   window.scrollTo(0,0); atualizaProg();
 }
 main.addEventListener("change",e=>{const k=e.target.dataset.k;if(k){est[k]=e.target.checked;salvar();atualizaProg()}});
-main.addEventListener("click",e=>{const c=e.target.dataset.copiar;if(c){const t=decodeURIComponent(c);(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{e.target.textContent="Copiado"},()=>{e.target.textContent="Seleciona e copia"});setTimeout(()=>e.target.textContent="Copiar",1800)}});
+main.addEventListener("click",e=>{
+  const q=e.target.dataset.quiz;
+  if(q){const [mid,qi,oi]=q.split("|");est[mid+"-q"+qi]=+oi;salvar();const m=MODS.find(x=>x.id===mid);document.getElementById("quiz").innerHTML=quizHtml(m);return}
+  const c=e.target.dataset.copiar;
+  if(c){const t=decodeURIComponent(c);(navigator.clipboard?navigator.clipboard.writeText(t):Promise.reject()).then(()=>{e.target.textContent="Copiado"},()=>{e.target.textContent="Selecione e copie"});setTimeout(()=>e.target.textContent="Copiar",1800)}
+});
 addEventListener("hashchange",render);
 render();
 </script>
